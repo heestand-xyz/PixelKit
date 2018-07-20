@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		74BC39E121011E3A004E9AA0 /* HxPxE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* HxPxE.framework */; };
 		74BC39E621011E3A004E9AA0 /* HxPxETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC39E521011E3A004E9AA0 /* HxPxETests.swift */; };
 		74BC39E821011E3A004E9AA0 /* HxPxE.h in Headers */ = {isa = PBXBuildFile; fileRef = 74BC39DA21011E3A004E9AA0 /* HxPxE.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* HxPxE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HxPxE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BC39DA21011E3A004E9AA0 /* HxPxE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxPxE.h; sourceTree = "<group>"; };
 		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				74BC39DB21011E3A004E9AA0 /* Info.plist */,
 				74DA3D2221026A5900430261 /* HxPxE.swift */,
 				74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */,
+				742321A021027C70003697C3 /* PIX.swift */,
 			);
 			path = HxPxE;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74ECBBD221026CC500A42570 /* HxPxEDelegate.swift in Sources */,
+				742321A121027C70003697C3 /* PIX.swift in Sources */,
 				74DA3D2321026A5900430261 /* HxPxE.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
