@@ -10,6 +10,8 @@
 		74BC39E121011E3A004E9AA0 /* HxPxE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* HxPxE.framework */; };
 		74BC39E621011E3A004E9AA0 /* HxPxETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC39E521011E3A004E9AA0 /* HxPxETests.swift */; };
 		74BC39E821011E3A004E9AA0 /* HxPxE.h in Headers */ = {isa = PBXBuildFile; fileRef = 74BC39DA21011E3A004E9AA0 /* HxPxE.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74DA3D2321026A5900430261 /* HxPxE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* HxPxE.swift */; };
+		74ECBBD221026CC500A42570 /* HxPxEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		74BC39E021011E3A004E9AA0 /* HxPxETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HxPxETests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BC39E521011E3A004E9AA0 /* HxPxETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxETests.swift; sourceTree = "<group>"; };
 		74BC39E721011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74DA3D2221026A5900430261 /* HxPxE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxE.swift; sourceTree = "<group>"; };
+		74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxEDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 			children = (
 				74BC39DA21011E3A004E9AA0 /* HxPxE.h */,
 				74BC39DB21011E3A004E9AA0 /* Info.plist */,
+				74DA3D2221026A5900430261 /* HxPxE.swift */,
+				74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */,
 			);
 			path = HxPxE;
 			sourceTree = "<group>";
@@ -148,6 +154,7 @@
 				TargetAttributes = {
 					74BC39D621011E3A004E9AA0 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					74BC39DF21011E3A004E9AA0 = {
 						CreatedOnToolsVersion = 10.0;
@@ -194,6 +201,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74ECBBD221026CC500A42570 /* HxPxEDelegate.swift in Sources */,
+				74DA3D2321026A5900430261 /* HxPxE.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +348,7 @@
 		74BC39EC21011E3A004E9AA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -356,6 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.HxPxE;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +375,7 @@
 		74BC39ED21011E3A004E9AA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +401,7 @@
 		74BC39EF21011E3A004E9AA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				INFOPLIST_FILE = HxPxETests/Info.plist;
@@ -407,6 +420,7 @@
 		74BC39F021011E3A004E9AA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
 				INFOPLIST_FILE = HxPxETests/Info.plist;
