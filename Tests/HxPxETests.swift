@@ -33,4 +33,15 @@ class HxPxETests: XCTestCase {
         }
     }
     
+    func testHxPxE() {
+        XCTAssert(HxPxE.main.aLive)
+    }
+    
+    func testPIXs() {
+        let cameraPIX = CameraPIX()
+        XCTAssert(cameraPIX.allGood)
+        let levelsPIX = LevelsPIX()
+        XCTAssert(levelsPIX.allGood)
+    }
+    
 }

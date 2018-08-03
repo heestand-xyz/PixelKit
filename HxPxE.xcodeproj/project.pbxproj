@@ -7,15 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
+		7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C0210A321F001AA523 /* PIXContent.swift */; };
+		7452F4C3210A332B001AA523 /* PIXEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C2210A332B001AA523 /* PIXEffector.swift */; };
+		7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C4210A3337001AA523 /* PIXOutput.swift */; };
+		7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CA210A33A5001AA523 /* CameraPIX.swift */; };
+		7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CC210A33D4001AA523 /* LevelsPIX.swift */; };
+		7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CE210A33F8001AA523 /* PIXProtocols.swift */; };
+		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
+		74982CAC21107E06009A4264 /* PIXSingleEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffector.swift */; };
+		74982CAE21107E14009A4264 /* PIXMergerEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAD21107E14009A4264 /* PIXMergerEffector.swift */; };
+		74982CB021107E2C009A4264 /* PIXMultiEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffector.swift */; };
+		74A40E1B210A11200085041D /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
+		74ADDC492114EEAF00070B32 /* HxPxE_Shaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
+		74ADDC4A2114EECE00070B32 /* HxPxE_Shaders.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
 		74BC39E121011E3A004E9AA0 /* HxPxE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* HxPxE.framework */; };
 		74BC39E621011E3A004E9AA0 /* HxPxETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC39E521011E3A004E9AA0 /* HxPxETests.swift */; };
 		74BC39E821011E3A004E9AA0 /* HxPxE.h in Headers */ = {isa = PBXBuildFile; fileRef = 74BC39DA21011E3A004E9AA0 /* HxPxE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74DA3D2321026A5900430261 /* HxPxE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* HxPxE.swift */; };
-		74ECBBD221026CC500A42570 /* HxPxEDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */; };
+		74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		74ADDC472114EDF000070B32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7473A66A210F4FD0003CF329;
+			remoteInfo = HxPxE_Shaders;
+		};
 		74BC39E221011E3A004E9AA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 74BC39CE21011E3A004E9AA0 /* Project object */;
@@ -26,7 +47,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
+		7452F4C0210A321F001AA523 /* PIXContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXContent.swift; sourceTree = "<group>"; };
+		7452F4C2210A332B001AA523 /* PIXEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXEffector.swift; sourceTree = "<group>"; };
+		7452F4C4210A3337001AA523 /* PIXOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXOutput.swift; sourceTree = "<group>"; };
+		7452F4CA210A33A5001AA523 /* CameraPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPIX.swift; sourceTree = "<group>"; };
+		7452F4CC210A33D4001AA523 /* LevelsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsPIX.swift; sourceTree = "<group>"; };
+		7452F4CE210A33F8001AA523 /* PIXProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXProtocols.swift; sourceTree = "<group>"; };
+		747845B121131B080077AB89 /* BlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurPIX.swift; sourceTree = "<group>"; };
+		74982CAB21107E06009A4264 /* PIXSingleEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSingleEffector.swift; sourceTree = "<group>"; };
+		74982CAD21107E14009A4264 /* PIXMergerEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMergerEffector.swift; sourceTree = "<group>"; };
+		74982CAF21107E2C009A4264 /* PIXMultiEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMultiEffector.swift; sourceTree = "<group>"; };
+		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
+		74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HxPxE_Shaders.xcodeproj; path = Shaders/HxPxE_Shaders.xcodeproj; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* HxPxE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HxPxE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BC39DA21011E3A004E9AA0 /* HxPxE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxPxE.h; sourceTree = "<group>"; };
 		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,7 +68,7 @@
 		74BC39E521011E3A004E9AA0 /* HxPxETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxETests.swift; sourceTree = "<group>"; };
 		74BC39E721011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74DA3D2221026A5900430261 /* HxPxE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxE.swift; sourceTree = "<group>"; };
-		74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxEDelegate.swift; sourceTree = "<group>"; };
+		74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxEProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74ADDC492114EEAF00070B32 /* HxPxE_Shaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +91,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7452F4C6210A3362001AA523 /* PIX */ = {
+			isa = PBXGroup;
+			children = (
+				742321A021027C70003697C3 /* PIX.swift */,
+				74A40E1A210A11200085041D /* PIXView.swift */,
+				7452F4CE210A33F8001AA523 /* PIXProtocols.swift */,
+				7452F4C7210A336A001AA523 /* Content */,
+				7452F4C8210A3378001AA523 /* Effector */,
+				7452F4C9210A3385001AA523 /* Output */,
+			);
+			path = PIX;
+			sourceTree = "<group>";
+		};
+		7452F4C7210A336A001AA523 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C0210A321F001AA523 /* PIXContent.swift */,
+				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		7452F4C8210A3378001AA523 /* Effector */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C2210A332B001AA523 /* PIXEffector.swift */,
+				74982CA721107DBD009A4264 /* Single */,
+				74982CA921107DD1009A4264 /* Merger */,
+				74982CAA21107DD6009A4264 /* Multi */,
+			);
+			path = Effector;
+			sourceTree = "<group>";
+		};
+		7452F4C9210A3385001AA523 /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C4210A3337001AA523 /* PIXOutput.swift */,
+			);
+			path = Output;
+			sourceTree = "<group>";
+		};
+		74982CA721107DBD009A4264 /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAB21107E06009A4264 /* PIXSingleEffector.swift */,
+				7452F4CC210A33D4001AA523 /* LevelsPIX.swift */,
+				747845B121131B080077AB89 /* BlurPIX.swift */,
+				7401CF3021147C9700000A38 /* ResPIX.swift */,
+			);
+			path = Single;
+			sourceTree = "<group>";
+		};
+		74982CA921107DD1009A4264 /* Merger */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAD21107E14009A4264 /* PIXMergerEffector.swift */,
+			);
+			path = Merger;
+			sourceTree = "<group>";
+		};
+		74982CAA21107DD6009A4264 /* Multi */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAF21107E2C009A4264 /* PIXMultiEffector.swift */,
+			);
+			path = Multi;
+			sourceTree = "<group>";
+		};
+		74ADDC442114EDF000070B32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				74BC39D921011E3A004E9AA0 /* HxPxE */,
-				74BC39E421011E3A004E9AA0 /* HxPxETests */,
+				74BC39D921011E3A004E9AA0 /* Source */,
+				74BC39E421011E3A004E9AA0 /* Tests */,
 				74BC39D821011E3A004E9AA0 /* Products */,
+				74BE138E210F524700BC43CB /* Frameworks */,
+				74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,25 +187,32 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		74BC39D921011E3A004E9AA0 /* HxPxE */ = {
+		74BC39D921011E3A004E9AA0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				74BC39DA21011E3A004E9AA0 /* HxPxE.h */,
 				74BC39DB21011E3A004E9AA0 /* Info.plist */,
+				74BC39DA21011E3A004E9AA0 /* HxPxE.h */,
 				74DA3D2221026A5900430261 /* HxPxE.swift */,
-				74ECBBD121026CC500A42570 /* HxPxEDelegate.swift */,
-				742321A021027C70003697C3 /* PIX.swift */,
+				74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */,
+				7452F4C6210A3362001AA523 /* PIX */,
 			);
-			path = HxPxE;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		74BC39E421011E3A004E9AA0 /* HxPxETests */ = {
+		74BC39E421011E3A004E9AA0 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				74BC39E521011E3A004E9AA0 /* HxPxETests.swift */,
 				74BC39E721011E3A004E9AA0 /* Info.plist */,
 			);
-			path = HxPxETests;
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		74BE138E210F524700BC43CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +294,12 @@
 			mainGroup = 74BC39CD21011E3A004E9AA0;
 			productRefGroup = 74BC39D821011E3A004E9AA0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 74ADDC442114EDF000070B32 /* Products */;
+					ProjectRef = 74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				74BC39D621011E3A004E9AA0 /* HxPxE */,
@@ -182,11 +308,22 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = HxPxE_Shaders.metallib;
+			remoteRef = 74ADDC472114EDF000070B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		74BC39D521011E3A004E9AA0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74ADDC4A2114EECE00070B32 /* HxPxE_Shaders.metallib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,9 +341,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74ECBBD221026CC500A42570 /* HxPxEDelegate.swift in Sources */,
+				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
+				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
+				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
+				74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */,
+				7452F4C3210A332B001AA523 /* PIXEffector.swift in Sources */,
+				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
 				742321A121027C70003697C3 /* PIX.swift in Sources */,
+				7401CF3121147C9700000A38 /* ResPIX.swift in Sources */,
+				74982CAE21107E14009A4264 /* PIXMergerEffector.swift in Sources */,
+				747845B221131B080077AB89 /* BlurPIX.swift in Sources */,
 				74DA3D2321026A5900430261 /* HxPxE.swift in Sources */,
+				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
+				74982CB021107E2C009A4264 /* PIXMultiEffector.swift in Sources */,
+				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,
+				74982CAC21107E06009A4264 /* PIXSingleEffector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -338,7 +487,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -360,7 +509,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = HxPxE/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -368,7 +517,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.HxPxE;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.hxpxe;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -388,7 +537,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = HxPxE/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -396,7 +545,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.HxPxE;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.hxpxe;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
