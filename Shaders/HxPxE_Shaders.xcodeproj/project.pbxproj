@@ -1,0 +1,216 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7468F95C211244E700E285B1 /* QuadVTX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F957211244B900E285B1 /* QuadVTX.metal */; };
+		7468F95D211244E800E285B1 /* NilPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F959211244B900E285B1 /* NilPIX.metal */; };
+		7468F95E211244EA00E285B1 /* ChannelReversePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F95A211244B900E285B1 /* ChannelReversePIX.metal */; };
+		7468F95F211244EC00E285B1 /* LevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F95B211244B900E285B1 /* LevelsPIX.metal */; };
+		747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845B421131B8E0077AB89 /* BlurPIX.metal */; };
+		747845BC21131D9E0077AB89 /* loki.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845BA21131D9E0077AB89 /* loki.metal */; };
+		747845BD21131D9E0077AB89 /* loki_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845BB21131D9E0077AB89 /* loki_header.metal */; };
+		749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 749A7CEE2112FE3500270085 /* CameraPIX.metal */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7468F957211244B900E285B1 /* QuadVTX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = QuadVTX.metal; sourceTree = "<group>"; };
+		7468F959211244B900E285B1 /* NilPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = NilPIX.metal; sourceTree = "<group>"; };
+		7468F95A211244B900E285B1 /* ChannelReversePIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ChannelReversePIX.metal; sourceTree = "<group>"; };
+		7468F95B211244B900E285B1 /* LevelsPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = LevelsPIX.metal; sourceTree = "<group>"; };
+		7473A66A210F4FD0003CF329 /* HxPxE_Shaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = HxPxE_Shaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		747845B421131B8E0077AB89 /* BlurPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BlurPIX.metal; sourceTree = "<group>"; };
+		747845BA21131D9E0077AB89 /* loki.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki.metal; sourceTree = "<group>"; };
+		747845BB21131D9E0077AB89 /* loki_header.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki_header.metal; sourceTree = "<group>"; };
+		749A7CEE2112FE3500270085 /* CameraPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CameraPIX.metal; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		7468F956211244B900E285B1 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				7468F957211244B900E285B1 /* QuadVTX.metal */,
+				7468F958211244B900E285B1 /* PIX */,
+				747845B621131BDD0077AB89 /* External */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		7468F958211244B900E285B1 /* PIX */ = {
+			isa = PBXGroup;
+			children = (
+				7468F959211244B900E285B1 /* NilPIX.metal */,
+				749A7CEE2112FE3500270085 /* CameraPIX.metal */,
+				7468F95A211244B900E285B1 /* ChannelReversePIX.metal */,
+				7468F95B211244B900E285B1 /* LevelsPIX.metal */,
+				747845B421131B8E0077AB89 /* BlurPIX.metal */,
+			);
+			path = PIX;
+			sourceTree = "<group>";
+		};
+		7473A663210F4FD0003CF329 = {
+			isa = PBXGroup;
+			children = (
+				7468F956211244B900E285B1 /* Source */,
+				7473A66B210F4FD0003CF329 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7473A66B210F4FD0003CF329 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7473A66A210F4FD0003CF329 /* HxPxE_Shaders.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		747845B621131BDD0077AB89 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				747845B921131D890077AB89 /* Random */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		747845B921131D890077AB89 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				747845BB21131D9E0077AB89 /* loki_header.metal */,
+				747845BA21131D9E0077AB89 /* loki.metal */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7473A669210F4FD0003CF329 /* HxPxE_Shaders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7473A671210F4FD0003CF329 /* Build configuration list for PBXNativeTarget "HxPxE_Shaders" */;
+			buildPhases = (
+				7473A668210F4FD0003CF329 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HxPxE_Shaders;
+			productName = "HxPxE Shaders";
+			productReference = 7473A66A210F4FD0003CF329 /* HxPxE_Shaders.metallib */;
+			productType = "com.apple.product-type.metal-library";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7473A664210F4FD0003CF329 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = Hexagons;
+				TargetAttributes = {
+					7473A669210F4FD0003CF329 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = 7473A667210F4FD0003CF329 /* Build configuration list for PBXProject "HxPxE_Shaders" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7473A663210F4FD0003CF329;
+			productRefGroup = 7473A66B210F4FD0003CF329 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7473A669210F4FD0003CF329 /* HxPxE_Shaders */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7473A668210F4FD0003CF329 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				747845BD21131D9E0077AB89 /* loki_header.metal in Sources */,
+				7468F95C211244E700E285B1 /* QuadVTX.metal in Sources */,
+				7468F95D211244E800E285B1 /* NilPIX.metal in Sources */,
+				747845BC21131D9E0077AB89 /* loki.metal in Sources */,
+				7468F95F211244EC00E285B1 /* LevelsPIX.metal in Sources */,
+				7468F95E211244EA00E285B1 /* ChannelReversePIX.metal in Sources */,
+				747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */,
+				749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7473A66F210F4FD0003CF329 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7473A670210F4FD0003CF329 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		7473A672210F4FD0003CF329 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7473A673210F4FD0003CF329 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7473A667210F4FD0003CF329 /* Build configuration list for PBXProject "HxPxE_Shaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7473A66F210F4FD0003CF329 /* Debug */,
+				7473A670210F4FD0003CF329 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7473A671210F4FD0003CF329 /* Build configuration list for PBXNativeTarget "HxPxE_Shaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7473A672210F4FD0003CF329 /* Debug */,
+				7473A673210F4FD0003CF329 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7473A664210F4FD0003CF329 /* Project object */;
+}
