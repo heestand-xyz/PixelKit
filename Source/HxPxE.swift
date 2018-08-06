@@ -23,6 +23,7 @@ public class HxPxE {
         case levels
         case blur
         case resolution
+        case edge
         var type: PIX.Type {
             switch self {
             case .camera:
@@ -33,6 +34,8 @@ public class HxPxE {
                 return BlurPIX.self
             case .resolution:
                 return ResolutionPIX.self
+            case .edge:
+                return EdgePIX.self
             }
         }
     }
