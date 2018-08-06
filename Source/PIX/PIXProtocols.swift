@@ -8,8 +8,14 @@
 
 import Foundation
 
+protocol PIXable {
+    var kind: HxPxE.PIXKind { get }
+}
+
 public protocol PIXIn {}
-public protocol PIXOut {}
+public protocol PIXOut {
+    var outPixs: [PIX & PIXIn] { get }
+}
 
 public protocol PIXInSingle: PIXIn {
     var inPix: (PIX & PIXOut)? { get set } // weak?
@@ -19,7 +25,7 @@ public protocol PIXInMerger: PIXIn {
     var inPixB: (PIX & PIXOut)? { get set } // weak?
 }
 public protocol PIXInMulti: PIXIn {
-    var inPixes: [PIX & PIXOut] { get set } // weak?
+    var inPixs: [PIX & PIXOut] { get set } // weak?
 }
 
 

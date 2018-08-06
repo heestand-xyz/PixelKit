@@ -8,25 +8,65 @@
 
 import AVKit
 
-public class CameraPIX: PIXContent {
+public class CameraPIX: PIXContent, PIXable {
     
-    public var camera: AVCaptureDevice.Position = .back { didSet { setupCamera() } }
+    let kind: HxPxE.PIXKind = .camera
+    
+    override var shader: String { return "camera" }
+    
+    public enum Camera: String, Codable {
+        case front
+        case back
+        var position: AVCaptureDevice.Position {
+            switch self {
+            case .front:
+                return .front
+            case .back:
+                return .back
+            }
+        }
+    }
+    
     var orientation: UIInterfaceOrientation?
-    
-    var helper: CameraHelper?
-    
+    public var camera: Camera = .back { didSet { setupCamera() } }
+    enum CameraCodingKeys: String, CodingKey {
+        case camera
+    }
     override var shaderUniforms: [Double] {
         return [Double(orientation?.rawValue ?? 0), camera == .front ? 1 : 0]
     }
+
+    var helper: CameraHelper?
     
-    public init() {
-        super.init(shader: "camera")
+    public override init() {
+        super.init()
         setupCamera()
     }
     
+    // MARK: JSON
+    
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CameraCodingKeys.self)
+        let newCamera = try container.decode(Camera.self, forKey: .camera)
+        if camera != newCamera {
+            camera = newCamera
+            setupCamera()
+        }
+//        let topContainer = try decoder.container(keyedBy: CodingKeys.self)
+    }
+    
+    override public func encode(to encoder: Encoder) throws {
+//        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CameraCodingKeys.self)
+        try container.encode(camera, forKey: .camera)
+    }
+    
+    // MARK: Setup
+    
     func setupCamera() {
         helper?.stop()
-        helper = CameraHelper(camera: camera, setup: { resolution, orientation in
+        helper = CameraHelper(cameraPosition: camera.position, setup: { resolution, orientation in
             // CHECK Why 2 setups on init?
 //            print("CameraPIX:", "Setup:", "Resolution:", resolution, "Orientation:", orientation.rawValue)
             self.contentResolution = resolution
@@ -62,12 +102,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let setupCallback: (CGSize, UIInterfaceOrientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camera: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
 //        self.got_res = false
 //        self.switchOrientation = false
         
-        cameraPosition = camera
+        self.cameraPosition = cameraPosition
         
 //        self.in_full_screen = false
         

@@ -12,9 +12,13 @@ public class PIXOutput: PIX, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
-    override init(shader: String) {
-        super.init(shader: shader)
+    override init() {
+        super.init()
         pixInList = []
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("PIXOutput Decoder Initializer is not supported.") // CHECK
     }
     
 }

@@ -12,4 +12,20 @@ public class PIXSingleEffector: PIXEffector, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
+//    override init(id: UUID) {
+//        super.init(id: id)
+//    }
+//    init(from decoder: Decoder) throws {
+//        self.init(id: id)
+////        try super.init(from: decoder)
+//    }
+
+//    required init(from decoder: Decoder) throws {
+//        try super.init(from: decoder)
+//    }
+    
+//    required init(from decoder: Decoder) throws {
+//        fatalError("PIXSingleEffector Decoder Initializer is not supported.") // CHECK
+//    }
+    
 }

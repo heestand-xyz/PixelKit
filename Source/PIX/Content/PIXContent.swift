@@ -10,6 +10,8 @@ import Foundation
 
 public class PIXContent: PIX, PIXOut {
     
+    public var outPixs: [PIX & PIXIn] { return pixOutList! }
+    
     var _contentAvailable: Bool = false
     public var contentAvailable: Bool { return _contentAvailable }
     var contentResolution: CGSize? { didSet { newResolution() } }
@@ -21,9 +23,13 @@ public class PIXContent: PIX, PIXOut {
 //        super.init(shader: shader)
 //    }
     
-    override init(shader: String) {
-        super.init(shader: shader)
+    override init() {
+        super.init()
         pixOutList = []
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("PIXContent Decoder Initializer is not supported.") // CHECK
     }
     
     override func didRender(texture: MTLTexture) {

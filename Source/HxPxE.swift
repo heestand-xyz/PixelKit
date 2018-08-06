@@ -14,6 +14,29 @@ public class HxPxE {
     
     public var delegate: HxPxEDelegate?
     
+    let kSlug = "HxPxE"
+    let kName = "Hexagon Pixel Engine"
+    let kBundleId = "house.hexagon.hxpxe"
+    
+    enum PIXKind: String, Codable {
+        case camera
+        case levels
+        case blur
+        case resolution
+        var type: PIX.Type {
+            switch self {
+            case .camera:
+                return CameraPIX.self
+            case .levels:
+                return LevelsPIX.self
+            case .blur:
+                return BlurPIX.self
+            case .resolution:
+                return ResolutionPIX.self
+            }
+        }
+    }
+    
     var pixList: [PIX] = []
     
     var _fps: Int = 0
@@ -178,7 +201,7 @@ public class HxPxE {
     // MARK: Load Shaders
     
     func loadMetalShaderLibrary() -> MTLLibrary? {
-        guard let libraryFile = Bundle(identifier: "se.hexagons.hxpxe")!.path(forResource: "HxPxE_Shaders", ofType: "metallib") else {
+        guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: "HxPxE_Shaders", ofType: "metallib") else {
             print("HxPxE ERROR:", "Loading Metal Shaders Library:", "Not found.")
             return nil
         }
@@ -193,10 +216,10 @@ public class HxPxE {
 //    func loadMetalShaderSource(named: String, fullName: Bool = false) -> String? {
 //        let shaderFileName = fullName ? named : named.prefix(1).uppercased() + named.dropFirst() + "PIX"
 //        print(">>>", shaderFileName)
-//        // Bundle(identifier: "se.hexagons.hxpxe")
+//        // Bundle(identifier: kBundleId)
 //        // Bundle(for: type(of: self))
 //        // Bundle.main
-//        guard let shaderPath = Bundle(identifier: "se.hexagons.hxpxe")!.path(forResource: shaderFileName, ofType: "metal") else {
+//        guard let shaderPath = Bundle(identifier: kBundleId)!.path(forResource: shaderFileName, ofType: "metal") else {
 //            print("HxPxE ERROR:", "Loading Metal Shader:", "Resource not found.")
 //            return nil
 //        }
@@ -412,6 +435,226 @@ public class HxPxE {
         
         pix.didRender(texture: currentDrawable.texture)
         
+    }
+    
+    // MARK: File IO
+    
+    struct HxHSignature: Encodable {
+        let slug: String
+        let name: String
+        let id: String
+        let version: String
+    }
+    
+    struct HxPxSignature: Encodable {
+        let name: String
+        let id: UUID
+    }
+    
+    enum HxPxEIOError: Error {
+        case runtimeError(String)
+    }
+    
+    struct PIXPack: Encodable {
+        let id: UUID
+        let type: PIXKind
+        let pix: PIX
+        let inPixId: UUID?
+        let inPixAId: UUID?
+        let inPixBId: UUID?
+        let inPixsIds: [UUID]?
+    }
+    
+    struct HxPxPack: Encodable {
+        let hxh: HxHSignature
+        let hxpx: HxPxSignature
+        let pixs: [PIXPack]
+    }
+    
+    public func export(as name: String, id: UUID = UUID(), share: Bool = false) throws -> String {
+        let hxhSignature = HxHSignature(slug: kSlug, name: kName, id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown")
+        let hxpxSignature = HxPxSignature(name: name, id: id)
+        let pixPacks = try pixList.map { pix -> PIXPack in
+            var inPixId: UUID? = nil
+            var inPixAId: UUID? = nil
+            var inPixBId: UUID? = nil
+            var inPixsIds: [UUID]? = nil
+            if let pixIn = pix as? PIX & PIXIn {
+                if let pixInSingle = pixIn as? PIX & PIXInSingle {
+                    inPixId = pixInSingle.inPix?.id
+                } else if let pixInMerger = pixIn as? PIX & PIXInMerger {
+                    inPixAId = pixInMerger.inPixA?.id
+                    inPixBId = pixInMerger.inPixB?.id
+                } else if let pixInMulti = pixIn as? PIX & PIXInMulti {
+                    inPixsIds = pixInMulti.inPixs.map({ outPix -> UUID in return outPix.id })
+                }
+            }
+            guard let pixKind = (pix as? PIXable)?.kind else {
+                throw HxPxEIOError.runtimeError("HxPx: PIX is not able.")
+            }
+            return PIXPack(id: pix.id, type: pixKind, pix: pix, inPixId: inPixId, inPixAId: inPixAId, inPixBId: inPixBId, inPixsIds: inPixsIds)
+        }
+        let hxpxPack = HxPxPack(hxh: hxhSignature, hxpx: hxpxSignature, pixs: pixPacks)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let hxpxPackJsonData = try encoder.encode(hxpxPack)
+        guard let hxpxPackJsonString = String(data: hxpxPackJsonData, encoding: .utf8) else {
+            throw HxPxEIOError.runtimeError("HxPx: JSON data to string conversion failed.")
+        }
+        return hxpxPackJsonString
+    }
+    
+    public struct HxPxFile {
+        public let id: UUID
+        public let name: String
+        public let pixs: [PIX]
+    }
+    
+    struct PIXWithInIds {
+        let pix: PIX
+        let inPixId: UUID?
+        let inPixAId: UUID?
+        let inPixBId: UUID?
+        let inPixsIds: [UUID]?
+    }
+    
+    public func create(from jsonString: String) throws -> HxPxFile {
+        
+        let decoder = JSONDecoder()
+        
+        guard let jsonData = jsonString.data(using: .utf8) else {
+            throw HxPxEIOError.runtimeError("HxPx: JSON string to data conversion failed.")
+        }
+        
+        let json = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
+        
+        guard let jsonDict = json as? [String: Any] else {
+            throw HxPxEIOError.runtimeError("HxPx: JSON object to dict conversion failed.")
+        }
+        
+        guard let hxhDict = jsonDict["hxh"] as? [String: Any] else {
+            throw HxPxEIOError.runtimeError("HxPx: HxH is not valid.")
+        }
+        guard let bundleId = hxhDict["id"] as? String else {
+            throw HxPxEIOError.runtimeError("HxPx: HxH ID is not valid.")
+        }
+        if bundleId != kBundleId {
+            throw HxPxEIOError.runtimeError("This JSON file is for another engine.")
+        }
+        
+        guard let hxpxDict = jsonDict["hxpx"] as? [String: Any] else {
+            throw HxPxEIOError.runtimeError("HxPx: HxPx is not valid.")
+        }
+        guard let idStr = hxpxDict["id"] as? String else {
+            throw HxPxEIOError.runtimeError("HxPx: HxPx ID is not valid.")
+        }
+        guard let id = UUID(uuidString: idStr) else {
+            throw HxPxEIOError.runtimeError("HxPx: HxPx ID is corrupt.")
+        }
+        guard let name = hxpxDict["name"] as? String else {
+            throw HxPxEIOError.runtimeError("HxPx: HxPx Name is not valid.")
+        }
+        
+        guard let pixPackDictList = jsonDict["pixs"] as? [[String: Any]] else {
+            throw HxPxEIOError.runtimeError("HxPx: PIX List is corrupt.")
+        }
+        var pixsWithInIds: [PIXWithInIds] = []
+        for pixPackDict in pixPackDictList {
+            guard let idStr = pixPackDict["id"] as? String else {
+                throw HxPxEIOError.runtimeError("HxPx: PIX ID is not valid.")
+            }
+            guard let id = UUID(uuidString: idStr) else {
+                throw HxPxEIOError.runtimeError("HxPx: PIX ID is corrupt.")
+            }
+            guard let pixKindStr = pixPackDict["type"] as? String else {
+                throw HxPxEIOError.runtimeError("HxPx: PIX Type is not valid.")
+            }
+            guard let pixType = PIXKind.init(rawValue: pixKindStr)?.type else {
+                throw HxPxEIOError.runtimeError("HxPx: PIX Kind is not valid.")
+            }
+            guard let pixDict = pixPackDict["pix"] as? [String: Any] else {
+                throw HxPxEIOError.runtimeError("HxPx: \(pixType) dict is corrupt.")
+            }
+            let pixJsonData = try JSONSerialization.data(withJSONObject: pixDict, options: .prettyPrinted)
+            let pix = try decoder.decode(pixType, from: pixJsonData)
+            pix.id = id
+            
+            var inPixId: UUID? = nil
+            var inPixAId: UUID? = nil
+            var inPixBId: UUID? = nil
+            var inPixsIds: [UUID]? = nil
+            func getInPixId(_ key: String) throws -> UUID {
+                guard let inPixIdStr = pixPackDict[key] as? String else {
+                    throw HxPxEIOError.runtimeError("HxPx: PIX In ID not found.")
+                }
+                guard let inPixId = UUID(uuidString: inPixIdStr) else {
+                    throw HxPxEIOError.runtimeError("HxPx: PIX In ID is corrupt.")
+                }
+                return inPixId
+            }
+            if let pixIn = pix as? PIX & PIXIn {
+                if let pixInSingle = pixIn as? PIX & PIXInSingle {
+                    inPixId = try? getInPixId("inPixId")
+                } else if let pixInMerger = pixIn as? PIX & PIXInMerger {
+                    inPixAId = try? getInPixId("inPixAId")
+                    inPixBId = try? getInPixId("inPixBId")
+                } else if let pixInMulti = pixIn as? PIX & PIXInMulti {
+                    guard let inPixsIdsStrArr = pixPackDict["inPixsIds"] as? [String] else {
+                        throw HxPxEIOError.runtimeError("HxPx: PIX Ins IDs not found.")
+                    }
+                    inPixsIds = []
+                    for inPixIdStr in inPixsIdsStrArr {
+                        guard let iInPixId = UUID(uuidString: inPixIdStr) else {
+                            throw HxPxEIOError.runtimeError("HxPx: PIX In(s) is corrupt.")
+                        }
+                        inPixsIds?.append(iInPixId)
+                    }
+                }
+            }
+            
+            let pixWithInIds = PIXWithInIds(pix: pix, inPixId: inPixId, inPixAId: inPixAId, inPixBId: inPixBId, inPixsIds: inPixsIds)
+            pixsWithInIds.append(pixWithInIds)
+        }
+        
+        let pixs = pixsWithInIds.map { pixWithInIds -> PIX in return pixWithInIds.pix }
+        
+        func findPixOut(by id: UUID) throws -> PIX & PIXOut {
+            for pix in pixs {
+                if pix.id == id {
+                    guard let pixOut = pix as? PIX & PIXOut else {
+                        throw HxPxEIOError.runtimeError("HxPx: PIX In is not Out.")
+                    }
+                    return pixOut
+                }
+            }
+            throw HxPxEIOError.runtimeError("HxPx: PIX In not found.")
+        }
+        
+        for pixWithInIds in pixsWithInIds {
+            if let pixIn = pixWithInIds.pix as? PIX & PIXIn {
+                if var pixInSingle = pixIn as? PIX & PIXInSingle {
+                    if pixWithInIds.inPixId != nil {
+                        pixInSingle.inPix = try findPixOut(by: pixWithInIds.inPixId!)
+                    }
+                } else if var pixInMerger = pixIn as? PIX & PIXInMerger {
+                    if pixWithInIds.inPixAId != nil {
+                        pixInMerger.inPixA = try findPixOut(by: pixWithInIds.inPixAId!)
+                    }
+                    if pixWithInIds.inPixBId != nil {
+                        pixInMerger.inPixB = try findPixOut(by: pixWithInIds.inPixBId!)
+                    }
+                } else if var pixInMulti = pixIn as? PIX & PIXInMulti {
+                    if pixWithInIds.inPixsIds != nil {
+                        for pixId in pixWithInIds.inPixsIds! {
+                            pixInMulti.inPixs.append(try findPixOut(by: pixId))
+                        }
+                    }
+                }
+            }
+        }
+        
+        let hxpx = HxPxFile(id: id, name: name, pixs: pixs)
+        return hxpx
     }
     
 }

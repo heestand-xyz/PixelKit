@@ -9,11 +9,17 @@
 import Foundation
 
 public class PIXEffector: PIX, PIXIn, PIXOut {
-        
-    override init(shader: String) {
-        super.init(shader: shader)
+    
+    public var outPixs: [PIX & PIXIn] { return pixOutList! }
+    
+    override init() {
+        super.init()
         pixInList = []
         pixOutList = []
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("PIXEffector Decoder Initializer is not supported.") // CHECK
     }
     
 }

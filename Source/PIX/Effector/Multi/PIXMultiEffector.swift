@@ -10,6 +10,6 @@ import Foundation
 
 public class PIXMultiEffector: PIXEffector, PIXInMulti {
     
-    public var inPixes: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
+    public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     
 }

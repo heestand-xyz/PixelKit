@@ -10,11 +10,11 @@ import Metal
 import MetalKit
 import MetalPerformanceShaders
 
-public class PIX {
+public class PIX: Codable {
     
-    let id = UUID()
+    var id = UUID()
     
-    let shader: String
+    var shader: String { return "nil" }
 //    let shaderSource: String?
     var shaderUniforms: [Double] { return [] }
     
@@ -37,8 +37,8 @@ public class PIX {
     public var resolution: CGSize? {
         if self is PIXContent {
             return (self as! PIXContent).contentResolution
-        } else if let resPix = self as? ResPIX {
-            return resPix.res
+        } else if let resPix = self as? ResolutionPIX {
+            return resPix.customResolution
         } else if let pixIn = self as? PIX & PIXIn {
             return pixIn.pixInList!.first?.resolution
         } else {
@@ -73,9 +73,9 @@ public class PIX {
     
 //    let drawCallback: (MTLTexture) -> ()
     
-    public init(shader: String) {
+//    convenience init() { self.init(id: UUID()) }
+    init() {
         
-        self.shader = shader
         
 //        shaderSource = HxPxE.main.loadMetalShaderSource(named: shader)
         
@@ -99,11 +99,28 @@ public class PIX {
         
     }
     
-    deinit {
-        // CHECK
-        HxPxE.main.remove(pix: self)
-        // Disconnect...
+    // MARK: JSON
+
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//    }
+
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let id = UUID(uuidString: try container.decode(String.self, forKey: .id))! // CHECK BANG
+//        self.init(id: id)
+//    }
+    
+    public required init(from decoder: Decoder) throws {
+        fatalError("PIX Decoder Initializer is not supported.") // CHECK
     }
+    
+    public func encode(to encoder: Encoder) throws {}
+    
+//    public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//    }
     
     // MARK: Resolution
     
@@ -203,6 +220,14 @@ public class PIX {
     
     static func !=(lhs: PIX, rhs: PIX) -> Bool {
         return lhs.id != rhs.id
+    }
+    
+    // MARK: Clean
+    
+    deinit {
+        // CHECK
+        HxPxE.main.remove(pix: self)
+        // Disconnect...
     }
     
 }
