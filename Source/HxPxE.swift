@@ -18,6 +18,21 @@ public class HxPxE {
     let kName = "Hexagon Pixel Engine"
     let kBundleId = "house.hexagon.hxpxe"
     
+    struct HxHSignature: Encodable {
+        let slug: String
+        let name: String
+        let id: String
+        let version: Float
+        let build: Int
+        var formatted: String {
+            return "\(slug) - \(name) - \(id) - v\(version) - b\(build)"
+        }
+    }
+    
+    var hxhSignature: HxHSignature {
+        return HxHSignature(slug: kSlug, name: kName, id: kBundleId, version: Float(Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-1")!, build: Int(Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleVersion"] as? String ?? "-1")!)
+    }
+    
     enum PIXKind: String, Codable {
         case camera
         case levels
@@ -92,6 +107,7 @@ public class HxPxE {
     var displayLink: CADisplayLink?
     
     public init() {
+        print(hxhSignature.formatted)
         
         metalDevice = MTLCreateSystemDefaultDevice()
         if metalDevice == nil {
@@ -442,13 +458,6 @@ public class HxPxE {
     
     // MARK: File IO
     
-    struct HxHSignature: Encodable {
-        let slug: String
-        let name: String
-        let id: String
-        let version: String
-    }
-    
     struct HxPxSignature: Encodable {
         let name: String
         let id: UUID
@@ -475,7 +484,6 @@ public class HxPxE {
     }
     
     public func export(as name: String, id: UUID = UUID(), share: Bool = false) throws -> String {
-        let hxhSignature = HxHSignature(slug: kSlug, name: kName, id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown")
         let hxpxSignature = HxPxSignature(name: name, id: id)
         let pixPacks = try pixList.map { pix -> PIXPack in
             var inPixId: UUID? = nil
