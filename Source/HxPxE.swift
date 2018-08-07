@@ -39,6 +39,7 @@ public class HxPxE {
         case blur
         case resolution
         case edge
+        case image
         var type: PIX.Type {
             switch self {
             case .camera:
@@ -51,6 +52,8 @@ public class HxPxE {
                 return ResolutionPIX.self
             case .edge:
                 return EdgePIX.self
+            case .image:
+                return ImagePIX.self
             }
         }
     }
@@ -175,10 +178,10 @@ public class HxPxE {
     // MARK: Quad
     
     func makeQuadVertexBuffer() -> MTLBuffer {
-        let a = Vertex(x: -1.0, y: -1.0, s: 0.0, t: 1.0)
-        let b = Vertex(x: 1.0, y: -1.0, s: 1.0, t: 1.0)
-        let c = Vertex(x: -1.0, y: 1.0, s: 0.0, t: 0.0)
-        let d = Vertex(x: 1.0, y: 1.0, s: 1.0, t: 0.0)
+        let a = Vertex(x: -1.0, y: -1.0, s: 0.0, t: 0.0)
+        let b = Vertex(x: 1.0, y: -1.0, s: 1.0, t: 0.0)
+        let c = Vertex(x: -1.0, y: 1.0, s: 0.0, t: 1.0)
+        let d = Vertex(x: 1.0, y: 1.0, s: 1.0, t: 1.0)
         let verticesArray: Array<Vertex> = [a,b,c,b,c,d]
         var vertexData = Array<Float>()
         for vertex in verticesArray {
@@ -335,6 +338,11 @@ public class HxPxE {
     // MARK: Render
     
     func render(_ pix: PIX) {
+        
+        guard aLive else {
+            print("HxPxE ERROR:", "Render:", "Not aLive...")
+            return
+        }
         
 //        if self.pixelBuffer == nil && self.uses_source_texture {
 //            AnalyticsAssistant.shared.logError("Render canceled: Source Texture is specified & Pixel Buffer is nil.")
