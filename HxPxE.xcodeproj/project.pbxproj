@@ -20,6 +20,7 @@
 		74982CAC21107E06009A4264 /* PIXSingleEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffector.swift */; };
 		74982CAE21107E14009A4264 /* PIXMergerEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAD21107E14009A4264 /* PIXMergerEffector.swift */; };
 		74982CB021107E2C009A4264 /* PIXMultiEffector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffector.swift */; };
+		749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EB33E2119A5D900921BDF /* ImagePIX.swift */; };
 		74A40E1B210A11200085041D /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
 		74ADDC492114EEAF00070B32 /* HxPxE_Shaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
 		74ADDC4A2114EECE00070B32 /* HxPxE_Shaders.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
@@ -61,6 +62,7 @@
 		74982CAB21107E06009A4264 /* PIXSingleEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSingleEffector.swift; sourceTree = "<group>"; };
 		74982CAD21107E14009A4264 /* PIXMergerEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMergerEffector.swift; sourceTree = "<group>"; };
 		74982CAF21107E2C009A4264 /* PIXMultiEffector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMultiEffector.swift; sourceTree = "<group>"; };
+		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
 		74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HxPxE_Shaders.xcodeproj; path = Shaders/HxPxE_Shaders.xcodeproj; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* HxPxE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HxPxE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 			children = (
 				7452F4C0210A321F001AA523 /* PIXContent.swift */,
 				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
+				749EB33E2119A5D900921BDF /* ImagePIX.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */,
 				7452F4C3210A332B001AA523 /* PIXEffector.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
+				749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */,
 				742321A121027C70003697C3 /* PIX.swift in Sources */,
 				7401CF3121147C9700000A38 /* ResolutionPIX.swift in Sources */,
 				74982CAE21107E14009A4264 /* PIXMergerEffector.swift in Sources */,

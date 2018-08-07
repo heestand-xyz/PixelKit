@@ -27,29 +27,36 @@ fragment float4 cameraPIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-    float2 uv = float2(u, v);
     
     if (in.mirror) {
         if (int(in.orientation) == 1 || int(in.orientation) == 2) {
-            uv[0] = 1.0 - uv[0];
-        } else {
-            uv[1] = 1.0 - uv[1];
+            // portrait
+            u = 1 - u;
+        } else if (int(in.orientation) == 3 || int(in.orientation) == 4) {
+            // landscape
+            v = 1 - v;
         }
     }
     
+    float cache_u = u;
     switch (int(in.orientation)) {
         case 1: // portrait
-            uv = float2(uv[1], 1.0 - uv[0]);
+            u = 1 - v;
+            v = 1 - cache_u;
             break;
         case 2: // portraitUpsideDown
-            uv = float2(1.0 - uv[1], uv[0]);
+            u = v;
+            v = cache_u;
             break;
-        case 3: // landscapeRight
-            uv = float2(1.0 - uv[0], 1.0 - uv[1]);
+        case 3: // landscapeLeft
+            v = 1 - v;
             break;
-        case 4: // landscapeLeft
+        case 4: // landscapeRight
+            u = 1 - u;
             break;
     }
+    
+    float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);
     

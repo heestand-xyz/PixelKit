@@ -94,9 +94,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let captureSession: AVCaptureSession
     let sessionOutput: AVCaptureVideoDataOutput
     
+    var lastUIOrientation: UIInterfaceOrientation
+
     var initialFrameCaptured = false
-    var deviceOrientationUpdated = false
-    
+    var orientationUpdated = false
+
 //    var in_full_screen: Bool
     
     let setupCallback: (CGSize, UIInterfaceOrientation) -> ()
@@ -113,6 +115,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         setupCallback = setup
         capturedCallback = captured
+        
+        lastUIOrientation = UIApplication.shared.statusBarOrientation
 
         captureSession = AVCaptureSession()
         sessionOutput = AVCaptureVideoDataOutput()
@@ -154,7 +158,30 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     @objc func deviceRotated() {
-        deviceOrientationUpdated = true
+        if lastUIOrientation != UIApplication.shared.statusBarOrientation {
+            orientationUpdated = true
+        } else {
+            forceDetectUIOrientation(new: {
+                self.orientationUpdated = true
+            })
+        }
+    }
+    
+    func forceDetectUIOrientation(new: @escaping () -> ()) {
+        let forceCount = HxPxE.main.fpxMax * 2
+        var forceIndex = 0
+        let forceTimer = Timer(timeInterval: 1 / Double(HxPxE.main.fpxMax), repeats: true, block: { timer in
+            if self.lastUIOrientation != UIApplication.shared.statusBarOrientation {
+                new()
+                timer.invalidate()
+            } else {
+                forceIndex += 1
+                if forceIndex >= forceCount {
+                    timer.invalidate()
+                }
+            }
+        })
+        RunLoop.current.add(forceTimer, forMode: .commonModes)
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from
@@ -167,9 +194,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             if !self.initialFrameCaptured {
                 self.setup(pixelBuffer)
                 self.initialFrameCaptured = true
-            } else if self.deviceOrientationUpdated {
+            } else if self.orientationUpdated {
                 self.setup(pixelBuffer)
-                self.deviceOrientationUpdated = false
+                self.orientationUpdated = false
             }
             
             self.capturedCallback(pixelBuffer)
@@ -180,44 +207,26 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
-//        if self.metal_view?.superview != nil {
-//            //                    self.metal_view!.checker_bg_view.removeFromSuperview()
-//            self.metal_view!.removeFromSuperview()
-//        }
-
-//        let mirror = cameraPosition == .front
-        
-        let deviceOrientation = UIDevice.current.orientation
+//        let deviceOrientation = UIDevice.current.orientation
+        let uiOrientation = UIApplication.shared.statusBarOrientation
         
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
 
         let resolution: CGSize
-        let uiOrientation: UIInterfaceOrientation
-        switch deviceOrientation {
-        case .portrait:
+        switch uiOrientation {
+        case .portrait, .portraitUpsideDown:
             resolution = CGSize(width: height, height: width)
-            uiOrientation = .portrait
-        case .portraitUpsideDown:
-            resolution = CGSize(width: height, height: width)
-            uiOrientation = .portraitUpsideDown
-        case .landscapeLeft:
+        case .landscapeLeft, .landscapeRight:
             resolution = CGSize(width: width, height: height)
-            uiOrientation = .landscapeLeft
-        case .landscapeRight:
-            resolution = CGSize(width: width, height: height)
-            uiOrientation = .landscapeRight
         default:
-            resolution = CGSize(width: height, height: width)
-            uiOrientation = .portrait
-            print("CAM ORIENTATION UNKNOWN")
+            resolution = CGSize(width: width, height: height)
+            print("HxPxE CameraPIX WARNING: Orientation unknown.")
         }
         
-//        metal_view = MetalView(node: node, frame: frame, content_size: size, orientation: uiOrientation, mirror: mirror, uses_source_texture: true, fix_shader: fix_shader, draw_done: { texture in
-//            draw_done(texture)
-//        })
-        
         setupCallback(resolution, uiOrientation)
+        
+        lastUIOrientation = uiOrientation
         
     }
     
