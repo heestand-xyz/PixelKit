@@ -1,6 +1,6 @@
 //
 //  CameraPIX.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -12,7 +12,7 @@ public class CameraPIX: PIXContent, PIXable {
     
     let kind: HxPxE.PIXKind = .camera
     
-    override var shader: String { return "camera" }
+    override var shader: String { return "cameraPIX" }
     
     public enum Camera: String, Codable {
         case front
@@ -25,6 +25,7 @@ public class CameraPIX: PIXContent, PIXable {
                 return .back
             }
         }
+        var mirrored: Bool { return self == .front }
     }
     
     var orientation: UIInterfaceOrientation?
@@ -32,14 +33,14 @@ public class CameraPIX: PIXContent, PIXable {
     enum CameraCodingKeys: String, CodingKey {
         case camera
     }
-    override var shaderUniforms: [Double] {
-        return [Double(orientation?.rawValue ?? 0), camera == .front ? 1 : 0]
+    override var shaderUniforms: [CGFloat] {
+        return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
     }
 
     var helper: CameraHelper?
     
-    public override init() {
-        super.init()
+    public init() {
+        super.init(res: .unknown, resource: true)
         setupCamera()
     }
     
@@ -69,7 +70,7 @@ public class CameraPIX: PIXContent, PIXable {
         helper = CameraHelper(cameraPosition: camera.position, setup: { resolution, orientation in
             // CHECK Why 2 setups on init?
 //            print("CameraPIX:", "Setup:", "Resolution:", resolution, "Orientation:", orientation.rawValue)
-            self.contentResolution = resolution
+            self.res = .custom(res: resolution)
             self.orientation = orientation
         }, captured: { pixelBuffer in
             self.contentPixelBuffer = pixelBuffer
@@ -168,9 +169,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     func forceDetectUIOrientation(new: @escaping () -> ()) {
-        let forceCount = HxPxE.main.fpxMax * 2
+        let forceCount = HxPxE.main.fpsMax * 2
         var forceIndex = 0
-        let forceTimer = Timer(timeInterval: 1 / Double(HxPxE.main.fpxMax), repeats: true, block: { timer in
+        let forceTimer = Timer(timeInterval: 1 / Double(HxPxE.main.fpsMax), repeats: true, block: { timer in
             if self.lastUIOrientation != UIApplication.shared.statusBarOrientation {
                 new()
                 timer.invalidate()

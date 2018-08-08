@@ -9,11 +9,11 @@
 import MetalKit
 import MetalPerformanceShaders
 
-public class BlurPIX: PIXSingleEffector, PIXable, CustomRenderDelegate {
+public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
     
     let kind: HxPxE.PIXKind = .blur
     
-    override var shader: String { return "blur" }
+    override var shader: String { return "blurPIX" }
     
     public enum BlurType: Int, Codable {
         case guassian = 0
@@ -31,15 +31,15 @@ public class BlurPIX: PIXSingleEffector, PIXable, CustomRenderDelegate {
     }
     
     public var type: BlurType = .guassian { didSet { setNeedsRender() } }
-    public var radius: Double = 10 { didSet { setNeedsRender() } }
+    public var radius: CGFloat = 10 { didSet { setNeedsRender() } }
     public var quality: BlurQuality = .mid { didSet { setNeedsRender() } }
-    public var angle: Double = 0 { didSet { setNeedsRender() } }
+    public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     enum BlurCodingKeys: String, CodingKey {
         case type; case radius; case quality; case angle; case position
     }
-    override var shaderUniforms: [Double] {
-        return [Double(type.rawValue), radius, Double(quality.rawValue), angle, Double(position.x), Double(position.y)]
+    override var shaderUniforms: [CGFloat] {
+        return [CGFloat(type.rawValue), radius, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
     override public init() {
@@ -54,9 +54,9 @@ public class BlurPIX: PIXSingleEffector, PIXable, CustomRenderDelegate {
         self.init()
         let container = try decoder.container(keyedBy: BlurCodingKeys.self)
         type = try container.decode(BlurType.self, forKey: .type)
-        radius = try container.decode(Double.self, forKey: .radius)
+        radius = try container.decode(CGFloat.self, forKey: .radius)
         quality = try container.decode(BlurQuality.self, forKey: .quality)
-        angle = try container.decode(Double.self, forKey: .angle)
+        angle = try container.decode(CGFloat.self, forKey: .angle)
         position = try container.decode(CGPoint.self, forKey: .position)
         setNeedsRender()
 //        let topContainer = try decoder.container(keyedBy: CodingKeys.self)

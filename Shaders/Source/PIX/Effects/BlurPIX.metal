@@ -1,6 +1,6 @@
 //
 //  BlurPIX.metal
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2017-11-14.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "../External/Random/loki_header.metal"
+#import "Source/External/Random/loki_header.metal"
 
 struct VertexOut{
     float4 position [[position]];
@@ -30,7 +30,7 @@ fragment float4 blurPIX(VertexOut out [[stage_in]],
                         const device Uniforms& in [[ buffer(0) ]],
                         sampler s [[ sampler(0) ]]) {
     
-    float pi = 3.14159265359;
+//    float pi = 3.14159265359;
     int max_res = 16384 - 1;
     
     float u = out.texCoord[0];

@@ -1,6 +1,6 @@
 //
 //  HxPxE.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-20.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -37,23 +37,19 @@ public class HxPxE {
         case camera
         case levels
         case blur
-        case resolution
+        case res
         case edge
         case image
+        case circle
         var type: PIX.Type {
             switch self {
-            case .camera:
-                return CameraPIX.self
-            case .levels:
-                return LevelsPIX.self
-            case .blur:
-                return BlurPIX.self
-            case .resolution:
-                return ResolutionPIX.self
-            case .edge:
-                return EdgePIX.self
-            case .image:
-                return ImagePIX.self
+            case .camera: return CameraPIX.self
+            case .levels: return LevelsPIX.self
+            case .blur: return BlurPIX.self
+            case .res: return ResPIX.self
+            case .edge: return EdgePIX.self
+            case .image: return ImagePIX.self
+            case .circle: return CirclePIX.self
             }
         }
     }
@@ -62,9 +58,10 @@ public class HxPxE {
     
     var _fps: Int = 0
     public var fps: Int { return _fps }
-    public var fpxMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
+    public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
     public var frameIndex = 0
     var frameDate = Date()
+    var ping = true
     
     public enum BitMode: Int {
         case _8 = 8
@@ -140,7 +137,7 @@ public class HxPxE {
     
     func add(pix: PIX) {
         pixList.append(pix)
-        pix.view.readyToRender = {
+        pix.view.metalView.readyToRender = {
             self.render(pix)
         }
     }
@@ -152,7 +149,7 @@ public class HxPxE {
                 break
             }
         }
-        pix.view.readyToRender = nil
+        pix.view.metalView.readyToRender = nil
     }
     
     // MARK: Frame Loop
@@ -163,6 +160,7 @@ public class HxPxE {
         frameDate = Date()
         delegate?.hxpxeFrameLoop()
         checkNeedsRender()
+//        if frameIndex % fpsMax == 0 { print("HxPxE PING", frameIndex / fpsMax) }
         frameIndex += 1
     }
     
@@ -170,6 +168,7 @@ public class HxPxE {
         for pix in pixList {
             if pix.needsRender {
                 pix.view.setNeedsDisplay() // mabey just render() for bg support
+                pix.view.metalView.setNeedsDisplay() // mabey just render() for bg support
                 pix.needsRender = false
             }
         }
@@ -254,7 +253,7 @@ public class HxPxE {
     
     // MARK: Shader Pipeline
     
-    func makeShaderPipeline(_ fragFuncPrefix: String/*, from source: String*/) -> MTLRenderPipelineState? {
+    func makeShaderPipeline(_ fragFuncName: String/*, from source: String*/) -> MTLRenderPipelineState? {
 //        var pixMetalLibrary: MTLLibrary? = nil
 //        do {
 //            pixMetalLibrary = try metalDevice!.makeLibrary(source: source, options: nil)
@@ -262,9 +261,8 @@ public class HxPxE {
 //            print("HxPxE ERROR:", "Pipeline:", "PIX Metal Library corrupt:", error.localizedDescription)
 //            return nil
 //        }
-        let fragFuncName = fragFuncPrefix + "PIX"
         guard let fragmentShader = metalLibrary!.makeFunction(name: fragFuncName) else {
-            print("HxPxE ERROR:", "Pipeline:", "PIX Metal Function:", "Not found.")
+            print("HxPxE ERROR:", "Make Shader Pipeline:", "PIX Metal Func:", "Not found:", fragFuncName)
             return nil
         }
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
@@ -276,7 +274,7 @@ public class HxPxE {
         do {
             return try metalDevice!.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
         } catch {
-            print("HxPxE ERROR:", "Pipeline:", "Make failed:", error.localizedDescription)
+            print("HxPxE ERROR:", "Make Shader Pipeline:", "Failed:", error.localizedDescription)
             return nil
         }
     }
@@ -358,13 +356,18 @@ public class HxPxE {
         
         // MARK: Input Texture
         
+        var generator: Bool = false
         var inputTexture: MTLTexture? = nil
         if let pixContent = pix as? PIXContent {
-            guard let sourceTexture = makeTexture(from: pixContent.contentPixelBuffer!) else {
-                print("HxPxE ERROR:", "Render:", "Texture Creation:", "Make faild.", "PIX:", pix)
-                return
+            if pixContent.isResource {
+                guard let sourceTexture = makeTexture(from: pixContent.contentPixelBuffer!) else {
+                    print("HxPxE ERROR:", "Render:", "Texture Creation:", "Make faild.", "PIX:", pix)
+                    return
+                }
+                inputTexture = sourceTexture
+            } else {
+                generator = true
             }
-            inputTexture = sourceTexture
         } else if let pixIn = pix as? PIX & PIXIn {
             let pixOut = pixIn.pixInList!.first!
             guard let pixOutTexture = pixOut.texture else {
@@ -376,7 +379,7 @@ public class HxPxE {
         
         // MARK: Custom Render
         
-        if pix.customRenderActive {
+        if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
                 print("HxPxE ERROR:", "Render:", "CustomRenderDelegate not implemented.", "PIX:", pix)
                 return
@@ -390,7 +393,7 @@ public class HxPxE {
         
         // MARK: Current Drawable
         
-        guard let currentDrawable: CAMetalDrawable = pix.view.currentDrawable else {
+        guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
             print("HxPxE ERROR:", "Render:", "Current Drawable:", "Not found.", "PIX:", pix)
             return
         }
@@ -413,9 +416,9 @@ public class HxPxE {
         // MARK: Uniforms
         
         var unifroms: [Float] = pix.shaderUniforms.map { uniform -> Float in return Float(uniform) }
-//        if self.shader == "gradient" || self.shader == "circle" || self.shader == "rectangle" || self.shader == "polygon" || self.shader == "noise" || self.shader == "resolution" {
-//            unifroms.append(Float(currentDrawable.texture.width) / Float(currentDrawable.texture.height))
-//        }
+        if pix.shaderNeedsAspect {
+            unifroms.append(Float(currentDrawable.texture.width) / Float(currentDrawable.texture.height))
+        }
         if !unifroms.isEmpty {
             let uniformBuffer = metalDevice!.makeBuffer(length: MemoryLayout<Float>.size * unifroms.count, options: [])
             let bufferPointer = uniformBuffer?.contents()
@@ -425,7 +428,9 @@ public class HxPxE {
         
         // MARK: Texture
         
-        commandEncoder.setFragmentTexture(inputTexture!, index: 0)
+        if !generator {
+            commandEncoder.setFragmentTexture(inputTexture!, index: 0)
+        }
         
 //        if let texture = sourceTexture ?? blur_texture ?? self.inputTexture {
 //
@@ -452,6 +457,10 @@ public class HxPxE {
         commandEncoder.endEncoding()
         
         // MARK: Render
+        
+        if pix.texture == nil {
+            print("HxPxE \(pix) First render in progress.")
+        }
         
         commandBuffer.present(currentDrawable)
         commandBuffer.commit()

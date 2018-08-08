@@ -1,6 +1,6 @@
 //
 //  PIXOutput.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  PIX.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-20.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -16,29 +16,38 @@ public class PIX: Codable {
     
     var shader: String { return "nil" }
 //    let shaderSource: String?
-    var shaderUniforms: [Double] { return [] }
+    var shaderUniforms: [CGFloat] { return [] }
+    var shaderNeedsAspect: Bool { return false }
     
     public let view: PIXView
     
     var pixInList: [PIX & PIXOut]?
     var pixOutList: [PIX & PIXIn]?
     
-    var texture: MTLTexture? // lastDrawnTexture // public
-    public var image: UIImage? {
-        guard let texture = texture else { return nil }
+    var texture: MTLTexture?
+    public var renderedTexture: MTLTexture? { return texture }
+    public var renderedImage: UIImage? {
+        guard let texture = renderedTexture else { return nil }
+//        var options: [CIImageOption: Any] = [:]
+//        options[CIImageOption.colorSpace] = CGColorSpace.displayP3
+//        if #available(iOS 11.0, *) {
+//            options[CIImageOption.applyOrientationProperty] = true
+//        } else {
+//            print("\(self) WARNING:", ".renderedImage:", "Correct image orientation is not supported in iOS 10")
+//        }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
         return UIImage(ciImage: ciImage)
     }
-    public var rawData: Array<float4>? {
-        guard let texture = texture else { return nil }
+    public var renderedPixels: Array<float4>? {
+        guard let texture = renderedTexture else { return nil }
         return HxPxE.main.raw(texture: texture)
     }
     
-    public var resolution: CGSize? {
-        if self is PIXContent {
-            return (self as! PIXContent).contentResolution
-        } else if let resPix = self as? ResolutionPIX {
-            return resPix.customResolution
+    var resolution: CGSize? {
+        if let pixContent = self as? PIXContent {
+            return pixContent.res.isAuto ? view.autoRes : pixContent.res.size
+        } else if let resPix = self as? ResPIX {
+            return resPix.res.isAuto ? view.autoRes : resPix.res.size
         } else if let pixIn = self as? PIX & PIXIn {
             return pixIn.pixInList!.first?.resolution
         } else {
@@ -90,11 +99,11 @@ public class PIX: Codable {
             }
         }
 //        } else {
-//            print("HxPxE ERROR:", "PIX Shader Source not loaded:", self)
+//            print("HxPxE ERROR", "PIX Shader Source not loaded:", self)
 //        }
         
         if !allGood {
-            print("HxPxE PIX ERROR:", "Not allGood...", "PIX:", self)
+            print("\(self) ERROR", "Not allGood...")
         }
         
     }
@@ -124,24 +133,69 @@ public class PIX: Codable {
     
     // MARK: Resolution
     
-    func newResolution() {
-        guard resolution != nil else {
-            print("HxPxE PIX ERROR:", "New resolution is nil.", "PIX:", self)
+    func setNeedsRes() {
+        guard let resolution = resolution else {
+//            if !checkAutoRes(ready: {
+//                self.setNeedsRes()
+//            }) {
+//                print("\(self) ERROR", "setNeedsRes():", "Resolution unknown.")
+//            }
+            print("RES CHECK")
             return
         }
-        view.setResolution(resolution!)
-        if let pixOut = self as? PIX & PIXOut {
-            for pixIn in pixOut.pixOutList! {
-                pixIn.newResolution()
+        view.setResolution(resolution)
+        if self is PIX & PIXOut {
+            for pixIn in pixOutList! {
+                pixIn.setNeedsRes()
             }
         }
     }
     
+//    func newResolution() {
+//        guard resolution != nil else {
+//            print("\(self) ERROR", "New resolution is nil.")
+//            return
+//        }
+//    }
+    
     // MARK: Render
     
     func setNeedsRender() {
+        guard resolution != nil else {
+            if !checkAutoRes(ready: {
+                self.setNeedsRes()
+                self.setNeedsRender()
+            }) {
+                print("\(self) ERROR", "setNeedsRender():", "Resolution unknown.")
+            }
+            return
+        }
+        if self.texture == nil {
+            print("\(self) First render requested at", resolution!)
+        } else { print(".") }
         needsRender = true
 //        view.setNeedsDisplay()
+    }
+    
+    internal func checkAutoRes(ready: @escaping () -> ()) -> Bool {
+        var needsAutoRes = false
+        if let pixContent = self as? PIXContent {
+            if pixContent.res.isAuto {
+                needsAutoRes = true
+            }
+        } else if let resPix = self as? ResPIX {
+            if resPix.res.isAuto {
+                needsAutoRes = true
+            }
+        }
+        if needsAutoRes {
+            print("\(self) Auto Res requested.")
+            view.autoResReadyCallback = {
+                print("\(self) Auto Res ready.")
+                ready()
+            }
+        }
+        return needsAutoRes
     }
     
 //    func render() {
@@ -157,7 +211,7 @@ public class PIX: Codable {
     
     func didRender(texture: MTLTexture) {
         if self.texture == nil {
-            print("HxPxE PIX:", "First render successful!", "PIX:", self)
+            print("\(self) First render done!")
         }
         self.texture = texture
 //        print("HxPxE -", String(describing: self).replacingOccurrences(of: "HxPxE.", with: "") ,"- Did Render")
@@ -196,7 +250,9 @@ public class PIX: Codable {
         pixInList!.append(pixOut)
         pixOut.pixOutList!.append(self as! PIX & PIXIn)
         if pixOut.resolution != nil {
-            newResolution()
+            setNeedsRes()
+        } else {
+            print("\(self):", "Waiting for res...")
         }
     }
     

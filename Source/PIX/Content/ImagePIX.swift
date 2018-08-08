@@ -14,8 +14,8 @@ public class ImagePIX: PIXContent, PIXable {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public override init() {
-        super.init()
+    public init() {
+        super.init(res: .unknown, resource: true)
     }
     
     func setNeedsBuffer() {
@@ -23,7 +23,9 @@ public class ImagePIX: PIXContent, PIXable {
             print("HxPxE: ImagePIX: Nil not supported yet.")
             return
         }
-        contentResolution = contentImage.size
+        let width = contentImage.size.width * contentImage.scale
+        let height = contentImage.size.height * contentImage.scale
+        res = .custom(res: CGSize(width: width, height: height))
         contentPixelBuffer = buffer(from: contentImage)
         setNeedsRender()
     }
@@ -36,13 +38,17 @@ public class ImagePIX: PIXContent, PIXable {
     // MARK: Buffer
     
     func buffer(from image: UIImage) -> CVPixelBuffer? {
+        
+        let width = image.size.width * image.scale
+        let height = image.size.height * image.scale
+        
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue, String(kCVPixelBufferIOSurfacePropertiesKey): [
             "IOSurfaceOpenGLESFBOCompatibility": true,
             "IOSurfaceOpenGLESTextureCompatibility": true,
             "IOSurfaceCoreAnimationCompatibility": true,
             ]] as CFDictionary
         var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(image.size.width), Int(image.size.height), kCVPixelFormatType_32BGRA/*ARGB*/, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), kCVPixelFormatType_32BGRA/*ARGB*/, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
         }
@@ -51,13 +57,10 @@ public class ImagePIX: PIXContent, PIXable {
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
-        
-//        context?.translateBy(x: 0, y: image.size.height)
-//        context?.scaleBy(x: 1.0, y: -1.0)
+        let context = CGContext(data: pixelData, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
         
         UIGraphicsPushContext(context!)
-        image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
         UIGraphicsPopContext()
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         

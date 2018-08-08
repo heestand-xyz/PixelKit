@@ -1,6 +1,6 @@
 //
 //  LevelsPIX.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-public class LevelsPIX: PIXSingleEffector, PIXable {
+public class LevelsPIX: PIXSingleEffect, PIXable {
     
     let kind: HxPxE.PIXKind = .levels
     
-    override var shader: String { return "levels" }
+    override var shader: String { return "levelsPIX" }
     
-    public var brightness: Double = 1.0 { didSet { setNeedsRender() } }
-    public var darkness: Double = 0.0 { didSet { setNeedsRender() } }
-    public var contrast: Double = 1.0 { didSet { setNeedsRender() } }
-    public var gamma: Double = 1.0 { didSet { setNeedsRender() } }
+    public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }
+    public var contrast: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var gamma: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var inverted: Bool = false { didSet { setNeedsRender() } }
-    public var opacity: Double = 1.0 { didSet { setNeedsRender() } }
+    public var opacity: CGFloat = 1.0 { didSet { setNeedsRender() } }
     enum LevelsCodingKeys: String, CodingKey {
         case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
     }
-    override var shaderUniforms: [Double] {
+    override var shaderUniforms: [CGFloat] {
         return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
     }
     
@@ -36,12 +36,12 @@ public class LevelsPIX: PIXSingleEffector, PIXable {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: LevelsCodingKeys.self)
-        brightness = try container.decode(Double.self, forKey: .brightness)
-        darkness = try container.decode(Double.self, forKey: .darkness)
-        contrast = try container.decode(Double.self, forKey: .contrast)
-        gamma = try container.decode(Double.self, forKey: .gamma)
+        brightness = try container.decode(CGFloat.self, forKey: .brightness)
+        darkness = try container.decode(CGFloat.self, forKey: .darkness)
+        contrast = try container.decode(CGFloat.self, forKey: .contrast)
+        gamma = try container.decode(CGFloat.self, forKey: .gamma)
         inverted = try container.decode(Bool.self, forKey: .inverted)
-        opacity = try container.decode(Double.self, forKey: .opacity)
+        opacity = try container.decode(CGFloat.self, forKey: .opacity)
         setNeedsRender()
 //        let topContainer = try decoder.container(keyedBy: CodingKeys.self)
 //        let id = UUID(uuidString: try topContainer.decode(String.self, forKey: .id))! // CHECK BANG

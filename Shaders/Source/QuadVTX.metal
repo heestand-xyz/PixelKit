@@ -1,6 +1,6 @@
 //
 //  QuadVTX.metal
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2017-07-24.
 //  Copyright © 2017 Hexagons. All rights reserved.

@@ -8,22 +8,22 @@
 
 import Foundation
 
-public class EdgePIX: PIXSingleEffector, PIXable {
+public class EdgePIX: PIXSingleEffect, PIXable {
     
     let kind: HxPxE.PIXKind = .edge
     
-    override var shader: String { return "edge" }
+    override var shader: String { return "edgePIX" }
     
-    public var strength: Double = 4 { didSet { setNeedsRender() } }
-    public var distance: Double = 1 { didSet { setNeedsRender() } }
+    public var strength: CGFloat = 4 { didSet { setNeedsRender() } }
+    public var distance: CGFloat = 1 { didSet { setNeedsRender() } }
     enum EdgeCodingKeys: String, CodingKey {
         case strength; case distance
     }
-    override var shaderUniforms: [Double] {
+    override var shaderUniforms: [CGFloat] {
         return [strength, distance]
     }
     
-    public override init() {
+    public override required init() {
         super.init()
     }
     
@@ -32,8 +32,8 @@ public class EdgePIX: PIXSingleEffector, PIXable {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: EdgeCodingKeys.self)
-        strength = try container.decode(Double.self, forKey: .strength)
-        distance = try container.decode(Double.self, forKey: .distance)
+        strength = try container.decode(CGFloat.self, forKey: .strength)
+        distance = try container.decode(CGFloat.self, forKey: .distance)
         setNeedsRender()
     }
     

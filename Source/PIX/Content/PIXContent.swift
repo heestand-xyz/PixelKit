@@ -1,6 +1,6 @@
 //
 //  PIXContent.swift
-//  Hexagon Pixel Engine
+//  HxPxE
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -10,11 +10,15 @@ import Foundation
 
 public class PIXContent: PIX, PIXOut {
     
+    public var res: PIX.Res { didSet { setNeedsRes() } }
+    
     public var outPixs: [PIX & PIXIn] { return pixOutList! }
     
+
+    let isResource: Bool
     var _contentAvailable: Bool = false
     public var contentAvailable: Bool { return _contentAvailable }
-    var contentResolution: CGSize? { didSet { newResolution() } }
+//    var contentResolution: CGSize? { didSet { newResolution() } }
     var contentPixelBuffer: CVPixelBuffer?
 //    var sourceImage: UIImage?
     
@@ -23,9 +27,12 @@ public class PIXContent: PIX, PIXOut {
 //        super.init(shader: shader)
 //    }
     
-    override init() {
+    init(res: PIX.Res, resource: Bool = false) {
+        isResource = resource
+        self.res = res
         super.init()
         pixOutList = []
+//        setNeedsRes()
     }
     
     required init(from decoder: Decoder) throws {

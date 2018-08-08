@@ -1,5 +1,5 @@
 //
-//  PIXMultiEffector.swift
+//  PIXMultiEffect.swift
 //  HxPxE
 //
 //  Created by Hexagons on 2018-07-31.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PIXMultiEffector: PIXEffector, PIXInMulti {
+public class PIXMultiEffect: PIXEffect, PIXInMulti {
     
     public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     

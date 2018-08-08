@@ -1,5 +1,5 @@
 //
-//  PIXSingleEffector.swift
+//  PIXSingleEffect.swift
 //  HxPxE
 //
 //  Created by Hexagons on 2018-07-31.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PIXSingleEffector: PIXEffector, PIXInSingle {
+public class PIXSingleEffect: PIXEffect, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
@@ -25,7 +25,7 @@ public class PIXSingleEffector: PIXEffector, PIXInSingle {
 //    }
     
 //    required init(from decoder: Decoder) throws {
-//        fatalError("PIXSingleEffector Decoder Initializer is not supported.") // CHECK
+//        fatalError("PIXSingleEffect Decoder Initializer is not supported.") // CHECK
 //    }
     
 }
