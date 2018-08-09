@@ -45,6 +45,7 @@
 		7468F958211244B900E285B1 /* PIX */ = {
 			isa = PBXGroup;
 			children = (
+				7468F959211244B900E285B1 /* NilPIX.metal */,
 				74EC5DA0211A2DA2003BE4DE /* Content */,
 				74EC5DA1211A2DAE003BE4DE /* Effects */,
 			);
@@ -96,7 +97,6 @@
 		74EC5DA1211A2DAE003BE4DE /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				7468F959211244B900E285B1 /* NilPIX.metal */,
 				7468F95B211244B900E285B1 /* LevelsPIX.metal */,
 				747845B421131B8E0077AB89 /* BlurPIX.metal */,
 				74879D662118E90900BF17DE /* EdgePIX.metal */,
