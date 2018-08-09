@@ -127,7 +127,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         captureSession.sessionPreset = .high
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
-        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.bitMode.cameraPixelFormat]
+        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.colorBits.cam]
         
         do {
             

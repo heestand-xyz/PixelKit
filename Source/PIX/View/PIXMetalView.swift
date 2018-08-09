@@ -18,7 +18,7 @@ public class PIXMetalView: MTKView {
         
         super.init(frame: .zero, device: HxPxE.main.metalDevice)
         
-        colorPixelFormat = HxPxE.main.bitMode.pixelFormat
+        colorPixelFormat = HxPxE.main.colorBits.mtl
         isOpaque = false
         framebufferOnly = false
         autoResizeDrawable = false // CHECK
@@ -36,7 +36,7 @@ public class PIXMetalView: MTKView {
         autoreleasepool { // CHECK
             if rect.width > 0 && rect.height > 0 {
                 if resolution != nil {
-                    print("HxPxE PIX is Ready to Render")
+//                    print("HxPxE PIX is Ready to Render")
                     readyToRender?()
                 } else {
                     print("HxPxE ERROR:", "PIX View:", "Draw:", "Resolution not set.")

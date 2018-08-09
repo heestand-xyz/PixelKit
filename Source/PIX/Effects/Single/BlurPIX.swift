@@ -86,7 +86,7 @@ public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
     }
     
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: HxPxE.main.bitMode.pixelFormat, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
+        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: HxPxE.main.colorBits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
         guard let blurTexture = HxPxE.main.metalDevice!.makeTexture(descriptor: descriptor) else {
             print("HxPxE ERROR:", "Render:", "BlurPIX:", "Make texture faild.")

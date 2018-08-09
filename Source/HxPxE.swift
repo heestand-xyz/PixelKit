@@ -63,22 +63,8 @@ public class HxPxE {
     var frameDate = Date()
     var ping = true
     
-    public enum BitMode: Int {
-        case _8 = 8
-        case _16 = 16
-        var pixelFormat: MTLPixelFormat {
-            switch HxPxE.main.bitMode {
-            case ._8:
-                return .bgra8Unorm // rgba8Unorm
-            case ._16:
-                return .rgba16Float
-            }
-        }
-        var cameraPixelFormat: OSType {
-            return kCVPixelFormatType_32BGRA
-        }
-    }
-    public var bitMode: BitMode = ._8 // didSet
+    public var colorBits: PIX.Color.Bits = ._8
+    public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
     
     struct Vertex {
         var x,y: Float
@@ -160,6 +146,7 @@ public class HxPxE {
         frameDate = Date()
         delegate?.hxpxeFrameLoop()
         checkNeedsRender()
+        if frameIndex == 0 { print("HxPxE Running...") }
 //        if frameIndex % fpsMax == 0 { print("HxPxE PING", frameIndex / fpsMax) }
         frameIndex += 1
     }
@@ -268,7 +255,7 @@ public class HxPxE {
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
         pipelineStateDescriptor.vertexFunction = quadVertexShader!
         pipelineStateDescriptor.fragmentFunction = fragmentShader
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = bitMode.pixelFormat
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = colorBits.mtl
         pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
         pipelineStateDescriptor.colorAttachments[0].destinationRGBBlendFactor = .blendAlpha
         do {
@@ -285,7 +272,7 @@ public class HxPxE {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache!, pixelBuffer, nil, HxPxE.main.bitMode.pixelFormat, width, height, 0, &cvTextureOut)
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache!, pixelBuffer, nil, HxPxE.main.colorBits.mtl, width, height, 0, &cvTextureOut)
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
             print("HxPxE ERROR:", "Textrue:", "Creation failed.")
             return nil
@@ -298,7 +285,7 @@ public class HxPxE {
             return nil
         }
         let commandBuffer = commandQueue!.makeCommandBuffer()!
-        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: bitMode.pixelFormat, width: pix.texture!.width, height: pix.texture!.height, mipmapped: true)
+        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: colorBits.mtl, width: pix.texture!.width, height: pix.texture!.height, mipmapped: true)
         let textureCopy = metalDevice!.makeTexture(descriptor: descriptor)
         let blitEncoder = commandBuffer.makeBlitCommandEncoder()
         if textureCopy != nil && blitEncoder != nil {

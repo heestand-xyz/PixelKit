@@ -25,18 +25,13 @@ public class PIX: Codable {
     var pixOutList: [PIX & PIXIn]?
     
     var texture: MTLTexture?
-    public var renderedTexture: MTLTexture? { return texture }
+    public var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     public var renderedImage: UIImage? {
         guard let texture = renderedTexture else { return nil }
-//        var options: [CIImageOption: Any] = [:]
-//        options[CIImageOption.colorSpace] = CGColorSpace.displayP3
-//        if #available(iOS 11.0, *) {
-//            options[CIImageOption.applyOrientationProperty] = true
-//        } else {
-//            print("\(self) WARNING:", ".renderedImage:", "Correct image orientation is not supported in iOS 10")
-//        }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
-        return UIImage(ciImage: ciImage)
+        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: HxPxE.main.colorBits.ci, colorSpace: HxPxE.main.colorSpace.cg) else { return nil }
+        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.nativeScale, orientation: .downMirrored)
+        return uiImage
     }
     public var renderedPixels: Array<float4>? {
         guard let texture = renderedTexture else { return nil }
@@ -172,7 +167,7 @@ public class PIX: Codable {
         }
         if self.texture == nil {
             print("\(self) First render requested at", resolution!)
-        } else { print(".") }
+        }
         needsRender = true
 //        view.setNeedsDisplay()
     }
