@@ -33,6 +33,7 @@
 		74BC39E621011E3A004E9AA0 /* HxPxETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC39E521011E3A004E9AA0 /* HxPxETests.swift */; };
 		74BC39E821011E3A004E9AA0 /* HxPxE.h in Headers */ = {isa = PBXBuildFile; fileRef = 74BC39DA21011E3A004E9AA0 /* HxPxE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74DA3D2321026A5900430261 /* HxPxE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* HxPxE.swift */; };
+		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		74BC39E521011E3A004E9AA0 /* HxPxETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxETests.swift; sourceTree = "<group>"; };
 		74BC39E721011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74DA3D2221026A5900430261 /* HxPxE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxE.swift; sourceTree = "<group>"; };
+		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxEProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				74982CAD21107E14009A4264 /* PIXMergerEffect.swift */,
+				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
 			);
 			path = Merger;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */,
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
+				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,
 				74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */,

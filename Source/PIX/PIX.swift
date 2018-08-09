@@ -196,11 +196,15 @@ public class PIX: Codable {
                 } else {
                     disconnectSingle()
                 }
+            } else if let pixInMerger = self as? PIXInMerger {
+                if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
+                    connectMerger(pixInMerger.inPixA!, pixInMerger.inPixB!)
+                } else {
+                    print("disconnect merger...") // CHECK
+                }
             }
-//            else if let pixInMerger = self as? PIXInMerger {
-//                
-//            } else if let pixInMulti = self as? PIXInMulti {
-//                
+//            else if let pixInMulti = self as? PIXInMulti {
+//
 //            }
         }
         if self is PIXOut {
@@ -213,6 +217,16 @@ public class PIX: Codable {
         pixInList!.append(pixOut)
         pixOut.pixOutList!.append(self as! PIX & PIXIn)
         print(self, "Connected", pixOut)
+        setNeedsRes() // CHECK
+        setNeedsRender() // CHECK
+    }
+    
+    func connectMerger(_ pixOutA: PIX & PIXOut, _ pixOutB: PIX & PIXOut) {
+        pixInList!.append(pixOutA)
+        pixInList!.append(pixOutB)
+        pixOutA.pixOutList!.append(self as! PIX & PIXIn) // CHECK Index
+        pixOutB.pixOutList!.append(self as! PIX & PIXIn) // CHECK Index
+        print(self, "Connected", pixOutA, pixOutB)
         setNeedsRes() // CHECK
         setNeedsRender() // CHECK
     }

@@ -42,6 +42,7 @@ public class HxPxE {
         case image
         case circle
         case gradient
+        case lumaBlur
         var type: PIX.Type {
             switch self {
             case .camera: return CameraPIX.self
@@ -52,6 +53,7 @@ public class HxPxE {
             case .image: return ImagePIX.self
             case .circle: return CirclePIX.self
             case .gradient: return GradientPIX.self
+            case .lumaBlur: return LumaBlurPIX.self
             }
         }
     }
@@ -382,6 +384,7 @@ public class HxPxE {
         
         var generator: Bool = false
         var inputTexture: MTLTexture? = nil
+        var secondInputTexture: MTLTexture? = nil
         if let pixContent = pix as? PIXContent {
             if pixContent.isResource {
                 guard let sourceTexture = makeTexture(from: pixContent.contentPixelBuffer!) else {
@@ -399,6 +402,14 @@ public class HxPxE {
                 return
             }
             inputTexture = pixOutTexture // CHECK copy?
+            if pix is PIXMergerEffect { // Effector...
+                let pixOutB = pixIn.pixInList![1]
+                guard let pixOutTextureB = pixOutB.texture else {
+                    print(pix, "ERROR:", "Render:", "IO Texture B not found for:", pixOutB)
+                    return
+                }
+                secondInputTexture = pixOutTextureB // CHECK copy?
+            }
         }
         
         // MARK: Custom Render
@@ -454,6 +465,10 @@ public class HxPxE {
         
         if !generator {
             commandEncoder.setFragmentTexture(inputTexture!, index: 0)
+        }
+        
+        if secondInputTexture != nil {
+            commandEncoder.setFragmentTexture(secondInputTexture!, index: 1)
         }
         
 //        if let texture = sourceTexture ?? blur_texture ?? self.inputTexture {
