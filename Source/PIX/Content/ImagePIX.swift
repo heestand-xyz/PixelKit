@@ -23,6 +23,13 @@ public class ImagePIX: PIXContent, PIXable {
             print(self, "Nil not supported yet.")
             return
         }
+        if HxPxE.main.frameIndex == 0 {
+            print(self, "TEMP BUG FIX", "One frame delay.")
+            HxPxE.main.delay(1, done: {
+                self.setNeedsBuffer()
+            })
+            return
+        }
         let width = image.size.width * image.scale
         let height = image.size.height * image.scale
         res = .custom(res: CGSize(width: width, height: height))

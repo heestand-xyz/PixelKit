@@ -91,6 +91,7 @@ public class HxPxE {
     }
     
     var displayLink: CADisplayLink?
+    var frameCallbacks: [(id: UUID, callback: () -> ())] = []
     
     public init() {
         print(hxhSignature.formatted)
@@ -144,6 +145,7 @@ public class HxPxE {
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
+        for frameCallback in frameCallbacks { frameCallback.callback() }
         delegate?.hxpxeFrameLoop()
         checkNeedsRender()
         if frameIndex == 0 { print("HxPxE Running...") }
@@ -159,6 +161,33 @@ public class HxPxE {
                 pix.needsRender = false
             }
         }
+    }
+    
+    internal func listenToFrames(callback: @escaping () -> (Bool)) {
+        let id = UUID()
+        frameCallbacks.append((id: id, callback: {
+            if callback() {
+                for (i, frameCallback) in self.frameCallbacks.enumerated() {
+                    if frameCallback.id == id {
+                        self.frameCallbacks.remove(at: i)
+                        break
+                    }
+                }
+            }
+        }))
+    }
+    
+    func delay(_ delayFrames: Int, done: @escaping () -> ()) {
+        let id = UUID()
+        let startFrameIndex = frameIndex
+        listenToFrames(callback: {
+            if self.frameIndex >= startFrameIndex + delayFrames {
+                done()
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     // MARK: Quad
