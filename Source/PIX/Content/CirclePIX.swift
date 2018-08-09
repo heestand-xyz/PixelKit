@@ -34,8 +34,8 @@ public class CirclePIX: PIXContent, PIXable {
         return uniforms
     }
     
-    public init(res: PIX.Res = .auto) {
-        super.init(res: res)
+    public init() {
+        super.init(res: .auto)
         setNeedsRender()
     }
     

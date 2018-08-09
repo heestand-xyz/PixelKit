@@ -19,14 +19,14 @@ public class ImagePIX: PIXContent, PIXable {
     }
     
     func setNeedsBuffer() {
-        guard let contentImage = image else {
-            print("HxPxE: ImagePIX: Nil not supported yet.")
+        guard let image = image else {
+            print(self, "Nil not supported yet.")
             return
         }
-        let width = contentImage.size.width * contentImage.scale
-        let height = contentImage.size.height * contentImage.scale
+        let width = image.size.width * image.scale
+        let height = image.size.height * image.scale
         res = .custom(res: CGSize(width: width, height: height))
-        contentPixelBuffer = buffer(from: contentImage)
+        contentPixelBuffer = buffer(from: image)
         setNeedsRender()
     }
     

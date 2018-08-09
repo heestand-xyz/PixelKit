@@ -16,16 +16,7 @@ public class PIXContent: PIX, PIXOut {
     
 
     let isResource: Bool
-    var _contentAvailable: Bool = false
-    public var contentAvailable: Bool { return _contentAvailable }
-//    var contentResolution: CGSize? { didSet { newResolution() } }
     var contentPixelBuffer: CVPixelBuffer?
-//    var sourceImage: UIImage?
-    
-//    public init(shader: String) {
-//        
-//        super.init(shader: shader)
-//    }
     
     init(res: PIX.Res, resource: Bool = false) {
         isResource = resource
@@ -37,11 +28,6 @@ public class PIXContent: PIX, PIXOut {
     
     required init(from decoder: Decoder) throws {
         fatalError("PIXContent Decoder Initializer is not supported.") // CHECK
-    }
-    
-    override func didRender(texture: MTLTexture) {
-        super.didRender(texture: texture)
-        _contentAvailable = true
     }
     
 }

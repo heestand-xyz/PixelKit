@@ -112,7 +112,7 @@ public class HxPxE {
         displayLink!.add(to: RunLoop.main, forMode: .commonModes)
         
         if aLive {
-            print("HxPxE is aLive")
+            print("HxPxE is aLive! ⬢")
         } else {
             print("HxPxE ERROR:", "Not aLive...")
         }
@@ -330,7 +330,7 @@ public class HxPxE {
         }
         
 //        if self.pixelBuffer == nil && self.uses_source_texture {
-//            AnalyticsAssistant.shared.logError("Render canceled: Source Texture is specified & Pixel Buffer is nil.")
+//            AnalyticsAssistant.shared.logERROR("Render canceled: Source Texture is specified & Pixel Buffer is nil.")
 //            return
 //        }
         
@@ -446,7 +446,7 @@ public class HxPxE {
         // MARK: Render
         
         if pix.texture == nil {
-            print("HxPxE \(pix) First render in progress.")
+            print("\(pix) First rendering...")
         }
         
         commandBuffer.present(currentDrawable)
@@ -468,7 +468,7 @@ public class HxPxE {
     }
     
     enum HxPxEIOError: Error {
-        case runtimeError(String)
+        case runtimeERROR(String)
     }
     
     struct PIXPack: Encodable {
@@ -505,7 +505,7 @@ public class HxPxE {
                 }
             }
             guard let pixKind = (pix as? PIXable)?.kind else {
-                throw HxPxEIOError.runtimeError("HxPx: PIX is not able.")
+                throw HxPxEIOError.runtimeERROR("HxPx: PIX is not able.")
             }
             return PIXPack(id: pix.id, type: pixKind, pix: pix, inPixId: inPixId, inPixAId: inPixAId, inPixBId: inPixBId, inPixsIds: inPixsIds)
         }
@@ -514,7 +514,7 @@ public class HxPxE {
         encoder.outputFormatting = .prettyPrinted
         let hxpxPackJsonData = try encoder.encode(hxpxPack)
         guard let hxpxPackJsonString = String(data: hxpxPackJsonData, encoding: .utf8) else {
-            throw HxPxEIOError.runtimeError("HxPx: JSON data to string conversion failed.")
+            throw HxPxEIOError.runtimeERROR("HxPx: JSON data to string conversion failed.")
         }
         return hxpxPackJsonString
     }
@@ -538,57 +538,57 @@ public class HxPxE {
         let decoder = JSONDecoder()
         
         guard let jsonData = jsonString.data(using: .utf8) else {
-            throw HxPxEIOError.runtimeError("HxPx: JSON string to data conversion failed.")
+            throw HxPxEIOError.runtimeERROR("HxPx: JSON string to data conversion failed.")
         }
         
         let json = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
         
         guard let jsonDict = json as? [String: Any] else {
-            throw HxPxEIOError.runtimeError("HxPx: JSON object to dict conversion failed.")
+            throw HxPxEIOError.runtimeERROR("HxPx: JSON object to dict conversion failed.")
         }
         
         guard let hxhDict = jsonDict["hxh"] as? [String: Any] else {
-            throw HxPxEIOError.runtimeError("HxPx: HxH is not valid.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxH is not valid.")
         }
         guard let bundleId = hxhDict["id"] as? String else {
-            throw HxPxEIOError.runtimeError("HxPx: HxH ID is not valid.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxH ID is not valid.")
         }
         if bundleId != kBundleId {
-            throw HxPxEIOError.runtimeError("This JSON file is for another engine.")
+            throw HxPxEIOError.runtimeERROR("This JSON file is for another engine.")
         }
         
         guard let hxpxDict = jsonDict["hxpx"] as? [String: Any] else {
-            throw HxPxEIOError.runtimeError("HxPx: HxPx is not valid.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxPx is not valid.")
         }
         guard let idStr = hxpxDict["id"] as? String else {
-            throw HxPxEIOError.runtimeError("HxPx: HxPx ID is not valid.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxPx ID is not valid.")
         }
         guard let id = UUID(uuidString: idStr) else {
-            throw HxPxEIOError.runtimeError("HxPx: HxPx ID is corrupt.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxPx ID is corrupt.")
         }
         guard let name = hxpxDict["name"] as? String else {
-            throw HxPxEIOError.runtimeError("HxPx: HxPx Name is not valid.")
+            throw HxPxEIOError.runtimeERROR("HxPx: HxPx Name is not valid.")
         }
         
         guard let pixPackDictList = jsonDict["pixs"] as? [[String: Any]] else {
-            throw HxPxEIOError.runtimeError("HxPx: PIX List is corrupt.")
+            throw HxPxEIOError.runtimeERROR("HxPx: PIX List is corrupt.")
         }
         var pixsWithInIds: [PIXWithInIds] = []
         for pixPackDict in pixPackDictList {
             guard let idStr = pixPackDict["id"] as? String else {
-                throw HxPxEIOError.runtimeError("HxPx: PIX ID is not valid.")
+                throw HxPxEIOError.runtimeERROR("HxPx: PIX ID is not valid.")
             }
             guard let id = UUID(uuidString: idStr) else {
-                throw HxPxEIOError.runtimeError("HxPx: PIX ID is corrupt.")
+                throw HxPxEIOError.runtimeERROR("HxPx: PIX ID is corrupt.")
             }
             guard let pixKindStr = pixPackDict["type"] as? String else {
-                throw HxPxEIOError.runtimeError("HxPx: PIX Type is not valid.")
+                throw HxPxEIOError.runtimeERROR("HxPx: PIX Type is not valid.")
             }
             guard let pixType = PIXKind.init(rawValue: pixKindStr)?.type else {
-                throw HxPxEIOError.runtimeError("HxPx: PIX Kind is not valid.")
+                throw HxPxEIOError.runtimeERROR("HxPx: PIX Kind is not valid.")
             }
             guard let pixDict = pixPackDict["pix"] as? [String: Any] else {
-                throw HxPxEIOError.runtimeError("HxPx: \(pixType) dict is corrupt.")
+                throw HxPxEIOError.runtimeERROR("HxPx: \(pixType) dict is corrupt.")
             }
             let pixJsonData = try JSONSerialization.data(withJSONObject: pixDict, options: .prettyPrinted)
             let pix = try decoder.decode(pixType, from: pixJsonData)
@@ -600,10 +600,10 @@ public class HxPxE {
             var inPixsIds: [UUID]? = nil
             func getInPixId(_ key: String) throws -> UUID {
                 guard let inPixIdStr = pixPackDict[key] as? String else {
-                    throw HxPxEIOError.runtimeError("HxPx: PIX In ID not found.")
+                    throw HxPxEIOError.runtimeERROR("HxPx: PIX In ID not found.")
                 }
                 guard let inPixId = UUID(uuidString: inPixIdStr) else {
-                    throw HxPxEIOError.runtimeError("HxPx: PIX In ID is corrupt.")
+                    throw HxPxEIOError.runtimeERROR("HxPx: PIX In ID is corrupt.")
                 }
                 return inPixId
             }
@@ -615,12 +615,12 @@ public class HxPxE {
                     inPixBId = try? getInPixId("inPixBId")
                 } else if let pixInMulti = pixIn as? PIX & PIXInMulti {
                     guard let inPixsIdsStrArr = pixPackDict["inPixsIds"] as? [String] else {
-                        throw HxPxEIOError.runtimeError("HxPx: PIX Ins IDs not found.")
+                        throw HxPxEIOError.runtimeERROR("HxPx: PIX Ins IDs not found.")
                     }
                     inPixsIds = []
                     for inPixIdStr in inPixsIdsStrArr {
                         guard let iInPixId = UUID(uuidString: inPixIdStr) else {
-                            throw HxPxEIOError.runtimeError("HxPx: PIX In(s) is corrupt.")
+                            throw HxPxEIOError.runtimeERROR("HxPx: PIX In(s) is corrupt.")
                         }
                         inPixsIds?.append(iInPixId)
                     }
@@ -637,12 +637,12 @@ public class HxPxE {
             for pix in pixs {
                 if pix.id == id {
                     guard let pixOut = pix as? PIX & PIXOut else {
-                        throw HxPxEIOError.runtimeError("HxPx: PIX In is not Out.")
+                        throw HxPxEIOError.runtimeERROR("HxPx: PIX In is not Out.")
                     }
                     return pixOut
                 }
             }
-            throw HxPxEIOError.runtimeError("HxPx: PIX In not found.")
+            throw HxPxEIOError.runtimeERROR("HxPx: PIX In not found.")
         }
         
         for pixWithInIds in pixsWithInIds {

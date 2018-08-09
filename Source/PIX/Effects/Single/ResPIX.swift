@@ -17,8 +17,8 @@ public class ResPIX: PIXSingleEffect, PIXable {
     override var shader: String { return "res" }
     override var shaderNeedsAspect: Bool { return true }
 
-    public init(res: PIX.Res) {
-        self.res = res
+    public override init() {
+        self.res = .auto
         super.init()
 //        setNeedsRes()
     }
@@ -26,7 +26,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
-        self.init(res: .unknown)
+        self.init()
 //        let container = try decoder.container(keyedBy: ResolutionCodingKeys.self)
 //        let newCustomResolution = try container.decode(CGSize.self, forKey: .customResolution)
 //        if customResolution != newCustomResolution {

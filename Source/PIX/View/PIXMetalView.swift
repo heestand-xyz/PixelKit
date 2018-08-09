@@ -39,10 +39,10 @@ public class PIXMetalView: MTKView {
 //                    print("HxPxE PIX is Ready to Render")
                     readyToRender?()
                 } else {
-                    print("HxPxE ERROR:", "PIX View:", "Draw:", "Resolution not set.")
+//                    print("HxPxE WARNING:", "PIX Metal View:", "Draw:", "Resolution not set.")
                 }
             } else {
-                print("HxPxE ERROR:", "PIX View:", "Draw:", "Rect is zero.")
+                print("HxPxE ERROR:", "PIX Metal View:", "Draw:", "Rect is zero.")
             }
         }
     }

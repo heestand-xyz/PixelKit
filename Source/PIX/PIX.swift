@@ -14,8 +14,7 @@ public class PIX: Codable {
     
     var id = UUID()
     
-    var shader: String { return "nil" }
-//    let shaderSource: String?
+    var shader: String { return "nilPIX" }
     var shaderUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
     
@@ -30,7 +29,7 @@ public class PIX: Codable {
         guard let texture = renderedTexture else { return nil }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
         guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: HxPxE.main.colorBits.ci, colorSpace: HxPxE.main.colorSpace.cg) else { return nil }
-        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.nativeScale, orientation: .downMirrored)
+        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         return uiImage
     }
     public var renderedPixels: Array<float4>? {
@@ -66,26 +65,12 @@ public class PIX: Codable {
     var customRenderActive: Bool = false
     var customRenderDelegate: CustomRenderDelegate?
     
-//    var inputTextures: [MTLTexture?]?
-//    var buffer: CVPixelBuffer? {
-//        didSet {
-//            view.setNeedsDisplay()
-//        }
-//    }
-    
     var needsRender = false
     
-//    let drawCallback: (MTLTexture) -> ()
-    
-//    convenience init() { self.init(id: UUID()) }
     init() {
-        
-        
-//        shaderSource = HxPxE.main.loadMetalShaderSource(named: shader)
-        
+    
         view = PIXView()
         
-//        if shaderSource != nil {
         if HxPxE.main.aLive {
             pipeline = HxPxE.main.makeShaderPipeline(shader)//, from: shaderSource!)
             sampler = HxPxE.main.makeSampler(with: sampleMode)
@@ -93,51 +78,33 @@ public class PIX: Codable {
                 HxPxE.main.add(pix: self)
             }
         }
-//        } else {
-//            print("HxPxE ERROR", "PIX Shader Source not loaded:", self)
-//        }
         
         if !allGood {
-            print("\(self) ERROR", "Not allGood...")
+            print(self, "ERROR", "Not allGood...")
         }
         
     }
     
     // MARK: JSON
 
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//    }
-
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let id = UUID(uuidString: try container.decode(String.self, forKey: .id))! // CHECK BANG
-//        self.init(id: id)
-//    }
-    
     public required init(from decoder: Decoder) throws {
         fatalError("PIX Decoder Initializer is not supported.") // CHECK
     }
     
     public func encode(to encoder: Encoder) throws {}
     
-//    public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//    }
-    
     // MARK: Resolution
     
     func setNeedsRes() {
         guard let resolution = resolution else {
-//            if !checkAutoRes(ready: {
-//                self.setNeedsRes()
-//            }) {
-//                print("\(self) ERROR", "setNeedsRes():", "Resolution unknown.")
-//            }
-            print("RES CHECK")
+            if !checkAutoRes(ready: {
+                self.setNeedsRes()
+            }) {
+                print(self, "ERROR", "setNeedsRes():", "Resolution unknown.")
+            }
             return
         }
+        print(self, "Res:", resolution)
         view.setResolution(resolution)
         if self is PIX & PIXOut {
             for pixIn in pixOutList! {
@@ -148,7 +115,7 @@ public class PIX: Codable {
     
 //    func newResolution() {
 //        guard resolution != nil else {
-//            print("\(self) ERROR", "New resolution is nil.")
+//            print(self, "ERROR", "New resolution is nil.")
 //            return
 //        }
 //    }
@@ -158,15 +125,15 @@ public class PIX: Codable {
     func setNeedsRender() {
         guard resolution != nil else {
             if !checkAutoRes(ready: {
-                self.setNeedsRes()
+//                self.setNeedsRes()
                 self.setNeedsRender()
             }) {
-                print("\(self) ERROR", "setNeedsRender():", "Resolution unknown.")
+                print(self, "ERROR", "setNeedsRender():", "Resolution unknown.")
             }
             return
         }
         if self.texture == nil {
-            print("\(self) First render requested at", resolution!)
+            print(self, "First render requested.")
         }
         needsRender = true
 //        view.setNeedsDisplay()
@@ -184,9 +151,9 @@ public class PIX: Codable {
             }
         }
         if needsAutoRes {
-            print("\(self) Auto Res requested.")
+            print(self, "Auto Res requested.")
             view.autoResReadyCallback = {
-                print("\(self) Auto Res ready.")
+                print(self, "Auto Res ready.")
                 ready()
             }
         }
@@ -206,7 +173,7 @@ public class PIX: Codable {
     
     func didRender(texture: MTLTexture) {
         if self.texture == nil {
-            print("\(self) First render done!")
+            print(self, "First render done!")
         }
         self.texture = texture
 //        print("HxPxE -", String(describing: self).replacingOccurrences(of: "HxPxE.", with: "") ,"- Did Render")
