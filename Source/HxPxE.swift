@@ -41,6 +41,7 @@ public class HxPxE {
         case edge
         case image
         case circle
+        case gradient
         var type: PIX.Type {
             switch self {
             case .camera: return CameraPIX.self
@@ -50,6 +51,7 @@ public class HxPxE {
             case .edge: return EdgePIX.self
             case .image: return ImagePIX.self
             case .circle: return CirclePIX.self
+            case .gradient: return GradientPIX.self
             }
         }
     }

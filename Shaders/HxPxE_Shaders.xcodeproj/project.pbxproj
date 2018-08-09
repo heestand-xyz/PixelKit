@@ -15,6 +15,7 @@
 		747845BD21131D9E0077AB89 /* loki_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845BB21131D9E0077AB89 /* loki_header.metal */; };
 		74879D672118E90900BF17DE /* EdgePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74879D662118E90900BF17DE /* EdgePIX.metal */; };
 		749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 749A7CEE2112FE3500270085 /* CameraPIX.metal */; };
+		74BA6236211CEB93005F5FBC /* GradientPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6235211CEB93005F5FBC /* GradientPIX.metal */; };
 		74EC5D9F211A2D52003BE4DE /* CirclePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74EC5D9E211A2D52003BE4DE /* CirclePIX.metal */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		747845BB21131D9E0077AB89 /* loki_header.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki_header.metal; sourceTree = "<group>"; };
 		74879D662118E90900BF17DE /* EdgePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EdgePIX.metal; sourceTree = "<group>"; };
 		749A7CEE2112FE3500270085 /* CameraPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CameraPIX.metal; sourceTree = "<group>"; };
+		74BA6235211CEB93005F5FBC /* GradientPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = GradientPIX.metal; sourceTree = "<group>"; };
 		74EC5D9E211A2D52003BE4DE /* CirclePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CirclePIX.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 			children = (
 				749A7CEE2112FE3500270085 /* CameraPIX.metal */,
 				74EC5D9E211A2D52003BE4DE /* CirclePIX.metal */,
+				74BA6235211CEB93005F5FBC /* GradientPIX.metal */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 				7468F95D211244E800E285B1 /* NilPIX.metal in Sources */,
 				747845BC21131D9E0077AB89 /* loki.metal in Sources */,
 				7468F95F211244EC00E285B1 /* LevelsPIX.metal in Sources */,
+				74BA6236211CEB93005F5FBC /* GradientPIX.metal in Sources */,
 				74879D672118E90900BF17DE /* EdgePIX.metal in Sources */,
 				747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */,
 				749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */,
