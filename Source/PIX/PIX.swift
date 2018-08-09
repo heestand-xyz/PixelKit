@@ -48,10 +48,24 @@ public class PIX: Codable {
             return nil
         }
     }
+    
+    var wantsAutoRes: Bool {
+        if let pixContent = self as? PIXContent {
+            if pixContent.res.isAuto {
+                return true
+            }
+        } else if let resPix = self as? ResPIX {
+            if resPix.res.isAuto {
+                return true
+            }
+        }
+        return false
+    }
 
     var sampleMode: MTLSamplerAddressMode = .clampToZero {
         didSet {
             sampler = HxPxE.main.makeSampler(with: sampleMode)
+            print(self, "Sample Mode")
             setNeedsRender()
         }
     }
@@ -83,6 +97,13 @@ public class PIX: Codable {
             print(self, "ERROR", "Not allGood...")
         }
         
+        view.newLayoutCallback = {
+            if self.wantsAutoRes {
+                self.setNeedsRes()
+                self.setNeedsRender()
+            }
+        }
+        
     }
     
     // MARK: JSON
@@ -100,7 +121,7 @@ public class PIX: Codable {
             if !checkAutoRes(ready: {
                 self.setNeedsRes()
             }) {
-                print(self, "ERROR", "setNeedsRes():", "Resolution unknown.")
+                print(self, "ERROR", "Res:", "Resolution unknown.")
             }
             return
         }
@@ -113,24 +134,36 @@ public class PIX: Codable {
         }
     }
     
-//    func newResolution() {
-//        guard resolution != nil else {
-//            print(self, "ERROR", "New resolution is nil.")
-//            return
-//        }
-//    }
+    internal func checkAutoRes(ready: @escaping () -> ()) -> Bool {
+        if wantsAutoRes {
+            print(self, "Auto Res requested.")
+            view.autoResReadyCallback = {
+                print(self, "Auto Res ready.")
+                ready()
+            }
+        }
+        return wantsAutoRes
+    }
     
     // MARK: Render
     
     func setNeedsRender() {
         guard resolution != nil else {
-            if !checkAutoRes(ready: {
-//                self.setNeedsRes()
-                self.setNeedsRender()
-            }) {
-                print(self, "ERROR", "setNeedsRender():", "Resolution unknown.")
-            }
+//            if !checkAutoRes(ready: {
+////                self.setNeedsRes()
+//                self.setNeedsRender()
+//            }) {
+//                print(self, "ERROR", "Render:", "Resolution unknown.")
+//            }
+            print(self, "ERROR", "Render:", "Resolution is nil.")
             return
+        }
+        if self is PIXIn {
+            let pixOut = self.pixInList!.first!
+            if pixOut.texture == nil {
+                print(self, "FORCE RENDER", pixOut)
+                HxPxE.main.render(pixOut, force: true)
+            }
         }
         if self.texture == nil {
             print(self, "First render requested.")
@@ -139,48 +172,16 @@ public class PIX: Codable {
 //        view.setNeedsDisplay()
     }
     
-    internal func checkAutoRes(ready: @escaping () -> ()) -> Bool {
-        var needsAutoRes = false
-        if let pixContent = self as? PIXContent {
-            if pixContent.res.isAuto {
-                needsAutoRes = true
-            }
-        } else if let resPix = self as? ResPIX {
-            if resPix.res.isAuto {
-                needsAutoRes = true
-            }
-        }
-        if needsAutoRes {
-            print(self, "Auto Res requested.")
-            view.autoResReadyCallback = {
-                print(self, "Auto Res ready.")
-                ready()
-            }
-        }
-        return needsAutoRes
-    }
-    
-//    func render() {
-//        if allGood {
-////            print("HxPxE -", String(describing: self).replacingOccurrences(of: "HxPxE.", with: "") ,"- Will Render")
-//            view.setNeedsDisplay() // CHECK
-//        }
-//        updatedAndNeedsRender = false
-////        view.renderDone = {
-////
-////        }
-//    }
-    
-    func didRender(texture: MTLTexture) {
+    func didRender(texture: MTLTexture, force: Bool = false) {
         if self.texture == nil {
             print(self, "First render done!")
         }
         self.texture = texture
-//        print("HxPxE -", String(describing: self).replacingOccurrences(of: "HxPxE.", with: "") ,"- Did Render")
-        if self is PIXOut {
-//            print("B:", self, " - ", pixOutList!)
-            for pixIn in pixOutList! {
-                pixIn.setNeedsRender() // CHECK
+        if !force {
+            if self is PIXOut {
+                for pixIn in pixOutList! {
+                    pixIn.setNeedsRender()
+                }
             }
         }
     }
@@ -211,11 +212,9 @@ public class PIX: Codable {
     func connectSingle(_ pixOut: PIX & PIXOut) {
         pixInList!.append(pixOut)
         pixOut.pixOutList!.append(self as! PIX & PIXIn)
-        if pixOut.resolution != nil {
-            setNeedsRes()
-        } else {
-            print("\(self):", "Waiting for res...")
-        }
+        print(self, "Connected", pixOut)
+        setNeedsRes() // CHECK
+        setNeedsRender() // CHECK
     }
     
     func disconnectSingle() {

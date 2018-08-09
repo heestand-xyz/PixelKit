@@ -124,11 +124,11 @@ public class HxPxE {
     
     func add(pix: PIX) {
         pixList.append(pix)
-        pix.view.metalView.readyToRender = {
-            self.render(pix)
-        }
+//        pix.view.metalView.readyToRender = {
+//            self.render(pix)
+//        }
     }
-    
+
     func remove(pix: PIX) {
         for (i, iPix) in pixList.enumerated() {
             if iPix == pix {
@@ -136,7 +136,7 @@ public class HxPxE {
                 break
             }
         }
-        pix.view.metalView.readyToRender = nil
+//        pix.view.metalView.readyToRender = nil
     }
     
     // MARK: Frame Loop
@@ -147,20 +147,10 @@ public class HxPxE {
         frameDate = Date()
         for frameCallback in frameCallbacks { frameCallback.callback() }
         delegate?.hxpxeFrameLoop()
-        checkNeedsRender()
+        renderPIXs()
         if frameIndex == 0 { print("HxPxE Running...") }
 //        if frameIndex % fpsMax == 0 { print("HxPxE PING", frameIndex / fpsMax) }
         frameIndex += 1
-    }
-    
-    func checkNeedsRender() {
-        for pix in pixList {
-            if pix.needsRender {
-                pix.view.setNeedsDisplay() // mabey just render() for bg support
-                pix.view.metalView.setNeedsDisplay() // mabey just render() for bg support
-                pix.needsRender = false
-            }
-        }
     }
     
     internal func listenToFrames(callback: @escaping () -> (Bool)) {
@@ -351,10 +341,25 @@ public class HxPxE {
     
     // MARK: Render
     
-    func render(_ pix: PIX) {
+    func renderPIXs() {
+        for pix in pixList {
+            if pix.needsRender {
+                guard pix.view.superview != nil else {
+                    if frameIndex < 3 { print(pix, "Skipping Render, No Superview", frameIndex) }
+                    continue
+                }
+//                pix.view.setNeedsDisplay() // mabey just render() for bg support
+//                pix.view.metalView.setNeedsDisplay() // mabey just render() for bg support
+                render(pix)
+                pix.needsRender = false
+            }
+        }
+    }
+    
+    func render(_ pix: PIX, force: Bool = false) {
         
         guard aLive else {
-            print("HxPxE ERROR:", "Render:", "Not aLive...")
+            print(pix, "ERROR:", "Render:", "Not aLive...")
             return
         }
         
@@ -366,7 +371,7 @@ public class HxPxE {
         // MARK: Command Buffer
         
         guard let commandBuffer = commandQueue!.makeCommandBuffer() else {
-            print("HxPxE ERROR:", "Render:", "Command Buffer:", "Make faild.", "PIX:", pix)
+            print(pix, "ERROR:", "Render:", "Command Buffer:", "Make faild.")
             return
         }
         
@@ -377,7 +382,7 @@ public class HxPxE {
         if let pixContent = pix as? PIXContent {
             if pixContent.isResource {
                 guard let sourceTexture = makeTexture(from: pixContent.contentPixelBuffer!) else {
-                    print("HxPxE ERROR:", "Render:", "Texture Creation:", "Make faild.", "PIX:", pix)
+                    print(pix, "ERROR:", "Render:", "Texture Creation:", "Make faild.")
                     return
                 }
                 inputTexture = sourceTexture
@@ -387,7 +392,7 @@ public class HxPxE {
         } else if let pixIn = pix as? PIX & PIXIn {
             let pixOut = pixIn.pixInList!.first!
             guard let pixOutTexture = pixOut.texture else {
-                print("HxPxE ERROR:", "Render:", "PIX Out Texture:", "Not found.", "PIX:", pix)
+                print(pix, "ERROR:", "Render:", "IO Texture not found for:", pixOut)
                 return
             }
             inputTexture = pixOutTexture // CHECK copy?
@@ -397,11 +402,11 @@ public class HxPxE {
         
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
-                print("HxPxE ERROR:", "Render:", "CustomRenderDelegate not implemented.", "PIX:", pix)
+                print(pix, "ERROR:", "Render:", "CustomRenderDelegate not implemented.")
                 return
             }
             guard let customRenderdTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
-                print("HxPxE ERROR:", "Render:", "Custom Render faild.", "PIX:", pix)
+                print(pix, "ERROR:", "Render:", "Custom Render faild.")
                 return
             }
             inputTexture = customRenderdTexture
@@ -410,7 +415,7 @@ public class HxPxE {
         // MARK: Current Drawable
         
         guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
-            print("HxPxE ERROR:", "Render:", "Current Drawable:", "Not found.", "PIX:", pix)
+            print(pix, "ERROR:", "Render:", "Current Drawable:", "Not found.")
             return
         }
         
@@ -421,7 +426,7 @@ public class HxPxE {
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 0)
         guard let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
-            print("HxPxE ERROR:", "Render:", "Command Encoder:", "Make faild.", "PIX:", pix)
+            print(pix, "ERROR:", "Render:", "Command Encoder:", "Make faild.")
             return
         }
         commandEncoder.setRenderPipelineState(pix.pipeline!)
@@ -475,17 +480,17 @@ public class HxPxE {
         // MARK: Render
         
         if pix.texture == nil {
-            print("\(pix) First rendering...")
+            print(pix, "First rendering...")
         }
         
         commandBuffer.present(currentDrawable)
         commandBuffer.commit()
 
         if commandBuffer.error != nil {
-            print("HxPxE ERROR:", "Render:", "Failed:", commandBuffer.error!.localizedDescription)
+            print(pix, "ERROR:", "Render:", "Failed:", commandBuffer.error!.localizedDescription)
         }
         
-        pix.didRender(texture: currentDrawable.texture)
+        pix.didRender(texture: currentDrawable.texture, force: force)
         
     }
     

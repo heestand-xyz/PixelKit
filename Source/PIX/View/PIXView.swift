@@ -49,6 +49,8 @@ public class PIXView: UIView {
 //    let checkerLayer: CheckerLayer
 //    let checkerView: UIView
     
+    var newLayoutCallback: (() -> ())!
+    
     init() {
         
 //        checkerLayer = CheckerLayer()
@@ -140,6 +142,7 @@ public class PIXView: UIView {
                 autoResReadyCallback!()
                 autoResReadyCallback = nil
             }
+            newLayoutCallback()
             if resolution != nil { layoutFillMode() }
         }
     }

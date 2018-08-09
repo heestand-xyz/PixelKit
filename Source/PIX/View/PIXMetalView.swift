@@ -8,11 +8,11 @@
 
 import MetalKit
 
-public class PIXMetalView: MTKView {
+class PIXMetalView: MTKView {
     
-    var resolution: CGSize?
+//    var resolution: CGSize?
     
-    var readyToRender: (() -> ())?
+//    var readyToRender: (() -> ())?
     
     public init() {
         
@@ -32,28 +32,24 @@ public class PIXMetalView: MTKView {
     
     // MARK: Draw
     
-    override public func draw(_ rect: CGRect) {
-        autoreleasepool { // CHECK
-            if rect.width > 0 && rect.height > 0 {
-                if resolution != nil {
-//                    print("HxPxE PIX is Ready to Render")
-                    readyToRender?()
-                } else {
-//                    print("HxPxE WARNING:", "PIX Metal View:", "Draw:", "Resolution not set.")
-                }
-            } else {
-                print("HxPxE ERROR:", "PIX Metal View:", "Draw:", "Rect is zero.")
-            }
-        }
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-    }
+//    override public func draw(_ rect: CGRect) {
+//        autoreleasepool { // CHECK
+//            if rect.width > 0 && rect.height > 0 {
+//                if resolution != nil {
+////                    print("HxPxE PIX is Ready to Render")
+//                    readyToRender?()
+//                } else {
+////                    print("HxPxE WARNING:", "PIX Metal View:", "Draw:", "Resolution not set.")
+//                }
+//            } else {
+//                print("HxPxE ERROR:", "PIX Metal View:", "Draw:", "Rect is zero.")
+//            }
+//        }
+//    }
     
     func setResolution(_ newResolution: CGSize) {
         drawableSize = newResolution
-        resolution = newResolution
+//        resolution = newResolution
     }
     
     required init(coder: NSCoder) {
