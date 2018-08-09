@@ -168,7 +168,6 @@ public class HxPxE {
     }
     
     func delay(_ delayFrames: Int, done: @escaping () -> ()) {
-        let id = UUID()
         let startFrameIndex = frameIndex
         listenToFrames(callback: {
             if self.frameIndex >= startFrameIndex + delayFrames {
@@ -348,9 +347,11 @@ public class HxPxE {
                     if frameIndex < 3 { print(pix, "Skipping Render, No Superview", frameIndex) }
                     continue
                 }
-//                pix.view.setNeedsDisplay() // mabey just render() for bg support
-//                pix.view.metalView.setNeedsDisplay() // mabey just render() for bg support
-                render(pix)
+                pix.view.metalView.readyToRender = {
+                    self.render(pix)
+                    pix.view.metalView.readyToRender = nil
+                }
+                pix.view.metalView.setNeedsDisplay()
                 pix.needsRender = false
             }
         }
