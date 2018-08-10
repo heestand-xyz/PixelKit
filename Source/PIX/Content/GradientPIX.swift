@@ -30,11 +30,27 @@ public class GradientPIX: PIXContent, PIXable {
         }
     }
     
+    public enum Extend: String, Codable {
+        case zero
+        case hold
+        case repeats
+        case mirror
+        var index: Int {
+            switch self {
+            case .zero: return 0
+            case .hold: return 1
+            case .repeats: return 2
+            case .mirror: return 3
+            }
+        }
+    }
+    
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
     public var scale: CGFloat = 1 { didSet { setNeedsRender() } }
     public var offset: CGFloat = 0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
+    public var extend: Extend = .repeats { didSet { setNeedsRender() } }
     public var extraColorsActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
@@ -50,12 +66,13 @@ public class GradientPIX: PIXContent, PIXable {
     public var extraColorD: UIColor = .gray { didSet { setNeedsRender() } }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
     enum GradientCodingKeys: String, CodingKey {
-        case style; case scale; case offset; case firstColor; case lastColor; case premultiply // CHECK Extra Colors...
+        case style; case scale; case offset; case firstColor; case lastColor; case extend; case premultiply // CHECK Extra Colors...
     }
     override var shaderUniforms: [CGFloat] {
         var uniforms = [CGFloat(style.index), scale, offset]
         uniforms.append(contentsOf: PIX.Color(colorFirst).list)
         uniforms.append(contentsOf: PIX.Color(colorLast).list)
+        uniforms.append(CGFloat(extend.index))
         uniforms.append(extraColorsActive ? 1 : 0)
         uniforms.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
         uniforms.append(contentsOf: PIX.Color(extraColorA).list)

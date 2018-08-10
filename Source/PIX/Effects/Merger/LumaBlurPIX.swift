@@ -44,7 +44,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXable {
     
     public override init() {
         super.init()
-        sampleMode = .clampToEdge
+        extendMode = .clampToEdge
     }
     
     // MARK: JSON

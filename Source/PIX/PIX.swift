@@ -62,9 +62,9 @@ public class PIX: Codable {
         return false
     }
 
-    var sampleMode: MTLSamplerAddressMode = .clampToZero {
+    public var extendMode: MTLSamplerAddressMode = .clampToZero {
         didSet {
-            sampler = HxPxE.main.makeSampler(with: sampleMode)
+            sampler = HxPxE.main.makeSampler(with: extendMode)
             print(self, "Sample Mode")
             setNeedsRender()
         }
@@ -87,7 +87,7 @@ public class PIX: Codable {
         
         if HxPxE.main.aLive {
             pipeline = HxPxE.main.makeShaderPipeline(shader)//, from: shaderSource!)
-            sampler = HxPxE.main.makeSampler(with: sampleMode)
+            sampler = HxPxE.main.makeSampler(with: extendMode)
             if allGood {
                 HxPxE.main.add(pix: self)
             }
