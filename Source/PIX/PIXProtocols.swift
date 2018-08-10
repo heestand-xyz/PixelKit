@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PIXable {
-    var kind: HxPxE.PIXKind { get }
+    var kind: PIX.Kind { get }
 }
 
 public protocol PIXIn {}

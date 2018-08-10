@@ -10,7 +10,7 @@ import Foundation
 
 public class GradientPIX: PIXContent, PIXable {
     
-    var kind: HxPxE.PIXKind = .gradient
+    var kind: PIX.Kind = .gradient
     
     override var shader: String { return "gradientPIX" }
     override var shaderNeedsAspect: Bool { return true }

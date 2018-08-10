@@ -10,7 +10,7 @@ import Foundation
 
 public class EdgePIX: PIXSingleEffect, PIXable {
     
-    let kind: HxPxE.PIXKind = .edge
+    let kind: PIX.Kind = .edge
     
     override var shader: String { return "edgePIX" }
     

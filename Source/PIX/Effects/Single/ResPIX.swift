@@ -10,7 +10,7 @@ import Foundation
 
 public class ResPIX: PIXSingleEffect, PIXable {
 
-    let kind: HxPxE.PIXKind = .res
+    let kind: PIX.Kind = .res
     
     public var res: PIX.Res { didSet { setNeedsRes() } }
     

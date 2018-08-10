@@ -10,7 +10,7 @@ import AVKit
 
 public class CameraPIX: PIXContent, PIXable {
     
-    let kind: HxPxE.PIXKind = .camera
+    let kind: PIX.Kind = .camera
     
     override var shader: String { return "cameraPIX" }
     

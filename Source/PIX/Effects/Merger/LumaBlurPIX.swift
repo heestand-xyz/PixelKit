@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class LumaBlurPIX: PIXMergerEffect, PIXable {
+/*public*/ class LumaBlurPIX: PIXMergerEffect, PIXable {
     
-    let kind: HxPxE.PIXKind = .lumaBlur
+    let kind: PIX.Kind = .lumaBlur
     
     override var shader: String { return "lumaBlurPIX" }
     

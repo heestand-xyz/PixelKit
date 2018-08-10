@@ -10,7 +10,7 @@ import Foundation
 
 public class CirclePIX: PIXContent, PIXable {
     
-    var kind: HxPxE.PIXKind = .circle
+    var kind: PIX.Kind = .circle
     
     override var shader: String { return "circlePIX" }
     override var shaderNeedsAspect: Bool { return true }

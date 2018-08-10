@@ -11,7 +11,7 @@ import MetalPerformanceShaders
 
 public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
     
-    let kind: HxPxE.PIXKind = .blur
+    let kind: PIX.Kind = .blur
     
     override var shader: String { return "blurPIX" }
     

@@ -10,7 +10,7 @@ import Foundation
 
 public class LevelsPIX: PIXSingleEffect, PIXable {
     
-    let kind: HxPxE.PIXKind = .levels
+    let kind: PIX.Kind = .levels
     
     override var shader: String { return "levelsPIX" }
     
