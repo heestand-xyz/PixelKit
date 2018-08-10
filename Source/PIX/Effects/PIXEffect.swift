@@ -8,14 +8,15 @@
 
 import Foundation
 
-public class PIXEffect: PIX, PIXIn, PIXOut {
+public class PIXEffect: PIX, PIXInIO, PIXOutIO {
     
-    public var outPixs: [PIX & PIXIn] { return pixOutList! }
-    
+    var pixInList: [PIX & PIXOut] = []
+    var pixOutPathList: [PIX.OutPath] = []
+        
     override init() {
         super.init()
         pixInList = []
-        pixOutList = []
+        pixOutPathList = []
     }
     
     required init(from decoder: Decoder) throws {

@@ -20,9 +20,6 @@ public class PIX: Codable {
     
     public let view: PIXView
     
-    var pixInList: [PIX & PIXOut]?
-    var pixOutList: [PIX & PIXIn]?
-    
     var texture: MTLTexture?
     public var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     public var renderedImage: UIImage? {
@@ -42,8 +39,8 @@ public class PIX: Codable {
             return pixContent.res.isAuto ? view.autoRes : pixContent.res.size
         } else if let resPix = self as? ResPIX {
             return resPix.res.isAuto ? view.autoRes : resPix.res.size
-        } else if let pixIn = self as? PIX & PIXIn {
-            return pixIn.pixInList!.first?.resolution
+        } else if let pixIn = self as? PIX & PIXInIO {
+            return pixIn.pixInList.first?.resolution
         } else {
             return nil
         }
@@ -81,6 +78,8 @@ public class PIX: Codable {
     
     var needsRender = false
     
+    // MARK: - Life Cycle
+    
     init() {
     
         view = PIXView()
@@ -114,7 +113,7 @@ public class PIX: Codable {
     
     public func encode(to encoder: Encoder) throws {}
     
-    // MARK: Resolution
+    // MARK: - Resolution
     
     func setNeedsRes() {
         guard let resolution = resolution else {
@@ -127,9 +126,10 @@ public class PIX: Codable {
         }
         print(self, "Res:", resolution)
         view.setResolution(resolution)
-        if self is PIX & PIXOut {
-            for pixIn in pixOutList! {
-                pixIn.setNeedsRes()
+        if let pixOut = self as? PIX & PIXOutIO {
+            for pixOutPath in pixOut.pixOutPathList {
+                // CHECK first only
+                pixOutPath.pixIn.setNeedsRes()
             }
         }
     }
@@ -145,7 +145,7 @@ public class PIX: Codable {
         return wantsAutoRes
     }
     
-    // MARK: Render
+    // MARK: - Render
     
     func setNeedsRender() {
         guard resolution != nil else {
@@ -158,8 +158,8 @@ public class PIX: Codable {
             print(self, "ERROR", "Render:", "Resolution is nil.")
             return
         }
-        if self is PIXIn {
-            let pixOut = self.pixInList!.first!
+        if let pixIn = self as? PIXInIO {
+            let pixOut = pixIn.pixInList.first! // CHECK BANG
             if pixOut.texture == nil {
                 print(self, "FORCE RENDER", pixOut)
                 HxPxE.main.render(pixOut, force: true)
@@ -178,27 +178,32 @@ public class PIX: Codable {
         }
         self.texture = texture
         if !force {
-            if self is PIXOut {
-                for pixIn in pixOutList! {
-                    pixIn.setNeedsRender()
+            if let pixOut = self as? PIXOutIO {
+                for pixOutPath in pixOut.pixOutPathList {
+                    pixOutPath.pixIn.setNeedsRender()
                 }
             }
         }
     }
     
-    // MARK: Connect
+    // MARK: - Connect
+    
+    struct OutPath {
+        let pixIn: PIX & PIXIn
+        let inIndex: Int
+    }
     
     func setNeedsConnect() {
         if self is PIXIn {
             if var pixInSingle = self as? PIXInSingle {
                 if pixInSingle.inPix != nil {
-                    connectSingle(pixInSingle.inPix!)
+                    connectSingle(pixInSingle.inPix! as! PIX & PIXOutIO)
                 } else {
                     disconnectSingle()
                 }
             } else if let pixInMerger = self as? PIXInMerger {
                 if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
-                    connectMerger(pixInMerger.inPixA!, pixInMerger.inPixB!)
+                    connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
                 } else {
                     print("disconnect merger...") // CHECK
                 }
@@ -207,41 +212,50 @@ public class PIX: Codable {
 //
 //            }
         }
-        if self is PIXOut {
-            
-        }
-//        setNeedsRender()
+//        if self is PIXOut {
+//
+//        }
     }
     
-    func connectSingle(_ pixOut: PIX & PIXOut) {
-        pixInList!.append(pixOut)
-        pixOut.pixOutList!.append(self as! PIX & PIXIn)
-        print(self, "Connected", pixOut)
+    func connectSingle(_ pixOut: PIX & PIXOutIO) {
+        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        pixInIO.pixInList = [pixOut]
+        var pixOut = pixOut
+        pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+        print(self, "Connected", "Single", pixOut)
         setNeedsRes() // CHECK
         setNeedsRender() // CHECK
     }
     
-    func connectMerger(_ pixOutA: PIX & PIXOut, _ pixOutB: PIX & PIXOut) {
-        pixInList!.append(pixOutA)
-        pixInList!.append(pixOutB)
-        pixOutA.pixOutList!.append(self as! PIX & PIXIn) // CHECK Index
-        pixOutB.pixOutList!.append(self as! PIX & PIXIn) // CHECK Index
-        print(self, "Connected", pixOutA, pixOutB)
+    func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
+        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        pixInIO.pixInList = [pixOutA, pixOutB]
+        var pixOutA = pixOutA
+        var pixOutB = pixOutB
+        pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+        pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
+        print(self, "Connected", "Merger", pixOutA, pixOutB)
         setNeedsRes() // CHECK
         setNeedsRender() // CHECK
     }
+    
+    // MARK: Diconnect
     
     func disconnectSingle() {
-        let pixOut = pixInList!.first!
-        for (i, i_pixIn) in pixOut.pixOutList!.enumerated() {
-            if i_pixIn == self {
-                pixOut.pixOutList!.remove(at: i)
+        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        var pixOut = pixInIO.pixInList.first! as! PIXOutIO
+        for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
+            if pixOutPath.pixIn == pixInIO {
+                pixOut.pixOutPathList.remove(at: i)
                 break
             }
         }
-        pixInList = []
-        view.setResolution(.zero) // CHECK
+        pixInIO.pixInList = []
+        // CHECK Reset Res
+//        view.setResolution(nil)
     }
+    
+    // MARK: - Other
     
     // MARK: Operator Overloading
     

@@ -8,7 +8,9 @@
 
 import Foundation
 
-public class PIXOutput: PIX, PIXInSingle {
+public class PIXOutput: PIX, PIXInIO, PIXInSingle {
+    
+    var pixInList: [PIX & PIXOut] = []
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     

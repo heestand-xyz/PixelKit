@@ -13,9 +13,7 @@ protocol PIXable {
 }
 
 public protocol PIXIn {}
-public protocol PIXOut {
-    var outPixs: [PIX & PIXIn] { get }
-}
+public protocol PIXOut {}
 
 public protocol PIXInSingle: PIXIn {
     var inPix: (PIX & PIXOut)? { get set } // weak?
@@ -28,4 +26,9 @@ public protocol PIXInMulti: PIXIn {
     var inPixs: [PIX & PIXOut] { get set } // weak?
 }
 
-
+protocol PIXInIO: PIXIn {
+    var pixInList: [PIX & PIXOut] { get set }
+}
+protocol PIXOutIO: PIXOut {
+    var pixOutPathList: [PIX.OutPath] { get set }
+}

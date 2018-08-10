@@ -395,15 +395,15 @@ public class HxPxE {
             } else {
                 generator = true
             }
-        } else if let pixIn = pix as? PIX & PIXIn {
-            let pixOut = pixIn.pixInList!.first!
+        } else if let pixIn = pix as? PIX & PIXInIO {
+            let pixOut = pixIn.pixInList.first!
             guard let pixOutTexture = pixOut.texture else {
                 print(pix, "ERROR:", "Render:", "IO Texture not found for:", pixOut)
                 return
             }
             inputTexture = pixOutTexture // CHECK copy?
-            if pix is PIXMergerEffect { // Effector...
-                let pixOutB = pixIn.pixInList![1]
+            if pix is PIXInMerger {
+                let pixOutB = pixIn.pixInList[1]
                 guard let pixOutTextureB = pixOutB.texture else {
                     print(pix, "ERROR:", "Render:", "IO Texture B not found for:", pixOutB)
                     return

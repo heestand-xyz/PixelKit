@@ -8,12 +8,11 @@
 
 import Foundation
 
-public class PIXContent: PIX, PIXOut {
+public class PIXContent: PIX, PIXOutIO {
     
     public var res: PIX.Res { didSet { setNeedsRes() } }
     
-    public var outPixs: [PIX & PIXIn] { return pixOutList! }
-    
+    var pixOutPathList: [PIX.OutPath] = []
 
     let isResource: Bool
     var contentPixelBuffer: CVPixelBuffer?
@@ -22,7 +21,7 @@ public class PIXContent: PIX, PIXOut {
         isResource = resource
         self.res = res
         super.init()
-        pixOutList = []
+        pixOutPathList = []
 //        setNeedsRes()
     }
     
