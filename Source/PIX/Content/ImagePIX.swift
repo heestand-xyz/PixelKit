@@ -10,7 +10,9 @@ import Foundation
 
 public class ImagePIX: PIXContent, PIXable {
     
-    var kind: HxPxE.PIXKind = .image
+    var kind: PIX.Kind = .image
+    
+    override var shader: String { return "imagePIX" }
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
@@ -33,7 +35,12 @@ public class ImagePIX: PIXContent, PIXable {
         let width = image.size.width * image.scale
         let height = image.size.height * image.scale
         res = .custom(res: CGSize(width: width, height: height))
-        contentPixelBuffer = buffer(from: image)
+        guard let pixelBuffer = buffer(from: image) else {
+            print(self, "ERROR", "Pixel Buffer creation failed.")
+            return
+        }
+        contentPixelBuffer = pixelBuffer
+        print(self, "Image Loaded")
         setNeedsRender()
     }
     

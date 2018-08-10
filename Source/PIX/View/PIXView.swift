@@ -30,6 +30,7 @@ public class PIXView: UIView {
     
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
+    var newLayoutCallback: (() -> ())!
     
 //    public enum Checker {
 //        case lightGray
@@ -48,8 +49,6 @@ public class PIXView: UIView {
 //
 //    let checkerLayer: CheckerLayer
 //    let checkerView: UIView
-    
-    var newLayoutCallback: (() -> ())!
     
     init() {
         
@@ -120,6 +119,8 @@ public class PIXView: UIView {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
+        newLayoutCallback()
+        
     }
     
     func style() {
@@ -129,10 +130,13 @@ public class PIXView: UIView {
     }
     
     func setResolution(_ newResolution: CGSize) {
-        resolution = newResolution
-        if boundsReady { layoutFillMode() }
-        guard let newResolution = resolution else { return }
-        metalView.setResolution(newResolution) // CHECK layoutSubviews()
+        if newResolution != resolution {
+            resolution = newResolution
+            layoutFillMode()
+            metalView.setResolution(newResolution) // CHECK layoutSubviews()
+        } else {
+            print("Same res...")
+        }
     }
     
     public override func layoutSubviews() { // CHECK
@@ -142,8 +146,7 @@ public class PIXView: UIView {
                 autoResReadyCallback!()
                 autoResReadyCallback = nil
             }
-            newLayoutCallback()
-            if resolution != nil { layoutFillMode() }
+            layoutFillMode()
         }
     }
     

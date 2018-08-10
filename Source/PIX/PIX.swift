@@ -97,8 +97,10 @@ public class PIX: Codable {
         }
         
         view.newLayoutCallback = {
-            if self.wantsAutoRes {
-                self.setNeedsRes()
+            if self.view.superview != nil {
+                if self.wantsAutoRes {
+                    self.setNeedsRes()
+                }
                 self.setNeedsRender()
             }
         }
@@ -158,23 +160,22 @@ public class PIX: Codable {
             print(self, "ERROR", "Render:", "Resolution is nil.")
             return
         }
-        if let pixIn = self as? PIXInIO {
-            let pixOut = pixIn.pixInList.first! // CHECK BANG
-            if pixOut.texture == nil {
-                print(self, "FORCE RENDER", pixOut)
-                HxPxE.main.render(pixOut, force: true)
+        if let pixContent = self as? PIXContent {
+            guard pixContent.contentPixelBuffer != nil else {
+                print(self, "WARNING", "Render:", "Content not loaded.")
+                return
             }
         }
-        if self.texture == nil {
-            print(self, "First render requested.")
+        if HxPxE.main.frameIndex < 10 {
+            print(self, "📡", "Render requested.")
         }
         needsRender = true
 //        view.setNeedsDisplay()
     }
     
     func didRender(texture: MTLTexture, force: Bool = false) {
-        if self.texture == nil {
-            print(self, "First render done!")
+        if HxPxE.main.frameIndex < 10 {
+            print(self, "Render done!", force ? "Forced" : "")
         }
         self.texture = texture
         if !force {
