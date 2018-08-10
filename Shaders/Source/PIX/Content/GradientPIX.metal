@@ -69,6 +69,7 @@ fragment float4 gradientPIX(VertexOut out [[stage_in]],
 
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    v = 1 - v; // Content Flip Fix
     
     float pi = 3.14159265359;
     

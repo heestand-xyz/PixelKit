@@ -41,6 +41,7 @@ fragment float4 circlePIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    v = 1 - v; // Content Flip Fix
     
     float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
     float4 ec = float4(in.er, in.eg, in.eb, in.ea);

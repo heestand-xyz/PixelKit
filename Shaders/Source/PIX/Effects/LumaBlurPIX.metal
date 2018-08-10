@@ -35,7 +35,7 @@ fragment float4 lumaBlurPIX(VertexOut out [[stage_in]],
     int max_res = 16384 - 1;
     
     float u = out.texCoord[0];
-    float v = 1.0 - out.texCoord[1];
+    float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
     float4 ca = inTexA.sample(s, uv);

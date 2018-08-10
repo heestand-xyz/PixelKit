@@ -27,6 +27,7 @@ fragment float4 cameraPIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    v = 1 - v; // Content Flip Fix
     
     if (in.mirror) {
         if (int(in.orientation) == 1 || int(in.orientation) == 2) {

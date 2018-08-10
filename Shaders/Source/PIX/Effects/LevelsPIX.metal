@@ -45,7 +45,7 @@ fragment float4 levelsPIX(VertexOut out [[stage_in]],
     c *= in.contrast;
     c += 0.5;
     
-    c = pow(c, 1 / in.gamma);
+    c = pow(c, 1 / max(0.001, in.gamma));
     
     if (in.invert) {
         c = 1.0 - c;
