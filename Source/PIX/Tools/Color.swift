@@ -43,9 +43,9 @@ public extension PIX {
             var cg: CGColorSpace {
                 switch self {
                 case .sRGB:
-                    return CGColorSpace(name: CGColorSpace.linearSRGB)!
+                    return CGColorSpace(name: CGColorSpace.linearSRGB)! // CHECK extended 16 bit
                 case .displayP3:
-                    return CGColorSpace(name: CGColorSpace.displayP3)! // linear?
+                    return CGColorSpace(name: CGColorSpace.displayP3)! // CHECK not linear // CHECK extended 16 bit
                 }
             }
         }
