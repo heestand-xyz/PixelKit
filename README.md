@@ -4,7 +4,7 @@
 a Live Graphics Framework for iOS, written in Swift & Metal
 
 ## Usage Example
-~~~~
+~~~~swift
 let cameraPix = CameraPIX()
 cameraPix.camera = .front
 
