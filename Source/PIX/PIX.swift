@@ -34,7 +34,7 @@ public class PIX: Codable {
         return HxPxE.main.raw(texture: texture)
     }
     
-    var resolution: CGSize? {
+    public var resolution: CGSize? {
         if let pixContent = self as? PIXContent {
             return pixContent.res.isAuto ? view.autoRes : pixContent.res.size
         } else if let resPix = self as? ResPIX {

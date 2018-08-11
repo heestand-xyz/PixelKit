@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol EnumList : Hashable {}
+public protocol EnumList : Hashable {}
 
-extension EnumList {
+public extension EnumList {
     
-    static func cases() -> AnySequence<Self> {
+    public static func cases() -> AnySequence<Self> {
         typealias S = Self
         return AnySequence { () -> AnyIterator<S> in
             var raw = 0
