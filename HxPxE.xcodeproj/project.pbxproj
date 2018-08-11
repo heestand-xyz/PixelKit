@@ -28,6 +28,7 @@
 		74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */; };
 		749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EB33E2119A5D900921BDF /* ImagePIX.swift */; };
 		74A40E1B210A11200085041D /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
+		74A6AF10211F007100D39FF9 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6AF0F211F007100D39FF9 /* Enum.swift */; };
 		74ADDC492114EEAF00070B32 /* HxPxE_Shaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
 		74ADDC4A2114EECE00070B32 /* HxPxE_Shaders.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 74ADDC482114EDF000070B32 /* HxPxE_Shaders.metallib */; };
 		74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
@@ -79,6 +80,7 @@
 		74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMultiEffect.swift; sourceTree = "<group>"; };
 		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
+		74A6AF0F211F007100D39FF9 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		74A987BD21124536009CB7D8 /* HxPxE_Shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HxPxE_Shaders.xcodeproj; path = Shaders/HxPxE_Shaders.xcodeproj; sourceTree = "<group>"; };
 		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
 		74BC39D721011E3A004E9AA0 /* HxPxE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HxPxE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 				74076D04211A27D2000E56E0 /* Res.swift */,
 				7465FC77211A4E0400899359 /* Color.swift */,
 				7465FC71211A3C8C00899359 /* CheckerLayer.swift */,
+				74A6AF0F211F007100D39FF9 /* Enum.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */,
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
+				74A6AF10211F007100D39FF9 /* Enum.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,

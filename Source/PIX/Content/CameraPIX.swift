@@ -14,7 +14,7 @@ public class CameraPIX: PIXContent, PIXable {
     
     override var shader: String { return "cameraPIX" }
     
-    public enum Camera: String, Codable {
+    public enum Camera: String, Codable, EnumList {
         case front
         case back
         var position: AVCaptureDevice.Position {
