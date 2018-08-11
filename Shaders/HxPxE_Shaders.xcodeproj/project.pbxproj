@@ -10,6 +10,7 @@
 		7468F95C211244E700E285B1 /* QuadVTX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F957211244B900E285B1 /* QuadVTX.metal */; };
 		7468F95D211244E800E285B1 /* NilPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F959211244B900E285B1 /* NilPIX.metal */; };
 		7468F95F211244EC00E285B1 /* LevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F95B211244B900E285B1 /* LevelsPIX.metal */; };
+		74764BB6211EEF6E00ED0FBB /* TwirlPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB5211EEF6E00ED0FBB /* TwirlPIX.metal */; };
 		747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845B421131B8E0077AB89 /* BlurPIX.metal */; };
 		747845BC21131D9E0077AB89 /* loki.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845BA21131D9E0077AB89 /* loki.metal */; };
 		747845BD21131D9E0077AB89 /* loki_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 747845BB21131D9E0077AB89 /* loki_header.metal */; };
@@ -26,6 +27,7 @@
 		7468F959211244B900E285B1 /* NilPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = NilPIX.metal; sourceTree = "<group>"; };
 		7468F95B211244B900E285B1 /* LevelsPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = LevelsPIX.metal; sourceTree = "<group>"; };
 		7473A66A210F4FD0003CF329 /* HxPxE_Shaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = HxPxE_Shaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		74764BB5211EEF6E00ED0FBB /* TwirlPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = TwirlPIX.metal; sourceTree = "<group>"; };
 		747845B421131B8E0077AB89 /* BlurPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BlurPIX.metal; sourceTree = "<group>"; };
 		747845BA21131D9E0077AB89 /* loki.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki.metal; sourceTree = "<group>"; };
 		747845BB21131D9E0077AB89 /* loki_header.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki_header.metal; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				747845B421131B8E0077AB89 /* BlurPIX.metal */,
 				74879D662118E90900BF17DE /* EdgePIX.metal */,
 				74E826D1211CEF94004A1DE9 /* LumaBlurPIX.metal */,
+				74764BB5211EEF6E00ED0FBB /* TwirlPIX.metal */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				74BA6236211CEB93005F5FBC /* GradientPIX.metal in Sources */,
 				74E826D2211CEF94004A1DE9 /* LumaBlurPIX.metal in Sources */,
 				74B3F9E3211E12B60057B41F /* ImagePIX.metal in Sources */,
+				74764BB6211EEF6E00ED0FBB /* TwirlPIX.metal in Sources */,
 				74879D672118E90900BF17DE /* EdgePIX.metal in Sources */,
 				747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */,
 				749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */,

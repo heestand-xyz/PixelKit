@@ -20,6 +20,7 @@ extension PIX {
         case circle
         case gradient
         case lumaBlur
+        case twirl
         var type: PIX.Type {
             switch self {
             case .camera: return CameraPIX.self
@@ -31,6 +32,7 @@ extension PIX {
             case .circle: return CirclePIX.self
             case .gradient: return GradientPIX.self
             case .lumaBlur: return LumaBlurPIX.self
+            case .twirl: return TwirlPIX.self
             }
         }
     }
