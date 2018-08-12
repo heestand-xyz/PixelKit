@@ -21,18 +21,6 @@ public class PIX: Codable {
     public let view: PIXView
     
     var texture: MTLTexture?
-    public var renderedTexture: MTLTexture? { return texture } // CHECK copy?
-    public var renderedImage: UIImage? {
-        guard let texture = renderedTexture else { return nil }
-        guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
-        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: HxPxE.main.colorBits.ci, colorSpace: HxPxE.main.colorSpace.cg) else { return nil }
-        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
-        return uiImage
-    }
-    public var renderedPixels: Array<float4>? {
-        guard let texture = renderedTexture else { return nil }
-        return HxPxE.main.raw(texture: texture)
-    }
     
     public var resolution: CGSize? {
         if let pixContent = self as? PIXContent {

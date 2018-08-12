@@ -23,6 +23,7 @@
 		74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */; };
 		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
 		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
+		748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* PIXRendered.swift */; };
 		74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffect.swift */; };
 		74982CAE21107E14009A4264 /* PIXMergerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAD21107E14009A4264 /* PIXMergerEffect.swift */; };
 		74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */; };
@@ -75,6 +76,7 @@
 		74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwirlPIX.swift; sourceTree = "<group>"; };
 		747845B121131B080077AB89 /* BlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurPIX.swift; sourceTree = "<group>"; };
 		74879D632118E8C200BF17DE /* EdgePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgePIX.swift; sourceTree = "<group>"; };
+		748ADFB32120C1E3007462F8 /* PIXRendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRendered.swift; sourceTree = "<group>"; };
 		74982CAB21107E06009A4264 /* PIXSingleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSingleEffect.swift; sourceTree = "<group>"; };
 		74982CAD21107E14009A4264 /* PIXMergerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMergerEffect.swift; sourceTree = "<group>"; };
 		74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMultiEffect.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				742321A021027C70003697C3 /* PIX.swift */,
 				7428A7B5211E148C005304A6 /* PIXKinds.swift */,
+				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
 				7452F4CE210A33F8001AA523 /* PIXProtocols.swift */,
 				7465FC75211A3CAC00899359 /* View */,
 				7452F4C7210A336A001AA523 /* Content */,
@@ -413,6 +416,7 @@
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
 				74A6AF10211F007100D39FF9 /* Enum.swift in Sources */,
+				748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,

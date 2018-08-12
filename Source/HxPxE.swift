@@ -299,14 +299,35 @@ public class HxPxE {
         return metalDevice!.makeTexture(descriptor: descriptor)
     }
     
-    func raw(texture: MTLTexture) -> Array<float4> {
-        let pixelCount = texture.width * texture.height
+    func raw8(texture: MTLTexture) -> [Int8]? {
+        guard colorBits == ._8 else { return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
-        var textureComponentsArray = Array<float4>(repeating: float4(0), count: pixelCount)
-        textureComponentsArray.withUnsafeMutableBytes {
-            texture.getBytes($0.baseAddress!, bytesPerRow: (MemoryLayout<float4>.size * texture.width), from: region, mipmapLevel: 0)
+        var raw = Array<Int8>(repeating: 0, count: texture.width * texture.height * 4)
+        raw.withUnsafeMutableBytes {
+            texture.getBytes($0.baseAddress!, bytesPerRow: MemoryLayout<Int8>.size * texture.width * 4, from: region, mipmapLevel: 0)
         }
-        return textureComponentsArray
+        return raw
+    }
+    
+    func raw16(texture: MTLTexture) -> [Int16]? {
+        guard colorBits == ._16 else { return nil }
+        let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
+        var raw = Array<Int16>(repeating: 0, count: texture.width * texture.height * 4)
+        raw.withUnsafeMutableBytes {
+            texture.getBytes($0.baseAddress!, bytesPerRow: MemoryLayout<Int16>.size * texture.width * 4, from: region, mipmapLevel: 0)
+        }
+        return raw
+    }
+    
+    func rawNormalized(texture: MTLTexture) -> [CGFloat]? {
+        let raw: [CGFloat]
+        switch colorBits {
+        case ._8:
+            raw = raw8(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (256 - 1) })
+        case ._16:
+            raw = raw16(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (65_536 - 1) })
+        }
+        return raw
     }
     
     // MARK: Sampler
@@ -431,11 +452,11 @@ public class HxPxE {
                 print(pix, "ERROR", "Render:", "CustomRenderDelegate not implemented.")
                 return false
             }
-            guard let customRenderdTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
+            guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
                 print(pix, "ERROR", "Render:", "Custom Render faild.")
                 return false
             }
-            inputTexture = customRenderdTexture
+            inputTexture = customRenderedTexture
         }
         
         // MARK: Drawable Texture
