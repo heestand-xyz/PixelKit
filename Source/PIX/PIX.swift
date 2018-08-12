@@ -38,7 +38,15 @@ public class PIX: Codable {
         if let pixContent = self as? PIXContent {
             return pixContent.res.isAuto ? view.autoRes : pixContent.res.size
         } else if let resPix = self as? ResPIX {
-            return resPix.res.isAuto ? view.autoRes : resPix.res.size
+            let resResolution: CGSize
+            if !resPix.inheritInRes {
+                guard let res = resPix.res.isAuto ? view.autoRes : resPix.res.size else { return nil }
+                resResolution = res
+            } else {
+                guard let inRes = resPix.pixInList.first?.resolution else { return nil }
+                resResolution = inRes
+            }
+            return CGSize(width: resResolution.width * resPix.resMult, height: resResolution.height * resPix.resMult)
         } else if let pixIn = self as? PIX & PIXInIO {
             return pixIn.pixInList.first?.resolution
         } else {
@@ -58,11 +66,19 @@ public class PIX: Codable {
         }
         return false
     }
-
-    public var extendMode: MTLSamplerAddressMode = .clampToZero {
+    
+    public var interpolate: MTLSamplerMinMagFilter = .linear {
         didSet {
-            sampler = HxPxE.main.makeSampler(with: extendMode)
-            print(self, "Sample Mode")
+            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
+            print(self, "New Sample Mode: Interpolate:", interpolate)
+            setNeedsRender()
+        }
+    }
+
+    public var extend: MTLSamplerAddressMode = .clampToZero {
+        didSet {
+            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
+            print(self, "New Sample Mode: Extend:", extend)
             setNeedsRender()
         }
     }
@@ -86,7 +102,7 @@ public class PIX: Codable {
         
         if HxPxE.main.aLive {
             pipeline = HxPxE.main.makeShaderPipeline(shader)//, from: shaderSource!)
-            sampler = HxPxE.main.makeSampler(with: extendMode)
+            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
             if allGood {
                 HxPxE.main.add(pix: self)
             }
@@ -122,7 +138,7 @@ public class PIX: Codable {
             if !checkAutoRes(ready: {
                 self.setNeedsRes()
             }) {
-                print(self, "ERROR", "Res:", "Resolution unknown.")
+                if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Res:", "Resolution unknown.") }
             }
             return
         }
@@ -157,7 +173,7 @@ public class PIX: Codable {
 //            }) {
 //                print(self, "ERROR", "Render:", "Resolution unknown.")
 //            }
-            print(self, "ERROR", "Render:", "Resolution is nil.")
+            if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Render:", "Resolution is nil.") }
             return
         }
         if let pixContent = self as? PIXContent {

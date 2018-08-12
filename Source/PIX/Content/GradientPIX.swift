@@ -30,7 +30,7 @@ public class GradientPIX: PIXContent, PIXable {
         }
     }
     
-    public enum Extend: String, Codable {
+    public enum ExtendRamp: String, Codable {
         case zero
         case hold
         case repeats
@@ -50,7 +50,7 @@ public class GradientPIX: PIXContent, PIXable {
     public var offset: CGFloat = 0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
-    public var extend: Extend = .repeats { didSet { setNeedsRender() } }
+    public var extendRamp: ExtendRamp = .repeats { didSet { setNeedsRender() } }
     public var extraColorsActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
@@ -72,7 +72,7 @@ public class GradientPIX: PIXContent, PIXable {
         var uniforms = [CGFloat(style.index), scale, offset]
         uniforms.append(contentsOf: PIX.Color(colorFirst).list)
         uniforms.append(contentsOf: PIX.Color(colorLast).list)
-        uniforms.append(CGFloat(extend.index))
+        uniforms.append(CGFloat(extendRamp.index))
         uniforms.append(extraColorsActive ? 1 : 0)
         uniforms.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
         uniforms.append(contentsOf: PIX.Color(extraColorA).list)

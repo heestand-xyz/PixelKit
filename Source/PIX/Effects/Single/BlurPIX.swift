@@ -46,7 +46,7 @@ public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
     
     override public init() {
         super.init()
-        extendMode = .clampToEdge
+        extend = .clampToEdge
         customRenderDelegate = self
     }
     
@@ -95,7 +95,7 @@ public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
             return nil
         }
         let gaussianBlurKernel = MPSImageGaussianBlur(device: HxPxE.main.metalDevice!, sigma: Float(radius))
-        switch extendMode {
+        switch extend {
         case .clampToZero:
             gaussianBlurKernel.edgeMode = .zero
         default:

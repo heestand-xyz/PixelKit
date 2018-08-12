@@ -44,7 +44,7 @@ import Foundation
     
     public override init() {
         super.init()
-        extendMode = .clampToEdge
+        extend = .clampToEdge
     }
     
     // MARK: JSON

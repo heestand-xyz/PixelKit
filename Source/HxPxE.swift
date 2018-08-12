@@ -311,12 +311,12 @@ public class HxPxE {
     
     // MARK: Sampler
     
-    func makeSampler(with mode: MTLSamplerAddressMode) -> MTLSamplerState {
+    func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode) -> MTLSamplerState {
         let samplerInfo = MTLSamplerDescriptor()
-        samplerInfo.minFilter = .linear
-        samplerInfo.magFilter = .linear
-        samplerInfo.sAddressMode = mode
-        samplerInfo.tAddressMode = mode
+        samplerInfo.minFilter = interpolate
+        samplerInfo.magFilter = interpolate
+        samplerInfo.sAddressMode = extend
+        samplerInfo.tAddressMode = extend
         return metalDevice!.makeSamplerState(descriptor: samplerInfo)!
     }
     
