@@ -10,7 +10,7 @@ import Foundation
 
 public class PIXContent: PIX, PIXOutIO {
     
-    public var res: PIX.Res { didSet { setNeedsRes() } }
+    public var res: PIX.Res { didSet { applyRes { self.setNeedsRender() } } }
     
     var pixOutPathList: [PIX.OutPath] = []
 
@@ -22,7 +22,11 @@ public class PIXContent: PIX, PIXOutIO {
         self.res = res
         super.init()
         pixOutPathList = []
-//        setNeedsRes()
+        if !resource {
+            applyRes {
+                self.setNeedsRender()
+            }
+        }
     }
     
     required init(from decoder: Decoder) throws {

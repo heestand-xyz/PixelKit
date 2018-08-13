@@ -41,7 +41,7 @@ public class HxPxE {
     public var frameIndex = 0
     var frameDate = Date()
     var ping = true
-    var rendersThisFrame = 0
+    var rendersThisFrame = 0 // CHECK TEMP DEBUG
     
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
@@ -91,7 +91,7 @@ public class HxPxE {
             }
         }
         
-        displayLink = CADisplayLink(target: self, selector: #selector(self.displayLinkCallback))
+        displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .commonModes)
         
         if aLive {
@@ -104,16 +104,14 @@ public class HxPxE {
     
     // MARK: - Frame Loop
     
-    @objc func displayLinkCallback() {
-        if frameIndex == 0 { print("HxPxE Running...") }
+    @objc func frameLoop() {
+        if frameIndex < 10 { print("FRAME", "#", frameIndex) }
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
         for frameCallback in frameCallbacks { frameCallback.callback() }
         delegate?.hxpxeFrameLoop()
         renderPIXs()
-        if frameIndex < 10 { print("#", rendersThisFrame) }
-//        if frameIndex % fpsMax == 0 { print("HxPxE PING", frameIndex / fpsMax) }
         frameIndex += 1
     }
     
@@ -275,7 +273,7 @@ public class HxPxE {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache!, pixelBuffer, nil, HxPxE.main.colorBits.mtl, width, height, 0, &cvTextureOut)
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache!, pixelBuffer, nil, PIX.Color.Bits._8.mtl, width, height, 0, &cvTextureOut) // CHECK add high bit support
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
             print("HxPxE ERROR:", "Textrue:", "Creation failed.")
             return nil
@@ -299,22 +297,37 @@ public class HxPxE {
         return metalDevice!.makeTexture(descriptor: descriptor)
     }
     
-    func raw8(texture: MTLTexture) -> [Int8]? {
+    // MARK: Raw
+    
+    func raw8(texture: MTLTexture) -> [UInt8]? {
         guard colorBits == ._8 else { return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
-        var raw = Array<Int8>(repeating: 0, count: texture.width * texture.height * 4)
+        var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
-            texture.getBytes($0.baseAddress!, bytesPerRow: MemoryLayout<Int8>.size * texture.width * 4, from: region, mipmapLevel: 0)
+            let bytesPerRow = MemoryLayout<UInt8>.size * texture.width * 4
+            texture.getBytes($0.baseAddress!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
         }
         return raw
     }
     
-    func raw16(texture: MTLTexture) -> [Int16]? {
+    func raw16(texture: MTLTexture) -> [Float]? {
         guard colorBits == ._16 else { return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
-        var raw = Array<Int16>(repeating: 0, count: texture.width * texture.height * 4)
+        var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
-            texture.getBytes($0.baseAddress!, bytesPerRow: MemoryLayout<Int16>.size * texture.width * 4, from: region, mipmapLevel: 0)
+            let bytesPerRow = MemoryLayout<Float>.size * texture.width * 4
+            texture.getBytes($0.baseAddress!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
+        }
+        return raw
+    }
+    
+    func raw32(texture: MTLTexture) -> [float4]? {
+        guard colorBits != ._32 else { return nil }
+        let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
+        var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
+        raw.withUnsafeMutableBytes {
+            let bytesPerRow = MemoryLayout<float4>.size * texture.width
+            texture.getBytes($0.baseAddress!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
         }
         return raw
     }
@@ -323,9 +336,20 @@ public class HxPxE {
         let raw: [CGFloat]
         switch colorBits {
         case ._8:
-            raw = raw8(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (256 - 1) })
+            raw = raw8(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (pow(2, 8) - 1) })
         case ._16:
-            raw = raw16(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (65_536 - 1) })
+            raw = raw16(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) }) // CHECK normalize
+        case ._32:
+            let rawArr = raw32(texture: texture)!
+            var rawFlatArr: [CGFloat] = []
+            for pixel in rawArr {
+                // CHECK normalize
+                rawFlatArr.append(CGFloat(pixel.x))
+                rawFlatArr.append(CGFloat(pixel.y))
+                rawFlatArr.append(CGFloat(pixel.z))
+                rawFlatArr.append(CGFloat(pixel.w))
+            }
+            raw = rawFlatArr
         }
         return raw
     }
@@ -349,14 +373,17 @@ public class HxPxE {
             if pix.needsRender {
                 pix.needsRender = false
                 if let pixIn = pix as? PIXInIO {
-                    let pixOut = pixIn.pixInList.first! // CHECK BANG
+                    guard let pixOut = pixIn.pixInList.first else {
+                        print(pixIn, "Can't Render.", "PIX In's inPix is nil.")
+                        continue
+                    }
                     if pixOut.texture == nil {
-                        if frameIndex < 10 { print(pixOut, "💎", "RENDER", "Forced by", pix) }
+                        if frameIndex < 10 { print(pixOut, "💎", "Will Render,", "Forced by", pix) }
                         if HxPxE.main.render(pixOut, force: true) {
-                            if frameIndex < 10 { print(pixOut, "☘️", "RENDER", "Forced by", pix) }
+                            if frameIndex < 10 { print(pixOut, "☘️", "Did Render,", "Forced by", pix) }
                             rendersThisFrame += 1
                         } else {
-                            print(pixOut, "🚨", "RENDER", "Forced by", pix)
+                            print(pixOut, "🚨", "Render failed,", "Forced by", pix)
                         }
                         continue
                     }
@@ -367,23 +394,23 @@ public class HxPxE {
 //                }
                 if pix.view.superview != nil {
                     pix.view.metalView.readyToRender = {
-                        if self.frameIndex < 10 { print(pix, "💎", "RENDER") }
+                        if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
                         if self.render(pix) {
-                            if self.frameIndex < 10 { print(pix, "☘️", "RENDER") }
+                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
                             self.rendersThisFrame += 1
                         } else {
-                            print(pix, "🚨", "RENDER")
+                            print(pix, "🚨", "Render failed.")
                         }
                         pix.view.metalView.readyToRender = nil
                     }
                     pix.view.metalView.setNeedsDisplay()
                 } else {
-                    if frameIndex < 10 { print(pix, "💎", "RENDER", "Gohst") }
+                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
                     if self.render(pix) {
-                        if frameIndex < 10 { print(pix, "☘️", "RENDER", "Gohst") }
+                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
                         rendersThisFrame += 1
                     } else {
-                        print(pix, "🚨", "RENDER", "Gohst")
+                        print(pix, "🚨", "Render failed", "in Background.")
                     }
                 }
             }
@@ -545,8 +572,6 @@ public class HxPxE {
         commandEncoder.endEncoding()
         
         // MARK: Render
-        
-        if frameIndex < 10 { print(pix, "Rendering") }
         
         if viewDrawable != nil {
             commandBuffer.present(viewDrawable!)

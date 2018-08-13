@@ -22,39 +22,6 @@ public class PIX: Codable {
     
     var texture: MTLTexture?
     
-    public var resolution: CGSize? {
-        if let pixContent = self as? PIXContent {
-            return pixContent.res.isAuto ? view.autoRes : pixContent.res.size
-        } else if let resPix = self as? ResPIX {
-            let resResolution: CGSize
-            if !resPix.inheritInRes {
-                guard let res = resPix.res.isAuto ? view.autoRes : resPix.res.size else { return nil }
-                resResolution = res
-            } else {
-                guard let inRes = resPix.pixInList.first?.resolution else { return nil }
-                resResolution = inRes
-            }
-            return CGSize(width: resResolution.width * resPix.resMult, height: resResolution.height * resPix.resMult)
-        } else if let pixIn = self as? PIX & PIXInIO {
-            return pixIn.pixInList.first?.resolution
-        } else {
-            return nil
-        }
-    }
-    
-    var wantsAutoRes: Bool {
-        if let pixContent = self as? PIXContent {
-            if pixContent.res.isAuto {
-                return true
-            }
-        } else if let resPix = self as? ResPIX {
-            if resPix.res.isAuto {
-                return true
-            }
-        }
-        return false
-    }
-    
     public var interpolate: MTLSamplerMinMagFilter = .linear {
         didSet {
             sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
@@ -89,24 +56,23 @@ public class PIX: Codable {
         view = PIXView()
         
         if HxPxE.main.aLive {
-            pipeline = HxPxE.main.makeShaderPipeline(shader)//, from: shaderSource!)
+            pipeline = HxPxE.main.makeShaderPipeline(shader)
             sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
             if allGood {
                 HxPxE.main.add(pix: self)
+            } else {
+                print(self, "ERROR", "Not allGood...")
             }
-        }
-        
-        if !allGood {
-            print(self, "ERROR", "Not allGood...")
         }
         
         view.newLayoutCallback = {
-            if self.view.superview != nil {
-                if self.wantsAutoRes {
-                    self.setNeedsRes()
-                }
-                self.setNeedsRender()
-            }
+            print("CHECK view.newLayoutCallback...")
+//            if self.view.superview != nil {
+//                if self.wantsAutoRes {
+//                    self.setNeedsRes()
+//                }
+//                self.setNeedsRender()
+//            }
         }
         
     }
@@ -119,68 +85,32 @@ public class PIX: Codable {
     
     public func encode(to encoder: Encoder) throws {}
     
-    // MARK: - Resolution
-    
-    func setNeedsRes() {
-        guard let resolution = resolution else {
-            if !checkAutoRes(ready: {
-                self.setNeedsRes()
-            }) {
-                if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Res:", "Resolution unknown.") }
-            }
-            return
-        }
-        print(self, "Res:", resolution)
-        view.setResolution(resolution)
-        if let pixOut = self as? PIX & PIXOutIO {
-            for pixOutPath in pixOut.pixOutPathList {
-                // CHECK first only
-                pixOutPath.pixIn.setNeedsRes()
-            }
-        }
-    }
-    
-    internal func checkAutoRes(ready: @escaping () -> ()) -> Bool {
-        if wantsAutoRes {
-            print(self, "Auto Res requested.")
-            view.autoResReadyCallback = {
-                print(self, "Auto Res ready.")
-                ready()
-            }
-        }
-        return wantsAutoRes
-    }
-    
     // MARK: - Render
     
     func setNeedsRender() {
+        guard !needsRender else {
+            print(self, "WARNING", "Render:", "Already requested.")
+            return
+        }
         guard resolution != nil else {
-//            if !checkAutoRes(ready: {
-////                self.setNeedsRes()
-//                self.setNeedsRender()
-//            }) {
-//                print(self, "ERROR", "Render:", "Resolution unknown.")
-//            }
-            if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Render:", "Resolution is nil.") }
+            print(self, "WARNING", "Render:", "Resolution unknown.")
             return
         }
         if let pixContent = self as? PIXContent {
-            guard pixContent.contentPixelBuffer != nil else {
-                print(self, "WARNING", "Render:", "Content not loaded.")
-                return
+            if pixContent.isResource {
+                guard pixContent.contentPixelBuffer != nil else {
+                    print(self, "WARNING", "Render:", "Content not loaded.")
+                    return
+                }
             }
         }
         if HxPxE.main.frameIndex < 10 {
-            print(self, "📡", "Render requested.")
+            print(self, "📡", "Requested Render.")
         }
         needsRender = true
-//        view.setNeedsDisplay()
     }
     
     func didRender(texture: MTLTexture, force: Bool = false) {
-        if HxPxE.main.frameIndex < 10 {
-            print(self, "Render done!", force ? "Forced" : "")
-        }
         self.texture = texture
         if !force {
             if let pixOut = self as? PIXOutIO {
@@ -228,8 +158,9 @@ public class PIX: Codable {
         var pixOut = pixOut
         pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         print(self, "Connected", "Single", pixOut)
-        setNeedsRes() // CHECK
-        setNeedsRender() // CHECK
+        applyRes {
+            self.setNeedsRender()
+        }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
@@ -240,8 +171,9 @@ public class PIX: Codable {
         pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
         print(self, "Connected", "Merger", pixOutA, pixOutB)
-        setNeedsRes() // CHECK
-        setNeedsRender() // CHECK
+        applyRes {
+            self.setNeedsRender()
+        }
     }
     
     // MARK: Diconnect

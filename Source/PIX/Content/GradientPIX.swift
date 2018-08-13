@@ -88,7 +88,6 @@ public class GradientPIX: PIXContent, PIXable {
     
     public init() {
         super.init(res: .auto)
-        setNeedsRender()
     }
     
     // MARK: JSON

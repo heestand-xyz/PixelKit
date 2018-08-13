@@ -20,14 +20,19 @@ public extension PIX {
         return uiImage
     }
     
-    public var renderedRaw8: [Int8]? {
+    public var renderedRaw8: [UInt8]? {
         guard let texture = renderedTexture else { return nil }
         return HxPxE.main.raw8(texture: texture)
     }
     
-    public var renderedRaw16: [Int16]? {
+    public var renderedRaw16: [Float]? {
         guard let texture = renderedTexture else { return nil }
         return HxPxE.main.raw16(texture: texture)
+    }
+    
+    public var renderedRaw32: [float4]? {
+        guard let texture = renderedTexture else { return nil }
+        return HxPxE.main.raw32(texture: texture)
     }
     
     public var renderedRawNormalized: [CGFloat]? {
@@ -53,7 +58,7 @@ public extension PIX {
             return raw[y][x]
         }
     }
-    
+
     public var renderedPixels: Pixels? {
         guard let resolution = resolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
@@ -65,11 +70,8 @@ public extension PIX {
             for x in 0..<w {
                 var pixel: [CGFloat] = []
                 for i in 0..<4 {
-                    let j = y * w + x * 4 + i
-                    guard j < rawPixels.count else {
-                        print("Out of bounds ->>>>>>>>>", x, y)
-                        return nil
-                    }
+                    let j = y * w * 4 + x * 4 + i
+                    guard j < rawPixels.count else { return nil }
                     let chan = rawPixels[j]
                     pixel.append(chan)
                 }

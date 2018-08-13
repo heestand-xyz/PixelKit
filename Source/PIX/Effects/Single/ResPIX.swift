@@ -28,9 +28,9 @@ public class ResPIX: PIXSingleEffect, PIXable {
         }
     }
     
-    public var res: PIX.Res = .auto { didSet { setNeedsRes() } }
-    public var resMult: CGFloat = 1 { didSet { setNeedsRes() } }
-    public var inheritInRes: Bool = false { didSet { setNeedsRes() } }
+    public var res: PIX.Res = .auto { didSet { applyRes { self.setNeedsRender() } } }
+    public var resMult: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
+    public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
     enum ResCodingKeys: String, CodingKey {
         case resMult; case inheritInRes; case fillMode

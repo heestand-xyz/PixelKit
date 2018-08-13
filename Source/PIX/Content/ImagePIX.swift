@@ -20,6 +20,13 @@ public class ImagePIX: PIXContent, PIXable {
         super.init(res: .unknown, resource: true)
     }
     
+    // MARK: JSON
+    
+    required convenience init(from decoder: Decoder) throws { self.init() }
+    override public func encode(to encoder: Encoder) throws {}
+    
+    // MARK: Buffer
+    
     func setNeedsBuffer() {
         guard let image = image else {
             print(self, "Nil not supported yet.")
@@ -43,13 +50,6 @@ public class ImagePIX: PIXContent, PIXable {
         print(self, "Image Loaded")
         setNeedsRender()
     }
-    
-    // MARK: JSON
-    
-    required convenience init(from decoder: Decoder) throws { self.init() }
-    override public func encode(to encoder: Encoder) throws {}
-    
-    // MARK: Buffer
     
     func buffer(from image: UIImage) -> CVPixelBuffer? {
         

@@ -26,7 +26,7 @@ public extension PIX {
         case custom(res: CGSize)
         case unknown
         
-        var size: CGSize? {
+        var resolution: CGSize? {
             switch self {
             case .auto: return nil
             case .screen: return UIScreen.main.nativeBounds.size
@@ -52,15 +52,15 @@ public extension PIX {
         }
         
         var aspect: CGFloat? {
-            guard size != nil else { return nil }
-            return size!.width / size!.height
+            guard resolution != nil else { return nil }
+            return resolution!.width / resolution!.height
         }
         
         var raw: Any? {
             switch self {
             case .auto: return "auto"
             case .screen: return "screen"
-            default: return size
+            default: return resolution
             }
         }
         
@@ -73,15 +73,15 @@ public extension PIX {
                 } else {
                     self = .unknown
                 }
-            } else if let rawSize = raw as? CGSize {
-                self.init(size: rawSize)
+            } else if let rawResolution = raw as? CGSize {
+                self.init(resolution: rawResolution)
             } else {
                 self = .unknown
             }
         }
         
-        init(size: CGSize) {
-            switch size {
+        init(resolution: CGSize) {
+            switch resolution {
             case CGSize(width: 1280, height: 720): self = ._720p
             case CGSize(width: 1920, height: 1080): self = ._1080p
             case CGSize(width: 3840, height: 2160): self = ._4K
@@ -91,7 +91,7 @@ public extension PIX {
             case CGSize(width: 1024, height: 1024): self = ._1024
             case CGSize(width: 2048, height: 2048): self = ._2048
             case CGSize(width: 4096, height: 4096): self = ._4096
-            default: self = .custom(res: size)
+            default: self = .custom(res: resolution)
             }
         }
         

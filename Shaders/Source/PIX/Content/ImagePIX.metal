@@ -25,7 +25,7 @@ fragment float4 imagePIX(VertexOut out [[stage_in]],
     
     float4 c = inTex.sample(s, uv);
     
-    return c;
+    return float4(c.b, c.g, c.r, c.a);
 }
 
 

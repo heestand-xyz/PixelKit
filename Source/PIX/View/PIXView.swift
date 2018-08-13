@@ -135,7 +135,7 @@ public class PIXView: UIView {
             layoutFillMode()
             metalView.setResolution(newResolution) // CHECK layoutSubviews()
         } else {
-            print("Same res...")
+            print("PIX View", "Same res...")
         }
     }
     

@@ -36,7 +36,6 @@ public class CirclePIX: PIXContent, PIXable {
     
     public init() {
         super.init(res: .auto)
-        setNeedsRender()
     }
     
     // MARK: JSON
