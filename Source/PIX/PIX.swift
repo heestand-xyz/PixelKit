@@ -12,6 +12,8 @@ import MetalPerformanceShaders
 
 public class PIX: Codable {
     
+    public var delegate: PIXDelegate?
+    
     var id = UUID()
     
     var shader: String { return "nilPIX" }
@@ -108,10 +110,12 @@ public class PIX: Codable {
             print(self, "📡", "Requested Render.")
         }
         needsRender = true
+        delegate?.pixWillRender(self)
     }
     
     func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
+        delegate?.pixDidRender(self)
         if !force {
             if let pixOut = self as? PIXOutIO {
                 for pixOutPath in pixOut.pixOutPathList {

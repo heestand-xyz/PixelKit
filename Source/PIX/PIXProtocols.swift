@@ -8,6 +8,11 @@
 
 import Foundation
 
+public protocol PIXDelegate {
+    func pixWillRender(_ pix: PIX)
+    func pixDidRender(_ pix: PIX)
+}
+
 protocol PIXable {
     var kind: PIX.Kind { get }
 }
