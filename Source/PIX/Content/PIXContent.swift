@@ -13,6 +13,7 @@ public class PIXContent: PIX, PIXOutIO {
     public var res: PIX.Res { didSet { applyRes { self.setNeedsRender() } } }
     
     var pixOutPathList: [PIX.OutPath] = []
+    var connectedOut: Bool { return !pixOutPathList.isEmpty }
 
     let isResource: Bool
     var contentPixelBuffer: CVPixelBuffer?

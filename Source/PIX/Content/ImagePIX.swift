@@ -16,13 +16,15 @@ public class ImagePIX: PIXContent, PIXable {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public init() {
+    public init(image: UIImage?) {
+        self.image = image
         super.init(res: .unknown, resource: true)
+        if image != nil { setNeedsBuffer() }
     }
     
     // MARK: JSON
     
-    required convenience init(from decoder: Decoder) throws { self.init() }
+    required convenience init(from decoder: Decoder) throws { self.init(image: nil) }
     override public func encode(to encoder: Encoder) throws {}
     
     // MARK: Buffer

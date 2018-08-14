@@ -28,7 +28,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
         }
     }
     
-    public var res: PIX.Res = .auto { didSet { applyRes { self.setNeedsRender() } } }
+    public var res: PIX.Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMult: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
@@ -39,14 +39,15 @@ public class ResPIX: PIXSingleEffect, PIXable {
         return [CGFloat(fillMode.index)]
     }
     
-    public override init() {
+    public init(res: PIX.Res) {
+        self.res = res
         super.init()
     }
 
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
-        self.init()
+        self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: ResCodingKeys.self)
         resMult = try container.decode(CGFloat.self, forKey: .resMult)
         inheritInRes = try container.decode(Bool.self, forKey: .inheritInRes)

@@ -379,6 +379,7 @@ public class HxPxE {
                         continue
                     }
                     if pixOut.texture == nil {
+                        // CHECK wait for upstream to render
                         if frameIndex < 10 { print(pixOut, "💎", "Will Render,", "Forced by", pix) }
                         if HxPxE.main.render(pixOut, force: true) {
                             if frameIndex < 10 { print(pixOut, "☘️", "Did Render,", "Forced by", pix) }

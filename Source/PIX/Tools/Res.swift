@@ -12,7 +12,7 @@ public extension PIX {
 
     public enum Res {
         
-        case auto
+        case autoLayout
         case screen
         case _720p
         case _1080p
@@ -28,7 +28,7 @@ public extension PIX {
         
         var resolution: CGSize? {
             switch self {
-            case .auto: return nil
+            case .autoLayout: return nil
             case .screen: return UIScreen.main.nativeBounds.size
             case ._720p: return CGSize(width: 1280, height: 720)
             case ._1080p: return CGSize(width: 1920, height: 1080)
@@ -44,9 +44,9 @@ public extension PIX {
             }
         }
         
-        var isAuto: Bool {
+        var isAutoLayout: Bool {
             switch self {
-            case .auto: return true
+            case .autoLayout: return true
             default: return false
             }
         }
@@ -58,7 +58,7 @@ public extension PIX {
         
         var raw: Any? {
             switch self {
-            case .auto: return "auto"
+            case .autoLayout: return "autoLayout"
             case .screen: return "screen"
             default: return resolution
             }
@@ -66,8 +66,8 @@ public extension PIX {
         
         init(raw: Any?) {
             if let rawStr = raw as? String {
-                if rawStr == "auto" {
-                    self = .auto
+                if rawStr == "autoLayout" {
+                    self = .autoLayout
                 } else if rawStr == "screen" {
                     self = .screen
                 } else {

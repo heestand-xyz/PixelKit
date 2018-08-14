@@ -12,6 +12,8 @@ public class PIXEffect: PIX, PIXInIO, PIXOutIO {
     
     var pixInList: [PIX & PIXOut] = []
     var pixOutPathList: [PIX.OutPath] = []
+    var connectedIn: Bool { return !pixInList.isEmpty }
+    var connectedOut: Bool { return !pixOutPathList.isEmpty }
         
     override init() {
         super.init()

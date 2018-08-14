@@ -15,21 +15,36 @@ public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
     
     override var shader: String { return "blurPIX" }
     
-    public enum Style: Int, Codable {
-        case guassian = 0
-        case box = 1
-        case angle = 2
-        case zoom = 3
-        case random = 4
-        // CHECK make string and add index
+    public enum Style: String, Codable {
+        case guassian
+        case box
+        case angle
+        case zoom
+        case random
+        var index: Int {
+            switch self {
+            case .guassian: return 0
+            case .box: return 1
+            case .angle: return 2
+            case .zoom: return 3
+            case .random: return 4
+            }
+        }
     }
     
-    public enum Quality: Int, Codable {
-        case low = 4
-        case mid = 8
-        case high = 16
-        case extreme = 32
-        // CHECK make string and add index
+    public enum Quality: String, Codable {
+        case low
+        case mid
+        case high
+        case extreme
+        var value: Int {
+            switch self {
+            case .low: return 4
+            case .mid: return 8
+            case .high: return 16
+            case .extreme: return 32
+            }
+        }
     }
     
     public var style: Style = .guassian { didSet { setNeedsRender() } }
@@ -41,7 +56,7 @@ public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
         case style; case radius; case quality; case angle; case position
     }
     override var shaderUniforms: [CGFloat] {
-        return [CGFloat(style.rawValue), radius, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
+        return [CGFloat(style.index), radius, CGFloat(quality.value), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
     override public init() {

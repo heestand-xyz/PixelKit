@@ -29,14 +29,14 @@ public class NoisePIX: PIXContent, PIXable {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
     }
     
-    public init() {
-        super.init(res: .auto)
+    public init(res: PIX.Res) {
+        super.init(res: res)
     }
     
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
-        self.init()
+        self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: NoiseCodingKeys.self)
         seed = try container.decode(Int.self, forKey: .seed)
         octaves = try container.decode(Int.self, forKey: .octaves)

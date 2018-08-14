@@ -11,7 +11,7 @@ import MetalKit
 public class PIXView: UIView {
     
     var boundsReady: Bool { return bounds.width > 0 }
-    var autoRes: CGSize? {
+    var autoLayoutRes: CGSize? {
         guard boundsReady else { return nil }
         return CGSize(width: bounds.width * UIScreen.main.nativeScale, height: bounds.height * UIScreen.main.nativeScale)
     }

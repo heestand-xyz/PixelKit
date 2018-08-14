@@ -86,14 +86,14 @@ public class GradientPIX: PIXContent, PIXable {
         return uniforms
     }
     
-    public init() {
-        super.init(res: .auto)
+    public init(res: PIX.Res) {
+        super.init(res: res)
     }
     
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
-        self.init()
+        self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: GradientCodingKeys.self)
         premultiply = try container.decode(Bool.self, forKey: .premultiply)
         setNeedsRender()

@@ -11,6 +11,7 @@ import Foundation
 extension PIX {
     
     enum Kind: String, Codable {
+        case `nil`
         case camera
         case levels
         case blur
@@ -22,8 +23,10 @@ extension PIX {
         case lumaBlur
         case twirl
         case noise
+        case blends
         var type: PIX.Type {
             switch self {
+            case .nil: return NilPIX.self
             case .camera: return CameraPIX.self
             case .levels: return LevelsPIX.self
             case .blur: return BlurPIX.self
@@ -35,6 +38,7 @@ extension PIX {
             case .lumaBlur: return LumaBlurPIX.self
             case .twirl: return TwirlPIX.self
             case .noise: return NoisePIX.self
+            case .blends: return BlendsPIX.self
             }
         }
     }

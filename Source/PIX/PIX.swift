@@ -146,14 +146,10 @@ public class PIX: Codable {
                 } else {
                     print("disconnect merger...") // CHECK
                 }
+            } else if let pixInMulti = self as? PIXInMulti {
+                connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
             }
-//            else if let pixInMulti = self as? PIXInMulti {
-//
-//            }
         }
-//        if self is PIXOut {
-//
-//        }
     }
     
     func connectSingle(_ pixOut: PIX & PIXOutIO) {
@@ -175,9 +171,18 @@ public class PIX: Codable {
         pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
         print(self, "Connected", "Merger", pixOutA, pixOutB)
-        applyRes {
-            self.setNeedsRender()
+        applyRes { self.setNeedsRender() }
+    }
+    
+    func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
+        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        pixInIO.pixInList = pixOuts
+        for (i, pixOut) in pixOuts.enumerated() {
+            var pixOut = pixOut
+            pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
+        print(self, "Connected", "Multi", pixOuts)
+        applyRes { self.setNeedsRender() }
     }
     
     // MARK: Diconnect

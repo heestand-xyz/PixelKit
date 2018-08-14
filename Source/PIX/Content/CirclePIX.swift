@@ -34,14 +34,14 @@ public class CirclePIX: PIXContent, PIXable {
         return uniforms
     }
     
-    public init() {
-        super.init(res: .auto)
+    public init(res: PIX.Res) {
+        super.init(res: res)
     }
     
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
-        self.init()
+        self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: CircleCodingKeys.self)
         radius = try container.decode(CGFloat.self, forKey: .radius)
         position = try container.decode(CGPoint.self, forKey: .position)

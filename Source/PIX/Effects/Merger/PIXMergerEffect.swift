@@ -12,5 +12,6 @@ public class PIXMergerEffect: PIXEffect, PIXInMerger {
     
     public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
+    override var connectedIn: Bool { return pixInList.count == 2 }
     
 }

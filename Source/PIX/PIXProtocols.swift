@@ -33,7 +33,9 @@ public protocol PIXInMulti: PIXIn {
 
 protocol PIXInIO: PIXIn {
     var pixInList: [PIX & PIXOut] { get set }
+    var connectedIn: Bool { get }
 }
 protocol PIXOutIO: PIXOut {
     var pixOutPathList: [PIX.OutPath] { get set }
+    var connectedOut: Bool { get }
 }

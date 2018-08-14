@@ -11,6 +11,7 @@ import Foundation
 public class PIXOutput: PIX, PIXInIO, PIXInSingle {
     
     var pixInList: [PIX & PIXOut] = []
+    var connectedIn: Bool { return !pixInList.isEmpty }
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
