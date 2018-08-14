@@ -389,34 +389,27 @@ public class HxPxE {
                         continue
                     }
                 }
-                if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
-                if self.render(pix) {
-                    if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
-                    self.rendersThisFrame += 1
+                if pix.view.superview != nil {
+                    if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
+                    pix.view.metalView.readyToRender = {
+                        pix.view.metalView.readyToRender = nil
+                        if self.render(pix) {
+                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
+                            self.rendersThisFrame += 1
+                        } else {
+                            print(pix, "🚨", "Render failed.")
+                        }
+                    }
+                    pix.view.metalView.setNeedsDisplay()
                 } else {
-                    print(pix, "🚨", "Render failed.")
+                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
+                    if self.render(pix) {
+                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
+                        rendersThisFrame += 1
+                    } else {
+                        print(pix, "🚨", "Render failed", "in Background.")
+                    }
                 }
-//                if pix.view.superview != nil {
-//                    if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
-//                    pix.view.metalView.readyToRender = {
-//                        pix.view.metalView.readyToRender = nil
-//                        if self.render(pix) {
-//                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
-//                            self.rendersThisFrame += 1
-//                        } else {
-//                            print(pix, "🚨", "Render failed.")
-//                        }
-//                    }
-//                    pix.view.metalView.setNeedsDisplay()
-//                } else {
-//                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
-//                    if self.render(pix) {
-//                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
-//                        rendersThisFrame += 1
-//                    } else {
-//                        print(pix, "🚨", "Render failed", "in Background.")
-//                    }
-//                }
             }
         }
     }

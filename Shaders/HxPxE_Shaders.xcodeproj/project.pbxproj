@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7439E9E02123764C003B0190 /* NoisePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9DF2123764C003B0190 /* NoisePIX.metal */; };
+		7439E9E221237690003B0190 /* noise.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E121237690003B0190 /* noise.metal */; };
+		7439E9E6212377EC003B0190 /* noise_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E5212377EC003B0190 /* noise_header.metal */; };
 		7468F95C211244E700E285B1 /* QuadVTX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F957211244B900E285B1 /* QuadVTX.metal */; };
 		7468F95D211244E800E285B1 /* NilPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F959211244B900E285B1 /* NilPIX.metal */; };
 		7468F95F211244EC00E285B1 /* LevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7468F95B211244B900E285B1 /* LevelsPIX.metal */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7439E9DF2123764C003B0190 /* NoisePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NoisePIX.metal; sourceTree = "<group>"; };
+		7439E9E121237690003B0190 /* noise.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = noise.metal; sourceTree = "<group>"; };
+		7439E9E5212377EC003B0190 /* noise_header.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = noise_header.metal; sourceTree = "<group>"; };
 		7468F957211244B900E285B1 /* QuadVTX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = QuadVTX.metal; sourceTree = "<group>"; };
 		7468F959211244B900E285B1 /* NilPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = NilPIX.metal; sourceTree = "<group>"; };
 		7468F95B211244B900E285B1 /* LevelsPIX.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = LevelsPIX.metal; sourceTree = "<group>"; };
@@ -42,6 +48,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		7439E9E32123774B003B0190 /* Noise */ = {
+			isa = PBXGroup;
+			children = (
+				7439E9E5212377EC003B0190 /* noise_header.metal */,
+				7439E9E121237690003B0190 /* noise.metal */,
+			);
+			path = Noise;
+			sourceTree = "<group>";
+		};
 		7468F956211244B900E285B1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +96,7 @@
 		747845B621131BDD0077AB89 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				7439E9E32123774B003B0190 /* Noise */,
 				747845B921131D890077AB89 /* Random */,
 			);
 			path = External;
@@ -102,6 +118,7 @@
 				74EC5D9E211A2D52003BE4DE /* CirclePIX.metal */,
 				74BA6235211CEB93005F5FBC /* GradientPIX.metal */,
 				74B3F9E2211E12B50057B41F /* ImagePIX.metal */,
+				7439E9DF2123764C003B0190 /* NoisePIX.metal */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -183,6 +200,9 @@
 				74B3F9E3211E12B60057B41F /* ImagePIX.metal in Sources */,
 				748ADFB22120960F007462F8 /* ResPIX.metal in Sources */,
 				74764BB6211EEF6E00ED0FBB /* TwirlPIX.metal in Sources */,
+				7439E9E221237690003B0190 /* noise.metal in Sources */,
+				7439E9E02123764C003B0190 /* NoisePIX.metal in Sources */,
+				7439E9E6212377EC003B0190 /* noise_header.metal in Sources */,
 				74879D672118E90900BF17DE /* EdgePIX.metal in Sources */,
 				747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */,
 				749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */,
