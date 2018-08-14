@@ -91,11 +91,11 @@ public class PIX: Codable {
     
     func setNeedsRender() {
         guard !needsRender else {
-            print(self, "WARNING", "Render:", "Already requested.")
+            if HxPxE.main.frameIndex < 10 { print(self, "WARNING", "Render:", "Already requested.") }
             return
         }
         guard resolution != nil else {
-            print(self, "WARNING", "Render:", "Resolution unknown.")
+            if HxPxE.main.frameIndex < 10 { print(self, "WARNING", "Render:", "Resolution unknown.") }
             return
         }
         if let pixContent = self as? PIXContent {
@@ -107,7 +107,7 @@ public class PIX: Codable {
             }
         }
         if HxPxE.main.frameIndex < 10 {
-            print(self, "📡", "Requested Render.")
+            if HxPxE.main.frameIndex < 10 { print(self, "📡", "Requested Render.") }
         }
         needsRender = true
         delegate?.pixWillRender(self)

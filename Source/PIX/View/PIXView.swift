@@ -82,8 +82,8 @@ public class PIXView: UIView {
         metalView.translatesAutoresizingMaskIntoConstraints = false
         metalView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         metalView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        widthLayoutConstraint = metalView.widthAnchor.constraint(equalToConstant: 128)
-        heightLayoutConstraint = metalView.heightAnchor.constraint(equalToConstant: 128)
+        widthLayoutConstraint = metalView.widthAnchor.constraint(equalToConstant: 128) // CHECK 128
+        heightLayoutConstraint = metalView.heightAnchor.constraint(equalToConstant: 128) // CHECK 128
         widthLayoutConstraint.isActive = true
         heightLayoutConstraint.isActive = true
         
@@ -135,7 +135,8 @@ public class PIXView: UIView {
             layoutFillMode()
             metalView.setResolution(newResolution) // CHECK layoutSubviews()
         } else {
-            print("PIX View", "Same res...")
+//            layoutFillMode()
+            if HxPxE.main.frameIndex < 10 { print("PIX View", "Same res...") }
         }
     }
     

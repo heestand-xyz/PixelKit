@@ -35,8 +35,8 @@ public class HxPxE {
     
     var pixList: [PIX] = []
     
-    var _fps: Int = 0
-    public var fps: Int { return _fps }
+    var _fps: Int = -1
+    public var fps: Int { return min(_fps, fpsMax) }
     public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
     public var frameIndex = 0
     var frameDate = Date()
@@ -106,6 +106,7 @@ public class HxPxE {
     
     @objc func frameLoop() {
         if frameIndex < 10 { print("FRAME", "#", frameIndex) }
+        if frameIndex == 10 { print("FRAME", "#", "...") }
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
@@ -388,31 +389,34 @@ public class HxPxE {
                         continue
                     }
                 }
-//                guard pix.view.superview != nil else {
-//                    print(pix, "Skipping Render, No Superview")
-//                    continue
-//                }
-                if pix.view.superview != nil {
-                    pix.view.metalView.readyToRender = {
-                        if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
-                        if self.render(pix) {
-                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
-                            self.rendersThisFrame += 1
-                        } else {
-                            print(pix, "🚨", "Render failed.")
-                        }
-                        pix.view.metalView.readyToRender = nil
-                    }
-                    pix.view.metalView.setNeedsDisplay()
+                if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
+                if self.render(pix) {
+                    if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
+                    self.rendersThisFrame += 1
                 } else {
-                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
-                    if self.render(pix) {
-                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
-                        rendersThisFrame += 1
-                    } else {
-                        print(pix, "🚨", "Render failed", "in Background.")
-                    }
+                    print(pix, "🚨", "Render failed.")
                 }
+//                if pix.view.superview != nil {
+//                    if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
+//                    pix.view.metalView.readyToRender = {
+//                        pix.view.metalView.readyToRender = nil
+//                        if self.render(pix) {
+//                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
+//                            self.rendersThisFrame += 1
+//                        } else {
+//                            print(pix, "🚨", "Render failed.")
+//                        }
+//                    }
+//                    pix.view.metalView.setNeedsDisplay()
+//                } else {
+//                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
+//                    if self.render(pix) {
+//                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
+//                        rendersThisFrame += 1
+//                    } else {
+//                        print(pix, "🚨", "Render failed", "in Background.")
+//                    }
+//                }
             }
         }
     }
@@ -577,13 +581,18 @@ public class HxPxE {
             commandBuffer.present(viewDrawable!)
         }
         
+        commandBuffer.addCompletedHandler { _ in
+            DispatchQueue.main.async {
+                pix.didRender(texture: drawableTexture, force: force)
+            }
+        }
+        
         commandBuffer.commit()
 
         if commandBuffer.error != nil {
             print(pix, "ERROR", "Render:", "Failed:", commandBuffer.error!.localizedDescription)
+            return false
         }
-        
-        pix.didRender(texture: drawableTexture, force: force)
         
         return true
         

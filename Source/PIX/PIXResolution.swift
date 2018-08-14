@@ -58,7 +58,7 @@ extension PIX {
 //    }
     
     func applyRes(applied: @escaping () -> ()) {
-        print(self, "Will Apply Res")
+        if HxPxE.main.frameIndex < 10 { print(self, "Will Apply Res") }
         guard let resolution = resolution else {
             if wantsAutoRes { // CHECK downstream
                 view.autoResReadyCallback = {
@@ -73,7 +73,7 @@ extension PIX {
             return
         }
         view.setResolution(resolution)
-        print(self, "Did Apply Res:", resolution)
+        if HxPxE.main.frameIndex < 10 { print(self, "Did Apply Res:", resolution) }
         applied()
     }
     

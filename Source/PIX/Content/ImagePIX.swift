@@ -47,7 +47,7 @@ public class ImagePIX: PIXContent, PIXable {
             return
         }
         contentPixelBuffer = pixelBuffer
-        print(self, "Image Loaded")
+        if HxPxE.main.frameIndex < 10 { print(self, "Image Loaded") }
         setNeedsRender()
     }
     
