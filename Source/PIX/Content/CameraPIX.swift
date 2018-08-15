@@ -40,7 +40,7 @@ public class CameraPIX: PIXContent, PIXable {
     var helper: CameraHelper?
     
     public init() {
-        super.init(res: .unknown, resource: true)
+        super.init(res: nil, resource: true)
         setupCamera()
     }
     
@@ -70,7 +70,7 @@ public class CameraPIX: PIXContent, PIXable {
         helper = CameraHelper(cameraPosition: camera.position, setup: { resolution, orientation in
             // CHECK Why 2 setups on init?
 //            print("CameraPIX:", "Setup:", "Resolution:", resolution, "Orientation:", orientation.rawValue)
-            self.res = .custom(res: resolution)
+            self.res = .custom(size: resolution)
             self.orientation = orientation
         }, captured: { pixelBuffer in
             self.contentPixelBuffer = pixelBuffer

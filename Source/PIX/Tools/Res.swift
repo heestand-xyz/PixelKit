@@ -12,7 +12,6 @@ public extension PIX {
 
     public enum Res {
         
-        case autoLayout
         case screen
         case _720p
         case _1080p
@@ -23,12 +22,10 @@ public extension PIX {
         case _1024
         case _2048
         case _4096
-        case custom(res: CGSize)
-        case unknown
+        case custom(size: CGSize)
         
-        var resolution: CGSize? {
+        public var size: CGSize {
             switch self {
-            case .autoLayout: return nil
             case .screen: return UIScreen.main.nativeBounds.size
             case ._720p: return CGSize(width: 1280, height: 720)
             case ._1080p: return CGSize(width: 1920, height: 1080)
@@ -39,49 +36,43 @@ public extension PIX {
             case ._1024: return CGSize(width: 1024, height: 1024)
             case ._2048: return CGSize(width: 2048, height: 2048)
             case ._4096: return CGSize(width: 4096, height: 4096)
-            case .custom(let res): return res
-            case .unknown: return nil
+            case .custom(let size): return size
             }
         }
         
-        var isAutoLayout: Bool {
-            switch self {
-            case .autoLayout: return true
-            default: return false
-            }
+        public var width: CGFloat {
+            return size.width
         }
-        
-        var aspect: CGFloat? {
-            guard resolution != nil else { return nil }
-            return resolution!.width / resolution!.height
+        public var height: CGFloat {
+            return size.height
+        }
+        public var aspect: CGFloat {
+            return size.width / size.height
         }
         
         var raw: Any? {
             switch self {
-            case .autoLayout: return "autoLayout"
             case .screen: return "screen"
-            default: return resolution
+            default: return size
             }
         }
         
-        init(raw: Any?) {
+        init?(raw: Any?) {
             if let rawStr = raw as? String {
-                if rawStr == "autoLayout" {
-                    self = .autoLayout
-                } else if rawStr == "screen" {
+                if rawStr == "screen" {
                     self = .screen
                 } else {
-                    self = .unknown
+                    return nil
                 }
-            } else if let rawResolution = raw as? CGSize {
-                self.init(resolution: rawResolution)
+            } else if let rawSize = raw as? CGSize {
+                self.init(size: rawSize)
             } else {
-                self = .unknown
+                return nil
             }
         }
         
-        init(resolution: CGSize) {
-            switch resolution {
+        init(size: CGSize) {
+            switch size {
             case CGSize(width: 1280, height: 720): self = ._720p
             case CGSize(width: 1920, height: 1080): self = ._1080p
             case CGSize(width: 3840, height: 2160): self = ._4K
@@ -91,8 +82,13 @@ public extension PIX {
             case CGSize(width: 1024, height: 1024): self = ._1024
             case CGSize(width: 2048, height: 2048): self = ._2048
             case CGSize(width: 4096, height: 4096): self = ._4096
-            default: self = .custom(res: resolution)
+            default: self = .custom(size: size)
             }
+        }
+        
+        init(image: UIImage) {
+            let nativeSize = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
+            self = .custom(size: nativeSize)
         }
         
     }

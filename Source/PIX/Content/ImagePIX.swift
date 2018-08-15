@@ -18,7 +18,8 @@ public class ImagePIX: PIXContent, PIXable {
     
     public init(image: UIImage?) {
         self.image = image
-        super.init(res: .unknown, resource: true)
+        let imageRes = image != nil ? PIX.Res(image: image!) : nil
+        super.init(res: imageRes, resource: true)
         if image != nil { setNeedsBuffer() }
     }
     
@@ -41,9 +42,7 @@ public class ImagePIX: PIXContent, PIXable {
             })
             return
         }
-        let width = image.size.width * image.scale
-        let height = image.size.height * image.scale
-        res = .custom(res: CGSize(width: width, height: height))
+        res = PIX.Res(image: image) // CHECK double call on init with image
         guard let pixelBuffer = buffer(from: image) else {
             print(self, "ERROR", "Pixel Buffer creation failed.")
             return

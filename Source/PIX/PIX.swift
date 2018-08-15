@@ -67,16 +67,6 @@ public class PIX: Codable {
             }
         }
         
-        view.newLayoutCallback = {
-            print("CHECK view.newLayoutCallback...")
-//            if self.view.superview != nil {
-//                if self.wantsAutoRes {
-//                    self.setNeedsRes()
-//                }
-//                self.setNeedsRender()
-//            }
-        }
-        
     }
     
     // MARK: JSON

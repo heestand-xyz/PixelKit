@@ -10,15 +10,11 @@ import MetalKit
 
 public class PIXView: UIView {
     
-    var boundsReady: Bool { return bounds.width > 0 }
-    var autoLayoutRes: CGSize? {
-        guard boundsReady else { return nil }
-        return CGSize(width: bounds.width * UIScreen.main.nativeScale, height: bounds.height * UIScreen.main.nativeScale)
-    }
-    var autoResReadyCallback: (() -> ())?
-    var resolution: CGSize?
-    
     let metalView: PIXMetalView
+
+    var resolution: CGSize?
+
+    var boundsReady: Bool { return bounds.width > 0 }
 
     public enum FillMode {
         case aspectFit
@@ -30,7 +26,6 @@ public class PIXView: UIView {
     
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
-    var newLayoutCallback: (() -> ())!
     
 //    public enum Checker {
 //        case lightGray
@@ -119,8 +114,6 @@ public class PIXView: UIView {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
-        newLayoutCallback()
-        
     }
     
     func style() {
@@ -140,15 +133,9 @@ public class PIXView: UIView {
         }
     }
     
-    public override func layoutSubviews() { // CHECK
+    public override func layoutSubviews() {
         super.layoutSubviews()
-        if boundsReady {
-            if autoResReadyCallback != nil {
-                autoResReadyCallback!()
-                autoResReadyCallback = nil
-            }
-            layoutFillMode()
-        }
+        layoutFillMode()
     }
     
     required init?(coder aDecoder: NSCoder) {
