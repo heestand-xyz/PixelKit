@@ -16,16 +16,18 @@ class PIXMetalView: MTKView {
     
     public init() {
         
-        super.init(frame: .zero, device: HxPxE.main.metalDevice)
+        let onePixelFrame = CGRect(x: 0, y: 0, width: 1, height: 1) // CHECK
+        
+        super.init(frame: onePixelFrame, device: HxPxE.main.metalDevice)
         
         colorPixelFormat = HxPxE.main.colorBits.mtl
         isOpaque = false
         framebufferOnly = false
         autoResizeDrawable = false // CHECK
-        contentMode = .scaleToFill //.scaleAspectFit
+//        contentMode = .scaleToFill //.scaleAspectFit
         enableSetNeedsDisplay = true
-        isUserInteractionEnabled = false // CHECK
-        contentScaleFactor = UIScreen.main.scale
+//        isUserInteractionEnabled = false // CHECK
+//        contentScaleFactor = UIScreen.main.scale
         isPaused = true // CHECK
         
     }

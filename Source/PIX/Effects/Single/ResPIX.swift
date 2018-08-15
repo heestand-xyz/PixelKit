@@ -29,11 +29,11 @@ public class ResPIX: PIXSingleEffect, PIXable {
     }
     
     public var res: PIX.Res { didSet { applyRes { self.setNeedsRender() } } }
-    public var resMult: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
+    public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
     enum ResCodingKeys: String, CodingKey {
-        case resMult; case inheritInRes; case fillMode
+        case resMultiplier; case inheritInRes; case fillMode
     }
     override var shaderUniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
@@ -49,7 +49,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: ResCodingKeys.self)
-        resMult = try container.decode(CGFloat.self, forKey: .resMult)
+        resMultiplier = try container.decode(CGFloat.self, forKey: .resMultiplier)
         inheritInRes = try container.decode(Bool.self, forKey: .inheritInRes)
         fillMode = try container.decode(FillMode.self, forKey: .fillMode)
     }
@@ -57,7 +57,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
     override public func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: ResCodingKeys.self)
-        try container.encode(resMult, forKey: .resMult)
+        try container.encode(resMultiplier, forKey: .resMultiplier)
         try container.encode(inheritInRes, forKey: .inheritInRes)
         try container.encode(fillMode, forKey: .fillMode)
     }

@@ -10,7 +10,11 @@ import Foundation
 
 public class PIXContent: PIX, PIXOutIO {
     
-    public var res: PIX.Res? { didSet { applyRes { self.setNeedsRender() } } }
+    var _res: PIX.Res?
+    public var res: PIX.Res? {
+        set { _res = newValue; applyRes { self.setNeedsRender() } }
+        get { return _res != nil ? _res! * HxPxE.main.globalContentResMultiplier : nil }
+    }
     
     var pixOutPathList: [PIX.OutPath] = []
     var connectedOut: Bool { return !pixOutPathList.isEmpty }
@@ -20,7 +24,7 @@ public class PIXContent: PIX, PIXOutIO {
     
     init(res: PIX.Res?, resource: Bool = false) {
         isResource = resource
-        self.res = res
+        _res = res
         super.init()
         pixOutPathList = []
         if !resource {

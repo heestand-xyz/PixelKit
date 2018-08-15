@@ -41,18 +41,18 @@ public extension PIX {
     }
     
     public struct Pixels {
-        public let resolution: CGSize
+        public let res: PIX.Res
         public let raw: [[PIX.Color]]
         public func pixel(uv: CGVector) -> PIX.Color {
-            let xMax = resolution.width - 1
-            let yMax = resolution.height - 1
+            let xMax = res.width - 1
+            let yMax = res.height - 1
             let x = max(0, min(Int(round(uv.dx * xMax + 0.5)), Int(xMax)))
             let y = max(0, min(Int(round(uv.dy * yMax + 0.5)), Int(yMax)))
             return pixel(pos: CGPoint(x: x, y: y))
         }
         public func pixel(pos: CGPoint) -> PIX.Color {
-            let xMax = resolution.width - 1
-            let yMax = resolution.height - 1
+            let xMax = res.width - 1
+            let yMax = res.height - 1
             let x = max(0, min(Int(round(pos.x)), Int(xMax)))
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
@@ -60,11 +60,11 @@ public extension PIX {
     }
 
     public var renderedPixels: Pixels? {
-        guard let resolution = resolution else { return nil }
+        guard let res = resolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
         var pixels: [[PIX.Color]] = []
-        let w = Int(resolution.width)
-        let h = Int(resolution.height)
+        let w = Int(res.width)
+        let h = Int(res.height)
         for y in 0..<h {
             var pixelRow: [PIX.Color] = []
             for x in 0..<w {
@@ -80,7 +80,7 @@ public extension PIX {
             }
             pixels.append(pixelRow)
         }
-        return Pixels(resolution: resolution, raw: pixels)
+        return Pixels(res: res, raw: pixels)
     }
     
 }

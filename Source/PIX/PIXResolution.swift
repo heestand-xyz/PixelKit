@@ -10,34 +10,32 @@ import Foundation
 
 extension PIX {
     
-    public var resolution: CGSize? {
+    var resolution: PIX.Res? {
         if let pixContent = self as? PIXContent {
-            return pixContent.res?.size
+            return pixContent.res
         } else if let resPix = self as? ResPIX {
-            let resSize: CGSize
-            if !resPix.inheritInRes {
-                resSize = resPix.res.size
+            let resRes: PIX.Res
+            if resPix.inheritInRes {
+                guard let inResolution = resPix.pixInList.first?.resolution else { return nil }
+                resRes = inResolution
             } else {
-                guard let inRes = resPix.pixInList.first?.resolution else { return nil }
-                resSize = inRes
+                resRes = resPix.res
             }
-            var multRes = CGSize(width: resSize.width * resPix.resMult, height: resSize.height * resPix.resMult)
-            if multRes.width < 1 { multRes.width = 1 }
-            if multRes.height < 1 { multRes.height = 1 }
-            return multRes
+            return resRes * resPix.resMultiplier
         } else if let pixIn = self as? PIX & PIXInIO {
             return pixIn.pixInList.first?.resolution
+        } else {
+            return nil
         }
-        return nil
     }
     
     func applyRes(applied: @escaping () -> ()) {
-        guard let resolution = resolution else {
+        guard let res = resolution else {
             if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Res:", "Resolution unknown.") }
             return
         }
-        view.setResolution(resolution)
-        if HxPxE.main.frameIndex < 10 { print(self, "Applied Res:", resolution) }
+        view.setRes(res)
+        if HxPxE.main.frameIndex < 10 { print(self, "Applied Res:", res) }
         applied()
     }
     

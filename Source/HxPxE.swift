@@ -46,6 +46,8 @@ public class HxPxE {
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
     
+    public var globalContentResMultiplier: CGFloat = 1
+    
     struct Vertex {
         var x,y: Float
         var s,t: Float
@@ -301,7 +303,7 @@ public class HxPxE {
     // MARK: Raw
     
     func raw8(texture: MTLTexture) -> [UInt8]? {
-        guard colorBits == ._8 else { return nil }
+        guard colorBits == ._8 else { print("HxPxE", "ERROR", "Raw 8", "To access this data, change: \"HxPxE.main.colorBits = ._8\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -312,7 +314,7 @@ public class HxPxE {
     }
     
     func raw16(texture: MTLTexture) -> [Float]? {
-        guard colorBits == ._16 else { return nil }
+        guard colorBits == ._16 else { print("HxPxE", "ERROR", "Raw 16", "To access this data, change: \"HxPxE.main.colorBits = ._16\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -323,7 +325,7 @@ public class HxPxE {
     }
     
     func raw32(texture: MTLTexture) -> [float4]? {
-        guard colorBits != ._32 else { return nil }
+        guard colorBits != ._32 else { print("HxPxE", "ERROR", "Raw 32", "To access this data, change: \"HxPxE.main.colorBits = ._32\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
         raw.withUnsafeMutableBytes {
@@ -392,6 +394,7 @@ public class HxPxE {
                 }
                 if pix.view.superview != nil {
                     if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
+                    pix.view.metalView.setNeedsDisplay()
                     pix.view.metalView.readyToRender = {
                         pix.view.metalView.readyToRender = nil
                         if self.render(pix) {
@@ -401,7 +404,6 @@ public class HxPxE {
                             print(pix, "🚨", "Render failed.")
                         }
                     }
-                    pix.view.metalView.setNeedsDisplay()
                 } else {
                     if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
                     if self.render(pix) {
@@ -416,6 +418,14 @@ public class HxPxE {
     }
     
     func render(_ pix: PIX, force: Bool = false) -> Bool {
+        
+//        if #available(iOS 11.0, *) {
+//            let sharedCaptureManager = MTLCaptureManager.shared()
+//            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice!)
+//            myCaptureScope.label = "HxPxE GPU Capture Scope"
+//            sharedCaptureManager.defaultCaptureScope = myCaptureScope
+//            myCaptureScope.begin()
+//        }
         
         guard aLive else {
             print(pix, "ERROR", "Render:", "Not aLive...")
@@ -496,11 +506,11 @@ public class HxPxE {
             viewDrawable = currentDrawable
             drawableTexture = currentDrawable.texture
         } else {
-            guard let resolution = pix.resolution else {
+            guard let res = pix.resolution else {
                 print(pix, "ERROR", "Render:", "Drawable Textue:", "Resolution not set.")
                 return false
             }
-            guard let emptyTexture = emptyTexture(size: resolution) else {
+            guard let emptyTexture = emptyTexture(size: res.size) else {
                 print(pix, "ERROR", "Render:", "Drawable Textue:", "Empty Texture Creation Failed.")
                 return false
             }
@@ -587,6 +597,11 @@ public class HxPxE {
             print(pix, "ERROR", "Render:", "Failed:", commandBuffer.error!.localizedDescription)
             return false
         }
+        
+//        if #available(iOS 11.0, *) {
+//            let sharedCaptureManager = MTLCaptureManager.shared()
+//            sharedCaptureManager.defaultCaptureScope?.end()
+//        }
         
         return true
         
