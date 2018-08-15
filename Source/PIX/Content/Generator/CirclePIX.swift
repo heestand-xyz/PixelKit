@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CirclePIX: PIXContent, PIXable {
+public class CirclePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .circle
     
@@ -32,10 +32,6 @@ public class CirclePIX: PIXContent, PIXable {
         uniforms.append(contentsOf: PIX.Color(bgColor).list)
         uniforms.append(premultiply ? 1 : 0)
         return uniforms
-    }
-    
-    public init(res: PIX.Res) {
-        super.init(res: res)
     }
     
     // MARK: JSON

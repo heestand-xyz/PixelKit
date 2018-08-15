@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ResPIX: PIXSingleEffect, PIXable {
+public class ResPIX: PIXSingleEffect, PIXofaKind {
 
     let kind: PIX.Kind = .res
     
@@ -28,7 +28,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
         }
     }
     
-    public var res: PIX.Res { didSet { applyRes { self.setNeedsRender() } } }
+    public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
@@ -39,7 +39,7 @@ public class ResPIX: PIXSingleEffect, PIXable {
         return [CGFloat(fillMode.index)]
     }
     
-    public init(res: PIX.Res) {
+    public init(res: Res) {
         self.res = res
         super.init()
     }

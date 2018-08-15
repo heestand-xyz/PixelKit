@@ -41,7 +41,7 @@ public extension PIX {
     }
     
     public struct Pixels {
-        public let res: PIX.Res
+        public let res: Res
         public let raw: [[PIX.Color]]
         public func pixel(uv: CGVector) -> PIX.Color {
             let xMax = res.width - 1

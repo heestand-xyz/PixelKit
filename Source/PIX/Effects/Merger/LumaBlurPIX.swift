@@ -8,7 +8,7 @@
 
 import Foundation
 
-/*public*/ class LumaBlurPIX: PIXMergerEffect, PIXable {
+/*public*/ class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lumaBlur
     

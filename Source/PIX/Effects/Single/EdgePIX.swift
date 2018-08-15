@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class EdgePIX: PIXSingleEffect, PIXable {
+public class EdgePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .edge
     

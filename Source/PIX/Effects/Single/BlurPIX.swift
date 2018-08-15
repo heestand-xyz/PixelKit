@@ -9,7 +9,7 @@
 import MetalKit
 import MetalPerformanceShaders
 
-public class BlurPIX: PIXSingleEffect, PIXable, CustomRenderDelegate {
+public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
     

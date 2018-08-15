@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class GradientPIX: PIXContent, PIXable {
+public class GradientPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .gradient
     
@@ -84,10 +84,6 @@ public class GradientPIX: PIXContent, PIXable {
         uniforms.append(contentsOf: PIX.Color(extraColorD).list)
         uniforms.append(premultiply ? 1 : 0)
         return uniforms
-    }
-    
-    public init(res: PIX.Res) {
-        super.init(res: res)
     }
     
     // MARK: JSON

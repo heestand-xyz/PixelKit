@@ -8,8 +8,16 @@
 
 import Foundation
 
-public class NilPIX: PIXSingleEffect, PIXable {
+public class NilPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .nil
+    
+    public override init() {
+        super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BlendsPIX: PIXMultiEffect, PIXable {
+public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     
     let kind: PIX.Kind = .blends
     

@@ -35,7 +35,7 @@ public extension PIX {
                 case ._32: return .RGBA16 // CHECK
                 }
             }
-            var cam: OSType {
+            var os: OSType {
                 return kCVPixelFormatType_32BGRA
             }
             public var max: Int {

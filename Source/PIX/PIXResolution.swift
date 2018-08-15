@@ -10,11 +10,16 @@ import Foundation
 
 extension PIX {
     
-    var resolution: PIX.Res? {
+    var resolution: Res? {
         if let pixContent = self as? PIXContent {
-            return pixContent.res
+            if let pixResource = pixContent as? PIXResource {
+                guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
+                return Res(pixelBuffer: pixelBuffer)
+            } else if let pixGenerator = pixContent as? PIXGenerator {
+                return pixGenerator.res
+            } else { return nil }
         } else if let resPix = self as? ResPIX {
-            let resRes: PIX.Res
+            let resRes: Res
             if resPix.inheritInRes {
                 guard let inResolution = resPix.pixInList.first?.resolution else { return nil }
                 resRes = inResolution
@@ -24,9 +29,7 @@ extension PIX {
             return resRes * resPix.resMultiplier
         } else if let pixIn = self as? PIX & PIXInIO {
             return pixIn.pixInList.first?.resolution
-        } else {
-            return nil
-        }
+        } else { return nil }
     }
     
     func applyRes(applied: @escaping () -> ()) {

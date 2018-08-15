@@ -40,14 +40,10 @@ public class HxPxE {
     public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
     public var frameIndex = 0
     var frameDate = Date()
-    var ping = true
-    var rendersThisFrame = 0 // CHECK TEMP DEBUG
     
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
-    
-    public var globalContentResMultiplier: CGFloat = 1
-    
+        
     struct Vertex {
         var x,y: Float
         var s,t: Float
@@ -107,8 +103,8 @@ public class HxPxE {
     // MARK: - Frame Loop
     
     @objc func frameLoop() {
-        if frameIndex < 10 { print("FRAME", "#", frameIndex) }
-        if frameIndex == 10 { print("FRAME", "#", "...") }
+        if frameIndex < 4 { print("FRAME", "#", frameIndex) }
+        if frameIndex == 4 { print("FRAME", "#", "...") }
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
@@ -132,10 +128,10 @@ public class HxPxE {
         }))
     }
     
-    func delay(_ delayFrames: Int, done: @escaping () -> ()) {
+    func delay(frames: Int, done: @escaping () -> ()) {
         let startFrameIndex = frameIndex
         listenToFrames(callback: {
-            if self.frameIndex >= startFrameIndex + delayFrames {
+            if self.frameIndex >= startFrameIndex + frames {
                 done()
                 return true
             } else {
@@ -371,53 +367,51 @@ public class HxPxE {
     // MARK: - Render
     
     func renderPIXs() {
-        rendersThisFrame = 0
         for pix in pixList {
             if pix.needsRender {
-                pix.needsRender = false
                 if let pixIn = pix as? PIXInIO {
                     guard let pixOut = pixIn.pixInList.first else {
                         print(pixIn, "Can't Render.", "PIX In's inPix is nil.")
                         continue
                     }
                     if pixOut.texture == nil {
-                        // CHECK wait for upstream to render
-                        if frameIndex < 10 { print(pixOut, "💎", "Will Render,", "Forced by", pix) }
-                        if HxPxE.main.render(pixOut, force: true) {
-                            if frameIndex < 10 { print(pixOut, "☘️", "Did Render,", "Forced by", pix) }
-                            rendersThisFrame += 1
-                        } else {
-                            print(pixOut, "🚨", "Render failed,", "Forced by", pix)
-                        }
+                        // CHECK upstream, if connected & rendered
+                        renderPIX(pixOut, force: true)
                         continue
                     }
                 }
                 if pix.view.superview != nil {
-                    if self.frameIndex < 10 { print(pix, "💎", "Will Render.") }
                     pix.view.metalView.setNeedsDisplay()
                     pix.view.metalView.readyToRender = {
                         pix.view.metalView.readyToRender = nil
-                        if self.render(pix) {
-                            if self.frameIndex < 10 { print(pix, "☘️", "Did Render.") }
-                            self.rendersThisFrame += 1
-                        } else {
-                            print(pix, "🚨", "Render failed.")
-                        }
+                        self.renderPIX(pix)
                     }
                 } else {
-                    if frameIndex < 10 { print(pix, "💎", "Will Render", "in Background.") }
-                    if self.render(pix) {
-                        if frameIndex < 10 { print(pix, "☘️", "Did Render", "in Background.") }
-                        rendersThisFrame += 1
-                    } else {
-                        print(pix, "🚨", "Render failed", "in Background.")
-                    }
+                    renderPIX(pix)
                 }
             }
         }
     }
     
-    func render(_ pix: PIX, force: Bool = false) -> Bool {
+    func renderPIX(_ pix: PIX, force: Bool = false) {
+        guard !pix.rendering else {
+            print(pix, "WARNING", "Render in progress...")
+            return
+        }
+        pix.rendering = true
+        pix.needsRender = false
+        if self.frameIndex < 10 { print(pix, "Starting render.") }
+        self.render(pix, force: force, completed: { texture in
+            if self.frameIndex < 10 { print(pix, "Render successful!") }
+            pix.rendering = false
+            pix.didRender(texture: texture, force: force)
+        }, failed: {
+            if self.frameIndex < 10 { print(pix, "Render failed...") }
+            pix.rendering = false
+        })
+    }
+    
+    func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping () -> ()) {
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
@@ -429,19 +423,19 @@ public class HxPxE {
         
         guard aLive else {
             print(pix, "ERROR", "Render:", "Not aLive...")
-            return false
+            return
         }
         
 //        if self.pixelBuffer == nil && self.uses_source_texture {
 //            AnalyticsAssistant.shared.logERROR("Render canceled: Source Texture is specified & Pixel Buffer is nil.")
-//            return false
+//            return
 //        }
         
         // MARK: Command Buffer
         
         guard let commandBuffer = commandQueue!.makeCommandBuffer() else {
             print(pix, "ERROR", "Render:", "Command Buffer:", "Make faild.")
-            return false
+            return
         }
         
         // MARK: Input Texture
@@ -450,31 +444,34 @@ public class HxPxE {
         var inputTexture: MTLTexture? = nil
         var secondInputTexture: MTLTexture? = nil
         if let pixContent = pix as? PIXContent {
-            if pixContent.isResource {
-                guard let contentPixelBuffer = pixContent.contentPixelBuffer else {
+            if let pixResource = pixContent as? PIXResource {
+                guard let pixelBuffer = pixResource.pixelBuffer else {
                     print(pix, "ERROR", "Render:", "Texture Creation:", "Pixel Buffer is empty.")
-                    return false
+                    return
                 }
-                guard let sourceTexture = makeTexture(from: contentPixelBuffer) else {
+                guard let sourceTexture = makeTexture(from: pixelBuffer) else {
                     print(pix, "ERROR", "Render:", "Texture Creation:", "Make faild.")
-                    return false
+                    return
                 }
                 inputTexture = sourceTexture
-            } else {
+            } else if pixContent is PIXGenerator {
                 generator = true
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
-            let pixOut = pixIn.pixInList.first!
+            guard let pixOut = pixIn.pixInList.first else {
+                print(pix, "ERROR", "Render:", "inPix not connected.")
+                return
+            }
             guard let pixOutTexture = pixOut.texture else {
                 print(pix, "ERROR", "Render:", "IO Texture not found for:", pixOut)
-                return false
+                return
             }
             inputTexture = pixOutTexture // CHECK copy?
             if pix is PIXInMerger {
                 let pixOutB = pixIn.pixInList[1]
                 guard let pixOutTextureB = pixOutB.texture else {
                     print(pix, "ERROR", "Render:", "IO Texture B not found for:", pixOutB)
-                    return false
+                    return
                 }
                 secondInputTexture = pixOutTextureB // CHECK copy?
             }
@@ -485,11 +482,11 @@ public class HxPxE {
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
                 print(pix, "ERROR", "Render:", "CustomRenderDelegate not implemented.")
-                return false
+                return
             }
             guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
                 print(pix, "ERROR", "Render:", "Custom Render faild.")
-                return false
+                return
             }
             inputTexture = customRenderedTexture
         }
@@ -501,20 +498,25 @@ public class HxPxE {
         if pix.view.superview != nil {
             guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
                 print(pix, "ERROR", "Render:", "Current Drawable:", "Not found.")
-                return false
+                return
             }
             viewDrawable = currentDrawable
             drawableTexture = currentDrawable.texture
         } else {
             guard let res = pix.resolution else {
                 print(pix, "ERROR", "Render:", "Drawable Textue:", "Resolution not set.")
-                return false
+                return
             }
             guard let emptyTexture = emptyTexture(size: res.size) else {
                 print(pix, "ERROR", "Render:", "Drawable Textue:", "Empty Texture Creation Failed.")
-                return false
+                return
             }
             drawableTexture = emptyTexture
+        }
+        
+        let drawableRes = PIX.Res(texture: drawableTexture)
+        if (drawableRes > PIX.Res._4096) != false {
+            print(pix, "WARNING", "Render:", "High res:", drawableRes)
         }
         
         // MARK: Command Encoder
@@ -525,7 +527,7 @@ public class HxPxE {
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 0)
         guard let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
             print(pix, "ERROR", "Render:", "Command Encoder:", "Make faild.")
-            return false
+            return
         }
         commandEncoder.setRenderPipelineState(pix.pipeline!)
         
@@ -585,25 +587,23 @@ public class HxPxE {
             commandBuffer.present(viewDrawable!)
         }
         
-        commandBuffer.addCompletedHandler { _ in
-            DispatchQueue.main.async {
-                pix.didRender(texture: drawableTexture, force: force)
+        commandBuffer.addCompletedHandler({ _ in
+            if let error = commandBuffer.error {
+                print(pix, "ERROR", "Render:", "Failed:", error.localizedDescription)
+                failed()
+                return
             }
-        }
+            DispatchQueue.main.async {   
+                completed(drawableTexture)
+            }
+        })
         
         commandBuffer.commit()
-
-        if commandBuffer.error != nil {
-            print(pix, "ERROR", "Render:", "Failed:", commandBuffer.error!.localizedDescription)
-            return false
-        }
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            sharedCaptureManager.defaultCaptureScope?.end()
 //        }
-        
-        return true
         
     }
     
@@ -651,7 +651,7 @@ public class HxPxE {
                     inPixsIds = pixInMulti.inPixs.map({ outPix -> UUID in return outPix.id })
                 }
             }
-            guard let pixKind = (pix as? PIXable)?.kind else {
+            guard let pixKind = (pix as? PIXofaKind)?.kind else {
                 throw HxPxEIOError.runtimeERROR("HxPx: PIX is not able.")
             }
             return PIXPack(id: pix.id, type: pixKind, pix: pix, inPixId: inPixId, inPixAId: inPixAId, inPixBId: inPixBId, inPixsIds: inPixsIds)

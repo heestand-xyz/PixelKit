@@ -13,7 +13,7 @@ public protocol PIXDelegate {
     func pixDidRender(_ pix: PIX)
 }
 
-protocol PIXable {
+protocol PIXofaKind {
     var kind: PIX.Kind { get }
 }
 

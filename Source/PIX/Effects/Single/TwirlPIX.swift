@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class TwirlPIX: PIXSingleEffect, PIXable {
+public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .twirl
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ImagePIX: PIXContent, PIXable {
+public class ImagePIX: PIXResource, PIXofaKind {
     
     var kind: PIX.Kind = .image
     
@@ -16,16 +16,15 @@ public class ImagePIX: PIXContent, PIXable {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public init(image: UIImage?) {
-        self.image = image
-        let imageRes = image != nil ? PIX.Res(image: image!) : nil
-        super.init(res: imageRes, resource: true)
-        if image != nil { setNeedsBuffer() }
+    public init(named: String? = nil) {
+        if named != nil { image = UIImage(named: named!) }
+        super.init()
+        if image != nil { self.setNeedsBuffer() }
     }
     
     // MARK: JSON
     
-    required convenience init(from decoder: Decoder) throws { self.init(image: nil) }
+    required convenience init(from decoder: Decoder) throws { self.init() }
     override public func encode(to encoder: Encoder) throws {}
     
     // MARK: Buffer
@@ -37,17 +36,16 @@ public class ImagePIX: PIXContent, PIXable {
         }
         if HxPxE.main.frameIndex == 0 {
             print(self, "TEMP BUG FIX", "One frame delay.")
-            HxPxE.main.delay(1, done: {
+            HxPxE.main.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        res = PIX.Res(image: image) // CHECK double call on init with image
-        guard let pixelBuffer = buffer(from: image) else {
+        guard let buffer = buffer(from: image) else {
             print(self, "ERROR", "Pixel Buffer creation failed.")
             return
         }
-        contentPixelBuffer = pixelBuffer
+        pixelBuffer = buffer
         if HxPxE.main.frameIndex < 10 { print(self, "Image Loaded") }
         setNeedsRender()
     }
@@ -63,7 +61,7 @@ public class ImagePIX: PIXContent, PIXable {
             "IOSurfaceCoreAnimationCompatibility": true,
             ]] as CFDictionary
         var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), kCVPixelFormatType_32BGRA/*ARGB*/, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), HxPxE.main.colorBits.os, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class NoisePIX: PIXContent, PIXable {
+public class NoisePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .noise
     
@@ -27,10 +27,6 @@ public class NoisePIX: PIXContent, PIXable {
     }
     override var shaderUniforms: [CGFloat] {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
-    }
-    
-    public init(res: PIX.Res) {
-        super.init(res: res)
     }
     
     // MARK: JSON

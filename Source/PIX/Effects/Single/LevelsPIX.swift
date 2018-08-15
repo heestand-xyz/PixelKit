@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LevelsPIX: PIXSingleEffect, PIXable {
+public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .levels
     

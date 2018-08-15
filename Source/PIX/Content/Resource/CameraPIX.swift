@@ -8,7 +8,7 @@
 
 import AVKit
 
-public class CameraPIX: PIXContent, PIXable {
+public class CameraPIX: PIXResource, PIXofaKind {
     
     let kind: PIX.Kind = .camera
     
@@ -39,8 +39,8 @@ public class CameraPIX: PIXContent, PIXable {
 
     var helper: CameraHelper?
     
-    public init() {
-        super.init(res: nil, resource: true)
+    public override init() {
+        super.init()
         setupCamera()
     }
     
@@ -67,13 +67,11 @@ public class CameraPIX: PIXContent, PIXable {
     
     func setupCamera() {
         helper?.stop()
-        helper = CameraHelper(cameraPosition: camera.position, setup: { resolution, orientation in
-            // CHECK Why 2 setups on init?
-//            print("CameraPIX:", "Setup:", "Resolution:", resolution, "Orientation:", orientation.rawValue)
-            self.res = .custom(size: resolution)
+        helper = CameraHelper(cameraPosition: camera.position, setup: { _, orientation in
+            // CHECK Why 2 setups on init
             self.orientation = orientation
         }, captured: { pixelBuffer in
-            self.contentPixelBuffer = pixelBuffer
+            self.pixelBuffer = pixelBuffer
             self.setNeedsRender()
         })
     }
@@ -127,7 +125,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         captureSession.sessionPreset = .high
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
-        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.colorBits.cam]
+        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.colorBits.os]
         
         do {
             

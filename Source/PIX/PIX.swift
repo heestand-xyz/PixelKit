@@ -49,6 +49,7 @@ public class PIX: Codable {
     var customRenderActive: Bool = false
     var customRenderDelegate: CustomRenderDelegate?
     
+    var rendering = false
     var needsRender = false
     
     // MARK: - Life Cycle
@@ -88,16 +89,14 @@ public class PIX: Codable {
             if HxPxE.main.frameIndex < 10 { print(self, "WARNING", "Render:", "Resolution unknown.") }
             return
         }
-        if let pixContent = self as? PIXContent {
-            if pixContent.isResource {
-                guard pixContent.contentPixelBuffer != nil else {
-                    print(self, "WARNING", "Render:", "Content not loaded.")
-                    return
-                }
+        if let pixResource = self as? PIXResource {
+            guard pixResource.pixelBuffer != nil else {
+                print(self, "WARNING", "Render:", "Content not loaded.")
+                return
             }
         }
         if HxPxE.main.frameIndex < 10 {
-            if HxPxE.main.frameIndex < 10 { print(self, "📡", "Requested Render.") }
+            if HxPxE.main.frameIndex < 10 { print(self, "Requested render.") }
         }
         needsRender = true
         delegate?.pixWillRender(self)
@@ -106,7 +105,7 @@ public class PIX: Codable {
     func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
         delegate?.pixDidRender(self)
-        if !force {
+        if !force { // CHECK the force!
             if let pixOut = self as? PIXOutIO {
                 for pixOutPath in pixOut.pixOutPathList {
                     pixOutPath.pixIn.setNeedsRender()
