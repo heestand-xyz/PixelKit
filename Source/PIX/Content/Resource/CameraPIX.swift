@@ -84,10 +84,6 @@ public class CameraPIX: PIXResource, PIXofaKind {
 
 class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
-//    let frame: CGRect
-//    var got_res: Bool
-//    var switchOrientation: Bool
-    
     let cameraPosition: AVCaptureDevice.Position
     
     let captureSession: AVCaptureSession
@@ -97,20 +93,13 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     var initialFrameCaptured = false
     var orientationUpdated = false
-
-//    var in_full_screen: Bool
     
     let setupCallback: (CGSize, UIInterfaceOrientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
     init(cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
-//        self.got_res = false
-//        self.switchOrientation = false
-        
         self.cameraPosition = cameraPosition
-        
-//        self.in_full_screen = false
         
         setupCallback = setup
         capturedCallback = captured
@@ -127,31 +116,31 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         sessionOutput.alwaysDiscardsLateVideoFrames = true
         sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.colorBits.os]
         
-        do {
-            
-            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
-            if device != nil {
+        
+        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        if device != nil {
+            do {
                 let input = try AVCaptureDeviceInput(device: device!)
                 if captureSession.canAddInput(input) {
                     captureSession.addInput(input)
-                    
                     if captureSession.canAddOutput(sessionOutput){
                         captureSession.addOutput(sessionOutput)
-                        
                         let queue = DispatchQueue(label: "se.hexagons.hxpxe.pix.camera.queue")
                         sessionOutput.setSampleBufferDelegate(self, queue: queue)
-                        
                         start()
-                        
+                    } else {
+                        Logger.main.log(.error, .resource, "Camera can't add output.")
                     }
-                    
+                } else {
+                    Logger.main.log(.error, .resource, "Camera can't add input.")
                 }
+            } catch {
+                Logger.main.log(.error, .resource, "Camera input failed to load.", e: error)
             }
-            
-        } catch {
-//            print("exception!");
+        } else {
+            Logger.main.log(.error, .resource, "Camera not found.")
         }
-        
+    
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         
     }
@@ -206,7 +195,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
-//        let deviceOrientation = UIDevice.current.orientation
         let uiOrientation = UIApplication.shared.statusBarOrientation
         
         let width = CVPixelBufferGetWidth(pixelBuffer)
@@ -220,7 +208,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             resolution = CGSize(width: width, height: height)
         default:
             resolution = CGSize(width: width, height: height)
-            print("HxPxE CameraPIX WARNING: Orientation unknown.")
+            Logger.main.log(.warning, .resource, "Camera orientation unknown.")
         }
         
         setupCallback(resolution, uiOrientation)

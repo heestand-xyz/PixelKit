@@ -78,7 +78,7 @@ public class HxPxE {
         
         metalDevice = MTLCreateSystemDefaultDevice()
         if metalDevice == nil {
-            print("HxPxE ERROR:", "Metal Device:", "System Default Device not found.")
+            Logger.main.log(.error, .engine, "Metal Device not found.")
         } else {
             commandQueue = metalDevice!.makeCommandQueue()
             textureCache = makeTextureCache()
@@ -95,7 +95,7 @@ public class HxPxE {
         if aLive {
             print("HxPxE is aLive! ⬢")
         } else {
-            print("HxPxE ERROR:", "Not aLive...")
+            print("HxPxE is not aLive...")
         }
         
     }
@@ -103,8 +103,6 @@ public class HxPxE {
     // MARK: - Frame Loop
     
     @objc func frameLoop() {
-        if frameIndex < 4 { print("FRAME", "#", frameIndex) }
-        if frameIndex == 4 { print("FRAME", "#", "...") }
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
@@ -144,9 +142,6 @@ public class HxPxE {
     
     func add(pix: PIX) {
         pixList.append(pix)
-        //        pix.view.metalView.readyToRender = {
-        //            self.render(pix)
-        //        }
     }
     
     func remove(pix: PIX) {
@@ -156,7 +151,6 @@ public class HxPxE {
                 break
             }
         }
-        //        pix.view.metalView.readyToRender = nil
     }
     
     // MARK: - Setup
@@ -178,16 +172,8 @@ public class HxPxE {
     }
     
     func loadQuadVertexShader() -> MTLFunction? {
-//        guard let quadVertexShaderSource = loadMetalShaderSource(named: "QuadVTX", fullName: true) else {
-//            print("HxPxE ERROR:", "Quad:", "Source not loaded.")
-//            return nil
-//        }
-//        guard let vtxMetalLibrary = try? metalDevice!.makeLibrary(source: quadVertexShaderSource, options: nil) else {
-//            print("HxPxE ERROR:", "Quad:", "Library not created.")
-//            return nil
-//        }
         guard let vtxShader = metalLibrary!.makeFunction(name: "quadVTX") else {
-            print("HxPxE ERROR:", "Quad:", "Function not made.")
+            Logger.main.log(.error, .engine, "Quad:", "Function not made.")
             return nil
         }
         return vtxShader
@@ -198,7 +184,7 @@ public class HxPxE {
     func makeTextureCache() -> CVMetalTextureCache? {
         var textureCache: CVMetalTextureCache?
         if CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, metalDevice!, nil, &textureCache) != kCVReturnSuccess {
-            print("HxPxE ERROR:", "Cache:", "Creation failed.")
+            Logger.main.log(.error, .engine, "Cache: Creation failed.")
 //            fatalError("Unable to allocate texture cache.") // CHECK
             return nil
         } else {
@@ -210,33 +196,16 @@ public class HxPxE {
     
     func loadMetalShaderLibrary() -> MTLLibrary? {
         guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: "HxPxE_Shaders", ofType: "metallib") else {
-            print("HxPxE ERROR:", "Loading Metal Shaders Library:", "Not found.")
+            Logger.main.log(.error, .engine, "Loading Metal Shaders Library: Not found.")
             return nil
         }
         do {
             return try metalDevice!.makeLibrary(filepath: libraryFile)
         } catch let error {
-            print("HxPxE ERROR:", "Loading Metal Shaders Library:", "Make failed:", error.localizedDescription)
+            Logger.main.log(.error, .engine, "Loading Metal Shaders Library: Make failed:", e: error)
             return nil
         }
     }
-    
-//    func loadMetalShaderSource(named: String, fullName: Bool = false) -> String? {
-//        let shaderFileName = fullName ? named : named.prefix(1).uppercased() + named.dropFirst() + "PIX"
-//        print(">>>", shaderFileName)
-//        // Bundle(identifier: kBundleId)
-//        // Bundle(for: type(of: self))
-//        // Bundle.main
-//        guard let shaderPath = Bundle(identifier: kBundleId)!.path(forResource: shaderFileName, ofType: "metal") else {
-//            print("HxPxE ERROR:", "Loading Metal Shader:", "Resource not found.")
-//            return nil
-//        }
-//        guard let shaderSource = try? String(contentsOfFile: shaderPath, encoding: .utf8) else {
-//            print("HxPxE ERROR:", "Loading Metal Shader:", "Resource corrupt.")
-//            return nil
-//        }
-//        return shaderSource
-//    }
     
     // MARK: Shader Pipeline
     
@@ -245,11 +214,11 @@ public class HxPxE {
 //        do {
 //            pixMetalLibrary = try metalDevice!.makeLibrary(source: source, options: nil)
 //        } catch {
-//            print("HxPxE ERROR:", "Pipeline:", "PIX Metal Library corrupt:", error.localizedDescription)
+//            Logger.main.log(.error, .engine, "Pipeline:", "PIX Metal Library corrupt:", error.localizedDescription)
 //            return nil
 //        }
         guard let fragmentShader = metalLibrary!.makeFunction(name: fragFuncName) else {
-            print("HxPxE ERROR:", "Make Shader Pipeline:", "PIX Metal Func:", "Not found:", fragFuncName)
+            Logger.main.log(.error, .engine, "Make Shader Pipeline: PIX Metal Func: Not found: \(fragFuncName)")
             return nil
         }
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
@@ -261,7 +230,7 @@ public class HxPxE {
         do {
             return try metalDevice!.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
         } catch {
-            print("HxPxE ERROR:", "Make Shader Pipeline:", "Failed:", error.localizedDescription)
+            Logger.main.log(.error, .engine, "Make Shader Pipeline: Failed:", e: error)
             return nil
         }
     }
@@ -274,7 +243,7 @@ public class HxPxE {
         var cvTextureOut: CVMetalTexture?
         CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self.textureCache!, pixelBuffer, nil, PIX.Color.Bits._8.mtl, width, height, 0, &cvTextureOut) // CHECK add high bit support
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
-            print("HxPxE ERROR:", "Textrue:", "Creation failed.")
+            Logger.main.log(.error, .engine, "Textrue: Creation failed.")
             return nil
         }
         return inputTexture
@@ -299,7 +268,7 @@ public class HxPxE {
     // MARK: Raw
     
     func raw8(texture: MTLTexture) -> [UInt8]? {
-        guard colorBits == ._8 else { print("HxPxE", "ERROR", "Raw 8", "To access this data, change: \"HxPxE.main.colorBits = ._8\"."); return nil }
+        guard colorBits == ._8 else { Logger.main.log(.error, .engine, "Raw 8 - To access this data, change: \"HxPxE.main.colorBits = ._8\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -310,7 +279,7 @@ public class HxPxE {
     }
     
     func raw16(texture: MTLTexture) -> [Float]? {
-        guard colorBits == ._16 else { print("HxPxE", "ERROR", "Raw 16", "To access this data, change: \"HxPxE.main.colorBits = ._16\"."); return nil }
+        guard colorBits == ._16 else { Logger.main.log(.error, .engine, "Raw 16 - To access this data, change: \"HxPxE.main.colorBits = ._16\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -321,7 +290,7 @@ public class HxPxE {
     }
     
     func raw32(texture: MTLTexture) -> [float4]? {
-        guard colorBits != ._32 else { print("HxPxE", "ERROR", "Raw 32", "To access this data, change: \"HxPxE.main.colorBits = ._32\"."); return nil }
+        guard colorBits != ._32 else { Logger.main.log(.error, .engine, "Raw 32 - To access this data, change: \"HxPxE.main.colorBits = ._32\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
         raw.withUnsafeMutableBytes {
@@ -369,9 +338,9 @@ public class HxPxE {
     func renderPIXs() {
         for pix in pixList {
             if pix.needsRender {
-                if let pixIn = pix as? PIXInIO {
+                if let pixIn = pix as? PIX & PIXInIO {
                     guard let pixOut = pixIn.pixInList.first else {
-                        print(pixIn, "Can't Render.", "PIX In's inPix is nil.")
+                        Logger.main.log(pix: pixIn, .warning, .render, "Can't Render: PIX In's inPix is nil.")
                         continue
                     }
                     if pixOut.texture == nil {
@@ -395,18 +364,18 @@ public class HxPxE {
     
     func renderPIX(_ pix: PIX, force: Bool = false) {
         guard !pix.rendering else {
-            print(pix, "WARNING", "Render in progress...")
+            Logger.main.log(pix: pix, .warning, .render, "Render in progress...")
             return
         }
         pix.rendering = true
         pix.needsRender = false
-        if self.frameIndex < 10 { print(pix, "Starting render.") }
+        Logger.main.log(pix: pix, .info, .render, "Starting render.")
         self.render(pix, force: force, completed: { texture in
-            if self.frameIndex < 10 { print(pix, "Render successful!") }
+            Logger.main.log(pix: pix, .info, .render, "Render successful!")
             pix.rendering = false
             pix.didRender(texture: texture, force: force)
         }, failed: {
-            if self.frameIndex < 10 { print(pix, "Render failed...") }
+            Logger.main.log(pix: pix, .error, .render, "Render failed...")
             pix.rendering = false
         })
     }
@@ -422,7 +391,7 @@ public class HxPxE {
 //        }
         
         guard aLive else {
-            print(pix, "ERROR", "Render:", "Not aLive...")
+            Logger.main.log(pix: pix, .error, .metalRender, "Not aLive...")
             return
         }
         
@@ -434,7 +403,7 @@ public class HxPxE {
         // MARK: Command Buffer
         
         guard let commandBuffer = commandQueue!.makeCommandBuffer() else {
-            print(pix, "ERROR", "Render:", "Command Buffer:", "Make faild.")
+            Logger.main.log(pix: pix, .error, .metalRender, "Command Buffer: Make faild.")
             return
         }
         
@@ -446,11 +415,11 @@ public class HxPxE {
         if let pixContent = pix as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 guard let pixelBuffer = pixResource.pixelBuffer else {
-                    print(pix, "ERROR", "Render:", "Texture Creation:", "Pixel Buffer is empty.")
+                    Logger.main.log(pix: pix, .error, .metalRender, "Texture Creation: Pixel Buffer is empty.")
                     return
                 }
                 guard let sourceTexture = makeTexture(from: pixelBuffer) else {
-                    print(pix, "ERROR", "Render:", "Texture Creation:", "Make faild.")
+                    Logger.main.log(pix: pix, .error, .metalRender, "Texture Creation: Make faild.")
                     return
                 }
                 inputTexture = sourceTexture
@@ -459,18 +428,18 @@ public class HxPxE {
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
             guard let pixOut = pixIn.pixInList.first else {
-                print(pix, "ERROR", "Render:", "inPix not connected.")
+                Logger.main.log(pix: pix, .error, .metalRender, "inPix not connected.")
                 return
             }
             guard let pixOutTexture = pixOut.texture else {
-                print(pix, "ERROR", "Render:", "IO Texture not found for:", pixOut)
+                Logger.main.log(pix: pix, .error, .metalRender, "IO Texture not found for: \(pixOut)")
                 return
             }
             inputTexture = pixOutTexture // CHECK copy?
             if pix is PIXInMerger {
                 let pixOutB = pixIn.pixInList[1]
                 guard let pixOutTextureB = pixOutB.texture else {
-                    print(pix, "ERROR", "Render:", "IO Texture B not found for:", pixOutB)
+                    Logger.main.log(pix: pix, .error, .metalRender, "IO Texture B not found for: \(pixOutB)")
                     return
                 }
                 secondInputTexture = pixOutTextureB // CHECK copy?
@@ -481,11 +450,11 @@ public class HxPxE {
         
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
-                print(pix, "ERROR", "Render:", "CustomRenderDelegate not implemented.")
+                Logger.main.log(pix: pix, .error, .metalRender, "CustomRenderDelegate not implemented.")
                 return
             }
             guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
-                print(pix, "ERROR", "Render:", "Custom Render faild.")
+                Logger.main.log(pix: pix, .error, .metalRender, "Custom Render faild.")
                 return
             }
             inputTexture = customRenderedTexture
@@ -497,18 +466,18 @@ public class HxPxE {
         let drawableTexture: MTLTexture
         if pix.view.superview != nil {
             guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
-                print(pix, "ERROR", "Render:", "Current Drawable:", "Not found.")
+                Logger.main.log(pix: pix, .error, .metalRender, "Current Drawable: Not found.")
                 return
             }
             viewDrawable = currentDrawable
             drawableTexture = currentDrawable.texture
         } else {
             guard let res = pix.resolution else {
-                print(pix, "ERROR", "Render:", "Drawable Textue:", "Resolution not set.")
+                Logger.main.log(pix: pix, .error, .metalRender, "Drawable Textue: Resolution not set.")
                 return
             }
             guard let emptyTexture = emptyTexture(size: res.size) else {
-                print(pix, "ERROR", "Render:", "Drawable Textue:", "Empty Texture Creation Failed.")
+                Logger.main.log(pix: pix, .error, .metalRender, "Drawable Textue: Empty Texture Creation Failed.")
                 return
             }
             drawableTexture = emptyTexture
@@ -516,7 +485,7 @@ public class HxPxE {
         
         let drawableRes = PIX.Res(texture: drawableTexture)
         if (drawableRes > PIX.Res._4096) != false {
-            print(pix, "WARNING", "Render:", "High res:", drawableRes)
+            Logger.main.log(pix: pix, .warning, .metalRender, "High res: \(drawableRes)")
         }
         
         // MARK: Command Encoder
@@ -526,7 +495,7 @@ public class HxPxE {
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 0)
         guard let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
-            print(pix, "ERROR", "Render:", "Command Encoder:", "Make faild.")
+            Logger.main.log(pix: pix, .error, .metalRender, "Command Encoder: Make faild.")
             return
         }
         commandEncoder.setRenderPipelineState(pix.pipeline!)
@@ -589,7 +558,7 @@ public class HxPxE {
         
         commandBuffer.addCompletedHandler({ _ in
             if let error = commandBuffer.error {
-                print(pix, "ERROR", "Render:", "Failed:", error.localizedDescription)
+                Logger.main.log(pix: pix, .error, .metalRender, "Failed.", e: error)
                 failed()
                 return
             }

@@ -43,6 +43,7 @@
 		74BC39E621011E3A004E9AA0 /* HxPxETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BC39E521011E3A004E9AA0 /* HxPxETests.swift */; };
 		74BC39E821011E3A004E9AA0 /* HxPxE.h in Headers */ = {isa = PBXBuildFile; fileRef = 74BC39DA21011E3A004E9AA0 /* HxPxE.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74DA3D2321026A5900430261 /* HxPxE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* HxPxE.swift */; };
+		74DB402E2125BD9800FA6034 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB402D2125BD9800FA6034 /* Logger.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */; };
 /* End PBXBuildFile section */
@@ -104,6 +105,7 @@
 		74BC39E521011E3A004E9AA0 /* HxPxETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxETests.swift; sourceTree = "<group>"; };
 		74BC39E721011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74DA3D2221026A5900430261 /* HxPxE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxE.swift; sourceTree = "<group>"; };
+		74DB402D2125BD9800FA6034 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxPxEProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -283,6 +285,7 @@
 				74DA3D2221026A5900430261 /* HxPxE.swift */,
 				74ECBBD121026CC500A42570 /* HxPxEProtocols.swift */,
 				7452F4C6210A3362001AA523 /* PIX */,
+				74DB402D2125BD9800FA6034 /* Logger.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
 				7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
+				74DB402E2125BD9800FA6034 /* Logger.swift in Sources */,
 				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
 				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,

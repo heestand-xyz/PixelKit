@@ -87,9 +87,9 @@ public class PIXView: UIView {
     func layoutFillMode() {
         
         guard boundsReady else { return }
-        guard res != nil else { return }
+        guard let res = res else { return }
         
-        let resolutionAspect = res!.width / res!.height
+        let resolutionAspect = res.width / res.height
         let viewAspect = bounds.width / bounds.height
         let combinedAspect = resolutionAspect / viewAspect
         let dynamicAspect = resolutionAspect > viewAspect ? combinedAspect : 1 / combinedAspect
@@ -104,8 +104,8 @@ public class PIXView: UIView {
             width = resolutionAspect <= viewAspect ? bounds.width : bounds.width * dynamicAspect
             height = resolutionAspect >= viewAspect ? bounds.height : bounds.height * dynamicAspect
         case .pixelPerfect:
-            width = res!.width / UIScreen.main.nativeScale
-            height = res!.height / UIScreen.main.nativeScale
+            width = res.width / UIScreen.main.nativeScale
+            height = res.height / UIScreen.main.nativeScale
         case .fill:
             width = bounds.width
             height = bounds.height
@@ -123,14 +123,9 @@ public class PIXView: UIView {
     }
     
     func setRes(_ newRes: PIX.Res) {
-        if res == nil || newRes != res! {
-            res = newRes
-            layoutFillMode()
-            metalView.setResolution(newRes.size) // CHECK layoutSubviews()
-        } else {
-//            layoutFillMode()
-            if HxPxE.main.frameIndex < 10 { print("PIX View", "Same res...") }
-        }
+        res = newRes
+        metalView.res = newRes
+        layoutFillMode()
     }
     
     public override func layoutSubviews() {

@@ -33,7 +33,7 @@ public extension PIX {
         
         case screen
         
-        case customRes(_ raw: Raw)
+        case customRes(w: Int, h: Int)
         case customSize(_ size: CGSize)
 
         public var raw: Raw {
@@ -74,9 +74,16 @@ public extension PIX {
             case .screen:
                 let nativeSize = UIScreen.main.nativeBounds.size
                 return Raw(w: Int(nativeSize.width), h: Int(nativeSize.height))
-            case .customRes(let raw): return raw
+            case .customRes(let w, let h): return Raw(w: w, h: h)
             case .customSize(let size): return Raw(w: Int(size.width), h: Int(size.height))
             }
+        }
+        
+        public var w: Int {
+            return raw.w
+        }
+        public var h: Int {
+            return raw.h
         }
         
         public struct Raw {
@@ -130,7 +137,7 @@ public extension PIX {
             case let r where r == Res.iPadPro_12_9(.portrait).raw: self = .iPadPro_12_9(.portrait)
             case let r where r == Res.iPadPro_12_9(.landscape).raw: self = .iPadPro_12_9(.landscape)
             case let r where r == Res.screen.raw: self = .screen
-            default: self = .customRes(raw)
+            default: self = .customRes(w: raw.w, h: raw.h)
             }
         }
         
@@ -149,8 +156,7 @@ public extension PIX {
         }
         
         public init(texture: MTLTexture) {
-            let textureRaw = Raw(w: texture.width, h: texture.height)
-            self = .customRes(textureRaw)
+            self = .customRes(w: texture.width, h: texture.height)
         }
         
         public static func ==(lhs: Res, rhs: Res) -> Bool {

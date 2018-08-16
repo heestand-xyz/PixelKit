@@ -27,7 +27,7 @@ public class PIX: Codable {
     public var interpolate: MTLSamplerMinMagFilter = .linear {
         didSet {
             sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
-            print(self, "New Sample Mode: Interpolate:", interpolate)
+            Logger.main.log(pix: self, .info, nil, "New Sample Mode: Interpolate: \(interpolate)")
             setNeedsRender()
         }
     }
@@ -35,7 +35,7 @@ public class PIX: Codable {
     public var extend: MTLSamplerAddressMode = .clampToZero {
         didSet {
             sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
-            print(self, "New Sample Mode: Extend:", extend)
+            Logger.main.log(pix: self, .info, nil, "New Sample Mode: Extend: \(extend)")
             setNeedsRender()
         }
     }
@@ -64,7 +64,7 @@ public class PIX: Codable {
             if allGood {
                 HxPxE.main.add(pix: self)
             } else {
-                print(self, "ERROR", "Not allGood...")
+                print(self, "Not allGood...")
             }
         }
         
@@ -82,21 +82,21 @@ public class PIX: Codable {
     
     func setNeedsRender() {
         guard !needsRender else {
-            if HxPxE.main.frameIndex < 10 { print(self, "WARNING", "Render:", "Already requested.") }
+            Logger.main.log(pix: self, .warning, .render, "Already requested.")
             return
         }
         guard resolution != nil else {
-            if HxPxE.main.frameIndex < 10 { print(self, "WARNING", "Render:", "Resolution unknown.") }
+            Logger.main.log(pix: self, .warning, .render, "Resolution unknown.")
             return
         }
         if let pixResource = self as? PIXResource {
             guard pixResource.pixelBuffer != nil else {
-                print(self, "WARNING", "Render:", "Content not loaded.")
+                Logger.main.log(pix: self, .warning, .render, "Content not loaded.")
                 return
             }
         }
         if HxPxE.main.frameIndex < 10 {
-            if HxPxE.main.frameIndex < 10 { print(self, "Requested render.") }
+            Logger.main.log(pix: self, .info, .render, "Requested.")
         }
         needsRender = true
         delegate?.pixWillRender(self)
@@ -133,7 +133,7 @@ public class PIX: Codable {
                 if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
                     connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
                 } else {
-                    print("disconnect merger...") // CHECK
+                    // CHECK disconnect
                 }
             } else if let pixInMulti = self as? PIXInMulti {
                 connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
@@ -142,42 +142,42 @@ public class PIX: Codable {
     }
     
     func connectSingle(_ pixOut: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = [pixOut]
         var pixOut = pixOut
         pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        print(self, "Connected", "Single", pixOut)
+        Logger.main.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
         applyRes {
             self.setNeedsRender()
         }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = [pixOutA, pixOutB]
         var pixOutA = pixOutA
         var pixOutB = pixOutB
         pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
-        print(self, "Connected", "Merger", pixOutA, pixOutB)
+        Logger.main.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
         applyRes { self.setNeedsRender() }
     }
     
     func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
-        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = pixOuts
         for (i, pixOut) in pixOuts.enumerated() {
             var pixOut = pixOut
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
-        print(self, "Connected", "Multi", pixOuts)
+        Logger.main.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
     }
     
     // MARK: Diconnect
     
     func disconnectSingle() {
-        guard var pixInIO = self as? PIX & PIXInIO else { print(self, "ERROR", "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         var pixOut = pixInIO.pixInList.first! as! PIXOutIO
         for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
             if pixOutPath.pixIn == pixInIO {

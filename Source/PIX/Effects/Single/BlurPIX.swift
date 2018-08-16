@@ -106,7 +106,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: HxPxE.main.colorBits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
         guard let blurTexture = HxPxE.main.metalDevice!.makeTexture(descriptor: descriptor) else {
-            print("HxPxE ERROR:", "Render:", "BlurPIX:", "Make texture faild.")
+            Logger.main.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
         let gaussianBlurKernel = MPSImageGaussianBlur(device: HxPxE.main.metalDevice!, sigma: Float(radius))

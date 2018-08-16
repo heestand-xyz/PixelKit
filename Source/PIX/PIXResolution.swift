@@ -34,11 +34,11 @@ extension PIX {
     
     func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
-            if HxPxE.main.frameIndex < 10 { print(self, "ERROR", "Res:", "Resolution unknown.") }
+            Logger.main.log(pix: self, .error, .res, "Unknown.")
             return
         }
         view.setRes(res)
-        if HxPxE.main.frameIndex < 10 { print(self, "Applied Res:", res) }
+        Logger.main.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
     }
     

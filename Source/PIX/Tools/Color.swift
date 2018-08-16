@@ -106,7 +106,7 @@ public extension PIX {
         public init(_ pixel: [CGFloat], space: Space = HxPxE.main.colorSpace) {
             self.space = space
             guard pixel.count == 4 else {
-                print("PIX.Color", "ERROR", "Bad Channel Count:", pixel.count)
+                Logger.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
                 r = 0
                 g = 0
                 b = 0

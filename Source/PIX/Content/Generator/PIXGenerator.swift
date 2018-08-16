@@ -10,7 +10,7 @@ import Foundation
 
 public class PIXGenerator: PIXContent {
     
-    var _res: Res?
+    var _res: Res? = nil
     public var res: Res? {
         set { _res = newValue; applyRes { self.setNeedsRender() } }
         get { return _res != nil ? _res! * PIXGenerator.globalResMultiplier : nil }
@@ -19,9 +19,8 @@ public class PIXGenerator: PIXContent {
     public static var globalResMultiplier: CGFloat = 1
     
     public init(res: Res) {
-        _res = res
         super.init()
-        applyRes { self.setNeedsRender() }
+        self.res = res
     }
     
     required init(from decoder: Decoder) throws {

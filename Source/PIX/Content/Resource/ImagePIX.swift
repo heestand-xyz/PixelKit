@@ -31,22 +31,22 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     func setNeedsBuffer() {
         guard let image = image else {
-            print(self, "Nil not supported yet.")
+            Logger.main.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
         }
         if HxPxE.main.frameIndex == 0 {
-            print(self, "TEMP BUG FIX", "One frame delay.")
+            Logger.main.log(pix: self, .debug, .resource, "One frame delay.")
             HxPxE.main.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let buffer = buffer(from: image) else {
-            print(self, "ERROR", "Pixel Buffer creation failed.")
+            Logger.main.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        if HxPxE.main.frameIndex < 10 { print(self, "Image Loaded") }
+        Logger.main.log(pix: self, .info, .resource, "Image Loaded.")
         setNeedsRender()
     }
     
