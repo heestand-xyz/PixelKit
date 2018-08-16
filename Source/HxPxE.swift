@@ -484,7 +484,11 @@ public class HxPxE {
         }
         
         let drawableRes = PIX.Res(texture: drawableTexture)
-        if (drawableRes > PIX.Res._4096) != false {
+        if (drawableRes > PIX.Res.customRes(w: 16384, h: 16384)) != false {
+            Logger.main.log(pix: pix, .warning, .metalRender, "Epic res: \(drawableRes)")
+        } else if (drawableRes > PIX.Res.customRes(w: 8192, h: 8192)) != false {
+            Logger.main.log(pix: pix, .warning, .metalRender, "Extreme res: \(drawableRes)")
+        } else if (drawableRes > PIX.Res._4096) != false {
             Logger.main.log(pix: pix, .warning, .metalRender, "High res: \(drawableRes)")
         }
         
