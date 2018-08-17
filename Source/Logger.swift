@@ -17,6 +17,7 @@ class Logger {
         case info = "INFO"
         case warning = "WARNING"
         case error = "ERROR"
+        case fatal = "FATAL"
     }
     
     enum Category: String {
@@ -30,7 +31,7 @@ class Logger {
         case res = "Res"
     }
     
-    let loopFrameCountLimit = 10
+    let loopFrameCountLimit = HxPxE.main.fpsMax
     
     func log(pix: PIX? = nil, _ level: Level, _ category: Category?, _ message: String, loop: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
@@ -80,6 +81,10 @@ class Logger {
         }
         
         print(log)
+        
+        if level == .fatal {
+            assert(false, message)
+        }
         
     }
     

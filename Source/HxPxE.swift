@@ -218,7 +218,7 @@ public class HxPxE {
 //            return nil
 //        }
         guard let fragmentShader = metalLibrary!.makeFunction(name: fragFuncName) else {
-            Logger.main.log(.error, .engine, "Make Shader Pipeline: PIX Metal Func: Not found: \(fragFuncName)")
+            Logger.main.log(.fatal, .engine, "Make Shader Pipeline: PIX Metal Func: Not found: \(fragFuncName)")
             return nil
         }
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
@@ -340,12 +340,17 @@ public class HxPxE {
             if pix.needsRender {
                 if let pixIn = pix as? PIX & PIXInIO {
                     guard let pixOut = pixIn.pixInList.first else {
-                        Logger.main.log(pix: pixIn, .warning, .render, "Can't Render: PIX In's inPix is nil.")
+                        Logger.main.log(pix: pixIn, .warning, .render, "Can't Render: PIX In's inPix is nil.", loop: true)
                         continue
                     }
                     if pixOut.texture == nil {
-                        // CHECK upstream, if connected & rendered
-                        renderPIX(pixOut, force: true)
+//                        // CHECK upstream, if connected & rendered
+//                        Logger.main.log(pix: pix, .info, .render, "Requesting upstream forced render.", loop: true)
+//                        renderPIX(pixOut, force: true, completed: {
+//                            self.renderPIX(pix)
+//                        })
+                        Logger.main.log(pix: pix, .warning, .render, "In texture not ready.")
+                        pix.needsRender = false // CHECK
                         continue
                     }
                 }
@@ -362,20 +367,21 @@ public class HxPxE {
         }
     }
     
-    func renderPIX(_ pix: PIX, force: Bool = false) {
+    func renderPIX(_ pix: PIX, force: Bool = false, completed: (() -> ())? = nil) {
         guard !pix.rendering else {
-            Logger.main.log(pix: pix, .warning, .render, "Render in progress...")
+            Logger.main.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
             return
         }
         pix.rendering = true
         pix.needsRender = false
-        Logger.main.log(pix: pix, .info, .render, "Starting render.")
+        Logger.main.log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
         self.render(pix, force: force, completed: { texture in
-            Logger.main.log(pix: pix, .info, .render, "Render successful!")
+            Logger.main.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "")", loop: true)
             pix.rendering = false
             pix.didRender(texture: texture, force: force)
+            completed?()
         }, failed: {
-            Logger.main.log(pix: pix, .error, .render, "Render failed...")
+            Logger.main.log(pix: pix, .error, .render, "Render failed...\(force ? " Forced." : "")", loop: true)
             pix.rendering = false
         })
     }

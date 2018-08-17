@@ -38,6 +38,13 @@ extension PIX {
     
     func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
+            if HxPxE.main.frameIndex == 0 {
+                Logger.main.log(pix: self, .info, .res, "Waiting for potential layout, delayed one frame.")
+                HxPxE.main.delay(frames: 1, done: {
+                    self.applyRes(applied: applied)
+                })
+                return
+            }
             Logger.main.log(pix: self, .error, .res, "Unknown.")
             return
         }

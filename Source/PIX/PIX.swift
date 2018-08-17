@@ -152,9 +152,7 @@ public class PIX: Codable {
         var pixOut = pixOut
         pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         Logger.main.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
-        applyRes {
-            self.setNeedsRender()
-        }
+        applyRes { self.setNeedsRender() }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
