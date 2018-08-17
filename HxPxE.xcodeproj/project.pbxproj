@@ -11,6 +11,7 @@
 		74076D05211A27D2000E56E0 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* Res.swift */; };
 		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
 		7413742F2119C9990001890B /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
+		74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA821271046007F9579 /* ThresholdPIX.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7428A7B6211E148C005304A6 /* PIXKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7B5211E148C005304A6 /* PIXKinds.swift */; };
 		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
@@ -70,6 +71,7 @@
 		74076D04211A27D2000E56E0 /* Res.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
 		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
 		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
+		74179CA821271046007F9579 /* ThresholdPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPIX.swift; sourceTree = "<group>"; };
 		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
 		7428A7B5211E148C005304A6 /* PIXKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXKinds.swift; sourceTree = "<group>"; };
 		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				7401CF3021147C9700000A38 /* ResPIX.swift */,
 				74879D632118E8C200BF17DE /* EdgePIX.swift */,
 				74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */,
+				74179CA821271046007F9579 /* ThresholdPIX.swift */,
 			);
 			path = Single;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
 				7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
+				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				74DB402E2125BD9800FA6034 /* Logger.swift in Sources */,
 				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
