@@ -68,11 +68,14 @@ public class CameraPIX: PIXResource, PIXofaKind {
     func setupCamera() {
         helper?.stop()
         helper = CameraHelper(cameraPosition: camera.position, setup: { _, orientation in
-            // CHECK Why 2 setups on init
+            Logger.main.log(pix: self, .info, .resource, "Camera Setup")
+            // CHECK multiple setups on init
             self.orientation = orientation
+            self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
         }, captured: { pixelBuffer in
+            Logger.main.log(pix: self, .info, .resource, "Camera Frame Captured", loop: true)
             self.pixelBuffer = pixelBuffer
-            self.setNeedsRender()
+            self.applyRes { self.setNeedsRender() } // CHECK move applyRes to setup callback
         })
     }
     

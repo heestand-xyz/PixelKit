@@ -14,7 +14,11 @@ extension PIX {
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
-                return Res(pixelBuffer: pixelBuffer)
+                var bufferRes = Res(pixelBuffer: pixelBuffer)
+                if pixResource.flop {
+                    bufferRes = Res(bufferRes.raw.flopped)
+                }
+                return bufferRes
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.res
             } else { return nil }

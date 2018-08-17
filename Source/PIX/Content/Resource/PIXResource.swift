@@ -11,5 +11,6 @@ import Foundation
 public class PIXResource: PIXContent {
     
     var pixelBuffer: CVPixelBuffer?
+    var flop: Bool = false
     
 }

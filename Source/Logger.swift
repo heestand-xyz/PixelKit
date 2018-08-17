@@ -30,7 +30,13 @@ class Logger {
         case res = "Res"
     }
     
-    func log(pix: PIX? = nil, _ level: Level, _ category: Category?, _ message: String, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    let loopFrameCountLimit = 10
+    
+    func log(pix: PIX? = nil, _ level: Level, _ category: Category?, _ message: String, loop: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+        
+        if loop && HxPxE.main.frameIndex < loopFrameCountLimit {
+            return
+        }
         
         var logList: [String] = []
         

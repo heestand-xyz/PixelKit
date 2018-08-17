@@ -63,6 +63,7 @@ public class PIX: Codable {
             sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
             if allGood {
                 HxPxE.main.add(pix: self)
+                print(self, "Created and linked with main engine.")
             } else {
                 print(self, "Not allGood...")
             }
@@ -82,21 +83,25 @@ public class PIX: Codable {
     
     func setNeedsRender() {
         guard !needsRender else {
-            Logger.main.log(pix: self, .warning, .render, "Already requested.")
+            Logger.main.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
         guard resolution != nil else {
-            Logger.main.log(pix: self, .warning, .render, "Resolution unknown.")
+            Logger.main.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
+            return
+        }
+        guard view.metalView.res != nil else {
+            Logger.main.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
             return
         }
         if let pixResource = self as? PIXResource {
             guard pixResource.pixelBuffer != nil else {
-                Logger.main.log(pix: self, .warning, .render, "Content not loaded.")
+                Logger.main.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
                 return
             }
         }
         if HxPxE.main.frameIndex < 10 {
-            Logger.main.log(pix: self, .info, .render, "Requested.")
+            Logger.main.log(pix: self, .info, .render, "Requested.", loop: true)
         }
         needsRender = true
         delegate?.pixWillRender(self)
