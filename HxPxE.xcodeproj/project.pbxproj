@@ -26,6 +26,7 @@
 		7465FC78211A4E0400899359 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465FC77211A4E0400899359 /* Color.swift */; };
 		7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */; };
 		7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC852128328200ECF2E2 /* LookupPIX.swift */; };
+		7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */; };
 		74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */; };
 		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
 		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
@@ -89,6 +90,7 @@
 		7465FC77211A4E0400899359 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaleidoscopePIX.swift; sourceTree = "<group>"; };
 		7471FC852128328200ECF2E2 /* LookupPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupPIX.swift; sourceTree = "<group>"; };
+		7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantizePIX.swift; sourceTree = "<group>"; };
 		74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwirlPIX.swift; sourceTree = "<group>"; };
 		747845B121131B080077AB89 /* BlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurPIX.swift; sourceTree = "<group>"; };
 		74879D632118E8C200BF17DE /* EdgePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgePIX.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */,
 				74179CA821271046007F9579 /* ThresholdPIX.swift */,
 				7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */,
+				7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */,
 			);
 			path = Single;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
 				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
