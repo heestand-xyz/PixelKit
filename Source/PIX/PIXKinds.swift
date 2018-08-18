@@ -28,6 +28,7 @@ extension PIX {
         case kaleidoscope
         case lookup
         case quantize
+        case polygon
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -47,6 +48,7 @@ extension PIX {
             case .kaleidoscope: return KaleidoscopePIX.self
             case .lookup: return LookupPIX.self
             case .quantize: return QuantizePIX.self
+            case .polygon: return PolygonPIX.self
             }
         }
     }
