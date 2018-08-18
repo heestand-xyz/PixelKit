@@ -25,6 +25,7 @@ extension PIX {
         case noise
         case blends
         case threshold
+        case kaleidoscope
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -41,6 +42,7 @@ extension PIX {
             case .noise: return NoisePIX.self
             case .blends: return BlendsPIX.self
             case .threshold: return ThresholdPIX.self
+            case .kaleidoscope: return KaleidoscopePIX.self
             }
         }
     }
