@@ -336,22 +336,24 @@ public class HxPxE {
     // MARK: - Render
     
     func renderPIXs() {
-        for pix in pixList {
+        loop: for pix in pixList {
             if pix.needsRender {
                 if let pixIn = pix as? PIX & PIXInIO {
-                    guard let pixOut = pixIn.pixInList.first else {
-                        Logger.main.log(pix: pixIn, .warning, .render, "Can't Render: PIX In's inPix is nil.", loop: true)
-                        continue
-                    }
-                    if pixOut.texture == nil {
-//                        // CHECK upstream, if connected & rendered
-//                        Logger.main.log(pix: pix, .info, .render, "Requesting upstream forced render.", loop: true)
-//                        renderPIX(pixOut, force: true, completed: {
-//                            self.renderPIX(pix)
-//                        })
-                        Logger.main.log(pix: pix, .warning, .render, "In texture not ready.")
-                        pix.needsRender = false // CHECK
-                        continue
+                    let pixOuts = pixIn.pixInList
+//                        Logger.main.log(pix: pixIn, .warning, .render, "Can't Render: PIX In's inPix is nil.", loop: true)
+//                        continue
+//                    }
+                    for (i, pixOut) in pixOuts.enumerated() {
+                        if pixOut.texture == nil {
+                            //                        // CHECK upstream, if connected & rendered
+                            //                        Logger.main.log(pix: pix, .info, .render, "Requesting upstream forced render.", loop: true)
+                            //                        renderPIX(pixOut, force: true, completed: {
+                            //                            self.renderPIX(pix)
+                            //                        })
+                            Logger.main.log(pix: pix, .warning, .render, "In texture #\(i) not ready.")
+                            pix.needsRender = false // CHECK
+                            continue loop
+                        }
                     }
                 }
                 if pix.view.superview != nil {
