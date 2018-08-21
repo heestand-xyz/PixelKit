@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HxPxEDelegate {
+public protocol HxPxEDelegate: class {
     func hxpxeFrameLoop()
 }
 

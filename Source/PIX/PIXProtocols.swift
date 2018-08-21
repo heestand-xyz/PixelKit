@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol PIXDelegate {
+public protocol PIXDelegate: class {
     func pixWillRender(_ pix: PIX)
     func pixDidRender(_ pix: PIX)
 }

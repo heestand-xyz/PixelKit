@@ -12,7 +12,7 @@ import MetalPerformanceShaders
 
 public class PIX: Codable {
     
-    public var delegate: PIXDelegate?
+    public weak var delegate: PIXDelegate?
     
     var id = UUID()
     

@@ -12,7 +12,7 @@ public class HxPxE {
     
     public static let main = HxPxE()
     
-    public var delegate: HxPxEDelegate?
+    public weak var delegate: HxPxEDelegate?
     
     let kSlug = "HxPxE"
     let kName = "Hexagon Pixel Engine"
