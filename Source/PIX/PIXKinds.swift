@@ -29,6 +29,8 @@ extension PIX {
         case lookup
         case quantize
         case polygon
+        case feedback
+        case cross
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -49,6 +51,8 @@ extension PIX {
             case .lookup: return LookupPIX.self
             case .quantize: return QuantizePIX.self
             case .polygon: return PolygonPIX.self
+            case .feedback: return FeedbackPIX.self
+            case .cross: return CrossPIX.self
             }
         }
     }

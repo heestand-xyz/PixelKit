@@ -374,21 +374,25 @@ public class HxPxE {
             Logger.main.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
             return
         }
-        pix.rendering = true
         pix.needsRender = false
-        Logger.main.log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
-        self.render(pix, force: force, completed: { texture in
+        if self.render(pix, force: force, completed: { texture in
             Logger.main.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "")", loop: true)
             pix.rendering = false
             pix.didRender(texture: texture, force: force)
             completed?()
         }, failed: {
-            Logger.main.log(pix: pix, .error, .render, "Render failed...\(force ? " Forced." : "")", loop: true)
+            Logger.main.log(pix: pix, .error, .render, "Render runtime fail.\(force ? " Forced." : "")", loop: true)
             pix.rendering = false
-        })
+        }) {
+            Logger.main.log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
+            pix.rendering = true
+        } else {
+            Logger.main.log(pix: pix, .error, .render, "Render setup fail.\(force ? " Forced." : "")", loop: true)
+            pix.rendering = false
+        }
     }
     
-    func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping () -> ()) {
+    func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping () -> ()) -> Bool {
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
@@ -400,19 +404,19 @@ public class HxPxE {
         
         guard aLive else {
             Logger.main.log(pix: pix, .error, .metalRender, "Not aLive...")
-            return
+            return false
         }
         
 //        if self.pixelBuffer == nil && self.uses_source_texture {
 //            AnalyticsAssistant.shared.logERROR("Render canceled: Source Texture is specified & Pixel Buffer is nil.")
-//            return
+//            return false
 //        }
         
         // MARK: Command Buffer
         
         guard let commandBuffer = commandQueue!.makeCommandBuffer() else {
             Logger.main.log(pix: pix, .error, .metalRender, "Command Buffer: Make faild.")
-            return
+            return false
         }
         
         // MARK: Input Texture
@@ -424,11 +428,11 @@ public class HxPxE {
             if let pixResource = pixContent as? PIXResource {
                 guard let pixelBuffer = pixResource.pixelBuffer else {
                     Logger.main.log(pix: pix, .error, .metalRender, "Texture Creation: Pixel Buffer is empty.")
-                    return
+                    return false
                 }
                 guard let sourceTexture = makeTexture(from: pixelBuffer) else {
                     Logger.main.log(pix: pix, .error, .metalRender, "Texture Creation: Make faild.")
-                    return
+                    return false
                 }
                 inputTexture = sourceTexture
             } else if pixContent is PIXGenerator {
@@ -437,20 +441,36 @@ public class HxPxE {
         } else if let pixIn = pix as? PIX & PIXInIO {
             guard let pixOut = pixIn.pixInList.first else {
                 Logger.main.log(pix: pix, .error, .metalRender, "inPix not connected.")
-                return
+                return false
             }
-            guard let pixOutTexture = pixOut.texture else {
-                Logger.main.log(pix: pix, .error, .metalRender, "IO Texture not found for: \(pixOut)")
-                return
-            }
-            inputTexture = pixOutTexture // CHECK copy?
-            if pix is PIXInMerger {
-                let pixOutB = pixIn.pixInList[1]
-                guard let pixOutTextureB = pixOutB.texture else {
-                    Logger.main.log(pix: pix, .error, .metalRender, "IO Texture B not found for: \(pixOutB)")
-                    return
+            var feed = false
+            if let feedbackPix = pixIn as? FeedbackPIX {
+                if feedbackPix.readyToFeed && feedbackPix.feedActive {
+                    if let feedPix = feedbackPix.feedPix {
+                        guard let feedTexture = feedPix.texture else {
+                            Logger.main.log(pix: pix, .error, .metalRender, "Feed Texture not found for: \(feedPix)")
+                            return false
+                        }
+                        inputTexture = feedTexture
+                        feed = true
+                    }
                 }
-                secondInputTexture = pixOutTextureB // CHECK copy?
+            }
+            if !feed {
+                guard let pixOutTexture = pixOut.texture else {
+                    Logger.main.log(pix: pix, .error, .metalRender, "IO Texture not found for: \(pixOut)")
+                    return false
+                }
+                inputTexture = pixOutTexture // CHECK copy?
+                if pix is PIXInMerger {
+                    let pixOutB = pixIn.pixInList[1]
+                    guard let pixOutTextureB = pixOutB.texture else {
+                        Logger.main.log(pix: pix, .error, .metalRender, "IO Texture B not found for: \(pixOutB)")
+                        return false
+                    }
+                    secondInputTexture = pixOutTextureB // CHECK copy?
+                }
+                // Multi...
             }
         }
         
@@ -459,11 +479,11 @@ public class HxPxE {
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
                 Logger.main.log(pix: pix, .error, .metalRender, "CustomRenderDelegate not implemented.")
-                return
+                return false
             }
             guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
                 Logger.main.log(pix: pix, .error, .metalRender, "Custom Render faild.")
-                return
+                return false
             }
             inputTexture = customRenderedTexture
         }
@@ -475,18 +495,18 @@ public class HxPxE {
         if pix.view.superview != nil {
             guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
                 Logger.main.log(pix: pix, .error, .metalRender, "Current Drawable: Not found.")
-                return
+                return false
             }
             viewDrawable = currentDrawable
             drawableTexture = currentDrawable.texture
         } else {
             guard let res = pix.resolution else {
                 Logger.main.log(pix: pix, .error, .metalRender, "Drawable Textue: Resolution not set.")
-                return
+                return false
             }
             guard let emptyTexture = emptyTexture(size: res.size) else {
                 Logger.main.log(pix: pix, .error, .metalRender, "Drawable Textue: Empty Texture Creation Failed.")
-                return
+                return false
             }
             drawableTexture = emptyTexture
         }
@@ -508,7 +528,7 @@ public class HxPxE {
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 0)
         guard let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
             Logger.main.log(pix: pix, .error, .metalRender, "Command Encoder: Make faild.")
-            return
+            return false
         }
         commandEncoder.setRenderPipelineState(pix.pipeline!)
         
@@ -585,6 +605,8 @@ public class HxPxE {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            sharedCaptureManager.defaultCaptureScope?.end()
 //        }
+        
+        return true
         
     }
     

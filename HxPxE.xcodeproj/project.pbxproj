@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
+		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
+		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
 		74076D05211A27D2000E56E0 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* Res.swift */; };
 		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
 		7413742F2119C9990001890B /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
@@ -72,6 +74,8 @@
 
 /* Begin PBXFileReference section */
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
+		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
+		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
 		74076D04211A27D2000E56E0 /* Res.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Res.swift; sourceTree = "<group>"; };
 		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
 		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 				74179CA821271046007F9579 /* ThresholdPIX.swift */,
 				7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */,
 				7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */,
+				74032AF8212C38DB00E77766 /* FeedbackPIX.swift */,
 			);
 			path = Single;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				74982CAD21107E14009A4264 /* PIXMergerEffect.swift */,
 				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
 				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
+				74032AFB212C478000E77766 /* CrossPIX.swift */,
 			);
 			path = Merger;
 			sourceTree = "<group>";
@@ -450,6 +456,7 @@
 				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
 				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
+				74032AFC212C478000E77766 /* CrossPIX.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
 				74ECBBD221026CC500A42570 /* HxPxEProtocols.swift in Sources */,
@@ -473,6 +480,7 @@
 				747845B221131B080077AB89 /* BlurPIX.swift in Sources */,
 				7465FC78211A4E0400899359 /* Color.swift in Sources */,
 				74DA3D2321026A5900430261 /* HxPxE.swift in Sources */,
+				74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */,
 				74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */,
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
 				7498CA042122073200B07711 /* PIXResolution.swift in Sources */,

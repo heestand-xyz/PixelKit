@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74032AFE212C484600E77766 /* CrossPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFD212C484600E77766 /* CrossPIX.metal */; };
 		74179CA721271016007F9579 /* ThresholdPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA621271016007F9579 /* ThresholdPIX.metal */; };
 		7439E9E02123764C003B0190 /* NoisePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9DF2123764C003B0190 /* NoisePIX.metal */; };
 		7439E9E221237690003B0190 /* noise.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E121237690003B0190 /* noise.metal */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74032AFD212C484600E77766 /* CrossPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CrossPIX.metal; sourceTree = "<group>"; };
 		74179CA621271016007F9579 /* ThresholdPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ThresholdPIX.metal; sourceTree = "<group>"; };
 		7439E9DF2123764C003B0190 /* NoisePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NoisePIX.metal; sourceTree = "<group>"; };
 		7439E9E121237690003B0190 /* noise.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = noise.metal; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				7439E9EA21238232003B0190 /* BlendsPIX.metal */,
+				74032AFD212C484600E77766 /* CrossPIX.metal */,
 				74179CA621271016007F9579 /* ThresholdPIX.metal */,
 				748ADFB12120960F007462F8 /* ResPIX.metal */,
 				7468F95B211244B900E285B1 /* LevelsPIX.metal */,
@@ -230,6 +233,7 @@
 				747845B521131B8E0077AB89 /* BlurPIX.metal in Sources */,
 				74179CA721271016007F9579 /* ThresholdPIX.metal in Sources */,
 				749A7CEF2112FE3500270085 /* CameraPIX.metal in Sources */,
+				74032AFE212C484600E77766 /* CrossPIX.metal in Sources */,
 				74EC5D9F211A2D52003BE4DE /* CirclePIX.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

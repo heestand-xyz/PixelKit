@@ -26,6 +26,7 @@ class Logger {
         case metalRender = "Metal Render"
         case resource = "Resource"
         case generator = "Generator"
+        case effect = "Effect"
         case connection = "Connection"
         case view = "View"
         case res = "Res"
