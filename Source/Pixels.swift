@@ -40,7 +40,7 @@ public class Pixels {
     public var frameIndex = 0
     var frameDate = Date()
     
-    public var logLevel: LogLevel = .none
+    public var logLevel: LogLevel = .debug
     let logLoopFrameCountLimit = 99
     var logLoopLimitIndicated = false
     

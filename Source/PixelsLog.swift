@@ -43,7 +43,11 @@ extension Pixels {
     
     func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
-        if level.index > logLevel.index && level != .error {
+        if level == .fatal {
+            assert(false, message)
+        }
+        
+        if level.index > logLevel.index {
             return
         }
         
@@ -104,10 +108,6 @@ extension Pixels {
         }
         
         print(log)
-        
-        if level == .fatal {
-            assert(false, message)
-        }
         
     }
     
