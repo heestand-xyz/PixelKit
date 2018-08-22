@@ -1,4 +1,4 @@
-<img src="https://github.com/anton-hexagons/Pixels/raw/master/Assets/pixels_logo_1k_bg.png" width="128"/>
+<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/pixels_logo_1k_bg.png" width="128"/>
 
 # Pixels
 a Live Graphics Framework for iOS, written in Swift & Metal
@@ -27,6 +27,8 @@ view.addSubview(finalPix.view)
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
 ---
+
+[Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md) info of PIX types and delegates. 
 
 Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
 
