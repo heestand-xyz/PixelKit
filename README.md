@@ -5,19 +5,18 @@ a Live Graphics Framework for iOS, written in Swift & Metal
 
 ## Usage Example
 ~~~~swift
-let cameraPix = CameraPIX()
-cameraPix.camera = .front
+let camera = CameraPIX()
 
-let levelsPix = LevelsPIX()
-levelsPix.inPix = cameraPix
-levelsPix.gamma = 2
-levelsPix.inverted = true
+let levels = LevelsPIX()
+levels.inPix = camera
+levels.gamma = 2
+levels.inverted = true
 
-let blurPix = BlurPIX()
-blurPix.inPix = levelsPix
-blurPix.radius = 100
+let blur = BlurPIX()
+blur.inPix = levels
+blur.radius = 100
 
-let finalPix: PIX = blurPix
-finalPix.view.frame = view.bounds
-view.addSubview(finalPix.view)
+let final: PIX = blur
+final.view.frame = view.bounds
+view.addSubview(final.view)
 ~~~~ 
