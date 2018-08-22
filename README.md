@@ -3,7 +3,7 @@
 # Pixels
 a Live Graphics Framework for iOS, written in Swift & Metal
 
-## Usage Example
+## Example
 ~~~~swift
 let camera = CameraPIX()
 
@@ -16,7 +16,13 @@ let blur = BlurPIX()
 blur.inPix = levels
 blur.radius = 100
 
-let final: PIX = blur
-final.view.frame = view.bounds
-view.addSubview(final.view)
+let finalPix: PIX = blur
+finalPix.view.frame = view.bounds
+view.addSubview(finalPix.view)
 ~~~~ 
+
+---
+
+Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, based on Pixels.
+
+Created by Anton Heestand, [Hexagons](http://hexagons.se/).
