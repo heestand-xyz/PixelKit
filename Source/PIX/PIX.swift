@@ -1,6 +1,6 @@
 //
 //  PIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-07-20.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -12,30 +12,32 @@ import MetalPerformanceShaders
 
 public class PIX: Codable {
     
+    let pixels = Pixels.main
+    
     public weak var delegate: PIXDelegate?
     
     var id = UUID()
     
-    var shader: String { return "nilPIX" }
-    var shaderUniforms: [CGFloat] { return [] }
+    var shader: String { return "" }
+    var uniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
+
+    var texture: MTLTexture?
     
     public let view: PIXView
     
-    var texture: MTLTexture?
-    
     public var interpolate: MTLSamplerMinMagFilter = .linear {
         didSet {
-            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
-            Logger.main.log(pix: self, .info, nil, "New Sample Mode: Interpolate: \(interpolate)")
+            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
+            pixels.log(pix: self, .info, nil, "New Sample Mode: Interpolate: \(interpolate)")
             setNeedsRender()
         }
     }
 
     public var extend: MTLSamplerAddressMode = .clampToZero {
         didSet {
-            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
-            Logger.main.log(pix: self, .info, nil, "New Sample Mode: Extend: \(extend)")
+            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
+            pixels.log(pix: self, .info, nil, "New Sample Mode: Extend: \(extend)")
             setNeedsRender()
         }
     }
@@ -58,14 +60,18 @@ public class PIX: Codable {
     
         view = PIXView()
         
-        if HxPxE.main.aLive {
-            pipeline = HxPxE.main.makeShaderPipeline(shader)
-            sampler = HxPxE.main.makeSampler(interpolate: interpolate, extend: extend)
+        if pixels.aLive {
+            guard shader != "" else {
+                pixels.log(pix: self, .fatal, nil, "Shader not defined.")
+                return
+            }
+            pipeline = pixels.makeShaderPipeline(shader)
+            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
             if allGood {
-                HxPxE.main.add(pix: self)
-                print(self, "Created and linked with main engine.")
+                pixels.add(pix: self)
+                pixels.log(pix: self, .none, nil, "\(String(describing: self).split(separator: ".").last!) Created and linked with main engine.", clean: true)
             } else {
-                print(self, "Not allGood...")
+                pixels.log(pix: self, .fatal, nil, "Not allGood...")
             }
         }
         
@@ -83,25 +89,25 @@ public class PIX: Codable {
     
     func setNeedsRender() {
         guard !needsRender else {
-            Logger.main.log(pix: self, .warning, .render, "Already requested.", loop: true)
+            pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
         guard resolution != nil else {
-            Logger.main.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
+            pixels.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
             return
         }
         guard view.metalView.res != nil else {
-            Logger.main.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
+            pixels.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
             return
         }
         if let pixResource = self as? PIXResource {
             guard pixResource.pixelBuffer != nil else {
-                Logger.main.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
+                pixels.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
                 return
             }
         }
-        if HxPxE.main.frameIndex < 10 {
-            Logger.main.log(pix: self, .info, .render, "Requested.", loop: true)
+        if pixels.frameIndex < 10 {
+            pixels.log(pix: self, .info, .render, "Requested.", loop: true)
         }
         needsRender = true
         delegate?.pixWillRender(self)
@@ -147,40 +153,40 @@ public class PIX: Codable {
     }
     
     func connectSingle(_ pixOut: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = [pixOut]
         var pixOut = pixOut
         pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        Logger.main.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
+        pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
         applyRes { self.setNeedsRender() }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = [pixOutA, pixOutB]
         var pixOutA = pixOutA
         var pixOutB = pixOutB
         pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
-        Logger.main.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+        pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
         applyRes { self.setNeedsRender() }
     }
     
     func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
-        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = pixOuts
         for (i, pixOut) in pixOuts.enumerated() {
             var pixOut = pixOut
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
-        Logger.main.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
+        pixels.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
     }
     
     // MARK: Diconnect
     
     func disconnectSingle() {
-        guard var pixInIO = self as? PIX & PIXInIO else { Logger.main.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         var pixOut = pixInIO.pixInList.first! as! PIXOutIO
         for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
             if pixOutPath.pixIn == pixInIO {
@@ -209,7 +215,7 @@ public class PIX: Codable {
     
     deinit {
         // CHECK
-        HxPxE.main.remove(pix: self)
+        pixels.remove(pix: self)
         // Disconnect...
     }
     

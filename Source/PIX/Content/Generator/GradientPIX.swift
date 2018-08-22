@@ -1,18 +1,18 @@
 //
 //  GradientPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-09.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class GradientPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .gradient
     
-    override var shader: String { return "gradientPIX" }
+    override var shader: String { return "contentGeneratorGradientPIX" }
     override var shaderNeedsAspect: Bool { return true }
     
     public enum Style: String, Codable {
@@ -68,22 +68,22 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     enum GradientCodingKeys: String, CodingKey {
         case style; case scale; case offset; case firstColor; case lastColor; case extend; case premultiply // CHECK Extra Colors...
     }
-    override var shaderUniforms: [CGFloat] {
-        var uniforms = [CGFloat(style.index), scale, offset]
-        uniforms.append(contentsOf: PIX.Color(colorFirst).list)
-        uniforms.append(contentsOf: PIX.Color(colorLast).list)
-        uniforms.append(CGFloat(extendRamp.index))
-        uniforms.append(extraColorsActive ? 1 : 0)
-        uniforms.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
-        uniforms.append(contentsOf: PIX.Color(extraColorA).list)
-        uniforms.append(contentsOf: [extraColorBActive ? 1 : 0, extraColorBPosition])
-        uniforms.append(contentsOf: PIX.Color(extraColorB).list)
-        uniforms.append(contentsOf: [extraColorCActive ? 1 : 0, extraColorCPosition])
-        uniforms.append(contentsOf: PIX.Color(extraColorC).list)
-        uniforms.append(contentsOf: [extraColorDActive ? 1 : 0, extraColorDPosition])
-        uniforms.append(contentsOf: PIX.Color(extraColorD).list)
-        uniforms.append(premultiply ? 1 : 0)
-        return uniforms
+    override var uniforms: [CGFloat] {
+        var vals = [CGFloat(style.index), scale, offset]
+        vals.append(contentsOf: PIX.Color(colorFirst).list)
+        vals.append(contentsOf: PIX.Color(colorLast).list)
+        vals.append(CGFloat(extendRamp.index))
+        vals.append(extraColorsActive ? 1 : 0)
+        vals.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
+        vals.append(contentsOf: PIX.Color(extraColorA).list)
+        vals.append(contentsOf: [extraColorBActive ? 1 : 0, extraColorBPosition])
+        vals.append(contentsOf: PIX.Color(extraColorB).list)
+        vals.append(contentsOf: [extraColorCActive ? 1 : 0, extraColorCPosition])
+        vals.append(contentsOf: PIX.Color(extraColorC).list)
+        vals.append(contentsOf: [extraColorDActive ? 1 : 0, extraColorDPosition])
+        vals.append(contentsOf: PIX.Color(extraColorD).list)
+        vals.append(premultiply ? 1 : 0)
+        return vals
     }
     
     // MARK: JSON

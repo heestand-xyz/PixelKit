@@ -1,0 +1,131 @@
+//
+//  PixelsLog.swift
+//  Pixels
+//
+//  Created by Hexagons on 2018-08-16.
+//  Copyright © 2018 Hexagons. All rights reserved.
+//
+
+import Foundation
+
+extension Pixels {
+    
+    public enum LogLevel: String {
+        case none = ""
+        case info = "INFO"
+        case warning = "WARNING"
+        case error = "ERROR"
+        case fatal = "FATAL"
+        case debug = "DEBUG"
+        var index: Int {
+            switch self {
+            case .none: return 0
+            case .info: return 1
+            case .warning: return 2
+            case .error: return 3
+            case .fatal: return 4
+            case .debug: return 5
+            }
+        }
+    }
+    
+    enum LogCategory: String {
+        case engine = "Engine"
+        case render = "Render"
+        case metalRender = "Metal Render"
+        case resource = "Resource"
+        case generator = "Generator"
+        case effect = "Effect"
+        case connection = "Connection"
+        case view = "View"
+        case res = "Res"
+    }
+    
+    func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+        
+        if level.index > logLevel.index && level != .error {
+            return
+        }
+        
+        if loop && frameIndex > logLoopFrameCountLimit {
+            if !logLoopLimitIndicated {
+                print("Pixels Running...")
+                logLoopLimitIndicated = true
+            }
+            return
+        }
+        
+        if clean {
+            print(message)
+            return
+        }
+        
+        var logList: [String] = []
+        
+        logList.append("Pixels")
+        
+        #if DEBUG
+        logList.append("#\(frameIndex)")
+        #else
+        if [.debug, .info].contains(level) { return }
+        #endif
+        
+        logList.append(level.rawValue)
+        
+        if let p = pix {
+            logList.append(String(String(describing: p).split(separator: ".").last ?? ""))
+        }
+        
+        if let c = category {
+            logList.append(c.rawValue)
+        }
+        
+        let firstPadding = spaces(40 - logLength(logList))
+        logList.append(firstPadding)
+        
+        logList.append(message)
+        
+        if let e = error {
+            logList.append("Error: \"\(e.localizedDescription)\"")
+        }
+        
+        let secondPadding = spaces(80 - logLength(logList))
+        logList.append(secondPadding)
+        
+        #if DEBUG
+        let fileName = file.split(separator: "/").last!
+        logList.append("\(fileName) \(function) \(line)")
+        #endif
+        
+        var log = ""
+        for (i, subLog) in logList.enumerated() {
+            if i > 0 { log += " " }
+            log += subLog
+        }
+        
+        print(log)
+        
+        if level == .fatal {
+            assert(false, message)
+        }
+        
+    }
+    
+    func logLength(_ logList: [String]) -> Int {
+        var length = -1
+        for log in logList {
+            length += log.count + 1
+        }
+        return length
+    }
+    
+    func spaces(_ count: Int) -> String {
+        guard count > 0 else { return "" }
+        var spaces = ""
+        for _ in 0..<count {
+            spaces += " "
+        }
+        return spaces
+    }
+    
+}

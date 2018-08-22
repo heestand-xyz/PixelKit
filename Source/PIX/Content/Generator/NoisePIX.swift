@@ -1,18 +1,18 @@
 //
 //  NoisePIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-14.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class NoisePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .noise
     
-    override var shader: String { return "noisePIX" }
+    override var shader: String { return "contentGeneratorNoisePIX" }
     override var shaderNeedsAspect: Bool { return true }
     
     public var seed: Int = 0 { didSet { setNeedsRender() } }
@@ -25,7 +25,7 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     enum NoiseCodingKeys: String, CodingKey {
         case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
     }
     

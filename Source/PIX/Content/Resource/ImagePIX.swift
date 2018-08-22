@@ -1,18 +1,18 @@
 //
 //  ImagePIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class ImagePIX: PIXResource, PIXofaKind {
     
     var kind: PIX.Kind = .image
     
-    override var shader: String { return "imagePIX" }
+    override var shader: String { return "contentResourceImagePIX" }
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
@@ -31,22 +31,22 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     func setNeedsBuffer() {
         guard let image = image else {
-            Logger.main.log(pix: self, .debug, .resource, "Nil not supported yet.")
+            pixels.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        if HxPxE.main.frameIndex == 0 {
-            Logger.main.log(pix: self, .debug, .resource, "One frame delay.")
-            HxPxE.main.delay(frames: 1, done: {
+        if pixels.frameIndex == 0 {
+            pixels.log(pix: self, .debug, .resource, "One frame delay.")
+            pixels.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let buffer = buffer(from: image) else {
-            Logger.main.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+            pixels.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        Logger.main.log(pix: self, .info, .resource, "Image Loaded.")
+        pixels.log(pix: self, .info, .resource, "Image Loaded.")
         setNeedsRender()
     }
     
@@ -61,7 +61,7 @@ public class ImagePIX: PIXResource, PIXofaKind {
             "IOSurfaceCoreAnimationCompatibility": true,
             ]] as CFDictionary
         var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), HxPxE.main.colorBits.os, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), pixels.colorBits.os, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
         }

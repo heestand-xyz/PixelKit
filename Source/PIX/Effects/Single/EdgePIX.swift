@@ -1,25 +1,25 @@
 //
 //  EdgePIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-06.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class EdgePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .edge
     
-    override var shader: String { return "edgePIX" }
+    override var shader: String { return "effectSingleThresholdPIX" }
     
     public var strength: CGFloat = 4 { didSet { setNeedsRender() } }
     public var distance: CGFloat = 1 { didSet { setNeedsRender() } }
     enum EdgeCodingKeys: String, CodingKey {
         case strength; case distance
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [strength, distance]
     }
     

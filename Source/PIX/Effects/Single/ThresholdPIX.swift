@@ -1,12 +1,12 @@
 //
 //  ThresholdPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-17.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     
@@ -19,7 +19,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     enum EdgeCodingKeys: String, CodingKey {
         case threshold; case smoothness
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [threshold, smoothness]
     }
     

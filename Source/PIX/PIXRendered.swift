@@ -1,6 +1,6 @@
 //
 //  PIXRendered.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-12.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -15,32 +15,32 @@ public extension PIX {
     public var renderedImage: UIImage? {
         guard let texture = renderedTexture else { return nil }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
-        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: HxPxE.main.colorBits.ci, colorSpace: HxPxE.main.colorSpace.cg) else { return nil }
+        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.colorBits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
         let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         return uiImage
     }
     
     public var renderedRaw8: [UInt8]? {
         guard let texture = renderedTexture else { return nil }
-        return HxPxE.main.raw8(texture: texture)
+        return pixels.raw8(texture: texture)
     }
     
     public var renderedRaw16: [Float]? {
         guard let texture = renderedTexture else { return nil }
-        return HxPxE.main.raw16(texture: texture)
+        return pixels.raw16(texture: texture)
     }
     
     public var renderedRaw32: [float4]? {
         guard let texture = renderedTexture else { return nil }
-        return HxPxE.main.raw32(texture: texture)
+        return pixels.raw32(texture: texture)
     }
     
     public var renderedRawNormalized: [CGFloat]? {
         guard let texture = renderedTexture else { return nil }
-        return HxPxE.main.rawNormalized(texture: texture)
+        return pixels.rawNormalized(texture: texture)
     }
     
-    public struct Pixels {
+    public struct PixelPack {
         public let res: Res
         public let raw: [[PIX.Color]]
         public func pixel(uv: CGVector) -> PIX.Color {
@@ -59,7 +59,7 @@ public extension PIX {
         }
     }
 
-    public var renderedPixels: Pixels? {
+    public var renderedPixels: PixelPack? {
         guard let res = resolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
         var pixels: [[PIX.Color]] = []
@@ -80,7 +80,7 @@ public extension PIX {
             }
             pixels.append(pixelRow)
         }
-        return Pixels(res: res, raw: pixels)
+        return PixelPack(res: res, raw: pixels)
     }
     
 }

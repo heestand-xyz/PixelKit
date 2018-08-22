@@ -1,12 +1,12 @@
 //
 //  PIXProtocols.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public protocol PIXDelegate: class {
     func pixWillRender(_ pix: PIX)

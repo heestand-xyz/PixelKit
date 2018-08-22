@@ -1,12 +1,12 @@
 //
-//  PIXDecleration.swift
-//  HxPxE
+//  PIXKinds.swift
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-10.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 extension PIX {
     

@@ -1,18 +1,18 @@
 //
 //  KaleidoscopePIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-18.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .kaleidoscope
     
-    override var shader: String { return "kaleidoscopePIX" }
+    override var shader: String { return "effectSingleKaleidoscopePIX" }
     
     public var divisions: Int = 12 { didSet { setNeedsRender() } }
     public var mirror: Bool = true { didSet { setNeedsRender() } }
@@ -21,7 +21,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     enum KaleidoscopeCodingKeys: String, CodingKey {
         case divisions; case mirror; case rotation; case position
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
     }
     

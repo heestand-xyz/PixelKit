@@ -1,18 +1,18 @@
 //
 //  LookupPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-18.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class LookupPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lookup
     
-    override var shader: String { return "lookupPIX" }
+    override var shader: String { return "effectMergerLookupPIX" }
     
     public enum Axis: String, Codable {
         case x
@@ -23,7 +23,7 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
     enum LookupCodingKeys: String, CodingKey {
         case axis
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1]
     }
     

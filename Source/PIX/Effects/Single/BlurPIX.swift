@@ -1,6 +1,6 @@
 //
 //  BlurPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-02.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -13,7 +13,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
     
-    override var shader: String { return "blurPIX" }
+    override var shader: String { return "effectSingleBlurPIX" }
     
     public enum Style: String, Codable {
         case guassian
@@ -55,7 +55,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     enum BlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius, CGFloat(quality.value), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
@@ -103,13 +103,13 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     }
     
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: HxPxE.main.colorBits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
+        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixels.colorBits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-        guard let blurTexture = HxPxE.main.metalDevice!.makeTexture(descriptor: descriptor) else {
-            Logger.main.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
+        guard let blurTexture = pixels.metalDevice!.makeTexture(descriptor: descriptor) else {
+            pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
-        let gaussianBlurKernel = MPSImageGaussianBlur(device: HxPxE.main.metalDevice!, sigma: Float(radius))
+        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice!, sigma: Float(radius))
         switch extend {
         case .clampToZero:
             gaussianBlurKernel.edgeMode = .zero

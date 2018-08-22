@@ -1,12 +1,12 @@
 //
 //  BlendsPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-14.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     
@@ -41,7 +41,7 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     enum BlendsCodingKeys: String, CodingKey {
         case mode
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(mode.index)]
     }
     

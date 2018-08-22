@@ -1,6 +1,6 @@
-<img src="https://github.com/anton-hexagons/HxPxE/raw/master/Assets/HxPxE_logo_1k_bg.png" width="128"/>
+<img src="https://github.com/anton-hexagons/Pixels/raw/master/Assets/pixels_logo_1k_bg.png" width="128"/>
 
-# Hexagon Pixel Engine
+# Pixels
 a Live Graphics Framework for iOS, written in Swift & Metal
 
 ## Usage Example

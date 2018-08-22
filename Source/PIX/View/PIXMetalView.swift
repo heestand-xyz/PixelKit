@@ -1,6 +1,6 @@
 //
 //  PIXMetalView.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -9,6 +9,8 @@
 import MetalKit
 
 class PIXMetalView: MTKView {
+    
+    let pixels = Pixels.main
     
     var res: PIX.Res? {
         didSet {
@@ -23,9 +25,9 @@ class PIXMetalView: MTKView {
         
         let onePixelFrame = CGRect(x: 0, y: 0, width: 1, height: 1) // CHECK
         
-        super.init(frame: onePixelFrame, device: HxPxE.main.metalDevice)
+        super.init(frame: onePixelFrame, device: pixels.metalDevice)
         
-        colorPixelFormat = HxPxE.main.colorBits.mtl
+        colorPixelFormat = pixels.colorBits.mtl
         isOpaque = false
         framebufferOnly = false
         autoResizeDrawable = false
@@ -40,13 +42,13 @@ class PIXMetalView: MTKView {
         autoreleasepool { // CHECK
             if rect.width > 0 && rect.height > 0 {
                 if res != nil {
-                    Logger.main.log(.info, .view, "Ready to Render.")
+                    pixels.log(.info, .view, "Ready to Render.", loop: true)
                     readyToRender?()
                 } else {
-                    Logger.main.log(.warning, .view, "Draw: Resolution not set.")
+                    pixels.log(.warning, .view, "Draw: Resolution not set.", loop: true)
                 }
             } else {
-                Logger.main.log(.error, .view, "Draw: Rect is zero.")
+                pixels.log(.error, .view, "Draw: Rect is zero.", loop: true)
             }
         }
     }

@@ -1,16 +1,18 @@
 //
 //  NilPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-15.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class NilPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .nil
+    
+    override var shader: String { return "effectSingleNilPIX" }
     
     public override init() {
         super.init()

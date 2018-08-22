@@ -1,18 +1,18 @@
 //
 //  PolygonPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-18.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class PolygonPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .polygon
     
-    override var shader: String { return "polygonPIX" }
+    override var shader: String { return "contentGeneratorPolygonPIX" }
     override var shaderNeedsAspect: Bool { return true }
     
     public var radius: CGFloat = 0.25 { didSet { setNeedsRender() } }
@@ -25,12 +25,12 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     enum CircleCodingKeys: String, CodingKey {
         case radius; case position; case rotation; case vertexCount; case color; case bgColor; case premultiply
     }
-    override var shaderUniforms: [CGFloat] {
-        var uniforms = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
-        uniforms.append(contentsOf: PIX.Color(color).list)
-        uniforms.append(contentsOf: PIX.Color(bgColor).list)
-        uniforms.append(premultiply ? 1 : 0)
-        return uniforms
+    override var uniforms: [CGFloat] {
+        var vals = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
+        vals.append(contentsOf: PIX.Color(color).list)
+        vals.append(contentsOf: PIX.Color(bgColor).list)
+        vals.append(premultiply ? 1 : 0)
+        return vals
     }
     
     // MARK: JSON

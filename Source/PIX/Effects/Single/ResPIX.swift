@@ -1,18 +1,18 @@
 //
 //  ResPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-03.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class ResPIX: PIXSingleEffect, PIXofaKind {
 
     let kind: PIX.Kind = .res
     
-    override var shader: String { return "resPIX" }
+    override var shader: String { return "effectSingleResPIX" }
     override var shaderNeedsAspect: Bool { return true }
     
     public enum FillMode: String, Codable {
@@ -35,7 +35,7 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
     enum ResCodingKeys: String, CodingKey {
         case resMultiplier; case inheritInRes; case fillMode
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
     }
     

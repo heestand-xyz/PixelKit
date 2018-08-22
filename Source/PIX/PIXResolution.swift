@@ -1,12 +1,12 @@
 //
 //  PIXResolution.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-13.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 extension PIX {
     
@@ -38,18 +38,18 @@ extension PIX {
     
     func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
-            if HxPxE.main.frameIndex == 0 {
-                Logger.main.log(pix: self, .info, .res, "Waiting for potential layout, delayed one frame.")
-                HxPxE.main.delay(frames: 1, done: {
+            if pixels.frameIndex == 0 {
+                pixels.log(pix: self, .info, .res, "Waiting for potential layout, delayed one frame.")
+                pixels.delay(frames: 1, done: {
                     self.applyRes(applied: applied)
                 })
                 return
             }
-            Logger.main.log(pix: self, .error, .res, "Unknown.")
+            pixels.log(pix: self, .error, .res, "Unknown.")
             return
         }
         view.setRes(res)
-        Logger.main.log(pix: self, .info, .res, "Applied: \(res)")
+        pixels.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
     }
     

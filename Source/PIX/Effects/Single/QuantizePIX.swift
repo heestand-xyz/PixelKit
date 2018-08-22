@@ -1,24 +1,24 @@
 //
 //  QuantizePIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-18.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .quantize
     
-    override var shader: String { return "quantizePIX" }
+    override var shader: String { return "effectSingleQuantizePIX" }
     
     public var fraction: CGFloat = 0.125 { didSet { setNeedsRender() } }
     enum QuantizeCodingKeys: String, CodingKey {
         case fraction
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [fraction]
     }
     

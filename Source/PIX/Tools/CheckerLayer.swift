@@ -1,12 +1,12 @@
 //
 //  CheckerLayer.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 class CheckerLayer: CALayer {
     

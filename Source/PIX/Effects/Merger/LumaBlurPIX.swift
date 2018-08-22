@@ -1,18 +1,18 @@
 //
 //  LumaBlurPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-09.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 /*public*/ class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lumaBlur
     
-    override var shader: String { return "lumaBlurPIX" }
+    override var shader: String { return "effectMergerLumaBlurPIX" }
     
     public enum Style: Int, Codable {
         case box = 0
@@ -38,7 +38,7 @@ import Foundation
     enum LumaBlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(style.rawValue), radius, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     

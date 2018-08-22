@@ -1,16 +1,18 @@
 //
 //  FeedbackPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-21.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
+import Metal
 
 public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
-    
     var kind: PIX.Kind = .feedback
+    
+    override var shader: String { return "effectSingleNilPIX" }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
     public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }
@@ -28,7 +30,7 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
             feedReset = false
         }
         readyToFeed = true
-//        HxPxE.main.delay(frames: 2, done: {
+//        pixels.delay(frames: 2, done: {
 //            self.setNeedsRender()
 //        })
         setNeedsRender()
@@ -36,7 +38,7 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
     
     public func resetFeed() {
         guard feedActive else {
-            Logger.main.log(pix: self, .info, .effect, "Feedback reset; feed not active.")
+            pixels.log(pix: self, .info, .effect, "Feedback reset; feed not active.")
             return
         }
         feedActive = false

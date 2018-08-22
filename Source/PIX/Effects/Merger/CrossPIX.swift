@@ -1,24 +1,24 @@
 //
 //  CrossPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-08-21.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class CrossPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .cross
     
-    override var shader: String { return "crossPIX" }
+    override var shader: String { return "effectMergerCrossPIX" }
     
     public var crossFraction: CGFloat = 0.5 { didSet { setNeedsRender() } }
     enum CrossCodingKeys: String, CodingKey {
         case crossFraction
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [crossFraction, CGFloat(fillMode.index)]
     }
     

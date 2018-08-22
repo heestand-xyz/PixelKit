@@ -1,18 +1,18 @@
 //
 //  LevelsPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import Foundation
+import CoreGraphics
 
 public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .levels
     
-    override var shader: String { return "levelsPIX" }
+    override var shader: String { return "effectSingleLevelsPIX" }
     
     public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }
@@ -23,7 +23,7 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     enum LevelsCodingKeys: String, CodingKey {
         case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
     }
     

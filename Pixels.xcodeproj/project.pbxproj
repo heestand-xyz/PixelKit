@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
+		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
+		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
+		74076D05211A27D2000E56E0 /* PIXRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* PIXRes.swift */; };
+		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
+		7413742F2119C9990001890B /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
+		74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA821271046007F9579 /* ThresholdPIX.swift */; };
+		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
+		7428A7B6211E148C005304A6 /* PIXKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7B5211E148C005304A6 /* PIXKinds.swift */; };
+		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
+		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
+		7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EE21238ECE003B0190 /* NilPIX.swift */; };
+		7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C0210A321F001AA523 /* PIXContent.swift */; };
+		7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C2210A332B001AA523 /* PIXEffect.swift */; };
+		7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C4210A3337001AA523 /* PIXOutput.swift */; };
+		7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CA210A33A5001AA523 /* CameraPIX.swift */; };
+		7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CC210A33D4001AA523 /* LevelsPIX.swift */; };
+		7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CE210A33F8001AA523 /* PIXProtocols.swift */; };
+		745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A8F94212DC9AD006DA59D /* PixelsRender.swift */; };
+		745A8F97212DC9DD006DA59D /* PixelsFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A8F96212DC9DD006DA59D /* PixelsFileIO.swift */; };
+		7465FC78211A4E0400899359 /* PIXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465FC77211A4E0400899359 /* PIXColor.swift */; };
+		7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */; };
+		7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC852128328200ECF2E2 /* LookupPIX.swift */; };
+		7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */; };
+		74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */; };
+		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
+		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
+		748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* PIXRendered.swift */; };
+		74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffect.swift */; };
+		74982CAE21107E14009A4264 /* PIXMergerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAD21107E14009A4264 /* PIXMergerEffect.swift */; };
+		74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */; };
+		7498CA042122073200B07711 /* PIXResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7498CA032122073200B07711 /* PIXResolution.swift */; };
+		749BAD13212DD9E7004ED938 /* PixelsShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 740EE35B212DD4E00065F49B /* PixelsShaders.metallib */; };
+		749BAD16212DDA7A004ED938 /* PixelsShaders.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 740EE35B212DD4E00065F49B /* PixelsShaders.metallib */; };
+		749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */; };
+		749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DC6CA2124E12600AE5F6A /* PIXResource.swift */; };
+		749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EB33E2119A5D900921BDF /* ImagePIX.swift */; };
+		74A40E1B210A11200085041D /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
+		74A6AF10211F007100D39FF9 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6AF0F211F007100D39FF9 /* Enum.swift */; };
+		74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AE242521284F0900E80B96 /* PolygonPIX.swift */; };
+		74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
+		74DA3D2321026A5900430261 /* Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* Pixels.swift */; };
+		74DB402E2125BD9800FA6034 /* PixelsLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB402D2125BD9800FA6034 /* PixelsLog.swift */; };
+		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
+		74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
+		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
+		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
+		74076D04211A27D2000E56E0 /* PIXRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRes.swift; sourceTree = "<group>"; };
+		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
+		740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelsShaders.xcodeproj; path = Pixels.xcodeproj/PixelsShaders.xcodeproj; sourceTree = "<group>"; };
+		740EE35B212DD4E00065F49B /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
+		74179CA821271046007F9579 /* ThresholdPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPIX.swift; sourceTree = "<group>"; };
+		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
+		7428A7B5211E148C005304A6 /* PIXKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXKinds.swift; sourceTree = "<group>"; };
+		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
+		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
+		7439E9EE21238ECE003B0190 /* NilPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NilPIX.swift; sourceTree = "<group>"; };
+		7452F4C0210A321F001AA523 /* PIXContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXContent.swift; sourceTree = "<group>"; };
+		7452F4C2210A332B001AA523 /* PIXEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXEffect.swift; sourceTree = "<group>"; };
+		7452F4C4210A3337001AA523 /* PIXOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXOutput.swift; sourceTree = "<group>"; };
+		7452F4CA210A33A5001AA523 /* CameraPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPIX.swift; sourceTree = "<group>"; };
+		7452F4CC210A33D4001AA523 /* LevelsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsPIX.swift; sourceTree = "<group>"; };
+		7452F4CE210A33F8001AA523 /* PIXProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXProtocols.swift; sourceTree = "<group>"; };
+		745A8F94212DC9AD006DA59D /* PixelsRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsRender.swift; sourceTree = "<group>"; };
+		745A8F96212DC9DD006DA59D /* PixelsFileIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsFileIO.swift; sourceTree = "<group>"; };
+		7465FC71211A3C8C00899359 /* CheckerLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerLayer.swift; sourceTree = "<group>"; };
+		7465FC77211A4E0400899359 /* PIXColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXColor.swift; sourceTree = "<group>"; };
+		7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaleidoscopePIX.swift; sourceTree = "<group>"; };
+		7471FC852128328200ECF2E2 /* LookupPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupPIX.swift; sourceTree = "<group>"; };
+		7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantizePIX.swift; sourceTree = "<group>"; };
+		74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwirlPIX.swift; sourceTree = "<group>"; };
+		747845B121131B080077AB89 /* BlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurPIX.swift; sourceTree = "<group>"; };
+		74879D632118E8C200BF17DE /* EdgePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgePIX.swift; sourceTree = "<group>"; };
+		748ADFB32120C1E3007462F8 /* PIXRendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRendered.swift; sourceTree = "<group>"; };
+		74982CAB21107E06009A4264 /* PIXSingleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSingleEffect.swift; sourceTree = "<group>"; };
+		74982CAD21107E14009A4264 /* PIXMergerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMergerEffect.swift; sourceTree = "<group>"; };
+		74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMultiEffect.swift; sourceTree = "<group>"; };
+		7498CA032122073200B07711 /* PIXResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResolution.swift; sourceTree = "<group>"; };
+		749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXGenerator.swift; sourceTree = "<group>"; };
+		749DC6CA2124E12600AE5F6A /* PIXResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResource.swift; sourceTree = "<group>"; };
+		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
+		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
+		74A6AF0F211F007100D39FF9 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		74AE242521284F0900E80B96 /* PolygonPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonPIX.swift; sourceTree = "<group>"; };
+		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/Generator/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
+		74BC39D721011E3A004E9AA0 /* Pixels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74DA3D2221026A5900430261 /* Pixels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixels.swift; sourceTree = "<group>"; };
+		74DB402D2125BD9800FA6034 /* PixelsLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsLog.swift; sourceTree = "<group>"; };
+		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
+		74ECBBD121026CC500A42570 /* PixelsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsProtocols.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		74BC39D421011E3A004E9AA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				749BAD13212DD9E7004ED938 /* PixelsShaders.metallib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7400B860212DD087002811DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				740EE35B212DD4E00065F49B /* PixelsShaders.metallib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		740EE328212DD4C00065F49B /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7452F4C6210A3362001AA523 /* PIX */ = {
+			isa = PBXGroup;
+			children = (
+				742321A021027C70003697C3 /* PIX.swift */,
+				7428A7B5211E148C005304A6 /* PIXKinds.swift */,
+				7452F4CE210A33F8001AA523 /* PIXProtocols.swift */,
+				7498CA032122073200B07711 /* PIXResolution.swift */,
+				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
+				7465FC77211A4E0400899359 /* PIXColor.swift */,
+				74076D04211A27D2000E56E0 /* PIXRes.swift */,
+				7465FC75211A3CAC00899359 /* View */,
+				7452F4C7210A336A001AA523 /* Content */,
+				7452F4C8210A3378001AA523 /* Effects */,
+				7452F4C9210A3385001AA523 /* Output */,
+				7465FC76211A4DFA00899359 /* Tools */,
+			);
+			path = PIX;
+			sourceTree = "<group>";
+		};
+		7452F4C7210A336A001AA523 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C0210A321F001AA523 /* PIXContent.swift */,
+				749DC6C52124E09200AE5F6A /* Resource */,
+				749DC6C72124E09B00AE5F6A /* Generator */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		7452F4C8210A3378001AA523 /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C2210A332B001AA523 /* PIXEffect.swift */,
+				74982CA721107DBD009A4264 /* Single */,
+				74982CA921107DD1009A4264 /* Merger */,
+				74982CAA21107DD6009A4264 /* Multi */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		7452F4C9210A3385001AA523 /* Output */ = {
+			isa = PBXGroup;
+			children = (
+				7452F4C4210A3337001AA523 /* PIXOutput.swift */,
+			);
+			path = Output;
+			sourceTree = "<group>";
+		};
+		7465FC75211A3CAC00899359 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74A40E1A210A11200085041D /* PIXView.swift */,
+				7413742E2119C9980001890B /* PIXMetalView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7465FC76211A4DFA00899359 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				7465FC71211A3C8C00899359 /* CheckerLayer.swift */,
+				74A6AF0F211F007100D39FF9 /* Enum.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		74982CA721107DBD009A4264 /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAB21107E06009A4264 /* PIXSingleEffect.swift */,
+				7439E9EE21238ECE003B0190 /* NilPIX.swift */,
+				7401CF3021147C9700000A38 /* ResPIX.swift */,
+				7452F4CC210A33D4001AA523 /* LevelsPIX.swift */,
+				747845B121131B080077AB89 /* BlurPIX.swift */,
+				74879D632118E8C200BF17DE /* EdgePIX.swift */,
+				74179CA821271046007F9579 /* ThresholdPIX.swift */,
+				7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */,
+				7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */,
+				74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */,
+				74032AF8212C38DB00E77766 /* FeedbackPIX.swift */,
+			);
+			path = Single;
+			sourceTree = "<group>";
+		};
+		74982CA921107DD1009A4264 /* Merger */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAD21107E14009A4264 /* PIXMergerEffect.swift */,
+				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
+				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
+				74032AFB212C478000E77766 /* CrossPIX.swift */,
+			);
+			path = Merger;
+			sourceTree = "<group>";
+		};
+		74982CAA21107DD6009A4264 /* Multi */ = {
+			isa = PBXGroup;
+			children = (
+				74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */,
+				7439E9EC212382D0003B0190 /* BlendsPIX.swift */,
+			);
+			path = Multi;
+			sourceTree = "<group>";
+		};
+		749DC6C52124E09200AE5F6A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				749DC6CA2124E12600AE5F6A /* PIXResource.swift */,
+				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
+				749EB33E2119A5D900921BDF /* ImagePIX.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		749DC6C72124E09B00AE5F6A /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */,
+				74076D07211A2C80000E56E0 /* CirclePIX.swift */,
+				74AE242521284F0900E80B96 /* PolygonPIX.swift */,
+				74BA6232211CE7AB005F5FBC /* GradientPIX.swift */,
+				7439E9E7212378E2003B0190 /* NoisePIX.swift */,
+			);
+			path = Generator;
+			sourceTree = "<group>";
+		};
+		74BC39CD21011E3A004E9AA0 = {
+			isa = PBXGroup;
+			children = (
+				74BC39D921011E3A004E9AA0 /* Source */,
+				74BC39D821011E3A004E9AA0 /* Products */,
+				7400B860212DD087002811DC /* Frameworks */,
+				740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		74BC39D821011E3A004E9AA0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				74BC39D721011E3A004E9AA0 /* Pixels.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		74BC39D921011E3A004E9AA0 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				74BC39DB21011E3A004E9AA0 /* Info.plist */,
+				74DA3D2221026A5900430261 /* Pixels.swift */,
+				74ECBBD121026CC500A42570 /* PixelsProtocols.swift */,
+				745A8F94212DC9AD006DA59D /* PixelsRender.swift */,
+				745A8F96212DC9DD006DA59D /* PixelsFileIO.swift */,
+				74DB402D2125BD9800FA6034 /* PixelsLog.swift */,
+				7452F4C6210A3362001AA523 /* PIX */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		74BC39D221011E3A004E9AA0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		74BC39D621011E3A004E9AA0 /* Pixels */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "Pixels" */;
+			buildPhases = (
+				74BC39D221011E3A004E9AA0 /* Headers */,
+				74BC39D321011E3A004E9AA0 /* Sources */,
+				74BC39D421011E3A004E9AA0 /* Frameworks */,
+				74BC39D521011E3A004E9AA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pixels;
+			productName = Pixels;
+			productReference = 74BC39D721011E3A004E9AA0 /* Pixels.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		74BC39CE21011E3A004E9AA0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = Hexagons;
+				TargetAttributes = {
+					74BC39D621011E3A004E9AA0 = {
+						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
+					};
+				};
+			};
+			buildConfigurationList = 74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "Pixels" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 74BC39CD21011E3A004E9AA0;
+			productRefGroup = 74BC39D821011E3A004E9AA0 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 740EE328212DD4C00065F49B /* Products */;
+					ProjectRef = 740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				74BC39D621011E3A004E9AA0 /* Pixels */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		74BC39D521011E3A004E9AA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				749BAD16212DDA7A004ED938 /* PixelsShaders.metallib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		74BC39D321011E3A004E9AA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
+				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
+				745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */,
+				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
+				74032AFC212C478000E77766 /* CrossPIX.swift in Sources */,
+				745A8F97212DC9DD006DA59D /* PixelsFileIO.swift in Sources */,
+				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
+				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
+				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
+				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
+				7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */,
+				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
+				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
+				74DB402E2125BD9800FA6034 /* PixelsLog.swift in Sources */,
+				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
+				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
+				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,
+				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
+				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,
+				74076D05211A27D2000E56E0 /* PIXRes.swift in Sources */,
+				749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */,
+				742321A121027C70003697C3 /* PIX.swift in Sources */,
+				74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */,
+				7428A7B6211E148C005304A6 /* PIXKinds.swift in Sources */,
+				7401CF3121147C9700000A38 /* ResPIX.swift in Sources */,
+				74982CAE21107E14009A4264 /* PIXMergerEffect.swift in Sources */,
+				747845B221131B080077AB89 /* BlurPIX.swift in Sources */,
+				7465FC78211A4E0400899359 /* PIXColor.swift in Sources */,
+				74DA3D2321026A5900430261 /* Pixels.swift in Sources */,
+				74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */,
+				74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */,
+				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
+				7498CA042122073200B07711 /* PIXResolution.swift in Sources */,
+				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
+				74A6AF10211F007100D39FF9 /* Enum.swift in Sources */,
+				748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */,
+				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
+				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
+				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
+				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
+				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,
+				74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */,
+				74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		74BC39E921011E3A004E9AA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		74BC39EA21011E3A004E9AA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		74BC39EC21011E3A004E9AA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		74BC39ED21011E3A004E9AA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "Pixels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74BC39E921011E3A004E9AA0 /* Debug */,
+				74BC39EA21011E3A004E9AA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "Pixels" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74BC39EC21011E3A004E9AA0 /* Debug */,
+				74BC39ED21011E3A004E9AA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 74BC39CE21011E3A004E9AA0 /* Project object */;
+}

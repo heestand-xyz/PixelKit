@@ -1,6 +1,6 @@
 //
 //  CameraPIX.swift
-//  HxPxE
+//  Pixels
 //
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -12,7 +12,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     let kind: PIX.Kind = .camera
     
-    override var shader: String { return "cameraPIX" }
+    override var shader: String { return "contentResourceCameraPIX" }
     
     public enum Camera: String, Codable, EnumList {
         case front
@@ -33,7 +33,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     enum CameraCodingKeys: String, CodingKey {
         case camera
     }
-    override var shaderUniforms: [CGFloat] {
+    override var uniforms: [CGFloat] {
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
     }
 
@@ -68,14 +68,18 @@ public class CameraPIX: PIXResource, PIXofaKind {
     func setupCamera() {
         helper?.stop()
         helper = CameraHelper(cameraPosition: camera.position, setup: { _, orientation in
-            Logger.main.log(pix: self, .info, .resource, "Camera Setup")
+            self.pixels.log(pix: self, .info, .resource, "Camera Setup")
             // CHECK multiple setups on init
             self.orientation = orientation
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
         }, captured: { pixelBuffer in
-            Logger.main.log(pix: self, .info, .resource, "Camera Frame Captured", loop: true)
+            self.pixels.log(pix: self, .info, .resource, "Camera Frame Captured", loop: true)
             self.pixelBuffer = pixelBuffer
-            self.applyRes { self.setNeedsRender() } // CHECK move applyRes to setup callback
+            if self.view.res == nil || self.view.res! != self.resolution! {
+                self.applyRes { self.setNeedsRender() }
+            } else {
+                self.setNeedsRender()
+            }
         })
     }
     
@@ -86,6 +90,8 @@ public class CameraPIX: PIXResource, PIXofaKind {
 }
 
 class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    let pixels = Pixels.main
     
     let cameraPosition: AVCaptureDevice.Position
     
@@ -117,7 +123,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         captureSession.sessionPreset = .high
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
-        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: HxPxE.main.colorBits.os]
+        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.colorBits.os]
         
         
         let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
@@ -132,16 +138,16 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                         sessionOutput.setSampleBufferDelegate(self, queue: queue)
                         start()
                     } else {
-                        Logger.main.log(.error, .resource, "Camera can't add output.")
+                        pixels.log(.error, .resource, "Camera can't add output.")
                     }
                 } else {
-                    Logger.main.log(.error, .resource, "Camera can't add input.")
+                    pixels.log(.error, .resource, "Camera can't add input.")
                 }
             } catch {
-                Logger.main.log(.error, .resource, "Camera input failed to load.", e: error)
+                pixels.log(.error, .resource, "Camera input failed to load.", e: error)
             }
         } else {
-            Logger.main.log(.error, .resource, "Camera not found.")
+            pixels.log(.error, .resource, "Camera not found.")
         }
     
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
@@ -159,9 +165,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     func forceDetectUIOrientation(new: @escaping () -> ()) {
-        let forceCount = HxPxE.main.fpsMax * 2
+        let forceCount = pixels.fpsMax * 2
         var forceIndex = 0
-        let forceTimer = Timer(timeInterval: 1 / Double(HxPxE.main.fpsMax), repeats: true, block: { timer in
+        let forceTimer = Timer(timeInterval: 1 / Double(pixels.fpsMax), repeats: true, block: { timer in
             if self.lastUIOrientation != UIApplication.shared.statusBarOrientation {
                 new()
                 timer.invalidate()
@@ -211,7 +217,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             resolution = CGSize(width: width, height: height)
         default:
             resolution = CGSize(width: width, height: height)
-            Logger.main.log(.warning, .resource, "Camera orientation unknown.")
+            pixels.log(.warning, .resource, "Camera orientation unknown.")
         }
         
         setupCallback(resolution, uiOrientation)
