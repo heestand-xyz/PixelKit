@@ -4,6 +4,9 @@
 a Live Graphics Framework for iOS, written in Swift & Metal
 
 ## Example
+
+`import Pixels`
+
 ~~~~swift
 let camera = CameraPIX()
 
@@ -21,8 +24,10 @@ finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
+Remeber to add `NSCameraUsageDescription` to your info.plist
+
 ---
 
-Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, based on Pixels.
+Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
 
-Created by Anton Heestand, [Hexagons](http://hexagons.se/).
+by Anton Heestand, [Hexagons](http://hexagons.se/).
