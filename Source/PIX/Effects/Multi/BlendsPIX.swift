@@ -14,29 +14,6 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     
     override var shader: String { return "effectMultiBlendsPIX" }
     
-    public enum BlendingMode: String, Codable {
-        case over
-        case under
-        case add
-        case multiply
-        case difference
-        case subtract
-        case maximum
-        case minimum
-        var index: Int {
-            switch self {
-            case .over: return 0
-            case .under: return 1
-            case .add: return 2
-            case .multiply: return 3
-            case .difference: return 4
-            case .subtract: return 5
-            case .maximum: return 6
-            case .minimum: return 7
-            }
-        }
-    }
-    
     public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
     enum BlendsCodingKeys: String, CodingKey {
         case blendingMode

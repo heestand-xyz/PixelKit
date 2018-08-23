@@ -15,19 +15,6 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
     override var shader: String { return "effectSingleResPIX" }
     override var shaderNeedsAspect: Bool { return true }
     
-    public enum FillMode: String, Codable {
-        case fill
-        case aspectFit
-        case aspectFill
-        var index: Int {
-            switch self {
-            case .fill: return 0
-            case .aspectFit:  return 1
-            case .aspectFill:  return 2
-            }
-        }
-    }
-    
     public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists

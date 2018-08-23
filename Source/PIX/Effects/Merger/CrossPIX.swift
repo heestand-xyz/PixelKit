@@ -14,12 +14,13 @@ public class CrossPIX: PIXMergerEffect, PIXofaKind {
     
     override var shader: String { return "effectMergerCrossPIX" }
     
-    public var crossFraction: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    enum CrossCodingKeys: String, CodingKey {
-        case crossFraction
+    public var lerp: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    enum CodingKeys: String, CodingKey {
+        case lerp; case fillMode
     }
     override var uniforms: [CGFloat] {
-        return [crossFraction, CGFloat(fillMode.index)]
+        return [lerp, CGFloat(fillMode.index)]
     }
     
     public override init() {
@@ -28,9 +29,18 @@ public class CrossPIX: PIXMergerEffect, PIXofaKind {
     
     // MARK: JSON
     
-    required convenience init(from decoder: Decoder) throws { self.init() }
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        lerp = try container.decode(CGFloat.self, forKey: .lerp)
+        fillMode = try container.decode(FillMode.self, forKey: .fillMode)
+        setNeedsRender()
+    }
     
-    public override func encode(to encoder: Encoder) throws {}
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(lerp, forKey: .lerp)
+    }
     
     
 }
