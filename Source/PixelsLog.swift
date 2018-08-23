@@ -33,6 +33,7 @@ extension Pixels {
         case engine = "Engine"
         case render = "Render"
         case metalRender = "Metal Render"
+        case texture = "Texture"
         case resource = "Resource"
         case generator = "Generator"
         case effect = "Effect"

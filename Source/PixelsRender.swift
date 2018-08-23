@@ -118,38 +118,53 @@ extension Pixels {
                 generator = true
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
-            guard let pixOut = pixIn.pixInList.first else {
-                log(pix: pix, .error, .metalRender, "inPix not connected.")
-                return false
-            }
-            var feed = false
-            if let feedbackPix = pixIn as? FeedbackPIX {
-                if feedbackPix.readyToFeed && feedbackPix.feedActive {
-                    if let feedPix = feedbackPix.feedPix {
-                        guard let feedTexture = feedPix.texture else {
-                            log(pix: pix, .error, .metalRender, "Feed Texture not found for: \(feedPix)")
-                            return false
-                        }
-                        inputTexture = feedTexture
-                        feed = true
-                    }
-                }
-            }
-            if !feed {
-                guard let pixOutTexture = pixOut.texture else {
-                    log(pix: pix, .error, .metalRender, "IO Texture not found for: \(pixOut)")
-                    return false
-                }
-                inputTexture = pixOutTexture // CHECK copy?
-                if pix is PIXInMerger {
-                    let pixOutB = pixIn.pixInList[1]
-                    guard let pixOutTextureB = pixOutB.texture else {
-                        log(pix: pix, .error, .metalRender, "IO Texture B not found for: \(pixOutB)")
+            if let pixInMulti = pixIn as? PIXInMulti {
+                var inTextures: [MTLTexture] = []
+                for (i, pixOut) in pixInMulti.inPixs.enumerated() {
+                    guard let pixOutTexture = pixOut.texture else {
+                        log(pix: pix, .error, .metalRender, "IO Texture \(i) not found for: \(pixOut)")
                         return false
                     }
-                    secondInputTexture = pixOutTextureB // CHECK copy?
+                    inTextures.append(pixOutTexture)
                 }
-                // Multi...
+                guard let multiTexture = makeMultiTexture(from: inTextures, with: commandBuffer) else {
+                    log(pix: pix, .error, .metalRender, "Multi Texture creation failed.")
+                    return false
+                }
+                inputTexture = multiTexture
+            } else {
+                guard let pixOut = pixIn.pixInList.first else {
+                    log(pix: pix, .error, .metalRender, "inPix not connected.")
+                    return false
+                }
+                var feed = false
+                if let feedbackPix = pixIn as? FeedbackPIX {
+                    if feedbackPix.readyToFeed && feedbackPix.feedActive {
+                        if let feedPix = feedbackPix.feedPix {
+                            guard let feedTexture = feedPix.texture else {
+                                log(pix: pix, .error, .metalRender, "Feed Texture not found for: \(feedPix)")
+                                return false
+                            }
+                            inputTexture = feedTexture
+                            feed = true
+                        }
+                    }
+                }
+                if !feed {
+                    guard let pixOutTexture = pixOut.texture else {
+                        log(pix: pix, .error, .metalRender, "IO Texture not found for: \(pixOut)")
+                        return false
+                    }
+                    inputTexture = pixOutTexture // CHECK copy?
+                    if pix is PIXInMerger {
+                        let pixOutB = pixIn.pixInList[1]
+                        guard let pixOutTextureB = pixOutB.texture else {
+                            log(pix: pix, .error, .metalRender, "IO Texture B not found for: \(pixOutB)")
+                            return false
+                        }
+                        secondInputTexture = pixOutTextureB // CHECK copy?
+                    }
+                }
             }
         }
         
@@ -165,6 +180,11 @@ extension Pixels {
                 return false
             }
             inputTexture = customRenderedTexture
+        }
+        
+        guard generator || inputTexture != nil else {
+            log(pix: pix, .error, .metalRender, "Input Texture missing.")
+            return false
         }
         
         // MARK: Drawable Texture
@@ -236,21 +256,6 @@ extension Pixels {
         if secondInputTexture != nil {
             commandEncoder.setFragmentTexture(secondInputTexture!, index: 1)
         }
-        
-        //        if let texture = sourceTexture ?? blur_texture ?? self.inputTexture {
-        //
-        //            if timeMachineTexture3d != nil {
-        //                commandEncoder!.setFragmentTexture(timeMachineTexture3d!, index: 0)
-        //            } else {
-        //                commandEncoder!.setFragmentTexture(texture , index: 0)
-        //            }
-        //            if self.secondInputTexture != nil {
-        //                commandEncoder!.setFragmentTexture(self.secondInputTexture!, index: 1)
-        //            }
-        //
-        //        } else if inputsTexture != nil {
-        //            commandEncoder!.setFragmentTexture(inputsTexture!, index: 0)
-        //        }
         
         // MARK: Encode
         
