@@ -103,7 +103,7 @@ public extension PIX {
             a = ci.alpha
         }
         
-        public init(_ pixel: [CGFloat], space: Space = Pixels.main.colorSpace) {
+        init(_ pixel: [CGFloat], space: Space = Pixels.main.colorSpace) {
             self.space = space
             guard pixel.count == 4 else {
                 Pixels.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
@@ -126,6 +126,52 @@ public extension PIX {
                 b = pixel[2]
                 a = pixel[3]
             }
+        }
+        
+        // MARK: - Pure
+        
+        public enum Pure {
+            case red
+            case green
+            case blue
+            case alpha
+        }
+        
+        public var isPure: Bool {
+            let oneCount = (r == 1 ? 1 : 0) + (g == 1 ? 1 : 0) + (b == 1 ? 1 : 0) + (a == 1 ? 1 : 0)
+            let zeroCount = (r == 0 ? 1 : 0) + (g == 0 ? 1 : 0) + (b == 0 ? 1 : 0) + (a == 0 ? 1 : 0)
+            return oneCount == 1 && zeroCount == 3
+        }
+        
+        public var pure: Pure? {
+            guard isPure else { return nil }
+            if r == 1 {
+                return .red
+            } else if g == 1 {
+                return .green
+            } else if b == 1 {
+                return .blue
+            } else if a == 1 {
+                return .alpha
+            } else { return nil }
+        }
+        
+        public init(pure: Pure) {
+            r = 0
+            g = 0
+            b = 0
+            a = 0
+            switch pure {
+            case .red:
+                r = 1
+            case .green:
+                g = 1
+            case .blue:
+                b = 1
+            case .alpha:
+                a = 1
+            }
+            space = Pixels.main.colorSpace
         }
         
     }

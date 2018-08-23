@@ -33,6 +33,7 @@ extension PIX {
         case cross
         case color
         case rectangle
+        case channelMix
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -57,6 +58,7 @@ extension PIX {
             case .cross: return CrossPIX.self
             case .color: return ColorPIX.self
             case .rectangle: return RectanglePIX.self
+            case .channelMix: return ChannelMixPIX.self
             }
         }
     }

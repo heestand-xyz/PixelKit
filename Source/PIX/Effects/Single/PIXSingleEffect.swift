@@ -12,20 +12,12 @@ public class PIXSingleEffect: PIXEffect, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
-//    override init(id: UUID) {
-//        super.init(id: id)
-//    }
-//    init(from decoder: Decoder) throws {
-//        self.init(id: id)
-////        try super.init(from: decoder)
-//    }
-
-//    required init(from decoder: Decoder) throws {
-//        try super.init(from: decoder)
-//    }
+    public override init() {
+        super.init()
+    }
     
-//    required init(from decoder: Decoder) throws {
-//        fatalError("PIXSingleEffect Decoder Initializer is not supported.") // CHECK
-//    }
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
     
 }
