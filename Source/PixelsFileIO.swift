@@ -35,7 +35,7 @@ extension Pixels {
         let pixs: [PIXPack]
     }
     
-    public func export(as name: String, id: UUID = UUID(), share: Bool = false) throws -> String {
+    /* public */ func export(as name: String, id: UUID = UUID(), share: Bool = false) throws -> String {
         let info = Info(name: name, id: id)
         let pixPacks = try pixList.map { pix -> PIXPack in
             var inPixId: UUID? = nil
@@ -53,7 +53,7 @@ extension Pixels {
                 }
             }
             guard let pixKind = (pix as? PIXofaKind)?.kind else {
-                throw PixelsIOError.runtimeERROR("HxPx: PIX is not able.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: PIX is not able.")
             }
             return PIXPack(id: pix.id, type: pixKind, pix: pix, inPixId: inPixId, inPixAId: inPixAId, inPixBId: inPixBId, inPixsIds: inPixsIds)
         }
@@ -62,12 +62,12 @@ extension Pixels {
         encoder.outputFormatting = .prettyPrinted
         let packJsonData = try encoder.encode(pack)
         guard let packJsonString = String(data: packJsonData, encoding: .utf8) else {
-            throw PixelsIOError.runtimeERROR("HxPx: JSON data to string conversion failed.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: JSON data to string conversion failed.")
         }
         return packJsonString
     }
     
-    public struct HxPxFile {
+    public struct PixelsFile {
         public let id: UUID
         public let name: String
         public let pixs: [PIX]
@@ -81,62 +81,62 @@ extension Pixels {
         let inPixsIds: [UUID]?
     }
     
-    public func create(from jsonString: String) throws -> HxPxFile {
+    /* public */ func create(from jsonString: String) throws -> PixelsFile {
         
         let decoder = JSONDecoder()
         
         guard let jsonData = jsonString.data(using: .utf8) else {
-            throw PixelsIOError.runtimeERROR("HxPx: JSON string to data conversion failed.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: JSON string to data conversion failed.")
         }
         
         let json = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
         
         guard let jsonDict = json as? [String: Any] else {
-            throw PixelsIOError.runtimeERROR("HxPx: JSON object to dict conversion failed.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: JSON object to dict conversion failed.")
         }
         
         guard let hxhDict = jsonDict["hxh"] as? [String: Any] else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxH is not valid.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: HxH is not valid.")
         }
         guard let bundleId = hxhDict["id"] as? String else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxH ID is not valid.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: HxH ID is not valid.")
         }
         if bundleId != kBundleId {
             throw PixelsIOError.runtimeERROR("This JSON file is for another engine.")
         }
         
-        guard let hxpxDict = jsonDict["hxpx"] as? [String: Any] else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxPx is not valid.")
+        guard let pixelsFileDict = jsonDict["pixels"] as? [String: Any] else {
+            throw PixelsIOError.runtimeERROR("PixelsFile: PixelsFile is not valid.")
         }
-        guard let idStr = hxpxDict["id"] as? String else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxPx ID is not valid.")
+        guard let idStr = pixelsFileDict["id"] as? String else {
+            throw PixelsIOError.runtimeERROR("PixelsFile: PixelsFile ID is not valid.")
         }
         guard let id = UUID(uuidString: idStr) else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxPx ID is corrupt.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: PixelsFile ID is corrupt.")
         }
-        guard let name = hxpxDict["name"] as? String else {
-            throw PixelsIOError.runtimeERROR("HxPx: HxPx Name is not valid.")
+        guard let name = pixelsFileDict["name"] as? String else {
+            throw PixelsIOError.runtimeERROR("PixelsFile: PixelsFile Name is not valid.")
         }
         
         guard let pixPackDictList = jsonDict["pixs"] as? [[String: Any]] else {
-            throw PixelsIOError.runtimeERROR("HxPx: PIX List is corrupt.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: PIX List is corrupt.")
         }
         var pixsWithInIds: [PIXWithInIds] = []
         for pixPackDict in pixPackDictList {
             guard let idStr = pixPackDict["id"] as? String else {
-                throw PixelsIOError.runtimeERROR("HxPx: PIX ID is not valid.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: PIX ID is not valid.")
             }
             guard let id = UUID(uuidString: idStr) else {
-                throw PixelsIOError.runtimeERROR("HxPx: PIX ID is corrupt.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: PIX ID is corrupt.")
             }
             guard let pixKindStr = pixPackDict["type"] as? String else {
-                throw PixelsIOError.runtimeERROR("HxPx: PIX Type is not valid.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: PIX Type is not valid.")
             }
             guard let pixType = PIX.Kind.init(rawValue: pixKindStr)?.type else {
-                throw PixelsIOError.runtimeERROR("HxPx: PIX Kind is not valid.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: PIX Kind is not valid.")
             }
             guard let pixDict = pixPackDict["pix"] as? [String: Any] else {
-                throw PixelsIOError.runtimeERROR("HxPx: \(pixType) dict is corrupt.")
+                throw PixelsIOError.runtimeERROR("PixelsFile: \(pixType) dict is corrupt.")
             }
             let pixJsonData = try JSONSerialization.data(withJSONObject: pixDict, options: .prettyPrinted)
             let pix = try decoder.decode(pixType, from: pixJsonData)
@@ -148,10 +148,10 @@ extension Pixels {
             var inPixsIds: [UUID]? = nil
             func getInPixId(_ key: String) throws -> UUID {
                 guard let inPixIdStr = pixPackDict[key] as? String else {
-                    throw PixelsIOError.runtimeERROR("HxPx: PIX In ID not found.")
+                    throw PixelsIOError.runtimeERROR("PixelsFile: PIX In ID not found.")
                 }
                 guard let inPixId = UUID(uuidString: inPixIdStr) else {
-                    throw PixelsIOError.runtimeERROR("HxPx: PIX In ID is corrupt.")
+                    throw PixelsIOError.runtimeERROR("PixelsFile: PIX In ID is corrupt.")
                 }
                 return inPixId
             }
@@ -163,12 +163,12 @@ extension Pixels {
                     inPixBId = try? getInPixId("inPixBId")
                 } else if let pixInMulti = pixIn as? PIX & PIXInMulti {
                     guard let inPixsIdsStrArr = pixPackDict["inPixsIds"] as? [String] else {
-                        throw PixelsIOError.runtimeERROR("HxPx: PIX Ins IDs not found.")
+                        throw PixelsIOError.runtimeERROR("PixelsFile: PIX Ins IDs not found.")
                     }
                     inPixsIds = []
                     for inPixIdStr in inPixsIdsStrArr {
                         guard let iInPixId = UUID(uuidString: inPixIdStr) else {
-                            throw PixelsIOError.runtimeERROR("HxPx: PIX In(s) is corrupt.")
+                            throw PixelsIOError.runtimeERROR("PixelsFile: PIX In(s) is corrupt.")
                         }
                         inPixsIds?.append(iInPixId)
                     }
@@ -185,12 +185,12 @@ extension Pixels {
             for pix in pixs {
                 if pix.id == id {
                     guard let pixOut = pix as? PIX & PIXOut else {
-                        throw PixelsIOError.runtimeERROR("HxPx: PIX In is not Out.")
+                        throw PixelsIOError.runtimeERROR("PixelsFile: PIX In is not Out.")
                     }
                     return pixOut
                 }
             }
-            throw PixelsIOError.runtimeERROR("HxPx: PIX In not found.")
+            throw PixelsIOError.runtimeERROR("PixelsFile: PIX In not found.")
         }
         
         for pixWithInIds in pixsWithInIds {
@@ -216,8 +216,8 @@ extension Pixels {
             }
         }
         
-        let hxpx = HxPxFile(id: id, name: name, pixs: pixs)
-        return hxpx
+        let pixelsFile = PixelsFile(id: id, name: name, pixs: pixs)
+        return pixelsFile
     }
     
 }

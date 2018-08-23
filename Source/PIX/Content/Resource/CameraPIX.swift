@@ -134,7 +134,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                     captureSession.addInput(input)
                     if captureSession.canAddOutput(sessionOutput){
                         captureSession.addOutput(sessionOutput)
-                        let queue = DispatchQueue(label: "se.hexagons.hxpxe.pix.camera.queue")
+                        let queue = DispatchQueue(label: "se.hexagons.pixels.pix.camera.queue")
                         sessionOutput.setSampleBufferDelegate(self, queue: queue)
                         start()
                     } else {

@@ -110,7 +110,7 @@ public class Pixels {
         _fps = Int(round(1 / frameTime))
         frameDate = Date()
         for frameCallback in frameCallbacks { frameCallback.callback() }
-        delegate?.hxpxeFrameLoop()
+        delegate?.pixelsFrameLoop()
         renderPIXs()
         frameIndex += 1
     }

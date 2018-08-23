@@ -9,7 +9,7 @@
 import Metal
 
 public protocol PixelsDelegate: class {
-    func hxpxeFrameLoop()
+    func pixelsFrameLoop()
 }
 
 protocol CustomRenderDelegate {
