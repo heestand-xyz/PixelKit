@@ -47,7 +47,7 @@ public class ImagePIX: PIXResource, PIXofaKind {
         }
         pixelBuffer = buffer
         pixels.log(pix: self, .info, .resource, "Image Loaded.")
-        setNeedsRender()
+        applyRes { self.setNeedsRender() }
     }
     
     func buffer(from image: UIImage) -> CVPixelBuffer? {
