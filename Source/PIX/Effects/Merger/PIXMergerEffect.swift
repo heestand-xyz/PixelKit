@@ -14,19 +14,12 @@ public class PIXMergerEffect: PIXEffect, PIXInMerger {
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     override var connectedIn: Bool { return pixInList.count == 2 }
     
-    public enum FillMode: String, Codable {
-        case fill
-        case aspectFit
-        case aspectFill
-        var index: Int {
-            switch self {
-            case .fill: return 0
-            case .aspectFit: return 1
-            case .aspectFill: return 2
-            }
-        }
+    public override init() {
+        super.init()
     }
     
-    public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
     
 }
