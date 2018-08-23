@@ -3,7 +3,7 @@
 # Pixels
 a Live Graphics Framework for iOS, written in Swift & Metal
 
-## Example
+## Example 1
 
 `import Pixels`
 
@@ -25,6 +25,30 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
+
+## Example 2
+
+`import Pixels`
+
+~~~~swift
+let cityImage = ImagePIX(named: "city_from_above")
+let supermanImage = ImagePIX(named: "superman_on_greenscreen")
+
+let supermanKeyed = ChromaKeyPIX()
+supermanKeyed.inPix = supermanImage
+supermanKeyed.keyColor = .green
+
+let blend = BlendPIX()
+blend.blendingMode = .over
+blend.inPixA = cityImage
+blend.inPixB = supermanKeyed
+
+let finalPix: PIX = blend
+finalPix.view.frame = view.bounds
+view.addSubview(finalPix.view)
+~~~~ 
+
+This is a representation of this [Pixel Nodes project](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1).
 
 ---
 
