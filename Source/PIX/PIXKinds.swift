@@ -31,6 +31,7 @@ extension PIX {
         case polygon
         case feedback
         case cross
+        case color
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -53,6 +54,7 @@ extension PIX {
             case .polygon: return PolygonPIX.self
             case .feedback: return FeedbackPIX.self
             case .cross: return CrossPIX.self
+            case .color: return ColorPIX.self
             }
         }
     }
