@@ -42,7 +42,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 } else {
                     float3 c_rgb = float3(c);
                     float3 ci_rgb = float3(ci);
-                    c = float4(c_rgb + ci_rgb * (1.0 - c.a), max(c.a, ci.a));
+                    c = float4(c_rgb * (1.0 - ci.a) + ci_rgb, max(c.a, ci.a));
                 }
                 break;
             case 1: // Under
@@ -52,7 +52,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 } else {
                     float3 c_rgb = float3(c);
                     float3 ci_rgb = float3(ci);
-                    c = float4(c_rgb + ci_rgb * (1.0 - c.a), max(c.a, ci.a));
+                    c = float4(c_rgb * (1.0 - ci.a) + ci_rgb, max(c.a, ci.a));
                 }
                 break;
             case 2: // Add
