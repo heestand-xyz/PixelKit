@@ -3,6 +3,11 @@
 # Pixels
 a Live Graphics Framework for iOS, written in Swift & Metal
 
+
+<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient and Noise.
+<br>
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, Lookup, Cross, Blend and Blends.
+
 ## Example 1
 
 `import Pixels`
