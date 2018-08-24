@@ -6,7 +6,7 @@
 ### Resource Content
 - CameraPIX
 - ImagePIX
-- VideoPIX (coming soon)
+- VideoPIX
 - VectorPIX (coming soon)
 - TextPIX (coming soon)
 - PaintPIX (coming soon)

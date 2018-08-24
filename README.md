@@ -31,11 +31,11 @@ Remeber to add `NSCameraUsageDescription` to your info.plist
 `import Pixels`
 
 ~~~~swift
-let cityImage = ImagePIX(named: "city_from_above")
-let supermanImage = ImagePIX(named: "superman_on_greenscreen")
+let cityImage = ImagePIX(named: "city")
+let supermanVideo = VideoPIX(fileNamed: "superman", withExtension: "mov")
 
 let supermanKeyed = ChromaKeyPIX()
-supermanKeyed.inPix = supermanImage
+supermanKeyed.inPix = supermanVideo
 supermanKeyed.keyColor = .green
 
 let blend = BlendPIX()
@@ -48,7 +48,7 @@ finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
-This is a representation of this [Pixel Nodes project](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1).
+This is a representation of the [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) Pixel Nodes project.
 
 ---
 
