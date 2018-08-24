@@ -8,6 +8,8 @@ a Live Graphics Framework for iOS, written in Swift & Metal
 <br>
 <b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, Lookup, Cross, Blend and Blends.
 
+More info in the [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md).
+
 ## Example 1
 
 `import Pixels`
@@ -55,9 +57,7 @@ view.addSubview(finalPix.view)
 
 This is a representation of the [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) Pixel Nodes project.
 
----
-
-[Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md) info of PIX types and delegates. 
+--- 
 
 Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
 
