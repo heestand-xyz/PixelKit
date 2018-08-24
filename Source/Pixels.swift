@@ -93,7 +93,7 @@ public class Pixels {
         }
         
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
-        displayLink!.add(to: RunLoop.main, forMode: .commonModes)
+        displayLink!.add(to: RunLoop.main, forMode: .common)
         
         if aLive {
             log(.none, .engine, "Pixels is aLive! ⬢", clean: true)

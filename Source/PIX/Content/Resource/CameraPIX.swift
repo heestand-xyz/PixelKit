@@ -178,13 +178,15 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         })
-        RunLoop.current.add(forceTimer, forMode: .commonModes)
+        RunLoop.current.add(forceTimer, forMode: .common)
     }
     
-    func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from
-        connection: AVCaptureConnection) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        let pixelBuffer: CVPixelBuffer = sampleBuffer.imageBuffer!
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            pixels.log(.error, .resource, "Camera buffer conversion failed.")
+            return
+        }
         
         DispatchQueue.main.async {
             
