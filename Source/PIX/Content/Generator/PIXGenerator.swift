@@ -13,7 +13,7 @@ public class PIXGenerator: PIXContent {
     var _res: Res
     public var res: Res {
         set { _res = newValue; applyRes { self.setNeedsRender() } }
-        get { return _res /* * PIXGenerator.globalResMultiplier */ }
+        get { return _res * PIXGenerator.globalResMultiplier }
     }
     
     public static var globalResMultiplier: CGFloat = 1

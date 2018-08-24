@@ -207,11 +207,11 @@ public class PIX: Codable {
     
     // MARK: Operator Overloading
     
-    static func ==(lhs: PIX, rhs: PIX) -> Bool {
+    public static func ==(lhs: PIX, rhs: PIX) -> Bool {
         return lhs.id == rhs.id
     }
     
-    static func !=(lhs: PIX, rhs: PIX) -> Bool {
+    public static func !=(lhs: PIX, rhs: PIX) -> Bool {
         return lhs.id != rhs.id
     }
     

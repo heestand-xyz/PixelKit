@@ -16,7 +16,7 @@ public class VideoPIX: PIXResource, PIXofaKind {
     
     var helper: VideoHelper!
     
-    var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
+    public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
 
     public convenience init(fileNamed name: String, withExtension ext: String) {

@@ -76,7 +76,7 @@ public class Pixels {
     
     // MARK: - Life Cycle
     
-    public init() {
+    init() {
         log(.none, .engine, signature.formatted, clean: true)
         
         metalDevice = MTLCreateSystemDefaultDevice()
@@ -115,7 +115,7 @@ public class Pixels {
         frameIndex += 1
     }
     
-    internal func listenToFrames(callback: @escaping () -> (Bool)) {
+    func listenToFrames(callback: @escaping () -> (Bool)) {
         let id = UUID()
         frameCallbacks.append((id: id, callback: {
             if callback() {

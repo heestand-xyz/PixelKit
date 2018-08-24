@@ -237,10 +237,10 @@
 			isa = PBXGroup;
 			children = (
 				74982CAD21107E14009A4264 /* PIXMergerEffect.swift */,
-				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
-				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
 				74032AFB212C478000E77766 /* CrossPIX.swift */,
 				7424A1B2212F5A8B00401654 /* BlendPIX.swift */,
+				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
+				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
 			);
 			path = Merger;
 			sourceTree = "<group>";
