@@ -1,6 +1,6 @@
 //
-//  EffectSingleNilPIX.metal
-//  Pixels Shaders
+//  NilPIX.metal
+//  PixelsShaders
 //
 //  Created by Hexagons on 2018-07-31.
 //  Copyright © 2018 Hexagons. All rights reserved.
@@ -14,9 +14,9 @@ struct VertexOut{
     float2 texCoord;
 };
 
-fragment float4 effectSingleNilPIX(VertexOut out [[stage_in]],
-                                   texture2d<float>  inTex [[ texture(0) ]],
-                                   sampler s [[ sampler(0) ]]) {
+fragment float4 nilPIX(VertexOut out [[stage_in]],
+                       texture2d<float>  inTex [[ texture(0) ]],
+                       sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];

@@ -12,7 +12,7 @@ import Metal
 public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
     var kind: PIX.Kind = .feedback
     
-    override var shader: String { return "effectSingleNilPIX" }
+    override var shader: String { return "nilPIX" }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
     public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }

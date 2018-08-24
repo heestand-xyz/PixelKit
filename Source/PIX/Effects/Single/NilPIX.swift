@@ -12,7 +12,7 @@ public class NilPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .nil
     
-    override var shader: String { return "effectSingleNilPIX" }
+    override var shader: String { return "nilPIX" }
     
     public override init() {
         super.init()
