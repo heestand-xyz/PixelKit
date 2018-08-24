@@ -13,16 +13,15 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     var kind: PIX.Kind = .noise
     
     override var shader: String { return "contentGeneratorNoisePIX" }
-    override var shaderNeedsAspect: Bool { return true }
     
     public var seed: Int = 0 { didSet { setNeedsRender() } }
     public var octaves: Int = 7 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var zPosition: CGFloat = 0 { didSet { setNeedsRender() } }
-    public var zoom: CGFloat = 1 { didSet { setNeedsRender() } }
+    public var zPosition: CGFloat = 0.0 { didSet { setNeedsRender() } }
+    public var zoom: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var colored: Bool = false { didSet { setNeedsRender() } }
     public var random: Bool = false { didSet { setNeedsRender() } }
-    enum NoiseCodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
     }
     override var uniforms: [CGFloat] {
@@ -33,7 +32,7 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
-        let container = try decoder.container(keyedBy: NoiseCodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         seed = try container.decode(Int.self, forKey: .seed)
         octaves = try container.decode(Int.self, forKey: .octaves)
         position = try container.decode(CGPoint.self, forKey: .position)
@@ -45,7 +44,7 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     }
     
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: NoiseCodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(seed, forKey: .seed)
         try container.encode(octaves, forKey: .octaves)
         try container.encode(position, forKey: .position)

@@ -93,18 +93,18 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     
     bool zero = false;
     switch (int(in.extend)) {
-        case 0: // Zero
-            if (fraction < 0) {
-                zero = true;
-            } else if (fraction > 1) {
-                zero = true;
-            }
-            break;
-        case 1: // Hold
+        case 0: // Hold
             if (fraction < 0) {
                 fraction = 0.0;
             } else if (fraction > 1) {
                 fraction = 1.0;
+            }
+            break;
+        case 1: // Zero
+            if (fraction < 0) {
+                zero = true;
+            } else if (fraction > 1) {
+                zero = true;
             }
             break;
         case 2: // Repeat

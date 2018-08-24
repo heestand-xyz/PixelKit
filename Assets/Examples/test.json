@@ -1,0 +1,141 @@
+{
+  "framework" : {
+    "build" : 1,
+    "id" : "se.hexagons.pixels",
+    "name" : "Pixels",
+    "version" : "0.1.1-beta"
+  },
+  "info" : {
+    "name" : "Test",
+    "id" : "58E16D9F-3C88-4A32-B96D-D966C81A96EF"
+  },
+  "settings" : {
+    "color" : {
+      "bits" : 8,
+      "space" : "sRGB"
+    },
+    "generatorsGlobalResMultiplier" : 1
+  },
+  "pixs" : [
+    {
+      "id" : "7111CD8E-A47D-45EA-A330-EA4A92B0D895",
+      "kind" : "circle",
+      "pix" : {
+        "color" : {
+          "r" : 1,
+          "b" : 1,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "bgColor" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "edgeRadius" : 0,
+        "edgeColor" : {
+          "r" : 0.5,
+          "b" : 0.5,
+          "g" : 0.5,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "position" : [
+          0,
+          0
+        ],
+        "radius" : 0.21650635094610965
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear",
+        "generator" : {
+          "res" : "fullScreen",
+          "premultiply" : true
+        }
+      }
+    },
+    {
+      "id" : "0B96EEE8-A5FC-4098-B5C6-9BFEDA4C7C8F",
+      "kind" : "polygon",
+      "pix" : {
+        "radius" : 0.25,
+        "color" : {
+          "r" : 1,
+          "b" : 1,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "bgColor" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "vertexCount" : 6,
+        "position" : [
+          0,
+          0
+        ],
+        "rotation" : 0
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear",
+        "generator" : {
+          "res" : "fullScreen",
+          "premultiply" : true
+        }
+      }
+    },
+    {
+      "id" : "E2303E48-0D8D-4806-916A-93D0FCD39FF8",
+      "kind" : "blend",
+      "inPixAId" : "7111CD8E-A47D-45EA-A330-EA4A92B0D895",
+      "inPixBId" : "0B96EEE8-A5FC-4098-B5C6-9BFEDA4C7C8F",
+      "pix" : {
+        "position" : [
+          0,
+          0
+        ],
+        "rotation" : 0,
+        "fillMode" : "aspectFit",
+        "size" : [
+          1,
+          1
+        ],
+        "blendingMode" : "difference",
+        "bypassTransform" : false,
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "E2303E48-0D8D-4806-916A-93D0FCD39FF8",
+      "id" : "277B67D3-DF65-44BE-85BB-88418C91E640",
+      "kind" : "blur",
+      "pix" : {
+        "quality" : 8,
+        "style" : "guassian",
+        "angle" : 0,
+        "position" : [
+          0,
+          0
+        ],
+        "radius" : 10
+      },
+      "settings" : {
+        "extend" : "hold",
+        "interpolate" : "linear"
+      }
+    }
+  ]
+}

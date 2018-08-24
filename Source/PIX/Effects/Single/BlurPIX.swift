@@ -32,36 +32,21 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
         }
     }
     
-    public enum Quality: String, Codable {
-        case low
-        case mid
-        case high
-        case extreme
-        var value: Int {
-            switch self {
-            case .low: return 4
-            case .mid: return 8
-            case .high: return 16
-            case .extreme: return 32
-            }
-        }
-    }
-    
     public var style: Style = .guassian { didSet { setNeedsRender() } }
     public var radius: CGFloat = 100 { didSet { setNeedsRender() } }
-    public var quality: Quality = .mid { didSet { setNeedsRender() } }
+    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     enum BlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
     override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius, CGFloat(quality.value), angle, CGFloat(position.x), CGFloat(position.y)]
+        return [CGFloat(style.index), radius, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
     override public init() {
         super.init()
-        extend = .clampToEdge
+        extend = .hold
         customRenderDelegate = self
     }
     
@@ -72,7 +57,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
         let container = try decoder.container(keyedBy: BlurCodingKeys.self)
         style = try container.decode(Style.self, forKey: .style)
         radius = try container.decode(CGFloat.self, forKey: .radius)
-        quality = try container.decode(Quality.self, forKey: .quality)
+        quality = try container.decode(SampleQualityMode.self, forKey: .quality)
         angle = try container.decode(CGFloat.self, forKey: .angle)
         position = try container.decode(CGPoint.self, forKey: .position)
         setNeedsRender()
@@ -110,12 +95,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
             return nil
         }
         let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice!, sigma: Float(radius))
-        switch extend {
-        case .clampToZero:
-            gaussianBlurKernel.edgeMode = .zero
-        default:
-            gaussianBlurKernel.edgeMode = .clamp
-        }
+        gaussianBlurKernel.edgeMode = extend.mps
         gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
         return blurTexture
     }

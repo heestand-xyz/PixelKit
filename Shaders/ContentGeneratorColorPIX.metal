@@ -20,6 +20,7 @@ struct Uniforms{
     float b;
     float a;
     float premultiply;
+    float aspect;
 };
 
 fragment float4 contentGeneratorColorPIX(VertexOut out [[stage_in]],

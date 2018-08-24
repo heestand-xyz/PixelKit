@@ -13,7 +13,6 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     var kind: PIX.Kind = .gradient
     
     override var shader: String { return "contentGeneratorGradientPIX" }
-    override var shaderNeedsAspect: Bool { return true }
     
     public enum Style: String, Codable {
         case horizontal
@@ -30,27 +29,12 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         }
     }
     
-    public enum ExtendRamp: String, Codable {
-        case zero
-        case hold
-        case repeats
-        case mirror
-        var index: Int {
-            switch self {
-            case .zero: return 0
-            case .hold: return 1
-            case .repeats: return 2
-            case .mirror: return 3
-            }
-        }
-    }
-    
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
-    public var scale: CGFloat = 1 { didSet { setNeedsRender() } }
-    public var offset: CGFloat = 0 { didSet { setNeedsRender() } }
+    public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
-    public var extendRamp: ExtendRamp = .repeats { didSet { setNeedsRender() } }
+    public var extendGradient: ExtendMode = .repeat { didSet { setNeedsRender() } }
     public var extraColorsActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
@@ -64,15 +48,14 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var extraColorDActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorDPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var extraColorD: UIColor = .gray { didSet { setNeedsRender() } }
-    public var premultiply: Bool = true { didSet { setNeedsRender() } }
-    enum GradientCodingKeys: String, CodingKey {
-        case style; case scale; case offset; case firstColor; case lastColor; case extend; case premultiply // CHECK Extra Colors...
+    enum CodingKeys: String, CodingKey {
+        case style; case scale; case offset; case colorFirst; case colorLast; case extendGradient
     }
     override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
         vals.append(contentsOf: PIX.Color(colorLast).list)
-        vals.append(CGFloat(extendRamp.index))
+        vals.append(CGFloat(extendGradient.index))
         vals.append(extraColorsActive ? 1 : 0)
         vals.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
         vals.append(contentsOf: PIX.Color(extraColorA).list)
@@ -82,7 +65,6 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         vals.append(contentsOf: PIX.Color(extraColorC).list)
         vals.append(contentsOf: [extraColorDActive ? 1 : 0, extraColorDPosition])
         vals.append(contentsOf: PIX.Color(extraColorD).list)
-        vals.append(premultiply ? 1 : 0)
         return vals
     }
     
@@ -90,14 +72,24 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
-        let container = try decoder.container(keyedBy: GradientCodingKeys.self)
-        premultiply = try container.decode(Bool.self, forKey: .premultiply)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        style = try container.decode(Style.self, forKey: .style)
+        scale = try container.decode(CGFloat.self, forKey: .scale)
+        offset = try container.decode(CGFloat.self, forKey: .offset)
+        colorFirst = try container.decode(Color.self, forKey: .colorFirst).ui
+        colorLast = try container.decode(Color.self, forKey: .colorLast).ui
+        extendGradient = try container.decode(ExtendMode.self, forKey: .extendGradient)
         setNeedsRender()
     }
     
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: GradientCodingKeys.self)
-        try container.encode(premultiply, forKey: .premultiply)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(style, forKey: .style)
+        try container.encode(scale, forKey: .scale)
+        try container.encode(offset, forKey: .offset)
+        try container.encode(Color(colorFirst), forKey: .colorFirst)
+        try container.encode(Color(colorLast), forKey: .colorLast)
+        try container.encode(extendGradient, forKey: .extendGradient)
     }
     
 }

@@ -15,14 +15,12 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     override var shader: String { return "contentGeneratorColorPIX" }
     
     public var color: UIColor = .white { didSet { setNeedsRender() } }
-    public var premultiply: Bool = true { didSet { setNeedsRender() } }
-    enum ColorCodingKeys: String, CodingKey {
-        case color; case premultiply
+    enum CodingKeys: String, CodingKey {
+        case color
     }
     override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: PIX.Color(color).list)
-        vals.append(premultiply ? 1 : 0)
         return vals
     }
     
@@ -35,16 +33,14 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
-        let container = try decoder.container(keyedBy: ColorCodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         color = try container.decode(PIX.Color.self, forKey: .color).ui
-        premultiply = try container.decode(Bool.self, forKey: .premultiply)
         setNeedsRender()
     }
     
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: ColorCodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(PIX.Color(color), forKey: .color)
-        try container.encode(premultiply, forKey: .premultiply)
     }
     
 }

@@ -27,7 +27,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     
     public override required init() {
         super.init()
-        extend = .mirrorRepeat
+        extend = .mirror
     }
     
     // MARK: JSON

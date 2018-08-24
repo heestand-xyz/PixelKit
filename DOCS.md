@@ -18,8 +18,8 @@ func <b>pixelsFrameLoop()</b>
 ## PIX
 weak var  <b>delegate</b>: PIXDelegate? { get set }<br>
 let  <b>view</b>: PIXView { get }<br>
-var  <b>interpolate</b>: MTLSamplerMinMagFilter = .linear { get set }<br>
-var  <b>extend</b>: MTLSamplerAddressMode = .clampToZero { get set }<br>
+var  <b>interpolate</b>: InterpolateMode = .linear { get set }<br>
+var  <b>extend</b>: ExtendMode = .zero { get set }<br>
 var  <b>renderedTexture</b>: MTLTexture? { get }<br>
 var  <b>renderedImage</b>: UIImage? { get }<br>
 var  <b>renderedPixels</b>: PixelPack? { get }
@@ -47,41 +47,37 @@ func <b>reset()</b>
 
 ## PIXGenerator: PIXContent
 var <b>res</b>: Res<br>
-static var <b>globalResMultiplier</b>: CGFloat = 1
+static var <b>globalResMultiplier</b>: CGFloat = 1<br>
+var <b>premultiply</b>: Bool = true
 
 ### ColorPIX
-var <b>color</b>: UIColor = .white<br>
-var <b>premultiply</b>: Bool
+var <b>color</b>: UIColor = .white
 ### CirclePIX
-var <b>radius</b>: CGFloat = 0.25<br>
+var <b>radius</b>: CGFloat = sqrt(0.75) / 4<br>
 var <b>position</b>: CGPoint = .zero<br>
 var <b>edgeRadius</b>: CGFloat = 0.0<br>
 var <b>color</b>: UIColor = .white<br>
 var <b>edgeColor</b>: UIColor = .gray<br>
-var <b>bgColor</b>: UIColor = .black<br>
-var <b>premultiply</b>: Bool = true
+var <b>bgColor</b>: UIColor = .black
 ### RectanglePIX
 var <b>size</b>: CGSize = CGSize(width: 0.5, height: 0.5)<br>
 var <b>position</b>: CGPoint = .zero<br>
 var <b>color</b>: UIColor = .white<br>
-var <b>bgColor</b>: UIColor = .black<br>
-var <b>premultiply</b>: Bool = true
+var <b>bgColor</b>: UIColor = .black
 ### PolygonPIX
 var <b>radius</b>: CGFloat = 0.25<br>
 var <b>position</b>: CGPoint = .zero<br>
 var <b>rotation</b>: CGFloat = 0.0<br>
 var <b>vertexCount</b>: Int = 6<br>
 var <b>color</b>: UIColor = .white<br>
-var <b>bgColor</b>: UIColor = .black<br>
-var <b>premultiply</b>: Bool = true
+var <b>bgColor</b>: UIColor = .black
 ### GradientPIX
 var <b>style</b>: Style = .horizontal<br>
 var <b>scale</b>: CGFloat = 1.0<br>
 var <b>offset</b>: CGFloat = 0.0<br>
 var <b>colorFirst</b>: UIColor = .black<br>
 var <b>colorLast</b>: UIColor = .white<br>
-var <b>extendRamp</b>: ExtendRamp = .repeats<br>
-var <b>premultiply</b>: Bool = true
+var <b>extendGradient</b>: ExtendMode = .repeat
 ### NoisePIX
 var <b>seed</b>: Int = 0<br>
 var <b>octaves</b>: Int = 7<br>
@@ -112,7 +108,7 @@ var <b>opacity</b>: CGFloat = 1.0
 ### BlurPIX
 var <b>style</b>: Style = .guassian<br>
 var <b>radius</b>: CGFloat = 100.0<br>
-var <b>quality</b>: Quality = .mid<br>
+var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0.0<br>
 var <b>position</b>: CGPoint = .zero
 ### EdgePIX
@@ -142,8 +138,7 @@ var <b>alpha</b>: Color = Color(pure: .alpha)
 var <b>keyColor</b>: UIColor = .green<br>
 var <b>range</b>: CGFloat = 0.1<br>
 var <b>softness</b>: CGFloat = 0.1<br>
-var <b>edgeDesaturation</b>: CGFloat = 0.5<br>
-var <b>premultiply</b>: Bool = true
+var <b>edgeDesaturation</b>: CGFloat = 0.5
 ### CropPIX <i>(coming soon)</i>
 ### TranformPIX <i>(coming soon)</i>
 ### CornerPinPIX <i>(coming soon)</i>
@@ -174,7 +169,7 @@ var <b>axis</b>: Axis = .x
 ### LumaBlurPIX
 var <b>style</b>: Style = .box<br>
 var <b>radius</b>: CGFloat = 10<br>
-var <b>quality</b>: Quality = .mid<br>
+var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0<br>
 var <b>position</b>: CGPoint = .zero
 ### DispacePIX <i>(coming soon)</i>

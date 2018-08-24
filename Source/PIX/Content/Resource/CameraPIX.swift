@@ -30,7 +30,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     var orientation: UIInterfaceOrientation?
     public var camera: Camera = .back { didSet { setupCamera() } }
-    enum CameraCodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case camera
     }
     override var uniforms: [CGFloat] {
@@ -48,7 +48,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
-        let container = try decoder.container(keyedBy: CameraCodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         let newCamera = try container.decode(Camera.self, forKey: .camera)
         if camera != newCamera {
             camera = newCamera
@@ -59,7 +59,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     override public func encode(to encoder: Encoder) throws {
 //        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CameraCodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(camera, forKey: .camera)
     }
     

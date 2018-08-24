@@ -29,36 +29,21 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
         }
     }
     
-    public enum Quality: String, Codable {
-        case low
-        case mid
-        case high
-        case extreme
-        var value: Int {
-            switch self {
-            case .low: return 4
-            case .mid: return 8
-            case .high: return 16
-            case .extreme: return 32
-            }
-        }
-    }
-    
     public var style: Style = .box { didSet { setNeedsRender() } }
     public var radius: CGFloat = 10 { didSet { setNeedsRender() } }
-    public var quality: Quality = .mid { didSet { setNeedsRender() } }
+    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
     override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius, CGFloat(quality.value), angle, position.x, position.y]
+        return [CGFloat(style.index), radius, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
     public override init() {
         super.init()
-        extend = .clampToEdge
+        extend = .hold
     }
     
     // MARK: JSON
@@ -68,7 +53,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         style = try container.decode(Style.self, forKey: .style)
         radius = try container.decode(CGFloat.self, forKey: .radius)
-        quality = try container.decode(Quality.self, forKey: .quality)
+        quality = try container.decode(SampleQualityMode.self, forKey: .quality)
         angle = try container.decode(CGFloat.self, forKey: .angle)
         position = try container.decode(CGPoint.self, forKey: .position)
         setNeedsRender()

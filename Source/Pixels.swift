@@ -21,7 +21,7 @@ public class Pixels {
     struct Signature: Encodable {
         let name: String
         let id: String
-        let version: Float
+        let version: String
         let build: Int
         var formatted: String {
             return "\(name) - \(id) - v\(version) - b\(build)"
@@ -29,7 +29,7 @@ public class Pixels {
     }
     
     var signature: Signature {
-        return Signature(name: kName, id: kBundleId, version: Float(Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-1")!, build: Int(Bundle(identifier: kBundleId)!.infoDictionary?["CFBundleVersion"] as? String ?? "-1")!)
+        return Signature(name: kName, id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
     }
     
     var pixList: [PIX] = []

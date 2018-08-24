@@ -15,6 +15,9 @@ public class PIXGenerator: PIXContent {
         set { _res = newValue; applyRes { self.setNeedsRender() } }
         get { return _res * PIXGenerator.globalResMultiplier }
     }
+    public var premultiply: Bool = true { didSet { setNeedsRender() } }
+    
+    override var shaderNeedsAspect: Bool { return true }
     
     public static var globalResMultiplier: CGFloat = 1
     

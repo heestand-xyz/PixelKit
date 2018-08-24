@@ -40,6 +40,7 @@ extension Pixels {
         case connection = "Connection"
         case view = "View"
         case res = "Res"
+        case fileIO = "File IO"
     }
     
     func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {

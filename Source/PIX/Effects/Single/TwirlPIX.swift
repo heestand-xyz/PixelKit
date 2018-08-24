@@ -24,7 +24,7 @@ public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     
     public override init() {
         super.init()
-        extend = .mirrorRepeat
+        extend = .mirror
     }
     
     // MARK: JSON

@@ -237,6 +237,9 @@ extension Pixels {
         // MARK: Uniforms
         
         var unifroms: [Float] = pix.uniforms.map { uniform -> Float in return Float(uniform) }
+        if let genPix = pix as? PIXGenerator {
+            unifroms.append(genPix.premultiply ? 1 : 0)
+        }
         if pix.shaderNeedsAspect {
             unifroms.append(Float(drawableTexture.width) / Float(drawableTexture.height))
         }

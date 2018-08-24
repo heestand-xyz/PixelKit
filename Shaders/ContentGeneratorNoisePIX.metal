@@ -26,6 +26,7 @@ struct Uniforms{
     float zoom;
     float color;
     float random;
+    float premultiply;
     float aspect;
 };
 

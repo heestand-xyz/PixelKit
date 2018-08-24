@@ -26,17 +26,17 @@ public class PIX: Codable {
     
     public let view: PIXView
     
-    public var interpolate: MTLSamplerMinMagFilter = .linear {
+    public var interpolate: InterpolateMode = .linear {
         didSet {
-            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
+            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
             pixels.log(pix: self, .info, nil, "New Sample Mode: Interpolate: \(interpolate)")
             setNeedsRender()
         }
     }
 
-    public var extend: MTLSamplerAddressMode = .clampToZero {
+    public var extend: ExtendMode = .zero {
         didSet {
-            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
+            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
             pixels.log(pix: self, .info, nil, "New Sample Mode: Extend: \(extend)")
             setNeedsRender()
         }
@@ -66,7 +66,7 @@ public class PIX: Codable {
                 return
             }
             pipeline = pixels.makeShaderPipeline(shader)
-            sampler = pixels.makeSampler(interpolate: interpolate, extend: extend)
+            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
             if allGood {
                 pixels.add(pix: self)
                 pixels.log(pix: self, .none, nil, "\(String(describing: self).split(separator: ".").last!) Created and linked with main engine.", clean: true)

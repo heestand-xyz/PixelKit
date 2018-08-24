@@ -55,7 +55,27 @@ finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
-This is a representation of the [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) Pixel Nodes project.
+This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
+
+## File IO
+
+You can find example files [here](https://github.com/anton-hexagons/Pixels/tree/master/Assets/Examples).
+
+`import Pixels`
+
+~~~~swift
+let url = Bundle.main.url(forResource: "test", withExtension: "json")!
+let json = try! String(contentsOf: url)
+let project = try! Pixels.main.import(json: json)
+    
+let finalPix: PIX = project.pixs.last!
+finalPix.view.frame = view.bounds
+view.addSubview(finalPix.view)
+~~~~ 
+
+To export just run `Pixels.main.export()` once you've created your PIXs.
+
+Note that exporting resourses like image and video are not yet supported.
 
 --- 
 
