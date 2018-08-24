@@ -98,6 +98,10 @@ public class PIX: Codable {
         }
         guard view.metalView.res != nil else {
             pixels.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
+            pixels.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
+            applyRes {
+                self.setNeedsRender()
+            }
             return
         }
         if let pixResource = self as? PIXResource {
