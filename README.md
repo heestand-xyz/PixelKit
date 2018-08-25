@@ -1,7 +1,8 @@
 <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/pixels_logo_1k_bg.png" width="128"/>
 
 # Pixels
-a Live Graphics Framework for iOS, written in Swift & Metal
+a Live Graphics Framework for iOS<br>
+powered by Metal
 
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient and Noise.
