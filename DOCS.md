@@ -2,24 +2,24 @@
 
 
 ## Pixels
-static let <b>main</b>: Pixels { get }<br>
-weak var <b>delegate</b>: PixelsDelegate? { get set }<br>
+static let <b>main</b>: Pixels<br>
+weak var <b>delegate</b>: PixelsDelegate?<br>
 var <b>fps</b>: Int { get }<br>
 var <b>fpsMax</b>: Int { get }<br>
 var <b>frameIndex</b>: Int { get }<br>
-var <b>logLevel</b>: LogLevel = .debug { get set }<br>
-var <b>colorBits</b>: PIX.Color.Bits = ._8 { get set }<br>
-var <b>colorSpace</b>: PIX.Color.Space = .sRGB { get set }
+var <b>logLevel</b>: LogLevel = .debug<br>
+var <b>colorBits</b>: PIX.Color.Bits = ._8<br>
+var <b>colorSpace</b>: PIX.Color.Space = .sRGB
 
 ## PixelsDelegate
 func <b>pixelsFrameLoop()</b>
 
 
 ## PIX
-weak var  <b>delegate</b>: PIXDelegate? { get set }<br>
-let  <b>view</b>: PIXView { get }<br>
-var  <b>interpolate</b>: InterpolateMode = .linear { get set }<br>
-var  <b>extend</b>: ExtendMode = .zero { get set }<br>
+weak var  <b>delegate</b>: PIXDelegate?<br>
+let  <b>view</b>: PIXView<br>
+var  <b>interpolate</b>: InterpolateMode = .linear<br>
+var  <b>extend</b>: ExtendMode = .zero<br>
 var  <b>renderedTexture</b>: MTLTexture? { get }<br>
 var  <b>renderedImage</b>: UIImage? { get }<br>
 var  <b>renderedPixels</b>: PixelPack? { get }
