@@ -34,7 +34,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
-    public var extendGradient: ExtendMode = .repeat { didSet { setNeedsRender() } }
+    public var extendRamp: ExtendMode = .zero { didSet { setNeedsRender() } }
     public var extraColorsActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAActive: Bool = false { didSet { setNeedsRender() } }
     public var extraColorAPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
@@ -49,13 +49,13 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var extraColorDPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var extraColorD: UIColor = .gray { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
-        case style; case scale; case offset; case colorFirst; case colorLast; case extendGradient
+        case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp
     }
     override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
         vals.append(contentsOf: PIX.Color(colorLast).list)
-        vals.append(CGFloat(extendGradient.index))
+        vals.append(CGFloat(extendRamp.index))
         vals.append(extraColorsActive ? 1 : 0)
         vals.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
         vals.append(contentsOf: PIX.Color(extraColorA).list)
@@ -78,7 +78,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         offset = try container.decode(CGFloat.self, forKey: .offset)
         colorFirst = try container.decode(Color.self, forKey: .colorFirst).ui
         colorLast = try container.decode(Color.self, forKey: .colorLast).ui
-        extendGradient = try container.decode(ExtendMode.self, forKey: .extendGradient)
+        extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
         setNeedsRender()
     }
     
@@ -89,7 +89,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         try container.encode(offset, forKey: .offset)
         try container.encode(Color(colorFirst), forKey: .colorFirst)
         try container.encode(Color(colorLast), forKey: .colorLast)
-        try container.encode(extendGradient, forKey: .extendGradient)
+        try container.encode(extendRamp, forKey: .extendRamp)
     }
     
 }
