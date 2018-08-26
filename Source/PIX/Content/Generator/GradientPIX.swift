@@ -29,42 +29,52 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         }
     }
     
+    public struct ColorStep: Codable {
+        public let color: Color
+        public let fraction: CGFloat
+        public init(_ color: UIColor, at fraction: CGFloat) {
+            self.color = Color(color)
+            self.fraction = fraction
+        }
+    }
+    
+    public struct ColorSteps: Codable {
+        public let a: ColorStep?
+        public let b: ColorStep?
+        public let c: ColorStep?
+        public let d: ColorStep?
+        public init(_ a: ColorStep, _ b: ColorStep? = nil, _ c: ColorStep? = nil, _ d: ColorStep? = nil) {
+            self.a = a
+            self.b = b
+            self.c = c
+            self.d = d
+        }
+    }
+    
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
     public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
     public var extendRamp: ExtendMode = .zero { didSet { setNeedsRender() } }
-    public var extraColorsActive: Bool = false { didSet { setNeedsRender() } }
-    public var extraColorAActive: Bool = false { didSet { setNeedsRender() } }
-    public var extraColorAPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var extraColorA: UIColor = .gray { didSet { setNeedsRender() } }
-    public var extraColorBActive: Bool = false { didSet { setNeedsRender() } }
-    public var extraColorBPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var extraColorB: UIColor = .gray { didSet { setNeedsRender() } }
-    public var extraColorCActive: Bool = false { didSet { setNeedsRender() } }
-    public var extraColorCPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var extraColorC: UIColor = .gray { didSet { setNeedsRender() } }
-    public var extraColorDActive: Bool = false { didSet { setNeedsRender() } }
-    public var extraColorDPosition: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var extraColorD: UIColor = .gray { didSet { setNeedsRender() } }
+    public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
-        case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp
+        case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp; case colorSteps
     }
     override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
         vals.append(contentsOf: PIX.Color(colorLast).list)
         vals.append(CGFloat(extendRamp.index))
-        vals.append(extraColorsActive ? 1 : 0)
-        vals.append(contentsOf: [extraColorAActive ? 1 : 0, extraColorAPosition])
-        vals.append(contentsOf: PIX.Color(extraColorA).list)
-        vals.append(contentsOf: [extraColorBActive ? 1 : 0, extraColorBPosition])
-        vals.append(contentsOf: PIX.Color(extraColorB).list)
-        vals.append(contentsOf: [extraColorCActive ? 1 : 0, extraColorCPosition])
-        vals.append(contentsOf: PIX.Color(extraColorC).list)
-        vals.append(contentsOf: [extraColorDActive ? 1 : 0, extraColorDPosition])
-        vals.append(contentsOf: PIX.Color(extraColorD).list)
+        vals.append(colorSteps != nil ? 1 : 0)
+        vals.append(contentsOf: [colorSteps?.a != nil ? 1 : 0, colorSteps?.a?.fraction ?? 0])
+        vals.append(contentsOf: colorSteps?.a?.color.list ?? [0,0,0,0])
+        vals.append(contentsOf: [colorSteps?.b != nil ? 1 : 0, colorSteps?.b?.fraction ?? 0])
+        vals.append(contentsOf: colorSteps?.b?.color.list ?? [0,0,0,0])
+        vals.append(contentsOf: [colorSteps?.c != nil ? 1 : 0, colorSteps?.c?.fraction ?? 0])
+        vals.append(contentsOf: colorSteps?.c?.color.list ?? [0,0,0,0])
+        vals.append(contentsOf: [colorSteps?.d != nil ? 1 : 0, colorSteps?.d?.fraction ?? 0])
+        vals.append(contentsOf: colorSteps?.d?.color.list ?? [0,0,0,0])
         return vals
     }
     
@@ -79,6 +89,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         colorFirst = try container.decode(Color.self, forKey: .colorFirst).ui
         colorLast = try container.decode(Color.self, forKey: .colorLast).ui
         extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
+        colorSteps = try container.decode(ColorSteps.self, forKey: .colorSteps)
         setNeedsRender()
     }
     
@@ -90,6 +101,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         try container.encode(Color(colorFirst), forKey: .colorFirst)
         try container.encode(Color(colorLast), forKey: .colorLast)
         try container.encode(extendRamp, forKey: .extendRamp)
+        try container.encode(colorSteps, forKey: .colorSteps)
     }
     
 }
