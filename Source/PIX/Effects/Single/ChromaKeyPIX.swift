@@ -12,7 +12,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .chromaKey
     
-    override var shader: String { return "effectMergerChromaKeyPIX" }
+    override var shader: String { return "effectSingleChromaKeyPIX" }
     
     public var keyColor: UIColor = .green { didSet { setNeedsRender() } }
     public var range: CGFloat = 0.1 { didSet { setNeedsRender() } }
