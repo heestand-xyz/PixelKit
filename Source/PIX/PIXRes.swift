@@ -94,7 +94,10 @@ public extension PIX {
                 let size = CGSize(width: 2048, height: 2732)
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
-            case .fullScreen: return UIScreen.main.nativeBounds.size
+            case .fullScreen:
+                let size = UIScreen.main.nativeBounds.size
+                if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return size }
+                else { return CGSize(width: size.height, height: size.width) }
             case .size(let size): return size
             case .custom(let w, let h): return CGSize(width: w, height: h)
             case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
@@ -192,54 +195,54 @@ public extension PIX {
         // MARK: - Operator Overloads
         
         public static func ==(lhs: Res, rhs: Res) -> Bool {
-            return lhs.raw.w == rhs.raw.w && lhs.raw.h == rhs.raw.h
+            return lhs.w == rhs.w && lhs.h == rhs.h
         }
         public static func !=(lhs: Res, rhs: Res) -> Bool {
             return !(lhs == rhs)
         }
         
         public static func >(lhs: Res, rhs: Res) -> Bool? {
-            let w = lhs.raw.w > rhs.raw.w
-            let h = lhs.raw.h > rhs.raw.h
+            let w = lhs.w > rhs.w
+            let h = lhs.h > rhs.h
             return w == h ? w : nil
         }
         public static func <(lhs: Res, rhs: Res) -> Bool? {
-            let w = lhs.raw.w < rhs.raw.w
-            let h = lhs.raw.h < rhs.raw.h
+            let w = lhs.w < rhs.w
+            let h = lhs.h < rhs.h
             return w == h ? w : nil
         }
         public static func >=(lhs: Res, rhs: Res) -> Bool? {
-            let w = lhs.raw.w >= rhs.raw.w
-            let h = lhs.raw.h >= rhs.raw.h
+            let w = lhs.w >= rhs.w
+            let h = lhs.h >= rhs.h
             return w == h ? w : nil
         }
         public static func <=(lhs: Res, rhs: Res) -> Bool? {
-            let w = lhs.raw.w <= rhs.raw.w
-            let h = lhs.raw.h <= rhs.raw.h
+            let w = lhs.w <= rhs.w
+            let h = lhs.h <= rhs.h
             return w == h ? w : nil
         }
         
         public static func +(lhs: Res, rhs: Res) -> Res {
-            return .custom(w: lhs.raw.w + rhs.raw.w, h: lhs.raw.h + rhs.raw.h)
+            return .custom(w: lhs.w + rhs.w, h: lhs.h + rhs.h)
         }
         public static func -(lhs: Res, rhs: Res) -> Res {
-            return .custom(w: lhs.raw.w - rhs.raw.w, h: lhs.raw.h - rhs.raw.h)
+            return .custom(w: lhs.w - rhs.w, h: lhs.h - rhs.h)
         }
         public static func *(lhs: Res, rhs: Res) -> Res {
             return .custom(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height))
         }
         
         public static func +(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: lhs.raw.w + Int(rhs), h: lhs.raw.h + Int(rhs))
+            return .custom(w: lhs.w + Int(rhs), h: lhs.h + Int(rhs))
         }
         public static func -(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: lhs.raw.w - Int(rhs), h: lhs.raw.h - Int(rhs))
+            return .custom(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs))
         }
         public static func *(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: Int(lhs.width * rhs), h: Int(lhs.width * rhs))
+            return .custom(w: Int(lhs.width * rhs), h: Int(lhs.height * rhs))
         }
         public static func /(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: Int(lhs.width / rhs), h: Int(lhs.width / rhs))
+            return .custom(w: Int(lhs.width / rhs), h: Int(lhs.height / rhs))
         }
         public static func +(lhs: CGFloat, rhs: Res) -> Res {
             return rhs + lhs
