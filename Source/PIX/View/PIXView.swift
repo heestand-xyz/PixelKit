@@ -45,7 +45,6 @@ public class PIXView: UIView {
         addSubview(metalView)
         
         layout()
-        style()
         
     }
     
@@ -97,11 +96,7 @@ public class PIXView: UIView {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
-    }
-    
-    func style() {
-        
-//        checkerLayer.tileSize = checkerSize
+        checkerView.setNeedsDisplay()
         
     }
     

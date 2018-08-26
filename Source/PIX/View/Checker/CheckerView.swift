@@ -25,19 +25,20 @@ class CheckerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+    
+        guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        let context = UIGraphicsGetCurrentContext();
-        
-        context!.saveGState();
+        context.saveGState();
         
         let phase = CGSize(width: rect.width / 2, height: rect.height / 2)
-        context!.setPatternPhase(phase)
+        context.setPatternPhase(phase)
         
         let color = UIColor(patternImage: checker).cgColor;
-        context!.setFillColor(color);
-        context!.fill(bounds);
+        context.setFillColor(color);
         
-        context!.restoreGState();
+        context.fill(CGRect(x: 0, y: 0, width: rect.width, height: rect.height));
+        
+        context.restoreGState();
         
         super.draw(rect)
         
