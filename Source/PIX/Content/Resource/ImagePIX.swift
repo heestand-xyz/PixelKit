@@ -16,10 +16,8 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public init(named: String? = nil) {
-        if named != nil { image = UIImage(named: named!) }
+    public override init() {
         super.init()
-        if image != nil { self.setNeedsBuffer() }
     }
     
     // MARK: JSON

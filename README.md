@@ -39,8 +39,11 @@ Remeber to add `NSCameraUsageDescription` to your info.plist
 `import Pixels`
 
 ~~~~swift
-let cityImage = ImagePIX(named: "city")
-let supermanVideo = VideoPIX(fileNamed: "superman", withExtension: "mov")
+let cityImage = ImagePIX()
+cityImage.image = UIImage(named: "city")
+
+let supermanVideo = VideoPIX()
+supermanVideo.load(fileNamed: "superman", withExtension: "mov")
 
 let supermanKeyed = ChromaKeyPIX()
 supermanKeyed.inPix = supermanVideo

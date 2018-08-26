@@ -19,21 +19,9 @@ public class VideoPIX: PIXResource, PIXofaKind {
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
 
-    public convenience init(fileNamed name: String, withExtension ext: String) {
-        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else {
-            Pixels.main.log(.error, .resource, "Video file named \"\(name)\" could not be found.")
-            self.init()
-            return
-        }
-        self.init(url: url)
-    }
-    
-    public init(url: URL? = nil) {
-        self.url = url
+    public override init() {
         super.init()
-        helper = VideoHelper(loaded: { res in
-//            self.applyRes { ... }
-        }, updated: { pixelBuffer in
+        helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer in
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {
                 self.applyRes { self.setNeedsRender() }
@@ -49,7 +37,15 @@ public class VideoPIX: PIXResource, PIXofaKind {
     required convenience init(from decoder: Decoder) throws { self.init() }
     override public func encode(to encoder: Encoder) throws {}
     
-    // MARK: Find
+    // MARK: Load
+    
+    public func load(fileNamed name: String, withExtension ext: String) {
+        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else {
+            Pixels.main.log(.error, .resource, "Video file named \"\(name)\" could not be found.")
+            return
+        }
+        self.url = url
+    }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
         return Bundle.main.url(forResource: named, withExtension: ext)
