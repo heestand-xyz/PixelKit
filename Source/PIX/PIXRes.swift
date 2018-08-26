@@ -56,11 +56,11 @@ public extension PIX {
             case ._4K: return CGSize(width: 3840, height: 2160)
             case .fullHD(let ori):
                 let size = CGSize(width: 1920, height: 1080)
-                if ori == .portrait { return size }
+                if ori == .landscape { return size }
                 else { return CGSize(width: size.height, height: size.width) }
             case .ultraHD(let ori):
                 let size = CGSize(width: 3840, height: 2160)
-                if ori == .portrait { return size }
+                if ori == .landscape { return size }
                 else { return CGSize(width: size.height, height: size.width) }
             case ._128: return CGSize(width: 128, height: 128)
             case ._256: return CGSize(width: 256, height: 256)
