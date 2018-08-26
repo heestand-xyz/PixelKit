@@ -61,14 +61,14 @@ var <b>premultiply</b>: Bool = true
 ### ColorPIX
 var <b>color</b>: UIColor = .white
 ### CirclePIX
-var <b>radius</b>: CGFloat = sqrt(0.75) / 4<br>
+var <b>radius</b>: CGFloat<br>
 var <b>position</b>: CGPoint = .zero<br>
 var <b>edgeRadius</b>: CGFloat = 0.0<br>
 var <b>color</b>: UIColor = .white<br>
 var <b>edgeColor</b>: UIColor = .gray<br>
 var <b>bgColor</b>: UIColor = .black
 ### RectanglePIX
-var <b>size</b>: CGSize = CGSize(width: 0.5, height: 0.5)<br>
+var <b>size</b>: CGSize<br>
 var <b>position</b>: CGPoint = .zero<br>
 var <b>color</b>: UIColor = .white<br>
 var <b>bgColor</b>: UIColor = .black

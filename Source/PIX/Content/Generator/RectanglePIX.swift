@@ -14,7 +14,7 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     
     override var shader: String { return "contentGeneratorRectanglePIX" }
     
-    public var size: CGSize = CGSize(width: 0.5, height: 0.5) { didSet { setNeedsRender() } }
+    public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var color: UIColor = .white { didSet { setNeedsRender() } }
     public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
