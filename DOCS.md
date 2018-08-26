@@ -43,6 +43,7 @@ var <b>image</b>: UIImage?
 ### VideoPIX
 var <b>url</b>: URL?<br>
 var <b>volume</b>: CGFloat = 1<br>
+func <b>load(fileNamed: String, withExtension: String)</b><br>
 func <b>play()</b><br>
 func <b>pause()</b><br>
 func <b>seek(toTime: CMTime)</b><br>
