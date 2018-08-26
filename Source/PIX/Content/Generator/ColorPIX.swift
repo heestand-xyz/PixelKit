@@ -24,11 +24,6 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
         return vals
     }
     
-    public convenience init(_ color: UIColor, res: Res) {
-        self.init(res: res)
-        self.color = color
-    }
-    
     // MARK: JSON
     
     required convenience init(from decoder: Decoder) throws {
