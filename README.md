@@ -80,7 +80,7 @@ Note that exporting resourses like image and video are not yet supported.
 
 --- 
 
-Simulator not supported. Metal can only run on a physical iOS device.
+Simulator not supported. Metal for iOS can only run on a physical iOS device.
 
 Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
 

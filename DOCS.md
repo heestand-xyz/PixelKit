@@ -8,6 +8,8 @@ var <b>fps</b>: Int { get }<br>
 var <b>fpsMax</b>: Int { get }<br>
 var <b>frameIndex</b>: Int { get }<br>
 var <b>logLevel</b>: LogLevel = .debug<br>
+var <b>logLoopLimitActive</b> = true<br>
+var <b>logLoopLimitFrameCount</b> = 10<br>
 var <b>colorBits</b>: PIX.Color.Bits = ._8<br>
 var <b>colorSpace</b>: PIX.Color.Space = .sRGB
 
@@ -16,6 +18,8 @@ func <b>pixelsFrameLoop()</b>
 
 
 ## PIX
+var <b>id</b> = UUID()<br>
+var <b>name</b>: String?<br>
 weak var  <b>delegate</b>: PIXDelegate?<br>
 let  <b>view</b>: PIXView<br>
 var  <b>interpolate</b>: InterpolateMode = .linear<br>
@@ -23,6 +27,10 @@ var  <b>extend</b>: ExtendMode = .zero<br>
 var  <b>renderedTexture</b>: MTLTexture? { get }<br>
 var  <b>renderedImage</b>: UIImage? { get }<br>
 var  <b>renderedPixels</b>: PixelPack? { get }
+
+## PIXDelegate
+func <b>pixWillRender(_ pix: PIX)</b><br>
+func <b>pixDidRender(_ pix: PIX)</b>
 
 ## PIXContent: PIX, PIXOut
 
@@ -182,7 +190,3 @@ var <b>inPixs</b>: [PIX & PIXOut] = []
 
 ### BlendsPIX
 var <b>blendingMode</b>: BlendingMode = .add
-
-## PIXDelegate
-func <b>pixWillRender(_ pix: PIX)</b><br>
-func <b>pixDidRender(_ pix: PIX)</b>
