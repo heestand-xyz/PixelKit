@@ -27,28 +27,12 @@ public class PIXView: UIView {
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
     
-//    public enum Checker {
-//        case lightGray
-//        case gray
-//        case darkGray
-//    }
-//    public var checker: Checker? = .gray {
-//        didSet {
-//            checkerView.isHidden = checker == nil
-//            if checker != nil {
-//                // ...
-//            }
-//        }
-//    }
-//    let checkerSize = CGSize(width: 8, height: 8)
-//
-//    let checkerLayer: CheckerLayer
-//    let checkerView: UIView
+    public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
+    let checkerView: CheckerView
     
     init() {
         
-//        checkerLayer = CheckerLayer()
-//        checkerView = UIView()
+        checkerView = CheckerView()
 
         metalView = PIXMetalView()
         
@@ -56,8 +40,7 @@ public class PIXView: UIView {
         
         clipsToBounds = true
         
-//        checkerView.layer.addSublayer(checkerLayer)
-//        addSubview(checkerView)
+        addSubview(checkerView)
         
         addSubview(metalView)
         
@@ -68,11 +51,11 @@ public class PIXView: UIView {
     
     func layout() {
         
-//        checkerView.translatesAutoresizingMaskIntoConstraints = false
-//        checkerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        checkerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//        checkerView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-//        checkerView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        checkerView.translatesAutoresizingMaskIntoConstraints = false
+        checkerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        checkerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        checkerView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
+        checkerView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
         
         metalView.translatesAutoresizingMaskIntoConstraints = false
         metalView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
