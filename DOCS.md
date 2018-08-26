@@ -175,7 +175,7 @@ var <b>size</b>: CGSize
 var <b>axis</b>: Axis = .x
 ### LumaBlurPIX
 var <b>style</b>: Style = .box<br>
-var <b>radius</b>: CGFloat = 10<br>
+var <b>radius</b>: CGFloat = 100<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0<br>
 var <b>position</b>: CGPoint = .zero

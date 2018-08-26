@@ -30,7 +30,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     }
     
     public var style: Style = .box { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 10 { didSet { setNeedsRender() } }
+    public var radius: CGFloat = 100 { didSet { setNeedsRender() } }
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
