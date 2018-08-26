@@ -38,6 +38,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     }
 
     var helper: CameraHelper?
+    var access: Bool = false
     
     public override init() {
         super.init()
@@ -63,17 +64,38 @@ public class CameraPIX: PIXResource, PIXofaKind {
         try container.encode(camera, forKey: .camera)
     }
     
+    // MARK: Access
+    
+    func requestAccess(gotAccess: @escaping () -> ()) {
+        AVCaptureDevice.requestAccess(for: .video) { accessGranted in
+            if accessGranted {
+                gotAccess()
+            } else {
+                self.pixels.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+            }
+            self.access = accessGranted
+        }
+    }
+    
     // MARK: Setup
     
     func setupCamera() {
+        if !access {
+            requestAccess {
+                DispatchQueue.main.async {
+                    self.setupCamera()
+                }
+                return
+            }
+        }
         helper?.stop()
         helper = CameraHelper(cameraPosition: camera.position, setup: { _, orientation in
-            self.pixels.log(pix: self, .info, .resource, "Camera Setup")
+            self.pixels.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
         }, captured: { pixelBuffer in
-            self.pixels.log(pix: self, .info, .resource, "Camera Frame Captured", loop: true)
+            self.pixels.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {
                 self.applyRes { self.setNeedsRender() }
