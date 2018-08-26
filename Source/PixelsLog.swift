@@ -49,9 +49,9 @@ extension Pixels {
             pixName = String(String(describing: p).split(separator: ".").last ?? "")
         }
         
-        var cleanLog = "Pixels: "
+        var cleanLog = "Pixels "
         if pixName != nil {
-            cleanLog += "\(pixName!): "
+            cleanLog += "\(pixName!) "
         }
         cleanLog += message
         if let e = error {

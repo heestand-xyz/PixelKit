@@ -97,7 +97,7 @@ public class Pixels {
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .common)
         
-        log(.none, .pixels, signature.formatted, clean: true)
+        log(.none, .pixels, signature.version, clean: true)
         
     }
     
