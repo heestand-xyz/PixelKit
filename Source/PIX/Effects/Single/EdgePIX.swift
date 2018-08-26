@@ -12,7 +12,7 @@ public class EdgePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .edge
     
-    override var shader: String { return "effectSingleThresholdPIX" }
+    override var shader: String { return "effectSingleEdgePIX" }
     
     public var strength: CGFloat = 4 { didSet { setNeedsRender() } }
     public var distance: CGFloat = 1 { didSet { setNeedsRender() } }
