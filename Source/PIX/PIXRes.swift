@@ -25,6 +25,8 @@ public extension PIX {
         case _1024
         case _2048
         case _4096
+        case _8192
+        case _16384
         
         case iPhone(Orientation)
         case iPhonePlus(Orientation)
@@ -36,8 +38,9 @@ public extension PIX {
         
         case fullScreen
         
-        case raw(_ raw: Raw)
         case size(_ size: CGSize)
+        case custom(w: Int, h: Int)
+        case raw(_ raw: Raw)
         
         public enum Orientation {
             case portrait
@@ -65,6 +68,8 @@ public extension PIX {
             case ._1024: return CGSize(width: 1024, height: 1024)
             case ._2048: return CGSize(width: 2048, height: 2048)
             case ._4096: return CGSize(width: 4096, height: 4096)
+            case ._8192: return CGSize(width: 8192, height: 8192)
+            case ._16384: return CGSize(width: 16384, height: 16384)
             case .iPhone(let ori):
                 let size = CGSize(width: 750, height: 1334)
                 if ori == .portrait { return size }
@@ -90,8 +95,9 @@ public extension PIX {
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
             case .fullScreen: return UIScreen.main.nativeBounds.size
-            case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
             case .size(let size): return size
+            case .custom(let w, let h): return CGSize(width: w, height: h)
+            case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
             }
         }
         
@@ -144,6 +150,8 @@ public extension PIX {
             case Res._1024.size: self = ._1024
             case Res._2048.size: self = ._2048
             case Res._4096.size: self = ._4096
+            case Res._8192.size: self = ._8192
+            case Res._16384.size: self = ._16384
             case Res.iPhone(.portrait).size: self = .iPhone(.portrait)
             case Res.iPhone(.landscape).size: self = .iPhone(.landscape)
             case Res.iPhonePlus(.portrait).size: self = .iPhonePlus(.portrait)
@@ -157,29 +165,31 @@ public extension PIX {
             case Res.iPadPro_12_9(.portrait).size: self = .iPadPro_12_9(.portrait)
             case Res.iPadPro_12_9(.landscape).size: self = .iPadPro_12_9(.landscape)
             case Res.fullScreen.size: self = .fullScreen
-            default: self = .size(size)
+            default: self = .custom(w: Int(size.width), h: Int(size.height))
             }
         }
         
         public init(_ raw: Raw) {
-            self.init(size: CGSize(width: raw.w, height: raw.h))
+            let rawSize = CGSize(width: raw.w, height: raw.h)
+            self.init(size: rawSize)
         }
         
         public init(image: UIImage) {
             let nativeSize = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
-            self = .size(nativeSize)
+            self.init(size: nativeSize)
         }
         
         public init(pixelBuffer: CVPixelBuffer) {
             let imageSize = CGSize(width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
-            self = .size(imageSize)
+            self.init(size: imageSize)
         }
         
         public init(texture: MTLTexture) {
-            self = Res(size: CGSize(width: CGFloat(texture.width), height: CGFloat(texture.height)))
+            let textureSize = CGSize(width: CGFloat(texture.width), height: CGFloat(texture.height))
+            self.init(size: textureSize)
         }
         
-        // MARK: - Oprator Overload
+        // MARK: - Operator Overloads
         
         public static func ==(lhs: Res, rhs: Res) -> Bool {
             return lhs.raw.w == rhs.raw.w && lhs.raw.h == rhs.raw.h
@@ -210,26 +220,26 @@ public extension PIX {
         }
         
         public static func +(lhs: Res, rhs: Res) -> Res {
-            return Res(Raw(w: lhs.raw.w + rhs.raw.w, h: lhs.raw.h + rhs.raw.h))
+            return .custom(w: lhs.raw.w + rhs.raw.w, h: lhs.raw.h + rhs.raw.h)
         }
         public static func -(lhs: Res, rhs: Res) -> Res {
-            return Res(Raw(w: lhs.raw.w - rhs.raw.w, h: lhs.raw.h - rhs.raw.h))
+            return .custom(w: lhs.raw.w - rhs.raw.w, h: lhs.raw.h - rhs.raw.h)
         }
         public static func *(lhs: Res, rhs: Res) -> Res {
-            return Res(Raw(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height)))
+            return .custom(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height))
         }
         
         public static func +(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: lhs.raw.w + Int(rhs), h: lhs.raw.h + Int(rhs)))
+            return .custom(w: lhs.raw.w + Int(rhs), h: lhs.raw.h + Int(rhs))
         }
         public static func -(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: lhs.raw.w - Int(rhs), h: lhs.raw.h - Int(rhs)))
+            return .custom(w: lhs.raw.w - Int(rhs), h: lhs.raw.h - Int(rhs))
         }
         public static func *(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(lhs.width * rhs), h: Int(lhs.width * rhs)))
+            return .custom(w: Int(lhs.width * rhs), h: Int(lhs.width * rhs))
         }
         public static func /(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(lhs.width / rhs), h: Int(lhs.width / rhs)))
+            return .custom(w: Int(lhs.width / rhs), h: Int(lhs.width / rhs))
         }
         public static func +(lhs: CGFloat, rhs: Res) -> Res {
             return rhs + lhs

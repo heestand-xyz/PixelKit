@@ -30,9 +30,8 @@ extension Pixels {
     }
     
     enum LogCategory: String {
-        case engine = "Engine"
+        case pixels = "Pixels"
         case render = "Render"
-        case metalRender = "Metal Render"
         case texture = "Texture"
         case resource = "Resource"
         case generator = "Generator"
@@ -45,15 +44,29 @@ extension Pixels {
     
     func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
+        var pixName: String?
+        if let p = pix {
+            pixName = String(String(describing: p).split(separator: ".").last ?? "")
+        }
+        
+        var cleanLog = "Pixels: "
+        if pixName != nil {
+            cleanLog += "\(pixName!): "
+        }
+        cleanLog += message
+        if let e = error {
+            cleanLog += " Error: \(e.localizedDescription)"
+        }
+        
         if level == .fatal {
-            assert(false, message)
+            assert(false, cleanLog)
         }
         
         if level.index > logLevel.index {
             return
         }
         
-        if loop && frameIndex > logLoopFrameCountLimit {
+        if loop && logLoopLimitActive && frameIndex > logLoopLimitFrameCount {
             if !logLoopLimitIndicated {
                 print("Pixels Running...")
                 logLoopLimitIndicated = true
@@ -62,24 +75,26 @@ extension Pixels {
         }
         
         if clean {
-            print(message)
+            print(cleanLog)
             return
         }
+        
+        // MARK: Log List
         
         var logList: [String] = []
         
         logList.append("Pixels")
         
         #if DEBUG
-        logList.append("#\(frameIndex)")
+        logList.append("#\(frameIndex < 10 ? "0" : "")\(frameIndex)")
         #else
-        if [.debug, .info].contains(level) { return }
+        if level == .debug { return }
         #endif
         
         logList.append(level.rawValue)
         
-        if let p = pix {
-            logList.append(String(String(describing: p).split(separator: ".").last ?? ""))
+        if pixName != nil {
+            logList.append(pixName!)
         }
         
         if let c = category {

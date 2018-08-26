@@ -14,119 +14,127 @@ public class Pixels {
     
     public weak var delegate: PixelsDelegate?
     
-    let kName = "Pixels"
+    // MARK: Signature
+    
     let kBundleId = "se.hexagons.pixels"
     let kMetalLibName = "PixelsShaders"
     
     struct Signature: Encodable {
-        let name: String
         let id: String
         let version: String
         let build: Int
         var formatted: String {
-            return "\(name) - \(id) - v\(version) - b\(build)"
+            return "\(id) - v\(version) - b\(build)"
         }
     }
     
     var signature: Signature {
-        return Signature(name: kName, id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
+        return Signature(id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
     }
     
-    var pixList: [PIX] = []
-    
-    var _fps: Int = -1
-    public var fps: Int { return min(_fps, fpsMax) }
-    public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
-    public var frameIndex = 0
-    var frameDate = Date()
+    // MARK: Log
     
     public var logLevel: LogLevel = .debug
-    let logLoopFrameCountLimit = 99
+    public var logLoopLimitActive = true
+    public var logLoopLimitFrameCount = 10
     var logLoopLimitIndicated = false
+    
+    // MARK: Color
     
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
-        
-    struct Vertex {
-        var x,y: Float
-        var s,t: Float
-        var buffer: [Float] {
-            return [x,y,s,t]
-        }
-    }
     
-    var metalDevice: MTLDevice?
-    var commandQueue: MTLCommandQueue?
-    var textureCache: CVMetalTextureCache?
-    var metalLibrary: MTLLibrary?
-    var quadVertexBuffer: MTLBuffer?
-    var quadVertexShader: MTLFunction?
-    var aLive: Bool {
-        guard metalDevice != nil else { return false }
-        guard commandQueue != nil else { return false }
-        guard textureCache != nil else { return false }
-        guard metalLibrary != nil else { return false }
-        guard quadVertexBuffer != nil else { return false }
-        guard quadVertexShader != nil else { return false }
-        return true
-    }
+    // MARK: Linked PIXs
+    
+    var linkedPixs: [PIX] = []
+    
+    // MARK: Frames
     
     var displayLink: CADisplayLink?
     var frameCallbacks: [(id: UUID, callback: () -> ())] = []
     
+    public var frameIndex = 0
+    var frameDate = Date()
+
+    var _fps: Int = -1
+    public var fps: Int { return min(_fps, fpsMax) }
+    public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
+    
+    // MARK: Metal
+    
+    var metalDevice: MTLDevice!
+    var commandQueue: MTLCommandQueue!
+    var textureCache: CVMetalTextureCache!
+    var metalLibrary: MTLLibrary!
+    var quadVertexBuffer: MTLBuffer!
+    var quadVertexShader: MTLFunction!
+    
     // MARK: - Life Cycle
     
     init() {
-        log(.none, .engine, signature.formatted, clean: true)
         
         metalDevice = MTLCreateSystemDefaultDevice()
-        if metalDevice == nil {
-            log(.error, .engine, "Metal Device not found.")
-        } else {
-            commandQueue = metalDevice!.makeCommandQueue()
-            textureCache = makeTextureCache()
-            metalLibrary = loadMetalShaderLibrary()
-            if metalLibrary != nil {
-                quadVertexBuffer = makeQuadVertexBuffer()
-                quadVertexShader = loadQuadVertexShader()
-            }
+        guard metalDevice != nil else {
+            log(.fatal, .pixels, "Metal Device not found.")
+            return
+        }
+        
+        commandQueue = metalDevice.makeCommandQueue()
+        guard commandQueue != nil else {
+            log(.fatal, .pixels, "Command Queue failed to make.")
+            return
+        }
+        
+        do {
+            textureCache = try makeTextureCache()
+            metalLibrary = try loadMetalShaderLibrary()
+            quadVertexBuffer = try makeQuadVertexBuffer()
+            quadVertexShader = try loadQuadVertexShader()
+        } catch {
+            log(.fatal, .pixels, "Initialization failed.", e: error)
         }
         
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .common)
         
-        if aLive {
-            log(.none, .engine, "Pixels is aLive! ⬢", clean: true)
-        } else {
-            log(.fatal, .engine, "Pixels is not aLive...", clean: true)
-        }
+        log(.none, .pixels, signature.formatted, clean: true)
         
     }
     
     // MARK: - Frame Loop
     
     @objc func frameLoop() {
-        let frameTime = -frameDate.timeIntervalSinceNow
-        _fps = Int(round(1 / frameTime))
-        frameDate = Date()
-        for frameCallback in frameCallbacks { frameCallback.callback() }
         delegate?.pixelsFrameLoop()
         renderPIXs()
+        for frameCallback in frameCallbacks {
+            frameCallback.callback()
+        }
+        calcFPS()
         frameIndex += 1
+    }
+    
+    func calcFPS() {
+        let frameTime = -frameDate.timeIntervalSinceNow
+        _fps = Int(round(1.0 / frameTime))
+        frameDate = Date()
     }
     
     func listenToFrames(callback: @escaping () -> (Bool)) {
         let id = UUID()
         frameCallbacks.append((id: id, callback: {
             if callback() {
-                for (i, frameCallback) in self.frameCallbacks.enumerated() {
-                    if frameCallback.id == id {
-                        self.frameCallbacks.remove(at: i)
-                        break
-                    }
-                }
+                self.unlistenToFrames(for: id)
             }
         }))
+    }
+    
+    func unlistenToFrames(for id: UUID) {
+        for (i, frameCallback) in self.frameCallbacks.enumerated() {
+            if frameCallback.id == id {
+                frameCallbacks.remove(at: i)
+                break
+            }
+        }
     }
     
     func delay(frames: Int, done: @escaping () -> ()) {
@@ -141,16 +149,16 @@ public class Pixels {
         })
     }
     
-    // MARK: - Add / Remove
+    // MARK: - PIX Linking
     
     func add(pix: PIX) {
-        pixList.append(pix)
+        linkedPixs.append(pix)
     }
     
     func remove(pix: PIX) {
-        for (i, iPix) in pixList.enumerated() {
+        for (i, iPix) in linkedPixs.enumerated() {
             if iPix == pix {
-                pixList.remove(at: i)
+                linkedPixs.remove(at: i)
                 break
             }
         }
@@ -158,9 +166,36 @@ public class Pixels {
     
     // MARK: - Setup
     
+    // MARK: Shaders
+    
+    enum ShadersError: Error {
+        case runtimeERROR(String)
+    }
+    
+    func loadMetalShaderLibrary() throws -> MTLLibrary {
+        guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: kMetalLibName, ofType: "metallib") else {
+            throw ShadersError.runtimeERROR("Pixels Shaders: Metal Library not found.")
+        }
+        do {
+            return try metalDevice.makeLibrary(filepath: libraryFile)
+        } catch { throw error }
+    }
+    
     // MARK: Quad
     
-    func makeQuadVertexBuffer() -> MTLBuffer {
+    enum QuadError: Error {
+        case runtimeERROR(String)
+    }
+    
+    struct Vertex {
+        var x,y: Float
+        var s,t: Float
+        var buffer: [Float] {
+            return [x,y,s,t]
+        }
+    }
+    
+    func makeQuadVertexBuffer() throws -> MTLBuffer {
         let a = Vertex(x: -1.0, y: -1.0, s: 0.0, t: 1.0)
         let b = Vertex(x: 1.0, y: -1.0, s: 1.0, t: 1.0)
         let c = Vertex(x: -1.0, y: 1.0, s: 0.0, t: 0.0)
@@ -171,77 +206,82 @@ public class Pixels {
             vertexData += vertex.buffer
         }
         let dataSize = vertexData.count * MemoryLayout.size(ofValue: vertexData[0])
-        return metalDevice!.makeBuffer(bytes: vertexData, length: dataSize, options: [])!
+        guard let buffer = metalDevice.makeBuffer(bytes: vertexData, length: dataSize, options: []) else {
+            throw QuadError.runtimeERROR("Quad Buffer failed to create.")
+        }
+        return buffer
     }
     
-    func loadQuadVertexShader() -> MTLFunction? {
-        guard let vtxShader = metalLibrary!.makeFunction(name: "quadVTX") else {
-            log(.error, .engine, "Quad:", "Function not made.")
-            return nil
+    func loadQuadVertexShader() throws -> MTLFunction {
+        guard let vtxShader = metalLibrary.makeFunction(name: "quadVTX") else {
+            throw QuadError.runtimeERROR("Quad Vertex Shader failed to make.")
         }
         return vtxShader
     }
     
     // MARK: Cache
     
-    func makeTextureCache() -> CVMetalTextureCache? {
+    enum CacheError: Error {
+        case runtimeERROR(String)
+    }
+    
+    func makeTextureCache() throws -> CVMetalTextureCache {
         var textureCache: CVMetalTextureCache?
-        if CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, metalDevice!, nil, &textureCache) != kCVReturnSuccess {
-            log(.error, .engine, "Cache: Creation failed.")
-//            fatalError("Unable to allocate texture cache.") // CHECK
-            return nil
+        if CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, metalDevice, nil, &textureCache) != kCVReturnSuccess {
+            throw CacheError.runtimeERROR("Texture Cache failed to create.")
         } else {
-            return textureCache
+            guard let tc = textureCache else {
+                throw CacheError.runtimeERROR("Texture Cache is nil.")
+            }
+            return tc
         }
     }
     
-    // MARK: Load Shaders
+    // MARK: - Shader
     
-    func loadMetalShaderLibrary() -> MTLLibrary? {
-        guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: kMetalLibName, ofType: "metallib") else {
-            log(.error, .engine, "Loading Metal Shaders Library: Not found.")
-            return nil
-        }
-        do {
-            return try metalDevice!.makeLibrary(filepath: libraryFile)
-        } catch let error {
-            log(.error, .engine, "Loading Metal Shaders Library: Make failed:", e: error)
-            return nil
-        }
+    // MARK: Pipeline
+    
+    enum ShaderPipelineError: Error {
+        case runtimeERROR(String)
     }
     
-    // MARK: Shader Pipeline
-    
-    func makeShaderPipeline(_ fragFuncName: String/*, from source: String*/) -> MTLRenderPipelineState? {
-//        var pixMetalLibrary: MTLLibrary? = nil
-//        do {
-//            pixMetalLibrary = try metalDevice!.makeLibrary(source: source, options: nil)
-//        } catch {
-//            log(.error, .engine, "Pipeline:", "PIX Metal Library corrupt:", error.localizedDescription)
-//            return nil
-//        }
-        guard let fragmentShader = metalLibrary!.makeFunction(name: fragFuncName) else {
-            log(.fatal, .engine, "Make Shader Pipeline: PIX Metal Func: Not found: \"\(fragFuncName)\"")
-            return nil
+    func makeShaderPipeline(_ fragFuncName: String) throws -> MTLRenderPipelineState {
+        guard let fragmentShader = metalLibrary.makeFunction(name: fragFuncName) else {
+            throw ShaderPipelineError.runtimeERROR("Frag Func Name not found: \"\(fragFuncName)\"")
         }
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
-        pipelineStateDescriptor.vertexFunction = quadVertexShader!
+        pipelineStateDescriptor.vertexFunction = quadVertexShader
         pipelineStateDescriptor.fragmentFunction = fragmentShader
         pipelineStateDescriptor.colorAttachments[0].pixelFormat = colorBits.mtl
         pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
         pipelineStateDescriptor.colorAttachments[0].destinationRGBBlendFactor = .blendAlpha
         do {
-            return try metalDevice!.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
-        } catch {
-            log(.error, .engine, "Make Shader Pipeline: Failed:", e: error)
-            return nil
-        }
+            return try metalDevice.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
+        } catch { throw error }
     }
     
-    // MARK: Raw
+    // MARK: Sampler
+    
+    enum ShaderSamplerError: Error {
+        case runtimeERROR(String)
+    }
+    
+    func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode) throws -> MTLSamplerState {
+        let samplerInfo = MTLSamplerDescriptor()
+        samplerInfo.minFilter = interpolate
+        samplerInfo.magFilter = interpolate
+        samplerInfo.sAddressMode = extend
+        samplerInfo.tAddressMode = extend
+        guard let s = metalDevice.makeSamplerState(descriptor: samplerInfo) else {
+            throw ShaderSamplerError.runtimeERROR("Shader Sampler failed to make.")
+        }
+        return s
+    }
+    
+    // MARK: - Raw
     
     func raw8(texture: MTLTexture) -> [UInt8]? {
-        guard colorBits == ._8 else { log(.error, .engine, "Raw 8 - To access this data, change: \"pixels.colorBits = ._8\"."); return nil }
+        guard colorBits == ._8 else { log(.error, .pixels, "Raw 8 - To access this data, change: \"pixels.colorBits = ._8\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -251,8 +291,9 @@ public class Pixels {
         return raw
     }
     
+    // CHECK needs testing
     func raw16(texture: MTLTexture) -> [Float]? {
-        guard colorBits == ._16 else { log(.error, .engine, "Raw 16 - To access this data, change: \"pixels.colorBits = ._16\"."); return nil }
+        guard colorBits == ._16 else { log(.error, .pixels, "Raw 16 - To access this data, change: \"pixels.colorBits = ._16\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -262,8 +303,9 @@ public class Pixels {
         return raw
     }
     
+    // CHECK needs testing
     func raw32(texture: MTLTexture) -> [float4]? {
-        guard colorBits != ._32 else { log(.error, .engine, "Raw 32 - To access this data, change: \"pixels.colorBits = ._32\"."); return nil }
+        guard colorBits != ._32 else { log(.error, .pixels, "Raw 32 - To access this data, change: \"pixels.colorBits = ._32\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
         raw.withUnsafeMutableBytes {
@@ -293,17 +335,6 @@ public class Pixels {
             raw = rawFlatArr
         }
         return raw
-    }
-    
-    // MARK: Sampler
-    
-    func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode) -> MTLSamplerState {
-        let samplerInfo = MTLSamplerDescriptor()
-        samplerInfo.minFilter = interpolate
-        samplerInfo.magFilter = interpolate
-        samplerInfo.sAddressMode = extend
-        samplerInfo.tAddressMode = extend
-        return metalDevice!.makeSamplerState(descriptor: samplerInfo)!
     }
     
 }

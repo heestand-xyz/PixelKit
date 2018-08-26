@@ -90,11 +90,11 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixels.colorBits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-        guard let blurTexture = pixels.metalDevice!.makeTexture(descriptor: descriptor) else {
+        guard let blurTexture = pixels.metalDevice.makeTexture(descriptor: descriptor) else {
             pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
-        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice!, sigma: Float(radius))
+        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(radius))
         gaussianBlurKernel.edgeMode = extend.mps
         gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
         return blurTexture

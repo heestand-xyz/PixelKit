@@ -10,6 +10,9 @@ import CoreGraphics
 
 extension PIX {
     
+    // The PIX Kind is for File IO
+    // PIXs needs to conform to the PIXofaKind protocol
+    
     enum Kind: String, Codable {
         case `nil`
         case camera

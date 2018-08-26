@@ -12,11 +12,12 @@ import MetalPerformanceShaders
 
 public class PIX: Codable {
     
-    let pixels = Pixels.main
+    public var id = UUID()
+    public var name: String?
     
     public weak var delegate: PIXDelegate?
     
-    var id = UUID()
+    let pixels = Pixels.main
     
     var shader: String { return "" }
     var uniforms: [CGFloat] { return [] }
@@ -26,24 +27,11 @@ public class PIX: Codable {
     
     public let view: PIXView
     
-    public var interpolate: InterpolateMode = .linear {
-        didSet {
-            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
-            pixels.log(pix: self, .info, nil, "New Sample Mode: Interpolate: \(interpolate)")
-            setNeedsRender()
-        }
-    }
-
-    public var extend: ExtendMode = .zero {
-        didSet {
-            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
-            pixels.log(pix: self, .info, nil, "New Sample Mode: Extend: \(extend)")
-            setNeedsRender()
-        }
-    }
+    public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
+    public var extend: ExtendMode = .zero { didSet { updateSampler() } }
     
-    var pipeline: MTLRenderPipelineState?
-    var sampler: MTLSamplerState?
+    var pipeline: MTLRenderPipelineState!
+    var sampler: MTLSamplerState!
     var allGood: Bool {
         return pipeline != nil && sampler != nil
     }
@@ -60,21 +48,21 @@ public class PIX: Codable {
     
         view = PIXView()
         
-        if pixels.aLive {
-            guard shader != "" else {
-                pixels.log(pix: self, .fatal, nil, "Shader not defined.")
-                return
-            }
-            pipeline = pixels.makeShaderPipeline(shader)
-            sampler = pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
-            if allGood {
-                pixels.add(pix: self)
-                pixels.log(pix: self, .none, nil, "\(String(describing: self).split(separator: ".").last!) Created and linked with main engine.", clean: true)
-            } else {
-                pixels.log(pix: self, .fatal, nil, "Not allGood...")
-            }
+        guard shader != "" else {
+            pixels.log(pix: self, .fatal, nil, "Shader not defined.")
+            return
         }
+        do {
+            pipeline = try pixels.makeShaderPipeline(shader)
+            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
+        } catch {
+            pixels.log(pix: self, .fatal, nil, "Initialization faled.", e: error)
+        }
+            
+        pixels.add(pix: self)
         
+        pixels.log(pix: self, .none, nil, "Linked with Pixels.", clean: true)
+    
     }
     
     // MARK: JSON
@@ -84,6 +72,18 @@ public class PIX: Codable {
     }
     
     public func encode(to encoder: Encoder) throws {}
+    
+    // MARK: Sampler
+    
+    func updateSampler() {
+        do {
+            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
+            pixels.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
+            setNeedsRender()
+        } catch {
+            pixels.log(pix: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
+        }
+    }
     
     // MARK: - Render
     
@@ -110,10 +110,8 @@ public class PIX: Codable {
                 return
             }
         }
-        if pixels.frameIndex < 10 {
-            pixels.log(pix: self, .info, .render, "Requested.", loop: true)
-        }
         needsRender = true
+        pixels.log(pix: self, .info, .render, "Requested.", loop: true)
         delegate?.pixWillRender(self)
     }
     
@@ -148,7 +146,7 @@ public class PIX: Codable {
                 if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
                     connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
                 } else {
-                    // CHECK disconnect
+                    // CHECK DISCONNECT
                 }
             } else if let pixInMulti = self as? PIXInMulti {
                 connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
@@ -199,7 +197,6 @@ public class PIX: Codable {
             }
         }
         pixInIO.pixInList = []
-        // CHECK Reset Res
 //        view.setResolution(nil)
     }
     
@@ -218,7 +215,7 @@ public class PIX: Codable {
     // MARK: Clean
     
     deinit {
-        // CHECK
+        // CHECK retain count...
         pixels.remove(pix: self)
         // Disconnect...
     }
