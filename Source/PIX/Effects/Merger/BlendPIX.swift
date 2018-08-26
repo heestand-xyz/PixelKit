@@ -17,15 +17,14 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
     public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: Bool = false { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var rotation: CGFloat = 0 { didSet { setNeedsRender() } }
-    public var scale: CGFloat = 1 { didSet { setNeedsRender() } }
-    public var size: CGSize = CGSize(width: 1, height: 1) { didSet { setNeedsRender() } }
-    public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
+    public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var size: CGSize = CGSize(width: 1.0, height: 1.0) { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
-        case blendingMode; case bypassTransform; case position; case rotation; case scale; case size; case fillMode
+        case blendingMode; case bypassTransform; case position; case rotation; case scale; case size
     }
     override var uniforms: [CGFloat] {
-        return [CGFloat(blendingMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height, CGFloat(fillMode.index)]
+        return [CGFloat(blendingMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
     }
     
     // MARK: JSON
@@ -39,7 +38,6 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
         rotation = try container.decode(CGFloat.self, forKey: .rotation)
         scale = try container.decode(CGFloat.self, forKey: .scale)
         size = try container.decode(CGSize.self, forKey: .size)
-        fillMode = try container.decode(FillMode.self, forKey: .fillMode)
         setNeedsRender()
     }
     
@@ -51,7 +49,6 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
         try container.encode(rotation, forKey: .rotation)
         try container.encode(scale, forKey: .scale)
         try container.encode(size, forKey: .size)
-        try container.encode(fillMode, forKey: .fillMode)
     }
     
 }

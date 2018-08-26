@@ -1,5 +1,5 @@
 //
-//  EffectMergerChromaKeyPIX.metal
+//  EffectSingleChromaKeyPIX.metal
 //  PixelsShaders
 //
 //  Created by Hexagons on 2017-12-15.
@@ -27,7 +27,7 @@ struct Uniforms {
     float premultiply;
 };
 
-fragment float4 effectMergerChromaKeyPIX(VertexOut out [[stage_in]],
+fragment float4 effectSingleChromaKeyPIX(VertexOut out [[stage_in]],
                                            texture2d<float>  inTex [[ texture(0) ]],
                                            const device Uniforms& in [[ buffer(0) ]],
                                            sampler s [[ sampler(0) ]]) {

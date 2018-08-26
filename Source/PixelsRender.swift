@@ -202,6 +202,9 @@ extension Pixels {
         if let genPix = pix as? PIXGenerator {
             unifroms.append(genPix.premultiply ? 1 : 0)
         }
+        if let mergerEffectPix = pix as? PIXMergerEffect {
+            unifroms.append(Float(mergerEffectPix.fillMode.index))
+        }
         if pix.shaderNeedsAspect {
             unifroms.append(Float(drawableTexture.width) / Float(drawableTexture.height))
         }

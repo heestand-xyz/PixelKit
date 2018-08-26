@@ -159,19 +159,18 @@ var <b>edgeDesaturation</b>: CGFloat = 0.5
 
 ## PIXMergerEffect</b>: PIXEffect
 var <b>inPixA</b>: (PIX & PIXOut)?<br>
-var <b>inPixB</b>: (PIX & PIXOut)?
+var <b>inPixB</b>: (PIX & PIXOut)?<br>
+var <b>fillMode</b>: FillMode = .aspectFit
 
 ### CrossPIX
-var <b>lerp</b>: CGFloat = 0.5<br>
-var <b>fillMode</b>: FillMode = .aspectFit
+var <b>lerp</b>: CGFloat = 0.5
 ### BlendPIX
 var <b>blendingMode</b>: BlendingMode = .add<br>
 var <b>bypassTransform</b>: Bool = false<br>
 var <b>position</b>: CGPoint = .zero<br>
-var <b>rotation</b>: CGFloat = 0<br>
-var <b>scale</b>: CGFloat = 1<br>
-var <b>size</b>: CGSize = CGSize<br>
-var <b>fillMode</b>: FillMode = .aspectFit
+var <b>rotation</b>: CGFloat = 0.0<br>
+var <b>scale</b>: CGFloat = 1.0<br>
+var <b>size</b>: CGSize
 ### LookupPIX
 var <b>axis</b>: Axis = .x
 ### LumaBlurPIX
