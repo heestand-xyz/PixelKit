@@ -4,12 +4,14 @@
 a Live Graphics Framework for iOS<br>
 powered by Metal
 
-
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient and Noise.
 <br>
 <b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, Lookup, Cross, Blend and Blends.
 
+Under development. More effects coming soon.
+
 More info in the [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md).
+
 
 ## Example 1
 
@@ -83,7 +85,7 @@ Note that exporting resourses like image and video are not yet supported.
 
 --- 
 
-Simulator not supported. Metal for iOS can only run on a physical iOS device.
+Simulator not supported. Metal for iOS can only run on a physical device.
 
 Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
 
