@@ -27,8 +27,8 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
     
     public var axis: Axis = .x { didSet { setNeedsRender() } }
     public var holdEdge: Bool = true { didSet { setNeedsRender() } }
-    enum LookupCodingKeys: String, CodingKey {
-        case axis
+    enum CodingKeys: String, CodingKey {
+        case axis; case holdEdge
     }
     override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
@@ -40,9 +40,18 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
     
     // MARK: JSON
     
-    required convenience init(from decoder: Decoder) throws { self.init() }
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        axis = try container.decode(Axis.self, forKey: .axis)
+        holdEdge = try container.decode(Bool.self, forKey: .holdEdge)
+        setNeedsRender()
+    }
     
-    public override func encode(to encoder: Encoder) throws {}
-    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(axis, forKey: .axis)
+        try container.encode(holdEdge, forKey: .holdEdge)
+    }
     
 }
