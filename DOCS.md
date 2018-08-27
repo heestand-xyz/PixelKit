@@ -148,9 +148,12 @@ var <b>keyColor</b>: UIColor = .green<br>
 var <b>range</b>: CGFloat = 0.1<br>
 var <b>softness</b>: CGFloat = 0.1<br>
 var <b>edgeDesaturation</b>: CGFloat = 0.5
+### CornerPinPIX
+var <b>corners</b>: Corners<br>
+var <b>perspective</b>: Bool = false<br>
+var <b>divisions</b>: Int = 16
 ### CropPIX <i>(coming soon)</i>
 ### TranformPIX <i>(coming soon)</i>
-### CornerPinPIX <i>(coming soon)</i>
 ### ColorizePIX <i>(coming soon)</i>
 ### SlopePIX <i>(coming soon)</i>
 ### SharpenPIX <i>(coming soon)</i>

@@ -66,7 +66,7 @@ public class Pixels {
     var commandQueue: MTLCommandQueue!
     var textureCache: CVMetalTextureCache!
     var metalLibrary: MTLLibrary!
-    var quadVertexBuffer: MTLBuffer!
+    var quadVertecis: Vertecies!
     var quadVertexShader: MTLFunction!
     
     // MARK: - Life Cycle
@@ -88,7 +88,7 @@ public class Pixels {
         do {
             textureCache = try makeTextureCache()
             metalLibrary = try loadMetalShaderLibrary()
-            quadVertexBuffer = try makeQuadVertexBuffer()
+            quadVertecis = try makeQuadVertecis()
             quadVertexShader = try loadQuadVertexShader()
         } catch {
             log(.fatal, .pixels, "Initialization failed.", e: error)
@@ -193,6 +193,16 @@ public class Pixels {
         var buffer: [Float] {
             return [x,y,s,t]
         }
+    }
+    
+    struct Vertecies {
+        let buffer: MTLBuffer
+        let vertexCount: Int
+        let instanceCount: Int
+    }
+    
+    func makeQuadVertecis() throws -> Vertecies {
+        return Vertecies(buffer: try makeQuadVertexBuffer(), vertexCount: 6, instanceCount: 2)
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {

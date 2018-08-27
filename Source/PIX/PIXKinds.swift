@@ -40,6 +40,7 @@ extension PIX {
         case chromaKey
         case blend
         case video
+        case cornerPin
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -68,6 +69,7 @@ extension PIX {
             case .chromaKey: return ChromaKeyPIX.self
             case .blend: return BlendPIX.self
             case .video: return VideoPIX.self
+            case .cornerPin: return CornerPinPIX.self
             }
         }
     }

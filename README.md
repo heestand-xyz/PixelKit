@@ -6,7 +6,7 @@ powered by Metal
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient and Noise.
 <br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, Lookup, Cross, Blend and Blends.
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
 
 Under development. More effects coming soon.
 
@@ -51,10 +51,16 @@ let supermanKeyed = ChromaKeyPIX()
 supermanKeyed.inPix = supermanVideo
 supermanKeyed.keyColor = .green
 
+let supermanPinned = CornerPinPIX()
+supermanPinned.inPix = supermanKeyed
+supermanPinned.perspective = true
+supermanPinned.corners.bottomLeft.x = 0.125
+supermanPinned.corners.bottomRight.x = 0.875
+
 let blend = BlendPIX()
-blend.blendingMode = .over
 blend.inPixA = cityImage
-blend.inPixB = supermanKeyed
+blend.inPixB = supermanPinned
+blend.blendingMode = .over
 
 let finalPix: PIX = blend
 finalPix.view.frame = view.bounds

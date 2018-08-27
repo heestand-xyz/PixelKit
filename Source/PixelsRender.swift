@@ -65,6 +65,7 @@ extension Pixels {
         case drawable(String)
         case commandEncoder
         case uniformsBuffer
+        case vertecies
     }
     
     func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
@@ -228,16 +229,26 @@ extension Pixels {
             commandEncoder.setFragmentTexture(secondInputTexture!, index: 1)
         }
         
-        // MARK: Encode
-        
         commandEncoder.setFragmentSamplerState(pix.sampler, index: 0)
         
-        commandEncoder.setVertexBuffer(quadVertexBuffer, offset: 0, index: 0)
-        commandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 6, instanceCount: 2)
+        // MARK: Vertecies
         
-        commandEncoder.endEncoding()
+        let vertecies: Vertecies
+        if pix.customGeometryActive {
+            guard let customVertecies = pix.customGeometryDelegate?.customVertecies() else {
+                throw RenderError.vertecies
+            }
+            vertecies = customVertecies
+        } else {
+            vertecies = quadVertecis
+        }
+        
+        commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
+        commandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
         
         // MARK: Render
+        
+        commandEncoder.endEncoding()
         
         pix.rendering = true
         

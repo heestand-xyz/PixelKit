@@ -38,6 +38,8 @@ public class PIX: Codable {
     
     var customRenderActive: Bool = false
     var customRenderDelegate: CustomRenderDelegate?
+    var customGeometryActive: Bool = false
+    var customGeometryDelegate: CustomGeometryDelegate?
     
     var rendering = false
     var needsRender = false

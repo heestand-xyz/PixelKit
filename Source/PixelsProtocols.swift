@@ -15,3 +15,7 @@ public protocol PixelsDelegate: class {
 protocol CustomRenderDelegate {
     func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture?
 }
+
+protocol CustomGeometryDelegate {
+    func customVertecies() -> Pixels.Vertecies?
+}
