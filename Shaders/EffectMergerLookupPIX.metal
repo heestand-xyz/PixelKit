@@ -17,6 +17,8 @@ struct VertexOut{
 
 struct Uniforms{
     float axis;
+    float holdEdge;
+    float holdEdgeFraction;
 };
 
 fragment float4 effectMergerLookupPIX(VertexOut out [[stage_in]],
@@ -32,6 +34,13 @@ fragment float4 effectMergerLookupPIX(VertexOut out [[stage_in]],
     float4 ca = inTexA.sample(s, uv);
     float a = ca.a;
     float cac = (ca.r + ca.g + ca.b) / 3;
+    if (in.holdEdge) {
+        if (cac < in.holdEdgeFraction) {
+            cac = in.holdEdgeFraction;
+        } else if (cac > 1 - in.holdEdgeFraction) {
+            cac = 1 - in.holdEdgeFraction;
+        }
+    }
     
     float2 cbuv = 0.5;
     if (in.axis < 0.5) {

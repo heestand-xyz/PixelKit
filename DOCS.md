@@ -173,7 +173,8 @@ var <b>rotation</b>: CGFloat = 0.0<br>
 var <b>scale</b>: CGFloat = 1.0<br>
 var <b>size</b>: CGSize
 ### LookupPIX
-var <b>axis</b>: Axis = .x
+var <b>axis</b>: Axis = .x<br>
+var <b>holdEdge</b>: Bool = true
 ### LumaBlurPIX
 var <b>style</b>: Style = .box<br>
 var <b>radius</b>: CGFloat = 100<br>
