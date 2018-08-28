@@ -32,7 +32,7 @@ public class ImagePIX: PIXResource, PIXofaKind {
             pixels.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        if pixels.frameIndex == 0 {
+        if pixels.frame == 0 {
             pixels.log(pix: self, .debug, .resource, "One frame delay.")
             pixels.delay(frames: 1, done: {
                 self.setNeedsBuffer()

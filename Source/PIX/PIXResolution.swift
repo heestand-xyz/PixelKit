@@ -40,7 +40,7 @@ extension PIX {
     
     func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
-            if pixels.frameIndex == 0 {
+            if pixels.frame == 0 {
                 pixels.log(pix: self, .info, .res, "Waiting for potential layout, delayed one frame.")
                 pixels.delay(frames: 1, done: {
                     self.applyRes(applied: applied)

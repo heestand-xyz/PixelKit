@@ -6,7 +6,8 @@ static let <b>main</b>: Pixels<br>
 weak var <b>delegate</b>: PixelsDelegate?<br>
 var <b>fps</b>: Int { get }<br>
 var <b>fpsMax</b>: Int { get }<br>
-var <b>frameIndex</b>: Int { get }<br>
+var <b>frame</b>: Int { get }<br>
+var <b>seconds</b>: CGFloat { get }<br>
 var <b>logLevel</b>: LogLevel = .debug<br>
 var <b>logLoopLimitActive</b> = true<br>
 var <b>logLoopLimitFrameCount</b> = 10<br>

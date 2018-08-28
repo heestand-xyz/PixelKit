@@ -53,8 +53,12 @@ public class Pixels {
     var displayLink: CADisplayLink?
     var frameCallbacks: [(id: UUID, callback: () -> ())] = []
     
-    public var frameIndex = 0
+    public var frame = 0
+    let startDate = Date()
     var frameDate = Date()
+    public var seconds: CGFloat {
+        return CGFloat(-startDate.timeIntervalSinceNow)
+    }
 
     var _fps: Int = -1
     public var fps: Int { return min(_fps, fpsMax) }
@@ -110,7 +114,7 @@ public class Pixels {
             frameCallback.callback()
         }
         calcFPS()
-        frameIndex += 1
+        frame += 1
     }
     
     func calcFPS() {
@@ -138,9 +142,9 @@ public class Pixels {
     }
     
     func delay(frames: Int, done: @escaping () -> ()) {
-        let startFrameIndex = frameIndex
+        let startFrameIndex = frame
         listenToFrames(callback: {
-            if self.frameIndex >= startFrameIndex + frames {
+            if self.frame >= startFrameIndex + frames {
                 done()
                 return true
             } else {

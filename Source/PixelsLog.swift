@@ -66,7 +66,7 @@ extension Pixels {
             return
         }
         
-        if loop && logLoopLimitActive && frameIndex > logLoopLimitFrameCount {
+        if loop && logLoopLimitActive && frame > logLoopLimitFrameCount {
             if !logLoopLimitIndicated {
                 print("Pixels Running...")
                 logLoopLimitIndicated = true
@@ -86,7 +86,7 @@ extension Pixels {
         logList.append("Pixels")
         
         #if DEBUG
-        logList.append("#\(frameIndex < 10 ? "0" : "")\(frameIndex)")
+        logList.append("#\(frame < 10 ? "0" : "")\(frame)")
         #else
         if level == .debug { return }
         #endif
