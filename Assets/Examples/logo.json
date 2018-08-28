@@ -1,0 +1,448 @@
+{
+  "pixs" : [
+    {
+      "id" : "046A9903-E3AE-4E38-94DE-8CEEA58521D8",
+      "kind" : "polygon",
+      "pix" : {
+        "radius" : 0.25,
+        "color" : {
+          "r" : 1,
+          "b" : 1,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "bgColor" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "vertexCount" : 6,
+        "position" : [
+          0,
+          0
+        ],
+        "rotation" : 0
+      },
+      "name" : "Hexagon",
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear",
+        "generator" : {
+          "res" : "2048x1776",
+          "premultiply" : true
+        }
+      }
+    },
+    {
+      "inPixId" : "046A9903-E3AE-4E38-94DE-8CEEA58521D8",
+      "id" : "025C52D0-F62C-44DC-B7ED-65F5069FA4E8",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 1.5707963267948966,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0.19245008972987535,
+          0
+        ],
+        "scale" : 0.38490017945975069
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "id" : "F54B529C-5A53-4D7B-A7E9-493402D8E996",
+      "kind" : "circle",
+      "pix" : {
+        "color" : {
+          "r" : 1,
+          "b" : 1,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "bgColor" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "edgeRadius" : 0,
+        "edgeColor" : {
+          "r" : 0.5,
+          "b" : 0.5,
+          "g" : 0.5,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "position" : [
+          0,
+          0
+        ],
+        "radius" : 0.16666666666666674
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear",
+
+        "generator" : {
+          "res" : "2048x1776",
+          "premultiply" : true
+        }
+      }
+    },
+    {
+      "inPixId" : "F54B529C-5A53-4D7B-A7E9-493402D8E996",
+      "id" : "926F4C7D-12F6-472F-AF4D-244B7A28D809",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 0,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          0.16666666666666674
+        ],
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "F54B529C-5A53-4D7B-A7E9-493402D8E996",
+      "id" : "E6FAFEC1-61CF-4A49-B6FE-3549464C6CA3",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 0,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          -0.16666666666666674
+        ],
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "id" : "E09316A3-EC55-4FEA-A792-35BA02787E93",
+      "kind" : "rectangle",
+      "pix" : {
+        "size" : [
+          0.14433756729740652,
+          0.16666666666666674
+        ],
+        "bgColor" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "position" : [
+          0.072168783648703258,
+          0
+        ],
+        "color" : {
+          "r" : 1,
+          "b" : 1,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 1
+        }
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear",
+        "generator" : {
+          "res" : "2048x1776",
+          "premultiply" : true
+        }
+      }
+    },
+    {
+      "inPixsIds" : [
+        "E09316A3-EC55-4FEA-A792-35BA02787E93",
+        "926F4C7D-12F6-472F-AF4D-244B7A28D809",
+        "E6FAFEC1-61CF-4A49-B6FE-3549464C6CA3"
+      ],
+      "id" : "5158357E-3524-4A2B-A060-104B407F4842",
+      "kind" : "blends",
+      "pix" : {
+        "blendingMode" : "subtract"
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "id" : "FD4A4558-A576-48E2-833D-350200916E7B",
+      "kind" : "blend",
+      "inPixAId" : "025C52D0-F62C-44DC-B7ED-65F5069FA4E8",
+      "inPixBId" : "5158357E-3524-4A2B-A060-104B407F4842",
+      "pix" : {
+        "scale" : 1,
+        "blendingMode" : "add",
+        "bypassTransform" : false,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          0
+        ],
+        "rotation" : 0
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "FD4A4558-A576-48E2-833D-350200916E7B",
+      "id" : "747AE147-60B5-4481-B2C9-A9A6E68F6CD5",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 4.1887902047863905,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          0
+        ],
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "747AE147-60B5-4481-B2C9-A9A6E68F6CD5",
+      "id" : "8987D054-264D-4462-AC47-D4EFB2E29991",
+      "kind" : "channelMix",
+      "pix" : {
+        "red" : {
+          "r" : 1,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "alpha" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "blue" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "green" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        }
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "FD4A4558-A576-48E2-833D-350200916E7B",
+      "id" : "44F10F9B-8CAE-430C-982F-3CCC62D6ED95",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 3.1415926535897931,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          0
+        ],
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "44F10F9B-8CAE-430C-982F-3CCC62D6ED95",
+      "id" : "56FB6B2E-7769-4A21-96A4-74B19479CCC4",
+      "kind" : "channelMix",
+      "pix" : {
+        "red" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "alpha" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "blue" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "green" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 1,
+          "space" : "sRGB",
+          "a" : 0
+        }
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "FD4A4558-A576-48E2-833D-350200916E7B",
+      "id" : "6D036ADE-7F0A-4844-A68A-F3BB7ED936F9",
+      "kind" : "transform",
+      "pix" : {
+        "rotation" : 2.0943951023931957,
+        "size" : [
+          1,
+          1
+        ],
+        "position" : [
+          0,
+          0
+        ],
+        "scale" : 1
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "6D036ADE-7F0A-4844-A68A-F3BB7ED936F9",
+      "id" : "F751530E-3626-47A7-83BA-28406F2C0CD9",
+      "kind" : "channelMix",
+      "pix" : {
+        "red" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "alpha" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 1
+        },
+        "blue" : {
+          "r" : 0,
+          "b" : 1,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        },
+        "green" : {
+          "r" : 0,
+          "b" : 0,
+          "g" : 0,
+          "space" : "sRGB",
+          "a" : 0
+        }
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixsIds" : [
+        "FD4A4558-A576-48E2-833D-350200916E7B",
+        "8987D054-264D-4462-AC47-D4EFB2E29991",
+        "56FB6B2E-7769-4A21-96A4-74B19479CCC4",
+        "F751530E-3626-47A7-83BA-28406F2C0CD9"
+      ],
+      "id" : "DC83A1A3-25FC-4294-90CE-8E7D6E223992",
+      "kind" : "blends",
+      "pix" : {
+        "blendingMode" : "add"
+      },
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    },
+    {
+      "inPixId" : "DC83A1A3-25FC-4294-90CE-8E7D6E223992",
+      "id" : "CC80219E-2047-46D3-B529-98769E39E784",
+      "kind" : "nil",
+      "pix" : {
+
+      },
+      "name" : "Final",
+      "settings" : {
+        "extend" : "zero",
+        "interpolate" : "linear"
+      }
+    }
+  ],
+  "info" : {
+    "name" : "Pixels",
+    "id" : "9EE3A654-F304-46DF-BE67-20FBA453AB66"
+  },
+  "settings" : {
+    "color" : {
+      "bits" : 8,
+      "space" : "sRGB"
+    },
+    "generatorsGlobalResMultiplier" : 1
+  },
+  "pixels" : {
+    "id" : "se.hexagons.pixels",
+    "version" : "0.1.3",
+    "build" : 1
+  }
+}
