@@ -41,6 +41,7 @@ extension PIX {
         case blend
         case video
         case cornerPin
+        case text
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -70,6 +71,7 @@ extension PIX {
             case .blend: return BlendPIX.self
             case .video: return VideoPIX.self
             case .cornerPin: return CornerPinPIX.self
+            case .text: return TextPIX.self
             }
         }
     }

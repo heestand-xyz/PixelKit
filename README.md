@@ -4,7 +4,7 @@
 a Live Graphics Framework for iOS<br>
 powered by Metal
 
-<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient and Noise.
+<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.
 <br>
 <b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
 

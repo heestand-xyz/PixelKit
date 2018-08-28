@@ -96,6 +96,16 @@ var <b>zoom</b>: CGFloat = 1.0<br>
 var <b>colored</b>: Bool = false<br>
 var <b>random</b>: Bool = false
 
+## PIXSprite: PIXContent
+var <b>res</b>: Res<br>
+var <b>bgColor</b>: UIColor
+
+### TextPIX
+var <b>text</b>: String = "Pixels"<br>
+var <b>textColor</b>: UIColor = .white<br>
+var <b>font</b>: UIFont = UIFont.systemFont(ofSize: 100)<br>
+var <b>position</b>: CGPoint = .zero
+
 ## PIXEffect</b>: PIX, PIXIn, PIXOut
 
 ## PIXSingleEffect</b>: PIXEffect
