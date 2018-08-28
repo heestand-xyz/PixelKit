@@ -57,6 +57,7 @@
 		74A6AF10211F007100D39FF9 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6AF0F211F007100D39FF9 /* Enum.swift */; };
 		74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AE242521284F0900E80B96 /* PolygonPIX.swift */; };
 		74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
+		74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */; };
 		74D90B19213317250028A69E /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B17213317250028A69E /* checker.png */; };
 		74D90B1A213317250028A69E /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
 		74D90B1D21331CF60028A69E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1B21331CF60028A69E /* README.md */; };
@@ -123,6 +124,7 @@
 		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/Generator/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
 		74BC39D721011E3A004E9AA0 /* Pixels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
 		74D90B17213317250028A69E /* checker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checker.png; sourceTree = "<group>"; };
 		74D90B18213317250028A69E /* CheckerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckerView.swift; sourceTree = "<group>"; };
 		74D90B1B21331CF60028A69E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				74879D632118E8C200BF17DE /* EdgePIX.swift */,
 				74179CA821271046007F9579 /* ThresholdPIX.swift */,
 				7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */,
+				74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */,
 				7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */,
 				74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */,
 				74032AF8212C38DB00E77766 /* FeedbackPIX.swift */,
@@ -440,6 +443,7 @@
 			files = (
 				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
 				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
+				74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */,
 				745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				74032AFC212C478000E77766 /* CrossPIX.swift in Sources */,

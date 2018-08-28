@@ -139,6 +139,11 @@ var <b>threshold</b>: CGFloat = 0.5<br>
 var <b>smoothness</b>: CGFloat = 0
 ### QuantizePIX
 var <b>fraction</b>: CGFloat = 0.125
+### TranformPIX
+var <b>position</b>: CGPoint = .zero<br>
+var <b>rotation</b>: CGFloat = 0.0<br>
+var <b>scale</b>: CGFloat = 1.0<br>
+var <b>size</b>: CGSize = CGSize(width: 1.0, height: 1.0)
 ### KaleidoscopePIX
 var <b>divisions</b>: Int = 12<br>
 var <b>mirror</b>: Bool = true<br>
@@ -164,7 +169,6 @@ var <b>corners</b>: Corners<br>
 var <b>perspective</b>: Bool = false<br>
 var <b>divisions</b>: Int = 16
 ### CropPIX <i>(coming soon)</i>
-### TranformPIX <i>(coming soon)</i>
 ### ColorizePIX <i>(coming soon)</i>
 ### SlopePIX <i>(coming soon)</i>
 ### SharpenPIX <i>(coming soon)</i>

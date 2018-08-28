@@ -39,6 +39,7 @@
 		7424A1B1212F5A5600401654 /* EffectMergerBlendPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B0212F5A5600401654 /* EffectMergerBlendPIX.metal */; };
 		748859DF212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 748859DE212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal */; };
 		749F5B8D213576EA00511EA4 /* NilFlipPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 749F5B8C213576EA00511EA4 /* NilFlipPIX.metal */; };
+		74CE2FCD21358AD600B2BD2C /* EffectSingleTransformPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74CE2FCC21358AD600B2BD2C /* EffectSingleTransformPIX.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		7473A66A210F4FD0003CF329 /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		748859DE212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentGeneratorRectanglePIX.metal; sourceTree = "<group>"; };
 		749F5B8C213576EA00511EA4 /* NilFlipPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NilFlipPIX.metal; sourceTree = "<group>"; };
+		74CE2FCC21358AD600B2BD2C /* EffectSingleTransformPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleTransformPIX.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -94,6 +96,7 @@
 				740EE36D212DD5030065F49B /* EffectMergerLookupPIX.metal */,
 				740EE361212DD5030065F49B /* EffectMergerLumaBlurPIX.metal */,
 				740EE364212DD5030065F49B /* EffectMultiBlendsPIX.metal */,
+				74CE2FCC21358AD600B2BD2C /* EffectSingleTransformPIX.metal */,
 				740EE36B212DD5030065F49B /* EffectSingleBlurPIX.metal */,
 				7424A1A2212F3B7E00401654 /* EffectSingleChannelMixPIX.metal */,
 				7424A1A6212F426C00401654 /* EffectSingleChromaKeyPIX.metal */,
@@ -210,6 +213,7 @@
 				7424A1A9212F42A500401654 /* hsv.metal in Sources */,
 				740EE379212DD5030065F49B /* EffectMergerLumaBlurPIX.metal in Sources */,
 				740EE38B212DD5030065F49B /* EffectSingleResPIX.metal in Sources */,
+				74CE2FCD21358AD600B2BD2C /* EffectSingleTransformPIX.metal in Sources */,
 				740EE37B212DD5030065F49B /* EffectSingleThresholdPIX.metal in Sources */,
 				740EE37C212DD5030065F49B /* EffectMultiBlendsPIX.metal in Sources */,
 				740EE37F212DD5030065F49B /* QuadVTX.metal in Sources */,
