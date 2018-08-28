@@ -21,7 +21,8 @@ public class PIXMergerEffect: PIXEffect, PIXInMerger {
     }
     
     required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+        super.init()
+//        fatalError("init(from:) has not been implemented")
     }
     
 }

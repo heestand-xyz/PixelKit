@@ -12,4 +12,13 @@ public class PIXMultiEffect: PIXEffect, PIXInMulti {
     
     public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     
+    public override init() {
+        super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        super.init()
+//        fatalError("init(from:) has not been implemented")
+    }
+    
 }

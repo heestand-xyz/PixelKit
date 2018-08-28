@@ -27,8 +27,9 @@ public class PIXGenerator: PIXContent {
         applyRes { self.setNeedsRender() }
     }
     
-    required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+    required convenience init(from decoder: Decoder) throws {
+        self.init(res: ._128) // CHECK
+//        fatalError("init(from:) has not been implemented")
     }
     
 }
