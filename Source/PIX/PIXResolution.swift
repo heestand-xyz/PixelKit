@@ -21,6 +21,8 @@ extension PIX {
                 return bufferRes
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.res
+            } else if let pixSprite = pixContent as? PIXSprite {
+                return .size(pixSprite.scene.size)
             } else { return nil }
         } else if let resPix = self as? ResPIX {
             let resRes: Res

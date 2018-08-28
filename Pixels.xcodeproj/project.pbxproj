@@ -63,6 +63,8 @@
 		74D90B1E21331CF60028A69E /* DOCS.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1C21331CF60028A69E /* DOCS.md */; };
 		74DA3D2321026A5900430261 /* Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* Pixels.swift */; };
 		74DB402E2125BD9800FA6034 /* PixelsLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB402D2125BD9800FA6034 /* PixelsLog.swift */; };
+		74E642512135396600D7B57F /* PIXSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E642502135396600D7B57F /* PIXSprite.swift */; };
+		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
 /* End PBXBuildFile section */
@@ -127,6 +129,8 @@
 		74D90B1C21331CF60028A69E /* DOCS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DOCS.md; sourceTree = "<group>"; };
 		74DA3D2221026A5900430261 /* Pixels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixels.swift; sourceTree = "<group>"; };
 		74DB402D2125BD9800FA6034 /* PixelsLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsLog.swift; sourceTree = "<group>"; };
+		74E642502135396600D7B57F /* PIXSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSprite.swift; sourceTree = "<group>"; };
+		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* PixelsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +186,7 @@
 				7452F4C0210A321F001AA523 /* PIXContent.swift */,
 				749DC6C52124E09200AE5F6A /* Resource */,
 				749DC6C72124E09B00AE5F6A /* Generator */,
+				74E6424F2135394800D7B57F /* Sprite */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -335,6 +340,15 @@
 			path = Checker;
 			sourceTree = "<group>";
 		};
+		74E6424F2135394800D7B57F /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				74E642502135396600D7B57F /* PIXSprite.swift */,
+				74E6425221353C2D00D7B57F /* TextPIX.swift */,
+			);
+			path = Sprite;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -430,6 +444,7 @@
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				74032AFC212C478000E77766 /* CrossPIX.swift in Sources */,
 				745A8F97212DC9DD006DA59D /* PixelsFileIO.swift in Sources */,
+				74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
@@ -448,6 +463,7 @@
 				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
 				7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */,
 				7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */,
+				74E642512135396600D7B57F /* PIXSprite.swift in Sources */,
 				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,
 				74076D05211A27D2000E56E0 /* PIXRes.swift in Sources */,
 				749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */,

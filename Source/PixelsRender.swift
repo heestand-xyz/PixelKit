@@ -97,6 +97,15 @@ extension Pixels {
                 inputTexture = try makeTexture(from: pixelBuffer)
             } else if pixContent is PIXGenerator {
                 generator = true
+            } else if let pixSprite = pixContent as? PIXSprite {
+                guard let spriteTexture = pixSprite.sceneView.texture(from: pixSprite.scene) else {
+                    throw RenderError.texture("Sprite Texture fail.")
+                }
+                let spriteImage = UIImage(cgImage: spriteTexture.cgImage())
+                guard let spriteBuffer = buffer(from: spriteImage) else {
+                    throw RenderError.texture("Sprite Buffer fail.")
+                }
+                inputTexture = try makeTexture(from: spriteBuffer)
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
             if let pixInMulti = pixIn as? PIXInMulti {
