@@ -223,26 +223,26 @@ public extension PIX {
         }
         
         public static func +(lhs: Res, rhs: Res) -> Res {
-            return .custom(w: lhs.w + rhs.w, h: lhs.h + rhs.h)
+            return Res(Raw(w: lhs.w + rhs.w, h: lhs.h + rhs.h))
         }
         public static func -(lhs: Res, rhs: Res) -> Res {
-            return .custom(w: lhs.w - rhs.w, h: lhs.h - rhs.h)
+            return Res(Raw(w: lhs.w - rhs.w, h: lhs.h - rhs.h))
         }
         public static func *(lhs: Res, rhs: Res) -> Res {
-            return .custom(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height))
+            return Res(Raw(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height)))
         }
         
         public static func +(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: lhs.w + Int(rhs), h: lhs.h + Int(rhs))
+            return Res(Raw(w: lhs.w + Int(rhs), h: lhs.h + Int(rhs)))
         }
         public static func -(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs))
+            return Res(Raw(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs)))
         }
         public static func *(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: Int(lhs.width * rhs), h: Int(lhs.height * rhs))
+            return Res(Raw(w: Int(lhs.width * rhs), h: Int(lhs.height * rhs)))
         }
         public static func /(lhs: Res, rhs: CGFloat) -> Res {
-            return .custom(w: Int(lhs.width / rhs), h: Int(lhs.height / rhs))
+            return Res(Raw(w: Int(lhs.width / rhs), h: Int(lhs.height / rhs)))
         }
         public static func +(lhs: CGFloat, rhs: Res) -> Res {
             return rhs + lhs
