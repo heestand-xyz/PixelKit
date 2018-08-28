@@ -6,14 +6,12 @@ powered by Metal
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.
 <br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
 
-Under development. More effects coming soon.
-
-More info in the [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md).
+Under development. More effects coming soon. Properties in the [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md).
 
 
-## Example 1
+## Example: Camera Effects
 
 `import Pixels`
 
@@ -36,7 +34,7 @@ view.addSubview(finalPix.view)
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
-## Example 2
+## Example: Green Screen
 
 `import Pixels`
 
@@ -91,8 +89,19 @@ Note that exporting resourses like image and video are not yet supported.
 
 --- 
 
-Simulator not supported. Metal for iOS can only run on a physical device.
+Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
 
-Try out the effects in [Pixel Nodes](http://pixelnodes.net/), a live graphics node editor for iPad, from which the core of Pixels was created.
+---
 
-by Anton Heestand, [Hexagons](http://hexagons.se/).
+## Apps
+
+<img src="http://pixelnodes.net/assets/pixelnodes-logo.png" width="64"/>
+
+### [Pixel Nodes](http://pixelnodes.net/)
+
+a Live Graphics Node Editor for iPad<br>
+powered by Pixels<br>
+
+---
+
+by Anton Heestand, [Hexagons](http://hexagons.se/)
