@@ -8,8 +8,18 @@ powered by Metal
 <br>
 <b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
 
-Under development. More effects coming soon. Properties in the [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md).
+Under development. More effects and pod coming soon.
 
+## Tutorial
+
+[High Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov) (1,5 GB).
+[Mid Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_compressed.mov) (0,5 GB).
+[Low Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov) (200 MB).<br>
+Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
+
+## [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md)
+
+Classes, Delegates and properties.
 
 ## Example: Camera Effects
 
