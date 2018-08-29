@@ -1,4 +1,4 @@
-# Docs
+# Docs for [Pixels](https://github.com/anton-hexagons/Pixels)
 
 
 ## Pixels
