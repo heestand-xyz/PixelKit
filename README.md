@@ -17,9 +17,12 @@ Under development. More effects and pod coming soon.
 [Low Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov) (200 MB).<br>
 Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
 
-## [Docs](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md)
-
-Classes, Delegates and properties.
+## Docs
+Classes, Delegates and properties of:<br>
+[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
+[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
+[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
+[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
 ## Example: Camera Effects
 
