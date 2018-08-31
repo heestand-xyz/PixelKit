@@ -30,6 +30,7 @@ extension PIX {
         case multiply
         case difference
         case subtract
+        case subtractColor
         case maximum
         case minimum
         var index: Int {
@@ -40,8 +41,9 @@ extension PIX {
             case .multiply: return 3
             case .difference: return 4
             case .subtract: return 5
-            case .maximum: return 6
-            case .minimum: return 7
+            case .subtractColor: return 6
+            case .maximum: return 7
+            case .minimum: return 8
             }
         }
     }

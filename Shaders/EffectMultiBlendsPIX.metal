@@ -86,12 +86,20 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 if (i == 0) {
                     c = ci;
                 } else {
+                    c -= ci;
+                }
+                break;
+            case 6: // Sub Color
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
                     float3 c_rgb = float3(c);
                     float3 ci_rgb = float3(ci);
                     c = float4(c_rgb - ci_rgb, max(c.a, ci.a));
                 }
                 break;
-            case 6: // Max
+            case 7: // Max
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -99,7 +107,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = max(c, ci);
                 }
                 break;
-            case 7: // Min
+            case 8: // Min
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;

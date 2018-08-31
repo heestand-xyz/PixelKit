@@ -112,12 +112,15 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
             c = float4(abs(rgb_a - rgb_b), alpha);
             break;
         case 5: // Sub
+            c = ca - cb;
+            break;
+        case 6: // Sub Color
             c = float4(rgb_a - rgb_b, alpha);
             break;
-        case 6: // Max
+        case 7: // Max
             c = max(ca, cb);
             break;
-        case 7: // Min
+        case 8: // Min
             c = min(ca, cb);
             break;
     }
