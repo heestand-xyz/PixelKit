@@ -94,14 +94,73 @@ public extension PIX {
             return PIX.Color(UIColor(white: lum, alpha: a))
         }
         
-        public init(_ ui: UIColor, space: Space = Pixels.main.colorSpace) {
+        // MARK: - RGB
+        
+        public init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1, space: Space = Pixels.main.colorSpace) {
             self.space = space
+            self.r = r
+            self.g = g
+            self.b = b
+            self.a = a
+        }
+        
+        public init(r255: Int, g255: Int, b255: Int, a255: Int = 255, space: Space = Pixels.main.colorSpace) {
+            self.r = CGFloat(r255) / 255
+            self.g = CGFloat(g255) / 255
+            self.b = CGFloat(b255) / 255
+            self.a = CGFloat(a255) / 255
+            self.space = space
+        }
+        
+        // MARK: - UI
+        
+        public init(_ ui: UIColor, space: Space = Pixels.main.colorSpace) {
             let ci = CIColor(color: ui)
             r = ci.red
             g = ci.green
             b = ci.blue
             a = ci.alpha
+            self.space = space
         }
+        
+        // MARK: - Hex
+        
+        public var hex: String {
+            let hexInt: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+            return String(format:"#%06x", hexInt)
+        }
+        
+        public init(hex: String, a: CGFloat = 1, space: Space = Pixels.main.colorSpace) {
+            
+            var hex = hex
+            if hex[0..<1] == "#" {
+                if hex.count == 4 {
+                    hex = hex[1..<4]
+                } else {
+                    hex = hex[1..<7]
+                }
+            }
+            if hex.count == 3 {
+                let r = hex[0..<1]
+                let g = hex[1..<2]
+                let b = hex[2..<3]
+                hex = r + r + g + g + b + b
+            }
+            
+            var hexInt: UInt32 = 0
+            let scanner: Scanner = Scanner(string: hex)
+            scanner.scanHexInt32(&hexInt)
+            
+            self.r = CGFloat((hexInt & 0xff0000) >> 16) / 255.0
+            self.g = CGFloat((hexInt & 0xff00) >> 8) / 255.0
+            self.b = CGFloat((hexInt & 0xff) >> 0) / 255.0
+            self.a = a
+            
+            self.space = space
+            
+        }
+        
+        // MARK: - Pixel
         
         init(_ pixel: [CGFloat], space: Space = Pixels.main.colorSpace) {
             self.space = space
@@ -178,3 +237,18 @@ public extension PIX {
     
 }
 
+extension String {
+    
+    subscript (bounds: CountableClosedRange<Int>) -> String {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return String(self[start...end])
+    }
+    
+    subscript (bounds: CountableRange<Int>) -> String {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return String(self[start..<end])
+    }
+    
+}
