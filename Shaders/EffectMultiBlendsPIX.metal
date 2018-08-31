@@ -60,9 +60,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 if (i == 0) {
                     c = ci;
                 } else {
-                    float3 c_rgb = float3(c);
-                    float3 ci_rgb = float3(ci);
-                    c = float4(c_rgb + ci_rgb, max(c.a, ci.a));
+                    c += ci;
                 }
                 break;
             case 3: // Mult
@@ -70,9 +68,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 if (i == 0) {
                     c = ci;
                 } else {
-                    float3 c_rgb = float3(c);
-                    float3 ci_rgb = float3(ci);
-                    c = float4(c_rgb * ci_rgb, max(c.a, ci.a));
+                    c *= ci;
                 }
                 break;
             case 4: // Diff
@@ -100,9 +96,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 if (i == 0) {
                     c = ci;
                 } else {
-                    float3 c_rgb = float3(c);
-                    float3 ci_rgb = float3(ci);
-                    c = float4(max(c_rgb, ci_rgb), max(c.a, ci.a));
+                    c = max(c, ci);
                 }
                 break;
             case 7: // Min
@@ -110,9 +104,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                 if (i == 0) {
                     c = ci;
                 } else {
-                    float3 c_rgb = float3(c);
-                    float3 ci_rgb = float3(ci);
-                    c = float4(min(c_rgb, ci_rgb), max(c.a, ci.a));
+                    c = min(c, ci);
                 }
                 break;
         }
