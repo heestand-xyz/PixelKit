@@ -6,7 +6,7 @@ powered by Metal
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.
 <br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, Lookup, Cross, Blend and Blends.
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Lookup, Cross, Blend and Blends.
 
 Under development. More effects and pod coming soon.
 
@@ -37,8 +37,13 @@ levels.inPix = camera
 levels.gamma = 2
 levels.inverted = true
 
+let hueSaturation = HueSaturationPIX()
+hueSaturation.inPix = levels
+hueSaturation.hue = 0.5
+hueSaturation.saturation = 0.5
+
 let blur = BlurPIX()
-blur.inPix = levels
+blur.inPix = hueSaturation
 blur.radius = 100
 
 let finalPix: PIX = blur
