@@ -12,6 +12,7 @@
 		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
 		74076D05211A27D2000E56E0 /* PIXRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* PIXRes.swift */; };
 		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
+		740EC53A213EFC3E006E2996 /* PIXOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EC539213EFC3E006E2996 /* PIXOperators.swift */; };
 		7413742F2119C9990001890B /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
 		741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741510DB212F300B00B251E7 /* ColorPIX.swift */; };
 		74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA821271046007F9579 /* ThresholdPIX.swift */; };
@@ -77,6 +78,7 @@
 		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
 		74076D04211A27D2000E56E0 /* PIXRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRes.swift; sourceTree = "<group>"; };
 		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
+		740EC539213EFC3E006E2996 /* PIXOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXOperators.swift; sourceTree = "<group>"; };
 		740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelsShaders.xcodeproj; path = Pixels.xcodeproj/PixelsShaders.xcodeproj; sourceTree = "<group>"; };
 		740EE35B212DD4E00065F49B /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				7428A7B5211E148C005304A6 /* PIXKinds.swift */,
 				7452F4CE210A33F8001AA523 /* PIXProtocols.swift */,
 				7498CA032122073200B07711 /* PIXResolution.swift */,
+				740EC539213EFC3E006E2996 /* PIXOperators.swift */,
 				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
 				7424A1B4212F5C9300401654 /* PIXModes.swift */,
 				7465FC77211A4E0400899359 /* PIXColor.swift */,
@@ -495,6 +498,7 @@
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
+				740EC53A213EFC3E006E2996 /* PIXOperators.swift in Sources */,
 				7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,
 				74D90B1A213317250028A69E /* CheckerView.swift in Sources */,

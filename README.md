@@ -78,6 +78,19 @@ view.addSubview(finalPix.view)
 
 This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
 
+## Blend Operators
+
+These are the supported <b>PIX.BlendingMode</b> operators:
+
+| + | - | * | & | -- | >< | <> |
+| --- | --- | --- | --- | --- | --- | --- |
+| .add | .subtract | .multiply | .over | .difference | .minimum | .maximum |
+
+~~~~swift
+let r: PIX.Res = ._1080p
+let pix = (PolygonPIX(res: r) -- CirclePIX(res: r)) * NoisePIX(res: r)
+~~~~ 
+
 ## File IO
 
 You can find example files [here](https://github.com/anton-hexagons/Pixels/tree/master/Assets/Examples).
