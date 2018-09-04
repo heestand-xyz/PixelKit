@@ -42,9 +42,9 @@ fragment float4 effectSingleChromaKeyPIX(VertexOut out [[stage_in]],
     
     float3 c_hsv = rgb2hsv(c.r, c.g, c.b);
     
-    float ck_h = abs(c_hsv[0] - ck_hsv[0]) - in.range * 360;
+    float ck_h = abs(c_hsv[0] - ck_hsv[0]) - in.range;
     
-    float ck = (ck_h + (in.softness * 360) / 2) / (in.softness * 360);
+    float ck = (ck_h + (in.softness) / 2) / in.softness;
     if (ck < 0.0) {
         ck = 0.0;
     } else if (ck > 1.0) {

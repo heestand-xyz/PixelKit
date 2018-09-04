@@ -5,6 +5,8 @@
 //  Created by Hexagons on 2018-08-23.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
+//  https://stackoverflow.com/a/6930407/4586652
+//
 
 #include <metal_stdlib>
 using namespace metal;
@@ -43,7 +45,7 @@ float3 rgb2hsv(float r, float g, float b) {
     if(h < 0.0) {
         h += 360.0;
     }
-    return float3(h, s, v);
+    return float3(h / 360, s, v);
 }
 
 float3 hsv2rgb(float h, float s, float v) {
@@ -56,8 +58,7 @@ float3 hsv2rgb(float h, float s, float v) {
         c.b = v;
         return c;
     }
-    hh = h;
-    if(hh >= 360.0) hh = 0.0;
+    hh = (h - floor(h)) * 360;
     hh /= 60.0;
     i = int(hh);
     ff = hh - i;
