@@ -43,6 +43,7 @@ extension PIX {
         case cornerPin
         case text
         case transform
+        case hueSaturation
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -74,6 +75,7 @@ extension PIX {
             case .cornerPin: return CornerPinPIX.self
             case .text: return TextPIX.self
             case .transform: return TransformPIX.self
+            case .hueSaturation: return HueSaturationPIX.self
             }
         }
     }
