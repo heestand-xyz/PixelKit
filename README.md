@@ -10,6 +10,13 @@ powered by Metal
 
 Under development. More effects and pod coming soon.
 
+## Docs
+Classes, Delegates and Properties of:<br>
+[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
+[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
+[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
+[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
+
 ## Tutorial
 
 [High Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov) (1,5 GB) -
@@ -17,13 +24,6 @@ Under development. More effects and pod coming soon.
 [Low Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov) (200 MB) -
 [Screen Lapse x4](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_screen_lapse_x4.mov) (100 MB)<br>
 Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
-
-## Docs
-Classes, Delegates and properties of:<br>
-[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
-[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
-[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
-[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
 ## Example: Camera Effects
 
@@ -85,6 +85,7 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ## Blend Operators
 
+A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
 | & | !& | + | - | * | ** | !** | % | <> | >< | -- |
@@ -92,7 +93,7 @@ These are the supported `PIX.BlendingMode` operators:
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 
 ~~~~swift
-let pix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ~~~~
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
