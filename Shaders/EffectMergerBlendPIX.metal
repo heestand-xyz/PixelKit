@@ -123,6 +123,12 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
         case 8: // Min
             c = min(ca, cb);
             break;
+        case 9: // Gamma
+            c = pow(ca, 1 / cb);
+            break;
+        case 10: // Power
+            c = pow(ca, cb);
+            break;
     }
     
     return c;

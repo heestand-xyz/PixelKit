@@ -115,6 +115,22 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = min(c, ci);
                 }
                 break;
+            case 9: // Gamma
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    c = pow(c, 1 / ci);
+                }
+                break;
+            case 10: // Power
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    c = pow(c, ci);
+                }
+                break;
         }
     }
     

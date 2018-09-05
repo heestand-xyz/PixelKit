@@ -85,16 +85,18 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ## Blend Operators
 
-These are the supported <b>PIX.BlendingMode</b> operators:
+These are the supported `PIX.BlendingMode` operators:
 
-| + | - | * | & | -- | >< | <> |
-| --- | --- | --- | --- | --- | --- | --- |
-| .add | .subtract | .multiply | .over | .difference | .minimum | .maximum |
+| & | !& | + | - | * | ** | !** | % | <> | >< | -- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 
 ~~~~swift
-let r: PIX.Res = ._1080p
-let pix = (PolygonPIX(res: r) -- CirclePIX(res: r)) * NoisePIX(res: r)
-~~~~ 
+let pix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+~~~~
+
+The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
+`PIX.blendOperators.globalFillMode = .aspectFill`
 
 ## File IO
 

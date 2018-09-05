@@ -33,6 +33,8 @@ extension PIX {
         case subtract
         case maximum
         case minimum
+        case gamma
+        case power
         var index: Int {
             switch self {
             case .over: return 0
@@ -44,6 +46,8 @@ extension PIX {
             case .subtract: return 6
             case .maximum: return 7
             case .minimum: return 8
+            case .gamma: return 9
+            case .power: return 10
             }
         }
     }
