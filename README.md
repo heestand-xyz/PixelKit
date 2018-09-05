@@ -83,12 +83,7 @@ let supermanKeyed = ChromaKeyPIX()
 supermanKeyed.inPix = supermanVideo
 supermanKeyed.keyColor = .green
 
-let blend = BlendPIX()
-blend.inPixA = cityImage
-blend.inPixB = supermanKeyed
-blend.blendingMode = .over
-
-let finalPix: PIX = blend
+let finalPix = cityImage & supermanKeyed
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
@@ -115,7 +110,7 @@ Note that compared to native UIKit views the vertical axis is flipped.
 A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
-| & | !& | + | - | * | ** | !** | % | <> | >< | -- |
+| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `<>` | `><` | `--` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 
