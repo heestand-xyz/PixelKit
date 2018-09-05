@@ -19,7 +19,15 @@ public class VideoPIX: PIXResource, PIXofaKind {
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
 
-    public override init() {
+    public convenience init(fileNamed name: String, withExtension ext: String) {
+        self.init()
+        if let url = find(video: name, withExtension: ext) {
+            self.url = url
+            helper.load(from: url) // CHECK
+        }
+    }
+    
+    public init(url: URL? = nil) {
         super.init()
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer in
             self.pixelBuffer = pixelBuffer
@@ -29,7 +37,10 @@ public class VideoPIX: PIXResource, PIXofaKind {
                 self.setNeedsRender()
             }
         })
-        if url != nil { helper.load(from: url!) }
+        if url != nil {
+            self.url = url
+            helper.load(from: url!) // CHECK
+        }
     }
     
     // MARK: JSON
@@ -40,15 +51,16 @@ public class VideoPIX: PIXResource, PIXofaKind {
     // MARK: Load
     
     public func load(fileNamed name: String, withExtension ext: String) {
-        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else {
-            Pixels.main.log(.error, .resource, "Video file named \"\(name)\" could not be found.")
-            return
-        }
+        guard let url = find(video: name, withExtension: ext) else { return }
         self.url = url
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
-        return Bundle.main.url(forResource: named, withExtension: ext)
+        guard let url = Bundle.main.url(forResource: named, withExtension: ext) else {
+            Pixels.main.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
+            return nil
+        }
+        return url
     }
     
     // MARK - Playback

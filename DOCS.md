@@ -121,13 +121,13 @@ var <b>fillMode</b>: FillMode = .aspectFit
 ### LevelsPIX
 var <b>brightness</b>: CGFloat = 1.0<br>
 var <b>darkness</b>: CGFloat = 0.0<br>
-var <b>contrast</b>: CGFloat = 1.0<br>
+var <b>contrast</b>: CGFloat = 0.0<br>
 var <b>gamma</b>: CGFloat = 1.0<br>
 var <b>inverted</b>: Bool = false<br>
 var <b>opacity</b>: CGFloat = 1.0
 ### BlurPIX
 var <b>style</b>: Style = .guassian<br>
-var <b>radius</b>: CGFloat = 100.0<br>
+var <b>radius</b>: CGFloat = 0.5<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0.0<br>
 var <b>position</b>: CGPoint = .zero
@@ -198,7 +198,7 @@ var <b>axis</b>: Axis = .x<br>
 var <b>holdEdge</b>: Bool = true
 ### LumaBlurPIX
 var <b>style</b>: Style = .box<br>
-var <b>radius</b>: CGFloat = 100<br>
+var <b>radius</b>: CGFloat = 0.5<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0<br>
 var <b>position</b>: CGPoint = .zero

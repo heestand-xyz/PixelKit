@@ -8,6 +8,52 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func brightness(_ brightness: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.brightness = brightness
+        return levelsPix
+    }
+    
+    func darkness(_ darkness: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.darkness = darkness
+        return levelsPix
+    }
+    
+    func contrast(_ contrast: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.contrast = contrast
+        return levelsPix
+    }
+    
+    func gamma(_ gamma: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.gamma = gamma
+        return levelsPix
+    }
+    
+    func invert() -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.inverted = true
+        return levelsPix
+    }
+    
+    func opacity(_ opacity: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.opacity = opacity
+        return levelsPix
+    }
+    
+}
+
 public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .levels
@@ -16,7 +62,7 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var contrast: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var contrast: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var gamma: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var inverted: Bool = false { didSet { setNeedsRender() } }
     public var opacity: CGFloat = 1.0 { didSet { setNeedsRender() } }

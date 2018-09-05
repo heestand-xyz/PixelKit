@@ -8,6 +8,17 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func twirl(_ strength: CGFloat) -> TwirlPIX {
+        let twirlPix = TwirlPIX()
+        twirlPix.inPix = self as? PIX & PIXOut
+        twirlPix.strength = strength
+        return twirlPix
+    }
+
+}
+
 public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .twirl

@@ -8,6 +8,17 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func crop(_ cropFrame: CGRect) -> CropPIX {
+        let cropPix = CropPIX()
+        cropPix.inPix = self as? PIX & PIXOut
+        cropPix.cropFrame = cropFrame
+        return cropPix
+    }
+    
+}
+
 public class CropPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .crop

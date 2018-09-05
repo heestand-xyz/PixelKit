@@ -8,6 +8,24 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func hue(_ hue: CGFloat) -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.hue = hue
+        return hueSaturationPix
+    }
+    
+    func saturation(_ saturation: CGFloat) -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.saturation = saturation
+        return hueSaturationPix
+    }
+    
+}
+
 public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .hueSaturation

@@ -16,8 +16,21 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public override init() {
+    public convenience init(named: String) {
+        if let image = UIImage(named: named) {
+            self.init(image: image)
+        } else {
+            self.init()
+            pixels.log(.error, .resource, "Image named \"\(named)\" not found.")
+        }
+    }
+    
+    public init(image: UIImage? = nil) {
         super.init()
+        if image != nil {
+            self.image = image
+            setNeedsBuffer() // CHECK
+        }
     }
     
     // MARK: JSON

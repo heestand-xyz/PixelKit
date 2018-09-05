@@ -8,6 +8,17 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func quantize(by fraction: CGFloat) -> QuantizePIX {
+        let quantizePix = QuantizePIX()
+        quantizePix.inPix = self as? PIX & PIXOut
+        quantizePix.fraction = fraction
+        return quantizePix
+    }
+    
+}
+
 public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .quantize

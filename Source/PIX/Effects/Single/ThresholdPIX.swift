@@ -8,6 +8,17 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func threshold(at threshold: CGFloat) -> ThresholdPIX {
+        let thresholdPix = ThresholdPIX()
+        thresholdPix.inPix = self as? PIX & PIXOut
+        thresholdPix.threshold = threshold
+        return thresholdPix
+    }
+    
+}
+
 public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .threshold

@@ -8,6 +8,28 @@
 
 import UIKit
 
+public extension PIXOut {
+    
+    func swap(_ pureColorA: PIX.Color.Pure, _ pureColorB: PIX.Color.Pure) -> ChannelMixPIX {
+        let channelMixPix = ChannelMixPIX()
+        channelMixPix.inPix = self as? PIX & PIXOut
+        switch pureColorA {
+        case .red: channelMixPix.red = .init(pure: pureColorB)
+        case .green: channelMixPix.green = .init(pure: pureColorB)
+        case .blue: channelMixPix.blue = .init(pure: pureColorB)
+        case .alpha: channelMixPix.alpha = .init(pure: pureColorB)
+        }
+        switch pureColorB {
+        case .red: channelMixPix.red = .init(pure: pureColorA)
+        case .green: channelMixPix.green = .init(pure: pureColorA)
+        case .blue: channelMixPix.blue = .init(pure: pureColorA)
+        case .alpha: channelMixPix.alpha = .init(pure: pureColorA)
+        }
+        return channelMixPix
+    }
+    
+}
+
 public class ChannelMixPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .channelMix

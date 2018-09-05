@@ -8,6 +8,24 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func reRes(to res: PIX.Res) -> ResPIX {
+        let resPix = ResPIX(res: res)
+        resPix.inPix = self as? PIX & PIXOut
+        return resPix
+    }
+    
+    func reRes(by resMultiplier: CGFloat) -> ResPIX {
+        let resPix = ResPIX(res: ._128)
+        resPix.inPix = self as? PIX & PIXOut
+        resPix.inheritInRes = true
+        resPix.resMultiplier = resMultiplier
+        return resPix
+    }
+    
+}
+
 public class ResPIX: PIXSingleEffect, PIXofaKind {
 
     let kind: PIX.Kind = .res

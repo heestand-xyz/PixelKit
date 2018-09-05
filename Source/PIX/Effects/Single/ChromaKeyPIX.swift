@@ -8,6 +8,17 @@
 
 import UIKit
 
+public extension PIXOut {
+    
+    func key(_ color: UIColor) -> ChromaKeyPIX {
+        let chromaKeyPix = ChromaKeyPIX()
+        chromaKeyPix.inPix = self as? PIX & PIXOut
+        chromaKeyPix.keyColor = color
+        return chromaKeyPix
+    }
+    
+}
+
 public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .chromaKey

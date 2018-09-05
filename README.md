@@ -8,12 +8,18 @@ powered by Metal
 <br>
 <b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, Lookup, Cross, Blend and Blends.
 
+<!--
 [Docs](#docs) -
 [Tutorial](#tutorial) -
-[Example: Camera Effects](#example-camera-effects) -
-[Example: Green Screen](#example-green-screen) -
+-->
+
+Examples:
+[Camera Effects](#example-camera-effects) -
+[Green Screen](#example-green-screen)<br>
+Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
+[Effect Methods](#effect-methods) -
 [File IO](#file-io) -
 [Apps](#apps)
 
@@ -119,6 +125,34 @@ let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(r
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalFillMode = .aspectFill`
+
+## Effect Methods
+
+- pix.<b>reRes(to: ._1080p * 0.5)</b> -> ResPIX
+- pix.<b>reRes(by: 0.5)</b> -> ResPIX
+- pix.<b>brightness(0.5)</b> -> LevelsPIX
+- pix.<b>darkness(0.5)</b> -> LevelsPIX
+- pix.<b>contrast(0.5)</b> -> LevelsPIX
+- pix.<b>gamma(0.5)</b> -> LevelsPIX
+- pix.<b>invert()</b> -> LevelsPIX
+- pix.<b>opacity(0.5)</b> -> LevelsPIX
+- pix.<b>blur(0.5)</b> -> BlurPIX
+- pix.<b>edge()</b> -> EdgePIX
+- pix.<b>threshold(at: 0.5)</b> -> ThresholdPIX
+- pix.<b>quantize(by: 0.5)</b> -> QuantizePIX
+- pix.<b>position(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
+- pix.<b>rotatate(to: .pi)</b> -> TransformPIX
+- pix.<b>scale(by: 0.5)</b> -> TransformPIX
+- pix.<b>kaleidoscope()</b> -> KaleidoscopePIX
+- pix.<b>twirl(0.5)</b> -> TwirlPIX
+- pix.<b>swap(.red, .blue)</b> -> ChannelMixPIX
+- pix.<b>key(.green)</b> -> ChromaKeyPIX
+- pix.<b>hue(0.5)</b> -> HueSaturationPIX
+- pix.<b>saturation(0.5)</b> -> HueSaturationPIX
+- pix.<b>crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
+
+Keep in mind that these methods will create new PIXs.<br>
+Be careful of overloading GPU memory if in a loop.
 
 ## File IO
 

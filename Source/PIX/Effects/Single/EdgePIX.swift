@@ -8,6 +8,16 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func edge() -> EdgePIX {
+        let edgePix = EdgePIX()
+        edgePix.inPix = self as? PIX & PIXOut
+        return edgePix
+    }
+    
+}
+
 public class EdgePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .edge

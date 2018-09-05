@@ -9,6 +9,17 @@
 import MetalKit
 import MetalPerformanceShaders
 
+public extension PIXOut {
+    
+    func blur(_ radius: CGFloat) -> BlurPIX {
+        let blurPix = BlurPIX()
+        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.radius = radius
+        return blurPix
+    }
+    
+}
+
 public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
@@ -33,15 +44,15 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
     }
     
     public var style: Style = .guassian { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 100 { didSet { setNeedsRender() } }
+    public var radius: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
+    public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     enum BlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
     override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
+        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
     override public init() {

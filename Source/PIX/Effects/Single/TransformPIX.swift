@@ -8,6 +8,31 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func position(at position: CGPoint) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.position = position
+        return transformPix
+    }
+    
+    func rotatate(to rotation: CGFloat) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.rotation = rotation
+        return transformPix
+    }
+    
+    func scale(by scale: CGFloat) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.scale = scale
+        return transformPix
+    }
+    
+}
+
 public class TransformPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .transform

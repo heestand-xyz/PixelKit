@@ -30,15 +30,15 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     }
     
     public var style: Style = .box { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 100 { didSet { setNeedsRender() } }
+    public var radius: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0 { didSet { setNeedsRender() } }
+    public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
     override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius, CGFloat(quality.rawValue), angle, position.x, position.y]
+        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
     public override init() {

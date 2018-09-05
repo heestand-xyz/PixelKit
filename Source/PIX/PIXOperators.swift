@@ -38,6 +38,10 @@ public extension PIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
     }
     
+//    public static func +(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .add)
+//    }
+    
     public static func -(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
     }

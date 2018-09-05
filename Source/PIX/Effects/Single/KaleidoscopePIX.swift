@@ -8,6 +8,18 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
+        let kaleidoscopePix = KaleidoscopePIX()
+        kaleidoscopePix.inPix = self as? PIX & PIXOut
+        kaleidoscopePix.divisions = divisions
+        kaleidoscopePix.mirror = mirror
+        return kaleidoscopePix
+    }
+    
+}
+
 public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .kaleidoscope
