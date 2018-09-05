@@ -6,18 +6,18 @@ powered by Metal
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.
 <br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Lookup, Cross, Blend and Blends.
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, Lookup, Cross, Blend and Blends.
 
-Under development. More effects and pod coming soon.
-
-Table of contents:
 [Docs](#docs) -
 [Tutorial](#tutorial) -
 [Example: Camera Effects](#example-camera-effects) -
 [Example: Green Screen](#example-green-screen) -
+[Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [File IO](#file-io) -
 [Apps](#apps)
+
+Under development. More effects and pod coming soon!
 
 ## Docs
 Classes, Delegates and Properties of:<br>
@@ -91,6 +91,18 @@ view.addSubview(finalPix.view)
 | --- | --- | --- | --- |
 
 This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
+
+## Coordinate Space
+
+Pixels coordinate space is normailzed to the vertical axis with the origin in the center.<br>
+Note that compared to native UIKit views the vertical axis is flipped.
+
+<b>Center:</b> CGPoint(x: 0, y: 0)<br>
+<b>Bottom Left:</b> CGPoint(x: -0.5 * aspectRatio, y: -0.5)<br>
+<b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
+
+<b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
+`let aspectRatio: CGFloat = PIX.Res._1080p.aspect`
 
 ## Blend Operators
 

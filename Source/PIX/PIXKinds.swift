@@ -44,6 +44,7 @@ extension PIX {
         case text
         case transform
         case hueSaturation
+        case crop
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -76,6 +77,7 @@ extension PIX {
             case .text: return TextPIX.self
             case .transform: return TransformPIX.self
             case .hueSaturation: return HueSaturationPIX.self
+            case .crop: return CropPIX.self
             }
         }
     }

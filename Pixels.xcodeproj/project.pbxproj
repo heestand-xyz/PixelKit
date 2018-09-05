@@ -37,6 +37,7 @@
 		745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A8F94212DC9AD006DA59D /* PixelsRender.swift */; };
 		745A8F97212DC9DD006DA59D /* PixelsFileIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A8F96212DC9DD006DA59D /* PixelsFileIO.swift */; };
 		7465FC78211A4E0400899359 /* PIXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465FC77211A4E0400899359 /* PIXColor.swift */; };
+		746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F7471213FF82700C2AE62 /* CropPIX.swift */; };
 		7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */; };
 		7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC852128328200ECF2E2 /* LookupPIX.swift */; };
 		7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */; };
@@ -106,6 +107,7 @@
 		745A8F96212DC9DD006DA59D /* PixelsFileIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsFileIO.swift; sourceTree = "<group>"; };
 		7465FC71211A3C8C00899359 /* CheckerLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerLayer.swift; sourceTree = "<group>"; };
 		7465FC77211A4E0400899359 /* PIXColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXColor.swift; sourceTree = "<group>"; };
+		746F7471213FF82700C2AE62 /* CropPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPIX.swift; sourceTree = "<group>"; };
 		7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaleidoscopePIX.swift; sourceTree = "<group>"; };
 		7471FC852128328200ECF2E2 /* LookupPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupPIX.swift; sourceTree = "<group>"; };
 		7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantizePIX.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */,
 				7445508721349DCC006E01D8 /* CornerPinPIX.swift */,
 				7483FC35213ECD5600D3F713 /* HueSaturationPIX.swift */,
+				746F7471213FF82700C2AE62 /* CropPIX.swift */,
 			);
 			path = Single;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
+				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,

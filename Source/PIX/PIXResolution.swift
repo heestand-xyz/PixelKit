@@ -34,7 +34,11 @@ extension PIX {
             }
             return resRes * resPix.resMultiplier
         } else if let pixIn = self as? PIX & PIXInIO {
-            return pixIn.pixInList.first?.resolution
+            guard let inRes = pixIn.pixInList.first?.resolution else { return nil }
+            if let cropPix = self as? CropPIX {
+                return inRes * cropPix.resScale
+            }
+            return inRes
         } else { return nil }
     }
     

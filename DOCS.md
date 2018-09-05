@@ -171,7 +171,8 @@ var <b>divisions</b>: Int = 16
 ### HueSaturationPIX
 var <b>hue</b>: CGFloat = 0.0<br>
 var <b>saturation</b>: CGFloat = 1.0
-### CropPIX <i>(coming soon)</i>
+### CropPIX
+var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 ### SlopePIX <i>(coming soon)</i>
 ### SharpenPIX <i>(coming soon)</i>
 ### FlipFlopPIX <i>(coming soon)</i>
