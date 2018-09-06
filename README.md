@@ -4,8 +4,41 @@
 a Live Graphics Framework for iOS<br>
 powered by Metal
 
-<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.<br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, FlipFlop, Range, Sharpen, Slope, Lookup, Cross, Blend and Blends.
+<b>ContentPIXs</b>:
+[CameraPIX](DOCS.md#CameraPIX) -
+[ImagePIX](DOCS.md#ImagePIX) -
+[VideoPIX](DOCS.md#VideoPIX) -
+[ColorPIX](DOCS.md#ColorPIX) -
+[CirclePIX](DOCS.md#CirclePIX) -
+[RectanglePIX](DOCS.md#RectanglePIX) -
+[PolygonPIX](DOCS.md#PolygonPIX) -
+[GradientPIX](DOCS.md#GradientPIX) -
+[NoisePIX](DOCS.md#NoisePIX) - 
+[TextPIX](DOCS.md#TextPIX)
+<br>
+<b>EffectPIXs</b>:
+[LevelsPIX](DOCS.md#pix) -
+[BlurPIX](DOCS.md#BlurPIX) -
+[EdgePIX](DOCS.md#EdgePIX) -
+[ThresholdPIX](DOCS.md#ThresholdPIX) -
+[QuantizePIX](DOCS.md#QuantizePIX) -
+[TransformPIX](DOCS.md#TransformPIX) -
+[KaleidoscopePIX](DOCS.md#KaleidoscopePIX) -
+[TwirlPIX](DOCS.md#TwirlPIX) -
+[FeedbackPIX](DOCS.md#FeedbackPIX) -
+[ChannelMixPIX](DOCS.md#ChannelMixPIX) -
+[ChromaKeyPIX](DOCS.md#ChromaKeyPIX) -
+[CornerPinPIX](DOCS.md#CornerPinPIX) -
+[HueSaturationPIX](DOCS.md#HueSaturationPIX) -
+[CropPIX](DOCS.md#CropPIX) -
+[FlipFlopPIX](DOCS.md#FlipFlopPIX) -
+[RangePIX](DOCS.md#RangePIX) -
+[SharpenPIX](DOCS.md#SharpenPIX) -
+[SlopePIX](DOCS.md#SlopePIX) -
+[LookupPIX](DOCS.md#LookupPIX) -
+[CrossPIX](DOCS.md#CrossPIX) -
+[BlendPIX](DOCS.md#BlendPIX) -
+[BlendsPIX](DOCS.md#BlendsPIX)
 
 <!--
 [Docs](#docs) -
