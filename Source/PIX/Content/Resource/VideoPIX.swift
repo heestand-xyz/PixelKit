@@ -19,15 +19,22 @@ public class VideoPIX: PIXResource, PIXofaKind {
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
 
-    public convenience init(fileNamed name: String, withExtension ext: String) {
+    public convenience init(_ fullName: String) {
         self.init()
+        let nameComponents = fullName.split(separator: ".")
+        guard nameComponents.count == 2 else {
+            pixels.log(.error, .resource, "Load video with \"file.ext\".")
+            return
+        }
+        let name = String(nameComponents.first!)
+        let ext = String(nameComponents.last!)
         if let url = find(video: name, withExtension: ext) {
             self.url = url
             helper.load(from: url) // CHECK
         }
     }
     
-    public init(url: URL? = nil) {
+    public init(_ url: URL? = nil) {
         super.init()
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer in
             self.pixelBuffer = pixelBuffer

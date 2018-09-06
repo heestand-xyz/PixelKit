@@ -16,16 +16,16 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public convenience init(named: String) {
+    public convenience init(_ named: String) {
         if let image = UIImage(named: named) {
-            self.init(image: image)
+            self.init(image)
         } else {
             self.init()
             pixels.log(.error, .resource, "Image named \"\(named)\" not found.")
         }
     }
     
-    public init(image: UIImage? = nil) {
+    public init(_ image: UIImage? = nil) {
         super.init()
         if image != nil {
             self.image = image

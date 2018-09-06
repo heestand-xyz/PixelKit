@@ -129,7 +129,7 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
-`let pix = ImagePIX(named: "city") & VideoPIX(fileNamed: "superman", withExtension: "mov").chromaKey(.green)`<br>
+`let pix = ImagePIX("city") & VideoPIX("superman.mov").chromaKey(.green)`<br>
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
