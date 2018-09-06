@@ -50,7 +50,7 @@ Examples:
 Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
-[Effect Methods](#effect-methods) -
+[Effect Convenience Funcs](#effect-convenience-funcs) -
 [File IO](#file-io) -
 [Apps](#apps)
 
@@ -152,7 +152,7 @@ let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(r
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalFillMode = .aspectFill`
 
-## Effect Methods
+## Effect Convenience Funcs
 
 - pix.<b>reRes(to: ._1080p * 0.5)</b> -> ResPIX
 - pix.<b>reRes(by: 0.5)</b> -> ResPIX
@@ -185,7 +185,7 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>sharpen()</b> -> SharpenPIX
 - pix.<b>slope()</b> - > SlopePIX
 
-Keep in mind that these methods will create new PIXs.<br>
+Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.
 
 ## File IO
