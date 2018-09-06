@@ -176,10 +176,21 @@ var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
 ### FlipFlopPIX
 var <b>flip</b>: Flip? = nil<br>
 var <b>flop</b>: Flop? = nil
-### SlopePIX <i>(coming soon)</i>
-### SharpenPIX <i>(coming soon)</i>
+### RangePIX
+var <b>inLow</b>: CGFloat = 0.0<br>
+var <b>inHigh</b>: CGFloat = 1.0<br>
+var <b>outLow</b>: CGFloat = 0.0<br>
+var <b>outHigh</b>: CGFloat = 1.0<br>
+var <b>inLowColor</b>: UIColor = .clear<br>
+var <b>inHighColor</b>: UIColor = .white<br>
+var <b>outLowColor</b>: UIColor = .clear<br>
+var <b>outHighColor</b>: UIColor = .white<br>
+var <b>ignoreAlpha</b>: Bool = true
+### SharpenPIX
+var <b>contrast</b>: CGFloat = 1.0
+### SlopePIX
+var <b>amplitide</b>: CGFloat = 1.0
 ### DelayPIX <i>(coming soon)</i>
-### RangePIX <i>(coming soon)</i>
 
 ## PIXMergerEffect</b>: PIXEffect
 var <b>inPixA</b>: (PIX & PIXOut)?<br>

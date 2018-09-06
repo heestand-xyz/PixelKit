@@ -5,7 +5,7 @@ a Live Graphics Framework for iOS<br>
 powered by Metal
 
 <b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.<br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, FlipFlop, Lookup, Cross, Blend and Blends.
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, FlipFlop, Range, Sharpen, Slope, Lookup, Cross, Blend and Blends.
 
 <!--
 [Docs](#docs) -
@@ -147,6 +147,10 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>flipY()</b> -> FlipFlopPIX
 - pix.<b>flopLeft()</b> -> FlipFlopPIX
 - pix.<b>flopRight()</b> -> FlipFlopPIX
+- pix.<b>range(inLow: 0.0, inHigh: 0.5, outLow: 0.5, outHigh: 1.0)</b> -> RangePIX
+- pix.<b>range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
+- pix.<b>sharpen()</b> -> SharpenPIX
+- pix.<b>slope()</b> - > SlopePIX
 
 Keep in mind that these methods will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.

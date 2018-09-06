@@ -46,6 +46,9 @@ extension PIX {
         case hueSaturation
         case crop
         case flipFlop
+        case range
+        case sharpen
+        case slope
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -80,6 +83,9 @@ extension PIX {
             case .hueSaturation: return HueSaturationPIX.self
             case .crop: return CropPIX.self
             case .flipFlop: return FlipFlopPIX.self
+            case .range: return RangePIX.self
+            case .sharpen: return SharpenPIX.self
+            case .slope: return SlopePIX.self
             }
         }
     }
