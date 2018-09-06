@@ -5,40 +5,40 @@ a Live Graphics Framework for iOS<br>
 powered by Metal
 
 <b>ContentPIXs</b>:
-[CameraPIX](DOCS.md#CameraPIX) -
-[ImagePIX](DOCS.md#ImagePIX) -
-[VideoPIX](DOCS.md#VideoPIX) -
-[ColorPIX](DOCS.md#ColorPIX) -
-[CirclePIX](DOCS.md#CirclePIX) -
-[RectanglePIX](DOCS.md#RectanglePIX) -
-[PolygonPIX](DOCS.md#PolygonPIX) -
-[GradientPIX](DOCS.md#GradientPIX) -
-[NoisePIX](DOCS.md#NoisePIX) - 
-[TextPIX](DOCS.md#TextPIX)
+[CameraPIX](DOCS.md#camerapix) -
+[ImagePIX](DOCS.md#imagepix) -
+[VideoPIX](DOCS.md#videopix) -
+[ColorPIX](DOCS.md#colorpix) -
+[CirclePIX](DOCS.md#circlepix) -
+[RectanglePIX](DOCS.md#rectanglepix) -
+[PolygonPIX](DOCS.md#polygonpix) -
+[GradientPIX](DOCS.md#gradientpix) -
+[NoisePIX](DOCS.md#noisepix) - 
+[TextPIX](DOCS.md#textpix)
 <br>
 <b>EffectPIXs</b>:
 [LevelsPIX](DOCS.md#pix) -
-[BlurPIX](DOCS.md#BlurPIX) -
-[EdgePIX](DOCS.md#EdgePIX) -
-[ThresholdPIX](DOCS.md#ThresholdPIX) -
-[QuantizePIX](DOCS.md#QuantizePIX) -
-[TransformPIX](DOCS.md#TransformPIX) -
-[KaleidoscopePIX](DOCS.md#KaleidoscopePIX) -
-[TwirlPIX](DOCS.md#TwirlPIX) -
-[FeedbackPIX](DOCS.md#FeedbackPIX) -
-[ChannelMixPIX](DOCS.md#ChannelMixPIX) -
-[ChromaKeyPIX](DOCS.md#ChromaKeyPIX) -
-[CornerPinPIX](DOCS.md#CornerPinPIX) -
-[HueSaturationPIX](DOCS.md#HueSaturationPIX) -
-[CropPIX](DOCS.md#CropPIX) -
-[FlipFlopPIX](DOCS.md#FlipFlopPIX) -
-[RangePIX](DOCS.md#RangePIX) -
-[SharpenPIX](DOCS.md#SharpenPIX) -
-[SlopePIX](DOCS.md#SlopePIX) -
-[LookupPIX](DOCS.md#LookupPIX) -
-[CrossPIX](DOCS.md#CrossPIX) -
-[BlendPIX](DOCS.md#BlendPIX) -
-[BlendsPIX](DOCS.md#BlendsPIX)
+[BlurPIX](DOCS.md#blurpix) -
+[EdgePIX](DOCS.md#edgepix) -
+[ThresholdPIX](DOCS.md#thresholdpix) -
+[QuantizePIX](DOCS.md#quantizepix) -
+[TransformPIX](DOCS.md#transformpix) -
+[KaleidoscopePIX](DOCS.md#kaleidoscopepix) -
+[TwirlPIX](DOCS.md#twirlpix) -
+[FeedbackPIX](DOCS.md#feedbackpix) -
+[ChannelMixPIX](DOCS.md#channelMixpix) -
+[ChromaKeyPIX](DOCS.md#chromaKeypix) -
+[CornerPinPIX](DOCS.md#cornerPinpix) -
+[HueSaturationPIX](DOCS.md#huesaturationpix) -
+[CropPIX](DOCS.md#croppix) -
+[FlipFlopPIX](DOCS.md#flipfloppix) -
+[RangePIX](DOCS.md#rangepix) -
+[SharpenPIX](DOCS.md#sharpenpix) -
+[SlopePIX](DOCS.md#slopepix) -
+[LookupPIX](DOCS.md#lookuppix) -
+[CrossPIX](DOCS.md#crosspix) -
+[BlendPIX](DOCS.md#blendpix) -
+[BlendsPIX](DOCS.md#blendspix)
 
 <!--
 [Docs](#docs) -
