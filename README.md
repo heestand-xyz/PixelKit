@@ -98,7 +98,7 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
-`let finalPix: PIX = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)`<br>
+`let pix = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)`<br>
 Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
@@ -129,7 +129,7 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
-`let finalPix: PIX = ImagePIX(named: "city") & VideoPIX(fileNamed: "superman", withExtension: "mov").chromaKey(.green)`<br>
+`let pix = ImagePIX(named: "city") & VideoPIX(fileNamed: "superman", withExtension: "mov").chromaKey(.green)`<br>
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
