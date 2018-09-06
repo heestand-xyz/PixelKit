@@ -155,10 +155,10 @@ var <b>strength</b>: CGFloat = 1
 var <b>feedActive</b>: Bool = true<br>
 var <b>feedPix</b>: (PIX & PIXOut)?
 ### ChannelMixPIX
-var <b>red</b>: Color = Color(pure: .red)<br>
-var <b>green</b>: Color = Color(pure: .green)<br>
-var <b>blue</b>: Color = Color(pure: .blue)<br>
-var <b>alpha</b>: Color = Color(pure: .alpha)
+var <b>red</b>: PIX.Color = PIX.Color(pure: .red)<br>
+var <b>green</b>: PIX.Color = PIX.Color(pure: .green)<br>
+var <b>blue</b>: PIX.Color = PIX.Color(pure: .blue)<br>
+var <b>alpha</b>: PIX.Color = PIX.Color(pure: .alpha)
 ### ChromaKeyPIX
 var <b>keyColor</b>: UIColor = .green<br>
 var <b>range</b>: CGFloat = 0.1<br>
