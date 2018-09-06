@@ -37,6 +37,8 @@ extension PIX {
             guard let inRes = pixIn.pixInList.first?.resolution else { return nil }
             if let cropPix = self as? CropPIX {
                 return inRes * cropPix.resScale
+            } else if let flipFlopPix = self as? FlipFlopPIX {
+                return flipFlopPix.flop != nil ? Res(inRes.raw.flopped) : inRes
             }
             return inRes
         } else { return nil }
