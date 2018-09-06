@@ -80,7 +80,7 @@ let camera = CameraPIX()
 
 let levels = LevelsPIX()
 levels.inPix = camera
-levels.gamma = 2
+levels.gamma = 2.0
 levels.inverted = true
 
 let hueSaturation = HueSaturationPIX()
@@ -90,12 +90,16 @@ hueSaturation.saturation = 0.5
 
 let blur = BlurPIX()
 blur.inPix = hueSaturation
-blur.radius = 100
+blur.radius = 0.25
 
 let finalPix: PIX = blur
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
+
+This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
+`let finalPix: PIX = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)`<br>
+Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
@@ -114,10 +118,18 @@ let supermanKeyed = ChromaKeyPIX()
 supermanKeyed.inPix = supermanVideo
 supermanKeyed.keyColor = .green
 
-let finalPix = cityImage & supermanKeyed
+let blendPix = BlendPIX()
+blendPix.blendingMode = .over
+blendPix.inPixA = cityImage
+blendPix.inPixB = supermanKeyed
+
+let finalPix: PIX = blendPix
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
+
+This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
+`let finalPix: PIX = ImagePIX(named: "city") & VideoPIX(fileNamed: "superman", withExtension: "mov").chromaKey(.green)`<br>
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
