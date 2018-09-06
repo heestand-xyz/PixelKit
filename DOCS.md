@@ -1,5 +1,6 @@
-# Docs for [Pixels](https://github.com/anton-hexagons/Pixels)
+# Docs
 
+[README.md](https://github.com/hexagons/pixels/blob/master/README.md)
 
 ## Pixels
 static let <b>main</b>: Pixels<br>
@@ -117,40 +118,75 @@ var <b>inPix</b>: (PIX & PIXOut)?
 var <b>res</b>: Res<br>
 var <b>resMultiplier</b>: CGFloat = 1.0<br>
 var <b>inheritInRes</b>: Bool = false<br>
-var <b>fillMode</b>: FillMode = .aspectFit
+var <b>fillMode</b>: FillMode = .aspectFit<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>reRes(to: PIX.Res)</b> -> ResPIX<br>
+func <b>reRes(by: CGFloat)</b> -> ResPIX
 ### LevelsPIX
 var <b>brightness</b>: CGFloat = 1.0<br>
 var <b>darkness</b>: CGFloat = 0.0<br>
 var <b>contrast</b>: CGFloat = 0.0<br>
 var <b>gamma</b>: CGFloat = 1.0<br>
 var <b>inverted</b>: Bool = false<br>
-var <b>opacity</b>: CGFloat = 1.0
+var <b>opacity</b>: CGFloat = 1.0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>brightness(\_: CGFloat)</b> -> LevelsPIX<br>
+func <b>darkness(\_: CGFloat)</b> -> LevelsPIX<br>
+func <b>contrast(\_: CGFloat)</b> -> LevelsPIX<br>
+func <b>gamma(\_: CGFloat)</b> -> LevelsPIX<br>
+func <b>invert()</b> -> LevelsPIX<br>
+func <b>opacity(\_: CGFloat)</b> -> LevelsPIX
 ### BlurPIX
 var <b>style</b>: Style = .guassian<br>
 var <b>radius</b>: CGFloat = 0.5<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0.0<br>
-var <b>position</b>: CGPoint = .zero
+var <b>position</b>: CGPoint = .zero<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>blur(\_: CGFloat)</b> -> BlurPIX
 ### EdgePIX
 var <b>strength</b>: CGFloat = 4.0<br>
-var <b>distance</b>: CGFloat = 1.0
+var <b>distance</b>: CGFloat = 1.0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>edge()</b> -> EdgePIX
 ### ThresholdPIX
 var <b>threshold</b>: CGFloat = 0.5<br>
-var <b>smoothness</b>: CGFloat = 0
+var <b>smoothness</b>: CGFloat = 0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>threshold(at: CGFloat)</b> -> ThresholdPIX
 ### QuantizePIX
-var <b>fraction</b>: CGFloat = 0.125
+var <b>fraction</b>: CGFloat = 0.125<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>quantize(by: CGFloat)</b> -> QuantizePIX
 ### TranformPIX
 var <b>position</b>: CGPoint = .zero<br>
 var <b>rotation</b>: CGFloat = 0.0<br>
 var <b>scale</b>: CGFloat = 1.0<br>
-var <b>size</b>: CGSize = CGSize(width: 1.0, height: 1.0)
+var <b>size</b>: CGSize = CGSize(width: 1.0, height: 1.0)<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>position(at: CGPoint)</b> -> TransformPIX<br>
+func <b>rotatate(to: CGFloat)</b> -> TransformPIX<br>
+func <b>scale(by: CGFloat)</b> -> TransformPIX
 ### KaleidoscopePIX
 var <b>divisions</b>: Int = 12<br>
 var <b>mirror</b>: Bool = true<br>
 var <b>rotation</b>: CGFloat = 0<br>
-var <b>position</b>: CGPoint = .zero
+var <b>position</b>: CGPoint = .zero<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>kaleidoscope(divisions: Int = 12, mirror: Bool = true)</b> -> KaleidoscopePIX
 ### TwirlPIX
-var <b>strength</b>: CGFloat = 1
+var <b>strength</b>: CGFloat = 1<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>twirl(\_: CGFloat)</b> -> TwirlPIX
 ### FeedbackPIX
 var <b>feedActive</b>: Bool = true<br>
 var <b>feedPix</b>: (PIX & PIXOut)?
@@ -158,24 +194,43 @@ var <b>feedPix</b>: (PIX & PIXOut)?
 var <b>red</b>: PIX.Color = PIX.Color(pure: .red)<br>
 var <b>green</b>: PIX.Color = PIX.Color(pure: .green)<br>
 var <b>blue</b>: PIX.Color = PIX.Color(pure: .blue)<br>
-var <b>alpha</b>: PIX.Color = PIX.Color(pure: .alpha)
+var <b>alpha</b>: PIX.Color = PIX.Color(pure: .alpha)<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>swap(\_: PIX.Color.Pure, \_: PIX.Color.Pure)</b> -> ChannelMixPIX
 ### ChromaKeyPIX
 var <b>keyColor</b>: UIColor = .green<br>
 var <b>range</b>: CGFloat = 0.1<br>
 var <b>softness</b>: CGFloat = 0.1<br>
-var <b>edgeDesaturation</b>: CGFloat = 0.5
+var <b>edgeDesaturation</b>: CGFloat = 0.5<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>key(\_: UIColor)</b> -> ChromaKeyPIX
 ### CornerPinPIX
 var <b>corners</b>: Corners<br>
 var <b>perspective</b>: Bool = false<br>
 var <b>divisions</b>: Int = 16
 ### HueSaturationPIX
 var <b>hue</b>: CGFloat = 0.0<br>
-var <b>saturation</b>: CGFloat = 1.0
+var <b>saturation</b>: CGFloat = 1.0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>hue(\_: CGFloat)</b> -> HueSaturationPIX<br>
+func <b>saturation(\_: CGFloat)</b> -> HueSaturationPIX
 ### CropPIX
-var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>crop(\_: CGRect)</b> -> CropPIX
 ### FlipFlopPIX
 var <b>flip</b>: Flip? = nil<br>
-var <b>flop</b>: Flop? = nil
+var <b>flop</b>: Flop? = nil<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>flipX()</b> -> FlipFlopPIX<br>
+func <b>flipY()</b> -> FlipFlopPIX<br>
+func <b>flopLeft()</b> -> FlipFlopPIX<br>
+func <b>flopRight()</b> -> FlipFlopPIX
 ### RangePIX
 var <b>inLow</b>: CGFloat = 0.0<br>
 var <b>inHigh</b>: CGFloat = 1.0<br>
@@ -185,11 +240,21 @@ var <b>inLowColor</b>: UIColor = .clear<br>
 var <b>inHighColor</b>: UIColor = .white<br>
 var <b>outLowColor</b>: UIColor = .clear<br>
 var <b>outHighColor</b>: UIColor = .white<br>
-var <b>ignoreAlpha</b>: Bool = true
+var <b>ignoreAlpha</b>: Bool = true<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0)</b> -> RangePIX<br>
+func <b>range(inLow: UIColor = .clear, inHigh: UIColor = .white, outLow: UIColor = .clear, outHigh: UIColor = .white)</b> -> RangePIX
 ### SharpenPIX
-var <b>contrast</b>: CGFloat = 1.0
+var <b>contrast</b>: CGFloat = 1.0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>sharpen(\_: CGFloat = 1.0)</b> -> SharpenPIX
 ### SlopePIX
-var <b>amplitude</b>: CGFloat = 1.0
+var <b>amplitude</b>: CGFloat = 1.0<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>slope(\_: CGFloat = 1.0)</b> - > SlopePIX
 ### DelayPIX <i>(coming soon)</i>
 
 ## PIXMergerEffect</b>: PIXEffect
