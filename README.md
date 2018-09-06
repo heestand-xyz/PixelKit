@@ -98,7 +98,9 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
-`let pix = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)`<br>
+```swift
+let pix = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)
+```
 Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
@@ -129,7 +131,9 @@ view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
-`let pix = ImagePIX("city") & VideoPIX("superman.mov").chromaKey(.green)`<br>
+```swift
+let pix = ImagePIX("city") & VideoPIX("superman.mov").chromaKey(.green)
+```
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
@@ -146,7 +150,9 @@ Note that compared to native UIKit views the vertical axis is flipped.
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
 <b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
-`let aspectRatio: CGFloat = PIX.Res._1080p.aspect`
+```swift
+let aspectRatio: CGFloat = PIX.Res._1080p.aspect
+```
 
 ## Blend Operators
 
@@ -157,12 +163,14 @@ These are the supported `PIX.BlendingMode` operators:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 
-~~~~swift
+```swift
 let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
-~~~~
+```
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
-`PIX.blendOperators.globalFillMode = .aspectFill`
+```swift
+PIX.blendOperators.globalFillMode = .aspectFill
+```
 
 ## Effect Convenience Funcs
 
