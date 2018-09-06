@@ -8,6 +8,40 @@
 
 import CoreGraphics
 
+
+public extension PIXOut {
+    
+    func flipX() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flip = .x
+        return flipFlopPix
+    }
+    
+    func flipY() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flip = .y
+        return flipFlopPix
+    }
+    
+    func flopLeft() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flop = .left
+        return flipFlopPix
+    }
+    
+    func flopRight() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flop = .right
+        return flipFlopPix
+    }
+    
+}
+
+
 public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .flipFlop

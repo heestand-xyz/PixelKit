@@ -173,9 +173,11 @@ var <b>hue</b>: CGFloat = 0.0<br>
 var <b>saturation</b>: CGFloat = 1.0
 ### CropPIX
 var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+### FlipFlopPIX
+var <b>flip</b>: Flip? = nil<br>
+var <b>flop</b>: Flop? = nil
 ### SlopePIX <i>(coming soon)</i>
 ### SharpenPIX <i>(coming soon)</i>
-### FlipFlopPIX <i>(coming soon)</i>
 ### DelayPIX <i>(coming soon)</i>
 ### RangePIX <i>(coming soon)</i>
 

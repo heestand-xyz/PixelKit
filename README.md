@@ -4,15 +4,13 @@
 a Live Graphics Framework for iOS<br>
 powered by Metal
 
-<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.
-<br>
-<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, Lookup, Cross, Blend and Blends.
+<b>Content</b>: Camera, Image, Video, Color, Circle, Rectangle, Polygon, Gradient, Noise and Text.<br>
+<b>Effects</b>: Levels, Blur, Edge, Threshold, Quantize, Transform, Kaleidoscope, Twirl, Feedback, ChannelMix, ChromaKey, CornerPin, HueSaturation, Crop, FlipFlop, Lookup, Cross, Blend and Blends.
 
 <!--
 [Docs](#docs) -
 [Tutorial](#tutorial) -
 -->
-
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen)<br>
@@ -145,6 +143,10 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>hue(0.5)</b> -> HueSaturationPIX
 - pix.<b>saturation(0.5)</b> -> HueSaturationPIX
 - pix.<b>crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
+- pix.<b>flipX()</b> -> FlipFlopPIX
+- pix.<b>flipY()</b> -> FlipFlopPIX
+- pix.<b>flopLeft()</b> -> FlipFlopPIX
+- pix.<b>flopRight()</b> -> FlipFlopPIX
 
 Keep in mind that these methods will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.
