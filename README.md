@@ -150,9 +150,7 @@ Note that compared to native UIKit views the vertical axis is flipped.
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
 <b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
-```swift
-let aspectRatio: CGFloat = PIX.Res._1080p.aspect
-```
+`let aspectRatio: CGFloat = PIX.Res._1080p.aspect`
 
 ## Blend Operators
 
@@ -168,9 +166,7 @@ let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(r
 ```
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
-```swift
-PIX.blendOperators.globalFillMode = .aspectFill
-```
+`PIX.blendOperators.globalFillMode = .aspectFill`
 
 ## Effect Convenience Funcs
 
