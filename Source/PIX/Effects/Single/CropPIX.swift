@@ -45,6 +45,7 @@ public class CropPIX: PIXSingleEffect, PIXofaKind {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         cropFrame = try container.decode(CGRect.self, forKey: .cropFrame)
+        setNeedsRender()
     }
     
     override public func encode(to encoder: Encoder) throws {
