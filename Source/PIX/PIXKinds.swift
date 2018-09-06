@@ -49,6 +49,7 @@ extension PIX {
         case range
         case sharpen
         case slope
+        case displace
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -86,6 +87,7 @@ extension PIX {
             case .range: return RangePIX.self
             case .sharpen: return SharpenPIX.self
             case .slope: return SlopePIX.self
+            case .displace: return DisplacePIX.self
             }
         }
     }

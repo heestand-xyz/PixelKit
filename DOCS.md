@@ -164,7 +164,7 @@ var <b>fraction</b>: CGFloat = 0.125<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
 func <b>quantize(by: CGFloat)</b> -> QuantizePIX
-### TranformPIX
+### TransformPIX
 var <b>position</b>: CGPoint = .zero<br>
 var <b>rotation</b>: CGFloat = 0.0<br>
 var <b>scale</b>: CGFloat = 1.0<br>
@@ -280,7 +280,9 @@ var <b>radius</b>: CGFloat = 0.5<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0<br>
 var <b>position</b>: CGPoint = .zero
-### DispacePIX <i>(coming soon)</i>
+### DisplacePIX
+var <b>distance</b>: CGFloat = 1.0<br>
+var <b>origin</b>: CGPoint = CGPoint(x: 0.5, y: 0.5)
 ### ReorderPIX <i>(coming soon)</i>
 ### RemapPIX <i>(coming soon)</i>
 ### TimeMachinePIX <i>(coming soon)</i>

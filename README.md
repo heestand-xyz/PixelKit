@@ -35,9 +35,10 @@ powered by Metal
 [RangePIX](DOCS.md#rangepix) -
 [SharpenPIX](DOCS.md#sharpenpix) -
 [SlopePIX](DOCS.md#slopepix) -
-[LookupPIX](DOCS.md#lookuppix) -
 [CrossPIX](DOCS.md#crosspix) -
 [BlendPIX](DOCS.md#blendpix) -
+[LookupPIX](DOCS.md#lookuppix) -
+[DisplacePIX](DOCS.md#displacepix) -
 [BlendsPIX](DOCS.md#blendspix)
 
 <!--
@@ -52,6 +53,7 @@ Info:
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
 [File IO](#file-io) -
+[High Bit Mode](#high-bit-mode) -
 [Apps](#apps)
 
 Under development. More effects and pod coming soon!
@@ -229,6 +231,17 @@ Note that exporting resourses like image and video are not yet supported.
 Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
 
 ---
+
+## High Bit Mode
+
+Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>
+The default is 8 bits. Change it like this:
+`Pixels.main.colorBits = ._16`
+
+Enable high bit mode before you create any PIXs.
+
+Note resources do not support higher bits yet.<br>
+There is currently there is some gamma offset with resources.
 
 ## Apps
 
