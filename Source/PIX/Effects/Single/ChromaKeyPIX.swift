@@ -10,7 +10,7 @@ import UIKit
 
 public extension PIXOut {
     
-    func key(_ color: UIColor) -> ChromaKeyPIX {
+    func chromaKey(_ color: UIColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.inPix = self as? PIX & PIXOut
         chromaKeyPix.keyColor = color

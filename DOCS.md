@@ -205,7 +205,7 @@ var <b>softness</b>: CGFloat = 0.1<br>
 var <b>edgeDesaturation</b>: CGFloat = 0.5<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
-func <b>key(\_: UIColor)</b> -> ChromaKeyPIX
+func <b>chromaKey(\_: UIColor)</b> -> ChromaKeyPIX
 ### CornerPinPIX
 var <b>corners</b>: Corners<br>
 var <b>perspective</b>: Bool = false<br>
