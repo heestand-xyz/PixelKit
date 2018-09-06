@@ -189,7 +189,7 @@ var <b>ignoreAlpha</b>: Bool = true
 ### SharpenPIX
 var <b>contrast</b>: CGFloat = 1.0
 ### SlopePIX
-var <b>amplitide</b>: CGFloat = 1.0
+var <b>amplitude</b>: CGFloat = 1.0
 ### DelayPIX <i>(coming soon)</i>
 
 ## PIXMergerEffect</b>: PIXEffect

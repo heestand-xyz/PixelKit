@@ -10,10 +10,10 @@ import CoreGraphics
 
 public extension PIXOut {
     
-    func slope(_ amplitide: CGFloat = 1.0) -> SlopePIX {
+    func slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.inPix = self as? PIX & PIXOut
-        slopePix.amplitide = amplitide
+        slopePix.amplitude = amplitude
         return slopePix
     }
     
@@ -25,12 +25,12 @@ public class SlopePIX: PIXSingleEffect, PIXofaKind {
     
     override var shader: String { return "effectSingleSlopePIX" }
     
-    public var amplitide: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var amplitude: CGFloat = 1.0 { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
-        case amplitide
+        case amplitude
     }
     override var uniforms: [CGFloat] {
-        return [amplitide]
+        return [amplitude]
     }
     
     public override required init() {
@@ -42,13 +42,13 @@ public class SlopePIX: PIXSingleEffect, PIXofaKind {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        amplitide = try container.decode(CGFloat.self, forKey: .amplitide)
+        amplitude = try container.decode(CGFloat.self, forKey: .amplitude)
         setNeedsRender()
     }
     
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(amplitide, forKey: .amplitide)
+        try container.encode(amplitude, forKey: .amplitude)
     }
     
 }
