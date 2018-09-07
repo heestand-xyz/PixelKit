@@ -66,6 +66,7 @@
 		74B488A2214122320033B3B5 /* FlipFlopPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B488A1214122320033B3B5 /* FlipFlopPIX.swift */; };
 		74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
 		74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */; };
+		74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */; };
 		74D90B19213317250028A69E /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B17213317250028A69E /* checker.png */; };
 		74D90B1A213317250028A69E /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
 		74D90B1D21331CF60028A69E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1B21331CF60028A69E /* README.md */; };
@@ -141,6 +142,7 @@
 		74BC39D721011E3A004E9AA0 /* Pixels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
+		74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapPIX.swift; sourceTree = "<group>"; };
 		74D90B17213317250028A69E /* checker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checker.png; sourceTree = "<group>"; };
 		74D90B18213317250028A69E /* CheckerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckerView.swift; sourceTree = "<group>"; };
 		74D90B1B21331CF60028A69E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
 				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
 				7473B4FC214176E2008C6F23 /* DisplacePIX.swift */,
+				74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */,
 			);
 			path = Merger;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				7483FC36213ECD5600D3F713 /* HueSaturationPIX.swift in Sources */,
 				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
 				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
+				74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */,
 				74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */,
 				745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
