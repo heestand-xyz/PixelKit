@@ -39,7 +39,8 @@ powered by Metal
 [BlendPIX](DOCS.md#blendpix) -
 [LookupPIX](DOCS.md#lookuppix) -
 [DisplacePIX](DOCS.md#displacepix) -
-[BlendsPIX](DOCS.md#blendspix)
+[BlendsPIX](DOCS.md#blendspix) -
+[RemapPIX](DOCS.md#remappix)
 
 <!--
 [Docs](#docs) -
@@ -202,6 +203,10 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
 - pix.<b>sharpen()</b> -> SharpenPIX
 - pix.<b>slope()</b> - > SlopePIX
+- pixA.<b>lookup(pix: pixB, axis: .x)</b> -> LookupPIX
+- pixA.<b>lumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
+- pixA.<b>displace(pix: pixB, distance: 0.5)</b> -> DisplacePIX
+- pixA.<b>remap(pix: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.

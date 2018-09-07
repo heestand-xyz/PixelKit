@@ -8,6 +8,18 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func displace(pix: PIX & PIXOut, distance: CGFloat) -> DisplacePIX {
+        let displacePix = DisplacePIX()
+        displacePix.inPixA = self as? PIX & PIXOut
+        displacePix.inPixB = pix
+        displacePix.distance = distance
+        return displacePix
+    }
+    
+}
+
 public class DisplacePIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .displace

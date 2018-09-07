@@ -8,6 +8,18 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func lookup(pix: PIX & PIXOut, axis: LookupPIX.Axis) -> LookupPIX {
+        let lookupPix = LookupPIX()
+        lookupPix.inPixA = self as? PIX & PIXOut
+        lookupPix.inPixB = pix
+        lookupPix.axis = axis
+        return lookupPix
+    }
+    
+}
+
 public class LookupPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lookup

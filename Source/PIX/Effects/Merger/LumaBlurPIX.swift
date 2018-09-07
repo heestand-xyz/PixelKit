@@ -8,6 +8,18 @@
 
 import CoreGraphics
 
+public extension PIXOut {
+    
+    func lumaBlur(pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
+        let lumaBlurPix = LumaBlurPIX()
+        lumaBlurPix.inPixA = self as? PIX & PIXOut
+        lumaBlurPix.inPixB = pix
+        lumaBlurPix.radius = radius
+        return lumaBlurPix
+    }
+    
+}
+
 public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lumaBlur

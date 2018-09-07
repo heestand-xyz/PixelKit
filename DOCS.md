@@ -273,18 +273,29 @@ var <b>scale</b>: CGFloat = 1.0<br>
 var <b>size</b>: CGSize
 ### LookupPIX
 var <b>axis</b>: Axis = .x<br>
-var <b>holdEdge</b>: Bool = true
+var <b>holdEdge</b>: Bool = true<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>lookup(pix: PIX, axis: Axis)</b> -> LookupPIX
 ### LumaBlurPIX
 var <b>style</b>: Style = .box<br>
 var <b>radius</b>: CGFloat = 0.5<br>
 var <b>quality</b>: SampleQualityMode = .mid<br>
 var <b>angle</b>: CGFloat = 0<br>
-var <b>position</b>: CGPoint = .zero
+var <b>position</b>: CGPoint = .zero<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>lumaBlur(pix: PIX, radius: CGFloat)</b> -> LumaBlurPIX
 ### DisplacePIX
 var <b>distance</b>: CGFloat = 1.0<br>
-var <b>origin</b>: CGPoint = CGPoint(x: 0.5, y: 0.5)
+var <b>origin</b>: CGPoint = CGPoint(x: 0.5, y: 0.5)<br>
+<br>
+<b>PIXOut</b> convenience funcs:<br>
+func <b>displace(pix: PIX, distance: CGFloat)</b> -> DisplacePIX
+### RemapPIX
+<b>PIXOut</b> convenience funcs:<br>
+func <b>remap(pix: PIX)</b> -> RemapPIX
 ### ReorderPIX <i>(coming soon)</i>
-### RemapPIX <i>(coming soon)</i>
 ### TimeMachinePIX <i>(coming soon)</i>
 
 ## PIXMultiEffect</b>: PIXEffect
