@@ -22,11 +22,11 @@ fragment float4 effectMergerRemapPIX(VertexOut out [[stage_in]],
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
-    float4 ca = inTexA.sample(s, uv);
+    float4 cb = inTexB.sample(s, uv);
 
-    float2 uv_map = float2(ca.r, ca.g);
+    float2 uv_map = float2(cb.r, cb.g);
     
-    float4 cb = inTexB.sample(s, uv_map) * ca.a;
+    float4 ca = inTexA.sample(s, uv_map) * cb.a;
     
-    return cb;
+    return ca;
 }
