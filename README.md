@@ -39,8 +39,9 @@ powered by Metal
 [BlendPIX](DOCS.md#blendpix) -
 [LookupPIX](DOCS.md#lookuppix) -
 [DisplacePIX](DOCS.md#displacepix) -
-[BlendsPIX](DOCS.md#blendspix) -
-[RemapPIX](DOCS.md#remappix)
+[RemapPIX](DOCS.md#remappix) -
+[ReorderPIX](DOCS.md#reorderpix) -
+[BlendsPIX](DOCS.md#blendspix)
 
 <!--
 [Docs](#docs) -

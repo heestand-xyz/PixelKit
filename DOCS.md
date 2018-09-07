@@ -295,7 +295,16 @@ func <b>displace(pix: PIX, distance: CGFloat)</b> -> DisplacePIX
 ### RemapPIX
 <b>PIXOut</b> convenience funcs:<br>
 func <b>remap(pix: PIX)</b> -> RemapPIX
-### ReorderPIX <i>(coming soon)</i>
+### ReorderPIX
+var <b>redInput</b>: Input = .a<br>
+var <b>redChannel</b>: Channel = .red<br>
+var <b>greenInput</b>: Input = .a<br>
+var <b>greenChannel</b>: Channel = .green<br>
+var <b>blueInput</b>: Input = .a<br>
+var <b>blueChannel</b>: Channel = .blue<br>
+var <b>alphaInput</b>: Input = .a<br>
+var <b>alphaChannel</b>: Channel = .alpha<br>
+var <b>premultiply</b>: Bool = true
 ### TimeMachinePIX <i>(coming soon)</i>
 
 ## PIXMultiEffect</b>: PIXEffect
