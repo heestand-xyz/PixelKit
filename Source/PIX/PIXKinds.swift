@@ -52,6 +52,10 @@ extension PIX {
         case displace
         case remap
         case reorder
+        case metal
+        case metalEffect
+        case metalMergerEffect
+        case metalMultiEffect
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -92,6 +96,10 @@ extension PIX {
             case .displace: return DisplacePIX.self
             case .remap: return RemapPIX.self
             case .reorder: return ReorderPIX.self
+            case .metal: return MetalPIX.self
+            case .metalEffect: return MetalEffectPIX.self
+            case .metalMergerEffect: return MetalMergerEffectPIX.self
+            case .metalMultiEffect: return MetalMultiEffectPIX.self
             }
         }
     }

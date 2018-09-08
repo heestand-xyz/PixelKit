@@ -105,6 +105,7 @@ public class Pixels {
         
     }
     
+    
     // MARK: - Frame Loop
     
     @objc func frameLoop() {
@@ -153,6 +154,7 @@ public class Pixels {
         })
     }
     
+    
     // MARK: - PIX Linking
     
     func add(pix: PIX) {
@@ -168,17 +170,18 @@ public class Pixels {
         }
     }
     
+    
     // MARK: - Setup
     
     // MARK: Shaders
     
-    enum ShadersError: Error {
+    enum MetalLibraryError: Error {
         case runtimeERROR(String)
     }
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
         guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: kMetalLibName, ofType: "metallib") else {
-            throw ShadersError.runtimeERROR("Pixels Shaders: Metal Library not found.")
+            throw MetalLibraryError.runtimeERROR("Pixels Shaders: Metal Library not found.")
         }
         do {
             return try metalDevice.makeLibrary(filepath: libraryFile)
@@ -251,18 +254,31 @@ public class Pixels {
         }
     }
     
+    
     // MARK: - Shader
+    
+    enum ShaderError: Error {
+        case metal(String)
+        case sampler(String)
+    }
+    
+    // MARK: Metal
+    
+    func metalFrag(code: String, name: String) throws -> MTLFunction {
+        do {
+            let codeLib = try metalDevice!.makeLibrary(source: code, options: nil)
+            guard let frag = codeLib.makeFunction(name: name) else {
+                throw ShaderError.metal("Metal func \"\(name)\" not found.")
+            }
+            return frag
+        } catch {
+            throw error
+        }
+    }
     
     // MARK: Pipeline
     
-    enum ShaderPipelineError: Error {
-        case runtimeERROR(String)
-    }
-    
-    func makeShaderPipeline(_ fragFuncName: String) throws -> MTLRenderPipelineState {
-        guard let fragmentShader = metalLibrary.makeFunction(name: fragFuncName) else {
-            throw ShaderPipelineError.runtimeERROR("Frag Func Name not found: \"\(fragFuncName)\"")
-        }
+    func makeShaderPipeline(_ fragmentShader: MTLFunction) throws -> MTLRenderPipelineState {
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
         pipelineStateDescriptor.vertexFunction = quadVertexShader
         pipelineStateDescriptor.fragmentFunction = fragmentShader
@@ -276,10 +292,6 @@ public class Pixels {
     
     // MARK: Sampler
     
-    enum ShaderSamplerError: Error {
-        case runtimeERROR(String)
-    }
-    
     func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode) throws -> MTLSamplerState {
         let samplerInfo = MTLSamplerDescriptor()
         samplerInfo.minFilter = interpolate
@@ -287,10 +299,11 @@ public class Pixels {
         samplerInfo.sAddressMode = extend
         samplerInfo.tAddressMode = extend
         guard let s = metalDevice.makeSamplerState(descriptor: samplerInfo) else {
-            throw ShaderSamplerError.runtimeERROR("Shader Sampler failed to make.")
+            throw ShaderError.sampler("Shader Sampler failed to make.")
         }
         return s
     }
+    
     
     // MARK: - Raw
     
@@ -349,6 +362,53 @@ public class Pixels {
             raw = rawFlatArr
         }
         return raw
+    }
+    
+    
+    // MARK: - Metal
+    
+    enum MetalError: Error {
+        case fileNotFound
+        case uniform(String)
+        case placeholder(String)
+    }
+    
+    func embedMetalCode(uniforms: [MetalUniform], code: String, fileName: String) throws -> String {
+        guard let metalFile = Bundle(identifier: kBundleId)!.url(forResource: fileName, withExtension: "metal", subdirectory: "Shaders") else {
+            log(.error, .metal, "Metal file \"\(fileName).metal\" not found...")
+            throw MetalError.fileNotFound
+        }
+        do {
+            var metalCode = try String(contentsOf: metalFile)
+            let uniformsCode = try dynamicUniforms(uniforms: uniforms)
+            metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
+            metalCode = try insert(code, in: metalCode, at: "code")
+            return metalCode
+        } catch {
+            throw error
+        }
+    }
+    
+    func dynamicUniforms(uniforms: [MetalUniform]) throws -> String {
+        var code = ""
+        for (i, uniform) in uniforms.enumerated() {
+            guard uniform.name.range(of: " ") == nil else {
+                throw MetalError.uniform("Uniform \"\(uniform.name)\" can not contain a spaces.")
+            }
+            code += "float \(uniform.name);"
+            if i > 0 {
+                code += "\n\t"
+            }
+        }
+        return code
+    }
+    
+    func insert(_ snippet: String, in code: String, at placeholder: String) throws -> String {
+        let placeholderComment = "/*<\(placeholder)>*/"
+        guard code.range(of: placeholderComment) != nil else {
+            throw MetalError.placeholder("Placeholder <\(placeholder)> not found.")
+        }
+        return code.replacingOccurrences(of: placeholderComment, with: snippet)
     }
     
 }

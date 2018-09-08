@@ -39,3 +39,13 @@ protocol PIXOutIO: PIXOut {
     var pixOutPathList: [PIX.OutPath] { get set }
     var connectedOut: Bool { get }
 }
+
+public struct MetalUniform: Codable {
+    let name: String
+    let value: CGFloat
+}
+protocol PIXMetal {
+    var metalFileName: String { get }
+    var metalCode: String? { get }
+    var metalUniforms: [MetalUniform] { get set }
+}

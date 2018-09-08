@@ -40,6 +40,7 @@ extension Pixels {
         case view = "View"
         case res = "Res"
         case fileIO = "File IO"
+        case metal = "Metal"
     }
     
     func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
@@ -115,7 +116,7 @@ extension Pixels {
         
         #if DEBUG
         let fileName = file.split(separator: "/").last!
-        logList.append("\(fileName) \(function) \(line)")
+        logList.append("\(fileName):\(function):\(line)")
         #endif
         
         var log = ""
