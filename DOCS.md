@@ -97,6 +97,8 @@ var <b>zPosition</b>: CGFloat = 0.0<br>
 var <b>zoom</b>: CGFloat = 1.0<br>
 var <b>colored</b>: Bool = false<br>
 var <b>random</b>: Bool = false
+### MetalPIX
+var <b>metalUniforms</b>: [MetalUniform] = []
 
 ## PIXSprite: PIXContent
 var <b>res</b>: Res<br>
@@ -256,6 +258,8 @@ var <b>amplitude</b>: CGFloat = 1.0<br>
 <b>PIXOut</b> convenience funcs:<br>
 func <b>slope(\_: CGFloat = 1.0)</b> - > SlopePIX
 ### DelayPIX <i>(coming soon)</i>
+### MetalEffectPIX
+var <b>metalUniforms</b>: [MetalUniform] = []
 
 ## PIXMergerEffect</b>: PIXEffect
 var <b>inPixA</b>: (PIX & PIXOut)?<br>
@@ -306,9 +310,15 @@ var <b>alphaInput</b>: Input = .a<br>
 var <b>alphaChannel</b>: Channel = .alpha<br>
 var <b>premultiply</b>: Bool = true
 ### TimeMachinePIX <i>(coming soon)</i>
+### MetalMergerEffectPIX
+var <b>metalUniforms</b>: [MetalUniform] = []
+
 
 ## PIXMultiEffect</b>: PIXEffect
 var <b>inPixs</b>: [PIX & PIXOut] = []
 
 ### BlendsPIX
 var <b>blendingMode</b>: BlendingMode = .add
+### MetalMultiEffectPIX
+var <b>metalUniforms</b>: [MetalUniform] = []
+

@@ -12,7 +12,7 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal, PIXofaKind {
     
     let kind: PIX.Kind = .metalEffect
     
-    let metalFileName = "EffectSingleMetalPIX"
+    let metalFileName = "EffectSingleMetalPIX.metal"
     override var shader: String { return "effectSingleMetalPIX" }
     
     var metalEmbedCode: String

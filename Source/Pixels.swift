@@ -38,6 +38,7 @@ public class Pixels {
     public var logLoopLimitActive = true
     public var logLoopLimitFrameCount = 10
     var logLoopLimitIndicated = false
+    var logPadding = false
     
     // MARK: Color
     
@@ -368,15 +369,14 @@ public class Pixels {
     // MARK: - Metal
     
     enum MetalError: Error {
-        case fileNotFound
+        case fileNotFound(String)
         case uniform(String)
         case placeholder(String)
     }
     
     func embedMetalCode(uniforms: [MetalUniform], code: String, fileName: String) throws -> String {
-        guard let metalFile = Bundle(identifier: kBundleId)!.url(forResource: fileName, withExtension: "metal", subdirectory: "Shaders") else {
-            log(.error, .metal, "Metal file \"\(fileName).metal\" not found...")
-            throw MetalError.fileNotFound
+        guard let metalFile = Bundle(identifier: kBundleId)!.url(forResource: fileName, withExtension: "txt") else {
+            throw MetalError.fileNotFound(fileName)
         }
         do {
             var metalCode = try String(contentsOf: metalFile)

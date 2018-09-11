@@ -1,4 +1,4 @@
-<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/pixels_logo_1k_bg.png" width="128"/>
+<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Logo/pixels_logo_1k_bg.png" width="128"/>
 
 # Pixels
 a Live Graphics Framework for iOS<br>
@@ -232,12 +232,6 @@ To export just run `Pixels.main.export()` once you've created your PIXs.
 
 Note that exporting resourses like image and video are not yet supported.
 
---- 
-
-Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
-
----
-
 ## High Bit Mode
 
 Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>
@@ -248,6 +242,56 @@ Enable high bit mode before you create any PIXs.
 
 Note resources do not support higher bits yet.<br>
 There is currently there is some gamma offset with resources.
+
+## MetalPIXs
+
+<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/uv_1080p.png" width="90"/>
+
+~~~~swift
+let metalPix = MetalPIX(res: ._1080p, code:
+    """
+    pix = float4(u, v, 0.0, 1.0);
+    """
+)
+~~~~
+
+~~~~swift
+let metalEffectPix = MetalEffectPIX(code:
+    """
+    float gamma = 0.25;
+    pix = pow(pixIn, 1.0 / gamma);
+    """
+)
+metalEffectPix.inPix = CameraPIX()
+~~~~
+
+~~~~swift
+let metalMergerEffectPix = MetalMergerEffectPIX(code:
+    """
+    pix = pow(pixInA, 1.0 / pixInB);
+    """
+)
+metalMergerEffectPix.inPixA = CameraPIX()
+metalMergerEffectPix.inPixB = ImagePIX("img_name")
+~~~~
+
+~~~~swift
+let metalMultiEffectPix = MetalMultiEffectPIX(code:
+    """
+    float4 pixInA = inTexs.sample(s, uv, 0);
+    float4 pixInB = inTexs.sample(s, uv, 1);
+    float4 pixInC = inTexs.sample(s, uv, 2);
+    pix = pixInA + pixInB + pixInC;
+    """
+)
+metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
+~~~~
+
+--- 
+
+Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
+
+---
 
 ## Apps
 

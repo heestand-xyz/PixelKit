@@ -59,7 +59,8 @@ public class PIX: Codable {
             if let metalPix = self as? PIXMetal {
                 do {
                     guard let metalCode = metalPix.metalCode else {
-                        pixels.log(pix: self, .fatal, nil, "Metal code error...")
+                        // DO: Switch to func to catch errors.
+                        pixels.log(pix: self, .fatal, nil, "Setup failed.")
                         return
                     }
                     let metalFrag = try pixels.metalFrag(code: metalCode, name: shader)

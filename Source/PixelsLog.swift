@@ -56,11 +56,11 @@ extension Pixels {
         }
         cleanLog += message
         if let e = error {
-            cleanLog += " Error: \(e.localizedDescription)"
+            cleanLog += " Error: \(e)"
         }
         
-        if level == .fatal {
-            assert(false, cleanLog)
+        guard level != .fatal else {
+            fatalError(cleanLog)
         }
         
         if level.index > logLevel.index {
@@ -102,17 +102,25 @@ extension Pixels {
             logList.append(c.rawValue)
         }
         
-        let firstPadding = spaces(40 - logLength(logList))
-        logList.append(firstPadding)
+        if logPadding {
+            let firstPadding = spaces(40 - logLength(logList))
+            logList.append(firstPadding)
+        } else {
+            logList.append(">>>")
+        }
         
         logList.append(message)
         
         if let e = error {
-            logList.append("Error: \"\(e.localizedDescription)\"")
+            logList.append("Error: \"\(e)\"")
         }
         
-        let secondPadding = spaces(80 - logLength(logList))
-        logList.append(secondPadding)
+        if logPadding {
+            let secondPadding = spaces(80 - logLength(logList))
+            logList.append(secondPadding)
+        } else {
+            logList.append("<<<")
+        }
         
         #if DEBUG
         let fileName = file.split(separator: "/").last!
