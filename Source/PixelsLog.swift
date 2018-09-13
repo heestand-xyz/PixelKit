@@ -45,14 +45,14 @@ extension Pixels {
     
     func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
-        var pixName: String?
+        var pixType: String?
         if let p = pix {
-            pixName = String(String(describing: p).split(separator: ".").last ?? "")
+            pixType = String(String(describing: p).split(separator: ".").last ?? "")
         }
         
         var cleanLog = "Pixels "
-        if pixName != nil {
-            cleanLog += "\(pixName!) "
+        if pixType != nil {
+            cleanLog += "\(pixType!) "
         }
         cleanLog += message
         if let e = error {
@@ -94,8 +94,12 @@ extension Pixels {
         
         logList.append(level.rawValue)
         
-        if pixName != nil {
-            logList.append(pixName!)
+        if pixType != nil {
+            logList.append(pixType!)
+        }
+        
+        if let pixName = pix?.name {
+            logList.append("\"\(pixName)\"")
         }
         
         if let c = category {

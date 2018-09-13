@@ -6,6 +6,16 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+public extension PIXOut {
+    
+    func node() -> NilPIX {
+        let nilPix = NilPIX()
+        nilPix.inPix = self as? PIX & PIXOut
+        return nilPix
+    }
+    
+}
+
 public class NilPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .nil

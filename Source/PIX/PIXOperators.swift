@@ -24,12 +24,29 @@ public extension PIX {
         func blend(_ pixA: PIX, _ pixB: PIX & PIXOut, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let pixA = (pixA as? PIX & PIXOut) ?? ColorPIX(res: ._128) // CHECK
             let blendPix = BlendPIX()
+            blendPix.name = operatorName(of: blendingMode)
             blendPix.blendingMode = blendingMode
             blendPix.bypassTransform = true
             blendPix.fillMode = globalFillMode
             blendPix.inPixA = pixA
             blendPix.inPixB = pixB
             return blendPix
+        }
+        
+        func operatorName(of blendingMode: PIX.BlendingMode) -> String {
+            switch blendingMode {
+            case .over: return "&"
+            case .under: return "!&"
+            case .add: return "+"
+            case .multiply: return "*"
+            case .difference: return "%"
+            case .subtractWithAlpha: return "--"
+            case .subtract: return "-"
+            case .maximum: return "><"
+            case .minimum: return "<>"
+            case .gamma: return "!**"
+            case .power: return "**"
+            }
         }
         
     }

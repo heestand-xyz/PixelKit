@@ -22,11 +22,14 @@ public class PIXView: UIView {
         case pixelPerfect
         case fill
     }
+    /// Defaults to `.aspectFit`.
     public var fillMode: FillMode = .aspectFit { didSet { layoutFillMode() } }
     
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
     
+    /// This enables a checker background view, the default is `true`.
+    /// Disable if you have a transparent PIX and want views under the PIXView to show.
     public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
     let checkerView: CheckerView
     
