@@ -60,6 +60,7 @@ extension Pixels {
     
     func emptyTexture(size: CGSize) throws -> MTLTexture {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: colorBits.mtl, width: Int(size.width), height: Int(size.height), mipmapped: true)
+        descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         guard let t = metalDevice.makeTexture(descriptor: descriptor) else {
             throw TextureError.empty
         }
