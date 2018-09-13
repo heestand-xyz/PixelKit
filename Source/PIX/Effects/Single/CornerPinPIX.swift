@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CornerPinPIX: PIXSingleEffect, PIXofaKind, CustomGeometryDelegate {
+public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDelegate {
     
     let kind: PIX.Kind = .cornerPin
     
@@ -53,7 +53,7 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, CustomGeometryDelegate {
     
     // MAKR: Corenr Pin
     
-    func customVertecies() -> Pixels.Vertecies? {
+    public func customVertecies() -> Pixels.Vertecies? {
         
         let verteciesRaw = cornerPin()
         let verteciesMapped = mapVertecies(verteciesRaw)

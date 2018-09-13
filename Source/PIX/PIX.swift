@@ -10,7 +10,7 @@ import Metal
 import MetalKit
 import MetalPerformanceShaders
 
-public class PIX: Codable {
+open class PIX: Codable {
     
     public var id = UUID()
     public var name: String?
@@ -37,9 +37,9 @@ public class PIX: Codable {
     }
     
     var customRenderActive: Bool = false
-    var customRenderDelegate: CustomRenderDelegate?
+    var customRenderDelegate: PixelsCustomRenderDelegate?
     var customGeometryActive: Bool = false
-    var customGeometryDelegate: CustomGeometryDelegate?
+    var customGeometryDelegate: PixelsCustomGeometryDelegate?
     
     var rendering = false
     var needsRender = false

@@ -8,7 +8,7 @@
 
 import CoreVideo
 
-public class PIXResource: PIXContent {
+open class PIXResource: PIXContent {
     
     var pixelBuffer: CVPixelBuffer?
     var flop: Bool = false

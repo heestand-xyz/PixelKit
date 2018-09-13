@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-public class PIXSprite: PIXContent {
+open class PIXSprite: PIXContent {
     
     override var shader: String { return "nilFlipPIX" }
     
@@ -39,7 +39,7 @@ public class PIXSprite: PIXContent {
         sceneView.presentScene(scene)
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
     

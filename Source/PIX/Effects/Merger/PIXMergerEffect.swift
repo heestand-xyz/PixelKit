@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXMergerEffect: PIXEffect, PIXInMerger {
+open class PIXMergerEffect: PIXEffect, PIXInMerger {
     
     public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
@@ -20,7 +20,7 @@ public class PIXMergerEffect: PIXEffect, PIXInMerger {
         super.init()
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         super.init()
 //        fatalError("init(from:) has not been implemented")
     }

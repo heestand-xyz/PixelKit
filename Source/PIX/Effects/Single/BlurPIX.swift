@@ -20,7 +20,7 @@ public extension PIXOut {
     
 }
 
-public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
+public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
     
@@ -94,7 +94,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, CustomRenderDelegate {
         super.setNeedsRender()
     }
     
-    func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         return guassianBlur(texture, with: commandBuffer)
     }
     

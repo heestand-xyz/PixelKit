@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXOutput: PIX, PIXInIO, PIXInSingle {
+open class PIXOutput: PIX, PIXInIO, PIXInSingle {
     
     var pixInList: [PIX & PIXOut] = []
     var connectedIn: Bool { return !pixInList.isEmpty }
@@ -20,7 +20,7 @@ public class PIXOutput: PIX, PIXInIO, PIXInSingle {
         pixInList = []
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         fatalError("PIXOutput Decoder Initializer is not supported.") // CHECK
     }
     

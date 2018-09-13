@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXSingleEffect: PIXEffect, PIXInSingle {
+open class PIXSingleEffect: PIXEffect, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
@@ -16,7 +16,7 @@ public class PIXSingleEffect: PIXEffect, PIXInSingle {
         super.init()
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         super.init()
 //        fatalError("init(from:) has not been implemented")
     }

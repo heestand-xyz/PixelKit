@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXGenerator: PIXContent {
+open class PIXGenerator: PIXContent {
     
     var _res: Res
     public var res: Res {
@@ -27,7 +27,7 @@ public class PIXGenerator: PIXContent {
         applyRes { self.setNeedsRender() }
     }
     
-    required convenience init(from decoder: Decoder) throws {
+    required convenience public init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
 //        fatalError("init(from:) has not been implemented")
     }

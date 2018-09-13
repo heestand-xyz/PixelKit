@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXEffect: PIX, PIXInIO, PIXOutIO {
+open class PIXEffect: PIX, PIXInIO, PIXOutIO {
     
     var pixInList: [PIX & PIXOut] = []
     var pixOutPathList: [PIX.OutPath] = []
@@ -21,7 +21,7 @@ public class PIXEffect: PIX, PIXInIO, PIXOutIO {
         pixOutPathList = []
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         fatalError("PIXEffect Decoder Initializer is not supported.") // CHECK
     }
     

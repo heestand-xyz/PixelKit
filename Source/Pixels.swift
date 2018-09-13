@@ -203,7 +203,7 @@ public class Pixels {
         }
     }
     
-    struct Vertecies {
+    public struct Vertecies {
         let buffer: MTLBuffer
         let vertexCount: Int
         let instanceCount: Int

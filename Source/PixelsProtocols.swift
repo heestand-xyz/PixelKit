@@ -12,10 +12,10 @@ public protocol PixelsDelegate: class {
     func pixelsFrameLoop()
 }
 
-protocol CustomRenderDelegate {
+public protocol PixelsCustomRenderDelegate {
     func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture?
 }
 
-protocol CustomGeometryDelegate {
+public protocol PixelsCustomGeometryDelegate {
     func customVertecies() -> Pixels.Vertecies?
 }

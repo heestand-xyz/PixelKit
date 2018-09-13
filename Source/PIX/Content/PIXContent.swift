@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PIXContent: PIX, PIXOutIO {
+open class PIXContent: PIX, PIXOutIO {
     
     var pixOutPathList: [PIX.OutPath] = []
     var connectedOut: Bool { return !pixOutPathList.isEmpty }
@@ -17,7 +17,7 @@ public class PIXContent: PIX, PIXOutIO {
         super.init()
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         fatalError("PIXContent Decoder Initializer is not supported.") // CHECK
     }
     

@@ -157,7 +157,7 @@ extension Pixels {
         
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
-                throw RenderError.custom("CustomRenderDelegate not implemented.")
+                throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
             }
             guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
                 throw RenderError.custom("Custom Render faild.")
