@@ -107,11 +107,15 @@ public class PIXView: UIView {
         res = newRes
         metalView.res = newRes
         layoutFillMode()
+        if !boundsReady {
+            let scale = UIScreen.main.nativeScale
+            frame = CGRect(x: 0, y: 0, width: newRes.width / scale, height: newRes.height / scale)
+        }
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        layoutFillMode()
+        _ = layoutFillMode()
     }
     
     required init?(coder aDecoder: NSCoder) {
