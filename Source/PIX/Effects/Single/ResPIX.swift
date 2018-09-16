@@ -30,8 +30,8 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
 
     let kind: PIX.Kind = .res
     
-    override var shader: String { return "effectSingleResPIX" }
-    override var shaderNeedsAspect: Bool { return true }
+    override open var shader: String { return "effectSingleResPIX" }
+    override open var shaderNeedsAspect: Bool { return true }
     
     public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }

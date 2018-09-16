@@ -24,7 +24,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
     
-    override var shader: String { return "effectSingleBlurPIX" }
+    override open var shader: String { return "effectSingleBlurPIX" }
     
     public enum Style: String, Codable {
         case guassian

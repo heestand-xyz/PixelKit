@@ -24,7 +24,7 @@ public class DisplacePIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .displace
     
-    override var shader: String { return "effectMergerDisplacePIX" }
+    override open var shader: String { return "effectMergerDisplacePIX" }
     
     public var distance: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var origin: CGPoint = CGPoint(x: 0.5, y: 0.5) { didSet { setNeedsRender() } }

@@ -15,7 +15,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal, PIXofaKind {
     let kind: PIX.Kind = .metalMultiEffect
     
     let metalFileName = "EffectMultiMetalPIX.metal"
-    override var shader: String { return "effectMultiMetalPIX" }
+    override open var shader: String { return "effectMultiMetalPIX" }
     
     var metalEmbedCode: String
     var metalCode: String? {

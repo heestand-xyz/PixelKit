@@ -202,9 +202,9 @@ extension Pixels {
         }
         commandEncoder.setRenderPipelineState(pix.pipeline)
         
-//        if wireframeMode {
-//            commandEncoder.setTriangleFillMode(.lines)
-//        }
+        if wireframeMode {
+            commandEncoder.setTriangleFillMode(.lines)
+        }
         
         // MARK: Uniforms
         

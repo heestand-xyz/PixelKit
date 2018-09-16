@@ -12,7 +12,7 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     
     let kind: PIX.Kind = .blends
     
-    override var shader: String { return "effectMultiBlendsPIX" }
+    override open var shader: String { return "effectMultiBlendsPIX" }
     
     public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
     enum BlendsCodingKeys: String, CodingKey {

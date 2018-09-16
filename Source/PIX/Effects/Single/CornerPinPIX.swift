@@ -12,7 +12,7 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
     
     let kind: PIX.Kind = .cornerPin
     
-    override var shader: String { return "nilPIX" }
+    override open var shader: String { return "nilPIX" }
     
     public struct Corners: Codable {
         public var topLeft: CGPoint
@@ -137,7 +137,7 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
                     let top = add(scale(corners.topLeft, by: 1.0 - u), scale(corners.topRight, by: u))
                     pos = add(scale(bottom, by: 1.0 - v), scale(top, by: v))
                 }
-                let vert = Pixels.Vertex(x: Float(pos.x * 2 - 1), y: Float(pos.y * 2 - 1), s: Float(u), t: Float(1.0 - v))
+                let vert = Pixels.Vertex(x: Float(pos.x * 2 - 1), y: Float(pos.y * 2 - 1), z: 0.0, s: Float(u), t: Float(1.0 - v))
                 col_verts.append(vert)
             }
             verts.append(col_verts)

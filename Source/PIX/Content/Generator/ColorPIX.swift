@@ -12,7 +12,7 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .color
     
-    override var shader: String { return "contentGeneratorColorPIX" }
+    override open var shader: String { return "contentGeneratorColorPIX" }
     
     public var color: UIColor = .white { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {

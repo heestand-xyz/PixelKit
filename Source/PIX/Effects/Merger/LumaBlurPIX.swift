@@ -24,7 +24,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lumaBlur
     
-    override var shader: String { return "effectMergerLumaBlurPIX" }
+    override open var shader: String { return "effectMergerLumaBlurPIX" }
     
     public enum Style: String, Codable {
         case box

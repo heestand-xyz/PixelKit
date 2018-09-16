@@ -23,7 +23,7 @@ public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .quantize
     
-    override var shader: String { return "effectSingleQuantizePIX" }
+    override open var shader: String { return "effectSingleQuantizePIX" }
     
     public var fraction: CGFloat = 0.125 { didSet { setNeedsRender() } }
     enum QuantizeCodingKeys: String, CodingKey {

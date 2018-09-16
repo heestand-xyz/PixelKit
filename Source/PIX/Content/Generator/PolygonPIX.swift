@@ -12,7 +12,7 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .polygon
     
-    override var shader: String { return "contentGeneratorPolygonPIX" }
+    override open var shader: String { return "contentGeneratorPolygonPIX" }
     
     public var radius: CGFloat = 0.25 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }

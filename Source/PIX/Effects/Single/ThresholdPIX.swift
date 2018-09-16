@@ -23,7 +23,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .threshold
     
-    override var shader: String { return "effectSingleThresholdPIX" }
+    override open var shader: String { return "effectSingleThresholdPIX" }
     
     public var threshold: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var smoothness: CGFloat = 0 { didSet { setNeedsRender() } }

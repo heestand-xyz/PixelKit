@@ -13,7 +13,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal, PIXofaKind {
     let kind: PIX.Kind = .metalMergerEffect
     
     let metalFileName = "EffectMergerMetalPIX.metal"
-    override var shader: String { return "effectMergerMetalPIX" }
+    override open var shader: String { return "effectMergerMetalPIX" }
     
     var metalEmbedCode: String
     var metalCode: String? {

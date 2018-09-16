@@ -37,7 +37,7 @@ public class TransformPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .transform
     
-    override var shader: String { return "effectSingleTransformPIX" }
+    override open var shader: String { return "effectSingleTransformPIX" }
     
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }

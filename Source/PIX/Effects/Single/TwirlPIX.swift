@@ -23,7 +23,7 @@ public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .twirl
     
-    override var shader: String { return "effectSingleTwirlPIX" }
+    override open var shader: String { return "effectSingleTwirlPIX" }
     
     public var strength: CGFloat = 1 { didSet { setNeedsRender() } }
     enum TwirlCodingKeys: String, CodingKey {

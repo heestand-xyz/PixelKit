@@ -34,7 +34,7 @@ public class ChannelMixPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .channelMix
     
-    override var shader: String { return "effectSingleChannelMixPIX" }
+    override open var shader: String { return "effectSingleChannelMixPIX" }
     
     public var red: Color = Color(pure: .red) { didSet { setNeedsRender() } }
     public var green: Color = Color(pure: .green) { didSet { setNeedsRender() } }

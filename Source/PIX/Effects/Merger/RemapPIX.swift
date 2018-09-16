@@ -23,7 +23,7 @@ public class RemapPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .remap
     
-    override var shader: String { return "effectMergerRemapPIX" }
+    override open var shader: String { return "effectMergerRemapPIX" }
     
     public override init() {
         super.init()

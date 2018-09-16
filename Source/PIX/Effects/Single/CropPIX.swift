@@ -23,7 +23,7 @@ public class CropPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .crop
     
-    override var shader: String { return "effectSingleCropPIX" }
+    override open var shader: String { return "effectSingleCropPIX" }
     
     var resScale: Res { return .size(cropFrame.size) }
     

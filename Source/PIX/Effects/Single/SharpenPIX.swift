@@ -23,7 +23,7 @@ public class SharpenPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .sharpen
     
-    override var shader: String { return "effectSingleSharpenPIX" }
+    override open var shader: String { return "effectSingleSharpenPIX" }
     
     public var contrast: CGFloat = 1.0 { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {

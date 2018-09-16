@@ -24,7 +24,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .kaleidoscope
     
-    override var shader: String { return "effectSingleKaleidoscopePIX" }
+    override open var shader: String { return "effectSingleKaleidoscopePIX" }
     
     public var divisions: Int = 12 { didSet { setNeedsRender() } }
     public var mirror: Bool = true { didSet { setNeedsRender() } }

@@ -24,7 +24,7 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lookup
     
-    override var shader: String { return "effectMergerLookupPIX" }
+    override open var shader: String { return "effectMergerLookupPIX" }
     
     public enum Axis: String, Codable {
         case x

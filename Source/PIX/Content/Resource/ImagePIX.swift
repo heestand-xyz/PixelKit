@@ -12,7 +12,7 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     var kind: PIX.Kind = .image
     
-    override var shader: String { return "contentResourceImagePIX" }
+    override open var shader: String { return "contentResourceImagePIX" }
     
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     

@@ -10,7 +10,7 @@ import SpriteKit
 
 open class PIXSprite: PIXContent {
     
-    override var shader: String { return "nilFlipPIX" }
+    override open var shader: String { return "nilFlipPIX" }
     
     public var res: Res { didSet { setup(); applyRes { self.setNeedsRender() } } }
     

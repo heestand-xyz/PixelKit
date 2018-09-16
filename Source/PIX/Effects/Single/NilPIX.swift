@@ -20,6 +20,6 @@ public class NilPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .nil
     
-    override var shader: String { return "nilPIX" }
+    override open var shader: String { return "nilPIX" }
     
 }

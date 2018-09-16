@@ -12,7 +12,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     let kind: PIX.Kind = .camera
     
-    override var shader: String { return "contentResourceCameraPIX" }
+    override open var shader: String { return "contentResourceCameraPIX" }
     
     public enum Camera: String, Codable, EnumList {
         case front

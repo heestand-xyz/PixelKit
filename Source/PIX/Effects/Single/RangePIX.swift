@@ -36,7 +36,7 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .range
     
-    override var shader: String { return "effectSingleRangePIX" }
+    override open var shader: String { return "effectSingleRangePIX" }
     
     public var inLow: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var inHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }

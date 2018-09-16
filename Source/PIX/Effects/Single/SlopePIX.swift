@@ -23,7 +23,7 @@ public class SlopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .slope
     
-    override var shader: String { return "effectSingleSlopePIX" }
+    override open var shader: String { return "effectSingleSlopePIX" }
     
     public var amplitude: CGFloat = 1.0 { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {

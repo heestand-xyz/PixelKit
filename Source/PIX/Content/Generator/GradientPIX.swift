@@ -12,7 +12,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .gradient
     
-    override var shader: String { return "contentGeneratorGradientPIX" }
+    override open var shader: String { return "contentGeneratorGradientPIX" }
     
     public enum Style: String, Codable {
         case horizontal

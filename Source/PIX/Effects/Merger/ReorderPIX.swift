@@ -12,7 +12,7 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .reorder
     
-    override var shader: String { return "effectMergerReorderPIX" }
+    override open var shader: String { return "effectMergerReorderPIX" }
     
     public enum Input: String, Codable {
         case a

@@ -19,7 +19,7 @@ open class PIX: Codable {
     
     let pixels = Pixels.main
     
-    var shader: String { return "" }
+    open var shader: String { return "" }
     var uniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
 
@@ -36,10 +36,10 @@ open class PIX: Codable {
         return pipeline != nil && sampler != nil
     }
     
-    var customRenderActive: Bool = false
-    var customRenderDelegate: PixelsCustomRenderDelegate?
-    var customGeometryActive: Bool = false
-    var customGeometryDelegate: PixelsCustomGeometryDelegate?
+    public var customRenderActive: Bool = false
+    public var customRenderDelegate: PixelsCustomRenderDelegate?
+    public var customGeometryActive: Bool = false
+    public var customGeometryDelegate: PixelsCustomGeometryDelegate?
     
     var rendering = false
     var needsRender = false

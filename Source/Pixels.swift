@@ -45,6 +45,8 @@ public class Pixels {
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
     
+    open var wireframeMode = false
+    
     // MARK: Linked PIXs
     
     var linkedPixs: [PIX] = []
@@ -67,7 +69,7 @@ public class Pixels {
     
     // MARK: Metal
     
-    var metalDevice: MTLDevice!
+    public var metalDevice: MTLDevice!
     var commandQueue: MTLCommandQueue!
     var textureCache: CVMetalTextureCache!
     var metalLibrary: MTLLibrary!
@@ -195,18 +197,26 @@ public class Pixels {
         case runtimeERROR(String)
     }
     
-    struct Vertex {
-        var x,y: Float
-        var s,t: Float
-        var buffer: [Float] {
+    public struct Vertex {
+        public var x,y,z: Float
+        public var s,t: Float
+        public var buffer: [Float] {
             return [x,y,s,t]
+        }
+        public init(x: Float, y: Float, z: Float, s: Float, t: Float) {
+            self.x = x; self.y = y; self.z = z; self.s = s; self.t = t
         }
     }
     
     public struct Vertecies {
-        let buffer: MTLBuffer
-        let vertexCount: Int
-        let instanceCount: Int
+        public let buffer: MTLBuffer
+        public let vertexCount: Int
+        public let instanceCount: Int
+        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int) {
+            self.buffer = buffer
+            self.vertexCount = vertexCount
+            self.instanceCount = instanceCount
+        }
     }
     
     func makeQuadVertecis() throws -> Vertecies {
@@ -214,10 +224,10 @@ public class Pixels {
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {
-        let a = Vertex(x: -1.0, y: -1.0, s: 0.0, t: 1.0)
-        let b = Vertex(x: 1.0, y: -1.0, s: 1.0, t: 1.0)
-        let c = Vertex(x: -1.0, y: 1.0, s: 0.0, t: 0.0)
-        let d = Vertex(x: 1.0, y: 1.0, s: 1.0, t: 0.0)
+        let a = Vertex(x: -1.0, y: -1.0, z: 0.0, s: 0.0, t: 1.0)
+        let b = Vertex(x: 1.0, y: -1.0, z: 0.0, s: 1.0, t: 1.0)
+        let c = Vertex(x: -1.0, y: 1.0, z: 0.0, s: 0.0, t: 0.0)
+        let d = Vertex(x: 1.0, y: 1.0, z: 0.0, s: 1.0, t: 0.0)
         let verticesArray: Array<Vertex> = [a,b,c,b,c,d]
         var vertexData = Array<Float>()
         for vertex in verticesArray {

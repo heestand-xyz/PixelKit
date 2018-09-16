@@ -12,7 +12,7 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .blend
     
-    override var shader: String { return "effectMergerBlendPIX" }
+    override open var shader: String { return "effectMergerBlendPIX" }
     
     public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: Bool = false { didSet { setNeedsRender() } }

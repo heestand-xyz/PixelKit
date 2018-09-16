@@ -12,7 +12,7 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .noise
     
-    override var shader: String { return "contentGeneratorNoisePIX" }
+    override open var shader: String { return "contentGeneratorNoisePIX" }
     
     public var seed: Int = 0 { didSet { setNeedsRender() } }
     public var octaves: Int = 7 { didSet { setNeedsRender() } }

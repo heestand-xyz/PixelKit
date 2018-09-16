@@ -12,7 +12,7 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .rectangle
     
-    override var shader: String { return "contentGeneratorRectanglePIX" }
+    override open var shader: String { return "contentGeneratorRectanglePIX" }
     
     public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }

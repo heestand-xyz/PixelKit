@@ -13,7 +13,7 @@ public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
     var kind: PIX.Kind = .metal
     
     let metalFileName = "ContentGeneratorMetalPIX.metal"
-    override var shader: String { return "contentGeneratorMetalPIX" }
+    override open var shader: String { return "contentGeneratorMetalPIX" }
     
     var metalEmbedCode: String
     var metalCode: String? {

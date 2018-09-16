@@ -12,7 +12,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     var kind: PIX.Kind = .circle
     
-    override var shader: String { return "contentGeneratorCirclePIX" }
+    override open var shader: String { return "contentGeneratorCirclePIX" }
     
     public var radius: CGFloat = sqrt(0.75) / 4 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }

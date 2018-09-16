@@ -17,7 +17,7 @@ open class PIXGenerator: PIXContent {
     }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
     
-    override var shaderNeedsAspect: Bool { return true }
+    override open var shaderNeedsAspect: Bool { return true }
     
     public static var globalResMultiplier: CGFloat = 1
     

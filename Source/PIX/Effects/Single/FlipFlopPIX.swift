@@ -46,7 +46,7 @@ public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .flipFlop
     
-    override var shader: String { return "effectSingleFlipFlopPIX" }
+    override open var shader: String { return "effectSingleFlipFlopPIX" }
         
     public enum Flip: String, Codable {
         case x

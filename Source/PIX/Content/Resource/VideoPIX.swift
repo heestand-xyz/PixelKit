@@ -12,7 +12,7 @@ public class VideoPIX: PIXResource, PIXofaKind {
     
     var kind: PIX.Kind = .video
     
-    override var shader: String { return "nilPIX" }
+    override open var shader: String { return "nilPIX" }
     
     var helper: VideoHelper!
     

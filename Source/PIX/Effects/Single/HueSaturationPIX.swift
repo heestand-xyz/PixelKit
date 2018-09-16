@@ -30,7 +30,7 @@ public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .hueSaturation
     
-    override var shader: String { return "effectSingleHueSaturationPIX" }
+    override open var shader: String { return "effectSingleHueSaturationPIX" }
 
     public var hue: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var saturation: CGFloat = 1.0 { didSet { setNeedsRender() } }

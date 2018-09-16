@@ -58,7 +58,7 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .levels
     
-    override var shader: String { return "effectSingleLevelsPIX" }
+    override open var shader: String { return "effectSingleLevelsPIX" }
     
     public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }

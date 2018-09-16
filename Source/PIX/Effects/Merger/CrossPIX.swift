@@ -12,7 +12,7 @@ public class CrossPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .cross
     
-    override var shader: String { return "effectMergerCrossPIX" }
+    override open var shader: String { return "effectMergerCrossPIX" }
     
     public var lerp: CGFloat = 0.5 { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
