@@ -22,7 +22,7 @@ fragment float4 contentGeneratorMetalPIX(VertexOut out [[stage_in]],
                                          const device Uniforms& in [[ buffer(0) ]]) {
     float pi = 3.14159265359;
     float u = out.texCoord[0];
-    float v = out.texCoord[1];
+    float v = 1.0 - out.texCoord[1];
     float2 uv = float2(u, v);
     
     float4 pix = 0.0;
