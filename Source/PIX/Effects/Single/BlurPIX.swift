@@ -51,7 +51,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     enum BlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
     }
     
@@ -89,7 +89,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     
     // MARK: Guassian
     
-    override func setNeedsRender() {
+    override public func setNeedsRender() {
         customRenderActive = style == .guassian
         super.setNeedsRender()
     }

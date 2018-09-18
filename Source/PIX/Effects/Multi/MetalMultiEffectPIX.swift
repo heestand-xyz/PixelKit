@@ -31,7 +31,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return metalUniforms.map({ metalUniform -> CGFloat in
             return metalUniform.value
         })

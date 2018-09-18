@@ -29,7 +29,7 @@ public class SharpenPIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case contrast
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [contrast]
     }
     

@@ -20,7 +20,7 @@ open class PIX: Codable {
     let pixels = Pixels.main
     
     open var shader: String { return "" }
-    var uniforms: [CGFloat] { return [] }
+    open var uniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
 
     var texture: MTLTexture?
@@ -114,7 +114,7 @@ open class PIX: Codable {
     
     // MARK: - Render
     
-    func setNeedsRender() {
+    public func setNeedsRender() {
         guard !needsRender else {
             pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return

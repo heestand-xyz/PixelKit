@@ -18,7 +18,7 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case color
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: PIX.Color(color).list)
         return vals

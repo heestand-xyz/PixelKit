@@ -24,7 +24,7 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
     }
     

@@ -52,7 +52,7 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case redInput; case redChannel; case greenInput; case greenChannel; case blueInput; case blueChannel; case alphaInput; case alphaChannel; case premultiply
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: [redInput == .a ? 0 : 1, CGFloat(redChannel.index)])
         vals.append(contentsOf: [greenInput == .a ? 0 : 1, CGFloat(greenChannel.index)])

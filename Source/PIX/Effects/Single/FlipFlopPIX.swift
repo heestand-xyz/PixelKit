@@ -77,7 +77,7 @@ public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case flip; case flop
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(flip?.index ?? 0), CGFloat(flop?.index ?? 0)]
     }
     

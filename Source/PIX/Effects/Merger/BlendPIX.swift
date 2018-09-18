@@ -23,7 +23,7 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case blendingMode; case bypassTransform; case position; case rotation; case scale; case size
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(blendingMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
     }
     

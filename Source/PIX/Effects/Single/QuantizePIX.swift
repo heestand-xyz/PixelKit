@@ -29,7 +29,7 @@ public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     enum QuantizeCodingKeys: String, CodingKey {
         case fraction
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [fraction]
     }
     

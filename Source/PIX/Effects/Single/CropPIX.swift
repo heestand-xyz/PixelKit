@@ -31,7 +31,7 @@ public class CropPIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case cropFrame
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [cropFrame.minX, cropFrame.maxX, cropFrame.minY, cropFrame.maxY]
     }
     

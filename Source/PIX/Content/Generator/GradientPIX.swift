@@ -61,7 +61,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp; case colorSteps
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
         vals.append(contentsOf: PIX.Color(colorLast).list)

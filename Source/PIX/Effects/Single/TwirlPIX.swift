@@ -29,7 +29,7 @@ public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     enum TwirlCodingKeys: String, CodingKey {
         case strength
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [strength]
     }
     

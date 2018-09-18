@@ -77,7 +77,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
     
     // MARK: Render
     
-    override func setNeedsRender() {
+    override public func setNeedsRender() {
         setNeedsText()
         setNeedsTextColor()
         setNeedsFont()

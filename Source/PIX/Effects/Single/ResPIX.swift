@@ -40,7 +40,7 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
     enum ResCodingKeys: String, CodingKey {
         case resMultiplier; case inheritInRes; case fillMode
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
     }
     

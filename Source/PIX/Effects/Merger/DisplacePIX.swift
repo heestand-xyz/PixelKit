@@ -31,7 +31,7 @@ public class DisplacePIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case distance; case origin
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [distance, origin.x, origin.y]
     }
     

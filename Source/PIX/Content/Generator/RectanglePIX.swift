@@ -21,7 +21,7 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case size; case position; case color; case bgColor
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals = [size.width, size.height, position.x, position.y]
         vals.append(contentsOf: PIX.Color(color).list)
         vals.append(contentsOf: PIX.Color(bgColor).list)

@@ -43,7 +43,7 @@ public class ChannelMixPIX: PIXSingleEffect, PIXofaKind {
     enum ChannelMixCodingKeys: String, CodingKey {
         case red; case green; case blue; case alpha
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: red.list)
         vals.append(contentsOf: green.list)

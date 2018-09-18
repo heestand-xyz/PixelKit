@@ -49,7 +49,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     

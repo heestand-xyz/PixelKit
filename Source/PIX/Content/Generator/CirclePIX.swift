@@ -23,7 +23,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, edgeRadius]
         vals.append(contentsOf: PIX.Color(color).list)
         vals.append(contentsOf: PIX.Color(edgeColor).list)

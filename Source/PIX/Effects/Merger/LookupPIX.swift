@@ -42,7 +42,7 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case axis; case holdEdge
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
     }
     

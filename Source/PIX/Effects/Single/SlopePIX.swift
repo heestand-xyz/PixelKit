@@ -29,7 +29,7 @@ public class SlopePIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case amplitude
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [amplitude]
     }
     

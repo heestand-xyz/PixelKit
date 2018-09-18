@@ -18,7 +18,7 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     enum BlendsCodingKeys: String, CodingKey {
         case blendingMode
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(blendingMode.index)]
     }
     

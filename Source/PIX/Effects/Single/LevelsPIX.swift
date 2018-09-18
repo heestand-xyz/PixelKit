@@ -69,7 +69,7 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     enum LevelsCodingKeys: String, CodingKey {
         case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
     }
     

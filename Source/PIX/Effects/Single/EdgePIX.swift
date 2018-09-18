@@ -29,7 +29,7 @@ public class EdgePIX: PIXSingleEffect, PIXofaKind {
     enum EdgeCodingKeys: String, CodingKey {
         case strength; case distance
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [strength, distance]
     }
     

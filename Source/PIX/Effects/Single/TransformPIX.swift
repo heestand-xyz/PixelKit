@@ -46,7 +46,7 @@ public class TransformPIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case position; case rotation; case scale; case size
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [position.x, position.y, rotation, scale, size.width, size.height]
     }
     

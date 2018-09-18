@@ -23,7 +23,7 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case radius; case position; case rotation; case vertexCount; case color; case bgColor
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
         vals.append(contentsOf: PIX.Color(color).list)
         vals.append(contentsOf: PIX.Color(bgColor).list)

@@ -33,7 +33,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case camera
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
     }
 

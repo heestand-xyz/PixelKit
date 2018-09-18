@@ -18,7 +18,7 @@ public class CrossPIX: PIXMergerEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case lerp
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [lerp]
     }
     

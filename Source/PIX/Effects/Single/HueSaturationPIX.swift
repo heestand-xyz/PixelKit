@@ -37,7 +37,7 @@ public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
     enum LevelsCodingKeys: String, CodingKey {
         case hue; case saturation
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [hue, saturation, 1]
     }
     

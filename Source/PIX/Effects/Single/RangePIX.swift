@@ -50,7 +50,7 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
     enum CodingKeys: String, CodingKey {
         case inLow; case inHigh; case outLow; case outHigh; case inLowColor; case inHighColor; case outLowColor; case outHighColor; case ignoreAlpha
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         var vals = [inLow, inHigh, outLow, outHigh]
         vals.append(contentsOf: Color(inLowColor).list)
         vals.append(contentsOf: Color(inHighColor).list)

@@ -30,7 +30,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     enum EdgeCodingKeys: String, CodingKey {
         case threshold; case smoothness
     }
-    override var uniforms: [CGFloat] {
+    open override var uniforms: [CGFloat] {
         return [threshold, smoothness]
     }
     
