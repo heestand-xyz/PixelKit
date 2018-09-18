@@ -253,7 +253,7 @@ extension Pixels {
         }
         
         commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
-        commandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
+        commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
         
         // MARK: Render
         

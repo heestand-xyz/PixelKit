@@ -212,10 +212,12 @@ public class Pixels {
         public let buffer: MTLBuffer
         public let vertexCount: Int
         public let instanceCount: Int
-        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int) {
+        public let type: MTLPrimitiveType
+        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int, type: MTLPrimitiveType = .triangle) {
             self.buffer = buffer
             self.vertexCount = vertexCount
             self.instanceCount = instanceCount
+            self.type = type
         }
     }
     
