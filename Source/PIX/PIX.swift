@@ -41,6 +41,7 @@ open class PIX: Codable {
     public var customGeometryActive: Bool = false
     public var customGeometryDelegate: PixelsCustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
+    open var customVertexShaderName: String? { return nil }
     
     var rendering = false
     var needsRender = false
@@ -57,7 +58,8 @@ open class PIX: Codable {
         }
         do {
             let frag = try pixels.makeFrag(shader, with: customMetalLibrary)
-            pipeline = try pixels.makeShaderPipeline(frag)
+            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+            pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
         } catch {
             pixels.log(pix: self, .fatal, nil, "Initialization faled.", e: error)

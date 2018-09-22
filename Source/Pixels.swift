@@ -249,6 +249,16 @@ public class Pixels {
         return vtxShader
     }
     
+    // MARK: Vertex
+    
+    func makeVertexShader(_ vertexShaderName: String, with customMetalLibrary: MTLLibrary? = nil) throws -> MTLFunction {
+        let lib = (customMetalLibrary ?? metalLibrary)!
+        guard let vtxShader = lib.makeFunction(name: vertexShaderName) else {
+            throw QuadError.runtimeERROR("Custom Vertex Shader failed to make.")
+        }
+        return vtxShader
+    }
+    
     // MARK: Cache
     
     enum CacheError: Error {
@@ -322,9 +332,9 @@ public class Pixels {
     
     // MARK: Pipeline
     
-    func makeShaderPipeline(_ fragmentShader: MTLFunction) throws -> MTLRenderPipelineState {
+    func makeShaderPipeline(_ fragmentShader: MTLFunction, with customVertexShader: MTLFunction? = nil) throws -> MTLRenderPipelineState {
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
-        pipelineStateDescriptor.vertexFunction = quadVertexShader
+        pipelineStateDescriptor.vertexFunction = customVertexShader ?? quadVertexShader
         pipelineStateDescriptor.fragmentFunction = fragmentShader
         pipelineStateDescriptor.colorAttachments[0].pixelFormat = colorBits.mtl
         pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
