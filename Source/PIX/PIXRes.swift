@@ -136,6 +136,10 @@ public extension PIX {
             return raw.h
         }
         
+        public var count: Int {
+            return raw.w * raw.h
+        }
+        
         // MARK: - Life Cycle
         
         public init(size: CGSize) {
@@ -239,10 +243,10 @@ public extension PIX {
             return Res(Raw(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs)))
         }
         public static func *(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(lhs.width * rhs), h: Int(lhs.height * rhs)))
+            return Res(Raw(w: Int(round(lhs.width * rhs)), h: Int(round(lhs.height * rhs))))
         }
         public static func /(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(lhs.width / rhs), h: Int(lhs.height / rhs)))
+            return Res(Raw(w: Int(round(lhs.width / rhs)), h: Int(round(lhs.height / rhs))))
         }
         public static func +(lhs: CGFloat, rhs: Res) -> Res {
             return rhs + lhs

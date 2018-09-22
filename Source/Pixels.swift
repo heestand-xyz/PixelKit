@@ -45,8 +45,6 @@ public class Pixels {
     public var colorBits: PIX.Color.Bits = ._8
     public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
     
-    open var wireframeMode = false
-    
     // MARK: Linked PIXs
     
     var linkedPixs: [PIX] = []
@@ -198,12 +196,12 @@ public class Pixels {
     }
     
     public struct Vertex {
-        public var x,y,z: Float
-        public var s,t: Float
+        public var x,y,z: CGFloat
+        public var s,t: CGFloat
         public var buffer: [Float] {
-            return [x,y,s,t]
+            return [x,y,s,t].map({ v -> Float in return Float(v) })
         }
-        public init(x: Float, y: Float, z: Float, s: Float, t: Float) {
+        public init(x: CGFloat, y: CGFloat, z: CGFloat = 0.0, s: CGFloat, t: CGFloat) {
             self.x = x; self.y = y; self.z = z; self.s = s; self.t = t
         }
     }
@@ -213,11 +211,13 @@ public class Pixels {
         public let vertexCount: Int
         public let instanceCount: Int
         public let type: MTLPrimitiveType
-        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int, type: MTLPrimitiveType = .triangle) {
+        public let wireframe: Bool
+        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int, type: MTLPrimitiveType = .triangle, wireframe: Bool = false) {
             self.buffer = buffer
             self.vertexCount = vertexCount
             self.instanceCount = instanceCount
             self.type = type
+            self.wireframe = wireframe
         }
     }
     

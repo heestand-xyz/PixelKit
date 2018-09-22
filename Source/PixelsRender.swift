@@ -202,10 +202,6 @@ extension Pixels {
         }
         commandEncoder.setRenderPipelineState(pix.pipeline)
         
-        if wireframeMode {
-            commandEncoder.setTriangleFillMode(.lines)
-        }
-        
         // MARK: Uniforms
         
         var unifroms: [Float] = pix.uniforms.map { uniform -> Float in return Float(uniform) }
@@ -252,6 +248,10 @@ extension Pixels {
             vertecies = quadVertecis
         }
         
+        if vertecies.wireframe {
+            commandEncoder.setTriangleFillMode(.lines)
+        }
+
         commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
         commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
         

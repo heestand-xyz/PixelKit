@@ -10,7 +10,7 @@ import CoreGraphics
 
 extension PIX {
     
-    var resolution: Res? {
+    public var resolution: Res? {
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
