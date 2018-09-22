@@ -29,7 +29,7 @@ extension Pixels {
         }
     }
     
-    enum LogCategory: String {
+    public enum LogCategory: String {
         case pixels = "Pixels"
         case render = "Render"
         case texture = "Texture"
@@ -43,14 +43,14 @@ extension Pixels {
         case metal = "Metal"
     }
     
-    func log(pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public func log(prefix: String = "Pixels", pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
         var pixType: String?
         if let p = pix {
             pixType = String(String(describing: p).split(separator: ".").last ?? "")
         }
         
-        var cleanLog = "Pixels "
+        var cleanLog = "\(prefix) "
         if pixType != nil {
             cleanLog += "\(pixType!) "
         }
@@ -84,7 +84,7 @@ extension Pixels {
         
         var logList: [String] = []
         
-        logList.append("Pixels")
+        logList.append(prefix)
         
         #if DEBUG
         logList.append("#\(frame < 10 ? "0" : "")\(frame)")

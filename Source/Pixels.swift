@@ -273,11 +273,42 @@ public class Pixels {
     enum ShaderError: Error {
         case metal(String)
         case sampler(String)
+        case metalCode
+        case metalErrorError
+        case notFound(String)
+    }
+    
+    // MARK: Frag
+    
+    func makeFrag(_ shaderName: String, with customMetalLibrary: MTLLibrary? = nil) throws -> MTLFunction {
+        let frag: MTLFunction
+        if let metalPix = self as? PIXMetal {
+            do {
+                guard let metalCode = metalPix.metalCode else {
+                    throw ShaderError.metalCode
+                }
+                let metalFrag = try makeMetalFrag(code: metalCode, name: shaderName)
+                frag = metalFrag
+            } catch {
+                log(.error, nil, "Metal code in \"\(shaderName)\".", e: error)
+                guard let errorFrag = metalLibrary.makeFunction(name: "error") else {
+                    throw ShaderError.metalErrorError
+                }
+                frag = errorFrag
+            }
+        } else {
+            let lib = (customMetalLibrary ?? metalLibrary)!
+            guard let shaderFrag = lib.makeFunction(name: shaderName) else {
+                throw ShaderError.notFound(shaderName)
+            }
+            frag = shaderFrag
+        }
+        return frag
     }
     
     // MARK: Metal
     
-    func metalFrag(code: String, name: String) throws -> MTLFunction {
+    func makeMetalFrag(code: String, name: String) throws -> MTLFunction {
         do {
             let codeLib = try metalDevice!.makeLibrary(source: code, options: nil)
             guard let frag = codeLib.makeFunction(name: name) else {

@@ -40,6 +40,7 @@ open class PIX: Codable {
     public var customRenderDelegate: PixelsCustomRenderDelegate?
     public var customGeometryActive: Bool = false
     public var customGeometryDelegate: PixelsCustomGeometryDelegate?
+    open var customMetalLibrary: MTLLibrary? { return nil }
     
     var rendering = false
     var needsRender = false
@@ -55,31 +56,7 @@ open class PIX: Codable {
             return
         }
         do {
-            let frag: MTLFunction
-            if let metalPix = self as? PIXMetal {
-                do {
-                    guard let metalCode = metalPix.metalCode else {
-                        // DO: Switch to func to catch errors.
-                        pixels.log(pix: self, .fatal, nil, "Setup failed.")
-                        return
-                    }
-                    let metalFrag = try pixels.metalFrag(code: metalCode, name: shader)
-                    frag = metalFrag
-                } catch {
-                    pixels.log(pix: self, .error, nil, "Metal code in \"\(shader)\".", e: error)
-                    guard let errorFrag = pixels.metalLibrary.makeFunction(name: "error") else {
-                        pixels.log(pix: self, .fatal, nil, "Metal error error...")
-                        return
-                    }
-                    frag = errorFrag
-                }
-            } else {
-                guard let shaderFrag = pixels.metalLibrary.makeFunction(name: shader) else {
-                    pixels.log(pix: self, .fatal, nil, "Shader func \"\(shader)\" not found.")
-                    return
-                }
-                frag = shaderFrag
-            }
+            let frag = try pixels.makeFrag(shader, with: customMetalLibrary)
             pipeline = try pixels.makeShaderPipeline(frag)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
         } catch {
