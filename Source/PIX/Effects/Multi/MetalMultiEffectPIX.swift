@@ -27,7 +27,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal, PIXofaKind {
         }
     }
     
-    public var metalUniforms: [MetalUniform] = [] { didSet { setNeedsRender() } }
+    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
@@ -37,8 +37,9 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal, PIXofaKind {
         })
     }
     
-    public init(code: String) {
+    public init(code: String, uniforms: [MetalUniform] = []) {
         metalEmbedCode = code
+        metalUniforms = uniforms
         super.init()
     }
     

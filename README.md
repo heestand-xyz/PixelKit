@@ -287,6 +287,19 @@ let metalMultiEffectPix = MetalMultiEffectPIX(code:
 metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 ~~~~
 
+### Uniforms:
+
+~~~~swift
+var lumUniform = MetalUniform(name: "lum")
+let metalPix = MetalPIX(res: ._1080p, code:
+    """
+    pix = float4(in.lum, in.lum, in.lum, 1.0);
+    """,
+    uniforms: [lumUniform]
+)
+lumUniform.value = 0.5
+~~~~
+
 --- 
 
 Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.

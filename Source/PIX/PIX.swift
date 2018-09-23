@@ -59,7 +59,7 @@ open class PIX: Codable {
             return
         }
         do {
-            let frag = try pixels.makeFrag(shader, with: customMetalLibrary)
+            let frag = try pixels.makeFrag(shader, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
             pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)

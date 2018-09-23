@@ -25,7 +25,7 @@ public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
         }
     }
     
-    public var metalUniforms: [MetalUniform] = [] { didSet { setNeedsRender() } }
+    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
@@ -35,8 +35,9 @@ public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
         })
     }
     
-    public init(res: Res, code: String) {
+    public init(res: Res, code: String, uniforms: [MetalUniform] = []) {
         metalEmbedCode = code
+        metalUniforms = uniforms
         super.init(res: res)
     }
     

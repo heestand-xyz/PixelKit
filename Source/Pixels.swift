@@ -290,9 +290,9 @@ public class Pixels {
     
     // MARK: Frag
     
-    func makeFrag(_ shaderName: String, with customMetalLibrary: MTLLibrary? = nil) throws -> MTLFunction {
+    func makeFrag(_ shaderName: String, with customMetalLibrary: MTLLibrary? = nil, from pix: PIX) throws -> MTLFunction {
         let frag: MTLFunction
-        if let metalPix = self as? PIXMetal {
+        if let metalPix = pix as? PIXMetal {
             do {
                 guard let metalCode = metalPix.metalCode else {
                     throw ShaderError.metalCode
@@ -436,6 +436,7 @@ public class Pixels {
             let uniformsCode = try dynamicUniforms(uniforms: uniforms)
             metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
             metalCode = try insert(code, in: metalCode, at: "code")
+            print("CODE", metalCode)
             return metalCode
         } catch {
             throw error
@@ -443,6 +444,7 @@ public class Pixels {
     }
     
     func dynamicUniforms(uniforms: [MetalUniform]) throws -> String {
+        print("uniforms:", uniforms)
         var code = ""
         for (i, uniform) in uniforms.enumerated() {
             guard uniform.name.range(of: " ") == nil else {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
 		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
 		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
 		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				74A7B98121412BBF0078DDE3 /* RangePIX.swift */,
 				74A7B98321412BC80078DDE3 /* SharpenPIX.swift */,
 				74A7B98521412BD70078DDE3 /* SlopePIX.swift */,
+				3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -571,6 +574,7 @@
 				7445508821349DCC006E01D8 /* CornerPinPIX.swift in Sources */,
 				742321A121027C70003697C3 /* PIX.swift in Sources */,
 				74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */,
+				3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */,
 				7428A7B6211E148C005304A6 /* PIXKinds.swift in Sources */,
 				7401CF3121147C9700000A38 /* ResPIX.swift in Sources */,
 				747CBA82214286D800CB2616 /* MetalMergerEffectPIX.swift in Sources */,

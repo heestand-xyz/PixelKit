@@ -24,6 +24,13 @@ public extension PIXOut {
         return hueSaturationPix
     }
     
+    func monochrome() -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.saturation = 0.0
+        return hueSaturationPix
+    }
+    
 }
 
 public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {

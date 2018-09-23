@@ -40,12 +40,16 @@ protocol PIXOutIO: PIXOut {
     var connectedOut: Bool { get }
 }
 
-public struct MetalUniform: Codable {
-    let name: String
-    let value: CGFloat
+public class MetalUniform: Codable {
+    public let name: String
+    public var value: CGFloat
+    public init(name: String, value: CGFloat = 0.0) {
+        self.name = name
+        self.value = value
+    }
 }
 protocol PIXMetal {
     var metalFileName: String { get }
     var metalCode: String? { get }
-    var metalUniforms: [MetalUniform] { get set }
+    var metalUniforms: [MetalUniform] { get }
 }
