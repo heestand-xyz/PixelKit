@@ -10,7 +10,7 @@ import CoreGraphics
 
 public extension PIXOut {
     
-    func threshold(at threshold: CGFloat) -> ThresholdPIX {
+    func threshold(at threshold: CGFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.inPix = self as? PIX & PIXOut
         thresholdPix.threshold = threshold
