@@ -42,7 +42,9 @@ open class PIX: Codable {
     public var customGeometryDelegate: PixelsCustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
     open var customVertexShaderName: String? { return nil }
-    
+    open var customVertexTextureActive: Bool { return false }
+    open var customVertexPixIn: (PIX & PIXOut)? { return nil }
+
     var rendering = false
     var needsRender = false
     

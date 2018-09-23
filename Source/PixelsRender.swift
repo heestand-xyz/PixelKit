@@ -50,10 +50,10 @@ extension Pixels {
                 pix.didRender(texture: texture, force: force)
                 completed?()
             }, failed: { error in
-                self.log(pix: pix, .error, .render, "Render fail.\(force ? " Forced." : "")", loop: true)
+                self.log(pix: pix, .error, .render, "Render of shader failed.\(force ? " Forced." : "")", loop: true)//, e: error)
             })
         } catch {
-            log(pix: pix, .error, .render, "Render setup fail.\(force ? " Forced." : "")", loop: true)
+            log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)
         }
     }
     
@@ -66,6 +66,7 @@ extension Pixels {
         case commandEncoder
         case uniformsBuffer
         case vertecies
+        case vertexTexture
     }
     
     func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
@@ -86,84 +87,8 @@ extension Pixels {
         
         // MARK: Input Texture
         
-        var generator: Bool = false
-        var inputTexture: MTLTexture? = nil
-        var secondInputTexture: MTLTexture? = nil
-        if let pixContent = pix as? PIXContent {
-            if let pixResource = pixContent as? PIXResource {
-                guard let pixelBuffer = pixResource.pixelBuffer else {
-                    throw RenderError.texture("Pixel Buffer is nil.")
-                }
-                inputTexture = try makeTexture(from: pixelBuffer)
-            } else if pixContent is PIXGenerator {
-                generator = true
-            } else if let pixSprite = pixContent as? PIXSprite {
-                guard let spriteTexture = pixSprite.sceneView.texture(from: pixSprite.scene) else {
-                    throw RenderError.texture("Sprite Texture fail.")
-                }
-                let spriteImage = UIImage(cgImage: spriteTexture.cgImage())
-                guard let spriteBuffer = buffer(from: spriteImage) else {
-                    throw RenderError.texture("Sprite Buffer fail.")
-                }
-                inputTexture = try makeTexture(from: spriteBuffer)
-            }
-        } else if let pixIn = pix as? PIX & PIXInIO {
-            if let pixInMulti = pixIn as? PIXInMulti {
-                var inTextures: [MTLTexture] = []
-                for (i, pixOut) in pixInMulti.inPixs.enumerated() {
-                    guard let pixOutTexture = pixOut.texture else {
-                        throw RenderError.texture("IO Texture \(i) not found for: \(pixOut)")
-                    }
-                    inTextures.append(pixOutTexture)
-                }
-                inputTexture = try makeMultiTexture(from: inTextures, with: commandBuffer)
-            } else {
-                guard let pixOut = pixIn.pixInList.first else {
-                    throw RenderError.texture("inPix not connected.")
-                }
-                var feed = false
-                if let feedbackPix = pixIn as? FeedbackPIX {
-                    if feedbackPix.readyToFeed && feedbackPix.feedActive {
-                        if let feedPix = feedbackPix.feedPix {
-                            guard let feedTexture = feedPix.texture else {
-                                throw RenderError.texture("Feed Texture not found for: \(feedPix)")
-                            }
-                            inputTexture = feedTexture
-                            feed = true
-                        }
-                    }
-                }
-                if !feed {
-                    guard let pixOutTexture = pixOut.texture else {
-                        throw RenderError.texture("IO Texture not found for: \(pixOut)")
-                    }
-                    inputTexture = pixOutTexture // CHECK copy?
-                    if pix is PIXInMerger {
-                        let pixOutB = pixIn.pixInList[1]
-                        guard let pixOutTextureB = pixOutB.texture else {
-                            throw RenderError.texture("IO Texture B not found for: \(pixOutB)")
-                        }
-                        secondInputTexture = pixOutTextureB // CHECK copy?
-                    }
-                }
-            }
-        }
-        
-        guard generator || inputTexture != nil else {
-            throw RenderError.texture("Input Texture missing.")
-        }
-        
-        // MARK: Custom Render
-        
-        if !generator && pix.customRenderActive {
-            guard let customRenderDelegate = pix.customRenderDelegate else {
-                throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
-            }
-            guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
-                throw RenderError.custom("Custom Render faild.")
-            }
-            inputTexture = customRenderedTexture
-        }
+        let generator: Bool = pix is PIXGenerator
+        let (inputTexture, secondInputTexture) = try textures(from: pix, with: commandBuffer)
         
         // MARK: Drawable
         
@@ -217,6 +142,7 @@ extension Pixels {
         if !unifroms.isEmpty {
             let size = MemoryLayout<Float>.size * unifroms.count
             guard let uniformsBuffer = metalDevice.makeBuffer(length: size, options: []) else {
+                commandEncoder.endEncoding()
                 throw RenderError.uniformsBuffer
             }
             let bufferPointer = uniformsBuffer.contents()
@@ -241,6 +167,7 @@ extension Pixels {
         let vertecies: Vertecies
         if pix.customGeometryActive {
             guard let customVertecies = pix.customGeometryDelegate?.customVertecies() else {
+                commandEncoder.endEncoding()
                 throw RenderError.vertecies
             }
             vertecies = customVertecies
@@ -254,6 +181,20 @@ extension Pixels {
 
         commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
         commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
+        
+        if pix.customVertexTextureActive {
+            
+            guard let vtxPixInTexture = pix.customVertexPixIn?.texture else {
+                commandEncoder.endEncoding()
+                throw RenderError.vertexTexture
+            }
+            
+            commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
+            
+//            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
+//            commandEncoder.setVertexSamplerState(pix.sampler, index: 0)
+            
+        }
         
         // MARK: Render
         

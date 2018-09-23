@@ -113,4 +113,89 @@ extension Pixels {
         return multiTexture
     }
     
+    func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (MTLTexture?, MTLTexture?) {
+
+        var generator: Bool = false
+        var inputTexture: MTLTexture? = nil
+        var secondInputTexture: MTLTexture? = nil
+        if let pixContent = pix as? PIXContent {
+            if let pixResource = pixContent as? PIXResource {
+                guard let pixelBuffer = pixResource.pixelBuffer else {
+                    throw RenderError.texture("Pixel Buffer is nil.")
+                }
+                inputTexture = try makeTexture(from: pixelBuffer)
+            } else if pixContent is PIXGenerator {
+                generator = true
+            } else if let pixSprite = pixContent as? PIXSprite {
+                guard let spriteTexture = pixSprite.sceneView.texture(from: pixSprite.scene) else {
+                    throw RenderError.texture("Sprite Texture fail.")
+                }
+                let spriteImage = UIImage(cgImage: spriteTexture.cgImage())
+                guard let spriteBuffer = buffer(from: spriteImage) else {
+                    throw RenderError.texture("Sprite Buffer fail.")
+                }
+                inputTexture = try makeTexture(from: spriteBuffer)
+            }
+        } else if let pixIn = pix as? PIX & PIXInIO {
+            if let pixInMulti = pixIn as? PIXInMulti {
+                var inTextures: [MTLTexture] = []
+                for (i, pixOut) in pixInMulti.inPixs.enumerated() {
+                    guard let pixOutTexture = pixOut.texture else {
+                        throw RenderError.texture("IO Texture \(i) not found for: \(pixOut)")
+                    }
+                    inTextures.append(pixOutTexture)
+                }
+                inputTexture = try makeMultiTexture(from: inTextures, with: commandBuffer)
+            } else {
+                guard let pixOut = pixIn.pixInList.first else {
+                    throw RenderError.texture("inPix not connected.")
+                }
+                var feed = false
+                if let feedbackPix = pixIn as? FeedbackPIX {
+                    if feedbackPix.readyToFeed && feedbackPix.feedActive {
+                        if let feedPix = feedbackPix.feedPix {
+                            guard let feedTexture = feedPix.texture else {
+                                throw RenderError.texture("Feed Texture not found for: \(feedPix)")
+                            }
+                            inputTexture = feedTexture
+                            feed = true
+                        }
+                    }
+                }
+                if !feed {
+                    guard let pixOutTexture = pixOut.texture else {
+                        throw RenderError.texture("IO Texture not found for: \(pixOut)")
+                    }
+                    inputTexture = pixOutTexture // CHECK copy?
+                    if pix is PIXInMerger {
+                        let pixOutB = pixIn.pixInList[1]
+                        guard let pixOutTextureB = pixOutB.texture else {
+                            throw RenderError.texture("IO Texture B not found for: \(pixOutB)")
+                        }
+                        secondInputTexture = pixOutTextureB // CHECK copy?
+                    }
+                }
+            }
+        }
+        
+        guard generator || inputTexture != nil else {
+            throw RenderError.texture("Input Texture missing.")
+        }
+        
+        // MARK: Custom Render
+        
+        if !generator && pix.customRenderActive {
+            guard let customRenderDelegate = pix.customRenderDelegate else {
+                throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
+            }
+            guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
+                throw RenderError.custom("Custom Render faild.")
+            }
+            inputTexture = customRenderedTexture
+        }
+        
+        return (inputTexture, secondInputTexture)
+        
+    }
+    
 }
