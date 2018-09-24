@@ -11,7 +11,7 @@ import Metal
 
 public extension PIXOut {
     
-    func delay(_ frames: Int) -> DelayPIX {
+    func delay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
         delayPix.inPix = self as? PIX & PIXOut
         delayPix.delayFrames = frames
@@ -27,7 +27,7 @@ public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     override open var shader: String { return "nilPIX" }
     
 //    public var delaySeconds: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var delayFrames: Int = 100 { didSet { setNeedsRender() } }
+    public var delayFrames: Int = 1 { didSet { setNeedsRender() } }
     enum EdgeCodingKeys: String, CodingKey {
         case delayFrames
     }
@@ -57,6 +57,7 @@ public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     // MARK: Delay
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        guard delayFrames > 0 else { return texture }
         cachedTextures.append(texture)
         if cachedTextures.count > delayFrames {
             cachedTextures.remove(at: 0)

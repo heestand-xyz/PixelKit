@@ -28,7 +28,7 @@ fragment float4 effectMultiMetalPIX(VertexOut out [[stage_in]],
     float2 uv = float2(u, v);
     
     uint pixCount = inTexs.get_array_size();
-//    float4 pixInN = inTexs.sample(s, uv, n);
+//    float4 inPixN = inTexs.sample(s, uv, n);
     
     float4 pix = 0.0;
     

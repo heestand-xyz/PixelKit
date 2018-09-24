@@ -27,9 +27,17 @@ fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
+    uint wA = inTexA.get_width();
+    uint hA = inTexA.get_height();
+    uint wB = inTexB.get_width();
+    uint hB = inTexB.get_height();
+    float wuA = 1.0 / float(wA);
+    float hvA = 1.0 / float(hA);
+    float wuB = 1.0 / float(wB);
+    float hvB = 1.0 / float(hB);
     
-    float4 pixInA = inTexA.sample(s, uv);
-    float4 pixInB = inTexB.sample(s, uv);
+    float4 inPixA = inTexA.sample(s, uv);
+    float4 inPixB = inTexB.sample(s, uv);
     
     float4 pix = 0.0;
     
@@ -37,5 +45,3 @@ fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],
     
     return pix;
 }
-
-

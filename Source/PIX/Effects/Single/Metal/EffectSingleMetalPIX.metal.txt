@@ -26,8 +26,12 @@ fragment float4 effectSingleMetalPIX(VertexOut out [[stage_in]],
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
+    uint w = inTex.get_width();
+    uint h = inTex.get_height();
+    float wu = 1.0 / float(w);
+    float hv = 1.0 / float(h);
     
-    float4 pixIn = inTex.sample(s, uv);
+    float4 inPix = inTex.sample(s, uv);
     
     float4 pix = 0.0;
     
@@ -35,5 +39,3 @@ fragment float4 effectSingleMetalPIX(VertexOut out [[stage_in]],
     
     return pix;
 }
-
-

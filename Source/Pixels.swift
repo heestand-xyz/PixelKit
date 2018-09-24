@@ -435,8 +435,11 @@ public class Pixels {
             var metalCode = try String(contentsOf: metalFile)
             let uniformsCode = try dynamicUniforms(uniforms: uniforms)
             metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
-            metalCode = try insert(code, in: metalCode, at: "code")
-            print("CODE", metalCode)
+            let comment = "/// Pixels Dynamic Shader Code"
+            metalCode = try insert("\(comment)\n\n\n\(code)\n", in: metalCode, at: "code")
+            if logLevel == .debug {
+                print("\nDYNAMIC SHADER CODE\n\n>>>>>>>>>>>>>>>>>\n\n\(metalCode)\n<<<<<<<<<<<<<<<<<\n")
+            }
             return metalCode
         } catch {
             throw error
@@ -450,9 +453,12 @@ public class Pixels {
             guard uniform.name.range(of: " ") == nil else {
                 throw MetalError.uniform("Uniform \"\(uniform.name)\" can not contain a spaces.")
             }
-            code += "float \(uniform.name);"
             if i > 0 {
-                code += "\n\t"
+                code += "\t"
+            }
+            code += "float \(uniform.name);"
+            if i < uniforms.count - 1 {
+                code += "\n"
             }
         }
         return code

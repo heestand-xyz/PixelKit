@@ -259,7 +259,7 @@ let metalPix = MetalPIX(res: ._1080p, code:
 let metalEffectPix = MetalEffectPIX(code:
     """
     float gamma = 0.25;
-    pix = pow(pixIn, 1.0 / gamma);
+    pix = pow(inPix, 1.0 / gamma);
     """
 )
 metalEffectPix.inPix = CameraPIX()
@@ -268,7 +268,7 @@ metalEffectPix.inPix = CameraPIX()
 ~~~~swift
 let metalMergerEffectPix = MetalMergerEffectPIX(code:
     """
-    pix = pow(pixInA, 1.0 / pixInB);
+    pix = pow(inPixA, 1.0 / inPixB);
     """
 )
 metalMergerEffectPix.inPixA = CameraPIX()
@@ -278,10 +278,10 @@ metalMergerEffectPix.inPixB = ImagePIX("img_name")
 ~~~~swift
 let metalMultiEffectPix = MetalMultiEffectPIX(code:
     """
-    float4 pixInA = inTexs.sample(s, uv, 0);
-    float4 pixInB = inTexs.sample(s, uv, 1);
-    float4 pixInC = inTexs.sample(s, uv, 2);
-    pix = pixInA + pixInB + pixInC;
+    float4 inPixA = inTexs.sample(s, uv, 0);
+    float4 inPixB = inTexs.sample(s, uv, 1);
+    float4 inPixC = inTexs.sample(s, uv, 2);
+    pix = inPixA + inPixB + inPixC;
     """
 )
 metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
