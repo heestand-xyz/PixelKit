@@ -57,6 +57,7 @@ extension PIX {
         case metalMergerEffect
         case metalMultiEffect
         case delay
+        case airPlay
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -102,6 +103,7 @@ extension PIX {
             case .metalMergerEffect: return MetalMergerEffectPIX.self
             case .metalMultiEffect: return MetalMultiEffectPIX.self
             case .delay: return DelayPIX.self
+            case .airPlay: return AirPlayPIX.self
             }
         }
     }
