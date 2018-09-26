@@ -15,6 +15,8 @@ open class PIXOutput: PIX, PIXInIO, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
+    open override var shader: String { return "nilPIX" }
+    
     override init() {
         super.init()
         pixInList = []

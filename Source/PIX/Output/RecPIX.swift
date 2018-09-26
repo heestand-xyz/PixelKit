@@ -1,5 +1,5 @@
 //
-//  ExportPIX.swift
+//  RecPIX.swift
 //  Pixels
 //
 //  Created by Hexagons on 2017-12-15.
@@ -9,9 +9,9 @@
 import UIKit
 import AVKit
 
-public class ExportPIX: PIXOutput, PIXofaKind {
+public class RecPIX: PIXOutput, PIXofaKind {
     
-    let kind: PIX.Kind = .export
+    let kind: PIX.Kind = .rec
     
     var recording: Bool
     var frame_index: Int
@@ -28,7 +28,7 @@ public class ExportPIX: PIXOutput, PIXofaKind {
         case fps; case realtime
     }
     
-    override init() {
+    override public init() {
         
         recording = false
         let default_realtime = true
@@ -67,11 +67,11 @@ public class ExportPIX: PIXOutput, PIXofaKind {
     
     // MARK: Record
     
-    public func record() throws {
+    public func startRec() throws {
         try startRecord()
     }
     
-    public func stop(exported: @escaping (URL) -> ()) {
+    public func stopRec(_ exported: @escaping (URL) -> ()) {
         guard recording else { return }
         stopRecord(done: {
             guard let url = self.export_url else { return }
@@ -112,6 +112,7 @@ public class ExportPIX: PIXOutput, PIXofaKind {
     enum RecordError: Error {
         case noInPix
         case noRes
+//        case stopFailed
     }
     
     func startRecord() throws {
@@ -250,6 +251,7 @@ public class ExportPIX: PIXOutput, PIXofaKind {
             
             
         } else {
+//            throw RecordError.stopFailed
             pixels.log(pix: self, .error, nil, "Some writer is nil.")
         }
 

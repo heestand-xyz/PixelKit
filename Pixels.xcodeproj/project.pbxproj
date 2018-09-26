@@ -28,7 +28,7 @@
 		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
 		7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EE21238ECE003B0190 /* NilPIX.swift */; };
 		743F375D215BADDF002BC5BA /* AirPlayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743F375C215BADDF002BC5BA /* AirPlayPIX.swift */; };
-		743F375F215BB2C3002BC5BA /* ExportPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743F375E215BB2C3002BC5BA /* ExportPIX.swift */; };
+		743F375F215BB2C3002BC5BA /* RecPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743F375E215BB2C3002BC5BA /* RecPIX.swift */; };
 		744133A0212F859D00326015 /* VideoPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7441339F212F859D00326015 /* VideoPIX.swift */; };
 		7445508821349DCC006E01D8 /* CornerPinPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7445508721349DCC006E01D8 /* CornerPinPIX.swift */; };
 		7449A18C2142797100FAA8CC /* ReorderPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7449A18B2142797100FAA8CC /* ReorderPIX.swift */; };
@@ -115,7 +115,7 @@
 		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
 		7439E9EE21238ECE003B0190 /* NilPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NilPIX.swift; sourceTree = "<group>"; };
 		743F375C215BADDF002BC5BA /* AirPlayPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirPlayPIX.swift; sourceTree = "<group>"; };
-		743F375E215BB2C3002BC5BA /* ExportPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportPIX.swift; sourceTree = "<group>"; };
+		743F375E215BB2C3002BC5BA /* RecPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecPIX.swift; sourceTree = "<group>"; };
 		7441339F212F859D00326015 /* VideoPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPIX.swift; sourceTree = "<group>"; };
 		7445508721349DCC006E01D8 /* CornerPinPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerPinPIX.swift; sourceTree = "<group>"; };
 		7449A18B2142797100FAA8CC /* ReorderPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderPIX.swift; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 			children = (
 				7452F4C4210A3337001AA523 /* PIXOutput.swift */,
 				743F375C215BADDF002BC5BA /* AirPlayPIX.swift */,
-				743F375E215BB2C3002BC5BA /* ExportPIX.swift */,
+				743F375E215BB2C3002BC5BA /* RecPIX.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -572,7 +572,7 @@
 				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,
 				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
 				7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */,
-				743F375F215BB2C3002BC5BA /* ExportPIX.swift in Sources */,
+				743F375F215BB2C3002BC5BA /* RecPIX.swift in Sources */,
 				7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */,
 				74E642512135396600D7B57F /* PIXSprite.swift in Sources */,
 				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,

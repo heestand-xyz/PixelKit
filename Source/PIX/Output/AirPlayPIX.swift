@@ -16,7 +16,7 @@ public class AirPlayPIX: PIXOutput, PIXofaKind {
     var window: UIWindow?
     var queueConnect: Bool
     
-    override init() {
+    override public init() {
         
         isConnected = false
         window = nil
