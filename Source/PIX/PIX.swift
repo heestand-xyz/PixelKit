@@ -21,6 +21,7 @@ open class PIX: Codable {
     
     open var shader: String { return "" }
     open var uniforms: [CGFloat] { return [] }
+    open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
 
     var texture: MTLTexture?
@@ -123,7 +124,7 @@ open class PIX: Codable {
         delegate?.pixWillRender(self)
     }
     
-    func didRender(texture: MTLTexture, force: Bool = false) {
+    open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
         delegate?.pixDidRender(self)
         if !force { // CHECK the force!

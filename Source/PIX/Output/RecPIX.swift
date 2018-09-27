@@ -102,7 +102,7 @@ public class RecPIX: PIXOutput, PIXofaKind {
         }
     }
     
-    override func didRender(texture: MTLTexture, force: Bool) {
+    override public func didRender(texture: MTLTexture, force: Bool) {
         if recording && !realtime {
             recordFrame(texture: texture)
         }

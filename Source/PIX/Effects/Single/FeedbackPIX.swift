@@ -23,7 +23,7 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
         super.init()
     }
     
-    override func didRender(texture: MTLTexture, force: Bool) {
+    override public func didRender(texture: MTLTexture, force: Bool) {
         super.didRender(texture: texture)
         if feedReset {
             feedActive = true

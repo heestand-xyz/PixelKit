@@ -180,6 +180,24 @@ extension Pixels {
         }
 
         commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
+        
+        // MARK: Vertex Uniforms
+        
+        var vertexUnifroms: [Float] = pix.vertexUniforms.map { uniform -> Float in return Float(uniform) }
+        if !vertexUnifroms.isEmpty {
+            let size = MemoryLayout<Float>.size * vertexUnifroms.count
+            guard let uniformsBuffer = metalDevice.makeBuffer(length: size, options: []) else {
+                commandEncoder.endEncoding()
+                throw RenderError.uniformsBuffer
+            }
+            let bufferPointer = uniformsBuffer.contents()
+            memcpy(bufferPointer, &vertexUnifroms, size)
+            commandEncoder.setVertexBuffer(uniformsBuffer, offset: 0, index: 1)
+            print("BUFFER", vertexUnifroms)
+        }
+        
+        // MARK: Draw
+        
         commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
         
 //        if pix.customVertexTextureActive {
