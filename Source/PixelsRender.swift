@@ -182,19 +182,19 @@ extension Pixels {
         commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
         commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
         
-        if pix.customVertexTextureActive {
-            
-            guard let vtxPixInTexture = pix.customVertexPixIn?.texture else {
-                commandEncoder.endEncoding()
-                throw RenderError.vertexTexture
-            }
-            
-            commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
-            
-//            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
-//            commandEncoder.setVertexSamplerState(pix.sampler, index: 0)
-            
-        }
+//        if pix.customVertexTextureActive {
+//
+//            guard let vtxPixInTexture = pix.customVertexPixIn?.texture else {
+//                commandEncoder.endEncoding()
+//                throw RenderError.vertexTexture
+//            }
+//
+//            commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
+//
+////            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
+////            commandEncoder.setVertexSamplerState(pix.sampler, index: 0)
+//
+//        }
         
         // MARK: Render
         

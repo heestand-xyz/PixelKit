@@ -43,6 +43,9 @@ public extension PIX {
     public struct PixelPack {
         public let res: Res
         public let raw: [[PIX.Color]]
+        public func pixel(x: Int, y: Int) -> PIX.Color {
+            return raw[y][x]
+        }
         public func pixel(uv: CGVector) -> PIX.Color {
             let xMax = res.width - 1
             let yMax = res.height - 1

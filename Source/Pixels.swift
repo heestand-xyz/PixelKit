@@ -37,6 +37,7 @@ public class Pixels {
     public var logLevel: LogLevel = .debug
     public var logLoopLimitActive = true
     public var logLoopLimitFrameCount = 10
+    var logDynamicShaderCode = false
     var logLoopLimitIndicated = false
     var logPadding = false
     
@@ -437,7 +438,7 @@ public class Pixels {
             metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
             let comment = "/// Pixels Dynamic Shader Code"
             metalCode = try insert("\(comment)\n\n\n\(code)\n", in: metalCode, at: "code")
-            if logLevel == .debug {
+            if logLevel == .debug && logDynamicShaderCode {
                 print("\nDYNAMIC SHADER CODE\n\n>>>>>>>>>>>>>>>>>\n\n\(metalCode)\n<<<<<<<<<<<<<<<<<\n")
             }
             return metalCode
@@ -447,7 +448,6 @@ public class Pixels {
     }
     
     func dynamicUniforms(uniforms: [MetalUniform]) throws -> String {
-        print("uniforms:", uniforms)
         var code = ""
         for (i, uniform) in uniforms.enumerated() {
             guard uniform.name.range(of: " ") == nil else {
