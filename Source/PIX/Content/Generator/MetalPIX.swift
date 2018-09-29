@@ -8,6 +8,20 @@
 
 import UIKit
 
+public extension MetalPIX {
+    
+    public static func uv(res: Res) -> MetalPIX {
+        let uv = MetalPIX(res: res, code:
+            """
+            pix = float4(u, v, 0.0, 1.0);
+            """
+        )
+        uv.name = "UV Map"
+        return uv
+    }
+    
+}
+
 public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
     
     var kind: PIX.Kind = .metal

@@ -123,6 +123,24 @@ public extension PIX {
             self.space = space
         }
         
+        // MARK: - Grayscale
+        
+        public init(lum: CGFloat) {
+            self.space = Pixels.main.colorSpace
+            self.r = lum
+            self.g = lum
+            self.b = lum
+            self.a = 1.0
+        }
+        
+        public init(val: CGFloat) {
+            self.space = Pixels.main.colorSpace
+            self.r = val
+            self.g = val
+            self.b = val
+            self.a = val
+        }
+        
         // MARK: - Hex
         
         public var hex: String {

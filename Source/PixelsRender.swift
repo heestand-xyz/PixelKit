@@ -43,10 +43,13 @@ extension Pixels {
             return
         }
         pix.needsRender = false
+        let renderStartTime = Date()
         log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
         do {
             try render(pix, force: force, completed: { texture in
-                self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "")", loop: true)
+                let renderTime = -renderStartTime.timeIntervalSinceNow
+                let renderTimeMs = Int(round(renderTime * 1000))
+                self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderTimeMs)]", loop: true)
                 pix.didRender(texture: texture, force: force)
                 completed?()
             }, failed: { error in
@@ -58,7 +61,6 @@ extension Pixels {
     }
     
     enum RenderError: Error {
-        case x(String)
         case commandBuffer
         case texture(String)
         case custom(String)
@@ -193,26 +195,27 @@ extension Pixels {
             let bufferPointer = uniformsBuffer.contents()
             memcpy(bufferPointer, &vertexUnifroms, size)
             commandEncoder.setVertexBuffer(uniformsBuffer, offset: 0, index: 1)
-            print("BUFFER", vertexUnifroms)
+        }
+        
+        // MARK: Custom Vertex Texture
+        
+        if pix.customVertexTextureActive {
+            
+            guard let vtxPixInTexture = pix.customVertexPixIn?.texture else {
+                commandEncoder.endEncoding()
+                throw RenderError.vertexTexture
+            }
+            
+            commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
+            
+            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
+            commandEncoder.setVertexSamplerState(pix.sampler, index: 0)
+            
         }
         
         // MARK: Draw
         
         commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
-        
-//        if pix.customVertexTextureActive {
-//
-//            guard let vtxPixInTexture = pix.customVertexPixIn?.texture else {
-//                commandEncoder.endEncoding()
-//                throw RenderError.vertexTexture
-//            }
-//
-//            commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
-//
-////            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
-////            commandEncoder.setVertexSamplerState(pix.sampler, index: 0)
-//
-//        }
         
         // MARK: Render
         
@@ -239,6 +242,7 @@ extension Pixels {
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
+//            guard !sharedCaptureManager.isCapturing else { fatalError() }
 //            sharedCaptureManager.defaultCaptureScope?.end()
 //        }
         

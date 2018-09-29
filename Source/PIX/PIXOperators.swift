@@ -13,6 +13,8 @@ infix operator !&
 infix operator <>
 infix operator ><
 
+import UIKit
+
 public extension PIX {
     
     public static let blendOperators = BlendOperators()
@@ -31,6 +33,22 @@ public extension PIX {
             blendPix.inPixA = pixA
             blendPix.inPixB = pixB
             return blendPix
+        }
+        
+        func blend(_ pix: PIX, _ color: Color, blendingMode: PIX.BlendingMode) -> BlendPIX {
+            let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
+            colorPix.color = color.ui
+            let blend = blendOperators.blend(pix, colorPix, blendingMode: blendingMode)
+            blend.extend = .hold
+            return blend
+        }
+        
+        func blend(_ pix: PIX, _ val: CGFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
+            return blend(pix, Color(lum: val), blendingMode: blendingMode)
+        }
+        
+        func blend(_ pix: PIX, _ uiColor: UIColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
+            return blend(pix, Color(uiColor), blendingMode: blendingMode)
         }
         
         func operatorName(of blendingMode: PIX.BlendingMode) -> String {
@@ -54,48 +72,161 @@ public extension PIX {
     public static func +(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
     }
-    
-//    public static func +(lhs: PIX, rhs: CGFloat) -> BlendPIX {
-//        return blendOperators.blend(lhs, rhs, blendingMode: .add)
-//    }
+    public static func +(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs + lhs }
+    public static func +(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .add)
+    }
+    public static func +(lhs: Color, rhs: PIX) -> BlendPIX { return rhs + lhs }
+    public static func +(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .add)
+    }
+    public static func +(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs + lhs }
+    public static func +(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .add)
+    }
     
     public static func -(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
+    }
+    public static func -(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
+    }
+    public static func -(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
+    }
+    public static func -(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
     }
     
     public static func --(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
     }
+    public static func --(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
+    }
+    public static func --(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
+    }
     
     public static func *(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
+    }
+    public static func *(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs * lhs }
+    public static func *(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
+    }
+    public static func *(lhs: Color, rhs: PIX) -> BlendPIX { return rhs * lhs }
+    public static func *(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
+    }
+    public static func *(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs * lhs }
+    public static func *(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
     }
     
     public static func **(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .power)
     }
+    public static func **(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .power)
+    }
+    public static func **(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .power)
+    }
+    public static func **(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .power)
+    }
     
     public static func !**(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
+    }
+    public static func !**(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
+    }
+    public static func !**(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
+    }
+    public static func !**(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
     
     public static func &(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .over)
     }
+    public static func &(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs !& lhs }
+    public static func &(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .over)
+    }
+    public static func &(lhs: Color, rhs: PIX) -> BlendPIX { return rhs !& lhs }
+    public static func &(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .over)
+    }
+    public static func &(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs !& lhs }
+    public static func &(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .over)
+    }
     
     public static func !&(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .under)
+    }
+    public static func !&(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs & lhs }
+    public static func !&(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .under)
+    }
+    public static func !&(lhs: Color, rhs: PIX) -> BlendPIX { return rhs & lhs }
+    public static func !&(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .under)
+    }
+    public static func !&(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs & lhs }
+    public static func !&(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .under)
     }
     
     public static func %(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .difference)
     }
+    public static func %(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs % lhs }
+    public static func %(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .difference)
+    }
+    public static func %(lhs: Color, rhs: PIX) -> BlendPIX { return rhs % lhs }
+    public static func %(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .difference)
+    }
+    public static func %(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs % lhs }
+    public static func %(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .difference)
+    }
     
     public static func <>(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
     }
+    public static func <>(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs <> lhs }
+    public static func <>(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
+    }
+    public static func <>(lhs: Color, rhs: PIX) -> BlendPIX { return rhs <> lhs }
+    public static func <>(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
+    }
+    public static func <>(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs <> lhs }
+    public static func <>(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
+    }
     
     public static func ><(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
+    }
+    public static func ><(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs >< lhs }
+    public static func ><(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
+    }
+    public static func ><(lhs: Color, rhs: PIX) -> BlendPIX { return rhs >< lhs }
+    public static func ><(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
+    }
+    public static func ><(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs >< lhs }
+    public static func ><(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
     }
     

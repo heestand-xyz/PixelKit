@@ -45,6 +45,7 @@ open class PIX: Codable {
     open var customVertexShaderName: String? { return nil }
     open var customVertexTextureActive: Bool { return false }
     open var customVertexPixIn: (PIX & PIXOut)? { return nil }
+    public var customLinkedPixs: [PIX] = []
 
     var rendering = false
     var needsRender = false
@@ -127,6 +128,9 @@ open class PIX: Codable {
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
         delegate?.pixDidRender(self)
+        for customLinkedPix in customLinkedPixs {
+            customLinkedPix.setNeedsRender()
+        }
         if !force { // CHECK the force!
             if let pixOut = self as? PIXOutIO {
                 for pixOutPath in pixOut.pixOutPathList {
@@ -210,6 +214,26 @@ open class PIX: Codable {
     }
     
     // MARK: - Other
+    
+    // MARL: Custom Linking
+    
+    public func customLink(to pix: PIX) {
+        for customLinkedPix in customLinkedPixs {
+            if customLinkedPix == pix {
+                return
+            }
+        }
+        customLinkedPixs.append(pix)
+    }
+    
+    public func customDelink(from pix: PIX) {
+        for (i, customLinkedPix) in customLinkedPixs.enumerated() {
+            if customLinkedPix == pix {
+                customLinkedPixs.remove(at: i)
+                return
+            }
+        }
+    }
     
     // MARK: Operator Overloading
     
