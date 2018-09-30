@@ -313,10 +313,15 @@ public class RecPIX: PIXOutput, PIXofaKind {
             bytesPerRow: CVPixelBufferGetBytesPerRow(pixel_buffer),
             space: rgb_color_space,
             bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
-            )!
+            )
+        
+        guard let c = context else {
+            Pixels.main.log(.error, nil, "Record context failed.")
+            return
+        }
         
         let draw_cg_rect = CGRect(x: 0, y: 0, width: cg_image.width, height: cg_image.height)
-        context.draw(cg_image, in: draw_cg_rect)
+        c.draw(cg_image, in: draw_cg_rect)
         
         CVPixelBufferUnlockBaseAddress(pixel_buffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
         

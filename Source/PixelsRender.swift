@@ -44,12 +44,14 @@ extension Pixels {
         }
         pix.needsRender = false
         let renderStartTime = Date()
+        let renderStartFrame = frame
         log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
         do {
             try render(pix, force: force, completed: { texture in
                 let renderTime = -renderStartTime.timeIntervalSinceNow
                 let renderTimeMs = Int(round(renderTime * 1000))
-                self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderTimeMs)]", loop: true)
+                let renderFrames = self.frame - renderStartFrame
+                self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderFrames):\(renderTimeMs)ms]", loop: true)
                 pix.didRender(texture: texture, force: force)
                 completed?()
             }, failed: { error in

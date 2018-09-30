@@ -23,8 +23,22 @@ open class PIX: Codable {
     open var uniforms: [CGFloat] { return [] }
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
+    
+    public var bypass: Bool = false
 
-    var texture: MTLTexture?
+    var _texture: MTLTexture?
+    var texture: MTLTexture? {
+        get {
+            guard !bypass else {
+                guard let inPix = self as? PIXInIO else { return nil }
+                return inPix.pixInList.first?.texture
+            }
+            return _texture
+        }
+        set {
+            _texture = newValue
+        }
+    }
     
     public let view: PIXView
     
@@ -98,6 +112,10 @@ open class PIX: Codable {
     // MARK: - Render
     
     public func setNeedsRender() {
+        guard !bypass else {
+            renderOuts()
+            return
+        }
         guard !needsRender else {
             pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
@@ -132,10 +150,16 @@ open class PIX: Codable {
             customLinkedPix.setNeedsRender()
         }
         if !force { // CHECK the force!
-            if let pixOut = self as? PIXOutIO {
-                for pixOutPath in pixOut.pixOutPathList {
-                    pixOutPath.pixIn.setNeedsRender()
-                }
+            renderOuts()
+        }
+    }
+    
+    func renderOuts() {
+        if let pixOut = self as? PIXOutIO {
+            for pixOutPath in pixOut.pixOutPathList {
+                let pix = pixOutPath.pixIn
+                guard !pix.destroyed else { continue }
+                pix.setNeedsRender()
             }
         }
     }
@@ -246,6 +270,13 @@ open class PIX: Codable {
     }
     
     // MARK: Clean
+    
+    var destroyed = false
+    public func destroy() {
+        pixels.remove(pix: self)
+        texture = nil
+        destroyed = true
+    }
     
     deinit {
         // CHECK retain count...

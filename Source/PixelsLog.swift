@@ -84,6 +84,8 @@ extension Pixels {
         
         var logList: [String] = []
         
+        var padding = 0
+        
         logList.append(prefix)
         
         #if DEBUG
@@ -92,26 +94,41 @@ extension Pixels {
         if level == .debug { return }
         #endif
         
+        var tc = 0
+        if logTime {
+            let t = Date()
+            let df = DateFormatter()
+            let f = "HH:mm:ss.SSS"
+            tc = f.count + 2
+            df.dateFormat = f
+            let ts = df.string(from: t)
+            logList.append(ts)
+        }
+        
         logList.append(level.rawValue)
         
-        if pixType != nil {
-            logList.append(pixType!)
+        if logPadding { padding += 20; logList.append(spaces(tc + padding - logLength(logList))) }
+        
+        if pix != nil && pixType != nil {
+            let nr = linkIndex(of: pix!)
+            let nrstr = nr != nil ? "\(nr! + 1)" : "#"
+            logList.append("[\(nrstr)] \(pixType!)")
         }
+        
+        if logPadding { padding += 30; logList.append(spaces(tc + padding - logLength(logList))) }
         
         if let pixName = pix?.name {
             logList.append("\"\(pixName)\"")
         }
         
+        if logPadding { padding += 30; logList.append(spaces(tc + padding - logLength(logList))) }
+        
         if let c = category {
             logList.append(c.rawValue)
         }
         
-        if logPadding {
-            let firstPadding = spaces(40 - logLength(logList))
-            logList.append(firstPadding)
-        } else {
-            logList.append(">>>")
-        }
+        if logPadding { padding += 20; logList.append(spaces(tc + padding - logLength(logList))) }
+        else { logList.append(">>>") }
         
         logList.append(message)
         
@@ -119,12 +136,8 @@ extension Pixels {
             logList.append("Error: \"\(e)\"")
         }
         
-        if logPadding {
-            let secondPadding = spaces(80 - logLength(logList))
-            logList.append(secondPadding)
-        } else {
-            logList.append("<<<")
-        }
+        if logPadding { padding += 50; logList.append(spaces(tc + padding - logLength(logList))) }
+        else { logList.append("<<<") }
         
         #if DEBUG
         let fileName = file.split(separator: "/").last!

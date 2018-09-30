@@ -37,9 +37,10 @@ public class Pixels {
     public var logLevel: LogLevel = .debug
     public var logLoopLimitActive = true
     public var logLoopLimitFrameCount = 10
-    var logDynamicShaderCode = false
+    public var logDynamicShaderCode = false
+    public var logPadding = false
+    public var logTime = false
     var logLoopLimitIndicated = false
-    var logPadding = false
     
     // MARK: Color
     
@@ -49,6 +50,15 @@ public class Pixels {
     // MARK: Linked PIXs
     
     var linkedPixs: [PIX] = []
+    
+    func linkIndex(of pix: PIX) -> Int? {
+        for (i, linkedPix) in linkedPixs.enumerated() {
+            if linkedPix == pix {
+                return i
+            }
+        }
+        return nil
+    }
     
     // MARK: Frames
     
