@@ -107,7 +107,17 @@ extension Pixels {
         
         logList.append(level.rawValue)
         
-        if logPadding { padding += 20; logList.append(spaces(tc + padding - logLength(logList))) }
+        var ext = 0
+        if logExtra {
+            ext += 5
+            if level == .warning {
+                logList.append("⚠️"); ext -= 1
+            } else if level == .error {
+                logList.append("❌"); ext -= 1
+            }
+        }
+        
+        if logPadding { padding += 20; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
         if pix != nil && pixType != nil {
             let nr = linkIndex(of: pix!)
@@ -115,19 +125,19 @@ extension Pixels {
             logList.append("[\(nrstr)] \(pixType!)")
         }
         
-        if logPadding { padding += 30; logList.append(spaces(tc + padding - logLength(logList))) }
+        if logPadding { padding += 30; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
         if let pixName = pix?.name {
             logList.append("\"\(pixName)\"")
         }
         
-        if logPadding { padding += 30; logList.append(spaces(tc + padding - logLength(logList))) }
+        if logPadding { padding += 30; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
         if let c = category {
             logList.append(c.rawValue)
         }
         
-        if logPadding { padding += 20; logList.append(spaces(tc + padding - logLength(logList))) }
+        if logPadding { padding += 20; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         else { logList.append(">>>") }
         
         logList.append(message)
@@ -136,7 +146,7 @@ extension Pixels {
             logList.append("Error: \"\(e)\"")
         }
         
-        if logPadding { padding += 50; logList.append(spaces(tc + padding - logLength(logList))) }
+        if logPadding { padding += 50; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         else { logList.append("<<<") }
         
         #if DEBUG

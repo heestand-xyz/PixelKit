@@ -30,10 +30,14 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
             feedReset = false
         }
         readyToFeed = true
-//        pixels.delay(frames: 2, done: {
-//            self.setNeedsRender()
-//        })
-        setNeedsRender()
+        switch pixels.renderMode {
+        case .frameLoop:
+            setNeedsRender()
+        case .direct:
+            pixels.delay(frames: 1, done: {
+                self.setNeedsRender()
+            })
+        }
     }
     
     public func resetFeed() {

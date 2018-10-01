@@ -32,6 +32,8 @@ public class Pixels {
         return Signature(id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
     }
     
+    public var renderMode: RenderMode = .frameLoop
+    
     // MARK: Log
     
     public var logLevel: LogLevel = .debug
@@ -40,6 +42,7 @@ public class Pixels {
     public var logDynamicShaderCode = false
     public var logPadding = false
     public var logTime = false
+    public var logExtra = false
     var logLoopLimitIndicated = false
     
     // MARK: Color

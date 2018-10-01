@@ -62,7 +62,13 @@ open class PIX: Codable {
     public var customLinkedPixs: [PIX] = []
 
     var rendering = false
-    var needsRender = false
+    var needsRender = false {
+        didSet {
+            guard needsRender else { return }
+            guard pixels.renderMode == .direct else { return }
+            pixels.renderPIX(self)
+        }
+    }
     
     // MARK: - Life Cycle
     
@@ -138,9 +144,9 @@ open class PIX: Codable {
                 return
             }
         }
-        needsRender = true
         pixels.log(pix: self, .info, .render, "Requested.", loop: true)
         delegate?.pixWillRender(self)
+        needsRender = true
     }
     
     open func didRender(texture: MTLTexture, force: Bool = false) {

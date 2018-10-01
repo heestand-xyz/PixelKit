@@ -10,7 +10,13 @@ import MetalKit
 
 extension Pixels {
     
+    public enum RenderMode {
+        case frameLoop
+        case direct
+    }
+    
     func renderPIXs() {
+        guard renderMode == .frameLoop else { return }
         loop: for pix in linkedPixs {
             if pix.needsRender {
                 if let pixIn = pix as? PIX & PIXInIO {
@@ -37,7 +43,7 @@ extension Pixels {
         }
     }
     
-    func renderPIX(_ pix: PIX, force: Bool = false, completed: (() -> ())? = nil) {
+    func renderPIX(_ pix: PIX, force: Bool = false) {
         guard !pix.rendering else {
             log(pix: pix, .warning, .render, "Render in progress...", loop: true)
             return
@@ -53,9 +59,8 @@ extension Pixels {
                 let renderFrames = self.frame - renderStartFrame
                 self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderFrames):\(renderTimeMs)ms]", loop: true)
                 pix.didRender(texture: texture, force: force)
-                completed?()
             }, failed: { error in
-                self.log(pix: pix, .error, .render, "Render of shader failed.\(force ? " Forced." : "")", loop: true)//, e: error)
+                self.log(pix: pix, .error, .render, "Render of shader failed.\(force ? " Forced." : "")", loop: true, e: error)
             })
         } catch {
             log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)
