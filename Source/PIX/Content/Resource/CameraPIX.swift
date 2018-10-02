@@ -14,6 +14,15 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     override open var shader: String { return "contentResourceCameraPIX" }
     
+    public enum CamRes {
+        case low
+        case high
+        case _720p
+        case _1080p
+        case _4K
+    }
+    let camRes: CamRes
+    
     public enum Camera: String, Codable, EnumList {
         case front
         case back
@@ -40,7 +49,8 @@ public class CameraPIX: PIXResource, PIXofaKind {
     var helper: CameraHelper?
     var access: Bool = false
     
-    public override init() {
+    public init(camRes: CamRes = .high) {
+        self.camRes = camRes
         super.init()
         setupCamera()
     }
@@ -89,7 +99,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
             }
         }
         helper?.stop()
-        helper = CameraHelper(cameraPosition: camera.position, setup: { _, orientation in
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, setup: { _, orientation in
             self.pixels.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -128,7 +138,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let setupCallback: (CGSize, UIInterfaceOrientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         self.cameraPosition = cameraPosition
         
@@ -142,7 +152,18 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         super.init()
         
-        captureSession.sessionPreset = .high
+        switch camRes {
+        case .low:
+            captureSession.sessionPreset = .low
+        case .high:
+            captureSession.sessionPreset = .high
+        case ._720p:
+            captureSession.sessionPreset = .hd1280x720
+        case ._1080p:
+            captureSession.sessionPreset = .hd1920x1080
+        case ._4K:
+            captureSession.sessionPreset = .hd4K3840x2160
+        }
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
         sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.colorBits.os]

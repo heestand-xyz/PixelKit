@@ -38,6 +38,9 @@ public extension PIX {
             var os: OSType {
                 return kCVPixelFormatType_32BGRA
             }
+            var osARGB: OSType {
+                return kCVPixelFormatType_32ARGB
+            }
             public var max: Int {
                 return NSDecimalNumber(decimal: pow(2, self.rawValue)).intValue - 1
             }

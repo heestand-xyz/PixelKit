@@ -9,39 +9,41 @@
 import UIKit
 import AVKit
 
-public class RecPIX: PIXOutput, PIXofaKind {
+public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleBufferDelegate {
     
     let kind: PIX.Kind = .rec
     
     var recording: Bool
-    var frame_index: Int
-    var last_frame_date: Date?
+    var frameIndex: Int
+    var lastFrameDate: Date?
     var writer: AVAssetWriter?
-    var writer_input: AVAssetWriterInput?
-    var writer_adoptor: AVAssetWriterInputPixelBufferAdaptor?
-    var current_frame: CGImage?
-    var export_url: URL?
+    var writerVideoInput: AVAssetWriterInput?
+//    var writerAudioInput: AVAssetWriterInput?
+    var writerAdoptor: AVAssetWriterInputPixelBufferAdaptor?
+    var currentImage: CGImage?
+    var exportUrl: URL?
 
     public var fps: Int = 30
     public var realtime: Bool = true
+    var expectsRealtime = true
     enum CodingKeys: String, CodingKey {
         case fps; case realtime
     }
     
+    var customName: String?
+    
     override public init() {
         
         recording = false
-        let default_realtime = true
-        realtime = default_realtime
-        let default_fps = 30
-        fps = default_fps
-        frame_index = 0
-        last_frame_date = nil
+        realtime = true
+        fps = 30
+        frameIndex = 0
+        lastFrameDate = nil
         writer = nil
-        writer_input = nil
-        writer_adoptor = nil
-        current_frame = nil
-        export_url = nil
+        writerVideoInput = nil
+        writerAdoptor = nil
+        currentImage = nil
+        exportUrl = nil
         
         super.init()
 
@@ -67,14 +69,15 @@ public class RecPIX: PIXOutput, PIXofaKind {
     
     // MARK: Record
     
-    public func startRec() throws {
+    public func startRec(name: String? = nil) throws {
+        customName = name
         try startRecord()
     }
     
     public func stopRec(_ exported: @escaping (URL) -> ()) {
         guard recording else { return }
         stopRecord(done: {
-            guard let url = self.export_url else { return }
+            guard let url = self.exportUrl else { return }
             exported(url)
         })
     }
@@ -94,7 +97,7 @@ public class RecPIX: PIXOutput, PIXofaKind {
     
     func frameLoop() {
         if recording && realtime && connectedIn {
-            if last_frame_date == nil || -last_frame_date!.timeIntervalSinceNow >= 1.0 / Double(fps) {
+            if lastFrameDate == nil || -lastFrameDate!.timeIntervalSinceNow >= 1.0 / Double(fps) {
                 if let texture = inPix?.texture {
                     recordFrame(texture: texture)
                 }
@@ -120,24 +123,24 @@ public class RecPIX: PIXOutput, PIXofaKind {
         guard connectedIn else {
             throw RecordError.noInPix
         }
-        guard let resSize = resolution?.size else {
+        guard let res = resolution else {
             throw RecordError.noRes
         }
         
-        try setup(size: resSize)
+        try setup(res: res)
     
-        frame_index = 0
+        frameIndex = 0
         recording = true
         
     }
     
-    func setup(size: CGSize) throws {
+    func setup(res: Res) throws {
         
         let id = UUID()
         
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyMMdd HHmss"
         let dateStr = dateFormatter.string(from: date)
         
         let documents_url = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
@@ -151,52 +154,66 @@ public class RecPIX: PIXOutput, PIXofaKind {
             return
         }
         
-        export_url = id_url.appendingPathComponent("Pixels Export \(dateStr).mov") // CHECK CLEAN
+        let name = customName ?? "Pixels Export \(dateStr)"
+        exportUrl = id_url.appendingPathComponent("\(name).mov") // CHECK CLEAN
         
         do {
-            
-            writer = try AVAssetWriter(outputURL: export_url!, fileType: .mov)
-            let video_settings: [String: AnyObject] = [
-                AVVideoCodecKey: AVVideoCodecH264 as AnyObject,
-                AVVideoWidthKey: size.width as AnyObject,
-                AVVideoHeightKey: size.height as AnyObject
+
+            writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
+            let videoSettings: [String: Any] = [
+                AVVideoCodecKey: AVVideoCodecH264,
+                AVVideoWidthKey: res.w,
+                AVVideoHeightKey: res.h
             ]
-            
-            writer_input = AVAssetWriterInput(mediaType: .video, outputSettings: video_settings)
-            writer!.add(writer_input!)
-            
-            let source_buffer_attributes: [String: AnyObject] = [
-                kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32ARGB) as AnyObject,
-                kCVPixelBufferWidthKey as String: size.width as AnyObject,
-                kCVPixelBufferHeightKey as String: size.height as AnyObject
+            writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
+            writerVideoInput?.expectsMediaDataInRealTime = expectsRealtime
+            writer!.add(writerVideoInput!)
+
+//            let audioSettings: [String: Any] = [
+//                AVFormatIDKey: Int(kAudioFormatMPEG4AAC) as AnyObject,
+//                AVNumberOfChannelsKey: 2 as AnyObject,
+//                AVSampleRateKey: 44_100 as AnyObject,
+//                AVEncoderBitRateKey: 128_000 as AnyObject
+//            ]
+//            writerAudioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
+//            writerAudioInput?.expectsMediaDataInRealTime = expectsRealtime
+//            writer!.add(writerAudioInput!)
+
+            let sourceBufferAttributes: [String: Any] = [
+                kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.colorBits.osARGB),
+                kCVPixelBufferWidthKey as String: res.w,
+                kCVPixelBufferHeightKey as String: res.h
             ]
-            writer_adoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writer_input!, sourcePixelBufferAttributes: source_buffer_attributes)
-            
+            writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
+
+//            let x = AVAssetWriterInputMetadataAdaptor
+
+
             writer!.startWriting()
             writer!.startSession(atSourceTime: .zero)
             
             let media_queue = DispatchQueue(label: "mediaInputQueue")
             
-            writer_input!.requestMediaDataWhenReady(on: media_queue, using: {
+            writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
                 
-                if self.current_frame != nil {
+                if self.currentImage != nil {
                     
-                    if self.writer_input!.isReadyForMoreMediaData { // && self.recording
+                    if self.writerVideoInput!.isReadyForMoreMediaData { // && self.recording
                         
-                        let presentation_time = CMTime(value: Int64(self.frame_index), timescale: Int32(self.fps))
+                        let presentation_time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
                         
-                        if !self.appendPixelBufferForImageAtURL(self.writer_adoptor!, presentation_time: presentation_time, cg_image: self.current_frame!) {
+                        if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: presentation_time, cg_image: self.currentImage!) {
                             self.pixels.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
                         }
                         
-                        self.last_frame_date = Date()
-                        self.frame_index += 1
+                        self.lastFrameDate = Date()
+                        self.frameIndex += 1
                         
                     } else {
                         self.pixels.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
                     }
                     
-                    self.current_frame = nil
+                    self.currentImage = nil
                     
                 }
                 
@@ -210,7 +227,7 @@ public class RecPIX: PIXOutput, PIXofaKind {
     
     func recordFrame(texture: MTLTexture) {
         
-        if writer != nil && writer_input != nil && writer_adoptor != nil {
+        if writer != nil && writerVideoInput != nil && writerAdoptor != nil {
         
             let ci_image = CIImage(mtlTexture: texture, options: nil)
             if ci_image != nil {
@@ -219,7 +236,7 @@ public class RecPIX: PIXOutput, PIXofaKind {
                 let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent)
                 if cg_image != nil {
                     
-                    current_frame = cg_image!
+                    currentImage = cg_image!
                 
                 } else {
                     self.pixels.log(pix: self, .error, nil, "cg_image is nil.")
@@ -236,9 +253,9 @@ public class RecPIX: PIXOutput, PIXofaKind {
     
     func stopRecord(done: @escaping () -> ()) {
         
-        if writer != nil && writer_input != nil && writer_adoptor != nil {
+        if writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
-            writer_input!.markAsFinished()
+            writerVideoInput!.markAsFinished()
             writer!.finishWriting {
                 if self.writer!.error == nil {
                     DispatchQueue.main.async {
@@ -255,7 +272,7 @@ public class RecPIX: PIXOutput, PIXofaKind {
             pixels.log(pix: self, .error, nil, "Some writer is nil.")
         }
 
-        frame_index = 0
+        frameIndex = 0
         recording = false
         
     }
@@ -326,5 +343,13 @@ public class RecPIX: PIXOutput, PIXofaKind {
         CVPixelBufferUnlockBaseAddress(pixel_buffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
         
     }
+    
+    // MARK: Audio Capture
+    
+//    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        //        self.write(image: UIImage(named: "STANDARD")!, toBuffer: sampleBuffer)
+//        let isVideo:Bool = output == movieOutput
+//        self.videoWriter.write(sample: sampleBuffer, isVideo: isVideo)
+//    }
     
 }
