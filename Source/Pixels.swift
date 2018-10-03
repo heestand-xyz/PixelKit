@@ -34,6 +34,8 @@ public class Pixels {
     
     public var renderMode: RenderMode = .frameLoop
     
+    public var overrideWithMetalLibFromApp: Bool = true
+    
     // MARK: Log
     
     public var logLevel: LogLevel = .debug
@@ -195,7 +197,9 @@ public class Pixels {
     }
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
-        guard let libraryFile = Bundle(identifier: kBundleId)!.path(forResource: kMetalLibName, ofType: "metallib") else {
+        let bundle = overrideWithMetalLibFromApp ? Bundle.main : Bundle(identifier: kBundleId)!
+        log(.info, .metal, "Metal Lib from Bundle: \(bundle.description) \(overrideWithMetalLibFromApp ? "[OVERRIDE]" : "")")
+        guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
             throw MetalLibraryError.runtimeERROR("Pixels Shaders: Metal Library not found.")
         }
         do {

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
-		3A6E366621650B6A001A285D /* PixelsShaders.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3A6E366521650B6A001A285D /* PixelsShaders.metallib */; };
 		3A6E366821650B75001A285D /* PixelsShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6E366721650B6E001A285D /* PixelsShaders.metallib */; };
 		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
 		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
@@ -94,7 +93,6 @@
 
 /* Begin PBXFileReference section */
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
-		3A6E366521650B6A001A285D /* PixelsShaders.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = PixelsShaders.metallib; path = "../../../Library/Developer/Xcode/DerivedData/CLOSE-ftzfjacxmpensmbxykirxfthzgve/Build/Products/Debug-iphoneos/PixelsShaders.metallib"; sourceTree = "<group>"; };
 		3A6E366721650B6E001A285D /* PixelsShaders.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; path = PixelsShaders.metallib; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				3A6E366521650B6A001A285D /* PixelsShaders.metallib */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39D921011E3A004E9AA0 /* Source */,
@@ -531,7 +528,6 @@
 				74B57C422147404200CBBD58 /* EffectSingleMetalPIX.metal.txt in Resources */,
 				74B57C482147405800CBBD58 /* EffectMergerMetalPIX.metal.txt in Resources */,
 				74D90B1D21331CF60028A69E /* README.md in Resources */,
-				3A6E366621650B6A001A285D /* PixelsShaders.metallib in Resources */,
 				74D90B19213317250028A69E /* checker.png in Resources */,
 				74D90B1E21331CF60028A69E /* DOCS.md in Resources */,
 			);
