@@ -153,13 +153,11 @@ extension Pixels {
                 var feed = false
                 if let feedbackPix = pixIn as? FeedbackPIX {
                     if feedbackPix.readyToFeed && feedbackPix.feedActive {
-                        if let feedPix = feedbackPix.feedPix {
-                            guard let feedTexture = feedPix.texture else {
-                                throw RenderError.texture("Feed Texture not found for: \(feedPix)")
-                            }
-                            inputTexture = feedTexture
-                            feed = true
+                        guard let feedTexture = feedbackPix.feedTexture else {
+                            throw RenderError.texture("Feed Texture not avalible.")
                         }
+                        inputTexture = feedTexture
+                        feed = true
                     }
                 }
                 if !feed {

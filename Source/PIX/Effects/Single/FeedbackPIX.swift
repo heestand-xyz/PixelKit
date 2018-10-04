@@ -14,6 +14,10 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
     
     override open var shader: String { return "nilPIX" }
     
+    var feedTexture: MTLTexture? {
+        return feedPix?.texture
+    }
+    
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
     public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }
     var readyToFeed: Bool = false
@@ -30,14 +34,15 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
             feedReset = false
         }
         readyToFeed = true
-        switch pixels.renderMode {
-        case .frameLoop:
-            setNeedsRender()
-        case .direct:
-            pixels.delay(frames: 1, done: {
-                self.setNeedsRender()
-            })
-        }
+        setNeedsRender()
+//        switch pixels.renderMode {
+//        case .frameLoop:
+//            setNeedsRender()
+//        case .direct:
+//            pixels.delay(frames: 1, done: {
+//                self.setNeedsRender()
+//            })
+//        }
     }
     
     public func resetFeed() {

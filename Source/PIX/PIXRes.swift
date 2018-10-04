@@ -110,8 +110,9 @@ public extension PIX {
         public var height: CGFloat {
             return size.height
         }
-        public var aspect: CGFloat {
-            return size.width / size.height
+        
+        public var flopped: Res {
+            return .raw(raw.flopped)
         }
         
         // MARK: Raw
@@ -138,6 +139,40 @@ public extension PIX {
         
         public var count: Int {
             return raw.w * raw.h
+        }
+        
+        // MARK: - Aspect
+        
+        public var aspect: CGFloat {
+            return size.width / size.height
+        }
+        
+        public enum AspectFillMode {
+            case fit
+            case fill
+        }
+        
+        public func aspectRes(to aspectFillMode: AspectFillMode, in res: Res) -> Res {
+            var comboAspect = aspect / res.aspect
+            if aspect < res.aspect {
+                comboAspect = 1 / comboAspect
+            }
+            let width: CGFloat
+            let height: CGFloat
+            switch aspectFillMode {
+            case .fit:
+                width = aspect >= res.aspect ? res.width : res.width / comboAspect
+                height = aspect <= res.aspect ? res.height : res.height / comboAspect
+            case .fill:
+                width = aspect <= res.aspect ? res.width : res.width * comboAspect
+                height = aspect >= res.aspect ? res.height : res.height * comboAspect
+            }
+            return .size(CGSize(width: width, height: height))
+        }
+        public func aspectBounds(to aspectFillMode: AspectFillMode, in res: Res) -> CGRect {
+            let aRes = aspectRes(to: aspectFillMode, in: res)
+            let scale = UIScreen.main.nativeScale
+            return CGRect(x: 0, y: 0, width: aRes.width / scale, height: aRes.height / scale)
         }
         
         // MARK: - Life Cycle
