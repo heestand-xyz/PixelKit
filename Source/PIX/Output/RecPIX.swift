@@ -23,6 +23,8 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
     var currentImage: CGImage?
     var exportUrl: URL?
     
+    public var audioOffset: CMTime = .zero
+    
     public var recordAudio: Bool = false {
         didSet {
             if recordAudio {
@@ -253,8 +255,7 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
                             let duration = -self.startDate!.timeIntervalSinceNow
                             if self.recordAudio {
                                 guard let startTime = self.audoStartTime else { return }
-                                let manualOffset: Double = 0.0 //-1.0
-                                let offsetDuration = CMTimeGetSeconds(startTime) + duration + manualOffset
+                                let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset)
                                 time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
                             } else {
                                 time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
