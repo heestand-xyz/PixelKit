@@ -9,23 +9,37 @@
 import UIKit
 import AVKit
 
-public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleBufferDelegate {
+public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
     
     let kind: PIX.Kind = .rec
     
     var recording: Bool
     var frameIndex: Int
+    var startDate: Date?
     var lastFrameDate: Date?
     var writer: AVAssetWriter?
     var writerVideoInput: AVAssetWriterInput?
-//    var writerAudioInput: AVAssetWriterInput?
     var writerAdoptor: AVAssetWriterInputPixelBufferAdaptor?
     var currentImage: CGImage?
     var exportUrl: URL?
-
+    
+    public var recordAudio: Bool = false {
+        didSet {
+            if recordAudio {
+                audioRecHelper = AudioRecHelper()
+            } else {
+                audioRecHelper = nil
+            }
+        }
+    }
+    var audioRecHelper: AudioRecHelper?
+    var audoStartTime: CMTime?
+//    var recordingSession: AVAudioSession?
+//    var audioRecorder: AVAudioRecorder?
+    
     public var fps: Int = 30
-    public var realtime: Bool = true
-    var expectsRealtime = true
+    public var timeSync: Bool = true
+    public var realtime: Bool = false
     enum CodingKeys: String, CodingKey {
         case fps; case realtime
     }
@@ -120,6 +134,8 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
     
     func startRecord() throws {
         
+        startDate = Date()
+        
         guard connectedIn else {
             throw RecordError.noInPix
         }
@@ -127,12 +143,33 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
             throw RecordError.noRes
         }
         
+//        if recordAudio { try setupAudio() }
         try setup(res: res)
     
         frameIndex = 0
         recording = true
         
     }
+    
+//    func setupAudio() throws {
+//
+//        recordingSession = AVAudioSession.sharedInstance()
+//
+//        try recordingSession!.setCategory(.record, mode: .default)
+//        try recordingSession!.setActive(true)
+//
+//        let settings = [
+//            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//            AVSampleRateKey: 12000,
+//            AVNumberOfChannelsKey: 1,
+//            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+//        ]
+//
+//        audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+//        audioRecorder!.delegate = self
+//        audioRecorder!.record()
+//
+//    }
     
     func setup(res: Res) throws {
         
@@ -166,43 +203,67 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
                 AVVideoHeightKey: res.h
             ]
             writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
-            writerVideoInput?.expectsMediaDataInRealTime = expectsRealtime
+            writerVideoInput!.expectsMediaDataInRealTime = true
             writer!.add(writerVideoInput!)
-
-//            let audioSettings: [String: Any] = [
-//                AVFormatIDKey: Int(kAudioFormatMPEG4AAC) as AnyObject,
-//                AVNumberOfChannelsKey: 2 as AnyObject,
-//                AVSampleRateKey: 44_100 as AnyObject,
-//                AVEncoderBitRateKey: 128_000 as AnyObject
-//            ]
-//            writerAudioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
-//            writerAudioInput?.expectsMediaDataInRealTime = expectsRealtime
-//            writer!.add(writerAudioInput!)
-
+            
+            
             let sourceBufferAttributes: [String: Any] = [
                 kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.colorBits.osARGB),
                 kCVPixelBufferWidthKey as String: res.w,
                 kCVPixelBufferHeightKey as String: res.h
             ]
+            
             writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
-
+            
 //            let x = AVAssetWriterInputMetadataAdaptor
-
+            
+            if recordAudio {
+                if let input = audioRecHelper?.writerAudioInput {
+                    writer!.add(input)
+                    audioRecHelper!.captureSession?.startRunning()
+                    audioRecHelper!.sampleCallback = { sampleBuffer in
+                        if self.audoStartTime == nil {
+                            self.audoStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+                            self.writer!.startSession(atSourceTime: self.audoStartTime!)
+                        }
+                        let success = input.append(sampleBuffer)
+                        if !success {
+                            Pixels.main.log(.error, nil, "Audo Rec sample faied to write.")
+                        }
+                    }
+                }
+            } else {
+                writer!.startSession(atSourceTime: .zero)
+            }
 
             writer!.startWriting()
-            writer!.startSession(atSourceTime: .zero)
             
             let media_queue = DispatchQueue(label: "mediaInputQueue")
             
             writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
                 
+                guard self.recording else { return }
+                
                 if self.currentImage != nil {
                     
                     if self.writerVideoInput!.isReadyForMoreMediaData { // && self.recording
                         
-                        let presentation_time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
+                        let time: CMTime
+                        if self.timeSync {
+                            let duration = -self.startDate!.timeIntervalSinceNow
+                            if self.recordAudio {
+                                guard let startTime = self.audoStartTime else { return }
+                                let manualOffset: Double = 0.0 //-1.0
+                                let offsetDuration = CMTimeGetSeconds(startTime) + duration + manualOffset
+                                time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
+                            } else {
+                                time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
+                            }
+                        } else {
+                            time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
+                        }
                         
-                        if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: presentation_time, cg_image: self.currentImage!) {
+                        if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
                             self.pixels.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
                         }
                         
@@ -253,6 +314,10 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
     
     func stopRecord(done: @escaping () -> ()) {
         
+//        audioRecorder?.stop()
+        audioRecHelper?.captureSession?.stopRunning()
+        audioRecHelper?.writerAudioInput?.markAsFinished()
+        
         if writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
             writerVideoInput!.markAsFinished()
@@ -271,9 +336,17 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
 //            throw RecordError.stopFailed
             pixels.log(pix: self, .error, nil, "Some writer is nil.")
         }
+        
+//        try? recordingSession?.setActive(false)
+//        recordingSession = nil
+//        audioRecorder?.delegate = nil
+//        audioRecorder = nil
+        
+        audoStartTime = nil
 
         frameIndex = 0
         recording = false
+        startDate = nil
         
     }
     
@@ -344,12 +417,64 @@ public class RecPIX: PIXOutput, PIXofaKind {//}, AVCaptureAudioDataOutputSampleB
         
     }
     
-    // MARK: Audio Capture
-    
-//    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        //        self.write(image: UIImage(named: "STANDARD")!, toBuffer: sampleBuffer)
-//        let isVideo:Bool = output == movieOutput
-//        self.videoWriter.write(sample: sampleBuffer, isVideo: isVideo)
+//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+//        if !flag {
+//
+//        }
 //    }
+    
+}
+
+class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
+    
+    var captureSession: AVCaptureSession?
+    var audioOutput: AVCaptureAudioDataOutput?
+    var writerAudioInput: AVAssetWriterInput?
+    
+    var sampleCallback: ((CMSampleBuffer) -> ())?
+    
+    override init() {
+        
+        super.init()
+        
+        captureSession = AVCaptureSession()
+        
+        let audioSettings: [String: Any] = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVNumberOfChannelsKey: 2,
+            AVSampleRateKey: 44_100,
+//            AVEncoderBitRateKey: 128_000
+        ]
+        writerAudioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
+        writerAudioInput!.expectsMediaDataInRealTime = true
+        
+        let microphone = AVCaptureDevice.default(for: .audio)!
+        do {
+            let micInput = try AVCaptureDeviceInput(device: microphone)
+            if captureSession!.canAddInput(micInput){
+                captureSession!.addInput(micInput)
+            }
+            
+            audioOutput = AVCaptureAudioDataOutput()
+            if captureSession!.canAddOutput(audioOutput!){
+                captureSession!.addOutput(audioOutput!)
+            }
+            let captureSessionQueue = DispatchQueue(label: "MicSessionQueue", attributes: [])
+            audioOutput!.setSampleBufferDelegate(self, queue: captureSessionQueue)
+            
+            captureSession!.commitConfiguration()
+            
+        } catch {
+            Pixels.main.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
+        }
+        
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard CMSampleBufferDataIsReady(sampleBuffer) else { return }
+        guard let input = writerAudioInput else { return }
+        guard input.isReadyForMoreMediaData else { return }
+        sampleCallback?(sampleBuffer)
+    }
     
 }
