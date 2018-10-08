@@ -10,6 +10,16 @@ import MetalKit
 
 extension Pixels {
     
+    public enum MetalErrorCode {
+        case IOAF(Int)
+        public var info: String {
+            switch self {
+            case .IOAF(let code):
+                return "IOAF code \(code)"
+            }
+        }
+    }
+    
     public enum RenderMode {
         case frameLoop
         case direct
@@ -60,7 +70,15 @@ extension Pixels {
                 self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderFrames):\(renderTimeMs)ms]", loop: true)
                 pix.didRender(texture: texture, force: force)
             }, failed: { error in
-                self.log(pix: pix, .error, .render, "Render of shader failed.\(force ? " Forced." : "")", loop: true, e: error)
+                var ioafMsg: String? = nil
+                let err = error.localizedDescription
+                if err.contains("IOAF code") {
+                    if let iofaCode = Int(err[err.count - 2..<err.count - 1]) {
+                        self.metalErrorCodeCallback?(.IOAF(iofaCode))
+                        ioafMsg = "IOAF code \(iofaCode). Sorry, this is an Metal GPU error, usually seen on older devices."
+                    }
+                }
+                self.log(pix: pix, .error, .render, "Render of shader failed... \(force ? "Forced." : "") \(ioafMsg ?? "")", loop: true, e: error)
             })
         } catch {
             log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)

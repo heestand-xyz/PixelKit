@@ -47,6 +47,8 @@ public class Pixels {
     public var logExtra = false
     var logLoopLimitIndicated = false
     
+    public var metalErrorCodeCallback: ((MetalErrorCode) -> ())?
+    
     // MARK: Color
     
     public var colorBits: PIX.Color.Bits = ._8
@@ -198,7 +200,9 @@ public class Pixels {
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
         let bundle = overrideWithMetalLibFromApp ? Bundle.main : Bundle(identifier: kBundleId)!
-        log(.info, .metal, "Metal Lib from Bundle: \(bundle.description) \(overrideWithMetalLibFromApp ? "[OVERRIDE]" : "")")
+        if overrideWithMetalLibFromApp {        
+            log(.info, .metal, "Metal Lib from Bundle: \(bundle.description) [OVERRIDE]")
+        }
         guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
             throw MetalLibraryError.runtimeERROR("Pixels Shaders: Metal Library not found.")
         }

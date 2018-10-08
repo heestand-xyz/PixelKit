@@ -17,11 +17,30 @@ public class CameraPIX: PIXResource, PIXofaKind {
     public enum CamRes {
         case low
         case high
+        case vga
         case _720p
         case _1080p
         case _4K
+        public var sessionPreset: AVCaptureSession.Preset {
+            switch self {
+            case .low:
+                return .low
+            case .high:
+                return .high
+            case .vga:
+                return .vga640x480
+            case ._720p:
+                return .hd1280x720
+            case ._1080p:
+                return .hd1920x1080
+            case ._4K:
+                return .hd4K3840x2160
+//            case .photo:
+//                return .photo
+            }
+        }
     }
-    let camRes: CamRes
+    var camRes: CamRes { didSet { setupCamera() } }
     
     public enum Camera: String, Codable, EnumList {
         case front
@@ -152,11 +171,14 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         super.init()
         
+//        captureSession.canSetSessionPreset(AVCaptureSession.Preset...)
         switch camRes {
         case .low:
             captureSession.sessionPreset = .low
         case .high:
             captureSession.sessionPreset = .high
+        case .vga:
+            captureSession.sessionPreset = .vga640x480
         case ._720p:
             captureSession.sessionPreset = .hd1280x720
         case ._1080p:
