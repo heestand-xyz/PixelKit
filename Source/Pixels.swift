@@ -10,7 +10,7 @@ import MetalKit
 
 public class Pixels {
     
-    public static let main = Pixels()
+     public static let main = Pixels()
     
     public weak var delegate: PixelsDelegate?
     
@@ -19,16 +19,15 @@ public class Pixels {
     let kBundleId = "se.hexagons.pixels"
     let kMetalLibName = "PixelsShaders"
     
-    struct Signature: Encodable {
-        let id: String
-        let version: String
-        let build: Int
-        var formatted: String {
+    public struct Signature: Encodable {
+        public let id: String
+        public let version: String
+        public let build: Int
+        public var formatted: String {
             return "\(id) - v\(version) - b\(build)"
         }
     }
-    
-    var signature: Signature {
+    public var signature: Signature {
         return Signature(id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
     }
     
@@ -38,14 +37,19 @@ public class Pixels {
     
     // MARK: Log
     
-    public var logLevel: LogLevel = .debug
+    public var logLevel: LogLevel = .error
+    
     public var logLoopLimitActive = true
     public var logLoopLimitFrameCount = 10
-    public var logDynamicShaderCode = false
-    public var logPadding = false
-    public var logTime = false
-    public var logExtra = false
     var logLoopLimitIndicated = false
+
+    public var logTime = false
+    public var logPadding = false
+    public var logExtra = false
+
+    public var logDynamicShaderCode = false
+    
+    public var logCallback: ((Log) -> ())?
     
     public var metalErrorCodeCallback: ((MetalErrorCode) -> ())?
     
@@ -120,7 +124,7 @@ public class Pixels {
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .common)
         
-        log(.none, .pixels, signature.version, clean: true)
+        log(.info, .pixels, signature.version, clean: true)
         
     }
     
@@ -173,6 +177,29 @@ public class Pixels {
         })
     }
     
+//    // MARK: Flow Timer
+//
+//    struct FlowTimer {
+//        let fromPix: PIX & PIXOut
+//        let toPix: PIX & PIXIn
+//        var pixsInbetween: [PIX & PIXIn & PIXOut] = []
+//        let startTime: Date = Date()
+//        init(_ pixA: PIX & PIXOut, _ pixB: PIX & PIXIn) {
+//            fromPix = pixA
+//            toPix = pixB
+//        }
+//    }
+//    var flowTimer: FlowTimer?
+//    public func flowTime(from pixA: PIX & PIXOut, to pixB: PIX & PIXIn, callback: () -> ()) {
+//        guard flowTimer == nil else {
+//            log(.warning, nil, "Only one Flow Timer can be run at once, please wait for the active one to finish or cancel it with `Pixels.main.cancelFlowTime()`.")
+//            return
+//        }
+//        flowTimer = FlowTimer(pixA, pixB)
+//    }
+//    func cancelFlowTime() {
+//        flowTimer = nil
+//    }
     
     // MARK: - PIX Linking
     
@@ -200,8 +227,9 @@ public class Pixels {
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
         let bundle = overrideWithMetalLibFromApp ? Bundle.main : Bundle(identifier: kBundleId)!
+        let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
         if overrideWithMetalLibFromApp {        
-            log(.info, .metal, "Metal Lib from Bundle: \(bundle.description) [OVERRIDE]")
+            log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
         }
         guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
             throw MetalLibraryError.runtimeERROR("Pixels Shaders: Metal Library not found.")
@@ -459,9 +487,11 @@ public class Pixels {
             metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
             let comment = "/// Pixels Dynamic Shader Code"
             metalCode = try insert("\(comment)\n\n\n\(code)\n", in: metalCode, at: "code")
-            if logLevel == .debug && logDynamicShaderCode {
+            #if DEBUG
+            if logDynamicShaderCode {
                 print("\nDYNAMIC SHADER CODE\n\n>>>>>>>>>>>>>>>>>\n\n\(metalCode)\n<<<<<<<<<<<<<<<<<\n")
             }
+            #endif
             return metalCode
         } catch {
             throw error

@@ -91,7 +91,7 @@ open class PIX: Codable {
             
         pixels.add(pix: self)
         
-        pixels.log(pix: self, .none, nil, "Linked with Pixels.", clean: true)
+        pixels.log(pix: self, .info, nil, "Linked with Pixels.", clean: true)
     
     }
     

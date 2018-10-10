@@ -10,21 +10,55 @@ import Foundation
 
 extension Pixels {
     
+    public struct Log {
+        public let signature: Signature
+        public let prefix: String
+        public let level: LogLevel
+        public let category: LogCategory?
+        public let time: Date
+        public let codeRef: CodeRef
+        public let pixRef: PIXRef?
+        public let message: String
+        public let error: Error?
+        public let loop: Bool
+    }
+    
+    public struct PIXRef {
+        public let id: UUID
+        public let name: String?
+        public let kind: String?
+        public let type: String
+        public let linkIndex: Int?
+        init(for pix: PIX) {
+            id = pix.id
+            name = pix.name
+            if let pixOfAKind = pix as? PIXofaKind {
+                kind = pixOfAKind.kind.rawValue
+            } else { kind = nil }
+            type = String(String(describing: pix).split(separator: ".").last ?? "")
+            linkIndex = Pixels.main.linkIndex(of: pix)
+        }
+    }
+    
+    public struct CodeRef {
+        public let file: String
+        public let function: String
+        public let line: Int
+    }
+    
     public enum LogLevel: String {
-        case none = ""
         case info = "INFO"
+        case debug = "DEBUG"
         case warning = "WARNING"
         case error = "ERROR"
         case fatal = "FATAL"
-        case debug = "DEBUG"
-        var index: Int {
+        public var index: Int {
             switch self {
-            case .none: return 0
-            case .info: return 1
+            case .info: return 0
+            case .debug: return 1
             case .warning: return 2
             case .error: return 3
             case .fatal: return 4
-            case .debug: return 5
             }
         }
     }
@@ -45,22 +79,15 @@ extension Pixels {
     
     public func log(prefix: String = "Pixels", pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
-        var pixType: String?
-        if let p = pix {
-            pixType = String(String(describing: p).split(separator: ".").last ?? "")
-        }
+        let time = Date()
+        let pixRef = pix != nil ? PIXRef(for: pix!) : nil
+        let codeRef = CodeRef(file: file, function: function, line: line)
         
-        var cleanLog = "\(prefix) "
-        if pixType != nil {
-            cleanLog += "\(pixType!) "
-        }
-        cleanLog += message
-        if let e = error {
-            cleanLog += " Error: \(e)"
-        }
+        let log = Log(signature: signature, prefix: prefix, level: level, category: category, time: time, codeRef: codeRef, pixRef: pixRef, message: message, error: error, loop: loop)
         
         guard level != .fatal else {
-            fatalError(cleanLog)
+            logCallback?(log)
+            fatalError(formatClean(log: log))
         }
         
         if level.index > logLevel.index {
@@ -76,83 +103,106 @@ extension Pixels {
         }
         
         if clean {
-            print(cleanLog)
+            print(formatClean(log: log))
+            logCallback?(log)
             return
         }
         
-        // MARK: Log List
+        #if !DEBUG
+        if level == .debug {
+            return
+        }
+        #endif
+        
+        print(format(log: log))
+        
+        logCallback?(log)
+        
+    }
+    
+    public func formatClean(log: Log) -> String {
+        var cleanLog = "\(log.prefix) "
+        if log.pixRef != nil {
+            cleanLog += "\(log.pixRef!.type) "
+        }
+        cleanLog += log.message
+        if let e = log.error {
+            cleanLog += " Error: \(e)"
+        }
+        return cleanLog
+    }
+    
+    public func format(log: Log) -> String {
         
         var logList: [String] = []
         
         var padding = 0
         
-        logList.append(prefix)
+        logList.append(log.prefix)
         
-        #if DEBUG
         logList.append("#\(frame < 10 ? "0" : "")\(frame)")
-        #else
-        if level == .debug { return }
-        #endif
         
         var tc = 0
         if logTime {
-            let t = Date()
             let df = DateFormatter()
             let f = "HH:mm:ss.SSS"
             tc = f.count + 2
             df.dateFormat = f
-            let ts = df.string(from: t)
+            let ts = df.string(from: log.time)
             logList.append(ts)
         }
         
-        logList.append(level.rawValue)
+        logList.append(log.level.rawValue)
         
         var ext = 0
         if logExtra {
             ext += 5
-            if level == .warning {
+            if log.level == .warning {
                 logList.append("⚠️"); ext -= 1
-            } else if level == .error {
+            } else if log.level == .error {
                 logList.append("❌"); ext -= 1
             }
         }
         
         if logPadding { padding += 20; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
-        if pix != nil && pixType != nil {
-            let nr = linkIndex(of: pix!)
-            let nrstr = nr != nil ? "\(nr! + 1)" : "#"
-            logList.append("[\(nrstr)] \(pixType!)")
+        if let pixRef = log.pixRef {
+            if let nr = pixRef.linkIndex {
+                logList.append("[\(nr + 1)]")
+            }
+            logList.append(pixRef.type)
         }
         
         if logPadding { padding += 30; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
-        if let pixName = pix?.name {
-            logList.append("\"\(pixName)\"")
+        if let pixRef = log.pixRef {
+            if let pixName = pixRef.name {
+                logList.append("\"\(pixName)\"")
+            }
         }
         
         if logPadding { padding += 30; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
-        if let c = category {
+        if let c = log.category {
             logList.append(c.rawValue)
         }
         
         if logPadding { padding += 20; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         else { logList.append(">>>") }
         
-        logList.append(message)
+        logList.append(log.message)
         
-        if let e = error {
+        if let e = log.error {
             logList.append("Error: \"\(e)\"")
         }
         
         if logPadding { padding += 50; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         else { logList.append("<<<") }
         
-        #if DEBUG
-        let fileName = file.split(separator: "/").last!
-        logList.append("\(fileName):\(function):\(line)")
-        #endif
+//        #if DEBUG
+        let fileName = log.codeRef.file.split(separator: "/").last!
+        logList.append("\(fileName):\(log.codeRef.function):\(log.codeRef.line)")
+//        #endif
         
         var log = ""
         for (i, subLog) in logList.enumerated() {
@@ -160,7 +210,7 @@ extension Pixels {
             log += subLog
         }
         
-        print(log)
+        return log
         
     }
     
