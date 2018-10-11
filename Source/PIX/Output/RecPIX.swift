@@ -35,7 +35,7 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         }
     }
     var audioRecHelper: AudioRecHelper?
-    var audoStartTime: CMTime?
+    var audioStartTime: CMTime?
 //    var recordingSession: AVAudioSession?
 //    var audioRecorder: AVAudioRecorder?
     
@@ -195,95 +195,93 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         
         let name = customName ?? "Pixels Export \(dateStr)"
         exportUrl = id_url.appendingPathComponent("\(name).mov") // CHECK CLEAN
+
+        writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
+        let videoSettings: [String: Any] = [
+            AVVideoCodecKey: AVVideoCodecH264,
+            AVVideoWidthKey: res.w,
+            AVVideoHeightKey: res.h
+        ]
+        writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
+        writerVideoInput!.expectsMediaDataInRealTime = true
+        writer!.add(writerVideoInput!)
         
-        do {
-
-            writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
-            let videoSettings: [String: Any] = [
-                AVVideoCodecKey: AVVideoCodecH264,
-                AVVideoWidthKey: res.w,
-                AVVideoHeightKey: res.h
-            ]
-            writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
-            writerVideoInput!.expectsMediaDataInRealTime = true
-            writer!.add(writerVideoInput!)
-            
-            
-            let sourceBufferAttributes: [String: Any] = [
-                kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.colorBits.osARGB),
-                kCVPixelBufferWidthKey as String: res.w,
-                kCVPixelBufferHeightKey as String: res.h
-            ]
-            
-            writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
-            
+        
+        let sourceBufferAttributes: [String: Any] = [
+            kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.colorBits.osARGB),
+            kCVPixelBufferWidthKey as String: res.w,
+            kCVPixelBufferHeightKey as String: res.h
+        ]
+        
+        writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
+        
 //            let x = AVAssetWriterInputMetadataAdaptor
-            
-            if recordAudio {
-                if let input = audioRecHelper?.writerAudioInput {
-                    writer!.add(input)
-                    audioRecHelper!.captureSession?.startRunning()
-                    audioRecHelper!.sampleCallback = { sampleBuffer in
-                        if self.audoStartTime == nil {
-                            self.audoStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-                            self.writer!.startSession(atSourceTime: self.audoStartTime!)
-                        }
-                        let success = input.append(sampleBuffer)
-                        if !success {
-                            Pixels.main.log(.error, nil, "Audo Rec sample faied to write.")
-                        }
+        
+        if recordAudio {
+            if let input = audioRecHelper?.writerAudioInput {
+                writer!.add(input)
+                audioRecHelper!.captureSession?.startRunning()
+                audioRecHelper!.sampleCallback = { sampleBuffer in
+                    if self.audioStartTime == nil {
+                        self.audioStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+                        self.writer!.startSession(atSourceTime: self.audioStartTime!)
+                    }
+                    let success = input.append(sampleBuffer)
+                    if !success {
+                        Pixels.main.log(.error, nil, "Audio Rec sample faied to write.")
                     }
                 }
-            } else {
-                writer!.startSession(atSourceTime: .zero)
             }
+        } else {
+            writer!.startSession(atSourceTime: .zero)
+        }
 
-            writer!.startWriting()
+        writer!.startWriting()
+        
+        let media_queue = DispatchQueue(label: "mediaInputQueue")
+        
+        writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
             
-            let media_queue = DispatchQueue(label: "mediaInputQueue")
+            guard self.recording else { return }
             
-            writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
+            if self.currentImage != nil {
                 
-                guard self.recording else { return }
-                
-                if self.currentImage != nil {
+                if self.writerVideoInput!.isReadyForMoreMediaData { // && self.recording
                     
-                    if self.writerVideoInput!.isReadyForMoreMediaData { // && self.recording
-                        
-                        let time: CMTime
-                        if self.timeSync {
-                            let duration = -self.startDate!.timeIntervalSinceNow
-                            if self.recordAudio {
-                                guard let startTime = self.audoStartTime else { return }
-                                let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset)
-                                time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
-                            } else {
-                                time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
-                            }
+                    let time: CMTime
+                    if self.timeSync {
+                        let duration = -self.startDate!.timeIntervalSinceNow
+                        if self.recordAudio {
+                            guard let startTime = self.audioStartTime else { return }
+                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset)
+                            time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
                         } else {
-                            time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
+                            time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
                         }
-                        
-                        if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
-                            self.pixels.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
-                        }
-                        
-                        self.lastFrameDate = Date()
-                        self.frameIndex += 1
-                        
                     } else {
-                        self.pixels.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
+                        time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
                     }
                     
-                    self.currentImage = nil
+                    if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
+                        self.pixels.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                    }
                     
+                    self.lastFrameDate = Date()
+                    self.frameIndex += 1
+                    
+                } else {
+                    self.pixels.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
                 }
                 
-            })
+                self.currentImage = nil
+                
+            }
             
-        } catch {
-            self.pixels.log(pix: self, .error, nil, "Creating new asset writer.", e: error)
-        }
+        })
+//
+//        } catch {
+//            self.pixels.log(pix: self, .error, nil, "Creating new asset writer.", e: error)
+//        }
         
     }
     
@@ -319,23 +317,23 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         audioRecHelper?.captureSession?.stopRunning()
         audioRecHelper?.writerAudioInput?.markAsFinished()
         
-        if writer != nil && writerVideoInput != nil && writerAdoptor != nil {
-            
-            writerVideoInput!.markAsFinished()
-            writer!.finishWriting {
-                if self.writer!.error == nil {
+        writerVideoInput?.markAsFinished()
+        writer?.finishWriting {
+            if let writer = self.writer {
+                if writer.status == .completed {
                     DispatchQueue.main.async {
                         done()
                     }
+                } else if writer.error == nil {
+                    self.pixels.log(pix: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
                 } else {
-                    self.pixels.log(pix: self, .error, nil, "Convering images to video failed. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                    self.pixels.log(pix: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
                 }
+            } else {
+                self.pixels.log(pix: self, .error, nil, "Writer not found")
             }
-            
-            
-        } else {
-//            throw RecordError.stopFailed
-            pixels.log(pix: self, .error, nil, "Some writer is nil.")
+            self.writerVideoInput = nil
+            self.writer = nil
         }
         
 //        try? recordingSession?.setActive(false)
@@ -343,8 +341,7 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
 //        audioRecorder?.delegate = nil
 //        audioRecorder = nil
         
-        audoStartTime = nil
-
+        audioStartTime = nil
         frameIndex = 0
         recording = false
         startDate = nil
