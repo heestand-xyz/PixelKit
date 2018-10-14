@@ -68,7 +68,6 @@
 		749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DC6CA2124E12600AE5F6A /* PIXResource.swift */; };
 		749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EB33E2119A5D900921BDF /* ImagePIX.swift */; };
 		74A40E1B210A11200085041D /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
-		74A6AF10211F007100D39FF9 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6AF0F211F007100D39FF9 /* Enum.swift */; };
 		74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A7B98121412BBF0078DDE3 /* RangePIX.swift */; };
 		74A7B98421412BC80078DDE3 /* SharpenPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A7B98321412BC80078DDE3 /* SharpenPIX.swift */; };
 		74A7B98621412BD70078DDE3 /* SlopePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A7B98521412BD70078DDE3 /* SlopePIX.swift */; };
@@ -156,7 +155,6 @@
 		749DC6CA2124E12600AE5F6A /* PIXResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResource.swift; sourceTree = "<group>"; };
 		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
-		74A6AF0F211F007100D39FF9 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		74A7B98121412BBF0078DDE3 /* RangePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePIX.swift; sourceTree = "<group>"; };
 		74A7B98321412BC80078DDE3 /* SharpenPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharpenPIX.swift; sourceTree = "<group>"; };
 		74A7B98521412BD70078DDE3 /* SlopePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlopePIX.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 				7452F4C7210A336A001AA523 /* Content */,
 				7452F4C8210A3378001AA523 /* Effects */,
 				7452F4C9210A3385001AA523 /* Output */,
-				7465FC76211A4DFA00899359 /* Tools */,
 			);
 			path = PIX;
 			sourceTree = "<group>";
@@ -268,15 +265,6 @@
 				74D90B16213317250028A69E /* Checker */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7465FC76211A4DFA00899359 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				7465FC71211A3C8C00899359 /* CheckerLayer.swift */,
-				74A6AF0F211F007100D39FF9 /* Enum.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		74982CA721107DBD009A4264 /* Single */ = {
@@ -439,6 +427,7 @@
 			children = (
 				74D90B17213317250028A69E /* checker.png */,
 				74D90B18213317250028A69E /* CheckerView.swift */,
+				7465FC71211A3C8C00899359 /* CheckerLayer.swift */,
 			);
 			path = Checker;
 			sourceTree = "<group>";
@@ -602,7 +591,6 @@
 				747CBA972142882700CB2616 /* MetalPIX.swift in Sources */,
 				7498CA042122073200B07711 /* PIXResolution.swift in Sources */,
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
-				74A6AF10211F007100D39FF9 /* Enum.swift in Sources */,
 				748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */,
 				74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */,
 				74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */,

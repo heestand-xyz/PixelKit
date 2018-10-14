@@ -14,19 +14,20 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     override open var shader: String { return "contentResourceCameraPIX" }
     
-    public enum CamRes {
-        case low
-        case high
-        case vga
-        case _720p
-        case _1080p
-        case _4K
+    public enum CamRes: String, Codable, CaseIterable {
+        public static var defaultCase: CamRes { return ._1080p }
+//        case autoLow = "Low"
+//        case autoHigh = "High"
+        case vga = "VGA"
+        case _720p = "720p"
+        case _1080p = "1080p"
+        case _4K = "4K"
         public var sessionPreset: AVCaptureSession.Preset {
             switch self {
-            case .low:
-                return .low
-            case .high:
-                return .high
+//            case .autoLow:
+//                return .low
+//            case .autoHigh:
+//                return .high
             case .vga:
                 return .vga640x480
             case ._720p:
@@ -40,11 +41,12 @@ public class CameraPIX: PIXResource, PIXofaKind {
             }
         }
     }
-    var camRes: CamRes { didSet { setupCamera() } }
+    public var camRes: CamRes { didSet { setupCamera() } }
     
-    public enum Camera: String, Codable, EnumList {
-        case front
-        case back
+    public enum Camera: String, Codable, CaseIterable {
+        public static var defaultCase: Camera { return .back }
+        case front = "Front Camera"
+        case back = "Back Camera"
         var position: AVCaptureDevice.Position {
             switch self {
             case .front:
@@ -59,7 +61,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     var orientation: UIInterfaceOrientation?
     public var camera: Camera = .back { didSet { setupCamera() } }
     enum CodingKeys: String, CodingKey {
-        case camera
+        case camera; case camRes
     }
     open override var uniforms: [CGFloat] {
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
@@ -68,7 +70,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     var helper: CameraHelper?
     var access: Bool = false
     
-    public init(camRes: CamRes = .high) {
+    public init(camera: Camera = Camera.defaultCase, camRes: CamRes = CamRes.defaultCase) {
         self.camRes = camRes
         super.init()
         setupCamera()
@@ -79,18 +81,19 @@ public class CameraPIX: PIXResource, PIXofaKind {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let newCamera = try container.decode(Camera.self, forKey: .camera)
-        if camera != newCamera {
-            camera = newCamera
+        let camera = try container.decode(Camera.self, forKey: .camera)
+        let camRes = try container.decode(CamRes.self, forKey: .camRes)
+        if camera != self.camera || camRes != self.camRes {
+            self.camera = camera
+            self.camRes = camRes
             setupCamera()
         }
-//        let topContainer = try decoder.container(keyedBy: CodingKeys.self)
     }
     
     override public func encode(to encoder: Encoder) throws {
-//        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(camera, forKey: .camera)
+        try container.encode(camRes, forKey: .camRes)
     }
     
     // MARK: Access
@@ -171,20 +174,26 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         super.init()
         
-//        captureSession.canSetSessionPreset(AVCaptureSession.Preset...)
+        let preset: AVCaptureSession.Preset
         switch camRes {
-        case .low:
-            captureSession.sessionPreset = .low
-        case .high:
-            captureSession.sessionPreset = .high
+//        case .autoLow:
+//            preset = .low
+//        case .autoHigh:
+//            preset = .high
         case .vga:
-            captureSession.sessionPreset = .vga640x480
+            preset = .vga640x480
         case ._720p:
-            captureSession.sessionPreset = .hd1280x720
+            preset = .hd1280x720
         case ._1080p:
-            captureSession.sessionPreset = .hd1920x1080
+            preset = .hd1920x1080
         case ._4K:
-            captureSession.sessionPreset = .hd4K3840x2160
+            preset = .hd4K3840x2160
+        }
+        
+        if captureSession.canSetSessionPreset(preset) {
+            captureSession.sessionPreset = preset
+        } else {
+            captureSession.sessionPreset = .high
         }
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
