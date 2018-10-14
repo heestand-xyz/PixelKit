@@ -131,6 +131,14 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = pow(c, ci);
                 }
                 break;
+            case 11: // Divide
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    c /= ci;
+                }
+                break;
         }
     }
     

@@ -44,6 +44,7 @@ open class PIX: Codable {
     
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
+    var compare: MTLCompareFunction = .never
     
     var pipeline: MTLRenderPipelineState!
     var sampler: MTLSamplerState!

@@ -57,6 +57,7 @@
 		7483FC36213ECD5600D3F713 /* HueSaturationPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC35213ECD5600D3F713 /* HueSaturationPIX.swift */; };
 		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
 		748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748859E0212F371800E04F17 /* RectanglePIX.swift */; };
+		74899F4B2172C30200101994 /* HDRPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74899F4A2172C30200101994 /* HDRPIX.swift */; };
 		748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* PIXRendered.swift */; };
 		74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
 		74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffect.swift */; };
@@ -144,6 +145,7 @@
 		7483FC35213ECD5600D3F713 /* HueSaturationPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueSaturationPIX.swift; sourceTree = "<group>"; };
 		74879D632118E8C200BF17DE /* EdgePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgePIX.swift; sourceTree = "<group>"; };
 		748859E0212F371800E04F17 /* RectanglePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePIX.swift; sourceTree = "<group>"; };
+		74899F4A2172C30200101994 /* HDRPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDRPIX.swift; sourceTree = "<group>"; };
 		748ADFB32120C1E3007462F8 /* PIXRendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRendered.swift; sourceTree = "<group>"; };
 		74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMultiMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74982CAB21107E06009A4264 /* PIXSingleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSingleEffect.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				74A7B98321412BC80078DDE3 /* SharpenPIX.swift */,
 				74A7B98521412BD70078DDE3 /* SlopePIX.swift */,
 				3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */,
+				74899F4A2172C30200101994 /* HDRPIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -554,6 +557,7 @@
 				74A7B98421412BC80078DDE3 /* SharpenPIX.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
+				74899F4B2172C30200101994 /* HDRPIX.swift in Sources */,
 				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,

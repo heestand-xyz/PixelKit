@@ -254,6 +254,146 @@ public extension PIX {
             space = Pixels.main.colorSpace
         }
         
+        // MARK: - Operator Overloads
+        
+        public static func ==(lhs: Color, rhs: Color) -> Bool {
+            return lhs.r == rhs.r &&
+                   lhs.g == rhs.g &&
+                   lhs.b == rhs.b &&
+                   lhs.a == rhs.a
+        }
+        public static func !=(lhs: Color, rhs: Color) -> Bool {
+            return !(lhs == rhs)
+        }
+        
+        public static func >(lhs: Color, rhs: Color) -> Bool {
+            return lhs.lum > rhs.lum
+        }
+        public static func <(lhs: Color, rhs: Color) -> Bool {
+            return lhs.lum < rhs.lum
+        }
+        public static func >=(lhs: Color, rhs: Color) -> Bool {
+            return lhs.lum >= rhs.lum
+        }
+        public static func <=(lhs: Color, rhs: Color) -> Bool {
+            return lhs.lum <= rhs.lum
+        }
+        
+        public static func +(lhs: Color, rhs: Color) -> Color {
+            return Color(
+                r: lhs.r + rhs.r,
+                g: lhs.g + rhs.g,
+                b: lhs.b + rhs.b,
+                a: lhs.a + rhs.a,
+                space: lhs.space)
+        }
+        public static func -(lhs: Color, rhs: Color) -> Color {
+            return Color(
+                r: lhs.r - rhs.r,
+                g: lhs.g - rhs.g,
+                b: lhs.b - rhs.b,
+                a: lhs.a - rhs.a,
+                space: lhs.space)
+        }
+        public static func *(lhs: Color, rhs: Color) -> Color {
+            return Color(
+                r: lhs.r * rhs.r,
+                g: lhs.g * rhs.g,
+                b: lhs.b * rhs.b,
+                a: lhs.a * rhs.a,
+                space: lhs.space)
+        }
+        
+        public static func +(lhs: Color, rhs: CGFloat) -> Color {
+            return Color(
+                r: lhs.r + rhs,
+                g: lhs.g + rhs,
+                b: lhs.b + rhs,
+                a: lhs.a + rhs,
+                space: lhs.space)
+        }
+        public static func -(lhs: Color, rhs: CGFloat) -> Color {
+            return Color(
+                r: lhs.r - rhs,
+                g: lhs.g - rhs,
+                b: lhs.b - rhs,
+                a: lhs.a - rhs,
+                space: lhs.space)
+        }
+        public static func *(lhs: Color, rhs: CGFloat) -> Color {
+            return Color(
+                r: lhs.r * rhs,
+                g: lhs.g * rhs,
+                b: lhs.b * rhs,
+                a: lhs.a * rhs,
+                space: lhs.space)
+        }
+        public static func /(lhs: Color, rhs: CGFloat) -> Color {
+            guard rhs != 0 else {
+                return .init(lum: 1)
+            }
+            return Color(
+                r: lhs.r / rhs,
+                g: lhs.g / rhs,
+                b: lhs.b / rhs,
+                a: lhs.a / rhs,
+                space: lhs.space)
+        }
+        public static func +(lhs: CGFloat, rhs: Color) -> Color {
+            return rhs + lhs
+        }
+        public static func -(lhs: CGFloat, rhs: Color) -> Color {
+            return (rhs - lhs) * -1
+        }
+        public static func *(lhs: CGFloat, rhs: Color) -> Color {
+            return rhs * lhs
+        }
+        
+        public static func += (lhs: inout Color, rhs: Color) {
+            lhs.r += rhs.r
+            lhs.g += rhs.g
+            lhs.b += rhs.b
+            lhs.a += rhs.a
+        }
+        public static func -= (lhs: inout Color, rhs: Color) {
+            lhs.r -= rhs.r
+            lhs.g -= rhs.g
+            lhs.b -= rhs.b
+            lhs.a -= rhs.a
+        }
+        public static func *= (lhs: inout Color, rhs: Color) {
+            lhs.r *= rhs.r
+            lhs.g *= rhs.g
+            lhs.b *= rhs.b
+            lhs.a *= rhs.a
+        }
+        
+        public static func += (lhs: inout Color, rhs: CGFloat) {
+            lhs.r += rhs
+            lhs.g += rhs
+            lhs.b += rhs
+            lhs.a += rhs
+        }
+        public static func -= (lhs: inout Color, rhs: CGFloat) {
+            lhs.r -= rhs
+            lhs.g -= rhs
+            lhs.b -= rhs
+            lhs.a -= rhs
+        }
+        public static func *= (lhs: inout Color, rhs: CGFloat) {
+            lhs.r *= rhs
+            lhs.g *= rhs
+            lhs.b *= rhs
+            lhs.a *= rhs
+        }
+        public static func /= (lhs: inout Color, rhs: CGFloat) {
+            guard rhs != 0 else { return }
+            lhs.r /= rhs
+            lhs.g /= rhs
+            lhs.b /= rhs
+            lhs.a /= rhs
+        }
+        
     }
     
 }

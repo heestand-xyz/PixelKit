@@ -133,6 +133,9 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
         case 10: // Power
             c = pow(ca, cb);
             break;
+        case 11: // Divide
+            c = ca / cb;
+            break;
     }
     
     return c;

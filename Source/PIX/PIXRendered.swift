@@ -60,6 +60,50 @@ public extension PIX {
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
         }
+        public var average: Color {
+            var color: Color!
+            for row in raw {
+                for px in row {
+                    guard color != nil else {
+                        color = px.color
+                        continue
+                    }
+                    color += px.color
+                }
+            }
+            color /= CGFloat(res.count)
+            return color
+        }
+        public var maximum: Color {
+            var color: Color!
+            for row in raw {
+                for px in row {
+                    guard color != nil else {
+                        color = px.color
+                        continue
+                    }
+                    if px.color > color {
+                        color = px.color
+                    }
+                }
+            }
+            return color
+        }
+        public var minimum: Color {
+            var color: Color!
+            for row in raw {
+                for px in row {
+                    guard color != nil else {
+                        color = px.color
+                        continue
+                    }
+                    if px.color < color {
+                        color = px.color
+                    }
+                }
+            }
+            return color
+        }
     }
     
     public var renderedPixels: PixelPack? {

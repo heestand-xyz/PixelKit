@@ -64,6 +64,7 @@ public extension PIX {
             case .minimum: return "<>"
             case .gamma: return "!**"
             case .power: return "**"
+            case .divide: return "/"
             }
         }
         
@@ -228,6 +229,22 @@ public extension PIX {
     public static func ><(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs >< lhs }
     public static func ><(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
+    }
+    
+    public static func /(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    public static func /(lhs: CGFloat, rhs: PIX) -> BlendPIX { return rhs / lhs }
+    public static func /(lhs: PIX, rhs: CGFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    public static func /(lhs: Color, rhs: PIX) -> BlendPIX { return rhs / lhs }
+    public static func /(lhs: PIX, rhs: Color) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    public static func /(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs / lhs }
+    public static func /(lhs: PIX, rhs: UIColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
     }
     
 }

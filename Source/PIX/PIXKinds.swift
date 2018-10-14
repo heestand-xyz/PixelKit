@@ -59,6 +59,7 @@ extension PIX {
         case delay
         case airPlay
         case rec
+//        case hdr
         var type: PIX.Type {
             switch self {
             case .nil: return NilPIX.self
@@ -106,6 +107,7 @@ extension PIX {
             case .delay: return DelayPIX.self
             case .airPlay: return AirPlayPIX.self
             case .rec: return RecPIX.self
+//            case .hdr: return HDRPIX.self
             }
         }
     }
