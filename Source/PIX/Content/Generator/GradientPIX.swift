@@ -54,15 +54,16 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
     public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
+    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
     public var extendRamp: ExtendMode = .zero { didSet { setNeedsRender() } }
     public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
     enum CodingKeys: String, CodingKey {
-        case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp; case colorSteps
+        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
     }
     open override var uniforms: [CGFloat] {
-        var vals = [CGFloat(style.index), scale, offset]
+        var vals = [CGFloat(style.index), scale, offset, position.x, position.y]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
         vals.append(contentsOf: PIX.Color(colorLast).list)
         vals.append(CGFloat(extendRamp.index))
@@ -86,6 +87,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         style = try container.decode(Style.self, forKey: .style)
         scale = try container.decode(CGFloat.self, forKey: .scale)
         offset = try container.decode(CGFloat.self, forKey: .offset)
+        position = try container.decode(CGPoint.self, forKey: .position)
         colorFirst = try container.decode(Color.self, forKey: .colorFirst).ui
         colorLast = try container.decode(Color.self, forKey: .colorLast).ui
         extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
@@ -98,6 +100,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         try container.encode(style, forKey: .style)
         try container.encode(scale, forKey: .scale)
         try container.encode(offset, forKey: .offset)
+        try container.encode(position, forKey: .position)
         try container.encode(Color(colorFirst), forKey: .colorFirst)
         try container.encode(Color(colorLast), forKey: .colorLast)
         try container.encode(extendRamp, forKey: .extendRamp)

@@ -25,6 +25,8 @@ struct Uniforms {
     float type;
     float scale;
     float offset;
+    float px;
+    float py;
     float ar;
     float ag;
     float ab;
@@ -70,6 +72,9 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     v = 1 - v; // Content Flip Fix
+    
+    u -= in.px / in.aspect;
+    v -= in.py;
     
     float pi = 3.14159265359;
     
