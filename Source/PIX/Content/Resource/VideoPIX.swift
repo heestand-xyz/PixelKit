@@ -62,6 +62,17 @@ public class VideoPIX: PIXResource, PIXofaKind {
         self.url = url
     }
     
+    public func load(url: URL) {
+        self.url = url
+    }
+    
+    public func load(data: Data) {
+        // CHECK format
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixels_temp_video.mov")
+        FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+        self.url = url
+    }
+    
     func find(video named: String, withExtension ext: String?) -> URL? {
         guard let url = Bundle.main.url(forResource: named, withExtension: ext) else {
             Pixels.main.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
