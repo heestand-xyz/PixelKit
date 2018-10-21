@@ -10,7 +10,7 @@ import MetalKit
 
 public class Pixels {
     
-     public static let main = Pixels()
+    public static let main = Pixels()
     
     public weak var delegate: PixelsDelegate?
     
@@ -182,7 +182,7 @@ public class Pixels {
 //    public struct PixRenderState {
 //        public let ref: PIXRef
 //        public var requested: Bool = false
-//        public var rendered: Bool = false
+//        public va´r rendered: Bool = false
 //        init(_ pix: PIX) {
 //            ref = PIXRef(for: pix)
 //        }
