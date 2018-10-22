@@ -62,12 +62,30 @@ extension Pixels {
         let renderStartTime = Date()
         let renderStartFrame = frame
         log(pix: pix, .info, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
+//        for flowTime in flowTimes {
+//            if flowTime.fromPixRenderState.ref.id == pix.id {
+//                if !flowTime.fromPixRenderState.requested {
+//                    flowTime.fromPixRenderState.requested = true
+//                } else {
+//
+//                }
+//            } else {
+//
+//            }
+//        }
         do {
             try render(pix, force: force, completed: { texture in
                 let renderTime = -renderStartTime.timeIntervalSinceNow
                 let renderTimeMs = Int(round(renderTime * 1000))
                 let renderFrames = self.frame - renderStartFrame
                 self.log(pix: pix, .info, .render, "Render successful!\(force ? " Forced." : "") [\(renderFrames):\(renderTimeMs)ms]", loop: true)
+//                for flowTime in self.flowTimes {
+//                    if flowTime.fromPixRenderState.requested {
+//                        if !flowTime.fromPixRenderState.rendered {
+//                            flowTime.fromPixRenderState.rendered = true
+//                        }
+//                    }
+//                }
                 pix.didRender(texture: texture, force: force)
             }, failed: { error in
                 var ioafMsg: String? = nil

@@ -10,7 +10,7 @@ import MetalKit
 
 public class Pixels {
     
-     public static let main = Pixels()
+    public static let main = Pixels()
     
     public weak var delegate: PixelsDelegate?
     
@@ -177,28 +177,55 @@ public class Pixels {
         })
     }
     
-//    // MARK: Flow Timer
+    // MARK: Flow Timer
+    
+//    public struct PixRenderState {
+//        public let ref: PIXRef
+//        public var requested: Bool = false
+//        public va´r rendered: Bool = false
+//        init(_ pix: PIX) {
+//            ref = PIXRef(for: pix)
+//        }
+//    }
+//    public class FlowTime: Equatable {
+//        let id: UUID = UUID()
+//        public let requestTime: Date = Date()
+//        public var startTime: Date!
+//        public var renderedFrames: Int = 0
+//        public var fromPixRenderState: PixRenderState
+//        public var thoughPixRenderStates: [PixRenderState] = []
+//        public var toPixRenderState: PixRenderState
+//        public var renderedSeconds: CGFloat!
+//        public var endTime: Date!
+//        var callback: (FlowTime) -> ()
+//        init(from fromPixRenderState: PixRenderState, to toPixRenderState: PixRenderState, callback: @escaping (FlowTime) -> ()) {
+//            self.fromPixRenderState = fromPixRenderState
+//            self.toPixRenderState = toPixRenderState
+//            self.callback = callback
+//        }
+//        public static func == (lhs: Pixels.FlowTime, rhs: Pixels.FlowTime) -> Bool {
+//            return lhs.id == rhs.id
+//        }
+//    }
 //
-//    struct FlowTimer {
-//        let fromPix: PIX & PIXOut
-//        let toPix: PIX & PIXIn
-//        var pixsInbetween: [PIX & PIXIn & PIXOut] = []
-//        let startTime: Date = Date()
-//        init(_ pixA: PIX & PIXOut, _ pixB: PIX & PIXIn) {
-//            fromPix = pixA
-//            toPix = pixB
+//    var flowTimes: [FlowTime] = []
+//
+//    public func flowTime(from pixIn: PIX & PIXOut, to pixOut: PIX & PIXIn, callback: @escaping (FlowTime) -> ()) {
+//        let fromPixRenderState = PixRenderState(pixIn)
+//        let toPixRenderState = PixRenderState(pixOut)
+//        let flowTime = FlowTime(from: fromPixRenderState, to: toPixRenderState) { flowTime in
+//            callback(flowTime)
 //        }
+//        flowTimes.append(flowTime)
 //    }
-//    var flowTimer: FlowTimer?
-//    public func flowTime(from pixA: PIX & PIXOut, to pixB: PIX & PIXIn, callback: () -> ()) {
-//        guard flowTimer == nil else {
-//            log(.warning, nil, "Only one Flow Timer can be run at once, please wait for the active one to finish or cancel it with `Pixels.main.cancelFlowTime()`.")
-//            return
+//
+//    func unfollowTime(_ flowTime: FlowTime) {
+//        for (i, iFlowTime) in flowTimes.enumerated() {
+//            if iFlowTime == flowTime {
+//                flowTimes.remove(at: i)
+//                break
+//            }
 //        }
-//        flowTimer = FlowTimer(pixA, pixB)
-//    }
-//    func cancelFlowTime() {
-//        flowTimer = nil
 //    }
     
     // MARK: - PIX Linking
