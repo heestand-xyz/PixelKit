@@ -39,6 +39,9 @@ open class PIX: Codable {
             _texture = newValue
         }
     }
+    public var didRenderTexture: Bool {
+        return _texture != nil
+    }
     
     public let view: PIXView
     
