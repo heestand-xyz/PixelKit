@@ -17,6 +17,19 @@ public extension PIX {
         public var b: CGFloat
         public var a: CGFloat
         
+        public static var clear: Color      { return Color(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
+        
+        public static var white: Color      { return Color(r: 1.0, g: 1.0, b: 1.0) }
+        public static var gray: Color       { return Color(r: 0.5, g: 0.5, b: 0.5) }
+        public static var black: Color      { return Color(r: 0.0, g: 0.0, b: 0.0) }
+        
+        public static var red: Color        { return Color(r: 1.0, g: 0.0, b: 0.0) }
+        public static var yellow: Color     { return Color(r: 1.0, g: 1.0, b: 0.0) }
+        public static var green: Color      { return Color(r: 0.0, g: 1.0, b: 0.0) }
+        public static var cyan: Color       { return Color(r: 0.0, g: 1.0, b: 1.0) }
+        public static var blue: Color       { return Color(r: 0.0, g: 0.0, b: 1.0) }
+        public static var magenta: Color    { return Color(r: 1.0, g: 0.0, b: 1.0) }
+        
         public enum Bits: Int, Codable {
             case _8 = 8
             case _16 = 16
@@ -215,6 +228,14 @@ public extension PIX {
             case green
             case blue
             case alpha
+            var color: Color {
+                switch self {
+                case .red: return   Color(r: 1.0, g: 0.0, b: 0.0, a: 0.0)
+                case .green: return Color(r: 0.0, g: 1.0, b: 0.0, a: 0.0)
+                case .blue: return  Color(r: 0.0, g: 0.0, b: 1.0, a: 0.0)
+                case .alpha: return Color(r: 0.0, g: 0.0, b: 0.0, a: 1.0)
+                }
+            }
         }
         
         public var isPure: Bool {
