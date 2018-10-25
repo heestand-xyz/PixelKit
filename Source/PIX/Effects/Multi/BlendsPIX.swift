@@ -14,19 +14,21 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
     
     override open var shader: String { return "effectMultiBlendsPIX" }
     
+    // MARK: - Public Properties
+    
     public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum BlendsCodingKeys: String, CodingKey {
         case blendingMode
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(blendingMode.index)]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()

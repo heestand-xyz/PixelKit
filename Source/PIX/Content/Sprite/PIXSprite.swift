@@ -12,6 +12,8 @@ open class PIXSprite: PIXContent {
     
     override open var shader: String { return "nilFlipPIX" }
     
+    // MARK: - Public Properties
+    
     public var res: Res { didSet { setup(); applyRes { self.setNeedsRender() } } }
     
     public var bgColor: UIColor = .black {

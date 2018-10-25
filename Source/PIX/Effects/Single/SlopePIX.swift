@@ -8,36 +8,27 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
-        let slopePix = SlopePIX()
-        slopePix.inPix = self as? PIX & PIXOut
-        slopePix.amplitude = amplitude
-        return slopePix
-    }
-    
-}
-
 public class SlopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .slope
     
     override open var shader: String { return "effectSingleSlopePIX" }
     
+    // MARK: - Public Properties
+    
     public var amplitude: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case amplitude
     }
+    
     open override var uniforms: [CGFloat] {
         return [amplitude]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -49,6 +40,17 @@ public class SlopePIX: PIXSingleEffect, PIXofaKind {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(amplitude, forKey: .amplitude)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
+        let slopePix = SlopePIX()
+        slopePix.inPix = self as? PIX & PIXOut
+        slopePix.amplitude = amplitude
+        return slopePix
     }
     
 }

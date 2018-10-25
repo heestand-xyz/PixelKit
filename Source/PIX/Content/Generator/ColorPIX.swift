@@ -14,7 +14,12 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorColorPIX" }
     
+    // MARK: - Public Properties
+    
     public var color: Color = .white { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case color
     }
@@ -22,7 +27,7 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
         return color.list
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

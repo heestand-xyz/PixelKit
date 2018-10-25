@@ -12,8 +12,11 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal, PIXofaKind {
     
     let kind: PIX.Kind = .metalEffect
     
-    let metalFileName = "EffectSingleMetalPIX.metal"
     override open var shader: String { return "effectSingleMetalPIX" }
+    
+    // MARK: - Private Properties
+
+    let metalFileName = "EffectSingleMetalPIX.metal"
     
     var metalEmbedCode: String
     var metalCode: String? {
@@ -26,9 +29,13 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal, PIXofaKind {
     }
     
     var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
+    
     open override var uniforms: [CGFloat] {
         return metalUniforms.map({ metalUniform -> CGFloat in
             return metalUniform.value
@@ -41,7 +48,7 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal, PIXofaKind {
         super.init()
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(code: "") // CHECK

@@ -9,25 +9,19 @@
 import CoreGraphics
 import Metal
 
-public extension PIXOut {
-    
-    func delay(frames: Int) -> DelayPIX {
-        let delayPix = DelayPIX()
-        delayPix.inPix = self as? PIX & PIXOut
-        delayPix.delayFrames = frames
-        return delayPix
-    }
-    
-}
-
 public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     
     let kind: PIX.Kind = .delay
     
     override open var shader: String { return "nilPIX" }
     
+    // MARK: - Public Properties
+    
 //    public var delaySeconds: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var delayFrames: Int = 1 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum EdgeCodingKeys: String, CodingKey {
         case delayFrames
     }
@@ -40,7 +34,7 @@ public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
         customRenderDelegate = self
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -63,6 +57,17 @@ public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
             cachedTextures.remove(at: 0)
         }
         return cachedTextures.first!
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _delay(frames: Int) -> DelayPIX {
+        let delayPix = DelayPIX()
+        delayPix.inPix = self as? PIX & PIXOut
+        delayPix.delayFrames = frames
+        return delayPix
     }
     
 }

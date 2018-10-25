@@ -17,6 +17,8 @@ open class PIXOutput: PIX, PIXInIO, PIXInSingle {
     
     open override var shader: String { return "nilPIX" }
     
+    // MARK: - Public Properties
+    
     override init() {
         super.init()
         pixInList = []

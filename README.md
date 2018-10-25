@@ -103,7 +103,7 @@ view.addSubview(finalPix.view)
 
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = CameraPIX().gamma(2.0).invert().hue(0.5).saturation(0.5).blur(0.25)
+let pix = CameraPIX()._gamma(2.0)._invert()._hue(0.5)._saturation(0.5)._blur(0.25)
 ```
 Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
 
@@ -136,7 +136,7 @@ view.addSubview(finalPix.view)
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = ImagePIX("city") & VideoPIX("superman.mov").chromaKey(.green)
+let pix = ImagePIX("city") & VideoPIX("superman.mov")._chromaKey(.green)
 ```
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
@@ -174,40 +174,40 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 
 ## Effect Convenience Funcs
 
-- pix.<b>reRes(to: ._1080p * 0.5)</b> -> ResPIX
-- pix.<b>reRes(by: 0.5)</b> -> ResPIX
-- pix.<b>brightness(0.5)</b> -> LevelsPIX
-- pix.<b>darkness(0.5)</b> -> LevelsPIX
-- pix.<b>contrast(0.5)</b> -> LevelsPIX
-- pix.<b>gamma(0.5)</b> -> LevelsPIX
-- pix.<b>invert()</b> -> LevelsPIX
-- pix.<b>opacity(0.5)</b> -> LevelsPIX
-- pix.<b>blur(0.5)</b> -> BlurPIX
-- pix.<b>edge()</b> -> EdgePIX
-- pix.<b>threshold(at: 0.5)</b> -> ThresholdPIX
-- pix.<b>quantize(by: 0.5)</b> -> QuantizePIX
-- pix.<b>position(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
-- pix.<b>rotatate(to: .pi)</b> -> TransformPIX
-- pix.<b>scale(by: 0.5)</b> -> TransformPIX
-- pix.<b>kaleidoscope()</b> -> KaleidoscopePIX
-- pix.<b>twirl(0.5)</b> -> TwirlPIX
-- pix.<b>swap(.red, .blue)</b> -> ChannelMixPIX
-- pix.<b>key(.green)</b> -> ChromaKeyPIX
-- pix.<b>hue(0.5)</b> -> HueSaturationPIX
-- pix.<b>saturation(0.5)</b> -> HueSaturationPIX
-- pix.<b>crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
-- pix.<b>flipX()</b> -> FlipFlopPIX
-- pix.<b>flipY()</b> -> FlipFlopPIX
-- pix.<b>flopLeft()</b> -> FlipFlopPIX
-- pix.<b>flopRight()</b> -> FlipFlopPIX
-- pix.<b>range(inLow: 0.0, inHigh: 0.5, outLow: 0.5, outHigh: 1.0)</b> -> RangePIX
-- pix.<b>range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
-- pix.<b>sharpen()</b> -> SharpenPIX
-- pix.<b>slope()</b> - > SlopePIX
-- pixA.<b>lookup(pix: pixB, axis: .x)</b> -> LookupPIX
-- pixA.<b>lumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
-- pixA.<b>displace(pix: pixB, distance: 0.5)</b> -> DisplacePIX
-- pixA.<b>remap(pix: pixB)</b> -> RemapPIX
+- pix.<b>_reRes(to: ._1080p * 0.5)</b> -> ResPIX
+- pix.<b>_reRes(by: 0.5)</b> -> ResPIX
+- pix.<b>_brightness(0.5)</b> -> LevelsPIX
+- pix.<b>_darkness(0.5)</b> -> LevelsPIX
+- pix.<b>_contrast(0.5)</b> -> LevelsPIX
+- pix.<b>_gamma(0.5)</b> -> LevelsPIX
+- pix.<b>_invert()</b> -> LevelsPIX
+- pix.<b>_opacity(0.5)</b> -> LevelsPIX
+- pix.<b>_blur(0.5)</b> -> BlurPIX
+- pix.<b>_edge()</b> -> EdgePIX
+- pix.<b>_threshold(at: 0.5)</b> -> ThresholdPIX
+- pix.<b>_quantize(by: 0.5)</b> -> QuantizePIX
+- pix.<b>_position(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
+- pix.<b>_rotatate(to: .pi)</b> -> TransformPIX
+- pix.<b>_scale(by: 0.5)</b> -> TransformPIX
+- pix.<b>_kaleidoscope()</b> -> KaleidoscopePIX
+- pix.<b>_twirl(0.5)</b> -> TwirlPIX
+- pix.<b>_swap(.red, .blue)</b> -> ChannelMixPIX
+- pix.<b>_key(.green)</b> -> ChromaKeyPIX
+- pix.<b>_hue(0.5)</b> -> HueSaturationPIX
+- pix.<b>_saturation(0.5)</b> -> HueSaturationPIX
+- pix.<b>_crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
+- pix.<b>_flipX()</b> -> FlipFlopPIX
+- pix.<b>_flipY()</b> -> FlipFlopPIX
+- pix.<b>_flopLeft()</b> -> FlipFlopPIX
+- pix.<b>_flopRight()</b> -> FlipFlopPIX
+- pix.<b>_range(inLow: 0.0, inHigh: 0.5, outLow: 0.5, outHigh: 1.0)</b> -> RangePIX
+- pix.<b>_range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
+- pix.<b>_sharpen()</b> -> SharpenPIX
+- pix.<b>_slope()</b> - > SlopePIX
+- pixA.<b>_lookup(pix: pixB, axis: .x)</b> -> LookupPIX
+- pixA.<b>_lumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
+- pixA.<b>_displace(pix: pixB, distance: 0.5)</b> -> DisplacePIX
+- pixA.<b>_remap(pix: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.

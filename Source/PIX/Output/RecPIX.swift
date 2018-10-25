@@ -13,6 +13,8 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
     
     let kind: PIX.Kind = .rec
     
+    // MARK: - Private Properties
+    
     var recording: Bool
     var frameIndex: Int
     var startDate: Date?
@@ -39,14 +41,21 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
 //    var recordingSession: AVAudioSession?
 //    var audioRecorder: AVAudioRecorder?
     
+    // MARK: - Public Properties
+    
     public var fps: Int = 30
     public var timeSync: Bool = true
     public var realtime: Bool = false
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case fps; case realtime
     }
     
     var customName: String?
+    
+    // MARK: - Life Cycle
     
     override public init() {
         
@@ -67,7 +76,7 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -83,7 +92,7 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         try container.encode(realtime, forKey: .realtime)
     }
     
-    // MARK: Record
+    // MARK: - Record
     
     public func startRec(name: String? = nil) throws {
         customName = name

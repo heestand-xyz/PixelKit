@@ -8,24 +8,6 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func reRes(to res: PIX.Res) -> ResPIX {
-        let resPix = ResPIX(res: res)
-        resPix.inPix = self as? PIX & PIXOut
-        return resPix
-    }
-    
-    func reRes(by resMultiplier: CGFloat) -> ResPIX {
-        let resPix = ResPIX(res: ._128)
-        resPix.inPix = self as? PIX & PIXOut
-        resPix.inheritInRes = true
-        resPix.resMultiplier = resMultiplier
-        return resPix
-    }
-    
-}
-
 public class ResPIX: PIXSingleEffect, PIXofaKind {
 
     let kind: PIX.Kind = .res
@@ -33,23 +15,31 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
     override open var shader: String { return "effectSingleResPIX" }
     override open var shaderNeedsAspect: Bool { return true }
     
+    // MARK: - Public Properties
+    
     public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum ResCodingKeys: String, CodingKey {
         case resMultiplier; case inheritInRes; case fillMode
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
     }
+    
+    // MARK: - Life Cycle
     
     public init(res: Res) {
         self.res = res
         super.init()
     }
 
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
@@ -67,4 +57,22 @@ public class ResPIX: PIXSingleEffect, PIXofaKind {
         try container.encode(fillMode, forKey: .fillMode)
     }
 
+}
+
+public extension PIXOut {
+    
+    func _reRes(to res: PIX.Res) -> ResPIX {
+        let resPix = ResPIX(res: res)
+        resPix.inPix = self as? PIX & PIXOut
+        return resPix
+    }
+    
+    func _reRes(by resMultiplier: CGFloat) -> ResPIX {
+        let resPix = ResPIX(res: ._128)
+        resPix.inPix = self as? PIX & PIXOut
+        resPix.inheritInRes = true
+        resPix.resMultiplier = resMultiplier
+        return resPix
+    }
+    
 }

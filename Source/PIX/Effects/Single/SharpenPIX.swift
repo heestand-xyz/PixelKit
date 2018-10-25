@@ -8,27 +8,22 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
-        let sharpenPix = SharpenPIX()
-        sharpenPix.inPix = self as? PIX & PIXOut
-        sharpenPix.contrast = contrast
-        return sharpenPix
-    }
-    
-}
-
 public class SharpenPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .sharpen
     
     override open var shader: String { return "effectSingleSharpenPIX" }
     
+    // MARK: - Public Properties
+    
     public var contrast: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case contrast
     }
+    
     open override var uniforms: [CGFloat] {
         return [contrast]
     }
@@ -37,7 +32,7 @@ public class SharpenPIX: PIXSingleEffect, PIXofaKind {
         super.init()
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -49,6 +44,17 @@ public class SharpenPIX: PIXSingleEffect, PIXofaKind {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(contrast, forKey: .contrast)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
+        let sharpenPix = SharpenPIX()
+        sharpenPix.inPix = self as? PIX & PIXOut
+        sharpenPix.contrast = contrast
+        return sharpenPix
     }
     
 }

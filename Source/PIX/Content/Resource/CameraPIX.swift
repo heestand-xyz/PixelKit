@@ -14,8 +14,16 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     override open var shader: String { return "contentResourceCameraPIX" }
     
+    // MARK: - Private Properties
+    
+    var helper: CameraHelper?
+    
+    var access: Bool = false
+    var orientation: UIInterfaceOrientation?
+    
+    // MARK: - Public Properties
+    
     public enum CamRes: String, Codable, CaseIterable {
-        public static var defaultCase: CamRes { return ._1080p }
 //        case autoLow = "Low"
 //        case autoHigh = "High"
         case vga = "VGA"
@@ -41,10 +49,9 @@ public class CameraPIX: PIXResource, PIXofaKind {
             }
         }
     }
-    public var camRes: CamRes { didSet { setupCamera() } }
+    public var camRes: CamRes = ._1080p { didSet { setupCamera() } }
     
     public enum Camera: String, Codable, CaseIterable {
-        public static var defaultCase: Camera { return .back }
         case front = "Front Camera"
         case back = "Back Camera"
         var position: AVCaptureDevice.Position {
@@ -57,26 +64,26 @@ public class CameraPIX: PIXResource, PIXofaKind {
         }
         var mirrored: Bool { return self == .front }
     }
-    
-    var orientation: UIInterfaceOrientation?
     public var camera: Camera = .back { didSet { setupCamera() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case camera; case camRes
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
     }
-
-    var helper: CameraHelper?
-    var access: Bool = false
     
-    public init(camera: Camera = Camera.defaultCase, camRes: CamRes = CamRes.defaultCase) {
-        self.camRes = camRes
+    // MARK: - Life Cycle
+    
+    public override init() {
         super.init()
         setupCamera()
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()

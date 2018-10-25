@@ -14,26 +14,11 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     override open var shader: String { return "contentResourceImagePIX" }
     
+    // MARK: - Public Properties
+    
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     
-    public convenience init(_ named: String) {
-        if let image = UIImage(named: named) {
-            self.init(image)
-        } else {
-            self.init()
-            pixels.log(.error, .resource, "Image named \"\(named)\" not found.")
-        }
-    }
-    
-    public init(_ image: UIImage? = nil) {
-        super.init()
-        if image != nil {
-            self.image = image
-            setNeedsBuffer() // CHECK
-        }
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws { self.init() }
     override public func encode(to encoder: Encoder) throws {}

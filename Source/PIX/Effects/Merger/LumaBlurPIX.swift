@@ -8,23 +8,13 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func lumaBlur(pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
-        let lumaBlurPix = LumaBlurPIX()
-        lumaBlurPix.inPixA = self as? PIX & PIXOut
-        lumaBlurPix.inPixB = pix
-        lumaBlurPix.radius = radius
-        return lumaBlurPix
-    }
-    
-}
-
 public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .lumaBlur
     
     override open var shader: String { return "effectMergerLumaBlurPIX" }
+    
+    // MARK: - Public Properties
     
     public enum Style: String, Codable {
         case box
@@ -46,19 +36,25 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
+    
+    // MARK: - Life Cycle
     
     public override init() {
         super.init()
         extend = .hold
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -78,6 +74,18 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
         try container.encode(quality, forKey: .quality)
         try container.encode(angle, forKey: .angle)
         try container.encode(position, forKey: .position)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _lumaBlur(pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
+        let lumaBlurPix = LumaBlurPIX()
+        lumaBlurPix.inPixA = self as? PIX & PIXOut
+        lumaBlurPix.inPixB = pix
+        lumaBlurPix.radius = radius
+        return lumaBlurPix
     }
     
 }

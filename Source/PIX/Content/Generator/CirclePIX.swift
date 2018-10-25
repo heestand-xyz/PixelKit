@@ -14,15 +14,21 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorCirclePIX" }
     
+    // MARK: - Public Properties
+    
     public var radius: CGFloat = sqrt(0.75) / 4 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: CGFloat = 0.0 { didSet { setNeedsRender() } } // CHECK radius is not diameter
     public var color: UIColor = .white { didSet { setNeedsRender() } }
     public var edgeColor: UIColor = .gray { didSet { setNeedsRender() } }
     public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
     }
+    
     open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, edgeRadius]
         vals.append(contentsOf: PIX.Color(color).list)
@@ -31,7 +37,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
         return vals
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

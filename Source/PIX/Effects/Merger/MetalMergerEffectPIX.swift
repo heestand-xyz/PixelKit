@@ -15,6 +15,8 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal, PIXofaKind {
     let metalFileName = "EffectMergerMetalPIX.metal"
     override open var shader: String { return "effectMergerMetalPIX" }
     
+    // MARK: - Public Properties
+    
     var metalEmbedCode: String
     var metalCode: String? {
         do {
@@ -26,9 +28,13 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal, PIXofaKind {
     }
     
     var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
+    
     open override var uniforms: [CGFloat] {
         return metalUniforms.map({ metalUniform -> CGFloat in
             return metalUniform.value
@@ -41,7 +47,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal, PIXofaKind {
         super.init()
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(code: "") // CHECK

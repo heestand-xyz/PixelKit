@@ -14,6 +14,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     
+    // MARK: - Public Properties
+    
     public enum Style: String, Codable {
         case horizontal
         case vertical
@@ -56,11 +58,15 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
     public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
-    public var extendRamp: ExtendMode = .zero { didSet { setNeedsRender() } }
+    public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case style; case scale; case offset; case colorFirst; case colorLast; case extendRamp; case colorSteps
     }
+    
     open override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset]
         vals.append(contentsOf: PIX.Color(colorFirst).list)
@@ -78,7 +84,7 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         return vals
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

@@ -20,6 +20,8 @@ class PIXMetalView: MTKView {
     }
     
     var readyToRender: (() -> ())?
+   
+    // MARK: - Life Cycle
     
     public init() {
         

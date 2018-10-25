@@ -12,10 +12,19 @@ public class TextPIX: PIXSprite, PIXofaKind {
     
     var kind: PIX.Kind = .text
     
+    // MARK: - Private Properties
+    
+    let label: SKLabelNode
+    
+    // MARK: - Public Properties
+    
     public var text: String = "Pixels" { didSet { setNeedsText(); setNeedsRender() } }
     public var textColor: UIColor = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     public var font: UIFont = UIFont.systemFont(ofSize: 100) { didSet { setNeedsFont(); setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case text; case textColor; case font; case position
     }
@@ -23,7 +32,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
         case name; case size
     }
     
-    let label: SKLabelNode
+    // MARK: - Life Cycle
     
     public override init(res: Res) {
         
@@ -45,7 +54,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
         
     }
     
-    // MARK: File IO
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
@@ -75,7 +84,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
         try container.encode(position, forKey: .position)
     }
     
-    // MARK: Render
+    // MARK: - Render
     
     override public func setNeedsRender() {
         setNeedsText()
@@ -85,7 +94,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
         super.setNeedsRender()
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     
     func setNeedsText() {
         label.text = text

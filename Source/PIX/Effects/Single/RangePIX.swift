@@ -8,35 +8,13 @@
 
 import UIKit
 
-public extension PIXOut {
-    
-    func range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
-        let rangePix = RangePIX()
-        rangePix.inPix = self as? PIX & PIXOut
-        rangePix.inLow = inLow
-        rangePix.inHigh = inHigh
-        rangePix.outLow = outLow
-        rangePix.outHigh = outHigh
-        return rangePix
-    }
-    
-    func range(inLow: UIColor = .clear, inHigh: UIColor = .white, outLow: UIColor = .clear, outHigh: UIColor = .white) -> RangePIX {
-        let rangePix = RangePIX()
-        rangePix.inPix = self as? PIX & PIXOut
-        rangePix.inLowColor = inLow
-        rangePix.inHighColor = inHigh
-        rangePix.outLowColor = outLow
-        rangePix.outHighColor = outHigh
-        return rangePix
-    }
-    
-}
-
 public class RangePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .range
     
     override open var shader: String { return "effectSingleRangePIX" }
+    
+    // MARK: - Public Properties
     
     public var inLow: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var inHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }
@@ -47,9 +25,13 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
     public var outLowColor: UIColor = .clear { didSet { setNeedsRender() } }
     public var outHighColor: UIColor = .white { didSet { setNeedsRender() } }
     public var ignoreAlpha: Bool = true { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case inLow; case inHigh; case outLow; case outHigh; case inLowColor; case inHighColor; case outLowColor; case outHighColor; case ignoreAlpha
     }
+    
     open override var uniforms: [CGFloat] {
         var vals = [inLow, inHigh, outLow, outHigh]
         vals.append(contentsOf: Color(inLowColor).list)
@@ -64,7 +46,7 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
         super.init()
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -92,6 +74,30 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
         try container.encode(Color(outLowColor), forKey: .outLowColor)
         try container.encode(Color(outHighColor), forKey: .outHighColor)
         try container.encode(ignoreAlpha, forKey: .ignoreAlpha)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
+        let rangePix = RangePIX()
+        rangePix.inPix = self as? PIX & PIXOut
+        rangePix.inLow = inLow
+        rangePix.inHigh = inHigh
+        rangePix.outLow = outLow
+        rangePix.outHigh = outHigh
+        return rangePix
+    }
+    
+    func _range(inLow: UIColor = .clear, inHigh: UIColor = .white, outLow: UIColor = .clear, outHigh: UIColor = .white) -> RangePIX {
+        let rangePix = RangePIX()
+        rangePix.inPix = self as? PIX & PIXOut
+        rangePix.inLowColor = inLow
+        rangePix.inHighColor = inHigh
+        rangePix.outLowColor = outLow
+        rangePix.outHighColor = outHigh
+        return rangePix
     }
     
 }

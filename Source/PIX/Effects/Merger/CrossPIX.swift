@@ -14,19 +14,21 @@ public class CrossPIX: PIXMergerEffect, PIXofaKind {
     
     override open var shader: String { return "effectMergerCrossPIX" }
     
+    // MARK: - Public Properties
+    
     public var lerp: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case lerp
     }
+    
     open override var uniforms: [CGFloat] {
         return [lerp]
     }
-    
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+        
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()

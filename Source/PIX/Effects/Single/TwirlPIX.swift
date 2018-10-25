@@ -8,37 +8,34 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func twirl(_ strength: CGFloat) -> TwirlPIX {
-        let twirlPix = TwirlPIX()
-        twirlPix.inPix = self as? PIX & PIXOut
-        twirlPix.strength = strength
-        return twirlPix
-    }
-
-}
-
 public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .twirl
     
     override open var shader: String { return "effectSingleTwirlPIX" }
     
+    // MARK: - Public Properties
+    
     public var strength: CGFloat = 1 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum TwirlCodingKeys: String, CodingKey {
         case strength
     }
+    
     open override var uniforms: [CGFloat] {
         return [strength]
     }
+    
+    // MARK: - Life Cycle
     
     public override init() {
         super.init()
         extend = .mirror
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -50,6 +47,17 @@ public class TwirlPIX: PIXSingleEffect, PIXofaKind {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: TwirlCodingKeys.self)
         try container.encode(strength, forKey: .strength)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _twirl(_ strength: CGFloat) -> TwirlPIX {
+        let twirlPix = TwirlPIX()
+        twirlPix.inPix = self as? PIX & PIXOut
+        twirlPix.strength = strength
+        return twirlPix
     }
     
 }

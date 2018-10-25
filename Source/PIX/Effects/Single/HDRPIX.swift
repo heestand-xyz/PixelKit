@@ -13,6 +13,8 @@
 //    let kind: PIX.Kind = .hdr
 //    
 //    override open var shader: String { return "effectSingleHDRPIX" }
+    
+    // MARK: - Public Properties
 //    
 //    enum DistType: Int, Codable {
 //        case narrow = 16
@@ -37,7 +39,7 @@
 //        super.init()
 //    }
 //    
-//    // MARK: JSON
+//    // MARK: - JSON
 //    
 //    required convenience init(from decoder: Decoder) throws {
 //        self.init()

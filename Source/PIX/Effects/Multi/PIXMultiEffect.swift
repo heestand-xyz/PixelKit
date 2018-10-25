@@ -12,6 +12,8 @@ open class PIXMultiEffect: PIXEffect, PIXInMulti {
     
     public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     
+    // MARK: - Life Cycle
+    
     public override init() {
         super.init()
     }

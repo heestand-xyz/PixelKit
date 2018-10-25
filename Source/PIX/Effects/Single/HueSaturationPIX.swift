@@ -8,51 +8,28 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func hue(_ hue: CGFloat) -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
-        hueSaturationPix.inPix = self as? PIX & PIXOut
-        hueSaturationPix.hue = hue
-        return hueSaturationPix
-    }
-    
-    func saturation(_ saturation: CGFloat) -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
-        hueSaturationPix.inPix = self as? PIX & PIXOut
-        hueSaturationPix.saturation = saturation
-        return hueSaturationPix
-    }
-    
-    func monochrome() -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
-        hueSaturationPix.inPix = self as? PIX & PIXOut
-        hueSaturationPix.saturation = 0.0
-        return hueSaturationPix
-    }
-    
-}
-
 public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .hueSaturation
     
     override open var shader: String { return "effectSingleHueSaturationPIX" }
+    
+    // MARK: - Public Properties
 
     public var hue: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var saturation: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum LevelsCodingKeys: String, CodingKey {
         case hue; case saturation
     }
+    
     open override var uniforms: [CGFloat] {
         return [hue, saturation, 1]
     }
     
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -66,6 +43,31 @@ public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
         var container = encoder.container(keyedBy: LevelsCodingKeys.self)
         try container.encode(hue, forKey: .hue)
         try container.encode(saturation, forKey: .saturation)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _hue(_ hue: CGFloat) -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.hue = hue
+        return hueSaturationPix
+    }
+    
+    func _saturation(_ saturation: CGFloat) -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.saturation = saturation
+        return hueSaturationPix
+    }
+    
+    func _monochrome() -> HueSaturationPIX {
+        let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.inPix = self as? PIX & PIXOut
+        hueSaturationPix.saturation = 0.0
+        return hueSaturationPix
     }
     
 }

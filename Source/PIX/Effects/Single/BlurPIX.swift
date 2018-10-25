@@ -9,22 +9,13 @@
 import MetalKit
 import MetalPerformanceShaders
 
-public extension PIXOut {
-    
-    func blur(_ radius: CGFloat) -> BlurPIX {
-        let blurPix = BlurPIX()
-        blurPix.inPix = self as? PIX & PIXOut
-        blurPix.radius = radius
-        return blurPix
-    }
-    
-}
-
 public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     
     let kind: PIX.Kind = .blur
     
     override open var shader: String { return "effectSingleBlurPIX" }
+    
+    // MARK: - Public Properties
     
     public enum Style: String, Codable {
         case guassian
@@ -48,9 +39,13 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum BlurCodingKeys: String, CodingKey {
         case style; case radius; case quality; case angle; case position
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
     }
@@ -61,7 +56,7 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
         customRenderDelegate = self
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -109,6 +104,17 @@ public class BlurPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
         gaussianBlurKernel.edgeMode = extend.mps
         gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
         return blurTexture
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _blur(_ radius: CGFloat) -> BlurPIX {
+        let blurPix = BlurPIX()
+        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.radius = radius
+        return blurPix
     }
     
 }

@@ -99,7 +99,7 @@ open class PIX: Codable {
     
     }
     
-    // MARK: JSON
+    // MARK: - JSON
 
     public required init(from decoder: Decoder) throws {
         fatalError("PIX Decoder Initializer is not supported.") // CHECK
