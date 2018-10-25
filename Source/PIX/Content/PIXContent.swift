@@ -13,7 +13,7 @@ open class PIXContent: PIX, PIXOutIO {
     var pixOutPathList: [PIX.OutPath] = []
     var connectedOut: Bool { return !pixOutPathList.isEmpty }
     
-    override init() {
+    override public init() {
         super.init()
     }
     

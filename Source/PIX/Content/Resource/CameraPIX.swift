@@ -48,6 +48,14 @@ public class CameraPIX: PIXResource, PIXofaKind {
 //                return .photo
             }
         }
+        public var res: Res {
+            switch self {
+            case .vga: return .custom(w: 640, h: 480)
+            case ._720p: return ._720p
+            case ._1080p: return ._1080p
+            case ._4K: return ._4K
+            }
+        }
     }
     public var camRes: CamRes = ._1080p { didSet { setupCamera() } }
     
