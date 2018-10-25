@@ -462,7 +462,7 @@
 				74BC39D321011E3A004E9AA0 /* Sources */,
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
 				74BC39D521011E3A004E9AA0 /* Resources */,
-				74A573832182685200A91E03 /* ShellScript */,
+				74A573832182685200A91E03 /* Run Script - Auto Build Verison */,
 			);
 			buildRules = (
 			);
@@ -529,7 +529,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		74A573832182685200A91E03 /* ShellScript */ = {
+		74A573832182685200A91E03 /* Run Script - Auto Build Verison */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -538,6 +538,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script - Auto Build Verison";
 			outputFileListPaths = (
 			);
 			outputPaths = (
