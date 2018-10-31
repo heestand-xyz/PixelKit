@@ -57,11 +57,13 @@ public extension PIX {
         
         case iPad(Orientation)
         case iPadPro_10_5(Orientation)
+        case iPadPro_11(Orientation)
         case iPadPro_12_9(Orientation)
         public static var iPadCases: [Res] {
             return [
             .iPad(.portrait), .iPad(.landscape),
             .iPadPro_10_5(.portrait), .iPadPro_10_5(.landscape),
+            .iPadPro_11(.portrait), .iPadPro_11(.landscape),
             .iPadPro_12_9(.portrait), .iPadPro_12_9(.landscape)
             ]
         }
@@ -101,6 +103,7 @@ public extension PIX {
                 case .iPhoneXR(let ori): return "iPhone XR" + ori.postfix
                 case .iPad(let ori): return "iPad" + ori.postfix
                 case .iPadPro_10_5(let ori): return "iPad Pro 10.5‑inch" + ori.postfix
+                case .iPadPro_11(let ori): return "iPad Pro 11‑inch" + ori.postfix
                 case .iPadPro_12_9(let ori): return "iPad Pro 12.9‑inch" + ori.postfix
                 case .fullScreen: return "Full Screen"
                 default: return "\(raw.w)x\(raw.h)"
@@ -158,6 +161,10 @@ public extension PIX {
                 let size = CGSize(width: 1668, height: 2224)
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
+            case .iPadPro_11(let ori):
+                let size = CGSize(width: 1668, height: 2388)
+                if ori == .portrait { return size }
+                else { return CGSize(width: size.height, height: size.width) }
             case .iPadPro_12_9(let ori):
                 let size = CGSize(width: 2048, height: 2732)
                 if ori == .portrait { return size }
@@ -177,7 +184,7 @@ public extension PIX {
             case .iPhone, .iPhoneXR: return 326
             case .iPhonePlus: return 401
             case .iPhoneX, .iPhoneXSMax: return 458
-            case .iPad, .iPadPro_10_5, .iPadPro_12_9: return 264
+            case .iPad, .iPadPro_10_5, .iPadPro_11, .iPadPro_12_9: return 264
             default: return nil
             }
         }
