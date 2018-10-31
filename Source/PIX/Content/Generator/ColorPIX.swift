@@ -14,28 +14,31 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorColorPIX" }
     
-    public var color: UIColor = .white { didSet { setNeedsRender() } }
+    // MARK: - Public Properties
+    
+    public var color: Color = .white { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case color
     }
     open override var uniforms: [CGFloat] {
-        var vals: [CGFloat] = []
-        vals.append(contentsOf: PIX.Color(color).list)
-        return vals
+        return color.list
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        color = try container.decode(PIX.Color.self, forKey: .color).ui
+        color = try container.decode(Color.self, forKey: .color)
         setNeedsRender()
     }
     
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(PIX.Color(color), forKey: .color)
+        try container.encode(color, forKey: .color)
     }
     
 }

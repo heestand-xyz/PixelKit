@@ -8,31 +8,26 @@
 
 import UIKit
 
-public extension PIXOut {
-    
-    func chromaKey(_ color: UIColor) -> ChromaKeyPIX {
-        let chromaKeyPix = ChromaKeyPIX()
-        chromaKeyPix.inPix = self as? PIX & PIXOut
-        chromaKeyPix.keyColor = color
-        return chromaKeyPix
-    }
-    
-}
-
 public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .chromaKey
     
     override open var shader: String { return "effectSingleChromaKeyPIX" }
     
+    // MARK: - Public Properties
+    
     public var keyColor: UIColor = .green { didSet { setNeedsRender() } }
     public var range: CGFloat = 0.1 { didSet { setNeedsRender() } }
     public var softness: CGFloat = 0.1 { didSet { setNeedsRender() } }
     public var edgeDesaturation: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum ChromaKeyCodingKeys: String, CodingKey {
         case keyColor; case range; case softness; case edgeDesaturation; case premultiply
     }
+    
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: PIX.Color(keyColor).list)
@@ -40,7 +35,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
         return vals
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -60,6 +55,17 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
         try container.encode(softness, forKey: .softness)
         try container.encode(edgeDesaturation, forKey: .edgeDesaturation)
         try container.encode(premultiply, forKey: .premultiply)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _chromaKey(_ color: UIColor) -> ChromaKeyPIX {
+        let chromaKeyPix = ChromaKeyPIX()
+        chromaKeyPix.inPix = self as? PIX & PIXOut
+        chromaKeyPix.keyColor = color
+        return chromaKeyPix
     }
     
 }

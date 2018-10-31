@@ -10,9 +10,17 @@ import CoreGraphics
 import Metal
 
 public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
+    
     var kind: PIX.Kind = .feedback
     
     override open var shader: String { return "nilPIX" }
+    
+    // MARK: - Private Properties
+    
+    var readyToFeed: Bool = false
+    var feedReset: Bool = false
+
+    // MARK: - Public Properties
     
     var feedTexture: MTLTexture? {
         return feedPix?.texture
@@ -20,9 +28,7 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
     public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }
-    var readyToFeed: Bool = false
-    var feedReset: Bool = false
-
+    
     public override required init() {
         super.init()
     }

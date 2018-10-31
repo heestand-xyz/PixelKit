@@ -15,9 +15,18 @@ public extension PIX {
         case _720p
         case _1080p
         case _4K
+        public static var standardCases: [Res] {
+            return [._720p, ._1080p, ._4K]
+        }
 
         case fullHD(Orientation)
         case ultraHD(Orientation)
+        public static var hdCases: [Res] {
+            return [
+                .fullHD(.portrait), .fullHD(.landscape),
+                .ultraHD(.portrait), .ultraHD(.landscape)
+            ]
+        }
         
         case _128
         case _256
@@ -27,14 +36,35 @@ public extension PIX {
         case _4096
         case _8192
         case _16384
+        public static var squareCases: [Res] {
+            return [._128, ._256, ._512, ._1024, ._2048, ._4096, ._8192, ._16384]
+        }
         
         case iPhone(Orientation)
         case iPhonePlus(Orientation)
         case iPhoneX(Orientation)
+        case iPhoneXSMax(Orientation)
+        case iPhoneXR(Orientation)
+        public static var iPhoneCases: [Res] {
+            return [
+                .iPhone(.portrait), .iPhone(.landscape),
+                .iPhonePlus(.portrait), .iPhonePlus(.landscape),
+                .iPhoneX(.portrait), .iPhoneX(.landscape),
+                .iPhoneXSMax(.portrait), .iPhoneXSMax(.landscape),
+                .iPhoneXR(.portrait), .iPhoneXR(.landscape)
+            ]
+        }
         
         case iPad(Orientation)
         case iPadPro_10_5(Orientation)
         case iPadPro_12_9(Orientation)
+        public static var iPadCases: [Res] {
+            return [
+            .iPad(.portrait), .iPad(.landscape),
+            .iPadPro_10_5(.portrait), .iPadPro_10_5(.landscape),
+            .iPadPro_12_9(.portrait), .iPadPro_12_9(.landscape)
+            ]
+        }
         
         case fullScreen
         
@@ -45,6 +75,36 @@ public extension PIX {
         public enum Orientation {
             case portrait
             case landscape
+            var postfix: String {
+                switch self {
+                case .portrait:
+                    return " in Portrait"
+                case .landscape:
+                    return " in Landscape"
+                }
+            }
+        }
+        
+        // MARK: Name
+        
+        public var name: String {
+            switch self {
+                case ._720p: return "720p"
+                case ._1080p: return "1080p"
+                case ._4K: return "4K"
+                case .fullHD(let ori): return "Full HD" + ori.postfix
+                case .ultraHD(let ori): return "Ultra HD" + ori.postfix
+                case .iPhone(let ori): return "iPhone" + ori.postfix
+                case .iPhonePlus(let ori): return "iPhone Plus" + ori.postfix
+                case .iPhoneX(let ori): return "iPhone X" + ori.postfix
+                case .iPhoneXSMax(let ori): return "iPhone XS Max" + ori.postfix
+                case .iPhoneXR(let ori): return "iPhone XR" + ori.postfix
+                case .iPad(let ori): return "iPad" + ori.postfix
+                case .iPadPro_10_5(let ori): return "iPad Pro 10.5‑inch" + ori.postfix
+                case .iPadPro_12_9(let ori): return "iPad Pro 12.9‑inch" + ori.postfix
+                case .fullScreen: return "Full Screen"
+                default: return "\(raw.w)x\(raw.h)"
+            }
         }
 
         // MARK: Size
@@ -82,6 +142,14 @@ public extension PIX {
                 let size = CGSize(width: 1125, height: 2436)
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
+            case .iPhoneXSMax(let ori):
+                let size = CGSize(width: 1242, height: 2688)
+                if ori == .portrait { return size }
+                else { return CGSize(width: size.height, height: size.width) }
+            case .iPhoneXR(let ori):
+                let size = CGSize(width: 828, height: 1792)
+                if ori == .portrait { return size }
+                else { return CGSize(width: size.height, height: size.width) }
             case .iPad(let ori):
                 let size = CGSize(width: 1536, height: 2048)
                 if ori == .portrait { return size }
@@ -101,6 +169,16 @@ public extension PIX {
             case .size(let size): return size
             case .custom(let w, let h): return CGSize(width: w, height: h)
             case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
+            }
+        }
+        
+        public var ppi: Int? {
+            switch self {
+            case .iPhone, .iPhoneXR: return 326
+            case .iPhonePlus: return 401
+            case .iPhoneX, .iPhoneXSMax: return 458
+            case .iPad, .iPadPro_10_5, .iPadPro_12_9: return 264
+            default: return nil
             }
         }
         

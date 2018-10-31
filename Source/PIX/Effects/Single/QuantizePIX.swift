@@ -8,36 +8,26 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func quantize(by fraction: CGFloat) -> QuantizePIX {
-        let quantizePix = QuantizePIX()
-        quantizePix.inPix = self as? PIX & PIXOut
-        quantizePix.fraction = fraction
-        return quantizePix
-    }
-    
-}
-
 public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .quantize
     
     override open var shader: String { return "effectSingleQuantizePIX" }
     
+    // MARK: - Public Properties
+    
     public var fraction: CGFloat = 0.125 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
     enum QuantizeCodingKeys: String, CodingKey {
         case fraction
     }
+    
     open override var uniforms: [CGFloat] {
         return [fraction]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -49,6 +39,17 @@ public class QuantizePIX: PIXSingleEffect, PIXofaKind {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: QuantizeCodingKeys.self)
         try container.encode(fraction, forKey: .fraction)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _quantize(by fraction: CGFloat) -> QuantizePIX {
+        let quantizePix = QuantizePIX()
+        quantizePix.inPix = self as? PIX & PIXOut
+        quantizePix.fraction = fraction
+        return quantizePix
     }
     
 }

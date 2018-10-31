@@ -8,45 +8,13 @@
 
 import CoreGraphics
 
-
-public extension PIXOut {
-    
-    func flipX() -> FlipFlopPIX {
-        let flipFlopPix = FlipFlopPIX()
-        flipFlopPix.inPix = self as? PIX & PIXOut
-        flipFlopPix.flip = .x
-        return flipFlopPix
-    }
-    
-    func flipY() -> FlipFlopPIX {
-        let flipFlopPix = FlipFlopPIX()
-        flipFlopPix.inPix = self as? PIX & PIXOut
-        flipFlopPix.flip = .y
-        return flipFlopPix
-    }
-    
-    func flopLeft() -> FlipFlopPIX {
-        let flipFlopPix = FlipFlopPIX()
-        flipFlopPix.inPix = self as? PIX & PIXOut
-        flipFlopPix.flop = .left
-        return flipFlopPix
-    }
-    
-    func flopRight() -> FlipFlopPIX {
-        let flipFlopPix = FlipFlopPIX()
-        flipFlopPix.inPix = self as? PIX & PIXOut
-        flipFlopPix.flop = .right
-        return flipFlopPix
-    }
-    
-}
-
-
 public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .flipFlop
     
     override open var shader: String { return "effectSingleFlipFlopPIX" }
+    
+    // MARK: - Public Properties
         
     public enum Flip: String, Codable {
         case x
@@ -74,18 +42,18 @@ public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
     
     public var flip: Flip? = nil { didSet { setNeedsRender() } }
     public var flop: Flop? = nil { didSet { applyRes { self.setNeedsRender() } } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case flip; case flop
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(flip?.index ?? 0), CGFloat(flop?.index ?? 0)]
     }
     
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -100,6 +68,38 @@ public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(flip, forKey: .flip)
         try container.encode(flop, forKey: .flop)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _flipX() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flip = .x
+        return flipFlopPix
+    }
+    
+    func _flipY() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flip = .y
+        return flipFlopPix
+    }
+    
+    func _flopLeft() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flop = .left
+        return flipFlopPix
+    }
+    
+    func _flopRight() -> FlipFlopPIX {
+        let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.flop = .right
+        return flipFlopPix
     }
     
 }

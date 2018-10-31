@@ -16,6 +16,8 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger {
     
     public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
     
+    // MARK: - Life Cycle
+    
     public override init() {
         super.init()
     }

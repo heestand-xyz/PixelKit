@@ -8,26 +8,17 @@
 
 import UIKit
 
-public extension MetalPIX {
-    
-    public static func uv(res: Res) -> MetalPIX {
-        let uv = MetalPIX(res: res, code:
-            """
-            pix = float4(u, v, 0.0, 1.0);
-            """
-        )
-        uv.name = "UV Map"
-        return uv
-    }
-    
-}
-
 public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
     
     var kind: PIX.Kind = .metal
     
-    let metalFileName = "ContentGeneratorMetalPIX.metal"
     override open var shader: String { return "contentGeneratorMetalPIX" }
+    
+    // MARK: - Private Properties
+
+    let metalFileName = "ContentGeneratorMetalPIX.metal"
+    
+    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
     
     var metalEmbedCode: String
     var metalCode: String? {
@@ -39,23 +30,27 @@ public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
         }
     }
     
-    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case metalUniforms
     }
+    
     open override var uniforms: [CGFloat] {
         return metalUniforms.map({ metalUniform -> CGFloat in
             return metalUniform.value
         })
     }
     
-    public init(res: Res, code: String, uniforms: [MetalUniform] = []) {
-        metalEmbedCode = code
+    // MARK: - Life Cycle
+    
+    public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
+        metalEmbedCode = code
         super.init(res: res)
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128, code: "") // CHECK
@@ -67,6 +62,20 @@ public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(metalUniforms, forKey: .metalUniforms)
+    }
+    
+}
+
+public extension MetalPIX {
+    
+    public static func uv(res: Res) -> MetalPIX {
+        let uv = MetalPIX(res: res, code:
+            """
+            pix = float4(u, v, 0.0, 1.0);
+            """
+        )
+        uv.name = "UV Map"
+        return uv
     }
     
 }

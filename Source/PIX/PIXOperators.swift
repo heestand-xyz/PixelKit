@@ -37,7 +37,7 @@ public extension PIX {
         
         func blend(_ pix: PIX, _ color: Color, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
-            colorPix.color = color.ui
+            colorPix.color = color
             let blend = blendOperators.blend(pix, colorPix, blendingMode: blendingMode)
             blend.extend = .hold
             return blend

@@ -14,21 +14,26 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
     
     override open var shader: String { return "nilPIX" }
     
+    // MARK: - Public Properties
+    
     public struct Corners: Codable {
         public var topLeft: CGPoint
         public var topRight: CGPoint
         public var bottomLeft: CGPoint
         public var bottomRight: CGPoint
     }
-    
-    // MARK: Public Properties
     public var corners: Corners { didSet { setNeedsRender() } }
+    
     public var perspective: Bool = false { didSet { setNeedsRender() } }
     public var divisions: Int = 16  { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
     
     enum CodingKeys: String, CodingKey {
         case corners
     }
+    
+    // MARK: - Life Cycle
     
     public override init() {
         corners = Corners(topLeft: CGPoint(x: 0, y: 1), topRight: CGPoint(x: 1, y: 1), bottomLeft: CGPoint(x: 0, y: 0), bottomRight: CGPoint(x: 1, y: 0))
@@ -37,7 +42,7 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
         customGeometryDelegate = self
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -51,7 +56,7 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
         try container.encode(corners, forKey: .corners)
     }
     
-    // MAKR: Corenr Pin
+    // MAKR: - Corenr Pin
     
     public func customVertecies() -> Pixels.Vertecies? {
         

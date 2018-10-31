@@ -8,37 +8,27 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func threshold(at threshold: CGFloat = 0.5) -> ThresholdPIX {
-        let thresholdPix = ThresholdPIX()
-        thresholdPix.inPix = self as? PIX & PIXOut
-        thresholdPix.threshold = threshold
-        return thresholdPix
-    }
-    
-}
-
 public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .threshold
     
     override open var shader: String { return "effectSingleThresholdPIX" }
     
+    // MARK: - Public Properties
+    
     public var threshold: CGFloat = 0.5 { didSet { setNeedsRender() } }
     public var smoothness: CGFloat = 0 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
     enum EdgeCodingKeys: String, CodingKey {
         case threshold; case smoothness
     }
+    
     open override var uniforms: [CGFloat] {
         return [threshold, smoothness]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -52,6 +42,17 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
         var container = encoder.container(keyedBy: EdgeCodingKeys.self)
         try container.encode(threshold, forKey: .threshold)
         try container.encode(smoothness, forKey: .smoothness)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _threshold(at threshold: CGFloat = 0.5) -> ThresholdPIX {
+        let thresholdPix = ThresholdPIX()
+        thresholdPix.inPix = self as? PIX & PIXOut
+        thresholdPix.threshold = threshold
+        return thresholdPix
     }
     
 }

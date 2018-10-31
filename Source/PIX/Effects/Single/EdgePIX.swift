@@ -8,36 +8,28 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func edge() -> EdgePIX {
-        let edgePix = EdgePIX()
-        edgePix.inPix = self as? PIX & PIXOut
-        return edgePix
-    }
-    
-}
-
 public class EdgePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .edge
     
     override open var shader: String { return "effectSingleEdgePIX" }
     
+    // MARK: - Public Properties
+    
     public var strength: CGFloat = 4 { didSet { setNeedsRender() } }
     public var distance: CGFloat = 1 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum EdgeCodingKeys: String, CodingKey {
         case strength; case distance
     }
+    
     open override var uniforms: [CGFloat] {
         return [strength, distance]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -51,6 +43,16 @@ public class EdgePIX: PIXSingleEffect, PIXofaKind {
         var container = encoder.container(keyedBy: EdgeCodingKeys.self)
         try container.encode(strength, forKey: .strength)
         try container.encode(distance, forKey: .distance)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _edge() -> EdgePIX {
+        let edgePix = EdgePIX()
+        edgePix.inPix = self as? PIX & PIXOut
+        return edgePix
     }
     
 }

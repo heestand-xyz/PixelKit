@@ -14,13 +14,19 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorRectanglePIX" }
     
+    // MARK: - Public Properties
+    
     public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var color: UIColor = .white { didSet { setNeedsRender() } }
     public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case size; case position; case color; case bgColor
     }
+    
     open override var uniforms: [CGFloat] {
         var vals = [size.width, size.height, position.x, position.y]
         vals.append(contentsOf: PIX.Color(color).list)
@@ -28,7 +34,7 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
         return vals
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

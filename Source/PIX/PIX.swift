@@ -39,6 +39,9 @@ open class PIX: Codable {
             _texture = newValue
         }
     }
+    public var didRenderTexture: Bool {
+        return _texture != nil
+    }
     
     public let view: PIXView
     
@@ -96,7 +99,7 @@ open class PIX: Codable {
     
     }
     
-    // MARK: JSON
+    // MARK: - JSON
 
     public required init(from decoder: Decoder) throws {
         fatalError("PIX Decoder Initializer is not supported.") // CHECK

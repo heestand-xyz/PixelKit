@@ -14,27 +14,18 @@ public class VideoPIX: PIXResource, PIXofaKind {
     
     override open var shader: String { return "nilPIX" }
     
+    // MARK: - Private Properties
+    
     var helper: VideoHelper!
+    
+    // MARK: - Public Properties
     
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
-
-    public convenience init(_ fullName: String) {
-        self.init()
-        let nameComponents = fullName.split(separator: ".")
-        guard nameComponents.count == 2 else {
-            pixels.log(.error, .resource, "Load video with \"file.ext\".")
-            return
-        }
-        let name = String(nameComponents.first!)
-        let ext = String(nameComponents.last!)
-        if let url = find(video: name, withExtension: ext) {
-            self.url = url
-            helper.load(from: url) // CHECK
-        }
-    }
     
-    public init(_ url: URL? = nil) {
+    // MARK: - Life Cycle
+    
+    public override init() {
         super.init()
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer in
             self.pixelBuffer = pixelBuffer
@@ -44,18 +35,14 @@ public class VideoPIX: PIXResource, PIXofaKind {
                 self.setNeedsRender()
             }
         })
-        if url != nil {
-            self.url = url
-            helper.load(from: url!) // CHECK
-        }
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws { self.init() }
     override public func encode(to encoder: Encoder) throws {}
     
-    // MARK: Load
+    // MARK: - Load
     
     public func load(fileNamed name: String, withExtension ext: String) {
         guard let url = find(video: name, withExtension: ext) else { return }

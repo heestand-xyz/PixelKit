@@ -14,6 +14,8 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
     
     override open var shader: String { return "effectMergerReorderPIX" }
     
+    // MARK: - Public Properties
+    
     public enum Input: String, Codable {
         case a
         case b
@@ -49,9 +51,13 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
     public var alphaInput: Input = .a { didSet { setNeedsRender() } }
     public var alphaChannel: Channel = .alpha { didSet { setNeedsRender() } }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case redInput; case redChannel; case greenInput; case greenChannel; case blueInput; case blueChannel; case alphaInput; case alphaChannel; case premultiply
     }
+    
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: [redInput == .a ? 0 : 1, CGFloat(redChannel.index)])
@@ -62,12 +68,8 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
         vals.append(CGFloat(fillMode.index))
         return vals
     }
-    
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+        
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()

@@ -14,6 +14,8 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorNoisePIX" }
     
+    // MARK: - Public Properties
+    
     public var seed: Int = 0 { didSet { setNeedsRender() } }
     public var octaves: Int = 7 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
@@ -21,14 +23,18 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
     public var zoom: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var colored: Bool = false { didSet { setNeedsRender() } }
     public var random: Bool = false { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

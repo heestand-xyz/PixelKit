@@ -8,57 +8,13 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func brightness(_ brightness: CGFloat) -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.brightness = brightness
-        return levelsPix
-    }
-    
-    func darkness(_ darkness: CGFloat) -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.darkness = darkness
-        return levelsPix
-    }
-    
-    func contrast(_ contrast: CGFloat) -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.contrast = contrast
-        return levelsPix
-    }
-    
-    func gamma(_ gamma: CGFloat) -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.gamma = gamma
-        return levelsPix
-    }
-    
-    func invert() -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.inverted = true
-        return levelsPix
-    }
-    
-    func opacity(_ opacity: CGFloat) -> LevelsPIX {
-        let levelsPix = LevelsPIX()
-        levelsPix.inPix = self as? PIX & PIXOut
-        levelsPix.opacity = opacity
-        return levelsPix
-    }
-    
-}
-
 public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .levels
     
     override open var shader: String { return "effectSingleLevelsPIX" }
+    
+    // MARK: - Public Properties
     
     public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }
@@ -66,18 +22,18 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
     public var gamma: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var inverted: Bool = false { didSet { setNeedsRender() } }
     public var opacity: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum LevelsCodingKeys: String, CodingKey {
         case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
     }
+    
     open override var uniforms: [CGFloat] {
         return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
     }
     
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
 
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -103,6 +59,52 @@ public class LevelsPIX: PIXSingleEffect, PIXofaKind {
         try container.encode(gamma, forKey: .gamma)
         try container.encode(inverted, forKey: .inverted)
         try container.encode(opacity, forKey: .opacity)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _brightness(_ brightness: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.brightness = brightness
+        return levelsPix
+    }
+    
+    func _darkness(_ darkness: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.darkness = darkness
+        return levelsPix
+    }
+    
+    func _contrast(_ contrast: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.contrast = contrast
+        return levelsPix
+    }
+    
+    func _gamma(_ gamma: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.gamma = gamma
+        return levelsPix
+    }
+    
+    func _inverted() -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.inverted = true
+        return levelsPix
+    }
+    
+    func _opacity(_ opacity: CGFloat) -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.inPix = self as? PIX & PIXOut
+        levelsPix.opacity = opacity
+        return levelsPix
     }
     
 }

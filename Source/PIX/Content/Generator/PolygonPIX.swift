@@ -14,15 +14,21 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     
     override open var shader: String { return "contentGeneratorPolygonPIX" }
     
+    // MARK: - Public Properties
+    
     public var radius: CGFloat = 0.25 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var vertexCount: Int = 6 { didSet { setNeedsRender() } }
     public var color: UIColor = .white { didSet { setNeedsRender() } }
     public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+   
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case radius; case position; case rotation; case vertexCount; case color; case bgColor
     }
+    
     open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
         vals.append(contentsOf: PIX.Color(color).list)
@@ -30,7 +36,7 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
         return vals
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK

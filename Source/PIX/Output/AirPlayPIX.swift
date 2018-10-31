@@ -12,9 +12,13 @@ public class AirPlayPIX: PIXOutput, PIXofaKind {
     
     let kind: PIX.Kind = .airPlay
     
+    // MARK: - Private Properties
+    
     var isConnected: Bool
     var window: UIWindow?
     var queueConnect: Bool
+    
+    // MARK: - Life Cycle
     
     override public init() {
         
@@ -31,6 +35,8 @@ public class AirPlayPIX: PIXOutput, PIXofaKind {
         log()
         
     }
+    
+    // MARK:  Methods
     
     func log() {
         let slug = "AirPlay"

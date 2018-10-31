@@ -8,41 +8,22 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func position(at position: CGPoint) -> TransformPIX {
-        let transformPix = TransformPIX()
-        transformPix.inPix = self as? PIX & PIXOut
-        transformPix.position = position
-        return transformPix
-    }
-    
-    func rotatate(to rotation: CGFloat) -> TransformPIX {
-        let transformPix = TransformPIX()
-        transformPix.inPix = self as? PIX & PIXOut
-        transformPix.rotation = rotation
-        return transformPix
-    }
-    
-    func scale(by scale: CGFloat) -> TransformPIX {
-        let transformPix = TransformPIX()
-        transformPix.inPix = self as? PIX & PIXOut
-        transformPix.scale = scale
-        return transformPix
-    }
-    
-}
-
 public class TransformPIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .transform
     
     override open var shader: String { return "effectSingleTransformPIX" }
+    // FIXME: shaderAspect
+    
+    // MARK: - Public Properties
     
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var size: CGSize = CGSize(width: 1.0, height: 1.0) { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum CodingKeys: String, CodingKey {
         case position; case rotation; case scale; case size
     }
@@ -50,11 +31,7 @@ public class TransformPIX: PIXSingleEffect, PIXofaKind {
         return [position.x, position.y, rotation, scale, size.width, size.height]
     }
     
-    public override required init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -72,6 +49,31 @@ public class TransformPIX: PIXSingleEffect, PIXofaKind {
         try container.encode(rotation, forKey: .rotation)
         try container.encode(scale, forKey: .scale)
         try container.encode(size, forKey: .size)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _position(at position: CGPoint) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.position = position
+        return transformPix
+    }
+    
+    func _rotatate(to rotation: CGFloat) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.rotation = rotation
+        return transformPix
+    }
+    
+    func _scale(by scale: CGFloat) -> TransformPIX {
+        let transformPix = TransformPIX()
+        transformPix.inPix = self as? PIX & PIXOut
+        transformPix.scale = scale
+        return transformPix
     }
     
 }

@@ -8,31 +8,25 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
-        let kaleidoscopePix = KaleidoscopePIX()
-        kaleidoscopePix.inPix = self as? PIX & PIXOut
-        kaleidoscopePix.divisions = divisions
-        kaleidoscopePix.mirror = mirror
-        return kaleidoscopePix
-    }
-    
-}
-
 public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
     
     let kind: PIX.Kind = .kaleidoscope
     
     override open var shader: String { return "effectSingleKaleidoscopePIX" }
     
+    // MARK: - Public Properties
+    
     public var divisions: Int = 12 { didSet { setNeedsRender() } }
     public var mirror: Bool = true { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    
+    // MARK: - Property Helpers
+    
     enum KaleidoscopeCodingKeys: String, CodingKey {
         case divisions; case mirror; case rotation; case position
     }
+    
     open override var uniforms: [CGFloat] {
         return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
     }
@@ -42,7 +36,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
         extend = .mirror
     }
     
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -60,6 +54,18 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
         try container.encode(mirror, forKey: .mirror)
         try container.encode(rotation, forKey: .rotation)
         try container.encode(position, forKey: .position)
+    }
+    
+}
+
+public extension PIXOut {
+    
+    func _kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
+        let kaleidoscopePix = KaleidoscopePIX()
+        kaleidoscopePix.inPix = self as? PIX & PIXOut
+        kaleidoscopePix.divisions = divisions
+        kaleidoscopePix.mirror = mirror
+        return kaleidoscopePix
     }
     
 }

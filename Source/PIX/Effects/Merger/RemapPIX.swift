@@ -8,28 +8,13 @@
 
 import CoreGraphics
 
-public extension PIXOut {
-    
-    func remap(pix: PIX & PIXOut) -> RemapPIX {
-        let remapPix = RemapPIX()
-        remapPix.inPixA = self as? PIX & PIXOut
-        remapPix.inPixB = pix
-        return remapPix
-    }
-    
-}
-
 public class RemapPIX: PIXMergerEffect, PIXofaKind {
     
     let kind: PIX.Kind = .remap
     
     override open var shader: String { return "effectMergerRemapPIX" }
     
-    public override init() {
-        super.init()
-    }
-    
-    // MARK: JSON
+    // MARK: - JSON
     
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -38,5 +23,16 @@ public class RemapPIX: PIXMergerEffect, PIXofaKind {
     
     public override func encode(to encoder: Encoder) throws {}
     
+    
+}
+
+public extension PIXOut {
+    
+    func _remap(pix: PIX & PIXOut) -> RemapPIX {
+        let remapPix = RemapPIX()
+        remapPix.inPixA = self as? PIX & PIXOut
+        remapPix.inPixB = pix
+        return remapPix
+    }
     
 }

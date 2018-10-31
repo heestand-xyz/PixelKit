@@ -12,6 +12,8 @@ open class PIXSingleEffect: PIXEffect, PIXInSingle {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     
+    // MARK: - Life Cycle
+    
     public override init() {
         super.init()
     }
