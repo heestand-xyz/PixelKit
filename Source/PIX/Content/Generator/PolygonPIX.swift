@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 public class PolygonPIX: PIXGenerator, PIXofaKind {
     
@@ -20,8 +20,8 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var vertexCount: Int = 6 { didSet { setNeedsRender() } }
-    public var color: UIColor = .white { didSet { setNeedsRender() } }
-    public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+    public var color: Color = .white { didSet { setNeedsRender() } }
+    public var bgColor: Color = .black { didSet { setNeedsRender() } }
    
     // MARK: - Property Helpers
     
@@ -31,8 +31,8 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
-        vals.append(contentsOf: PIX.Color(color).list)
-        vals.append(contentsOf: PIX.Color(bgColor).list)
+        vals.append(contentsOf: color.list)
+        vals.append(contentsOf: bgColor.list)
         return vals
     }
     
@@ -45,8 +45,8 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
         position = try container.decode(CGPoint.self, forKey: .position)
         rotation = try container.decode(CGFloat.self, forKey: .rotation)
         vertexCount = try container.decode(Int.self, forKey: .vertexCount)
-        color = try container.decode(PIX.Color.self, forKey: .color).ui
-        bgColor = try container.decode(PIX.Color.self, forKey: .bgColor).ui
+        color = try container.decode(Color.self, forKey: .color)
+        bgColor = try container.decode(Color.self, forKey: .bgColor)
         setNeedsRender()
     }
     
@@ -56,8 +56,8 @@ public class PolygonPIX: PIXGenerator, PIXofaKind {
         try container.encode(position, forKey: .position)
         try container.encode(rotation, forKey: .rotation)
         try container.encode(vertexCount, forKey: .vertexCount)
-        try container.encode(PIX.Color(color), forKey: .color)
-        try container.encode(PIX.Color(bgColor), forKey: .bgColor)
+        try container.encode(color, forKey: .color)
+        try container.encode(bgColor, forKey: .bgColor)
     }
     
 }

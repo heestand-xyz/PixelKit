@@ -23,7 +23,7 @@ class CheckerLayer: CALayer {
         super.init(layer: layer)
     }
     
-    public var colors = [UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5).cgColor, UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.00).cgColor] {
+    public var colors = [Color(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5).cgColor, Color(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.00).cgColor] {
         didSet {
             setNeedsDisplay()
         }

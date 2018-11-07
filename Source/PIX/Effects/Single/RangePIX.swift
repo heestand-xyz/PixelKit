@@ -20,10 +20,10 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
     public var inHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var outLow: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var outHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var inLowColor: UIColor = .clear { didSet { setNeedsRender() } }
-    public var inHighColor: UIColor = .white { didSet { setNeedsRender() } }
-    public var outLowColor: UIColor = .clear { didSet { setNeedsRender() } }
-    public var outHighColor: UIColor = .white { didSet { setNeedsRender() } }
+    public var inLowColor: Color = .clear { didSet { setNeedsRender() } }
+    public var inHighColor: Color = .white { didSet { setNeedsRender() } }
+    public var outLowColor: Color = .clear { didSet { setNeedsRender() } }
+    public var outHighColor: Color = .white { didSet { setNeedsRender() } }
     public var ignoreAlpha: Bool = true { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
@@ -34,10 +34,10 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals = [inLow, inHigh, outLow, outHigh]
-        vals.append(contentsOf: Color(inLowColor).list)
-        vals.append(contentsOf: Color(inHighColor).list)
-        vals.append(contentsOf: Color(outLowColor).list)
-        vals.append(contentsOf: Color(outHighColor).list)
+        vals.append(contentsOf: inLowColor.list)
+        vals.append(contentsOf: inHighColor.list)
+        vals.append(contentsOf: outLowColor.list)
+        vals.append(contentsOf: outHighColor.list)
         vals.append(ignoreAlpha ? 1 : 0)
         return vals
     }
@@ -55,10 +55,10 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
         inHigh = try container.decode(CGFloat.self, forKey: .inHigh)
         outLow = try container.decode(CGFloat.self, forKey: .outLow)
         outHigh = try container.decode(CGFloat.self, forKey: .outHigh)
-        inLowColor = try container.decode(Color.self, forKey: .inLowColor).ui
-        inHighColor = try container.decode(Color.self, forKey: .inHighColor).ui
-        outLowColor = try container.decode(Color.self, forKey: .outLowColor).ui
-        outHighColor = try container.decode(Color.self, forKey: .outHighColor).ui
+        inLowColor = try container.decode(Color.self, forKey: .inLowColor)
+        inHighColor = try container.decode(Color.self, forKey: .inHighColor)
+        outLowColor = try container.decode(Color.self, forKey: .outLowColor)
+        outHighColor = try container.decode(Color.self, forKey: .outHighColor)
         ignoreAlpha = try container.decode(Bool.self, forKey: .ignoreAlpha)
         setNeedsRender()
     }
@@ -69,10 +69,10 @@ public class RangePIX: PIXSingleEffect, PIXofaKind {
         try container.encode(inHigh, forKey: .inHigh)
         try container.encode(outLow, forKey: .outLow)
         try container.encode(outHigh, forKey: .outHigh)
-        try container.encode(Color(inLowColor), forKey: .inLowColor)
-        try container.encode(Color(inHighColor), forKey: .inHighColor)
-        try container.encode(Color(outLowColor), forKey: .outLowColor)
-        try container.encode(Color(outHighColor), forKey: .outHighColor)
+        try container.encode(inLowColor, forKey: .inLowColor)
+        try container.encode(inHighColor, forKey: .inHighColor)
+        try container.encode(outLowColor, forKey: .outLowColor)
+        try container.encode(outHighColor, forKey: .outHighColor)
         try container.encode(ignoreAlpha, forKey: .ignoreAlpha)
     }
     
@@ -90,7 +90,7 @@ public extension PIXOut {
         return rangePix
     }
     
-    func _range(inLow: UIColor = .clear, inHigh: UIColor = .white, outLow: UIColor = .clear, outHigh: UIColor = .white) -> RangePIX {
+    func _range(inLow: PIX.Color = .clear, inHigh: PIX.Color = .white, outLow: PIX.Color = .clear, outHigh: PIX.Color = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.inPix = self as? PIX & PIXOut
         rangePix.inLowColor = inLow

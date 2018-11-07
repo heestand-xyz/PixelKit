@@ -16,7 +16,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     // MARK: - Public Properties
     
-    public var keyColor: UIColor = .green { didSet { setNeedsRender() } }
+    public var keyColor: Color = .green { didSet { setNeedsRender() } }
     public var range: CGFloat = 0.1 { didSet { setNeedsRender() } }
     public var softness: CGFloat = 0.1 { didSet { setNeedsRender() } }
     public var edgeDesaturation: CGFloat = 0.5 { didSet { setNeedsRender() } }
@@ -30,7 +30,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
-        vals.append(contentsOf: PIX.Color(keyColor).list)
+        vals.append(contentsOf: keyColor.list)
         vals.append(contentsOf: [range, softness, edgeDesaturation, premultiply ? 1 : 0])
         return vals
     }
@@ -40,7 +40,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     required convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: ChromaKeyCodingKeys.self)
-        keyColor = try container.decode(Color.self, forKey: .keyColor).ui
+        keyColor = try container.decode(Color.self, forKey: .keyColor)
         range = try container.decode(CGFloat.self, forKey: .range)
         softness = try container.decode(CGFloat.self, forKey: .softness)
         edgeDesaturation = try container.decode(CGFloat.self, forKey: .edgeDesaturation)
@@ -50,7 +50,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
     
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ChromaKeyCodingKeys.self)
-        try container.encode(PIX.Color(keyColor), forKey: .keyColor)
+        try container.encode(keyColor, forKey: .keyColor)
         try container.encode(range, forKey: .range)
         try container.encode(softness, forKey: .softness)
         try container.encode(edgeDesaturation, forKey: .edgeDesaturation)
@@ -61,7 +61,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _chromaKey(_ color: UIColor) -> ChromaKeyPIX {
+    func _chromaKey(_ color: PIX.Color) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.inPix = self as? PIX & PIXOut
         chromaKeyPix.keyColor = color

@@ -19,9 +19,9 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     public var radius: CGFloat = sqrt(0.75) / 4 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: CGFloat = 0.0 { didSet { setNeedsRender() } } // CHECK radius is not diameter
-    public var color: UIColor = .white { didSet { setNeedsRender() } }
-    public var edgeColor: UIColor = .gray { didSet { setNeedsRender() } }
-    public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+    public var color: Color = .white { didSet { setNeedsRender() } }
+    public var edgeColor: Color = .gray { didSet { setNeedsRender() } }
+    public var bgColor: Color = .black { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -31,9 +31,9 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals = [radius, position.x, position.y, edgeRadius]
-        vals.append(contentsOf: PIX.Color(color).list)
-        vals.append(contentsOf: PIX.Color(edgeColor).list)
-        vals.append(contentsOf: PIX.Color(bgColor).list)
+        vals.append(contentsOf: color.list)
+        vals.append(contentsOf: edgeColor.list)
+        vals.append(contentsOf: bgColor.list)
         return vals
     }
     
@@ -45,9 +45,9 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
         radius = try container.decode(CGFloat.self, forKey: .radius)
         position = try container.decode(CGPoint.self, forKey: .position)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
-        color = try container.decode(PIX.Color.self, forKey: .color).ui
-        edgeColor = try container.decode(PIX.Color.self, forKey: .edgeColor).ui
-        bgColor = try container.decode(PIX.Color.self, forKey: .bgColor).ui
+        color = try container.decode(Color.self, forKey: .color)
+        edgeColor = try container.decode(Color.self, forKey: .edgeColor)
+        bgColor = try container.decode(Color.self, forKey: .bgColor)
         setNeedsRender()
     }
     
@@ -56,9 +56,9 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
         try container.encode(radius, forKey: .radius)
         try container.encode(position, forKey: .position)
         try container.encode(edgeRadius, forKey: .edgeRadius)
-        try container.encode(PIX.Color(color), forKey: .color)
-        try container.encode(PIX.Color(edgeColor), forKey: .edgeColor)
-        try container.encode(PIX.Color(bgColor), forKey: .bgColor)
+        try container.encode(color, forKey: .color)
+        try container.encode(edgeColor, forKey: .edgeColor)
+        try container.encode(bgColor, forKey: .bgColor)
     }
     
 }

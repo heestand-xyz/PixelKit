@@ -47,10 +47,6 @@ public extension PIX {
             return blend(pix, Color(lum: val), blendingMode: blendingMode)
         }
         
-        func blend(_ pix: PIX, _ uiColor: UIColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            return blend(pix, Color(uiColor), blendingMode: blendingMode)
-        }
-        
         func operatorName(of blendingMode: PIX.BlendingMode) -> String {
             switch blendingMode {
             case .over: return "&"
@@ -81,10 +77,6 @@ public extension PIX {
     public static func +(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
     }
-    public static func +(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs + lhs }
-    public static func +(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .add)
-    }
     
     public static func -(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
@@ -95,17 +87,11 @@ public extension PIX {
     public static func -(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
     }
-    public static func -(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .subtract)
-    }
     
     public static func --(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
     }
     public static func --(lhs: PIX, rhs: Color) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
-    }
-    public static func --(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
     }
     
@@ -120,10 +106,6 @@ public extension PIX {
     public static func *(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
     }
-    public static func *(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs * lhs }
-    public static func *(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .multiply)
-    }
     
     public static func **(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .power)
@@ -134,9 +116,6 @@ public extension PIX {
     public static func **(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .power)
     }
-    public static func **(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .power)
-    }
     
     public static func !**(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
@@ -145,9 +124,6 @@ public extension PIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
     public static func !**(lhs: PIX, rhs: Color) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
-    }
-    public static func !**(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
     
@@ -162,10 +138,6 @@ public extension PIX {
     public static func &(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .over)
     }
-    public static func &(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs !& lhs }
-    public static func &(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .over)
-    }
     
     public static func !&(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .under)
@@ -176,10 +148,6 @@ public extension PIX {
     }
     public static func !&(lhs: Color, rhs: PIX) -> BlendPIX { return rhs & lhs }
     public static func !&(lhs: PIX, rhs: Color) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .under)
-    }
-    public static func !&(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs & lhs }
-    public static func !&(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .under)
     }
     
@@ -194,10 +162,6 @@ public extension PIX {
     public static func %(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .difference)
     }
-    public static func %(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs % lhs }
-    public static func %(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .difference)
-    }
     
     public static func <>(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
@@ -208,10 +172,6 @@ public extension PIX {
     }
     public static func <>(lhs: Color, rhs: PIX) -> BlendPIX { return rhs <> lhs }
     public static func <>(lhs: PIX, rhs: Color) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
-    }
-    public static func <>(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs <> lhs }
-    public static func <>(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .minimum)
     }
     
@@ -226,10 +186,6 @@ public extension PIX {
     public static func ><(lhs: PIX, rhs: Color) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
     }
-    public static func ><(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs >< lhs }
-    public static func ><(lhs: PIX, rhs: UIColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .maximum)
-    }
     
     public static func /(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .divide)
@@ -240,10 +196,6 @@ public extension PIX {
     }
     public static func /(lhs: Color, rhs: PIX) -> BlendPIX { return rhs / lhs }
     public static func /(lhs: PIX, rhs: Color) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
-    }
-    public static func /(lhs: UIColor, rhs: PIX) -> BlendPIX { return rhs / lhs }
-    public static func /(lhs: PIX, rhs: UIColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .divide)
     }
     

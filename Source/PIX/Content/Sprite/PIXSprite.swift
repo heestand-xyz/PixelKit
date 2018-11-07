@@ -16,9 +16,9 @@ open class PIXSprite: PIXContent {
     
     public var res: Res { didSet { setup(); applyRes { self.setNeedsRender() } } }
     
-    public var bgColor: UIColor = .black {
+    public var bgColor: Color = .black {
         didSet {
-            scene.backgroundColor = bgColor
+            scene.backgroundColor = bgColor.ui
             setNeedsRender()
         }
     }
@@ -35,7 +35,7 @@ open class PIXSprite: PIXContent {
     
     func setup() {
         scene = SKScene(size: res.size)
-        scene.backgroundColor = bgColor
+        scene.backgroundColor = bgColor.ui
         sceneView = SKView(frame: CGRect(x: 0, y: 0, width: res.width, height: res.height))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)

@@ -6,7 +6,12 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(OSX)
+import AppKit
+#else
+#endif
 
 public extension PIX {
 

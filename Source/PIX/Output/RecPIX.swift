@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import UIKit
+//import UIKit
 import AVKit
 
 public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {

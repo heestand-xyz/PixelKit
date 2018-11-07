@@ -8,6 +8,12 @@
 
 import UIKit
 
+public extension UIColor {
+    var pixColor: PIX.Color {
+        return PIX.Color(self)
+    }
+}
+
 public extension PIX {
     
     public class Color: Codable {
@@ -106,8 +112,8 @@ public extension PIX {
             return (r + g + b) / 3 // CHECK convert to HSV and return value
         }
         
-        public var mono: PIX.Color {
-            return PIX.Color(UIColor(white: lum, alpha: a))
+        public var mono: Color {
+            return Color(UIColor(white: lum, alpha: a))
         }
         
         // MARK: - RGB

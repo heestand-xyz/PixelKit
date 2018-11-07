@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 public class GradientPIX: PIXGenerator, PIXofaKind {
     
@@ -34,8 +34,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public struct ColorStep: Codable {
         public let color: Color
         public let fraction: CGFloat
-        public init(_ color: UIColor, at fraction: CGFloat) {
-            self.color = Color(color)
+        public init(_ color: Color, at fraction: CGFloat) {
+            self.color = color
             self.fraction = fraction
         }
     }
@@ -57,8 +57,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var colorFirst: UIColor = .black { didSet { setNeedsRender() } }
-    public var colorLast: UIColor = .white { didSet { setNeedsRender() } }
+    public var colorFirst: Color = .black { didSet { setNeedsRender() } }
+    public var colorLast: Color = .white { didSet { setNeedsRender() } }
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
     
@@ -70,8 +70,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset, position.x, position.y]
-        vals.append(contentsOf: PIX.Color(colorFirst).list)
-        vals.append(contentsOf: PIX.Color(colorLast).list)
+        vals.append(contentsOf: colorFirst.list)
+        vals.append(contentsOf: colorLast.list)
         vals.append(CGFloat(extendRamp.index))
         vals.append(colorSteps != nil ? 1 : 0)
         vals.append(contentsOf: [colorSteps?.a != nil ? 1 : 0, colorSteps?.a?.fraction ?? 0])
@@ -94,8 +94,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         scale = try container.decode(CGFloat.self, forKey: .scale)
         offset = try container.decode(CGFloat.self, forKey: .offset)
         position = try container.decode(CGPoint.self, forKey: .position)
-        colorFirst = try container.decode(Color.self, forKey: .colorFirst).ui
-        colorLast = try container.decode(Color.self, forKey: .colorLast).ui
+        colorFirst = try container.decode(Color.self, forKey: .colorFirst)
+        colorLast = try container.decode(Color.self, forKey: .colorLast)
         extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
         colorSteps = try container.decode(ColorSteps.self, forKey: .colorSteps)
         setNeedsRender()
@@ -107,8 +107,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
         try container.encode(scale, forKey: .scale)
         try container.encode(offset, forKey: .offset)
         try container.encode(position, forKey: .position)
-        try container.encode(Color(colorFirst), forKey: .colorFirst)
-        try container.encode(Color(colorLast), forKey: .colorLast)
+        try container.encode(colorFirst, forKey: .colorFirst)
+        try container.encode(colorLast, forKey: .colorLast)
         try container.encode(extendRamp, forKey: .extendRamp)
         try container.encode(colorSteps, forKey: .colorSteps)
     }

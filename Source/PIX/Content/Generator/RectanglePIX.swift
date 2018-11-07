@@ -18,8 +18,8 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     
     public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var color: UIColor = .white { didSet { setNeedsRender() } }
-    public var bgColor: UIColor = .black { didSet { setNeedsRender() } }
+    public var color: Color = .white { didSet { setNeedsRender() } }
+    public var bgColor: Color = .black { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -29,8 +29,8 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
     
     open override var uniforms: [CGFloat] {
         var vals = [size.width, size.height, position.x, position.y]
-        vals.append(contentsOf: PIX.Color(color).list)
-        vals.append(contentsOf: PIX.Color(bgColor).list)
+        vals.append(contentsOf: color.list)
+        vals.append(contentsOf: bgColor.list)
         return vals
     }
     
@@ -41,8 +41,8 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         size = try container.decode(CGSize.self, forKey: .size)
         position = try container.decode(CGPoint.self, forKey: .position)
-        color = try container.decode(PIX.Color.self, forKey: .color).ui
-        bgColor = try container.decode(PIX.Color.self, forKey: .bgColor).ui
+        color = try container.decode(Color.self, forKey: .color)
+        bgColor = try container.decode(Color.self, forKey: .bgColor)
         setNeedsRender()
     }
     
@@ -50,8 +50,8 @@ public class RectanglePIX: PIXGenerator, PIXofaKind {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(size, forKey: .size)
         try container.encode(position, forKey: .position)
-        try container.encode(PIX.Color(color), forKey: .color)
-        try container.encode(PIX.Color(bgColor), forKey: .bgColor)
+        try container.encode(color, forKey: .color)
+        try container.encode(bgColor, forKey: .bgColor)
     }
     
 }

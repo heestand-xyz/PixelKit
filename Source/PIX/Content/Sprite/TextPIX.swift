@@ -19,7 +19,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
     // MARK: - Public Properties
     
     public var text: String = "Pixels" { didSet { setNeedsText(); setNeedsRender() } }
-    public var textColor: UIColor = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
+    public var textColor: Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     public var font: UIFont = UIFont.systemFont(ofSize: 100) { didSet { setNeedsFont(); setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
     
@@ -60,7 +60,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
         self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decode(String.self, forKey: .text)
-        textColor = try container.decode(Color.self, forKey: .textColor).ui
+        textColor = try container.decode(Color.self, forKey: .textColor)
         let fontContainer = try container.nestedContainer(keyedBy: FontCodingKeys.self, forKey: .font)
         let fontName = try fontContainer.decode(String.self, forKey: .name)
         let fontSize = try fontContainer.decode(CGFloat.self, forKey: .size)
@@ -77,7 +77,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(text, forKey: .text)
-        try container.encode(Color(textColor), forKey: .textColor)
+        try container.encode(textColor, forKey: .textColor)
         var fontContainer = container.nestedContainer(keyedBy: FontCodingKeys.self, forKey: .font)
         try fontContainer.encode(font.fontName, forKey: .name)
         try fontContainer.encode(font.pointSize, forKey: .size)
@@ -101,7 +101,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = textColor
+        label.fontColor = textColor.ui
     }
     
     func setNeedsFont() {
