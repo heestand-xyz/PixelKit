@@ -6,9 +6,18 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
-public extension UIColor {
+#if os(iOS)
+typealias _Color = UIColor
+#elseif os(macOS)
+typealias _Color = NSColor
+#endif
+public extension _Color {
     var pixColor: PIX.Color {
         return PIX.Color(self)
     }
@@ -89,6 +98,14 @@ public extension PIX {
         
         public let space: Space
         
+        var uins: _Color {
+            #if os(iOS)
+            return ui
+            #elseif os(macOS)
+            return ns
+            #endif
+        }
+        #if os(iOS)
         public var ui: UIColor {
             switch space {
             case .sRGB:
@@ -97,6 +114,17 @@ public extension PIX {
                 return UIColor(displayP3Red: r, green: g, blue: b, alpha: a)
             }
         }
+        #elseif os(macOS)
+        public var ns: NSColor {
+            switch space {
+            case .sRGB:
+                return NSColor(red: r, green: g, blue: b, alpha: a)
+            case .displayP3:
+                return NSColor(displayP3Red: r, green: g, blue: b, alpha: a)
+            }
+        }
+        #endif
+            
         public var ci: CIColor? {
             return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg)
         }
@@ -113,7 +141,7 @@ public extension PIX {
         }
         
         public var mono: Color {
-            return Color(UIColor(white: lum, alpha: a))
+            return Color(r: lum, g: lum, b: lum, a: a, space: space)
         }
         
         // MARK: - RGB
@@ -136,6 +164,7 @@ public extension PIX {
         
         // MARK: - UI
         
+        #if os(iOS)
         public init(_ ui: UIColor, space: Space = Pixels.main.colorSpace) {
             let ci = CIColor(color: ui)
             r = ci.red
@@ -144,6 +173,20 @@ public extension PIX {
             a = ci.alpha
             self.space = space
         }
+        #endif
+
+        // MARK: - NS
+        
+        #if os(macOS)
+        public init(_ ns: NSColor, space: Space = Pixels.main.colorSpace) {
+            let ci = CIColor(color: ns)
+            r = ci?.red ?? 0.0
+            g = ci?.green ?? 0.0
+            b = ci?.blue ?? 0.0
+            a = ci?.alpha ?? 0.0
+            self.space = space
+        }
+        #endif
         
         // MARK: - Grayscale
         

@@ -17,18 +17,47 @@ extension Pixels {
         case multi(String)
     }
     
-    func buffer(from image: UIImage) -> CVPixelBuffer? {
+    func buffer(from image: CGImage, at size: CGSize?) -> CVPixelBuffer? {
+        #if os(iOS)
+        return buffer(from: UIImage(cgImage: image))
+        #elseif os(macOS)
+        guard size != nil else { return nil }
+        return buffer(from: NSImage(cgImage: image, size: size!))
+        #endif
+    }
+    
+    #if os(iOS)
+    typealias _Image = UIImage
+    #elseif os(macOS)
+    typealias _Image = NSImage
+    #endif
+    func buffer(from image: _Image) -> CVPixelBuffer? {
         
-        let width = image.size.width * image.scale
-        let height = image.size.height * image.scale
+        #if os(iOS)
+        let scale: CGFloat = image.scale
+        #elseif os(macOS)
+        let scale: CGFloat = 1.0
+        #endif
         
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue, String(kCVPixelBufferIOSurfacePropertiesKey): [
-            "IOSurfaceOpenGLESFBOCompatibility": true,
-            "IOSurfaceOpenGLESTextureCompatibility": true,
-            "IOSurfaceCoreAnimationCompatibility": true,
-            ]] as CFDictionary
+        let width = image.size.width * scale
+        let height = image.size.height * scale
+        
+        let attrs = [
+            kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+            kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue
+//            String(kCVPixelBufferIOSurfacePropertiesKey): [
+//                "IOSurfaceOpenGLESFBOCompatibility": true,
+//                "IOSurfaceOpenGLESTextureCompatibility": true,
+//                "IOSurfaceCoreAnimationCompatibility": true,
+//                ]
+            ] as CFDictionary
         var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(width), Int(height), colorBits.os, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault,
+                                         Int(width),
+                                         Int(height),
+                                         colorBits.os,
+                                         attrs,
+                                         &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
         }
@@ -37,11 +66,29 @@ extension Pixels {
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+        guard let context = CGContext(data: pixelData,
+                                      width: Int(width),
+                                      height: Int(height),
+                                      bitsPerComponent: 8, // FIXME: colorBits.rawValue,
+                                      bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
+                                      space: rgbColorSpace,
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+        else {
+            return nil
+        }
         
-        UIGraphicsPushContext(context!)
+        #if os(iOS)
+        UIGraphicsPushContext(context)
         image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
         UIGraphicsPopContext()
+        #elseif os(macOS)
+        let graphicsContext = NSGraphicsContext(cgContext: context, flipped: false)
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = graphicsContext
+        image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+        NSGraphicsContext.restoreGraphicsState()
+        #endif
+        
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         
         return pixelBuffer
@@ -130,8 +177,8 @@ extension Pixels {
                 guard let spriteTexture = pixSprite.sceneView.texture(from: pixSprite.scene) else {
                     throw RenderError.texture("Sprite Texture fail.")
                 }
-                let spriteImage = UIImage(cgImage: spriteTexture.cgImage())
-                guard let spriteBuffer = buffer(from: spriteImage) else {
+                let spriteImage: CGImage = spriteTexture.cgImage()
+                guard let spriteBuffer = buffer(from: spriteImage, at: pixSprite.res.size) else {
                     throw RenderError.texture("Sprite Buffer fail.")
                 }
                 inputTexture = try makeTexture(from: spriteBuffer)

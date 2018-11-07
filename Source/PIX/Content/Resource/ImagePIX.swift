@@ -6,7 +6,11 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public class ImagePIX: PIXResource, PIXofaKind {
     
@@ -16,7 +20,11 @@ public class ImagePIX: PIXResource, PIXofaKind {
     
     // MARK: - Public Properties
     
+    #if os(iOS)
     public var image: UIImage? { didSet { setNeedsBuffer() } }
+    #elseif os(macOS)
+    public var image: NSImage? { didSet { setNeedsBuffer() } }
+    #endif
     
     // MARK: - JSON
     

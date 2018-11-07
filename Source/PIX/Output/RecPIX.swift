@@ -300,7 +300,10 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
         
             let ci_image = CIImage(mtlTexture: texture, options: nil)
             if ci_image != nil {
-                EAGLContext.setCurrent(nil) // CHECK TESTING
+                #if os(iOS)
+                // FIXME: Debug
+                EAGLContext.setCurrent(nil)
+                #endif
                 let context = CIContext.init(options: nil)
                 let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent)
                 if cg_image != nil {

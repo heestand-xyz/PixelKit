@@ -142,12 +142,8 @@ class VideoHelper: NSObject {
         return AVPlayerItemVideoOutput(pixelBufferAttributes: attributes)
     }()
     
-    lazy var displayLink: CADisplayLink = {
-        let dl = CADisplayLink(target: self, selector: #selector(readBuffer(_:)))
-        dl.add(to: .current, forMode: .default)
-        dl.isPaused = true
-        return dl
-    }()
+    var loaded: Bool = false
+    var loadDate: Date?
     
     var setup: (PIX.Res) -> ()
     var update: (CVPixelBuffer) -> ()
@@ -160,6 +156,13 @@ class VideoHelper: NSObject {
         update = updated
         
         super.init()
+        
+        Pixels.main.listenToFrames { () -> (Bool) in
+            if self.loaded {
+                self.readBuffer()
+            }
+            return false
+        }
         
     }
     
@@ -180,9 +183,10 @@ class VideoHelper: NSObject {
         
         player!.addObserver(self, forKeyPath: "currentItem.presentationSize", options: [.new], context: nil)
         
-        displayLink.isPaused = false
+        loaded = true
+        loadDate = Date()
         
-    player?.play()
+        player?.play()
         
     }
     
@@ -201,10 +205,12 @@ class VideoHelper: NSObject {
     
     // MARK: Read Buffer
     
-    @objc private func readBuffer(_ sender: CADisplayLink) {
+    func readBuffer() {
+        
+        guard loadDate != nil else { return }
         
         var currentTime: CMTime = .invalid
-        let nextVSync = sender.timestamp + sender.duration
+        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(Pixels.main.fps))
         currentTime = playerItemVideoOutput.itemTime(forHostTime: nextVSync)
         
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime), let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {

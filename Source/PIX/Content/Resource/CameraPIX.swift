@@ -8,6 +8,12 @@
 
 import AVKit
 
+#if os(iOS)
+typealias _Orientation = UIInterfaceOrientation
+#elseif os(macOS)
+typealias _Orientation = Void
+#endif
+
 public class CameraPIX: PIXResource, PIXofaKind {
     
     let kind: PIX.Kind = .camera
@@ -19,7 +25,7 @@ public class CameraPIX: PIXResource, PIXofaKind {
     var helper: CameraHelper?
     
     var access: Bool = false
-    var orientation: UIInterfaceOrientation?
+    var orientation: _Orientation?
     
     // MARK: - Public Properties
     
@@ -28,22 +34,28 @@ public class CameraPIX: PIXResource, PIXofaKind {
 //        case autoHigh = "High"
         case vga = "VGA"
         case _720p = "720p"
+        #if os(iOS)
         case _1080p = "1080p"
         case _4K = "4K"
+        #endif
         public var sessionPreset: AVCaptureSession.Preset {
             switch self {
 //            case .autoLow:
 //                return .low
+//            case .autoMid:
+//                return .medium
 //            case .autoHigh:
 //                return .high
             case .vga:
                 return .vga640x480
             case ._720p:
                 return .hd1280x720
+            #if os(iOS)
             case ._1080p:
                 return .hd1920x1080
             case ._4K:
                 return .hd4K3840x2160
+            #endif
 //            case .photo:
 //                return .photo
             }
@@ -52,27 +64,41 @@ public class CameraPIX: PIXResource, PIXofaKind {
             switch self {
             case .vga: return .custom(w: 640, h: 480)
             case ._720p: return ._720p
+            #if os(iOS)
             case ._1080p: return ._1080p
             case ._4K: return ._4K
+            #endif
             }
         }
     }
+    #if os(iOS)
     public var camRes: CamRes = ._1080p { didSet { setupCamera() } }
+    #elseif os(macOS)
+    public var camRes: CamRes = ._720p { didSet { setupCamera() } }
+    #endif
     
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
+        #if os(iOS)
         case back = "Back Camera"
+        #endif
         var position: AVCaptureDevice.Position {
             switch self {
             case .front:
                 return .front
+            #if os(iOS)
             case .back:
                 return .back
+            #endif
             }
         }
         var mirrored: Bool { return self == .front }
     }
+    #if os(iOS)
     public var camera: Camera = .back { didSet { setupCamera() } }
+    #elseif os(macOS)
+    public var camera: Camera = .front { didSet { setupCamera() } }
+    #endif
     
     // MARK: - Property Helpers
     
@@ -81,7 +107,11 @@ public class CameraPIX: PIXResource, PIXofaKind {
     }
     
     open override var uniforms: [CGFloat] {
+        #if os(iOS)
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
+        #elseif os(macOS)
+        return [0, camera.mirrored ? 1 : 0]
+        #endif
     }
     
     // MARK: - Life Cycle
@@ -140,7 +170,11 @@ public class CameraPIX: PIXResource, PIXofaKind {
             self.pixels.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
+            #if os(iOS)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
+            #elseif os(macOS)
+            self.flop = false
+            #endif
         }, captured: { pixelBuffer in
             self.pixels.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -167,43 +201,33 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let captureSession: AVCaptureSession
     let sessionOutput: AVCaptureVideoDataOutput
     
-    var lastUIOrientation: UIInterfaceOrientation
+    var lastUIOrientation: _Orientation
 
     var initialFrameCaptured = false
     var orientationUpdated = false
     
-    let setupCallback: (CGSize, UIInterfaceOrientation) -> ()
+    let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, UIInterfaceOrientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         self.cameraPosition = cameraPosition
         
         setupCallback = setup
         capturedCallback = captured
         
+        #if os(iOS)
         lastUIOrientation = UIApplication.shared.statusBarOrientation
-
+        #elseif os(macOS)
+        lastUIOrientation = ()
+        #endif
+        
         captureSession = AVCaptureSession()
         sessionOutput = AVCaptureVideoDataOutput()
         
         super.init()
         
-        let preset: AVCaptureSession.Preset
-        switch camRes {
-//        case .autoLow:
-//            preset = .low
-//        case .autoHigh:
-//            preset = .high
-        case .vga:
-            preset = .vga640x480
-        case ._720p:
-            preset = .hd1280x720
-        case ._1080p:
-            preset = .hd1920x1080
-        case ._4K:
-            preset = .hd4K3840x2160
-        }
+        let preset: AVCaptureSession.Preset = camRes.sessionPreset
         
         if captureSession.canSetSessionPreset(preset) {
             captureSession.sessionPreset = preset
@@ -214,8 +238,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         sessionOutput.alwaysDiscardsLateVideoFrames = true
         sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.colorBits.os]
         
-        
+        #if os(iOS)
         let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        #elseif os(macOS)
+        let device = AVCaptureDevice.default(for: .video)
+        #endif
+        
         if device != nil {
             do {
                 let input = try AVCaptureDeviceInput(device: device!)
@@ -239,10 +267,13 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             pixels.log(.error, .resource, "Camera not found.")
         }
     
+        #if os(iOS)
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        #endif
         
     }
     
+    #if os(iOS)
     @objc func deviceRotated() {
         if lastUIOrientation != UIApplication.shared.statusBarOrientation {
             orientationUpdated = true
@@ -252,7 +283,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             })
         }
     }
+    #endif
     
+    #if os(iOS)
     func forceDetectUIOrientation(new: @escaping () -> ()) {
         let forceCount = pixels.fpsMax * 2
         var forceIndex = 0
@@ -269,6 +302,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         })
         RunLoop.current.add(forceTimer, forMode: .common)
     }
+    #endif
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
@@ -295,13 +329,18 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
-        let uiOrientation = UIApplication.shared.statusBarOrientation
+        #if os(iOS)
+        let _orientation = UIApplication.shared.statusBarOrientation
+        #elseif os(macOS)
+        let _orientation: Void = ()
+        #endif
         
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
 
         let resolution: CGSize
-        switch uiOrientation {
+        #if os(iOS)
+        switch _orientation {
         case .portrait, .portraitUpsideDown:
             resolution = CGSize(width: height, height: width)
         case .landscapeLeft, .landscapeRight:
@@ -310,10 +349,13 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             resolution = CGSize(width: width, height: height)
             pixels.log(.warning, .resource, "Camera orientation unknown.")
         }
+        #elseif os(macOS)
+        resolution = CGSize(width: width, height: height)
+        #endif
         
-        setupCallback(resolution, uiOrientation)
+        setupCallback(resolution, _orientation)
         
-        lastUIOrientation = uiOrientation
+        lastUIOrientation = _orientation
         
     }
     

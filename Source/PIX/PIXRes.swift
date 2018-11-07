@@ -8,9 +8,8 @@
 
 #if os(iOS)
 import UIKit
-#elseif os(OSX)
+#elseif os(macOS)
 import AppKit
-#else
 #endif
 
 public extension PIX {
@@ -175,9 +174,13 @@ public extension PIX {
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
             case .fullScreen:
+                #if os(iOS)
                 let size = UIScreen.main.nativeBounds.size
                 if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return size }
                 else { return CGSize(width: size.height, height: size.width) }
+                #elseif os(macOS)
+                return NSScreen.main?.frame.size ?? Res._128.size
+                #endif
             case .size(let size): return size
             case .custom(let w, let h): return CGSize(width: w, height: h)
             case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
@@ -261,7 +264,11 @@ public extension PIX {
         }
         public func aspectBounds(to aspectFillMode: AspectFillMode, in res: Res) -> CGRect {
             let aRes = aspectRes(to: aspectFillMode, in: res)
-            let scale = UIScreen.main.nativeScale
+            #if os(iOS)
+            let scale: CGFloat = UIScreen.main.nativeScale
+            #elseif os(macOS)
+            let scale: CGFloat = 1.0
+            #endif
             return CGRect(x: 0, y: 0, width: aRes.width / scale, height: aRes.height / scale)
         }
         
@@ -306,10 +313,17 @@ public extension PIX {
             self.init(size: rawSize)
         }
         
+        #if os(iOS)
         public init(image: UIImage) {
             let nativeSize = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
             self.init(size: nativeSize)
         }
+        #elseif os(macOS)
+        public init(image: NSImage) {
+            let size = CGSize(width: image.size.width, height: image.size.height)
+            self.init(size: size)
+        }
+        #endif
         
         public init(pixelBuffer: CVPixelBuffer) {
             let imageSize = CGSize(width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))

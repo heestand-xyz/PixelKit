@@ -73,7 +73,13 @@ public class Pixels {
     
     // MARK: Frames
     
-    var displayLink: CADisplayLink?
+    #if os(iOS)
+    typealias _DisplayLink = CADisplayLink
+    #elseif os(macOS)
+    typealias _DisplayLink = CVDisplayLink
+    #endif
+    var displayLink: _DisplayLink?
+    
     var frameCallbacks: [(id: UUID, callback: () -> ())] = []
     
     public var frame = 0
@@ -85,7 +91,13 @@ public class Pixels {
 
     var _fps: Int = -1
     public var fps: Int { return min(_fps, fpsMax) }
-    public var fpsMax: Int { if #available(iOS 10.3, *) { return UIScreen.main.maximumFramesPerSecond } else { return -1 } }
+    public var fpsMax: Int { if #available(iOS 10.3, *) {
+        #if os(iOS)
+        return UIScreen.main.maximumFramesPerSecond
+        #elseif os(macOS)
+        return 60
+        #endif
+    } else { return -1 } }
     
     // MARK: Metal
     
@@ -95,6 +107,7 @@ public class Pixels {
     var metalLibrary: MTLLibrary!
     var quadVertecis: Vertecies!
     var quadVertexShader: MTLFunction!
+    
     
     // MARK: - Life Cycle
     
@@ -121,13 +134,28 @@ public class Pixels {
             log(.fatal, .pixels, "Initialization failed.", e: error)
         }
         
+        #if os(iOS)
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .common)
+        #elseif os(macOS)
+        CVDisplayLinkCreateWithActiveCGDisplays(&displayLink)
+        let displayLinkOutputCallback: CVDisplayLinkOutputCallback = { (displayLink: CVDisplayLink,
+                                                                        inNow: UnsafePointer<CVTimeStamp>,
+                                                                        inOutputTime: UnsafePointer<CVTimeStamp>,
+                                                                        flagsIn: CVOptionFlags,
+                                                                        flagsOut: UnsafeMutablePointer<CVOptionFlags>,
+                                                                        displayLinkContext: UnsafeMutableRawPointer?) -> CVReturn in
+            Pixels.main.frameLoop()
+            return kCVReturnSuccess
+        }
+        CVDisplayLinkSetOutputCallback(displayLink!, displayLinkOutputCallback, UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque()))
+        CVDisplayLinkStart(displayLink!)
+        #endif
         
         log(.info, .pixels, signature.version, clean: true)
         
     }
-    
+
     
     // MARK: - Frame Loop
     

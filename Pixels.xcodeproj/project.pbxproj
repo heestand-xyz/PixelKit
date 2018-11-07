@@ -24,10 +24,8 @@
 		3AF28BDF219312CF0079FC7A /* PIXOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EC539213EFC3E006E2996 /* PIXOperators.swift */; };
 		3AF28BE0219312CF0079FC7A /* PIXRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* PIXRendered.swift */; };
 		3AF28BE1219312CF0079FC7A /* PIXModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B4212F5C9300401654 /* PIXModes.swift */; };
-		3AF28BE2219312CF0079FC7A /* PIXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465FC77211A4E0400899359 /* PIXColor.swift */; };
 		3AF28BE3219312CF0079FC7A /* PIXRes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* PIXRes.swift */; };
 		3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C4210A3337001AA523 /* PIXOutput.swift */; };
-		3AF28BE5219312D50079FC7A /* AirPlayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743F375C215BADDF002BC5BA /* AirPlayPIX.swift */; };
 		3AF28BE6219312D50079FC7A /* RecPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743F375E215BB2C3002BC5BA /* RecPIX.swift */; };
 		3AF28BE7219312DE0079FC7A /* EffectMultiMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
 		3AF28BE8219312E10079FC7A /* PIXMultiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */; };
@@ -86,8 +84,8 @@
 		3AF28C1D219313090079FC7A /* VideoPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7441339F212F859D00326015 /* VideoPIX.swift */; };
 		3AF28C1E2193130C0079FC7A /* PIXContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C0210A321F001AA523 /* PIXContent.swift */; };
 		3AF28C1F219313190079FC7A /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B17213317250028A69E /* checker.png */; };
-		3AF28C21219313230079FC7A /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
-		3AF28C22219313230079FC7A /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
+		3AF28C2621931DE10079FC7A /* PIXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465FC77211A4E0400899359 /* PIXColor.swift */; };
+		3AF28C28219326B80079FC7A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28C27219326B80079FC7A /* QuartzCore.framework */; };
 		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
 		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
 		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
@@ -176,6 +174,7 @@
 		3AF28BCC219312900079FC7A /* Pixels_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF28BCE219312900079FC7A /* Pixels_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pixels_macOS.h; sourceTree = "<group>"; };
 		3AF28BCF219312900079FC7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AF28C27219326B80079FC7A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
 		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
@@ -267,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AF28C28219326B80079FC7A /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +293,7 @@
 		7400B860212DD087002811DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AF28C27219326B80079FC7A /* QuartzCore.framework */,
 				3A6E366721650B6E001A285D /* PixelsShaders.metallib */,
 			);
 			name = Frameworks;
@@ -714,18 +715,17 @@
 				3AF28BD5219312CA0079FC7A /* PixelsProtocols.swift in Sources */,
 				3AF28BDF219312CF0079FC7A /* PIXOperators.swift in Sources */,
 				3AF28C10219312FD0079FC7A /* TextPIX.swift in Sources */,
-				3AF28BE5219312D50079FC7A /* AirPlayPIX.swift in Sources */,
 				3AF28C1D219313090079FC7A /* VideoPIX.swift in Sources */,
 				3AF28C06219312F50079FC7A /* CropPIX.swift in Sources */,
 				3AF28C15219313050079FC7A /* RectanglePIX.swift in Sources */,
 				3AF28BF2219312EB0079FC7A /* RemapPIX.swift in Sources */,
-				3AF28C22219313230079FC7A /* PIXMetalView.swift in Sources */,
 				3AF28C0B219312F50079FC7A /* DelayPIX.swift in Sources */,
 				3AF28C08219312F50079FC7A /* RangePIX.swift in Sources */,
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
 				3AF28BFC219312F50079FC7A /* ThresholdPIX.swift in Sources */,
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
+				3AF28C2621931DE10079FC7A /* PIXColor.swift in Sources */,
 				3AF28BF7219312F50079FC7A /* NilPIX.swift in Sources */,
 				3AF28BF0219312EB0079FC7A /* LumaBlurPIX.swift in Sources */,
 				3AF28BD4219312B90079FC7A /* Pixels.swift in Sources */,
@@ -763,11 +763,9 @@
 				3AF28C05219312F50079FC7A /* HueSaturationPIX.swift in Sources */,
 				3AF28C12219313050079FC7A /* PIXGenerator.swift in Sources */,
 				3AF28C0C219312F50079FC7A /* HDRPIX.swift in Sources */,
-				3AF28C21219313230079FC7A /* PIXView.swift in Sources */,
 				3AF28C07219312F50079FC7A /* FlipFlopPIX.swift in Sources */,
 				3AF28BD7219312CA0079FC7A /* PixelsRender.swift in Sources */,
 				3AF28C0A219312F50079FC7A /* SlopePIX.swift in Sources */,
-				3AF28BE2219312CF0079FC7A /* PIXColor.swift in Sources */,
 				3AF28BD6219312CA0079FC7A /* PixelsTexture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

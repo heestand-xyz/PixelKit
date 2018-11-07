@@ -13,7 +13,7 @@ infix operator !&
 infix operator <>
 infix operator ><
 
-import UIKit
+import CoreGraphics
 
 public extension PIX {
     

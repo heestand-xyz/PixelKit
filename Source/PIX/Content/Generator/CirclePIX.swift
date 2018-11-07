@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 public class CirclePIX: PIXGenerator, PIXofaKind {
     

@@ -20,7 +20,15 @@ public class TextPIX: PIXSprite, PIXofaKind {
     
     public var text: String = "Pixels" { didSet { setNeedsText(); setNeedsRender() } }
     public var textColor: Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
-    public var font: UIFont = UIFont.systemFont(ofSize: 100) { didSet { setNeedsFont(); setNeedsRender() } }
+    
+    #if os(iOS)
+    typealias _Font = UIFont
+    public var font: UIFont = _Font.systemFont(ofSize: 100) { didSet { setNeedsFont(); setNeedsRender() } }
+    #elseif os(macOS)
+    typealias _Font = NSFont
+    public var font: NSFont = _Font.systemFont(ofSize: 100) { didSet { setNeedsFont(); setNeedsRender() } }
+    #endif
+    
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
     
     // MARK: - Property Helpers
@@ -64,11 +72,11 @@ public class TextPIX: PIXSprite, PIXofaKind {
         let fontContainer = try container.nestedContainer(keyedBy: FontCodingKeys.self, forKey: .font)
         let fontName = try fontContainer.decode(String.self, forKey: .name)
         let fontSize = try fontContainer.decode(CGFloat.self, forKey: .size)
-        if let fontFont = UIFont(name: fontName, size: fontSize) {
+        if let fontFont = _Font(name: fontName, size: fontSize) {
             pixels.log(pix: self, .error, nil, "Font \"\(fontName)\" from Pixels File is not valid.")
             font = fontFont
         } else {
-            font = UIFont.systemFont(ofSize: 100)
+            font = _Font.systemFont(ofSize: 100)
         }
         position = try container.decode(CGPoint.self, forKey: .position)
         setNeedsRender()
@@ -101,13 +109,22 @@ public class TextPIX: PIXSprite, PIXofaKind {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = textColor.ui
+        label.fontColor = textColor.uins
     }
     
     func setNeedsFont() {
+        
         label.fontName = font.fontName // CHECK family
-        label.fontSize = font.pointSize * UIScreen.main.nativeScale // CHECK weight
+        
+        #if os(iOS)
+        let fontSize = font.pointSize * UIScreen.main.nativeScale // CHECK weight
+        #elseif os(macOS)
+        let fontSize = font.pointSize
+        #endif
+        label.fontSize = fontSize
+        
         // setPosition...
+        
     }
     
     func setNeedsPosition() {

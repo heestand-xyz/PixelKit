@@ -12,12 +12,21 @@ public extension PIX {
     
     public var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     
-    public var renderedImage: UIImage? {
+    #if os(iOS)
+    typealias _Image = UIImage
+    #elseif os(macOS)
+    typealias _Image = NSImage
+    #endif
+    public var renderedImage: _Image? {
         guard let texture = renderedTexture else { return nil }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
         guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.colorBits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
-        let uiImage = UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
-        return uiImage
+        #if os(iOS)
+        return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
+        #elseif os(macOS)
+        guard let size = resolution?.size else { return nil }
+        return NSImage(cgImage: cgImage, size: size)
+        #endif
     }
     
     public var renderedRaw8: [UInt8]? {

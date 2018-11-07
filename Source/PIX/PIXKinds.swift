@@ -57,7 +57,9 @@ extension PIX {
         case metalMergerEffect
         case metalMultiEffect
         case delay
+        #if os(iOS)
         case airPlay
+        #endif
         case rec
 //        case hdr
         var type: PIX.Type {
@@ -105,7 +107,9 @@ extension PIX {
             case .metalMergerEffect: return MetalMergerEffectPIX.self
             case .metalMultiEffect: return MetalMultiEffectPIX.self
             case .delay: return DelayPIX.self
+            #if os(iOS)
             case .airPlay: return AirPlayPIX.self
+            #endif
             case .rec: return RecPIX.self
 //            case .hdr: return HDRPIX.self
             }
