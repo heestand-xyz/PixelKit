@@ -40,7 +40,15 @@ extension Pixels {
                     }
                 }
                 if pix.view.superview != nil {
+                    #if os(iOS)
                     pix.view.metalView.setNeedsDisplay()
+                    #elseif os(macOS)
+                    guard let size = pix.resolution?.size else {
+                        log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+                        continue
+                    }
+                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    #endif
                     log(pix: pix, .info, .render, "View Render requested.", loop: true)
                     pix.view.metalView.readyToRender = {
                         pix.view.metalView.readyToRender = nil

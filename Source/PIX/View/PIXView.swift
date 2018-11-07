@@ -8,7 +8,12 @@
 
 import MetalKit
 
-public class PIXView: UIView {
+#if os(iOS)
+public typealias _View = UIView
+#elseif os(macOS)
+public typealias _View = NSView
+#endif
+public class PIXView: _View {
     
     let metalView: PIXMetalView
 
@@ -41,17 +46,19 @@ public class PIXView: UIView {
         
         super.init(frame: .zero)
         
+        #if os(iOS)
         clipsToBounds = true
+        #endif
         
         addSubview(checkerView)
         
         addSubview(metalView)
         
-        layout()
+        autoLayout()
         
     }
     
-    func layout() {
+    func autoLayout() {
         
         checkerView.translatesAutoresizingMaskIntoConstraints = false
         checkerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -89,8 +96,13 @@ public class PIXView: UIView {
             width = resolutionAspect <= viewAspect ? bounds.width : bounds.width * dynamicAspect
             height = resolutionAspect >= viewAspect ? bounds.height : bounds.height * dynamicAspect
         case .pixelPerfect:
-            width = res.width / UIScreen.main.nativeScale
-            height = res.height / UIScreen.main.nativeScale
+            #if os(iOS)
+            let scale: CGFloat = UIScreen.main.nativeScale
+            #elseif os(macOS)
+            let scale: CGFloat = 1.0
+            #endif
+            width = res.width / scale
+            height = res.height / scale
         case .fill:
             width = bounds.width
             height = bounds.height
@@ -99,7 +111,11 @@ public class PIXView: UIView {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
+        #if os(iOS)
         checkerView.setNeedsDisplay()
+        #elseif os(macOS)
+        checkerView.setNeedsDisplay(frame)
+        #endif
         
     }
     
@@ -108,15 +124,21 @@ public class PIXView: UIView {
         metalView.res = newRes
         layoutFillMode()
         if !boundsReady {
-            let scale = UIScreen.main.nativeScale
+            #if os(iOS)
+            let scale: CGFloat = UIScreen.main.nativeScale
+            #elseif os(macOS)
+            let scale: CGFloat = 1.0
+            #endif
             frame = CGRect(x: 0, y: 0, width: newRes.width / scale, height: newRes.height / scale)
         }
     }
     
+    #if os(iOS)
     public override func layoutSubviews() {
         super.layoutSubviews()
         _ = layoutFillMode()
     }
+    #endif
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

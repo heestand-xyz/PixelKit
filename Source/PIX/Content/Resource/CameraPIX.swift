@@ -144,13 +144,18 @@ public class CameraPIX: PIXResource, PIXofaKind {
     // MARK: Access
     
     func requestAccess(gotAccess: @escaping () -> ()) {
-        AVCaptureDevice.requestAccess(for: .video) { accessGranted in
-            if accessGranted {
-                gotAccess()
-            } else {
-                self.pixels.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+        if #available(OSX 10.14, *) {
+            AVCaptureDevice.requestAccess(for: .video) { accessGranted in
+                if accessGranted {
+                    gotAccess()
+                } else {
+                    self.pixels.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+                }
+                self.access = accessGranted
             }
-            self.access = accessGranted
+        } else {
+            gotAccess()
+            self.access = true
         }
     }
     

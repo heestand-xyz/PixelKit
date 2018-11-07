@@ -30,7 +30,9 @@ class PIXMetalView: MTKView {
         super.init(frame: onePixelFrame, device: pixels.metalDevice)
         
         colorPixelFormat = pixels.colorBits.mtl
+        #if os(iOS)
         isOpaque = false
+        #endif
         framebufferOnly = false
         autoResizeDrawable = false
         enableSetNeedsDisplay = true
