@@ -98,15 +98,15 @@ public extension PIX {
         
         public let space: Space
         
-        var uins: _Color {
+        var _color: _Color {
             #if os(iOS)
-            return ui
+            return uiColor
             #elseif os(macOS)
-            return ns
+            return nsColor
             #endif
         }
         #if os(iOS)
-        public var ui: UIColor {
+        public var uiColor: UIColor {
             switch space {
             case .sRGB:
                 return UIColor(red: r, green: g, blue: b, alpha: a)
@@ -115,7 +115,7 @@ public extension PIX {
             }
         }
         #elseif os(macOS)
-        public var ns: NSColor {
+        public var nsColor: NSColor {
             switch space {
             case .sRGB:
                 return NSColor(red: r, green: g, blue: b, alpha: a)
@@ -125,10 +125,10 @@ public extension PIX {
         }
         #endif
             
-        public var ci: CIColor? {
+        public var ciColor: CIColor? {
             return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg)
         }
-        public var cg: CGColor? {
+        public var cgColor: CGColor? {
             return CGColor(colorSpace: space.cg, components: list)
         }
         

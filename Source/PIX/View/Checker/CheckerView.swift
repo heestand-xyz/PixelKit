@@ -33,9 +33,11 @@ class CheckerView: _View {
     override init(frame: CGRect) {
         
         #if os(iOS)
-        checker = UIImage(named: "checker", in: Bundle(identifier: Pixels.main.kBundleId), compatibleWith: nil)!
+        let bundle = Bundle(identifier: Pixels.main.kBundleId)
+        checker = UIImage(named: "checker", in: bundle, compatibleWith: nil)!
         #elseif os(macOS)
-        checker = NSImage(named: "checker")!
+//        let path = bundle?.pathForImageResource("checker")
+        checker = NSImage(byReferencingFile: "checker.png")! //NSImage(named: "checker")!
         #endif
         
         super.init(frame: frame)

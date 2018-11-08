@@ -109,7 +109,7 @@ public class TextPIX: PIXSprite, PIXofaKind {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = textColor.uins
+        label.fontColor = textColor._color
     }
     
     func setNeedsFont() {

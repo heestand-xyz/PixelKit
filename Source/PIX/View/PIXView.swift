@@ -138,6 +138,11 @@ public class PIXView: _View {
         super.layoutSubviews()
         _ = layoutFillMode()
     }
+    #elseif os(macOS)
+    public override func layout() {
+        super.layout()
+        _ = layoutFillMode()
+    }
     #endif
     
     required init?(coder aDecoder: NSCoder) {

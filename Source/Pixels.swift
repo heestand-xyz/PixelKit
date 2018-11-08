@@ -16,8 +16,13 @@ public class Pixels {
     
     // MARK: Signature
     
+    #if os(iOS)
     let kBundleId = "se.hexagons.pixels"
     let kMetalLibName = "PixelsShaders"
+    #elseif os(macOS)
+    let kBundleId = "se.hexagons.pixels.macos"
+    let kMetalLibName = "PixelsShaders-macOS"
+    #endif
     
     public struct Signature: Encodable {
         public let id: String
@@ -28,12 +33,14 @@ public class Pixels {
         }
     }
     public var signature: Signature {
-        return Signature(id: kBundleId, version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String, build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
+        return Signature(id: kBundleId,
+                         version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String,
+                         build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
     }
     
     public var renderMode: RenderMode = .frameLoop
     
-    public var overrideWithMetalLibFromApp: Bool = true
+    public var overrideWithMetalLibFromApp: Bool = false
     
     // MARK: Log
     
@@ -160,11 +167,14 @@ public class Pixels {
     // MARK: - Frame Loop
     
     @objc func frameLoop() {
-        delegate?.pixelsFrameLoop()
-        renderPIXs()
-        for frameCallback in frameCallbacks {
-            frameCallback.callback()
+        DispatchQueue.main.async {
+            self.delegate?.pixelsFrameLoop()
+            for frameCallback in self.frameCallbacks {
+                frameCallback.callback()
+            }
+            self.renderPIXs()
         }
+//        DispatchQueue(label: "pixels-frame-loop").async {}
         calcFPS()
         frame += 1
     }
@@ -282,8 +292,8 @@ public class Pixels {
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
         let bundle = overrideWithMetalLibFromApp ? Bundle.main : Bundle(identifier: kBundleId)!
-        let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
-        if overrideWithMetalLibFromApp {        
+        if overrideWithMetalLibFromApp {
+            let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
             log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
         }
         guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
