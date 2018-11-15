@@ -32,6 +32,8 @@ class CheckerView: _View {
     
     override init(frame: CGRect) {
         
+        // FIXME: Generate the image on the fly.
+        
         #if os(iOS)
         let bundle = Bundle(identifier: Pixels.main.kBundleId)
         checker = UIImage(named: "checker", in: bundle, compatibleWith: nil)!
@@ -45,6 +47,11 @@ class CheckerView: _View {
         #if os(iOS)
         isUserInteractionEnabled = false
         #endif
+        
+//        #if os(macOS)
+//        wantsLayer = true
+//        layer!.backgroundColor = NSColor.red.cgColor
+//        #endif
         
     }
     

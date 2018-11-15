@@ -40,7 +40,8 @@ public class Pixels {
     
     public var renderMode: RenderMode = .frameLoop
     
-    public var overrideWithMetalLibFromApp: Bool = false
+    // FIXME: Metal Lib Delivery Pipeline
+    let overrideWithMetalLibFromApp: Bool = true
     
     // MARK: Log
     

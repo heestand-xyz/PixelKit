@@ -324,6 +324,13 @@ public extension PIX {
             space = Pixels.main.colorSpace
         }
         
+        // MARK: - Functions
+        
+        public func withAlpha(_ alpha: CGFloat) -> Color {
+            a = alpha
+            return self
+        }
+        
         // MARK: - Operator Overloads
         
         public static func ==(lhs: Color, rhs: Color) -> Bool {

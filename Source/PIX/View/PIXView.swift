@@ -114,6 +114,7 @@ public class PIXView: _View {
         #if os(iOS)
         checkerView.setNeedsDisplay()
         #elseif os(macOS)
+//        metalView.setNeedsDisplay(frame)
         checkerView.setNeedsDisplay(frame)
         #endif
         
