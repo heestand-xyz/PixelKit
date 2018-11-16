@@ -19,6 +19,14 @@ class PIXMetalView: MTKView {
         }
     }
     
+//    override var frame: CGRect {
+//        didSet {
+//            #if os(macOS)
+//            setNeedsDisplay(frame)
+//            #endif
+//        }
+//    }
+    
     var readyToRender: (() -> ())?
    
     // MARK: - Life Cycle
@@ -32,6 +40,8 @@ class PIXMetalView: MTKView {
         colorPixelFormat = pixels.colorBits.mtl
         #if os(iOS)
         isOpaque = false
+        #elseif os(macOS)
+        layer!.isOpaque = false
         #endif
         framebufferOnly = false
         autoResizeDrawable = false

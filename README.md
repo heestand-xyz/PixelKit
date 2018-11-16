@@ -1,7 +1,7 @@
 <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Logo/pixels_logo_1k_bg.png" width="128"/>
 
 # Pixels
-a Live Graphics Framework for iOS<br>
+a Live Graphics Framework for iOS and macOS (beta)<br>
 powered by Metal
 
 <b>ContentPIXs</b>:
@@ -59,6 +59,10 @@ Info:
 [Apps](#apps)
 
 Under development. More effects and pod coming soon!
+
+--- 
+
+Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
 
 ## Docs
 Classes, Delegates and Properties of:<br>
@@ -299,10 +303,6 @@ let metalPix = MetalPIX(res: ._1080p, code:
 )
 lumUniform.value = 0.5
 ~~~~
-
---- 
-
-Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
 
 ---
 

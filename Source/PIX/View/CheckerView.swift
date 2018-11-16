@@ -14,12 +14,6 @@ import AppKit
 
 class CheckerView: _View {
     
-    #if os(iOS)
-    let checker: UIImage
-    #elseif os(macOS)
-    let checker: NSImage
-    #endif
-    
     override var frame: CGRect {
         didSet {
             #if os(iOS)
@@ -32,20 +26,44 @@ class CheckerView: _View {
     
     override init(frame: CGRect) {
         
-        #if os(iOS)
-        let bundle = Bundle(identifier: Pixels.main.kBundleId)
-        checker = UIImage(named: "checker", in: bundle, compatibleWith: nil)!
-        #elseif os(macOS)
-//        let path = bundle?.pathForImageResource("checker")
-        checker = NSImage(byReferencingFile: "checker.png")! //NSImage(named: "checker")!
-        #endif
-        
         super.init(frame: frame)
         
         #if os(iOS)
         isUserInteractionEnabled = false
         #endif
         
+    }
+    
+    #if os(iOS)
+    typealias _Image = UIImage
+    #elseif os(macOS)
+    typealias _Image = NSImage
+    #endif
+    func checkerImage() -> _Image {
+        #if os(iOS)
+        // FIXME: Test
+        return UIGraphicsImageRenderer(size: CGSize(width: 64, height: 64)).image { ctx in
+            ctx.cgContext.setFillColor(PIX.Color.darkGray.cgColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: 32, height: 32))
+            ctx.cgContext.addRect(CGRect(x: 32, y: 32, width: 32, height: 32))
+            ctx.cgContext.setFillColor(PIX.Color.lightGray.cgColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: 32, width: 32, height: 32))
+            ctx.cgContext.addRect(CGRect(x: 32, y: 0, width: 32, height: 32))
+            ctx.cgContext.drawPath(using: .fill)
+        }
+        #elseif os(macOS)
+        let img = NSImage(size: CGSize(width: 64, height: 64))
+        img.lockFocus()
+        let ctx = NSGraphicsContext.current!.cgContext
+        ctx.setFillColor(PIX.Color.darkGray.cgColor)
+        ctx.fill(CGRect(x: 0, y: 0, width: 32, height: 32))
+        ctx.fill(CGRect(x: 32, y: 32, width: 32, height: 32))
+        ctx.setFillColor(PIX.Color.lightGray.cgColor)
+        ctx.fill(CGRect(x: 0, y: 32, width: 32, height: 32))
+        ctx.fill(CGRect(x: 32, y: 0, width: 32, height: 32))
+        img.unlockFocus()
+        return img
+        #endif
     }
     
     override func draw(_ rect: CGRect) {
@@ -60,6 +78,8 @@ class CheckerView: _View {
         
         let phase = CGSize(width: rect.width / 2, height: rect.height / 2)
         context.setPatternPhase(phase)
+        
+        let checker = checkerImage()
         
         #if os(iOS)
         let color = UIColor(patternImage: checker).cgColor

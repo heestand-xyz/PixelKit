@@ -63,6 +63,12 @@ extension PIX {
         view.setRes(res)
         pixels.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
+        // FIXME: Check if this is extra work..
+        if let pixOut = self as? PIXOutIO {
+            for pathList in pixOut.pixOutPathList {
+                pathList.pixIn.applyRes(applied: {})
+            }
+        }
     }
     
 }
