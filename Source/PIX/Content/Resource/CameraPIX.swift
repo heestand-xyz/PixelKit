@@ -100,6 +100,11 @@ public class CameraPIX: PIXResource, PIXofaKind {
     public var camera: Camera = .front { didSet { setupCamera() } }
     #endif
     
+    
+    #if os(macOS)
+    public var autoDetect: Bool = true
+    #endif
+    
     // MARK: - Property Helpers
     
     enum CodingKeys: String, CodingKey {
@@ -119,6 +124,20 @@ public class CameraPIX: PIXResource, PIXofaKind {
     public override init() {
         super.init()
         setupCamera()
+        
+        #if os(macOS)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
+            self.camAttatched(device: notif.object! as! AVCaptureDevice)
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
+            self.camDeattatched(device: notif.object! as! AVCaptureDevice)
+        }
+        #endif
+        
+    }
+    
+    deinit {
+        helper!.stop()
     }
     
     // MARK: - JSON
@@ -191,9 +210,23 @@ public class CameraPIX: PIXResource, PIXofaKind {
         })
     }
     
-    deinit {
-        helper!.stop()
+    // MARK: - Camera Attatchment
+    
+    #if os(macOS)
+    func camAttatched(device: AVCaptureDevice) {
+        guard autoDetect else { return }
+        self.pixels.log(pix: self, .info, .resource, "Camera Attatched.")
+        setupCamera()
     }
+    #endif
+    
+    #if os(macOS)
+    func camDeattatched(device: AVCaptureDevice) {
+        guard autoDetect else { return }
+        self.pixels.log(pix: self, .info, .resource, "Camera Deattatched.")
+        setupCamera()
+    }
+    #endif
     
 }
 
