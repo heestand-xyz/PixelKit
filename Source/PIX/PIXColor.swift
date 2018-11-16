@@ -138,10 +138,10 @@ public extension PIX {
         #endif
             
         public var ciColor: CIColor {
-            return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg) ?? .clear
+            return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
         }
         public var cgColor: CGColor {
-            return CGColor(colorSpace: space.cg, components: list) ?? .clear
+            return CGColor(colorSpace: space.cg, components: list) ?? _Color.clear.cgColor
         }
         
         public var list: [CGFloat] {
