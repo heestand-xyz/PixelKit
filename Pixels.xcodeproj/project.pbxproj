@@ -166,7 +166,6 @@
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */; };
-		74E9F6FB2193829A00F541DE /* PixelsShaders-macOS.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 74E9F6FA2193829900F541DE /* PixelsShaders-macOS.metallib */; };
 		74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
 /* End PBXBuildFile section */
 
@@ -258,7 +257,6 @@
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74E9F6B621937A5000F541DE /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = "PixelsShaders-macOS.metallib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		74E9F6FA2193829900F541DE /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelsShaders-macOS.metallib"; path = "../../../../Library/Developer/Xcode/DerivedData/Pixels_macOS_Test-cnnorpkfxunfilfdvavnwbenjddl/Build/Products/Debug/PixelsShaders-macOS.metallib"; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* PixelsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -479,7 +477,6 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				74E9F6FA2193829900F541DE /* PixelsShaders-macOS.metallib */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39DB21011E3A004E9AA0 /* Info.plist */,
@@ -643,7 +640,6 @@
 				3AF28BE7219312DE0079FC7A /* EffectMultiMetalPIX.metal.txt in Resources */,
 				3AF28BF5219312F10079FC7A /* EffectSingleMetalPIX.metal.txt in Resources */,
 				3AF28C11219313010079FC7A /* ContentGeneratorMetalPIX.metal.txt in Resources */,
-				74E9F6FB2193829A00F541DE /* PixelsShaders-macOS.metallib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
