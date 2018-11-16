@@ -115,8 +115,6 @@ public class PIXView: _View {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
-        print("C", width, height)
-        
         #if os(iOS)
         checkerView.setNeedsDisplay()
         #elseif os(macOS)
@@ -127,9 +125,12 @@ public class PIXView: _View {
 //        metalView.needsUpdateConstraints = true
         #endif
         
+        print("C>>>>>>>>>>>>>>", bounds.size, "+", res, ">", width, height)
+        
     }
     
     func setRes(_ newRes: PIX.Res) {
+        print("RES >>>>>>>", newRes)
         res = newRes
         metalView.res = newRes
         layoutFillMode()

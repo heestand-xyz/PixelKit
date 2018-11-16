@@ -32,19 +32,31 @@ public extension PIX {
         public var b: CGFloat
         public var a: CGFloat
         
-        public static var clear: Color      { return Color(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
+        public static var clear: Color { return Color(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
         
-        public static var white: Color      { return Color(r: 1.0, g: 1.0, b: 1.0) }
-        public static var gray: Color       { return Color(r: 0.5, g: 0.5, b: 0.5) }
-        public static var black: Color      { return Color(r: 0.0, g: 0.0, b: 0.0) }
+        public static var white: Color          { return Color(lum: 1.0) }
+        public static var lightGrayLight: Color { return Color(lum: 0.875) }
+        public static var lightGray: Color      { return Color(lum: 0.75) }
+        public static var lightGrayDark: Color  { return Color(lum: 0.625) }
+        public static var gray: Color           { return Color(lum: 0.5) }
+        public static var darkGrayLight: Color  { return Color(lum: 0.375) }
+        public static var darkGray: Color       { return Color(lum: 0.25) }
+        public static var darkGrayDark: Color   { return Color(lum: 0.125) }
+        public static var black: Color          { return Color(lum: 0.0) }
         
-        public static var red: Color        { return Color(r: 1.0, g: 0.0, b: 0.0) }
-        public static var yellow: Color     { return Color(r: 1.0, g: 1.0, b: 0.0) }
-        public static var green: Color      { return Color(r: 0.0, g: 1.0, b: 0.0) }
-        public static var cyan: Color       { return Color(r: 0.0, g: 1.0, b: 1.0) }
-        public static var blue: Color       { return Color(r: 0.0, g: 0.0, b: 1.0) }
-        public static var magenta: Color    { return Color(r: 1.0, g: 0.0, b: 1.0) }
-        
+        public static var red: Color         { return Color(r: 1.0, g: 0.0, b: 0.0) }
+        public static var orange: Color      { return Color(r: 1.0, g: 0.5, b: 0.0) }
+        public static var yellow: Color      { return Color(r: 1.0, g: 1.0, b: 0.0) }
+        public static var yellowGreen: Color { return Color(r: 0.5, g: 1.0, b: 0.0) }
+        public static var green: Color       { return Color(r: 0.0, g: 1.0, b: 0.0) }
+        public static var greenCyan: Color   { return Color(r: 0.0, g: 1.0, b: 0.5) }
+        public static var cyan: Color        { return Color(r: 0.0, g: 1.0, b: 1.0) }
+        public static var cyanBlue: Color    { return Color(r: 0.0, g: 0.5, b: 1.0) }
+        public static var blue: Color        { return Color(r: 0.0, g: 0.0, b: 1.0) }
+        public static var blueMagent: Color  { return Color(r: 0.5, g: 0.0, b: 1.0) }
+        public static var magenta: Color     { return Color(r: 1.0, g: 0.0, b: 1.0) }
+        public static var magentaRed: Color  { return Color(r: 1.0, g: 0.0, b: 0.5) }
+
         public enum Bits: Int, Codable {
             case _8 = 8
             case _16 = 16
@@ -125,11 +137,11 @@ public extension PIX {
         }
         #endif
             
-        public var ciColor: CIColor? {
-            return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg)
+        public var ciColor: CIColor {
+            return CIColor(red: r, green: g, blue: b, alpha: a, colorSpace: space.cg) ?? .clear
         }
-        public var cgColor: CGColor? {
-            return CGColor(colorSpace: space.cg, components: list)
+        public var cgColor: CGColor {
+            return CGColor(colorSpace: space.cg, components: list) ?? .clear
         }
         
         public var list: [CGFloat] {
@@ -137,7 +149,7 @@ public extension PIX {
         }
         
         public var lum: CGFloat {
-            return (r + g + b) / 3 // CHECK convert to HSV and return value
+            return (r + g + b) / 3
         }
         
         public var mono: Color {
@@ -204,6 +216,104 @@ public extension PIX {
             self.g = val
             self.b = val
             self.a = val
+        }
+        
+        // MARK: - Hue Saturaton
+        
+        public var hue: CGFloat {
+            return hsv.h
+        }
+        public var sat: CGFloat {
+            return hsv.s
+        }
+        public var val: CGFloat {
+            return hsv.v
+        }
+        public var hsv: (h: CGFloat, s: CGFloat, v: CGFloat) {
+            var h, s, v: CGFloat
+            var mn, mx, d: CGFloat
+            mn = r < g ? r : g
+            mn = mn < b ? mn : b
+            mx = r > g ? r : g
+            mx = mx > b ? mx : b
+            v = mx
+            d = mx - mn
+            if (d < 0.00001) {
+                s = 0
+                h = 0
+                return (h: h, s: s, v: v)
+            }
+            if (mx > 0.0) {
+                s = (d / mx)
+            } else {
+                s = 0.0
+                h = 0.0
+                return (h: h, s: s, v: v)
+            }
+            if (r >= mx) {
+                h = (g - b ) / d
+            } else if (g >= mx) {
+                h = 2.0 + ( b - r ) / d
+            } else {
+                h = 4.0 + ( r - g ) / d
+            }
+            h *= 60.0
+            if(h < 0.0) {
+                h += 360.0
+            }
+            return (h: h / 360, s: s, v: v)
+        }
+        
+        public init(h: CGFloat, s: CGFloat = 1.0, v: CGFloat = 1.0, a: CGFloat = 1.0, space: Space = Pixels.main.colorSpace) {
+            var hh, p, q, t, ff: CGFloat
+            var i: Int
+            if (s <= 0.0) {
+                r = v
+                g = v
+                b = v
+                self.a = a
+                self.space = space
+                return
+            }
+            hh = (h - floor(h)) * 360
+            hh /= 60.0
+            i = Int(hh)
+            ff = hh - CGFloat(i)
+            p = v * (1.0 - s)
+            q = v * (1.0 - (s * ff))
+            t = v * (1.0 - (s * (1.0 - ff)))
+            switch(i) {
+            case 0:
+                r = v
+                g = t
+                b = p
+            case 1:
+                r = q
+                g = v
+                b = p
+            case 2:
+                r = p
+                g = v
+                b = t
+            case 3:
+                r = p
+                g = q
+                b = v
+            case 4:
+                r = t
+                g = p
+                b = v
+            case 5:
+                r = v
+                g = p
+                b = q
+            default:
+                r = v
+                g = p
+                b = q
+            }
+            self.a = a
+            self.space = space
         }
         
         // MARK: - Hex
@@ -326,9 +436,22 @@ public extension PIX {
         
         // MARK: - Functions
         
-        public func withAlpha(_ alpha: CGFloat) -> Color {
-            a = alpha
-            return self
+        public func withAlpha(of alpha: CGFloat) -> Color {
+            return Color(r: r, g: g, b: b, a: alpha)
+        }
+        
+        public func withHue(of hue: CGFloat, fullySaturated: Bool = false) -> Color {
+            return Color(h: hue, s: fullySaturated ? 1.0 : sat, v: val, space: space)
+        }
+        public func withSat(of sat: CGFloat) -> Color {
+            return Color(h: hue, s: sat, v: val, space: space)
+        }
+        public func withVal(of val: CGFloat) -> Color {
+            return Color(h: hue, s: sat, v: val, space: space)
+        }
+        
+        public func withShiftedHue(by hueShift: CGFloat) -> Color {
+            return Color(h: (hue + hueShift).remainder(dividingBy: 1.0), s: sat, v: val, space: space)
         }
         
         // MARK: - Operator Overloads
