@@ -38,6 +38,10 @@ public class PIXView: _View {
     public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
     let checkerView: CheckerView
     
+    #if os(macOS)
+    public override var frame: NSRect { didSet { _ = layoutFillMode() } }
+    #endif
+    
     init() {
         
         checkerView = CheckerView()
@@ -111,11 +115,16 @@ public class PIXView: _View {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
+        print("C", width, height)
+        
         #if os(iOS)
         checkerView.setNeedsDisplay()
         #elseif os(macOS)
 //        metalView.setNeedsDisplay(frame)
-        checkerView.setNeedsDisplay(frame)
+//        checkerView.setNeedsDisplay(frame)
+//        layoutSubtreeIfNeeded()
+//        metalView.needsLayout = true
+//        metalView.needsUpdateConstraints = true
         #endif
         
     }
@@ -124,14 +133,15 @@ public class PIXView: _View {
         res = newRes
         metalView.res = newRes
         layoutFillMode()
-        if !boundsReady {
-            #if os(iOS)
-            let scale: CGFloat = UIScreen.main.nativeScale
-            #elseif os(macOS)
-            let scale: CGFloat = 1.0
-            #endif
-            frame = CGRect(x: 0, y: 0, width: newRes.width / scale, height: newRes.height / scale)
-        }
+        // FIXME: Set by user..
+//        if !boundsReady {
+//            #if os(iOS)
+//            let scale: CGFloat = UIScreen.main.nativeScale
+//            #elseif os(macOS)
+//            let scale: CGFloat = 1.0
+//            #endif
+//            frame = CGRect(x: 0, y: 0, width: newRes.width / scale, height: newRes.height / scale)
+//        }
     }
     
     #if os(iOS)
