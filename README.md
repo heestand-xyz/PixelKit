@@ -58,7 +58,7 @@ Info:
 [High Bit Mode](#high-bit-mode) -
 [Apps](#apps)
 
-Under development. More effects and pod coming soon!
+Under development.
 
 --- 
 
@@ -70,6 +70,15 @@ Classes, Delegates and Properties of:<br>
 [PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
 [PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
+
+## Installing
+
+Pod coming soon!
+
+To contribute or test, follow these three steps:
+1. Drag `Pixels.xcodeproj` in to your Xcode project.
+2. Drag `Pixels.framework` under Products to your projects embedded binaries section of the general tab of your app target.
+3. Drag `PixelsShaders.metallib` under Products (from the nested `PixelsShaders.xcodeproj`) to your projects copy bundle resources under build phases of your app target.
 
 ## Tutorial
 
