@@ -17,6 +17,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     // MARK: - Public Properties
     
     public var threshold: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    public var smooth: Bool = true { didSet { setNeedsRender() } }
     var _smoothness: CGFloat = 0
     public var smoothness: CGFloat {
         set {
@@ -24,11 +25,8 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
             setNeedsRender()
         }
         get {
-            if Pixels.main.colorBits == ._8 {
-                return max(_smoothness, 1.0 / 256)
-            } else {
-                return _smoothness
-            }
+            guard smooth else { return 0.0 }
+            return max(_smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.colorBits.rawValue)))
         }
     }
     
