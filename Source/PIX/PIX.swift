@@ -149,7 +149,7 @@ open class PIX: Codable {
             }
         }
         pixels.log(pix: self, .info, .render, "Requested.", loop: true)
-        delegate?.pixWillRender(self)
+//        delegate?.pixWillRender(self)
         needsRender = true
     }
     

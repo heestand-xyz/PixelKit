@@ -17,7 +17,20 @@ public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
     // MARK: - Public Properties
     
     public var threshold: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var smoothness: CGFloat = 0 { didSet { setNeedsRender() } }
+    var _smoothness: CGFloat = 0
+    public var smoothness: CGFloat {
+        set {
+            _smoothness = newValue
+            setNeedsRender()
+        }
+        get {
+            if Pixels.main.colorBits == ._8 {
+                return max(_smoothness, 1.0 / 256)
+            } else {
+                return _smoothness
+            }
+        }
+    }
     
     // MARK: - Property Helpers
     enum EdgeCodingKeys: String, CodingKey {

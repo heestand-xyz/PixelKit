@@ -31,13 +31,8 @@ fragment float4 effectSingleThresholdPIX(VertexOut out [[stage_in]],
     
     float4 c = inTex.sample(s, uv);
     float bw = (c.r + c.g + c.b) / 3;
-    
-    float smoothness = in.smoothness;
-    if (smoothness < 1.0 / 256) {
-        smoothness = 1.0 / 256;
-    }
-    
-    float t = (bw - in.threshold) / smoothness + in.threshold;
+        
+    float t = (bw - in.threshold) / in.smoothness + in.threshold;
     if (t < 0) {
         t = 0;
     } else if (t > 1) {
