@@ -308,6 +308,15 @@ public extension PIX {
             }
         }
         
+        public init(autoScaleSize: CGSize) {
+            #if os(iOS)
+            let scale: CGFloat = UIScreen.main.nativeScale
+            #elseif os(macOS)
+            let scale: CGFloat = NSScreen.main?.backingScaleFactor ?? 1.0
+            #endif
+            self.init(size: CGSize(width: autoScaleSize.width * scale, height: autoScaleSize.height * scale))
+        }
+        
         public init(_ raw: Raw) {
             let rawSize = CGSize(width: raw.w, height: raw.h)
             self.init(size: rawSize)
