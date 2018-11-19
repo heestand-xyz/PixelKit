@@ -66,4 +66,12 @@ public extension PIXOut {
         return displacePix
     }
     
+//    func _displaceNoise(distance: CGFloat, octaves: Int) -> DisplacePIX {
+//        let noisePix = NoisePIX(res: (self as? PIX & PIXOut)?.resolution ?? ._128)
+//        noisePix.name = "displaceNoise:noise"
+//        noisePix.colored = true
+//        noisePix.octaves = octaves
+//        return _displace(with: noisePix, distance: distance)
+//    }
+    
 }
