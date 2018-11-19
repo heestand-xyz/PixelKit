@@ -80,8 +80,9 @@ public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _lumaBlur(pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
+    func _lumaBlur(with pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
+        lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inPixA = self as? PIX & PIXOut
         lumaBlurPix.inPixB = pix
         lumaBlurPix.radius = radius

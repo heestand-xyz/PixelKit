@@ -16,8 +16,9 @@ public class NilPIX: PIXSingleEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func node() -> NilPIX {
+    func _node() -> NilPIX {
         let nilPix = NilPIX()
+        nilPix.name = "node:nil"
         nilPix.inPix = self as? PIX & PIXOut
         nilPix.bypass = true
         return nilPix

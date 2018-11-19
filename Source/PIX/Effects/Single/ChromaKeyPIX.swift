@@ -63,6 +63,7 @@ public extension PIXOut {
     
     func _chromaKey(_ color: PIX.Color) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
+        chromaKeyPix.name = ":chromaKey:"
         chromaKeyPix.inPix = self as? PIX & PIXOut
         chromaKeyPix.keyColor = color
         return chromaKeyPix

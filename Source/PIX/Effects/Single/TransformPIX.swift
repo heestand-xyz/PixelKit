@@ -57,6 +57,7 @@ public extension PIXOut {
     
     func _position(at position: CGPoint) -> TransformPIX {
         let transformPix = TransformPIX()
+        transformPix.name = "position:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.position = position
         return transformPix
@@ -64,6 +65,7 @@ public extension PIXOut {
     
     func _rotatate(to rotation: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
+        transformPix.name = "rotatate:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.rotation = rotation
         return transformPix
@@ -71,6 +73,7 @@ public extension PIXOut {
     
     func _scale(by scale: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
+        transformPix.name = "scale:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.scale = scale
         return transformPix

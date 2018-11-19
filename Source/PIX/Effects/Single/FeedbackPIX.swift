@@ -66,3 +66,27 @@ public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
     }
     
 }
+
+public extension PIXOut {
+    
+//    func _feed(loop: (FeedbackPIX) -> (PIX & PIXOut)) -> FeedbackPIX {
+//        let feedbackPix = FeedbackPIX()
+//        feedbackPix.inPix = self as? PIX & PIXOut
+//        feedbackPix.feedPix = loop(feedbackPix)
+//        return feedbackPix
+//    }
+    
+    func _feed(_ fraction: CGFloat, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
+        let feedbackPix = FeedbackPIX()
+        feedbackPix.name = "feed:feedback"
+        feedbackPix.inPix = self as? PIX & PIXOut
+        let crossPix = CrossPIX()
+        crossPix.name = "feed:cross"
+        crossPix.inPixA = self as? PIX & PIXOut
+        crossPix.inPixB = loop?(feedbackPix) ?? feedbackPix
+        crossPix.fraction = fraction
+        feedbackPix.feedPix = crossPix
+        return feedbackPix
+    }
+    
+}

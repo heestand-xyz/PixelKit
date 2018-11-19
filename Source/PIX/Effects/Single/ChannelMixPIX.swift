@@ -62,6 +62,7 @@ public extension PIXOut {
     
     func _swap(_ pureColorA: PIX.Color.Pure, _ pureColorB: PIX.Color.Pure) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
+        channelMixPix.name = "swap:channelMix"
         channelMixPix.inPix = self as? PIX & PIXOut
         switch pureColorA {
         case .red: channelMixPix.red = .init(pure: pureColorB)

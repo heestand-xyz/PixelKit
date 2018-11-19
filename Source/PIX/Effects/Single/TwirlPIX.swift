@@ -55,6 +55,7 @@ public extension PIXOut {
     
     func _twirl(_ strength: CGFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
+        twirlPix.name = ":twirl:"
         twirlPix.inPix = self as? PIX & PIXOut
         twirlPix.strength = strength
         return twirlPix

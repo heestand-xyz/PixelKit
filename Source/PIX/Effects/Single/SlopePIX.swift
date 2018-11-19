@@ -48,6 +48,7 @@ public extension PIXOut {
     
     func _slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
+        slopePix.name = ":slope:"
         slopePix.inPix = self as? PIX & PIXOut
         slopePix.amplitude = amplitude
         return slopePix

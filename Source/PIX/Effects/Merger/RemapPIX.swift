@@ -28,8 +28,9 @@ public class RemapPIX: PIXMergerEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _remap(pix: PIX & PIXOut) -> RemapPIX {
+    func _remap(with pix: PIX & PIXOut) -> RemapPIX {
         let remapPix = RemapPIX()
+        remapPix.name = ":remap:"
         remapPix.inPixA = self as? PIX & PIXOut
         remapPix.inPixB = pix
         return remapPix

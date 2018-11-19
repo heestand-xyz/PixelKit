@@ -47,6 +47,7 @@ public extension PIXOut {
     
     func _quantize(by fraction: CGFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
+        quantizePix.name = ":quantize:"
         quantizePix.inPix = self as? PIX & PIXOut
         quantizePix.fraction = fraction
         return quantizePix

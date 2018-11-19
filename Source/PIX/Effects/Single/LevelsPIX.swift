@@ -67,6 +67,7 @@ public extension PIXOut {
     
     func _brightness(_ brightness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "brightness:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.brightness = brightness
         return levelsPix
@@ -74,6 +75,7 @@ public extension PIXOut {
     
     func _darkness(_ darkness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "darkness:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.darkness = darkness
         return levelsPix
@@ -81,6 +83,7 @@ public extension PIXOut {
     
     func _contrast(_ contrast: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "contrast:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.contrast = contrast
         return levelsPix
@@ -88,6 +91,7 @@ public extension PIXOut {
     
     func _gamma(_ gamma: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "gamma:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.gamma = gamma
         return levelsPix
@@ -95,6 +99,7 @@ public extension PIXOut {
     
     func _inverted() -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "inverted:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.inverted = true
         return levelsPix
@@ -102,6 +107,7 @@ public extension PIXOut {
     
     func _opacity(_ opacity: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
+        levelsPix.name = "opacity:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.opacity = opacity
         return levelsPix

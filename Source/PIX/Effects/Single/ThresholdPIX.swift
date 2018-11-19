@@ -61,6 +61,7 @@ public extension PIXOut {
     
     func _threshold(at threshold: CGFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
+        thresholdPix.name = ":threshold:"
         thresholdPix.inPix = self as? PIX & PIXOut
         thresholdPix.threshold = threshold
         return thresholdPix

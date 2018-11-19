@@ -82,6 +82,7 @@ public extension PIXOut {
     
     func _range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
         let rangePix = RangePIX()
+        rangePix.name = ":range:"
         rangePix.inPix = self as? PIX & PIXOut
         rangePix.inLow = inLow
         rangePix.inHigh = inHigh
@@ -92,6 +93,7 @@ public extension PIXOut {
     
     func _range(inLow: PIX.Color = .clear, inHigh: PIX.Color = .white, outLow: PIX.Color = .clear, outHigh: PIX.Color = .white) -> RangePIX {
         let rangePix = RangePIX()
+        rangePix.name = ":range:"
         rangePix.inPix = self as? PIX & PIXOut
         rangePix.inLowColor = inLow
         rangePix.inHighColor = inHigh

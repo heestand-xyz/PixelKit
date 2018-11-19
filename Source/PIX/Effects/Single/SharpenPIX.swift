@@ -52,6 +52,7 @@ public extension PIXOut {
     
     func _sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
         let sharpenPix = SharpenPIX()
+        sharpenPix.name = ":sharpen:"
         sharpenPix.inPix = self as? PIX & PIXOut
         sharpenPix.contrast = contrast
         return sharpenPix

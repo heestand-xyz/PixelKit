@@ -32,30 +32,27 @@ public extension PIX {
         public var b: CGFloat
         public var a: CGFloat
         
-        public static var clear: Color { return Color(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
-        
-        public static var white: Color          { return Color(lum: 1.0) }
-        public static var lightGrayLight: Color { return Color(lum: 0.875) }
-        public static var lightGray: Color      { return Color(lum: 0.75) }
-        public static var lightGrayDark: Color  { return Color(lum: 0.625) }
-        public static var gray: Color           { return Color(lum: 0.5) }
-        public static var darkGrayLight: Color  { return Color(lum: 0.375) }
-        public static var darkGray: Color       { return Color(lum: 0.25) }
-        public static var darkGrayDark: Color   { return Color(lum: 0.125) }
-        public static var black: Color          { return Color(lum: 0.0) }
+        public static var clear: Color       { return Color(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
+        public static var clearWhite: Color  { return Color(r: 1.0, g: 1.0, b: 1.0, a: 0.0) }
+
+        public static var white: Color       { return Color(lum: 1.0) }
+        public static var lightGray: Color   { return Color(lum: 0.75) }
+        public static var gray: Color        { return Color(lum: 0.5) }
+        public static var darkGray: Color    { return Color(lum: 0.25) }
+        public static var black: Color       { return Color(lum: 0.0) }
         
         public static var red: Color         { return Color(r: 1.0, g: 0.0, b: 0.0) }
         public static var orange: Color      { return Color(r: 1.0, g: 0.5, b: 0.0) }
         public static var yellow: Color      { return Color(r: 1.0, g: 1.0, b: 0.0) }
-        public static var yellowGreen: Color { return Color(r: 0.5, g: 1.0, b: 0.0) }
+//        public static var yellowGreen: Color { return Color(r: 0.5, g: 1.0, b: 0.0) }
         public static var green: Color       { return Color(r: 0.0, g: 1.0, b: 0.0) }
-        public static var greenCyan: Color   { return Color(r: 0.0, g: 1.0, b: 0.5) }
+//        public static var greenCyan: Color   { return Color(r: 0.0, g: 1.0, b: 0.5) }
         public static var cyan: Color        { return Color(r: 0.0, g: 1.0, b: 1.0) }
-        public static var cyanBlue: Color    { return Color(r: 0.0, g: 0.5, b: 1.0) }
+//        public static var cyanBlue: Color    { return Color(r: 0.0, g: 0.5, b: 1.0) }
         public static var blue: Color        { return Color(r: 0.0, g: 0.0, b: 1.0) }
-        public static var blueMagent: Color  { return Color(r: 0.5, g: 0.0, b: 1.0) }
+//        public static var blueMagent: Color  { return Color(r: 0.5, g: 0.0, b: 1.0) }
         public static var magenta: Color     { return Color(r: 1.0, g: 0.0, b: 1.0) }
-        public static var magentaRed: Color  { return Color(r: 1.0, g: 0.0, b: 0.5) }
+//        public static var magentaRed: Color  { return Color(r: 1.0, g: 0.0, b: 0.5) }
 
         public enum Bits: Int, Codable {
             case _8 = 8

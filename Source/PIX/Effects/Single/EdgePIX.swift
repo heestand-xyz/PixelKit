@@ -51,6 +51,7 @@ public extension PIXOut {
     
     func _edge() -> EdgePIX {
         let edgePix = EdgePIX()
+        edgePix.name = ":edge:"
         edgePix.inPix = self as? PIX & PIXOut
         return edgePix
     }

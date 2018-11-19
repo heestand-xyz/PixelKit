@@ -63,12 +63,14 @@ public extension PIXOut {
     
     func _reRes(to res: PIX.Res) -> ResPIX {
         let resPix = ResPIX(res: res)
+        resPix.name = "reRes:res"
         resPix.inPix = self as? PIX & PIXOut
         return resPix
     }
     
     func _reRes(by resMultiplier: CGFloat) -> ResPIX {
         let resPix = ResPIX(res: ._128)
+        resPix.name = "reRes:res"
         resPix.inPix = self as? PIX & PIXOut
         resPix.inheritInRes = true
         resPix.resMultiplier = resMultiplier

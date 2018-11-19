@@ -51,6 +51,7 @@ public extension PIXOut {
     
     func _crop(_ cropFrame: CGRect) -> CropPIX {
         let cropPix = CropPIX()
+        cropPix.name = ":crop:"
         cropPix.inPix = self as? PIX & PIXOut
         cropPix.cropFrame = cropFrame
         return cropPix

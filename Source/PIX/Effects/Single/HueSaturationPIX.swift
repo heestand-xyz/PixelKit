@@ -51,6 +51,7 @@ public extension PIXOut {
     
     func _hue(_ hue: CGFloat) -> HueSaturationPIX {
         let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.name = "hue:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.hue = hue
         return hueSaturationPix
@@ -58,6 +59,7 @@ public extension PIXOut {
     
     func _saturation(_ saturation: CGFloat) -> HueSaturationPIX {
         let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.name = "saturation:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.saturation = saturation
         return hueSaturationPix
@@ -65,6 +67,7 @@ public extension PIXOut {
     
     func _monochrome() -> HueSaturationPIX {
         let hueSaturationPix = HueSaturationPIX()
+        hueSaturationPix.name = "monochrome:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.saturation = 0.0
         return hueSaturationPix

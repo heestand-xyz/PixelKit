@@ -42,5 +42,4 @@ public class BlendsPIX: PIXMultiEffect, PIXofaKind {
         try container.encode(blendingMode, forKey: .blendingMode)
     }
     
-    
 }

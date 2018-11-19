@@ -76,6 +76,7 @@ public extension PIXOut {
     
     func _flipX() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.name = "flipX:flipFlop"
         flipFlopPix.inPix = self as? PIX & PIXOut
         flipFlopPix.flip = .x
         return flipFlopPix
@@ -83,6 +84,7 @@ public extension PIXOut {
     
     func _flipY() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.name = "flipY:flipFlop"
         flipFlopPix.inPix = self as? PIX & PIXOut
         flipFlopPix.flip = .y
         return flipFlopPix
@@ -90,6 +92,7 @@ public extension PIXOut {
     
     func _flopLeft() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.name = "flopLeft:flipFlop"
         flipFlopPix.inPix = self as? PIX & PIXOut
         flipFlopPix.flop = .left
         return flipFlopPix
@@ -97,6 +100,7 @@ public extension PIXOut {
     
     func _flopRight() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
+        flipFlopPix.name = "flopRight:flipFlop"
         flipFlopPix.inPix = self as? PIX & PIXOut
         flipFlopPix.flop = .right
         return flipFlopPix

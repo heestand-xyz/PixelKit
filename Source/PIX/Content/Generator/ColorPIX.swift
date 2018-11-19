@@ -42,3 +42,14 @@ public class ColorPIX: PIXGenerator, PIXofaKind {
     }
     
 }
+
+//public extension PIX {
+//    
+//    func __color(_ color: PIX.Color, res: PIX.Res) -> ColorPIX {
+//        let colorPix = ColorPIX(res: res)
+//        colorPix.name = ":color:"
+//        colorPix.color = color
+//        return colorPix
+//    }
+//
+//}

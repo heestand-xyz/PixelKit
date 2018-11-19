@@ -57,8 +57,9 @@ public class DisplacePIX: PIXMergerEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _displace(pix: PIX & PIXOut, distance: CGFloat) -> DisplacePIX {
+    func _displace(with pix: PIX & PIXOut, distance: CGFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
+        displacePix.name = ":displace:"
         displacePix.inPixA = self as? PIX & PIXOut
         displacePix.inPixB = pix
         displacePix.distance = distance

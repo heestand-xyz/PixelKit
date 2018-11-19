@@ -21,6 +21,12 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
         case b
     }
     
+    public enum RawChannel {
+        case red
+        case green
+        case blue
+        case alpha
+    }
     public enum Channel: String, Codable {
         case red
         case green
@@ -99,5 +105,30 @@ public class ReorderPIX: PIXMergerEffect, PIXofaKind {
         try container.encode(premultiply, forKey: .premultiply)
     }
     
+}
+
+public extension PIXOut {
+    
+    func _reorder(with pix: PIX & PIXOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
+        let reorderPix = ReorderPIX()
+        reorderPix.name = ":reorder:"
+        reorderPix.inPixA = self as? PIX & PIXOut
+        reorderPix.inPixB = pix
+        switch rawChannel {
+        case .red:
+            reorderPix.redInput = .b
+            reorderPix.redChannel = channel
+        case .green:
+            reorderPix.greenInput = .b
+            reorderPix.greenChannel = channel
+        case .blue:
+            reorderPix.blueInput = .b
+            reorderPix.blueChannel = channel
+        case .alpha:
+            reorderPix.alphaInput = .b
+            reorderPix.alphaChannel = channel
+        }
+        return reorderPix
+    }
     
 }

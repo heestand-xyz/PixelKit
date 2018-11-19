@@ -62,6 +62,7 @@ public extension PIXOut {
     
     func _kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
+        kaleidoscopePix.name = ":kaleidoscope:"
         kaleidoscopePix.inPix = self as? PIX & PIXOut
         kaleidoscopePix.divisions = divisions
         kaleidoscopePix.mirror = mirror

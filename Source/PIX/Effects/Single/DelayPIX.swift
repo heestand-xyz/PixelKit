@@ -65,6 +65,7 @@ public extension PIXOut {
     
     func _delay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
+        delayPix.name = ":delay:"
         delayPix.inPix = self as? PIX & PIXOut
         delayPix.delayFrames = frames
         return delayPix

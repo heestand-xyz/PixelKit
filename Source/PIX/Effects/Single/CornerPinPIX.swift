@@ -172,3 +172,18 @@ public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDele
     }
     
 }
+
+public extension PIXOut {
+    
+    func _cornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
+                    topRight: CGPoint = CGPoint(x: 1, y: 1),
+                    bottomLeft: CGPoint = CGPoint(x: 0, y: 0),
+                    bottomRight: CGPoint = CGPoint(x: 1, y: 0)) -> CornerPinPIX {
+        let cornerPixPix = CornerPinPIX()
+        cornerPixPix.name = ":cornerPin:"
+        cornerPixPix.inPix = self as? PIX & PIXOut
+        cornerPixPix.corners = CornerPinPIX.Corners(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+        return cornerPixPix
+    }
+    
+}

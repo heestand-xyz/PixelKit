@@ -112,6 +112,7 @@ public extension PIXOut {
     
     func _blur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
+        blurPix.name = ":blur:"
         blurPix.inPix = self as? PIX & PIXOut
         blurPix.radius = radius
         return blurPix

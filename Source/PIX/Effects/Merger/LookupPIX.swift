@@ -60,8 +60,9 @@ public class LookupPIX: PIXMergerEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _lookup(pix: PIX & PIXOut, axis: LookupPIX.Axis) -> LookupPIX {
+    func _lookup(with pix: PIX & PIXOut, axis: LookupPIX.Axis) -> LookupPIX {
         let lookupPix = LookupPIX()
+        lookupPix.name = ":lookup:"
         lookupPix.inPixA = self as? PIX & PIXOut
         lookupPix.inPixB = pix
         lookupPix.axis = axis

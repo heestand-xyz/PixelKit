@@ -114,3 +114,21 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     }
     
 }
+
+public extension PIXOut {
+    
+    // FIXME: Create custom shader
+    func _gradientMap(from colorFirst: PIX.Color, to colorLast: PIX.Color) -> LookupPIX {
+        let lookupPix = LookupPIX()
+        lookupPix.name = "gradientMap:lookup"
+        lookupPix.inPixA = self as? PIX & PIXOut
+        let res: PIX.Res = Pixels.main.colorBits == ._8 ? ._256 : ._8192
+        let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
+        gradientPix.name = "gradientMap:gradient"
+        gradientPix.colorFirst = colorFirst
+        gradientPix.colorLast = colorLast
+        lookupPix.inPixB = gradientPix
+        return lookupPix
+    }
+    
+}
