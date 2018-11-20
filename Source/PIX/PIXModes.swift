@@ -10,19 +10,82 @@ import MetalPerformanceShaders
 
 extension PIX {
     
-    public enum FillMode: String, Codable {
+    public enum FillMode {
+        
         case fill
         case aspectFit
         case aspectFill
+        
         case center
+        public enum Vertical: String {
+            case bottom
+            case center
+            case top
+            var index: Int {
+                switch self {
+                case .bottom: return 0
+                case .center: return 1
+                case .top: return 2
+                }
+            }
+        }
+        public enum Horizontal: String {
+            case left
+            case center
+            case right
+            var index: Int {
+                switch self {
+                case .left: return 0
+                case .center: return 1
+                case .right: return 2
+                }
+            }
+        }
+        case place(Vertical, Horizontal)
+        
         var index: Int {
             switch self {
             case .fill: return 0
             case .aspectFit: return 1
             case .aspectFill: return 2
             case .center: return 3
+            case .place(_, _): return 4
             }
         }
+        
+        var name: String {
+            switch self {
+            case .fill: return "fill"
+            case .aspectFit: return "aspectFit"
+            case .aspectFill: return "aspectFill"
+            case .center: return "center"
+            case .place(let v, let h): return "place:\(v):\(h)"
+            }
+        }
+        
+        init(name: String) {
+            switch name {
+            case "fill": self = .fill
+            case "aspectFit": self = .aspectFit
+            case "aspectFill": self = .aspectFill
+            case "center": self = .center
+            default:
+                if name.starts(with: "place") {
+                    let subNames = name.split(separator: ":")
+                    if subNames.count == 3 {
+                        let vName = String(subNames[1])
+                        let hName = String(subNames[2])
+                        if let v = Vertical.init(rawValue: vName), let h = Horizontal.init(rawValue: hName) {
+                            self = .place(v, h)
+                            return
+                        }
+                    }
+                }
+                Pixels.main.log(.error, nil, "Bad FillMode: \"\(name)\"")
+                self = .fill
+            }
+        }
+        
     }
     
     public enum BlendingMode: String, Codable {

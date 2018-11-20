@@ -59,3 +59,18 @@ public class BlendPIX: PIXMergerEffect, PIXofaKind {
     
 }
 
+public extension PIXOut {
+    
+    func _blend(with pix: PIX & PIXOut, mode: PIX.BlendingMode, fillMode: PIX.FillMode = .aspectFit, extend: PIX.ExtendMode = .zero) -> BlendPIX {
+        let blendPix = BlendPIX()
+        blendPix.name = ":blend:"
+        blendPix.inPixA = self as? PIX & PIXOut
+        blendPix.inPixB = pix
+        blendPix.blendingMode = mode
+        blendPix.fillMode = fillMode
+        blendPix.extend = extend
+        blendPix.bypassTransform = true
+        return blendPix
+    }
+    
+}

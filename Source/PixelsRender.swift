@@ -188,6 +188,14 @@ extension Pixels {
         }
         if let mergerEffectPix = pix as? PIXMergerEffect {
             unifroms.append(Float(mergerEffectPix.fillMode.index))
+            switch mergerEffectPix.fillMode {
+            case .place(let v, let h):
+                unifroms.append(Float(v.index))
+                unifroms.append(Float(h.index))
+            default:
+                unifroms.append(0)
+                unifroms.append(0)
+            }
         }
         if pix.shaderNeedsAspect {
             unifroms.append(Float(drawableTexture.width) / Float(drawableTexture.height))

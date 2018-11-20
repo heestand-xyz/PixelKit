@@ -342,10 +342,17 @@ public class Pixels {
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {
-        let a = Vertex(x: -1.0, y: -1.0, z: 0.0, s: 0.0, t: 1.0)
-        let b = Vertex(x: 1.0, y: -1.0, z: 0.0, s: 1.0, t: 1.0)
-        let c = Vertex(x: -1.0, y: 1.0, z: 0.0, s: 0.0, t: 0.0)
-        let d = Vertex(x: 1.0, y: 1.0, z: 0.0, s: 1.0, t: 0.0)
+        #if os(iOS)
+        let vUp: CGFloat = 0.0
+        let vDown: CGFloat = 1.0
+        #elseif os(macOS)
+        let vUp: CGFloat = 1.0
+        let vDown: CGFloat = 0.0
+        #endif
+        let a = Vertex(x: -1.0, y: -1.0, z: 0.0, s: 0.0, t: vDown)
+        let b = Vertex(x: 1.0, y: -1.0, z: 0.0, s: 1.0, t: vDown)
+        let c = Vertex(x: -1.0, y: 1.0, z: 0.0, s: 0.0, t: vUp)
+        let d = Vertex(x: 1.0, y: 1.0, z: 0.0, s: 1.0, t: vUp)
         let verticesArray: Array<Vertex> = [a,b,c,b,c,d]
         var vertexData = Array<Float>()
         for vertex in verticesArray {

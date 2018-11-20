@@ -17,6 +17,8 @@ struct VertexOut{
 struct Uniforms{
     float cross;
     float place;
+    float placeY;
+    float placeX;
 };
 
 fragment float4 effectMergerCrossPIX(VertexOut out [[stage_in]],
@@ -61,6 +63,34 @@ fragment float4 effectMergerCrossPIX(VertexOut out [[stage_in]],
                 bv *= aspect_b;
                 bv /= aspect_a;
                 bv += ((1.0 / aspect_b - 1.0 / aspect_a) / 2) * aspect_b;
+            }
+            break;
+        case 3: // Center
+            bu = 0.5 + (u - 0.5) * (float(aw) / float(bw));
+            bv = 0.5 + (v - 0.5) * (float(ah) / float(bh));
+            break;
+        case 4: // Place
+            switch (int(in.placeX)) {
+                case 0: // Left
+                    bu = u * (float(aw) / float(bw));
+                    break;
+                case 1: // Center
+                    bu = 0.5 + (u - 0.5) * (float(aw) / float(bw));
+                    break;
+                case 2: // Right
+                    bu = 1.0 + (u - 1.0) * (float(aw) / float(bw));
+                    break;
+            }
+            switch (int(in.placeY)) {
+                case 0: // Bottom
+                    bv = v * (float(ah) / float(bh));
+                    break;
+                case 1: // Center
+                    bv = 0.5 + (v - 0.5) * (float(ah) / float(bh));
+                    break;
+                case 2: // Top
+                    bv = 1.0 + (v - 1.0) * (float(ah) / float(bh));
+                    break;
             }
             break;
     }
