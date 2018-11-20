@@ -48,7 +48,7 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
         Loki loki_rnd = Loki(in.seed, u * max_res, v * max_res);
         n = loki_rnd.rand();
     } else {
-        n = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 100 + in.seed * 100);
+        n = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + in.seed * 100);
         n = n / 2 + 0.5;
     }
     
@@ -61,9 +61,9 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
             Loki loki_rnd_b = Loki(in.seed + 200, u * max_res, v * max_res);
             nb = loki_rnd_b.rand();
         } else {
-            ng = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 200 + in.seed * 100);
+            ng = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 10 + in.seed);
             ng = ng / 2 + 0.5;
-            nb = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 300 + in.seed * 100);
+            nb = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 20 + in.seed);
             nb = nb / 2 + 0.5;
         }
     }

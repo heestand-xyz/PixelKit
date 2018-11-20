@@ -34,15 +34,15 @@ public class NoisePIX: PIXGenerator, PIXofaKind {
         return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
     }
     
-    // MARK: - Life Cycle
-    
-    public init(res: Res, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
-        self.seed = seed
-        self.octaves = octaves
-        self.colored = colored
-        self.random = random
-        super.init(res: res)
-    }
+//    // MARK: - Life Cycle
+//
+//    public init(res: Res, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
+//        self.seed = seed
+//        self.octaves = octaves
+//        self.colored = colored
+//        self.random = random
+//        super.init(res: res)
+//    }
     
     // MARK: - JSON
     
