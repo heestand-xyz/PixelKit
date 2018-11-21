@@ -105,4 +105,8 @@ public struct LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral,
         futureValue = { return CGFloat(value) }
     }
     
+    func filter(for seconds: LiveFloat) -> LiveFloat {
+        // ...
+    }
+    
 }
