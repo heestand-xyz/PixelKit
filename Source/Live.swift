@@ -17,6 +17,30 @@ public class Live {
     
     public var float: LiveFloat!
     
+//    public var touch: LivePoint?
+//    public var touchDown: LiveBool
+//    public var multiTouch: LivePointArray
+//    public var mouse: LivePoint
+//    public var mouseLeft: LiveBool
+//    public var mouseRight: LiveBool
+//
+//    public var darkMode: LiveBool
+//
+//    public var year: LiveInt!
+//    public var years: LiveFloat!
+//    public var month: LiveInt!
+//    public var months: LiveFloat!
+//    public var day: LiveInt!
+//    public var days: LiveFloat!
+//    public var hour: LiveInt!
+//    public var hours: LiveFloat!
+//    public var minute: LiveInt!
+//    public var minutes: LiveFloat!
+//    public var second: LiveInt!
+//    public var seconds: LiveFloat!
+//    public var secondsSinceLaunch: LiveFloat!
+//    public var secondsSince1970: LiveFloat!
+    
     init() {
         float = LiveFloat { () -> (CGFloat) in
             return CGFloat(-self.start.timeIntervalSinceNow)
