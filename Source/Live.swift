@@ -9,13 +9,11 @@
 import Foundation
 import CoreGraphics
 
-public class Live {
+public /*private*/ class Live {
     
     public static let now = Live()
     
     let start = Date()
-    
-    public var float: LiveFloat!
     
 //    public var touch: LivePoint?
 //    public var touchDown: LiveBool
@@ -27,29 +25,20 @@ public class Live {
 //    public var darkMode: LiveBool
 //
 //    public var year: LiveInt!
-//    public var years: LiveFloat!
 //    public var month: LiveInt!
-//    public var months: LiveFloat!
 //    public var day: LiveInt!
-//    public var days: LiveFloat!
 //    public var hour: LiveInt!
-//    public var hours: LiveFloat!
 //    public var minute: LiveInt!
-//    public var minutes: LiveFloat!
 //    public var second: LiveInt!
-//    public var seconds: LiveFloat!
-//    public var secondsSinceLaunch: LiveFloat!
-//    public var secondsSince1970: LiveFloat!
+    
+    let lf: LiveFloat
     
     init() {
-        float = LiveFloat { () -> (CGFloat) in
-            return CGFloat(-self.start.timeIntervalSinceNow)
-        }
+        lf = .secondsSinceLaunch
     }
     
     public func test() {
-        let x: LiveFloat = 2
-        print(x, float)
+        print(lf)
     }
     
 }
@@ -58,45 +47,62 @@ extension CGFloat {
     
 }
 
-public class LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
-    
-    let literal: Bool
+public struct LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
     
     public var description: String {
-        return literal ? "Float(\(native))" : "LiveFloat(\(native))"
+        return "\(value)"
     }
-    //Equatable, Comparable { //}: ExpressibleByFloatLiteral {
     
-    public typealias NativeType = CGFloat
-    public var native: LiveFloat.NativeType
+//    public typealias NativeType = CGFloat
+//    public var native: LiveFloat.NativeType
     
-//    public var value: CGFloat {
-//        return future()
-//    }
-//    let future: () -> (CGFloat)
+    
+    var futureValue: () -> (CGFloat)
+    public var value: CGFloat {
+        return futureValue()
+    }
+    
+    var liveValue: CGFloat {
+        mutating get {
+            liveLast = value
+            return value
+        }
+    }
+    var newLive: Bool {
+        return liveLast != value
+    }
+    var liveLast: CGFloat? = nil
+    
+    
+    //    public var years: LiveFloat!
+    //    public var months: LiveFloat!
+    //    public var days: LiveFloat!
+    //    public var hours: LiveFloat!
+    //    public var minutes: LiveFloat!
+    //    public var seconds: LiveFloat!
+    public static var secondsSinceLaunch: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return Pixels.main.seconds
+        })
+    }
+    public static var secondsSince1970: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return CGFloat(-Date().timeIntervalSince1970)
+        })
+    }
+
     
     public init(_ futureValue: @escaping () -> (CGFloat)) {
-        native = futureValue()
-//        future = futureValue
-        literal = false
+        self.futureValue = futureValue
+        
     }
     
-    init(_ futureValue: @escaping () -> (CGFloat), literal: Bool) {
-        native = futureValue()
-        //        future = futureValue
-        self.literal = literal
+    public init(floatLiteral value: FloatLiteralType) {
+        futureValue = { return CGFloat(value) }
     }
     
-    required public convenience init(floatLiteral value: FloatLiteralType) {
-        self.init({ () -> (CGFloat) in
-            return CGFloat(value)
-        }, literal: true)
-    }
-    
-    required public convenience init(integerLiteral value: IntegerLiteralType) {
-        self.init({ () -> (CGFloat) in
-            return CGFloat(value)
-        }, literal: true)
+    public init(integerLiteral value: IntegerLiteralType) {
+        futureValue = { return CGFloat(value) }
     }
     
 }

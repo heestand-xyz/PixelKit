@@ -16,7 +16,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     // MARK: - Public Properties
     
-    public var radius: CGFloat = sqrt(0.75) / 4 { didSet { setNeedsRender() } }
+    public var radius: LiveFloat = 0.5 /* sqrt(0.75) / 4 */ { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: CGFloat = 0.0 { didSet { setNeedsRender() } } // CHECK radius is not diameter
     public var color: Color = .white { didSet { setNeedsRender() } }
@@ -30,7 +30,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     }
     
     open override var uniforms: [CGFloat] {
-        var vals = [radius, position.x, position.y, edgeRadius]
+        var vals = [radius.value, position.x, position.y, edgeRadius]
         vals.append(contentsOf: color.list)
         vals.append(contentsOf: edgeColor.list)
         vals.append(contentsOf: bgColor.list)
@@ -42,7 +42,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     required convenience init(from decoder: Decoder) throws {
         self.init(res: ._128) // CHECK
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        radius = try container.decode(CGFloat.self, forKey: .radius)
+//        radius = try container.decode(CGFloat.self, forKey: .radius)
         position = try container.decode(CGPoint.self, forKey: .position)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
         color = try container.decode(Color.self, forKey: .color)
@@ -53,7 +53,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(radius, forKey: .radius)
+//        try container.encode(radius, forKey: .radius)
         try container.encode(position, forKey: .position)
         try container.encode(edgeRadius, forKey: .edgeRadius)
         try container.encode(color, forKey: .color)
