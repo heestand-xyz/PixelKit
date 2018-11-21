@@ -174,7 +174,7 @@ Note that compared to native UIKit views the vertical axis is flipped.
 A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
-| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `<>` | `><` | `--` |
+| `&` | `!&` | `+` | `-` | `*` | `**` | `***` | `%` | `<>` | `><` | `--` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 

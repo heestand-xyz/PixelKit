@@ -32,8 +32,8 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     }
     
     public struct ColorStep: Codable {
-        public let color: Color
-        public let fraction: CGFloat
+        public var color: Color
+        public var fraction: CGFloat
         public init(_ color: Color, at fraction: CGFloat) {
             self.color = color
             self.fraction = fraction
@@ -41,10 +41,10 @@ public class GradientPIX: PIXGenerator, PIXofaKind {
     }
     
     public struct ColorSteps: Codable {
-        public let a: ColorStep?
-        public let b: ColorStep?
-        public let c: ColorStep?
-        public let d: ColorStep?
+        public var a: ColorStep?
+        public var b: ColorStep?
+        public var c: ColorStep?
+        public var d: ColorStep?
         public init(_ a: ColorStep, _ b: ColorStep? = nil, _ c: ColorStep? = nil, _ d: ColorStep? = nil) {
             self.a = a
             self.b = b

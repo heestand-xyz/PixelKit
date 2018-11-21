@@ -55,7 +55,7 @@ public class TransformPIX: PIXSingleEffect, PIXofaKind {
 
 public extension PIXOut {
     
-    func _position(at position: CGPoint) -> TransformPIX {
+    func _move(by position: CGPoint) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "position:transform"
         transformPix.inPix = self as? PIX & PIXOut
@@ -63,7 +63,7 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _rotatate(to rotation: CGFloat) -> TransformPIX {
+    func _rotatate(by rotation: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "rotatate:transform"
         transformPix.inPix = self as? PIX & PIXOut
