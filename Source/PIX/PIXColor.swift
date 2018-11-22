@@ -489,6 +489,14 @@ public extension PIX {
                 r: lhs.r - rhs.r,
                 g: lhs.g - rhs.g,
                 b: lhs.b - rhs.b,
+                a: lhs.a,
+                space: lhs.space)
+        }
+        public static func --(lhs: Color, rhs: Color) -> Color {
+            return Color(
+                r: lhs.r - rhs.r,
+                g: lhs.g - rhs.g,
+                b: lhs.b - rhs.b,
                 a: lhs.a - rhs.a,
                 space: lhs.space)
         }
@@ -510,6 +518,14 @@ public extension PIX {
                 space: lhs.space)
         }
         public static func -(lhs: Color, rhs: CGFloat) -> Color {
+            return Color(
+                r: lhs.r - rhs,
+                g: lhs.g - rhs,
+                b: lhs.b - rhs,
+                a: lhs.a,
+                space: lhs.space)
+        }
+        public static func --(lhs: Color, rhs: CGFloat) -> Color {
             return Color(
                 r: lhs.r - rhs,
                 g: lhs.g - rhs,
@@ -589,6 +605,33 @@ public extension PIX {
             lhs.g /= rhs
             lhs.b /= rhs
             lhs.a /= rhs
+        }
+        
+        public prefix static func - (operand: Color) -> Color {
+            return Color(
+                r: -operand.r,
+                g: -operand.g,
+                b: -operand.b,
+                a: operand.a,
+                space: operand.space)
+        }
+        
+        public prefix static func -- (operand: Color) -> Color {
+            return Color(
+                r: -operand.r,
+                g: -operand.g,
+                b: -operand.b,
+                a: -operand.a,
+                space: operand.space)
+        }
+        
+        public prefix static func ! (operand: Color) -> Color {
+            return Color(
+                r: 1.0 - operand.r,
+                g: 1.0 - operand.g,
+                b: 1.0 - operand.b,
+                a: operand.a,
+                space: operand.space)
         }
         
     }

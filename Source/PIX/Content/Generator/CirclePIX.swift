@@ -16,7 +16,7 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
     
     // MARK: - Public Properties
     
-    public var radius: LiveFloat = 0.5 /* sqrt(0.75) / 4 */ { didSet { setNeedsRender() } }
+    public var radius: LiveFloat = 0.5 /*sqrt(0.75) / 4*/ { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: CGFloat = 0.0 { didSet { setNeedsRender() } } // CHECK radius is not diameter
     public var color: Color = .white { didSet { setNeedsRender() } }

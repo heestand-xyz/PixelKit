@@ -199,4 +199,13 @@ public extension PIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .divide)
     }
     
+    public prefix static func ! (operand: PIX) -> PIX {
+        guard let pix = operand as? PIXOut else {
+            let black = ColorPIX(res: ._128)
+            black.color = .black
+            return black
+        }
+        return pix._inverted()
+    }
+    
 }

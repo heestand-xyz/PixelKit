@@ -54,10 +54,22 @@ protocol LiveValue {
     
 }
 
-public struct LiveFloat: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
+protocol LiveValueConvertable {
+//    func *(lhs: Self, rhs: Self) -> Self
+    init(_: FloatLiteralType)
+}
+
+//extension Double : LiveValueConvertable {}
+//extension Float : LiveValueConvertable {}
+//extension CGFloat : LiveValueConvertable {}
+
+public struct LiveFloat: LiveValue, Equatable, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
+    
+//    public typealias FloatLiteralType = Double
+//    public typealias IntegerLiteralType = Int
     
     public var description: String {
-        return "\(value)"
+        return "live(\(value))"
     }
     
 //    public typealias NativeType = CGFloat
@@ -112,8 +124,52 @@ public struct LiveFloat: LiveValue, ExpressibleByFloatLiteral, ExpressibleByInte
         futureValue = { return CGFloat(value) }
     }
     
+//    public init(_ value: Double) {
+//        futureValue = { return CGFloat(value) }
+//    }
+    
 //    func filter(for seconds: LiveFloat) -> LiveFloat {
 //        // ...
+//    }
+    
+    public static func == (lhs: LiveFloat, rhs: LiveFloat) -> Bool {
+        return lhs.value == rhs.value
+    }
+    
+    public static func + (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value + rhs.value })
+    }
+    public static func - (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value - rhs.value })
+    }
+    
+    public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value * rhs.value })
+    }
+    public static func / (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value / rhs.value })
+    }
+    
+    public static func ** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return pow(lhs.value, rhs.value) })
+    }
+    public static func !** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return pow(lhs.value, 1.0 / rhs.value) })
+    }
+    
+    public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return min(lhs.value, rhs.value) })
+    }
+    public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return max(lhs.value, rhs.value) })
+    }
+    
+    public prefix static func - (operand: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return -operand.value })
+    }
+    
+//    static func pow(_ value: LiveFloat, _ powerValue: LiveFloat) {
+//        return LiveFloat({ return pow(value, powerValue) })
 //    }
     
 }
