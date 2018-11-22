@@ -6,7 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import AVKit
+import AVFoundation
+//import AVKit
 
 #if os(iOS)
 typealias _Orientation = UIInterfaceOrientation
@@ -164,23 +165,36 @@ public class CameraPIX: PIXResource, PIXofaKind {
     
     func requestAccess(gotAccess: @escaping () -> ()) {
         if #available(OSX 10.14, *) {
-            AVCaptureDevice.requestAccess(for: .video) { accessGranted in
-                if accessGranted {
-                    gotAccess()
-                } else {
-                    self.pixels.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized:
+                gotAccess()
+                access = true
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { accessGranted in
+                    if accessGranted {
+                        gotAccess()
+                    } else {
+                        self.pixels.log(pix: self, .warning, .resource, "Camera access not granted.")
+                    }
+                    self.access = accessGranted
                 }
-                self.access = accessGranted
+            case .denied:
+                access = false
+                pixels.log(pix: self, .warning, .resource, "Camera access denied.")
+            case .restricted:
+                access = false
+                pixels.log(pix: self, .warning, .resource, "Camera access restricted.")
             }
         } else {
             gotAccess()
-            self.access = true
+            access = true
         }
     }
     
     // MARK: Setup
     
-    func setupCamera() {
+    // FIXME: make private
+    public func setupCamera() {
         if !access {
             requestAccess {
                 DispatchQueue.main.async {
