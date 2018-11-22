@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class MetalEffectPIX: PIXSingleEffect, PIXMetal, PIXofaKind {
+public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     
     let kind: PIX.Kind = .metalEffect
     

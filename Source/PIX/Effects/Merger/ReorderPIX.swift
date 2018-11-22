@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ReorderPIX: PIXMergerEffect, PIXofaKind {
+public class ReorderPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .reorder
     

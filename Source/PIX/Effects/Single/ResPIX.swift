@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ResPIX: PIXSingleEffect, PIXofaKind {
+public class ResPIX: PIXSingleEffect {
 
     let kind: PIX.Kind = .res
     

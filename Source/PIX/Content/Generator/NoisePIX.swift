@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class NoisePIX: PIXGenerator, PIXofaKind {
+public class NoisePIX: PIXGenerator {
     
     var kind: PIX.Kind = .noise
     

@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class SharpenPIX: PIXSingleEffect, PIXofaKind {
+public class SharpenPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .sharpen
     

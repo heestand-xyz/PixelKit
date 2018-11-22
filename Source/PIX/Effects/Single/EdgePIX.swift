@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class EdgePIX: PIXSingleEffect, PIXofaKind {
+public class EdgePIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .edge
     

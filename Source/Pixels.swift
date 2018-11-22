@@ -45,10 +45,11 @@ public class Pixels {
     
     // MARK: Log
     
+    public var logActive: Bool = true
     public var logLevel: LogLevel = .error
-    
+    public var logSource: Bool = false
     public var logLoopLimitActive = true
-    public var logLoopLimitFrameCount = 10
+    public var logLoopLimitFrameCount = 30
     var logLoopLimitIndicated = false
 
     public var logTime = false
@@ -160,7 +161,7 @@ public class Pixels {
         CVDisplayLinkStart(displayLink!)
         #endif
         
-        log(.info, .pixels, signature.version, clean: true)
+        log(.info, .pixels, "\(signature.version)  Ready to render.", clean: true)
         
     }
 

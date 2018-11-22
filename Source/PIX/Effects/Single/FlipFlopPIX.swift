@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class FlipFlopPIX: PIXSingleEffect, PIXofaKind {
+public class FlipFlopPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .flipFlop
     

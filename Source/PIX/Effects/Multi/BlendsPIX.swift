@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class BlendsPIX: PIXMultiEffect, PIXofaKind {
+public class BlendsPIX: PIXMultiEffect {
     
     let kind: PIX.Kind = .blends
     

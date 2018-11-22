@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class RangePIX: PIXSingleEffect, PIXofaKind {
+public class RangePIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .range
     

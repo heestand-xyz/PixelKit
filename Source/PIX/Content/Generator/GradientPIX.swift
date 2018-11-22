@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class GradientPIX: PIXGenerator, PIXofaKind {
+public class GradientPIX: PIXGenerator {
     
     var kind: PIX.Kind = .gradient
     

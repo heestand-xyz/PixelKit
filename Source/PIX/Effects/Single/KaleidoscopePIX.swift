@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class KaleidoscopePIX: PIXSingleEffect, PIXofaKind {
+public class KaleidoscopePIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .kaleidoscope
     

@@ -9,7 +9,7 @@
 import CoreGraphics
 import Metal
 
-public class DelayPIX: PIXSingleEffect, PIXofaKind, PixelsCustomRenderDelegate {
+public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     let kind: PIX.Kind = .delay
     

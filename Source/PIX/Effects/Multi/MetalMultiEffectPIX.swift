@@ -10,7 +10,7 @@ import Foundation
 
 import CoreGraphics
 
-public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal, PIXofaKind {
+public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     
     let kind: PIX.Kind = .metalMultiEffect
     

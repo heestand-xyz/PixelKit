@@ -9,7 +9,7 @@
 //import UIKit
 import AVKit
 
-public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
+public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     
     let kind: PIX.Kind = .rec
     

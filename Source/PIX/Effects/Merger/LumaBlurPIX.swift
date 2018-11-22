@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class LumaBlurPIX: PIXMergerEffect, PIXofaKind {
+public class LumaBlurPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .lumaBlur
     

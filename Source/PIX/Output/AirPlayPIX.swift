@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class AirPlayPIX: PIXOutput, PIXofaKind {
+public class AirPlayPIX: PIXOutput {
     
     let kind: PIX.Kind = .airPlay
     

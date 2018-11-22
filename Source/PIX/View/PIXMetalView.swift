@@ -56,7 +56,7 @@ class PIXMetalView: MTKView {
         autoreleasepool { // CHECK
             if rect.width > 0 && rect.height > 0 {
                 if res != nil {
-                    pixels.log(.info, .view, "Ready to Render.", loop: true)
+                    pixels.log(.detail, .view, "Ready to Render.", loop: true)
                     readyToRender?()
                 } else {
                     pixels.log(.warning, .view, "Draw: Resolution not set.", loop: true)

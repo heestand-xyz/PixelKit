@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class BlendPIX: PIXMergerEffect, PIXofaKind {
+public class BlendPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .blend
     

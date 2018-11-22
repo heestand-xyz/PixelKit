@@ -51,7 +51,7 @@ extension PIX {
     func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
             if pixels.frame == 0 {
-                pixels.log(pix: self, .info, .res, "Waiting for potential layout, delayed one frame.")
+                pixels.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
                 pixels.delay(frames: 1, done: {
                     self.applyRes(applied: applied)
                 })
@@ -61,7 +61,7 @@ extension PIX {
             return
         }
         view.setRes(res)
-        pixels.log(pix: self, .info, .res, "Applied: \(res)")
+        pixels.log(pix: self, .detail, .res, "Applied: \(res)")
         applied()
         delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

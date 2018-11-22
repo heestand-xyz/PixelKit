@@ -14,9 +14,9 @@ public protocol PIXDelegate: class {
     func pixDidRender(_ pix: PIX)
 }
 
-protocol PIXofaKind {
-    var kind: PIX.Kind { get }
-}
+//protocol PIXofaKind {
+//    var kind: PIX.Kind { get }
+//}
 
 public protocol PIXIn {}
 public protocol PIXOut {}

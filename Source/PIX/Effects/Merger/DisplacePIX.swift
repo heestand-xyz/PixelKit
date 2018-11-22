@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class DisplacePIX: PIXMergerEffect, PIXofaKind {
+public class DisplacePIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .displace
     

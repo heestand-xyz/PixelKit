@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ColorPIX: PIXGenerator, PIXofaKind {
+public class ColorPIX: PIXGenerator {
     
     var kind: PIX.Kind = .color
     

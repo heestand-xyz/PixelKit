@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class MetalPIX: PIXGenerator, PIXMetal, PIXofaKind {
+public class MetalPIX: PIXGenerator, PIXMetal {
     
     var kind: PIX.Kind = .metal
     

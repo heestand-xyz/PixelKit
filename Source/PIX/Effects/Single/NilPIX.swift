@@ -6,7 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-public class NilPIX: PIXSingleEffect, PIXofaKind {
+public class NilPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .nil
     

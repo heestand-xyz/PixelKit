@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CropPIX: PIXSingleEffect, PIXofaKind {
+public class CropPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .crop
     

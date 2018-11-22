@@ -52,6 +52,7 @@ extension Pixels {
         case warning = "WARNING"
         case error = "ERROR"
         case fatal = "FATAL"
+        case detail = "DETAIL"
         public var index: Int {
             switch self {
             case .info: return 0
@@ -59,6 +60,7 @@ extension Pixels {
             case .warning: return 2
             case .error: return 3
             case .fatal: return 4
+            case .detail: return 5
             }
         }
     }
@@ -77,6 +79,13 @@ extension Pixels {
         case metal = "Metal"
     }
     
+    public func logAll() {
+        Pixels.main.logLoopLimitActive = false
+        Pixels.main.logTime = true
+        Pixels.main.logPadding = true
+        Pixels.main.logSource = true
+    }
+    
     public func log(prefix: String = "Pixels", pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
         let time = Date()
@@ -90,7 +99,7 @@ extension Pixels {
             fatalError(formatClean(log: log))
         }
         
-        if level.index > logLevel.index {
+        guard logActive && level.index <= logLevel.index else {
             return
         }
         
@@ -196,13 +205,12 @@ extension Pixels {
             logList.append("Error: \"\(e)\"")
         }
         
-        if logPadding { padding += 50; logList.append(spaces(tc + ext + padding - logLength(logList))) }
-        else { logList.append("<<<") }
-        
-//        #if DEBUG
-        let fileName = log.codeRef.file.split(separator: "/").last!
-        logList.append("\(fileName):\(log.codeRef.function):\(log.codeRef.line)")
-//        #endif
+        if logSource {
+            if logPadding { padding += 50; logList.append(spaces(tc + ext + padding - logLength(logList))) }
+            else { logList.append("<<<") }
+            let fileName = log.codeRef.file.split(separator: "/").last!
+            logList.append("\(fileName):\(log.codeRef.function):\(log.codeRef.line)")
+        }
         
         var log = ""
         for (i, subLog) in logList.enumerated() {

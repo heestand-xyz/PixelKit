@@ -9,7 +9,7 @@
 import CoreGraphics
 import Metal
 
-public class FeedbackPIX: PIXSingleEffect, PIXofaKind {
+public class FeedbackPIX: PIXSingleEffect {
     
     var kind: PIX.Kind = .feedback
     

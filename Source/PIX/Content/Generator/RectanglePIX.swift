@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class RectanglePIX: PIXGenerator, PIXofaKind {
+public class RectanglePIX: PIXGenerator {
     
     var kind: PIX.Kind = .rectangle
     

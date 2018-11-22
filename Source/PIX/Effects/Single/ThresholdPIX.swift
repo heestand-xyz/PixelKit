@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ThresholdPIX: PIXSingleEffect, PIXofaKind {
+public class ThresholdPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .threshold
     

@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ChannelMixPIX: PIXSingleEffect, PIXofaKind {
+public class ChannelMixPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .channelMix
     

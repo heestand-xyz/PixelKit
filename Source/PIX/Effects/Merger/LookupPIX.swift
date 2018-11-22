@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class LookupPIX: PIXMergerEffect, PIXofaKind {
+public class LookupPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .lookup
     

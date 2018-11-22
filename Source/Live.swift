@@ -43,22 +43,25 @@ public /*private*/ class Live {
     
 }
 
-protocol LiveValue {
+
+
+
+protocol LiveValue: Codable {
     
     var futureValue: () -> (CGFloat) { get set }
     var value: CGFloat { get }
     
-    var liveValue: CGFloat { mutating get }
-    var liveIsNew: Bool { get }
-    var liveLast: CGFloat? { get set }
+    var pxv: CGFloat { mutating get }
+    var pxvIsNew: Bool { get }
+    var pxvCache: CGFloat? { get set }
     
 }
 
-protocol LiveValueConvertable {
-//    func *(lhs: Self, rhs: Self) -> Self
-    init(_: FloatLiteralType)
-}
-
+//protocol LiveValueConvertable {
+////    func *(lhs: Self, rhs: Self) -> Self
+//    init(_: FloatLiteralType)
+//}
+//
 //extension Double : LiveValueConvertable {}
 //extension Float : LiveValueConvertable {}
 //extension CGFloat : LiveValueConvertable {}
@@ -81,16 +84,16 @@ public struct LiveFloat: LiveValue, Equatable, ExpressibleByFloatLiteral, Expres
         return futureValue()
     }
     
-    var liveValue: CGFloat {
+    var pxv: CGFloat {
         mutating get {
-            liveLast = value
+            pxvCache = value
             return value
         }
     }
-    var liveIsNew: Bool {
-        return liveLast != value
+    var pxvIsNew: Bool {
+        return pxvCache != value
     }
-    var liveLast: CGFloat? = nil
+    var pxvCache: CGFloat? = nil
     
     
     //    public var years: LiveFloat!
@@ -128,6 +131,31 @@ public struct LiveFloat: LiveValue, Equatable, ExpressibleByFloatLiteral, Expres
 //        futureValue = { return CGFloat(value) }
 //    }
     
+    enum CodingKeys: String, CodingKey {
+        case rawValue; case liveKey
+    }
+    
+    required convenience init(from decoder: Decoder) throws {
+//        self.init(
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        //        radius = try container.decode(CGFloat.self, forKey: .radius)
+        position = try container.decode(CGPoint.self, forKey: .position)
+        //        edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
+        color = try container.decode(Color.self, forKey: .color)
+        edgeColor = try container.decode(Color.self, forKey: .edgeColor)
+        bgColor = try container.decode(Color.self, forKey: .bgColor)
+        setNeedsRender()
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if value..
+        try container.encode(position, forKey: .rawValue)
+        try container.encode(color, forKey: .liveKey)
+        try container.encode(edgeColor, forKey: .edgeColor)
+        try container.encode(bgColor, forKey: .bgColor)
+    }
+    
 //    func filter(for seconds: LiveFloat) -> LiveFloat {
 //        // ...
 //    }
@@ -135,41 +163,63 @@ public struct LiveFloat: LiveValue, Equatable, ExpressibleByFloatLiteral, Expres
     public static func == (lhs: LiveFloat, rhs: LiveFloat) -> Bool {
         return lhs.value == rhs.value
     }
+    public static func == (lhs: LiveFloat, rhs: CGFloat) -> Bool {
+        return lhs.value == rhs
+    }
+    public static func == (lhs: CGFloat, rhs: LiveFloat) -> Bool {
+        return lhs == rhs.value
+    }
+    
     
     public static func + (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return lhs.value + rhs.value })
     }
+    
     public static func - (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return lhs.value - rhs.value })
     }
     
+    
     public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return lhs.value * rhs.value })
     }
+    
     public static func / (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return lhs.value / rhs.value })
     }
+    public static func / (lhs: LiveFloat, rhs: CGFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value / rhs })
+    }
+    public static func / (lhs: CGFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs / rhs.value })
+    }
+    
     
     public static func ** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return pow(lhs.value, rhs.value) })
     }
+    
     public static func !** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return pow(lhs.value, 1.0 / rhs.value) })
     }
     
+    
     public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return min(lhs.value, rhs.value) })
     }
+    
     public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return max(lhs.value, rhs.value) })
     }
+    
     
     public prefix static func - (operand: LiveFloat) -> LiveFloat {
         return LiveFloat({ return -operand.value })
     }
     
-//    static func pow(_ value: LiveFloat, _ powerValue: LiveFloat) {
-//        return LiveFloat({ return pow(value, powerValue) })
-//    }
+    
+    static func sqrt(_ live: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return Darwin.sqrt(live.value) })
+    }
     
 }

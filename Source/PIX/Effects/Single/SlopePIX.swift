@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class SlopePIX: PIXSingleEffect, PIXofaKind {
+public class SlopePIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .slope
     

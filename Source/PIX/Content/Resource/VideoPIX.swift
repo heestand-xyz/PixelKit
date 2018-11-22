@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-public class VideoPIX: PIXResource, PIXofaKind {
+public class VideoPIX: PIXResource {
     
     var kind: PIX.Kind = .video
     

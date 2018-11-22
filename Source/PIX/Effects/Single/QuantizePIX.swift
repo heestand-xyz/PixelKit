@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class QuantizePIX: PIXSingleEffect, PIXofaKind {
+public class QuantizePIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .quantize
     

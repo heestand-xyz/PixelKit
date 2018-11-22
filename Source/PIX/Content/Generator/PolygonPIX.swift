@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PolygonPIX: PIXGenerator, PIXofaKind {
+public class PolygonPIX: PIXGenerator {
     
     var kind: PIX.Kind = .polygon
     

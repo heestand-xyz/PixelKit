@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class HueSaturationPIX: PIXSingleEffect, PIXofaKind {
+public class HueSaturationPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .hueSaturation
     

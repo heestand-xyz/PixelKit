@@ -14,7 +14,7 @@ typealias _Orientation = UIInterfaceOrientation
 typealias _Orientation = Void
 #endif
 
-public class CameraPIX: PIXResource, PIXofaKind {
+public class CameraPIX: PIXResource {
     
     let kind: PIX.Kind = .camera
     

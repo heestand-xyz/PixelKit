@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class TwirlPIX: PIXSingleEffect, PIXofaKind {
+public class TwirlPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .twirl
     

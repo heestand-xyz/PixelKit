@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class LevelsPIX: PIXSingleEffect, PIXofaKind {
+public class LevelsPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .levels
     

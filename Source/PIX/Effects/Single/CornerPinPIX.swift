@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CornerPinPIX: PIXSingleEffect, PIXofaKind, PixelsCustomGeometryDelegate {
+public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     
     let kind: PIX.Kind = .cornerPin
     

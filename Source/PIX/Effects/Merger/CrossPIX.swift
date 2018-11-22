@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CrossPIX: PIXMergerEffect, PIXofaKind {
+public class CrossPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .cross
     

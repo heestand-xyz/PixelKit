@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class TransformPIX: PIXSingleEffect, PIXofaKind {
+public class TransformPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .transform
     

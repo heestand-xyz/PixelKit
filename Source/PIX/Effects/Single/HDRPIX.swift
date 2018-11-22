@@ -8,7 +8,7 @@
 
 //import CoreGraphics
 //
-//public class HDRPIX: PIXSingleEffect, PIXofaKind {
+//public class HDRPIX: PIXSingleEffect {
 //    
 //    let kind: PIX.Kind = .hdr
 //    

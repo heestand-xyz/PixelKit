@@ -96,7 +96,7 @@ open class PIX: Codable {
             
         pixels.add(pix: self)
         
-        pixels.log(pix: self, .info, nil, "Linked with Pixels.", clean: true)
+        pixels.log(pix: self, .detail, nil, "Linked with Pixels.", clean: true)
     
     }
     
@@ -128,7 +128,7 @@ open class PIX: Codable {
             return
         }
         guard !needsRender else {
-            pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
+//            pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
         guard resolution != nil else {
@@ -149,7 +149,7 @@ open class PIX: Codable {
                 return
             }
         }
-        pixels.log(pix: self, .info, .render, "Requested.", loop: true)
+        pixels.log(pix: self, .detail, .render, "Requested.", loop: true)
 //        delegate?.pixWillRender(self)
         needsRender = true
     }
@@ -284,7 +284,7 @@ open class PIX: Codable {
     
     func checkLive() {
         for liveValue in liveValues {
-            if liveValue.liveIsNew {
+            if liveValue.pxvIsNew {
                 setNeedsRender()
                 break
             }

@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ChromaKeyPIX: PIXSingleEffect, PIXofaKind {
+public class ChromaKeyPIX: PIXSingleEffect {
     
     let kind: PIX.Kind = .chromaKey
     

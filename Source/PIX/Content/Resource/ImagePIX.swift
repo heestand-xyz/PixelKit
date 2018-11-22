@@ -12,7 +12,7 @@ import UIKit
 import AppKit
 #endif
 
-public class ImagePIX: PIXResource, PIXofaKind {
+public class ImagePIX: PIXResource {
     
     var kind: PIX.Kind = .image
     

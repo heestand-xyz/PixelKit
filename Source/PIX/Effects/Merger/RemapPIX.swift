@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class RemapPIX: PIXMergerEffect, PIXofaKind {
+public class RemapPIX: PIXMergerEffect {
     
     let kind: PIX.Kind = .remap
     
