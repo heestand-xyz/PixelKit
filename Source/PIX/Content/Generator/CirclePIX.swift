@@ -29,8 +29,12 @@ public class CirclePIX: PIXGenerator, PIXofaKind {
         case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
     }
     
+    override var liveValues: [LiveValue] {
+        return [radius]
+    }
+    
     open override var uniforms: [CGFloat] {
-        var vals = [radius.value, position.x, position.y, edgeRadius]
+        var vals = [radius.liveValue, position.x, position.y, edgeRadius]
         vals.append(contentsOf: color.list)
         vals.append(contentsOf: edgeColor.list)
         vals.append(contentsOf: bgColor.list)

@@ -173,11 +173,18 @@ public class Pixels {
             for frameCallback in self.frameCallbacks {
                 frameCallback.callback()
             }
+            self.checkAllLive()
             self.renderPIXs()
         }
 //        DispatchQueue(label: "pixels-frame-loop").async {}
         calcFPS()
         frame += 1
+    }
+    
+    func checkAllLive() {
+        for pix in linkedPixs {
+            pix.checkLive()
+        }
     }
     
     func calcFPS() {

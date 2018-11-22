@@ -20,6 +20,7 @@ open class PIX: Codable {
     let pixels = Pixels.main
     
     open var shader: String { return "" }
+    var liveValues: [LiveValue] { return [] }
     open var uniforms: [CGFloat] { return [] }
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
@@ -277,6 +278,17 @@ open class PIX: Codable {
     
     public static func !=(lhs: PIX, rhs: PIX) -> Bool {
         return lhs.id != rhs.id
+    }
+    
+    // MARK: Live
+    
+    func checkLive() {
+        for liveValue in liveValues {
+            if liveValue.liveIsNew {
+                setNeedsRender()
+                break
+            }
+        }
     }
     
     // MARK: Clean

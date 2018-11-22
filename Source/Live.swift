@@ -43,11 +43,18 @@ public /*private*/ class Live {
     
 }
 
-extension CGFloat {
+protocol LiveValue {
+    
+    var futureValue: () -> (CGFloat) { get set }
+    var value: CGFloat { get }
+    
+    var liveValue: CGFloat { mutating get }
+    var liveIsNew: Bool { get }
+    var liveLast: CGFloat? { get set }
     
 }
 
-public struct LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
+public struct LiveFloat: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
     
     public var description: String {
         return "\(value)"
@@ -68,7 +75,7 @@ public struct LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral,
             return value
         }
     }
-    var newLive: Bool {
+    var liveIsNew: Bool {
         return liveLast != value
     }
     var liveLast: CGFloat? = nil
@@ -105,8 +112,8 @@ public struct LiveFloat: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral,
         futureValue = { return CGFloat(value) }
     }
     
-    func filter(for seconds: LiveFloat) -> LiveFloat {
-        // ...
-    }
+//    func filter(for seconds: LiveFloat) -> LiveFloat {
+//        // ...
+//    }
     
 }
