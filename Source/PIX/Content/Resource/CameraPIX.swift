@@ -6,8 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import AVFoundation
-//import AVKit
+import AVKit
 
 #if os(iOS)
 typealias _Orientation = UIInterfaceOrientation
