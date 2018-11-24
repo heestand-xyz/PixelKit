@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
-    
-    let kind: PIX.Kind = .cornerPin
     
     override open var shader: String { return "nilPIX" }
     

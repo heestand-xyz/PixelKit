@@ -10,8 +10,6 @@ import AVFoundation
 
 public class VideoPIX: PIXResource {
     
-    var kind: PIX.Kind = .video
-    
     override open var shader: String { return "nilPIX" }
     
     // MARK: - Private Properties

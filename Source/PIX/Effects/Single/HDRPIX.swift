@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-//import CoreGraphics
-//
+////
 //public class HDRPIX: PIXSingleEffect {
-//    
-//    let kind: PIX.Kind = .hdr
 //    
 //    override open var shader: String { return "effectSingleHDRPIX" }
     

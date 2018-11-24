@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
-    
-    let kind: PIX.Kind = .metalMergerEffect
     
     let metalFileName = "EffectMergerMetalPIX.metal"
     override open var shader: String { return "effectMergerMetalPIX" }

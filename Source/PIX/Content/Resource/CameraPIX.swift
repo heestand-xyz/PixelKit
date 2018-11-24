@@ -15,9 +15,7 @@ typealias _Orientation = Void
 #endif
 
 public class CameraPIX: PIXResource {
-    
-    let kind: PIX.Kind = .camera
-    
+        
     override open var shader: String { return "contentResourceCameraPIX" }
     
     // MARK: - Private Properties
@@ -274,7 +272,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         sessionOutput.alwaysDiscardsLateVideoFrames = true
-        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.colorBits.os]
+        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
         
         #if os(iOS)
         let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)

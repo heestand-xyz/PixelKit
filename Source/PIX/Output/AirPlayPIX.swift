@@ -10,8 +10,6 @@ import UIKit
 
 public class AirPlayPIX: PIXOutput {
     
-    let kind: PIX.Kind = .airPlay
-    
     // MARK: - Private Properties
     
     var isConnected: Bool

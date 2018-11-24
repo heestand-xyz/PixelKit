@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
-    
-    let kind: PIX.Kind = .metalEffect
     
     override open var shader: String { return "effectSingleMetalPIX" }
     

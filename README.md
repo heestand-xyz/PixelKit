@@ -249,7 +249,7 @@ Note that exporting resourses like image and video are not yet supported.
 
 Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>
 The default is 8 bits. Change it like this:
-`Pixels.main.colorBits = ._16`
+`Pixels.main.bits = ._16`
 
 Enable high bit mode before you create any PIXs.
 

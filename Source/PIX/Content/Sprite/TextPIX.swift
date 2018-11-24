@@ -10,8 +10,6 @@ import SpriteKit
 
 public class TextPIX: PIXSprite {
     
-    var kind: PIX.Kind = .text
-    
     // MARK: - Private Properties
     
     let label: SKLabelNode

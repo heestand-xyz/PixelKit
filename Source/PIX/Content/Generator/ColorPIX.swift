@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class ColorPIX: PIXGenerator {
-    
-    var kind: PIX.Kind = .color
     
     override open var shader: String { return "contentGeneratorColorPIX" }
     

@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class CirclePIX: PIXGenerator {
-    
-//    var kind: PIX.Kind = .circle
     
     override open var shader: String { return "contentGeneratorCirclePIX" }
     

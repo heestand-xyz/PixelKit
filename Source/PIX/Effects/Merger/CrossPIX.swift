@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class CrossPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .cross
     
     override open var shader: String { return "effectMergerCrossPIX" }
     

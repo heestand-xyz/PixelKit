@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class GradientPIX: PIXGenerator {
-    
-    var kind: PIX.Kind = .gradient
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     
@@ -122,7 +119,7 @@ public extension PIXOut {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inPixA = self as? PIX & PIXOut
-        let res: PIX.Res = Pixels.main.colorBits == ._8 ? ._256 : ._8192
+        let res: PIX.Res = Pixels.main.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
         gradientPix.colorFirst = colorFirst

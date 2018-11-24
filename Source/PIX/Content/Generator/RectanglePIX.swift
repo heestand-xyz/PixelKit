@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class RectanglePIX: PIXGenerator {
-    
-    var kind: PIX.Kind = .rectangle
     
     override open var shader: String { return "contentGeneratorRectanglePIX" }
     

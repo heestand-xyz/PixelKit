@@ -37,7 +37,7 @@ class PIXMetalView: MTKView {
         
         super.init(frame: onePixelFrame, device: pixels.metalDevice)
         
-        colorPixelFormat = pixels.colorBits.mtl
+        colorPixelFormat = pixels.bits.mtl
         #if os(iOS)
         isOpaque = false
         #elseif os(macOS)

@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class RangePIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .range
     
     override open var shader: String { return "effectSingleRangePIX" }
     

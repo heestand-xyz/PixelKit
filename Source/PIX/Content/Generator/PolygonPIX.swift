@@ -6,11 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
-
 public class PolygonPIX: PIXGenerator {
-    
-    var kind: PIX.Kind = .polygon
     
     override open var shader: String { return "contentGeneratorPolygonPIX" }
     

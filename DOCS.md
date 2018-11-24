@@ -12,7 +12,7 @@ var <b>seconds</b>: CGFloat { get }<br>
 var <b>logLevel</b>: LogLevel = .debug<br>
 var <b>logLoopLimitActive</b> = true<br>
 var <b>logLoopLimitFrameCount</b> = 10<br>
-var <b>colorBits</b>: PIX.Color.Bits = ._8<br>
+var <b>bits</b>: PIX.Color.Bits = ._8<br>
 var <b>colorSpace</b>: PIX.Color.Space = .sRGB
 
 ## PixelsDelegate

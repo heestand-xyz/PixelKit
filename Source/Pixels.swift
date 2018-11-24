@@ -64,8 +64,8 @@ public class Pixels {
     
     // MARK: Color
     
-    public var colorBits: PIX.Color.Bits = ._8
-    public var colorSpace: PIX.Color.Space = .sRGB // .displayP3
+    public var bits: PIX.Color.Bits = ._8
+    var colorSpace: PIX.Color.Space = .sRGB // .displayP3
     
     // MARK: Linked PIXs
     
@@ -460,7 +460,7 @@ public class Pixels {
         let pipelineStateDescriptor = MTLRenderPipelineDescriptor()
         pipelineStateDescriptor.vertexFunction = customVertexShader ?? quadVertexShader
         pipelineStateDescriptor.fragmentFunction = fragmentShader
-        pipelineStateDescriptor.colorAttachments[0].pixelFormat = colorBits.mtl
+        pipelineStateDescriptor.colorAttachments[0].pixelFormat = bits.mtl
         pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
         pipelineStateDescriptor.colorAttachments[0].destinationRGBBlendFactor = .blendAlpha
         do {
@@ -487,7 +487,7 @@ public class Pixels {
     // MARK: - Raw
     
     func raw8(texture: MTLTexture) -> [UInt8]? {
-        guard colorBits == ._8 else { log(.error, .pixels, "Raw 8 - To access this data, change: \"pixels.colorBits = ._8\"."); return nil }
+        guard bits == ._8 else { log(.error, .pixels, "Raw 8 - To access this data, change: \"pixels.bits = ._8\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -499,7 +499,7 @@ public class Pixels {
     
     // CHECK needs testing
     func raw16(texture: MTLTexture) -> [Float]? {
-        guard colorBits == ._16 else { log(.error, .pixels, "Raw 16 - To access this data, change: \"pixels.colorBits = ._16\"."); return nil }
+        guard bits == ._16 else { log(.error, .pixels, "Raw 16 - To access this data, change: \"pixels.bits = ._16\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -511,7 +511,7 @@ public class Pixels {
     
     // CHECK needs testing
     func raw32(texture: MTLTexture) -> [float4]? {
-        guard colorBits != ._32 else { log(.error, .pixels, "Raw 32 - To access this data, change: \"pixels.colorBits = ._32\"."); return nil }
+        guard bits != ._32 else { log(.error, .pixels, "Raw 32 - To access this data, change: \"pixels.bits = ._32\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
         raw.withUnsafeMutableBytes {
@@ -523,7 +523,7 @@ public class Pixels {
     
     func rawNormalized(texture: MTLTexture) -> [CGFloat]? {
         let raw: [CGFloat]
-        switch colorBits {
+        switch bits {
         case ._8:
             raw = raw8(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (pow(2, 8) - 1) })
         case ._16:

@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class KaleidoscopePIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .kaleidoscope
     
     override open var shader: String { return "effectSingleKaleidoscopePIX" }
     

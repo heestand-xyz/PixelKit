@@ -11,8 +11,6 @@ import AVKit
 
 public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     
-    let kind: PIX.Kind = .rec
-    
     // MARK: - Private Properties
     
     var recording: Bool
@@ -217,7 +215,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         
         
         let sourceBufferAttributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.colorBits.osARGB),
+            kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.bits.osARGB),
             kCVPixelBufferWidthKey as String: res.w,
             kCVPixelBufferHeightKey as String: res.h
         ]

@@ -8,11 +8,8 @@
 
 import Foundation
 
-import CoreGraphics
 
 public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
-    
-    let kind: PIX.Kind = .metalMultiEffect
     
     let metalFileName = "EffectMultiMetalPIX.metal"
     override open var shader: String { return "effectMultiMetalPIX" }

@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class SlopePIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .slope
     
     override open var shader: String { return "effectSingleSlopePIX" }
     

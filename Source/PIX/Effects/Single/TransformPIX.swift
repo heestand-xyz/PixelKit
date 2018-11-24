@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class TransformPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .transform
     
     override open var shader: String { return "effectSingleTransformPIX" }
     // FIXME: shaderAspect

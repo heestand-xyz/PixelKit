@@ -6,12 +6,9 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class ResPIX: PIXSingleEffect {
 
-    let kind: PIX.Kind = .res
-    
     override open var shader: String { return "effectSingleResPIX" }
     override open var shaderNeedsAspect: Bool { return true }
     

@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class HueSaturationPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .hueSaturation
     
     override open var shader: String { return "effectSingleHueSaturationPIX" }
     

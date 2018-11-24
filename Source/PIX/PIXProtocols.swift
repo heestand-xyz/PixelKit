@@ -9,14 +9,9 @@
 import CoreGraphics
 
 public protocol PIXDelegate: class {
-//    func pixWillRender(_ pix: PIX)
     func pixResChanged(_ pix: PIX, to res: PIX.Res)
     func pixDidRender(_ pix: PIX)
 }
-
-//protocol PIXofaKind {
-//    var kind: PIX.Kind { get }
-//}
 
 public protocol PIXIn {}
 public protocol PIXOut {}

@@ -6,12 +6,9 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 import Metal
 
 public class FeedbackPIX: PIXSingleEffect {
-    
-    var kind: PIX.Kind = .feedback
     
     override open var shader: String { return "nilPIX" }
     

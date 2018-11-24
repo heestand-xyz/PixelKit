@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class ThresholdPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .threshold
     
     override open var shader: String { return "effectSingleThresholdPIX" }
     
@@ -26,7 +23,7 @@ public class ThresholdPIX: PIXSingleEffect {
         }
         get {
             guard smooth else { return 0.0 }
-            return max(_smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.colorBits.rawValue)))
+            return max(_smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.bits.rawValue)))
         }
     }
     

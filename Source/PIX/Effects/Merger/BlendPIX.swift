@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class BlendPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .blend
     
     override open var shader: String { return "effectMergerBlendPIX" }
     

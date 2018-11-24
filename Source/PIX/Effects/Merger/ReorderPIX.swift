@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class ReorderPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .reorder
     
     override open var shader: String { return "effectMergerReorderPIX" }
     

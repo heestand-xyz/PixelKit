@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class NoisePIX: PIXGenerator {
-    
-    var kind: PIX.Kind = .noise
     
     override open var shader: String { return "contentGeneratorNoisePIX" }
     

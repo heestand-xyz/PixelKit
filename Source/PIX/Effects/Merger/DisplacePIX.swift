@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class DisplacePIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .displace
     
     override open var shader: String { return "effectMergerDisplacePIX" }
     

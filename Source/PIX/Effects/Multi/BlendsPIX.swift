@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class BlendsPIX: PIXMultiEffect {
-    
-    let kind: PIX.Kind = .blends
     
     override open var shader: String { return "effectMultiBlendsPIX" }
     

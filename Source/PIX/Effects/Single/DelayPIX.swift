@@ -6,12 +6,9 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 import Metal
 
 public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
-    
-    let kind: PIX.Kind = .delay
     
     override open var shader: String { return "nilPIX" }
     

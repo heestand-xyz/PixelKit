@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class LookupPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .lookup
     
     override open var shader: String { return "effectMergerLookupPIX" }
     

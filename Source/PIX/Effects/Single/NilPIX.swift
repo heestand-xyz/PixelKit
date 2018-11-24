@@ -8,8 +8,6 @@
 
 public class NilPIX: PIXSingleEffect {
     
-    let kind: PIX.Kind = .nil
-    
     override open var shader: String { return "nilPIX" }
     
 }

@@ -20,7 +20,7 @@ public extension PIX {
     public var renderedImage: _Image? {
         guard let texture = renderedTexture else { return nil }
         guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
-        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.colorBits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
+        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
         #if os(iOS)
         return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         #elseif os(macOS)

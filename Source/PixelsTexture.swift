@@ -55,7 +55,7 @@ extension Pixels {
         let status = CVPixelBufferCreate(kCFAllocatorDefault,
                                          Int(width),
                                          Int(height),
-                                         colorBits.os,
+                                         bits.os,
                                          attrs,
                                          &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
@@ -69,7 +69,7 @@ extension Pixels {
         guard let context = CGContext(data: pixelData,
                                       width: Int(width),
                                       height: Int(height),
-                                      bitsPerComponent: 8, // FIXME: colorBits.rawValue,
+                                      bitsPerComponent: 8, // FIXME: bits.rawValue,
                                       bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!),
                                       space: rgbColorSpace,
                                       bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
@@ -106,7 +106,7 @@ extension Pixels {
     }
     
     func emptyTexture(size: CGSize) throws -> MTLTexture {
-        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: colorBits.mtl, width: Int(size.width), height: Int(size.height), mipmapped: true)
+        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: bits.mtl, width: Int(size.width), height: Int(size.height), mipmapped: true)
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         guard let t = metalDevice.makeTexture(descriptor: descriptor) else {
             throw TextureError.empty
@@ -138,7 +138,7 @@ extension Pixels {
         }
         
         let descriptor = MTLTextureDescriptor()
-        descriptor.pixelFormat = colorBits.mtl
+        descriptor.pixelFormat = bits.mtl
         descriptor.textureType = .type2DArray
         descriptor.width = textures.first!.width
         descriptor.height = textures.first!.height

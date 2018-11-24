@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class SharpenPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .sharpen
     
     override open var shader: String { return "effectSingleSharpenPIX" }
     

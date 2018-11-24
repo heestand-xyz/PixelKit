@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class RemapPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .remap
     
     override open var shader: String { return "effectMergerRemapPIX" }
     

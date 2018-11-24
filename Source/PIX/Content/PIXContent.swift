@@ -6,7 +6,6 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 open class PIXContent: PIX, PIXOutIO {
     

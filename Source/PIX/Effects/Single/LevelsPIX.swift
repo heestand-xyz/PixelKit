@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class LevelsPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .levels
     
     override open var shader: String { return "effectSingleLevelsPIX" }
     

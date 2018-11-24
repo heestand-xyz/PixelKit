@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class EdgePIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .edge
     
     override open var shader: String { return "effectSingleEdgePIX" }
     

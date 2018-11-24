@@ -13,8 +13,6 @@ infix operator !&
 infix operator <>
 infix operator ><
 
-import CoreGraphics
-
 public extension PIX {
     
     public static let blendOperators = BlendOperators()
@@ -43,7 +41,7 @@ public extension PIX {
             return blend
         }
         
-        func blend(_ pix: PIX, _ val: CGFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
+        func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
             return blend(pix, Color(lum: val), blendingMode: blendingMode)
         }
         

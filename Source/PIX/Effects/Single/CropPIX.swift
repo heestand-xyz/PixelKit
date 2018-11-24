@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class CropPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .crop
     
     override open var shader: String { return "effectSingleCropPIX" }
     

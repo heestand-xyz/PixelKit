@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class LumaBlurPIX: PIXMergerEffect {
-    
-    let kind: PIX.Kind = .lumaBlur
     
     override open var shader: String { return "effectMergerLumaBlurPIX" }
     

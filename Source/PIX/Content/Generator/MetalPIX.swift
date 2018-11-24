@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class MetalPIX: PIXGenerator, PIXMetal {
-    
-    var kind: PIX.Kind = .metal
     
     override open var shader: String { return "contentGeneratorMetalPIX" }
     

@@ -14,8 +14,6 @@ import AppKit
 
 public class ImagePIX: PIXResource {
     
-    var kind: PIX.Kind = .image
-    
     override open var shader: String { return "contentResourceImagePIX" }
     
     // MARK: - Public Properties

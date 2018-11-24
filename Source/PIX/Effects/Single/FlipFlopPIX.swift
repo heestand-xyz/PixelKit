@@ -6,11 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
-import CoreGraphics
 
 public class FlipFlopPIX: PIXSingleEffect {
-    
-    let kind: PIX.Kind = .flipFlop
     
     override open var shader: String { return "effectSingleFlipFlopPIX" }
     
