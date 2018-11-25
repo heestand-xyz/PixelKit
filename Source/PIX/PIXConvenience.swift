@@ -23,6 +23,16 @@ extension PIXOut {
         return channelMixPix
     }
     
+    func only(pureColor: PIX.Color.Pure, as chanName: String) -> ChannelMixPIX {
+        let channelMixPix = ChannelMixPIX()
+        channelMixPix.name = "\(chanName):channelMix"
+        channelMixPix.inPix = self as? PIX & PIXOut
+        channelMixPix.red = pureColor.color
+        channelMixPix.green = pureColor.color
+        channelMixPix.blue = pureColor.color
+        return channelMixPix
+    }
+    
 }
 
 public extension PIXOut {
@@ -33,5 +43,9 @@ public extension PIXOut {
     var _c: ChannelMixPIX { return rm(pureColors: [.red], as: "c") }
     var _b: ChannelMixPIX { return rm(pureColors: [.red, .green], as: "b") }
     var _m: ChannelMixPIX { return rm(pureColors: [.green], as: "m") }
+    
+    var _rw: ChannelMixPIX { return only(pureColor: .red, as: "rw") }
+    var _gw: ChannelMixPIX { return only(pureColor: .green, as: "gw") }
+    var _bw: ChannelMixPIX { return only(pureColor: .blue, as: "bw") }
     
 }

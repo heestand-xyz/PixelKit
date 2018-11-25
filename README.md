@@ -179,7 +179,7 @@ These are the supported `PIX.BlendingMode` operators:
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
 
 ```swift
-let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+let blendPix = (CameraPIX() *** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ```
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
