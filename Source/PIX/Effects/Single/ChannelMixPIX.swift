@@ -16,6 +16,7 @@ public class ChannelMixPIX: PIXSingleEffect, PIXofaKind {
     
     // MARK: - Public Properties
     
+    // FIXME: Swap to pure colors, as they have alpha 0, the output makes more sense that way
     public var red: Color = Color(pure: .red) { didSet { setNeedsRender() } }
     public var green: Color = Color(pure: .green) { didSet { setNeedsRender() } }
     public var blue: Color = Color(pure: .blue) { didSet { setNeedsRender() } }

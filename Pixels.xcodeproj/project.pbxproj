@@ -133,6 +133,8 @@
 		7483FC36213ECD5600D3F713 /* HueSaturationPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC35213ECD5600D3F713 /* HueSaturationPIX.swift */; };
 		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
 		748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748859E0212F371800E04F17 /* RectanglePIX.swift */; };
+		748943E821AB1BCC00F26FF4 /* PIXConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748943E721AB1BCC00F26FF4 /* PIXConvenience.swift */; };
+		748943E921AB1D6C00F26FF4 /* PIXConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748943E721AB1BCC00F26FF4 /* PIXConvenience.swift */; };
 		74899F4B2172C30200101994 /* HDRPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74899F4A2172C30200101994 /* HDRPIX.swift */; };
 		748ADFB42120C1E3007462F8 /* PIXRendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* PIXRendered.swift */; };
 		74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
@@ -219,6 +221,7 @@
 		7483FC35213ECD5600D3F713 /* HueSaturationPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueSaturationPIX.swift; sourceTree = "<group>"; };
 		74879D632118E8C200BF17DE /* EdgePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgePIX.swift; sourceTree = "<group>"; };
 		748859E0212F371800E04F17 /* RectanglePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePIX.swift; sourceTree = "<group>"; };
+		748943E721AB1BCC00F26FF4 /* PIXConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXConvenience.swift; sourceTree = "<group>"; };
 		74899F4A2172C30200101994 /* HDRPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDRPIX.swift; sourceTree = "<group>"; };
 		748ADFB32120C1E3007462F8 /* PIXRendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRendered.swift; sourceTree = "<group>"; };
 		74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMultiMetalPIX.metal.txt; sourceTree = "<group>"; };
@@ -298,6 +301,7 @@
 				740EC539213EFC3E006E2996 /* PIXOperators.swift */,
 				7498CA032122073200B07711 /* PIXResolution.swift */,
 				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
+				748943E721AB1BCC00F26FF4 /* PIXConvenience.swift */,
 				7424A1B4212F5C9300401654 /* PIXModes.swift */,
 				7465FC77211A4E0400899359 /* PIXColor.swift */,
 				74076D04211A27D2000E56E0 /* PIXRes.swift */,
@@ -752,6 +756,7 @@
 				3AF28BED219312EB0079FC7A /* CrossPIX.swift in Sources */,
 				3AF28C0E219312F70079FC7A /* PIXEffect.swift in Sources */,
 				3AF28C18219313050079FC7A /* NoisePIX.swift in Sources */,
+				748943E921AB1D6C00F26FF4 /* PIXConvenience.swift in Sources */,
 				3AF28C05219312F50079FC7A /* HueSaturationPIX.swift in Sources */,
 				3AF28C12219313050079FC7A /* PIXGenerator.swift in Sources */,
 				3AF28C0C219312F50079FC7A /* HDRPIX.swift in Sources */,
@@ -830,6 +835,7 @@
 				74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */,
 				74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
+				748943E821AB1BCC00F26FF4 /* PIXConvenience.swift in Sources */,
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
 				74A7B98621412BD70078DDE3 /* SlopePIX.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
