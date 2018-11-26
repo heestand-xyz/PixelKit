@@ -27,7 +27,7 @@ infix operator <=>: TernaryElse
 
 extension Bool {
     init(_ liveBool: LiveBool) {
-        self = liveBool.valuex
+        self = liveBool.value
     }
 }
 
@@ -38,7 +38,7 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
     }
     
     var futureValue: () -> (Bool)
-    public var valuex: Bool {
+    var value: Bool {
         return futureValue()
     }
     

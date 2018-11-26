@@ -10,7 +10,7 @@ import Foundation
 
 extension Int {
     init(_ liveInt: LiveInt) {
-        self = liveInt.valuex
+        self = liveInt.value
     }
 }
 
@@ -21,7 +21,7 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
     }
     
     var futureValue: () -> (Int)
-    public var valuex: Int {
+    var value: Int {
         return futureValue()
     }
     

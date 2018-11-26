@@ -29,9 +29,9 @@ public class GradientPIX: PIXGenerator {
     }
     
     public struct ColorStep/*: Codable*/ {
-        public let color: Color
+        public let color: LiveColor
         public let fraction: CGFloat
-        public init(_ color: Color, at fraction: CGFloat) {
+        public init(_ color: LiveColor, at fraction: CGFloat) {
             self.color = color
             self.fraction = fraction
         }
@@ -115,7 +115,7 @@ public class GradientPIX: PIXGenerator {
 public extension PIXOut {
     
     // FIXME: Create custom shader
-    func _gradientMap(from colorFirst: PIX.Color, to colorLast: PIX.Color) -> LookupPIX {
+    func _gradientMap(from colorFirst: LiveColor, to colorLast: LiveColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inPixA = self as? PIX & PIXOut

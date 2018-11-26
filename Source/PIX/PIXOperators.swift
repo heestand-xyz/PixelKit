@@ -33,7 +33,7 @@ public extension PIX {
             return blendPix
         }
         
-        func blend(_ pix: PIX, _ color: Color, blendingMode: PIX.BlendingMode) -> BlendPIX {
+        func blend(_ pix: PIX, _ color: LiveColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
             colorPix.color = color
             let blend = blendOperators.blend(pix, colorPix, blendingMode: blendingMode)
@@ -42,7 +42,7 @@ public extension PIX {
         }
         
         func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            return blend(pix, Color(lum: val), blendingMode: blendingMode)
+            return blend(pix, LiveColor(val), blendingMode: blendingMode)
         }
         
         func operatorName(of blendingMode: PIX.BlendingMode) -> String {

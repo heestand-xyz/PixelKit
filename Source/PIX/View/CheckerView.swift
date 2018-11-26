@@ -43,10 +43,10 @@ class CheckerView: _View {
         #if os(iOS)
         // FIXME: Test
         return UIGraphicsImageRenderer(size: CGSize(width: 64, height: 64)).image { ctx in
-            ctx.cgContext.setFillColor(PIX.Color.darkGray.cgColor)
+            ctx.cgContext.setFillColor(LiveColor.darkGray.cgColor)
             ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: 32, height: 32))
             ctx.cgContext.addRect(CGRect(x: 32, y: 32, width: 32, height: 32))
-            ctx.cgContext.setFillColor(PIX.Color.lightGray.cgColor)
+            ctx.cgContext.setFillColor(LiveColor.lightGray.cgColor)
             ctx.cgContext.addRect(CGRect(x: 0, y: 32, width: 32, height: 32))
             ctx.cgContext.addRect(CGRect(x: 32, y: 0, width: 32, height: 32))
             ctx.cgContext.drawPath(using: .fill)
@@ -55,10 +55,10 @@ class CheckerView: _View {
         let img = NSImage(size: CGSize(width: 64, height: 64))
         img.lockFocus()
         let ctx = NSGraphicsContext.current!.cgContext
-        ctx.setFillColor(PIX.Color.darkGray.cgColor)
+        ctx.setFillColor(LiveColor.darkGray.cgColor)
         ctx.fill(CGRect(x: 0, y: 0, width: 32, height: 32))
         ctx.fill(CGRect(x: 32, y: 32, width: 32, height: 32))
-        ctx.setFillColor(PIX.Color.lightGray.cgColor)
+        ctx.setFillColor(LiveColor.lightGray.cgColor)
         ctx.fill(CGRect(x: 0, y: 32, width: 32, height: 32))
         ctx.fill(CGRect(x: 32, y: 0, width: 32, height: 32))
         img.unlockFocus()

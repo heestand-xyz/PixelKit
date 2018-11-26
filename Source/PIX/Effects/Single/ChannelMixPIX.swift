@@ -13,10 +13,10 @@ public class ChannelMixPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var red: LiveColor = Color(pure: .red) { didSet { setNeedsRender() } }
-    public var green: LiveColor = Color(pure: .green) { didSet { setNeedsRender() } }
-    public var blue: LiveColor = Color(pure: .blue) { didSet { setNeedsRender() } }
-    public var alpha: LiveColor = Color(pure: .alpha) { didSet { setNeedsRender() } }
+    public var red: LiveColor = LiveColor(pure: .red) { didSet { setNeedsRender() } }
+    public var green: LiveColor = LiveColor(pure: .green) { didSet { setNeedsRender() } }
+    public var blue: LiveColor = LiveColor(pure: .blue) { didSet { setNeedsRender() } }
+    public var alpha: LiveColor = LiveColor(pure: .alpha) { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -57,7 +57,7 @@ public class ChannelMixPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _swap(_ pureColorA: PIX.Color.Pure, _ pureColorB: PIX.Color.Pure) -> ChannelMixPIX {
+    func _swap(_ pureColorA: LiveColor.Pure, _ pureColorB: LiveColor.Pure) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
         channelMixPix.inPix = self as? PIX & PIXOut

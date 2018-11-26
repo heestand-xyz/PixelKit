@@ -64,8 +64,8 @@ public class Pixels {
     
     // MARK: Color
     
-    public var bits: PIX.Color.Bits = ._8
-    var colorSpace: PIX.Color.Space = .sRGB // .displayP3
+    public var bits: LiveColor.Bits = ._8
+    var colorSpace: LiveColor.Space = .sRGB // .displayP3
     
     // MARK: Linked PIXs
     

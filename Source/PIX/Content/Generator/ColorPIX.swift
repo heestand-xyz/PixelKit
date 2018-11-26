@@ -42,7 +42,7 @@ public class ColorPIX: PIXGenerator {
 
 //public extension PIX {
 //    
-//    func __color(_ color: PIX.Color, res: PIX.Res) -> ColorPIX {
+//    func __color(_ color: LiveColor, res: PIX.Res) -> ColorPIX {
 //        let colorPix = ColorPIX(res: res)
 //        colorPix.name = ":color:"
 //        colorPix.color = color

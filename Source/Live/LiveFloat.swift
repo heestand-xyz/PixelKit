@@ -11,19 +11,24 @@ import CoreGraphics
 
 extension CGFloat {
     init(_ liveFloat: LiveFloat) {
-        self = liveFloat.valuex
+        self = liveFloat.value
     }
 }
 extension Float {
     init(_ liveFloat: LiveFloat) {
-        self = Float(liveFloat.valuex)
+        self = Float(liveFloat.value)
     }
 }
 extension Double {
     init(_ liveFloat: LiveFloat) {
-        self = Double(liveFloat.valuex)
+        self = Double(liveFloat.value)
     }
 }
+//extension Int {
+//    init(_ liveFloat: LiveFloat) {
+//        self = Int(liveFloat.value)
+//    }
+//}
 
 public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
@@ -32,7 +37,7 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     }
     
     var futureValue: () -> (CGFloat)
-    public var valuex: CGFloat {
+    var value: CGFloat {
         return futureValue()
     }
     
@@ -71,7 +76,7 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     }
     
     public init(_ liveInt: LiveInt) {
-        futureValue = { return CGFloat(liveInt.value) }
+        futureValue = { return CGFloat(Int(liveInt)) }
     }
     
     public init(static value: CGFloat) {

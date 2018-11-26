@@ -26,15 +26,11 @@ extension Pixels {
     public struct PIXRef {
         public let id: UUID
         public let name: String?
-        public let kind: String?
         public let type: String
         public let linkIndex: Int?
         init(for pix: PIX) {
             id = pix.id
             name = pix.name
-            if let pixOfAKind = pix as? PIXofaKind {
-                kind = pixOfAKind.kind.rawValue
-            } else { kind = nil }
             type = String(String(describing: pix).split(separator: ".").last ?? "")
             linkIndex = Pixels.main.linkIndex(of: pix)
         }

@@ -58,7 +58,7 @@ public class ChromaKeyPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _chromaKey(_ color: PIX.Color) -> ChromaKeyPIX {
+    func _chromaKey(_ color: LiveColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.name = ":chromaKey:"
         chromaKeyPix.inPix = self as? PIX & PIXOut
