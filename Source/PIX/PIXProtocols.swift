@@ -36,7 +36,7 @@ protocol PIXOutIO: PIXOut {
     var connectedOut: Bool { get }
 }
 
-public class MetalUniform: Codable {
+public class MetalUniform/*: Codable*/ {
     public let name: String
     public var value: CGFloat
     public init(name: String, value: CGFloat = 0.0) {

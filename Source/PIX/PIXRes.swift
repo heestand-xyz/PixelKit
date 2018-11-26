@@ -210,7 +210,7 @@ public extension PIX {
         
         // MARK: Raw
         
-        public struct Raw: Codable {
+        public struct Raw/*: Codable*/ {
             public let w: Int
             public let h: Int
             public var flopped: Raw { return Raw(w: h, h: w) }

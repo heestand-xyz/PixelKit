@@ -13,7 +13,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     
     // MARK: - Public Properties
     
-    public struct Corners: Codable {
+    public struct Corners/*: Codable*/ {
         public var topLeft: CGPoint
         public var topRight: CGPoint
         public var bottomLeft: CGPoint

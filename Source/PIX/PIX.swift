@@ -10,7 +10,7 @@ import Metal
 import MetalKit
 import MetalPerformanceShaders
 
-open class PIX: Codable {
+open class PIX/*/*: Codable*/*/ {
     
     public var id = UUID()
     public var name: String?
