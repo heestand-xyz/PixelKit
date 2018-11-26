@@ -5,7 +5,7 @@
 //  Created by Hexagons on 2018-08-23.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-
+import CoreGraphics//x
 
 public class ColorPIX: PIXGenerator {
     

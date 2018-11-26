@@ -135,4 +135,9 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
         return LiveInt({ return -operand.value })
     }
     
+    
+    public static func <=> (lhs: LiveInt, rhs: LiveInt) -> (LiveInt, LiveInt) {
+        return (lhs, rhs)
+    }
+    
 }

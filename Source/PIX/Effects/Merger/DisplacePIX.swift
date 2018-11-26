@@ -6,6 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+import CoreGraphics//x
 
 public class DisplacePIX: PIXMergerEffect {
     

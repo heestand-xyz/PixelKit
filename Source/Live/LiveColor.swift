@@ -240,17 +240,20 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
     // MARK: - Hue Saturaton
     
     public var hue: LiveFloat {
-        return hsv.h
+        return LiveFloat({ self.hsv().h })
     }
     public var sat: LiveFloat {
-        return hsv.s
+        return LiveFloat({ self.hsv().s })
     }
     public var val: LiveFloat {
-        return hsv.v
+        return LiveFloat({ self.hsv().v })
     }
-    public var hsv: (h: LiveFloat, s: LiveFloat, v: LiveFloat) {
-        var h, s, v: LiveFloat
-        var mn, mx, d: LiveFloat
+    func hsv() -> (h: CGFloat, s: CGFloat, v: CGFloat) {
+        let r = self.r.value
+        let g = self.g.value
+        let b = self.b.value
+        var h, s, v: CGFloat
+        var mn, mx, d: CGFloat
         mn = r < g ? r : g
         mn = mn < b ? mn : b
         mx = r > g ? r : g

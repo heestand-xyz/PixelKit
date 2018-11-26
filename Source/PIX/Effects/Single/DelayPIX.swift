@@ -5,7 +5,7 @@
 //  Created by Anton Heestand on 2018-09-23.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-
+import CoreGraphics//x
 import Metal
 
 public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {

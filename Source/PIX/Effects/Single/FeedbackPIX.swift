@@ -5,7 +5,7 @@
 //  Created by Hexagons on 2018-08-21.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-
+import CoreGraphics//x
 import Metal
 
 public class FeedbackPIX: PIXSingleEffect {

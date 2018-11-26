@@ -96,6 +96,8 @@
 		7413742F2119C9990001890B /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
 		741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741510DB212F300B00B251E7 /* ColorPIX.swift */; };
 		74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA821271046007F9579 /* ThresholdPIX.swift */; };
+		741D2CF621AC7540007259E3 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
+		741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */; };
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
@@ -716,6 +718,7 @@
 				3AF28C09219312F50079FC7A /* SharpenPIX.swift in Sources */,
 				3AF28BDD219312CF0079FC7A /* PIXProtocols.swift in Sources */,
 				3AF28BE0219312CF0079FC7A /* PIXRendered.swift in Sources */,
+				741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */,
 				3AF28C17219313050079FC7A /* GradientPIX.swift in Sources */,
 				3AF28C1C219313090079FC7A /* ImagePIX.swift in Sources */,
 				3AF28C16219313050079FC7A /* PolygonPIX.swift in Sources */,
@@ -756,6 +759,7 @@
 				3AF28BEF219312EB0079FC7A /* LookupPIX.swift in Sources */,
 				3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */,
 				3AF28BFA219312F50079FC7A /* BlurPIX.swift in Sources */,
+				741D2CF621AC7540007259E3 /* LiveBool.swift in Sources */,
 				3AF28BEE219312EB0079FC7A /* BlendPIX.swift in Sources */,
 				3AF28BF8219312F50079FC7A /* ResPIX.swift in Sources */,
 				3AF28C03219312F50079FC7A /* ChromaKeyPIX.swift in Sources */,

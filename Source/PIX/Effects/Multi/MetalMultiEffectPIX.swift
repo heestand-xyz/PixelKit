@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreGraphics//x
 
 public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     

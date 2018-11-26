@@ -9,7 +9,6 @@
 import Foundation
 import CoreGraphics
 
-
 public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
@@ -152,6 +151,10 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
         return LiveFloat({ return pow(lhs.value, 1.0 / rhs.value) })
     }
     
+    public static func % (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return lhs.value.truncatingRemainder(dividingBy: rhs.value) })
+    }
+    
     
     public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return min(lhs.value, rhs.value) })
@@ -168,6 +171,11 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     
     public prefix static func ! (operand: LiveFloat) -> LiveFloat {
         return LiveFloat({ return 1.0 - operand.value })
+    }
+    
+    
+    public static func <=> (lhs: LiveFloat, rhs: LiveFloat) -> (LiveFloat, LiveFloat) {
+        return (lhs, rhs)
     }
     
     // MARK: Local Funcs
