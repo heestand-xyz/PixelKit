@@ -25,25 +25,31 @@ precedencegroup TernaryElse {
 infix operator <?: TernaryIf
 infix operator <=>: TernaryElse
 
+extension Bool {
+    init(_ liveBool: LiveBool) {
+        self = liveBool.valuex
+    }
+}
+
 public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConvertible {
     
     public var description: String {
-        return "live(\(value))"
+        return "live(\(Bool(self)))"
     }
     
     var futureValue: () -> (Bool)
-    public var value: Bool {
+    public var valuex: Bool {
         return futureValue()
     }
     
     var pxv: Bool {
         mutating get {
-            pxvCache = value
-            return value
+            pxvCache = Bool(self)
+            return Bool(self)
         }
     }
     var pxvIsNew: Bool {
-        return pxvCache != value
+        return pxvCache != Bool(self)
     }
     var pxvCache: Bool? = nil
     
@@ -64,20 +70,20 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
     // MARK: Equatable
     
     public static func == (lhs: LiveBool, rhs: LiveBool) -> LiveBool {
-        return LiveBool({ return lhs.value == rhs.value })
+        return LiveBool({ return Bool(lhs) == Bool(rhs) })
     }
     
     public static func && (lhs: LiveBool, rhs: LiveBool) -> LiveBool {
-        return LiveBool({ return lhs.value && rhs.value })
+        return LiveBool({ return Bool(lhs) && Bool(rhs) })
     }
     
     public static func || (lhs: LiveBool, rhs: LiveBool) -> LiveBool {
-        return LiveBool({ return lhs.value || rhs.value })
+        return LiveBool({ return Bool(lhs) || Bool(rhs) })
     }
     
     
     public prefix static func ! (operand: LiveBool) -> LiveBool {
-        return LiveBool({ return !operand.value })
+        return LiveBool({ return !Bool(operand) })
     }
     
 //    public static func .? (lhs: LiveBool, rhs: LiveBool) -> LiveBool {
@@ -85,14 +91,10 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
 //    }
     
     public static func <? (lhs: LiveBool, rhs: (LiveFloat, LiveFloat)) -> LiveFloat {
-        return LiveFloat({ return lhs.value ? rhs.0.value : rhs.1.value })
+        return LiveFloat({ return Bool(lhs) ? CGFloat(rhs.0) : CGFloat(rhs.1) })
     }
     public static func <? (lhs: LiveBool, rhs: (LiveInt, LiveInt)) -> LiveInt {
-        return LiveInt({ return lhs.value ? rhs.0.value : rhs.1.value })
-    }
-    
-    public static func ? : (lhs: LiveBool, rhs: (LiveInt, LiveInt)) -> LiveInt {
-        return LiveInt({ return lhs.value ? rhs.0.value : rhs.1.value })
+        return LiveInt({ return Bool(lhs) ? Int(rhs.0) : Int(rhs.1) })
     }
     
 }

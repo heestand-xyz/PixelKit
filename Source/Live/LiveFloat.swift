@@ -9,25 +9,41 @@
 import Foundation
 import CoreGraphics
 
+extension CGFloat {
+    init(_ liveFloat: LiveFloat) {
+        self = liveFloat.valuex
+    }
+}
+extension Float {
+    init(_ liveFloat: LiveFloat) {
+        self = Float(liveFloat.valuex)
+    }
+}
+extension Double {
+    init(_ liveFloat: LiveFloat) {
+        self = Double(liveFloat.valuex)
+    }
+}
+
 public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
-        return "live(\(value))"
+        return "live(\(CGFloat(self)))"
     }
     
     var futureValue: () -> (CGFloat)
-    public var value: CGFloat {
+    public var valuex: CGFloat {
         return futureValue()
     }
     
     var pxv: CGFloat {
         mutating get {
-            pxvCache = value
-            return value
+            pxvCache = CGFloat(self)
+            return CGFloat(self)
         }
     }
     var pxvIsNew: Bool {
-        return pxvCache != value
+        return pxvCache != CGFloat(self)
     }
     var pxvCache: CGFloat? = nil
     
@@ -81,7 +97,7 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     // MARK: Equatable
     
     public static func == (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-        return LiveBool({ return lhs.value == rhs.value })
+        return LiveBool({ return CGFloat(lhs) == CGFloat(rhs) })
     }
     public static func != (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
         return !(lhs == rhs)
@@ -96,16 +112,16 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     // MARK: Comparable
     
     public static func < (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-        return LiveBool({ return lhs.value < rhs.value })
+        return LiveBool({ return CGFloat(lhs) < CGFloat(rhs) })
     }
     public static func <= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-        return LiveBool({ return lhs.value <= rhs.value })
+        return LiveBool({ return CGFloat(lhs) <= CGFloat(rhs) })
     }
     public static func > (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-        return LiveBool({ return lhs.value > rhs.value })
+        return LiveBool({ return CGFloat(lhs) > CGFloat(rhs) })
     }
     public static func >= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-        return LiveBool({ return lhs.value >= rhs.value })
+        return LiveBool({ return CGFloat(lhs) >= CGFloat(rhs) })
     }
 //    public static func < (lhs: LiveFloat, rhs: CGFloat) -> LiveBool {
 //        return LiveFloat({ return lhs.value < rhs })
@@ -117,60 +133,63 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     // MARK: Operators
     
     public static func + (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return lhs.value + rhs.value })
+        return LiveFloat({ return CGFloat(lhs) + CGFloat(rhs) })
     }
+//    public static func += (lhs: inout LiveFloat, rhs: LiveFloat) {
+//        lhs = LiveFloat({ return CGFloat(lhs) + CGFloat(rhs) })
+//    }
     
     public static func - (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return lhs.value - rhs.value })
+        return LiveFloat({ return CGFloat(lhs) - CGFloat(rhs) })
     }
+//    public static func -= (lhs: inout LiveFloat, rhs: LiveFloat) {
+//        lhs = LiveFloat({ return CGFloat(lhs) - CGFloat(rhs) })
+//    }
     
     
     public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return lhs.value * rhs.value })
+        return LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
     }
 //    public static func *= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        lhs.futureValue = { return lhs.value * rhs.value }
+//        lhs = LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
 //    }
     
     public static func / (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return lhs.value / rhs.value })
+        return LiveFloat({ return CGFloat(lhs) / CGFloat(rhs) })
     }
-//    public static func / (lhs: LiveFloat, rhs: CGFloat) -> LiveFloat {
-//        return LiveFloat({ return lhs.value / rhs })
-//    }
-//    public static func / (lhs: CGFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return lhs / rhs.value })
+//    public static func /= (lhs: inout LiveFloat, rhs: LiveFloat) {
+//        lhs = LiveFloat({ return CGFloat(lhs) / CGFloat(rhs) })
 //    }
     
     
     public static func ** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return pow(lhs.value, rhs.value) })
+        return LiveFloat({ return pow(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     public static func !** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return pow(lhs.value, 1.0 / rhs.value) })
+        return LiveFloat({ return pow(CGFloat(lhs), 1.0 / CGFloat(rhs)) })
     }
     
     public static func % (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return lhs.value.truncatingRemainder(dividingBy: rhs.value) })
+        return LiveFloat({ return CGFloat(lhs).truncatingRemainder(dividingBy: CGFloat(rhs)) })
     }
     
     
     public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return min(lhs.value, rhs.value) })
+        return LiveFloat({ return min(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return max(lhs.value, rhs.value) })
+        return LiveFloat({ return max(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     
     public prefix static func - (operand: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return -operand.value })
+        return LiveFloat({ return -CGFloat(operand) })
     }
     
     public prefix static func ! (operand: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return 1.0 - operand.value })
+        return LiveFloat({ return 1.0 - CGFloat(operand) })
     }
     
     
@@ -181,11 +200,11 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     // MARK: Local Funcs
     
     public func truncatingRemainder(dividingBy other: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return self.value.truncatingRemainder(dividingBy: other.value) })
+        return LiveFloat({ return CGFloat(self).truncatingRemainder(dividingBy: CGFloat(other)) })
     }
 
     public func remainder(dividingBy other: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return self.value.remainder(dividingBy: other.value) })
+        return LiveFloat({ return CGFloat(self).remainder(dividingBy: CGFloat(other)) })
     }
     
 }
@@ -194,34 +213,34 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
 // MARK: Global Funcs
 
 func round(_ live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return round(live.value) })
+    return LiveFloat({ return round(CGFloat(live)) })
 }
 func floor(_ live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return floor(live.value) })
+    return LiveFloat({ return floor(CGFloat(live)) })
 }
 func ceil(_ live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return ceil(live.value) })
+    return LiveFloat({ return ceil(CGFloat(live)) })
 }
 
 func sqrt(_ live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return sqrt(live.value) })
+    return LiveFloat({ return sqrt(CGFloat(live)) })
 }
 func pow(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return pow(live.value, live2.value) })
+    return LiveFloat({ return pow(CGFloat(live), CGFloat(live2)) })
 }
 
 func atan(_ live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return atan(live.value) })
+    return LiveFloat({ return atan(CGFloat(live)) })
 }
 func atan2(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return atan2(live.value, live2.value) })
+    return LiveFloat({ return atan2(CGFloat(live), CGFloat(live2)) })
 }
 
 // MARK: New Global Funcs
 
 func deg(rad live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return (live.value / .pi / 2.0) * 360.0 })
+    return LiveFloat({ return (CGFloat(live) / .pi / 2.0) * 360.0 })
 }
 func rad(deg live: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return (live.value / 360.0) * .pi * 2.0 })
+    return LiveFloat({ return (CGFloat(live) / 360.0) * .pi * 2.0 })
 }

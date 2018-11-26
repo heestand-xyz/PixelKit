@@ -8,6 +8,12 @@
 
 import Foundation
 
+extension Int {
+    init(_ liveInt: LiveInt) {
+        self = liveInt.valuex
+    }
+}
+
 public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntegerLiteral, CustomStringConvertible {
     
     public var description: String {
@@ -15,7 +21,7 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
     }
     
     var futureValue: () -> (Int)
-    public var value: Int {
+    public var valuex: Int {
         return futureValue()
     }
     

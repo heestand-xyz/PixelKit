@@ -12,15 +12,15 @@ import UIKit
 import AppKit
 #endif
 
-public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConvertible {
+public struct LiveColor: CustomStringConvertible {
     
 //    typealias LiveValueType = LiveColor.Type
     
     public var description: String {
-        let _r: CGFloat = floor(r.value * 1000) / 1000
-        let _g: CGFloat = floor(g.value * 1000) / 1000
-        let _b: CGFloat = floor(b.value * 1000) / 1000
-        let _a: CGFloat = floor(a.value * 1000) / 1000
+        let _r: CGFloat = floor(CGFloat(r) * 1000) / 1000
+        let _g: CGFloat = floor(CGFloat(g) * 1000) / 1000
+        let _b: CGFloat = floor(CGFloat(b) * 1000) / 1000
+        let _a: CGFloat = floor(CGFloat(a) * 1000) / 1000
         return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
     }
     
@@ -125,7 +125,7 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
     }
     #if os(iOS)
     public var uiColor: UIColor {
-        return UIColor(red: r.value, green: g.value, blue: b.value, alpha: a.value)
+        return UIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a))
 //            switch space {
 //            case .sRGB:
 //                return UIColor(red: r, green: g, blue: b, alpha: a)
@@ -135,7 +135,7 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
     }
     #elseif os(macOS)
     public var nsColor: NSColor {
-        return NSColor(red: r.value, green: g.value, blue: b.value, alpha: a.value)
+        return NSColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a))
 //            switch space {
 //            case .sRGB:
 //                return NSColor(red: r.value, green: g.value, blue: b.value, alpha: a.value)
@@ -146,14 +146,14 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
     #endif
     
     public var ciColor: CIColor {
-        return CIColor(red: r.value, green: g.value, blue: b.value, alpha: a.value, colorSpace: space.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        return CIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a), colorSpace: space.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     public var cgColor: CGColor {
         return CGColor(colorSpace: space.cg, components: list) ?? _Color.clear.cgColor
     }
     
     public var list: [CGFloat] {
-        return [r.value, g.value, b.value, a.value]
+        return [CGFloat(r), CGFloat(g), CGFloat(b), CGFloat(a)]
     }
     
     public var lum: LiveFloat {
@@ -164,15 +164,18 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
         return LiveColor(r: lum, g: lum, b: lum, a: a/*, space: space*/)
     }
     
-    // MARK: - Future
-    
-    public init(_ futureValue: @escaping () -> (LiveColor)) {
-        self.futureValue = futureValue
-    }
-    
-    required public init(floatLiteral value: FloatLiteralType) {
-//        futureValue = { return CGFloat(value) }
-    }
+//    // MARK: - Future
+//
+//    public init(_ futureValue: @escaping () -> (LiveColor)) {
+//        r = futureValue().r
+//        g = futureValue.g
+//        b = futureValue.b
+//        a = futureValue.a
+//    }
+//
+//    required public init(floatLiteral value: FloatLiteralType) {
+////        futureValue = { return CGFloat(value) }
+//    }
     
     // MARK: - RGB
     
@@ -237,7 +240,7 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
         self.a = val
     }
     
-    // MARK: - Hue Saturaton
+    // MARK: - Hue Saturaton Value
     
     public var hue: LiveFloat {
         return LiveFloat({ self.hsv().h })
@@ -249,9 +252,9 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
         return LiveFloat({ self.hsv().v })
     }
     func hsv() -> (h: CGFloat, s: CGFloat, v: CGFloat) {
-        let r = self.r.value
-        let g = self.g.value
-        let b = self.b.value
+        let r = CGFloat(self.r)
+        let g = CGFloat(self.g)
+        let b = CGFloat(self.b)
         var h, s, v: CGFloat
         var mn, mx, d: CGFloat
         mn = r < g ? r : g
@@ -265,42 +268,51 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
             h = 0
             return (h: h, s: s, v: v)
         }
-        if (mx > 0.0) {
-            s = (d / mx)
+        if mx > 0.0 {
+            s = d / mx
         } else {
             s = 0.0
             h = 0.0
             return (h: h, s: s, v: v)
         }
-        if (r >= mx) {
-            h = (g - b ) / d
-        } else if (g >= mx) {
-            h = 2.0 + ( b - r ) / d
+        if r >= mx {
+            h = (g - b) / d
+        } else if g >= mx {
+            h = 2.0 + (b - r) / d
         } else {
-            h = 4.0 + ( r - g ) / d
+            h = 4.0 + (r - g) / d
         }
-        h = h * 60.0
-        if(h < 0.0) {
-            h = h * 360.0
+        h *= 60.0
+        if h < 0.0 {
+            h += 360.0
         }
-        return (h: h / 360, s: s, v: v)
+        h /= 360.0
+        return (h: h, s: s, v: v)
     }
     
     public init(h: LiveFloat, s: LiveFloat = 1.0, v: LiveFloat = 1.0, a: LiveFloat = 1.0/*, space: Space = Pixels.main.colorSpace*/) {
-        var hh, p, q, t, ff: LiveFloat
-        var i: LiveInt
+        r = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).r })
+        g = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).g })
+        b = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).b })
+        self.a = a
+//        self.space = space
+    }
+    static func rgb(h: CGFloat, s: CGFloat, v: CGFloat) -> (r: CGFloat, g: CGFloat, b: CGFloat) {
+        let r: CGFloat
+        let g: CGFloat
+        let b: CGFloat
+        var hh, p, q, t, ff: CGFloat
+        var i: Int
         if (s <= 0.0) {
             r = v
             g = v
             b = v
-            self.a = a
-//            self.space = space
-            return
+            return  (r: r, g: g, b: b)
         }
         hh = (h - floor(h)) * 360
         hh = hh / 60.0
-        i = LiveInt(hh)
-        ff = hh - LiveFloat(i)
+        i = Int(hh)
+        ff = hh - CGFloat(i)
         p = v * (1.0 - s)
         q = v * (1.0 - (s * ff))
         t = v * (1.0 - (s * (1.0 - ff)))
@@ -334,19 +346,17 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
             g = p
             b = q
         }
-        self.a = a
-//        self.space = space
+        return (r: r, g: g, b: b)
     }
     
     // MARK: - Hex
     
     public var hex: String {
-        let hexInt: Int = (Int)(r.value*255)<<16 | (Int)(g.value*255)<<8 | (Int)(b.value*255)<<0
+        let hexInt: Int = (Int)(CGFloat(r)*255)<<16 | (Int)(CGFloat(g)*255)<<8 | (Int)(CGFloat(b)*255)<<0
         return String(format:"#%06x", hexInt)
     }
     
     public init(hex: String, a: CGFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
-        
         var hex = hex
         if hex[0..<1] == "#" {
             if hex.count == 4 {
@@ -361,18 +371,14 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
             let b = hex[2..<3]
             hex = r + r + g + g + b + b
         }
-        
         var hexInt: UInt32 = 0
         let scanner: Scanner = Scanner(string: hex)
         scanner.scanHexInt32(&hexInt)
-        
         self.r = LiveFloat(static: CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
         self.g = LiveFloat(static: CGFloat((hexInt & 0xff00) >> 8) / 255.0)
         self.b = LiveFloat(static: CGFloat((hexInt & 0xff) >> 0) / 255.0)
         self.a = LiveFloat(static: a)
-        
 //        self.space = space
-        
     }
     
     // MARK: - Pixel
@@ -420,20 +426,20 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
     }
     
     public var isPure: LiveBool {
-        let oneCount: LiveInt = (r == 1 ? 1 : 0) + (g == 1 ? 1 : 0) + (b == 1 ? 1 : 0) + (a == 1 ? 1 : 0)
-        let zeroCount: LiveInt = (r == 0 ? 1 : 0) + (g == 0 ? 1 : 0) + (b == 0 ? 1 : 0) + (a == 0 ? 1 : 0)
+        let oneCount: LiveInt = (r == 1.0 <? 1 <=> 0) + (g == 1.0 <? 1 <=> 0) + (b == 1.0 <? 1 <=> 0) + (a == 1.0 <? 1 <=> 0)
+        let zeroCount: LiveInt = (r == 0.0 <? 1 <=> 0) + (g == 0.0 <? 1 <=> 0) + (b == 0.0 <? 1 <=> 0) + (a == 0.0 <? 1 <=> 0)
         return oneCount == 1 && zeroCount == 3
     }
     
     public var pure: Pure? {
-        guard isPure.value else { return nil }
-        if r == 1 {
+        guard Bool(isPure) else { return nil }
+        if CGFloat(r) == 1.0 {
             return .red
-        } else if g == 1 {
+        } else if CGFloat(g) == 1.0 {
             return .green
-        } else if b == 1 {
+        } else if CGFloat(b) == 1.0 {
             return .blue
-        } else if a == 1 {
+        } else if CGFloat(a) == 1.0 {
             return .alpha
         } else { return nil }
     }
@@ -589,58 +595,58 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
         return rhs * lhs
     }
     
-    public static func += (lhs: inout LiveColor, rhs: LiveColor) {
-        lhs.r += rhs.r
-        lhs.g += rhs.g
-        lhs.b += rhs.b
-        lhs.a += rhs.a
-    }
-    public static func -= (lhs: inout LiveColor, rhs: LiveColor) {
-        lhs.r -= rhs.r
-        lhs.g -= rhs.g
-        lhs.b -= rhs.b
-        lhs.a -= rhs.a
-    }
-    public static func *= (lhs: inout LiveColor, rhs: LiveColor) {
-        lhs.r *= rhs.r
-        lhs.g *= rhs.g
-        lhs.b *= rhs.b
-        lhs.a *= rhs.a
-    }
-    
-    public static func += (lhs: inout LiveColor, rhs: LiveFloat) {
-        lhs.r += rhs
-        lhs.g += rhs
-        lhs.b += rhs
-        lhs.a += rhs
-    }
-    public static func -= (lhs: inout LiveColor, rhs: LiveFloat) {
-        lhs.r -= rhs
-        lhs.g -= rhs
-        lhs.b -= rhs
-        lhs.a -= rhs
-    }
-    public static func *= (lhs: inout LiveColor, rhs: LiveFloat) {
-        lhs.r *= rhs
-        lhs.g *= rhs
-        lhs.b *= rhs
-        lhs.a *= rhs
-    }
-    public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
-        guard rhs != 0 else { return }
-        lhs.r /= rhs
-        lhs.g /= rhs
-        lhs.b /= rhs
-        lhs.a /= rhs
-    }
+//    public static func += (lhs: inout LiveColor, rhs: LiveColor) {
+//        lhs.r += rhs.r
+//        lhs.g += rhs.g
+//        lhs.b += rhs.b
+//        lhs.a += rhs.a
+//    }
+//    public static func -= (lhs: inout LiveColor, rhs: LiveColor) {
+//        lhs.r -= rhs.r
+//        lhs.g -= rhs.g
+//        lhs.b -= rhs.b
+//        lhs.a -= rhs.a
+//    }
+//    public static func *= (lhs: inout LiveColor, rhs: LiveColor) {
+//        lhs.r *= rhs.r
+//        lhs.g *= rhs.g
+//        lhs.b *= rhs.b
+//        lhs.a *= rhs.a
+//    }
+//
+//    public static func += (lhs: inout LiveColor, rhs: LiveFloat) {
+//        lhs.r += rhs
+//        lhs.g += rhs
+//        lhs.b += rhs
+//        lhs.a += rhs
+//    }
+//    public static func -= (lhs: inout LiveColor, rhs: LiveFloat) {
+//        lhs.r -= rhs
+//        lhs.g -= rhs
+//        lhs.b -= rhs
+//        lhs.a -= rhs
+//    }
+//    public static func *= (lhs: inout LiveColor, rhs: LiveFloat) {
+//        lhs.r *= rhs
+//        lhs.g *= rhs
+//        lhs.b *= rhs
+//        lhs.a *= rhs
+//    }
+//    public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
+//        guard rhs != 0 else { return }
+//        lhs.r /= rhs
+//        lhs.g /= rhs
+//        lhs.b /= rhs
+//        lhs.a /= rhs
+//    }
     
     public prefix static func - (operand: LiveColor) -> LiveColor {
         return LiveColor(
             r: -operand.r,
             g: -operand.g,
             b: -operand.b,
-            a: operand.a,
-            space: operand.space)
+            a: operand.a/*,
+            space: operand.space*/)
     }
     
     public prefix static func -- (operand: LiveColor) -> LiveColor {
@@ -648,8 +654,8 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
             r: -operand.r,
             g: -operand.g,
             b: -operand.b,
-            a: -operand.a,
-            space: operand.space)
+            a: -operand.a/*,
+             space: operand.space*/)
     }
     
     public prefix static func ! (operand: LiveColor) -> LiveColor {
@@ -657,22 +663,22 @@ public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConve
             r: 1.0 - operand.r,
             g: 1.0 - operand.g,
             b: 1.0 - operand.b,
-            a: operand.a,
-            space: operand.space)
+            a: operand.a/*,
+             space: operand.space*/)
     }
     
 }
 
-#if os(iOS)
-typealias _Color = UIColor
-#elseif os(macOS)
-typealias _Color = NSColor
-#endif
-public extension _Color {
-    var pixColor: PIX.Color {
-        return PIX.Color(self)
-    }
-}
+//#if os(iOS)
+//typealias _Color = UIColor
+//#elseif os(macOS)
+//typealias _Color = NSColor
+//#endif
+//public extension _Color {
+//    var liveColor: LiveColor {
+//        return LiveColor(self)
+//    }
+//}
 
 extension String {
 
@@ -694,4 +700,5 @@ extension String {
         
         return (prefix + self)
     }
+    
 }
