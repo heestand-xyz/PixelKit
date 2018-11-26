@@ -9,17 +9,6 @@
 import Foundation
 import CoreGraphics
 
-protocol LiveValue {
-    
-//    var futureValue: () -> (CGFloat) { get set }
-//    var value: CGFloat { get }
-
-//    var pxv: CGFloat { mutating get }
-    var pxvIsNew: Bool { get }
-//    var pxvCache: CGFloat? { get set }
-    
-}
-
 public /*private*/ class Live: Codable {
     
     public static let now = Live()

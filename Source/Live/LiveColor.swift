@@ -12,18 +12,33 @@ import UIKit
 import AppKit
 #endif
 
-public class LiveColor {
+public struct LiveColor: LiveValue, ExpressibleByFloatLiteral, CustomStringConvertible {
     
-//    var futureValue: () -> (CGFloat)
-//
-//    var value: CGFloat
-//
-//    var pxv: CGFloat
-//
-//    var pxvIsNew: Bool
-//
-//    var pxvCache: CGFloat?
+//    typealias LiveValueType = LiveColor.Type
     
+    public var description: String {
+        let _r: CGFloat = floor(r.value * 1000) / 1000
+        let _g: CGFloat = floor(g.value * 1000) / 1000
+        let _b: CGFloat = floor(b.value * 1000) / 1000
+        let _a: CGFloat = floor(a.value * 1000) / 1000
+        return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
+    }
+    
+    var futureValue: () -> (CGFloat)
+    public var value: CGFloat {
+        return futureValue()
+    }
+    
+    var pxv: CGFloat {
+        mutating get {
+            pxvCache = value
+            return value
+        }
+    }
+    var pxvIsNew: Bool {
+        return pxvCache != value
+    }
+    var pxvCache: CGFloat? = nil
     
     public var r: LiveFloat
     public var g: LiveFloat
@@ -147,6 +162,16 @@ public class LiveColor {
     
     public var mono: LiveColor {
         return LiveColor(r: lum, g: lum, b: lum, a: a/*, space: space*/)
+    }
+    
+    // MARK: - Future
+    
+    public init(_ futureValue: @escaping () -> (LiveColor)) {
+        self.futureValue = futureValue
+    }
+    
+    required public init(floatLiteral value: FloatLiteralType) {
+//        futureValue = { return CGFloat(value) }
     }
     
     // MARK: - RGB
@@ -450,30 +475,30 @@ public class LiveColor {
     
     // MARK: - Operator Overloads
     
-    public static func ==(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func ==  (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.r == rhs.r &&
                lhs.g == rhs.g &&
                lhs.b == rhs.b &&
                lhs.a == rhs.a
     }
-    public static func !=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func != (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return !(lhs == rhs)
     }
     
-    public static func >(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func > (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.val > rhs.val
     }
-    public static func <(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func < (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.val < rhs.val
     }
-    public static func >=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func >= (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.val >= rhs.val
     }
-    public static func <=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+    public static func <= (lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.val <= rhs.val
     }
     
-    public static func +(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
+    public static func + (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r + rhs.r,
             g: lhs.g + rhs.g,
@@ -481,7 +506,7 @@ public class LiveColor {
             a: lhs.a + rhs.a/*,
             space: lhs.space*/)
     }
-    public static func -(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
+    public static func - (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs.r,
             g: lhs.g - rhs.g,
@@ -489,7 +514,7 @@ public class LiveColor {
             a: lhs.a/*,
              space: lhs.space*/)
     }
-    public static func --(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
+    public static func -- (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs.r,
             g: lhs.g - rhs.g,
@@ -497,7 +522,7 @@ public class LiveColor {
             a: lhs.a - rhs.a/*,
              space: lhs.space*/)
     }
-    public static func *(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
+    public static func * (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r * rhs.r,
             g: lhs.g * rhs.g,
@@ -506,7 +531,7 @@ public class LiveColor {
              space: lhs.space*/)
     }
     
-    public static func +(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+    public static func + (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r + rhs,
             g: lhs.g + rhs,
@@ -514,7 +539,7 @@ public class LiveColor {
             a: lhs.a + rhs/*,
              space: lhs.space*/)
     }
-    public static func -(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+    public static func - (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs,
             g: lhs.g - rhs,
@@ -522,7 +547,7 @@ public class LiveColor {
             a: lhs.a/*,
              space: lhs.space*/)
     }
-    public static func --(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+    public static func -- (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs,
             g: lhs.g - rhs,
@@ -530,7 +555,7 @@ public class LiveColor {
             a: lhs.a - rhs/*,
              space: lhs.space*/)
     }
-    public static func *(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+    public static func * (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r * rhs,
             g: lhs.g * rhs,
@@ -538,24 +563,26 @@ public class LiveColor {
             a: lhs.a * rhs/*,
              space: lhs.space*/)
     }
-    public static func /(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        guard rhs != LiveFloat(0) else {
-            return .init(lum: 1)
-        }
-        return LiveColor(
-            r: lhs.r / rhs,
-            g: lhs.g / rhs,
-            b: lhs.b / rhs,
-            a: lhs.a / rhs/*,
-             space: lhs.space*/)
+    public static func / (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+        return LiveColor({
+            guard rhs.value != 0 else {
+                return .init(lum: 1)
+            }
+            return LiveColor(
+                r: lhs.r / rhs,
+                g: lhs.g / rhs,
+                b: lhs.b / rhs,
+                a: lhs.a / rhs/*,
+                 space: lhs.space*/)
+        })
     }
-    public static func +(lhs: CGFloat, rhs: LiveColor) -> LiveColor {
+    public static func + (lhs: LiveFloat, rhs: LiveColor) -> LiveColor {
         return rhs + lhs
     }
-    public static func -(lhs: CGFloat, rhs: LiveColor) -> LiveColor {
+    public static func - (lhs: LiveFloat, rhs: LiveColor) -> LiveColor {
         return (rhs - lhs) * -1
     }
-    public static func *(lhs: CGFloat, rhs: LiveColor) -> LiveColor {
+    public static func * (lhs: LiveFloat, rhs: LiveColor) -> LiveColor {
         return rhs * lhs
     }
     
@@ -578,25 +605,25 @@ public class LiveColor {
         lhs.a *= rhs.a
     }
     
-    public static func += (lhs: inout LiveColor, rhs: CGFloat) {
+    public static func += (lhs: inout LiveColor, rhs: LiveFloat) {
         lhs.r += rhs
         lhs.g += rhs
         lhs.b += rhs
         lhs.a += rhs
     }
-    public static func -= (lhs: inout LiveColor, rhs: CGFloat) {
+    public static func -= (lhs: inout LiveColor, rhs: LiveFloat) {
         lhs.r -= rhs
         lhs.g -= rhs
         lhs.b -= rhs
         lhs.a -= rhs
     }
-    public static func *= (lhs: inout LiveColor, rhs: CGFloat) {
+    public static func *= (lhs: inout LiveColor, rhs: LiveFloat) {
         lhs.r *= rhs
         lhs.g *= rhs
         lhs.b *= rhs
         lhs.a *= rhs
     }
-    public static func /= (lhs: inout LiveColor, rhs: CGFloat) {
+    public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
         guard rhs != 0 else { return }
         lhs.r /= rhs
         lhs.g /= rhs
@@ -646,16 +673,22 @@ public extension _Color {
 
 extension String {
 
-    subscript (bounds: CountableClosedRange<Int>) -> String {
+    public subscript (bounds: CountableClosedRange<Int>) -> String {
         let start = index(startIndex, offsetBy: bounds.lowerBound)
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return String(self[start...end])
     }
 
-    subscript (bounds: CountableRange<Int>) -> String {
+    public subscript (bounds: CountableRange<Int>) -> String {
         let start = index(startIndex, offsetBy: bounds.lowerBound)
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return String(self[start..<end])
     }
 
+    public func zfill(_ length: Int) -> String {
+        let diff = (length - count)
+        let prefix = (diff > 0 ? String(repeating: "0", count: diff) : "")
+        
+        return (prefix + self)
+    }
 }
