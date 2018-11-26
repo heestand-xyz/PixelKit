@@ -12,6 +12,17 @@ import UIKit
 import AppKit
 #endif
 
+#if os(iOS)
+public typealias _Color = UIColor
+#elseif os(macOS)
+public typealias _Color = NSColor
+#endif
+//public extension _Color {
+//    var liveColor: LiveColor {
+//        return LiveColor(self)
+//    }
+//}
+
 public struct LiveColor: CustomStringConvertible {
     
 //    typealias LiveValueType = LiveColor.Type
@@ -665,40 +676,6 @@ public struct LiveColor: CustomStringConvertible {
             b: 1.0 - operand.b,
             a: operand.a/*,
              space: operand.space*/)
-    }
-    
-}
-
-//#if os(iOS)
-//typealias _Color = UIColor
-//#elseif os(macOS)
-//typealias _Color = NSColor
-//#endif
-//public extension _Color {
-//    var liveColor: LiveColor {
-//        return LiveColor(self)
-//    }
-//}
-
-extension String {
-
-    public subscript (bounds: CountableClosedRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: bounds.lowerBound)
-        let end = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[start...end])
-    }
-
-    public subscript (bounds: CountableRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: bounds.lowerBound)
-        let end = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[start..<end])
-    }
-
-    public func zfill(_ length: Int) -> String {
-        let diff = (length - count)
-        let prefix = (diff > 0 ? String(repeating: "0", count: diff) : "")
-        
-        return (prefix + self)
     }
     
 }

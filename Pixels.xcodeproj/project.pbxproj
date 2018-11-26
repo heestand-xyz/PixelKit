@@ -98,6 +98,7 @@
 		74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74179CA821271046007F9579 /* ThresholdPIX.swift */; };
 		741D2CF621AC7540007259E3 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
 		741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
+		741D2CF921AC9CC0007259E3 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* ExtensionString.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */; };
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
@@ -189,6 +190,7 @@
 		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
 		741510DB212F300B00B251E7 /* ColorPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPIX.swift; sourceTree = "<group>"; };
 		74179CA821271046007F9579 /* ThresholdPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPIX.swift; sourceTree = "<group>"; };
+		741D2CF821AC9CC0007259E3 /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
 		7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMixPIX.swift; sourceTree = "<group>"; };
 		7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyPIX.swift; sourceTree = "<group>"; };
@@ -296,6 +298,14 @@
 		740EE328212DD4C00065F49B /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
+			sourceTree = "<group>";
+		};
+		741D2CFA21AC9CD5007259E3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				741D2CF821AC9CC0007259E3 /* ExtensionString.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		7452F4C6210A3362001AA523 /* PIX */ = {
@@ -523,6 +533,7 @@
 				74DB402D2125BD9800FA6034 /* PixelsLog.swift */,
 				7486537921A896530073F758 /* Live */,
 				7452F4C6210A3362001AA523 /* PIX */,
+				741D2CFA21AC9CD5007259E3 /* Extensions */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -804,6 +815,7 @@
 				3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */,
 				74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */,
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
+				741D2CF921AC9CC0007259E3 /* ExtensionString.swift in Sources */,
 				74899F4B2172C30200101994 /* HDRPIX.swift in Sources */,
 				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
