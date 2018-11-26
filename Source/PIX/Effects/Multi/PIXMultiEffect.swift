@@ -17,9 +17,9 @@ open class PIXMultiEffect: PIXEffect, PIXInMulti {
         super.init()
     }
     
-    required public init(from decoder: Decoder) throws {
-        super.init()
-//        fatalError("init(from:) has not been implemented")
-    }
+//    required public init(from decoder: Decoder) throws {
+//        super.init()
+////        fatalError("init(from:) has not been implemented")
+//    }
     
 }

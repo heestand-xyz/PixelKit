@@ -54,16 +54,16 @@ public class GradientPIX: PIXGenerator {
     public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var colorFirst: Color = .black { didSet { setNeedsRender() } }
-    public var colorLast: Color = .white { didSet { setNeedsRender() } }
+    public var colorFirst: LiveColor = .black { didSet { setNeedsRender() } }
+    public var colorLast: LiveColor = .whiteShine { didSet { setNeedsRender() } }
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
+//    }
     
     open override var uniforms: [CGFloat] {
         var vals = [CGFloat(style.index), scale, offset, position.x, position.y]
@@ -82,33 +82,33 @@ public class GradientPIX: PIXGenerator {
         return vals
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init(res: ._128) // CHECK
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        style = try container.decode(Style.self, forKey: .style)
-        scale = try container.decode(CGFloat.self, forKey: .scale)
-        offset = try container.decode(CGFloat.self, forKey: .offset)
-        position = try container.decode(CGPoint.self, forKey: .position)
-        colorFirst = try container.decode(Color.self, forKey: .colorFirst)
-        colorLast = try container.decode(Color.self, forKey: .colorLast)
-        extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
-        colorSteps = try container.decode(ColorSteps.self, forKey: .colorSteps)
-        setNeedsRender()
-    }
-    
-    override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(style, forKey: .style)
-        try container.encode(scale, forKey: .scale)
-        try container.encode(offset, forKey: .offset)
-        try container.encode(position, forKey: .position)
-        try container.encode(colorFirst, forKey: .colorFirst)
-        try container.encode(colorLast, forKey: .colorLast)
-        try container.encode(extendRamp, forKey: .extendRamp)
-        try container.encode(colorSteps, forKey: .colorSteps)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init(res: ._128) // CHECK
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        style = try container.decode(Style.self, forKey: .style)
+//        scale = try container.decode(CGFloat.self, forKey: .scale)
+//        offset = try container.decode(CGFloat.self, forKey: .offset)
+//        position = try container.decode(CGPoint.self, forKey: .position)
+//        colorFirst = try container.decode(Color.self, forKey: .colorFirst)
+//        colorLast = try container.decode(Color.self, forKey: .colorLast)
+//        extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
+//        colorSteps = try container.decode(ColorSteps.self, forKey: .colorSteps)
+//        setNeedsRender()
+//    }
+//    
+//    override public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(style, forKey: .style)
+//        try container.encode(scale, forKey: .scale)
+//        try container.encode(offset, forKey: .offset)
+//        try container.encode(position, forKey: .position)
+//        try container.encode(colorFirst, forKey: .colorFirst)
+//        try container.encode(colorLast, forKey: .colorLast)
+//        try container.encode(extendRamp, forKey: .extendRamp)
+//        try container.encode(colorSteps, forKey: .colorSteps)
+//    }
     
 }
 

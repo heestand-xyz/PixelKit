@@ -23,6 +23,12 @@ public typealias _Color = NSColor
 //    }
 //}
 
+extension _Color {
+    convenience init(_ liveColor: LiveColor) {
+        self.init(displayP3Red: CGFloat(liveColor.r), green: CGFloat(liveColor.g), blue: CGFloat(liveColor.b), alpha: CGFloat(liveColor.a))
+    }
+}
+
 public struct LiveColor: CustomStringConvertible {
     
 //    typealias LiveValueType = LiveColor.Type
@@ -55,6 +61,12 @@ public struct LiveColor: CustomStringConvertible {
     public var g: LiveFloat
     public var b: LiveFloat
     public var a: LiveFloat
+    
+    public static var whiteShine: LiveColor {
+        return LiveColor(r: 0.9 + 0.1 * cos(.seconds),
+                         g: 0.9 + 0.1 * sin(.seconds),
+                         b: 0.9 + 0.1 * (cos(.seconds / 2) + sin(.seconds / 2) / 2))
+    }
     
     public static var clear: LiveColor       { return LiveColor(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
     public static var clearWhite: LiveColor  { return LiveColor(r: 1.0, g: 1.0, b: 1.0, a: 0.0) }

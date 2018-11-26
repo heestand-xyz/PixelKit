@@ -20,8 +20,8 @@ open class PIXEffect: PIX, PIXInIO, PIXOutIO {
         pixOutPathList = []
     }
     
-    required public init(from decoder: Decoder) throws {
-        fatalError("PIXEffect Decoder Initializer is not supported.") // CHECK
-    }
+//    required public init(from decoder: Decoder) throws {
+//        fatalError("PIXEffect Decoder Initializer is not supported.") // CHECK
+//    }
     
 }

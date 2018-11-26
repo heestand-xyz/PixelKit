@@ -225,6 +225,7 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.
 
+<!--
 ## File IO
 
 You can find example files [here](https://github.com/anton-hexagons/Pixels/tree/master/Assets/Examples).
@@ -244,6 +245,8 @@ view.addSubview(finalPix.view)
 To export just run `Pixels.main.export()` once you've created your PIXs.
 
 Note that exporting resourses like image and video are not yet supported.
+
+-->
 
 ## High Bit Mode
 

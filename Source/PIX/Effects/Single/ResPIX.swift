@@ -21,9 +21,9 @@ public class ResPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    enum ResCodingKeys: String, CodingKey {
-        case resMultiplier; case inheritInRes; case fillMode
-    }
+//    enum ResCodingKeys: String, CodingKey {
+//        case resMultiplier; case inheritInRes; case fillMode
+//    }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
@@ -36,23 +36,23 @@ public class ResPIX: PIXSingleEffect {
         super.init()
     }
 
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init(res: ._128) // CHECK
-        let container = try decoder.container(keyedBy: ResCodingKeys.self)
-        resMultiplier = try container.decode(CGFloat.self, forKey: .resMultiplier)
-        inheritInRes = try container.decode(Bool.self, forKey: .inheritInRes)
-        fillMode = try container.decode(FillMode.self, forKey: .fillMode)
-    }
-
-    override public func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: ResCodingKeys.self)
-        try container.encode(resMultiplier, forKey: .resMultiplier)
-        try container.encode(inheritInRes, forKey: .inheritInRes)
-        try container.encode(fillMode, forKey: .fillMode)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init(res: ._128) // CHECK
+//        let container = try decoder.container(keyedBy: ResCodingKeys.self)
+//        resMultiplier = try container.decode(CGFloat.self, forKey: .resMultiplier)
+//        inheritInRes = try container.decode(Bool.self, forKey: .inheritInRes)
+//        fillMode = try container.decode(FillMode.self, forKey: .fillMode)
+//    }
+//
+//    override public func encode(to encoder: Encoder) throws {
+//        try super.encode(to: encoder)
+//        var container = encoder.container(keyedBy: ResCodingKeys.self)
+//        try container.encode(resMultiplier, forKey: .resMultiplier)
+//        try container.encode(inheritInRes, forKey: .inheritInRes)
+//        try container.encode(fillMode, forKey: .fillMode)
+//    }
 
 }
 

@@ -16,9 +16,9 @@ public class CirclePIX: PIXGenerator {
     public var radius: LiveFloat = sqrt(0.75) / 4
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: LiveFloat = 0.0
-    public var color: Color = .white { didSet { setNeedsRender() } }
-    public var edgeColor: Color = .gray { didSet { setNeedsRender() } }
-    public var bgColor: Color = .black { didSet { setNeedsRender() } }
+    public var color: LiveColor = .whiteShine { didSet { setNeedsRender() } }
+    public var edgeColor: LiveColor = .gray { didSet { setNeedsRender() } }
+    public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -38,7 +38,7 @@ public class CirclePIX: PIXGenerator {
         return vals
     }
     
-//    // MARK: - JSON
+//     MARK: - JSON
 //
 //    required convenience init(from decoder: Decoder) throws {
 //        self.init(res: ._128) // CHECK
@@ -47,8 +47,8 @@ public class CirclePIX: PIXGenerator {
 //        position = try container.decode(CGPoint.self, forKey: .position)
 ////        edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
 //        color = try container.decode(Color.self, forKey: .color)
-//        edgeColor = try container.decode(Color.self, forKey: .edgeColor)
-//        bgColor = try container.decode(Color.self, forKey: .bgColor)
+//        edgeLiveColor = try container.decode(Color.self, forKey: .edgeColor)
+//        bgLiveColor = try container.decode(Color.self, forKey: .bgColor)
 //        setNeedsRender()
 //    }
 //

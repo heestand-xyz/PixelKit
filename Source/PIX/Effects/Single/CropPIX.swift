@@ -19,28 +19,28 @@ public class CropPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case cropFrame
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case cropFrame
+//    }
     
     open override var uniforms: [CGFloat] {
         return [cropFrame.minX, cropFrame.maxX, cropFrame.minY, cropFrame.maxY]
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        cropFrame = try container.decode(CGRect.self, forKey: .cropFrame)
-        setNeedsRender()
-    }
-    
-    override public func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(cropFrame, forKey: .cropFrame)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        cropFrame = try container.decode(CGRect.self, forKey: .cropFrame)
+//        setNeedsRender()
+//    }
+//    
+//    override public func encode(to encoder: Encoder) throws {
+//        try super.encode(to: encoder)
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(cropFrame, forKey: .cropFrame)
+//    }
     
 }
 

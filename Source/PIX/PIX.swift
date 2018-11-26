@@ -100,13 +100,13 @@ open class PIX: Codable {
     
     }
     
-    // MARK: - JSON
-
-    public required init(from decoder: Decoder) throws {
-        fatalError("PIX Decoder Initializer is not supported.") // CHECK
-    }
-    
-    public func encode(to encoder: Encoder) throws {}
+//    // MARK: - JSON
+//
+//    public required init(from decoder: Decoder) throws {
+//        fatalError("PIX Decoder Initializer is not supported.") // CHECK
+//    }
+//
+//    public func encode(to encoder: Encoder) throws {}
     
     // MARK: Sampler
     

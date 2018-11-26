@@ -58,9 +58,9 @@ public class FeedbackPIX: PIXSingleEffect {
         setNeedsRender()
     }
     
-    required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
-    }
+//    required init(from decoder: Decoder) throws {
+//        fatalError("init(from:) has not been implemented")
+//    }
     
 }
 

@@ -16,7 +16,7 @@ open class PIXSprite: PIXContent {
     
     public var res: Res { didSet { setup(); applyRes { self.setNeedsRender() } } }
     
-    public var bgColor: Color = .black {
+    public var bgColor: LiveColor = .black {
         didSet {
             scene.backgroundColor = bgColor._color
             setNeedsRender()

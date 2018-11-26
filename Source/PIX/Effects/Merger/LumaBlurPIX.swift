@@ -36,9 +36,9 @@ public class LumaBlurPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case style; case radius; case quality; case angle; case position
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case style; case radius; case quality; case angle; case position
+//    }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
@@ -51,27 +51,27 @@ public class LumaBlurPIX: PIXMergerEffect {
         extend = .hold
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        style = try container.decode(Style.self, forKey: .style)
-        radius = try container.decode(CGFloat.self, forKey: .radius)
-        quality = try container.decode(SampleQualityMode.self, forKey: .quality)
-        angle = try container.decode(CGFloat.self, forKey: .angle)
-        position = try container.decode(CGPoint.self, forKey: .position)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(style, forKey: .style)
-        try container.encode(radius, forKey: .radius)
-        try container.encode(quality, forKey: .quality)
-        try container.encode(angle, forKey: .angle)
-        try container.encode(position, forKey: .position)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        style = try container.decode(Style.self, forKey: .style)
+//        radius = try container.decode(CGFloat.self, forKey: .radius)
+//        quality = try container.decode(SampleQualityMode.self, forKey: .quality)
+//        angle = try container.decode(CGFloat.self, forKey: .angle)
+//        position = try container.decode(CGPoint.self, forKey: .position)
+//        setNeedsRender()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(style, forKey: .style)
+//        try container.encode(radius, forKey: .radius)
+//        try container.encode(quality, forKey: .quality)
+//        try container.encode(angle, forKey: .angle)
+//        try container.encode(position, forKey: .position)
+//    }
     
 }
 

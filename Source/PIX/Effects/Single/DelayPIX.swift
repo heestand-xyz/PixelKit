@@ -19,9 +19,9 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     // MARK: - Property Helpers
     
-    enum EdgeCodingKeys: String, CodingKey {
-        case delayFrames
-    }
+//    enum EdgeCodingKeys: String, CodingKey {
+//        case delayFrames
+//    }
     
     var cachedTextures: [MTLTexture] = []
     
@@ -31,19 +31,19 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
         customRenderDelegate = self
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: EdgeCodingKeys.self)
-        delayFrames = try container.decode(Int.self, forKey: .delayFrames)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: EdgeCodingKeys.self)
-        try container.encode(delayFrames, forKey: .delayFrames)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: EdgeCodingKeys.self)
+//        delayFrames = try container.decode(Int.self, forKey: .delayFrames)
+//        setNeedsRender()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: EdgeCodingKeys.self)
+//        try container.encode(delayFrames, forKey: .delayFrames)
+//    }
     
     // MARK: Delay
     

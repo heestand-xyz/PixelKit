@@ -11,14 +11,14 @@ public class RemapPIX: PIXMergerEffect {
     
     override open var shader: String { return "effectMergerRemapPIX" }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {}
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        setNeedsRender()
+//    }
+//
+//    public override func encode(to encoder: Encoder) throws {}
     
     
 }

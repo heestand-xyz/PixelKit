@@ -24,10 +24,10 @@ public class ImagePIX: PIXResource {
     public var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws { self.init() }
-    override public func encode(to encoder: Encoder) throws {}
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws { self.init() }
+//    override public func encode(to encoder: Encoder) throws {}
     
     // MARK: Buffer
     

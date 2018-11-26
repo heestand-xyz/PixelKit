@@ -69,8 +69,8 @@ public extension PIX {
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
         }
-        public var average: Color {
-            var color: Color!
+        public var average: LiveColor {
+            var color: LiveColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -83,8 +83,8 @@ public extension PIX {
             color /= CGFloat(res.count)
             return color
         }
-        public var maximum: Color {
-            var color: Color!
+        public var maximum: LiveColor {
+            var color: LiveColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -98,8 +98,8 @@ public extension PIX {
             }
             return color
         }
-        public var minimum: Color {
-            var color: Color!
+        public var minimum: LiveColor {
+            var color: LiveColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {

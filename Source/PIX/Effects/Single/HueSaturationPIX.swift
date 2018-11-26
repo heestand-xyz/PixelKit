@@ -18,29 +18,29 @@ public class HueSaturationPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    enum LevelsCodingKeys: String, CodingKey {
-        case hue; case saturation
-    }
+//    enum LevelsCodingKeys: String, CodingKey {
+//        case hue; case saturation
+//    }
     
     open override var uniforms: [CGFloat] {
         return [hue, saturation, 1]
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: LevelsCodingKeys.self)
-        hue = try container.decode(CGFloat.self, forKey: .hue)
-        saturation = try container.decode(CGFloat.self, forKey: .saturation)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: LevelsCodingKeys.self)
-        try container.encode(hue, forKey: .hue)
-        try container.encode(saturation, forKey: .saturation)
-    }
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: LevelsCodingKeys.self)
+//        hue = try container.decode(CGFloat.self, forKey: .hue)
+//        saturation = try container.decode(CGFloat.self, forKey: .saturation)
+//        setNeedsRender()
+//    }
+//
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: LevelsCodingKeys.self)
+//        try container.encode(hue, forKey: .hue)
+//        try container.encode(saturation, forKey: .saturation)
+//    }
     
 }
 

@@ -105,9 +105,9 @@ public class CameraPIX: PIXResource {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case camera; case camRes
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case camera; case camRes
+//    }
     
     open override var uniforms: [CGFloat] {
         #if os(iOS)
@@ -138,25 +138,25 @@ public class CameraPIX: PIXResource {
         helper!.stop()
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let camera = try container.decode(Camera.self, forKey: .camera)
-        let camRes = try container.decode(CamRes.self, forKey: .camRes)
-        if camera != self.camera || camRes != self.camRes {
-            self.camera = camera
-            self.camRes = camRes
-            setupCamera()
-        }
-    }
-    
-    override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(camera, forKey: .camera)
-        try container.encode(camRes, forKey: .camRes)
-    }
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let camera = try container.decode(Camera.self, forKey: .camera)
+//        let camRes = try container.decode(CamRes.self, forKey: .camRes)
+//        if camera != self.camera || camRes != self.camRes {
+//            self.camera = camera
+//            self.camRes = camRes
+//            setupCamera()
+//        }
+//    }
+//
+//    override public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(camera, forKey: .camera)
+//        try container.encode(camRes, forKey: .camRes)
+//    }
     
     // MARK: Access
     

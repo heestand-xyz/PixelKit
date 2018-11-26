@@ -16,27 +16,28 @@ public class QuantizePIX: PIXSingleEffect {
     public var fraction: CGFloat = 0.125 { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
-    enum QuantizeCodingKeys: String, CodingKey {
-        case fraction
-    }
+    
+//    enum QuantizeCodingKeys: String, CodingKey {
+//        case fraction
+//    }
     
     open override var uniforms: [CGFloat] {
         return [fraction]
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: QuantizeCodingKeys.self)
-        fraction = try container.decode(CGFloat.self, forKey: .fraction)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: QuantizeCodingKeys.self)
-        try container.encode(fraction, forKey: .fraction)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: QuantizeCodingKeys.self)
+//        fraction = try container.decode(CGFloat.self, forKey: .fraction)
+//        setNeedsRender()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: QuantizeCodingKeys.self)
+//        try container.encode(fraction, forKey: .fraction)
+//    }
     
 }
 

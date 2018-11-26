@@ -28,29 +28,30 @@ public class ThresholdPIX: PIXSingleEffect {
     }
     
     // MARK: - Property Helpers
-    enum EdgeCodingKeys: String, CodingKey {
-        case threshold; case smoothness
-    }
+    
+//    enum EdgeCodingKeys: String, CodingKey {
+//        case threshold; case smoothness
+//    }
     
     open override var uniforms: [CGFloat] {
         return [threshold, smoothness]
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: EdgeCodingKeys.self)
-        threshold = try container.decode(CGFloat.self, forKey: .threshold)
-        smoothness = try container.decode(CGFloat.self, forKey: .smoothness)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: EdgeCodingKeys.self)
-        try container.encode(threshold, forKey: .threshold)
-        try container.encode(smoothness, forKey: .smoothness)
-    }
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: EdgeCodingKeys.self)
+//        threshold = try container.decode(CGFloat.self, forKey: .threshold)
+//        smoothness = try container.decode(CGFloat.self, forKey: .smoothness)
+//        setNeedsRender()
+//    }
+//
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: EdgeCodingKeys.self)
+//        try container.encode(threshold, forKey: .threshold)
+//        try container.encode(smoothness, forKey: .smoothness)
+//    }
     
 }
 

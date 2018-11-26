@@ -28,9 +28,9 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case metalUniforms
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case metalUniforms
+//    }
     
     open override var uniforms: [CGFloat] {
         return metalUniforms.map({ metalUniform -> CGFloat in
@@ -44,18 +44,18 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
         super.init()
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init(code: "") // CHECK
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-        setNeedsRender()
-    }
-    
-    override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(metalUniforms, forKey: .metalUniforms)
-    }
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init(code: "") // CHECK
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
+//        setNeedsRender()
+//    }
+//
+//    override public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(metalUniforms, forKey: .metalUniforms)
+//    }
     
 }

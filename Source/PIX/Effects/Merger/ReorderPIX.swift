@@ -57,9 +57,9 @@ public class ReorderPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case redInput; case redChannel; case greenInput; case greenChannel; case blueInput; case blueChannel; case alphaInput; case alphaChannel; case premultiply
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case redInput; case redChannel; case greenInput; case greenChannel; case blueInput; case blueChannel; case alphaInput; case alphaChannel; case premultiply
+//    }
     
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
@@ -72,35 +72,35 @@ public class ReorderPIX: PIXMergerEffect {
         return vals
     }
         
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        redInput = try container.decode(Input.self, forKey: .redInput)
-        redChannel = try container.decode(Channel.self, forKey: .redChannel)
-        greenInput = try container.decode(Input.self, forKey: .greenInput)
-        greenChannel = try container.decode(Channel.self, forKey: .greenChannel)
-        blueInput = try container.decode(Input.self, forKey: .blueInput)
-        blueChannel = try container.decode(Channel.self, forKey: .blueChannel)
-        alphaInput = try container.decode(Input.self, forKey: .alphaInput)
-        alphaChannel = try container.decode(Channel.self, forKey: .alphaChannel)
-        premultiply = try container.decode(Bool.self, forKey: .premultiply)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(redInput, forKey: .redInput)
-        try container.encode(redChannel, forKey: .redChannel)
-        try container.encode(greenInput, forKey: .greenInput)
-        try container.encode(greenChannel, forKey: .greenChannel)
-        try container.encode(blueInput, forKey: .blueInput)
-        try container.encode(blueChannel, forKey: .blueChannel)
-        try container.encode(alphaInput, forKey: .alphaInput)
-        try container.encode(alphaChannel, forKey: .alphaChannel)
-        try container.encode(premultiply, forKey: .premultiply)
-    }
+//    // MARK: - JSON
+//    
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        redInput = try container.decode(Input.self, forKey: .redInput)
+//        redChannel = try container.decode(Channel.self, forKey: .redChannel)
+//        greenInput = try container.decode(Input.self, forKey: .greenInput)
+//        greenChannel = try container.decode(Channel.self, forKey: .greenChannel)
+//        blueInput = try container.decode(Input.self, forKey: .blueInput)
+//        blueChannel = try container.decode(Channel.self, forKey: .blueChannel)
+//        alphaInput = try container.decode(Input.self, forKey: .alphaInput)
+//        alphaChannel = try container.decode(Channel.self, forKey: .alphaChannel)
+//        premultiply = try container.decode(Bool.self, forKey: .premultiply)
+//        setNeedsRender()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(redInput, forKey: .redInput)
+//        try container.encode(redChannel, forKey: .redChannel)
+//        try container.encode(greenInput, forKey: .greenInput)
+//        try container.encode(greenChannel, forKey: .greenChannel)
+//        try container.encode(blueInput, forKey: .blueInput)
+//        try container.encode(blueChannel, forKey: .blueChannel)
+//        try container.encode(alphaInput, forKey: .alphaInput)
+//        try container.encode(alphaChannel, forKey: .alphaChannel)
+//        try container.encode(premultiply, forKey: .premultiply)
+//    }
     
 }
 

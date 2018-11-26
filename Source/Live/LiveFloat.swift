@@ -229,6 +229,12 @@ func pow(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return pow(CGFloat(live), CGFloat(live2)) })
 }
 
+func cos(_ live: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return cos(CGFloat(live)) })
+}
+func sin(_ live: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return sin(CGFloat(live)) })
+}
 func atan(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan(CGFloat(live)) })
 }
