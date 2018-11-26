@@ -9,18 +9,12 @@
 import Foundation
 import CoreGraphics
 
-public struct LiveFloat: LiveValue, Equatable, Comparable, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
-    
-    //    public typealias FloatLiteralType = Double
-    //    public typealias IntegerLiteralType = Int
+
+public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
         return "live(\(value))"
     }
-    
-    //    public typealias NativeType = CGFloat
-    //    public var native: LiveFloat.NativeType
-    
     
     var futureValue: () -> (CGFloat)
     public var value: CGFloat {
@@ -39,30 +33,33 @@ public struct LiveFloat: LiveValue, Equatable, Comparable, ExpressibleByFloatLit
     var pxvCache: CGFloat? = nil
     
     
-    //    public var years: LiveFloat!
-    //    public var months: LiveFloat!
-    //    public var days: LiveFloat!
-    //    public var hours: LiveFloat!
-    //    public var minutes: LiveFloat!
-    //    public var seconds: LiveFloat!
-    public static var secondsSinceLaunch: LiveFloat {
+    //    public var year: LiveFloat!
+    //    public var month: LiveFloat!
+    //    public var day: LiveFloat!
+    //    public var hour: LiveFloat!
+    //    public var minute: LiveFloat!
+    //    public var second: LiveFloat!
+    public static var seconds: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             return Pixels.main.seconds
         })
     }
     public static var secondsSince1970: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
-            return CGFloat(-Date().timeIntervalSince1970)
+            return CGFloat(Date().timeIntervalSince1970)
         })
     }
     
     
     public init(_ futureValue: @escaping () -> (CGFloat)) {
         self.futureValue = futureValue
-        
     }
     
-    init(static value: CGFloat) {
+    public init(_ liveInt: LiveInt) {
+        futureValue = { return CGFloat(liveInt.value) }
+    }
+    
+    public init(static value: CGFloat) {
         futureValue = { return CGFloat(value) }
     }
     
@@ -74,40 +71,47 @@ public struct LiveFloat: LiveValue, Equatable, Comparable, ExpressibleByFloatLit
         futureValue = { return CGFloat(value) }
     }
     
+//    enum CodingKeys: String, CodingKey {
+//        case rawValue; case liveKey
+//    }
     
-    //    public init(_ value: Double) {
-    //        futureValue = { return CGFloat(value) }
-    //    }
-    
-    enum CodingKeys: String, CodingKey {
-        case rawValue; case liveKey
-    }
-    
-    //    func filter(for seconds: LiveFloat) -> LiveFloat {
-    //        // ...
-    //    }
+//    func filter(for seconds: LiveFloat) -> LiveFloat {
+//        // ...
+//    }
     
     // MARK: Equatable
     
-    public static func == (lhs: LiveFloat, rhs: LiveFloat) -> Bool {
-        return lhs.value == rhs.value
+    public static func == (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return LiveBool({ return lhs.value == rhs.value })
     }
-    public static func == (lhs: LiveFloat, rhs: CGFloat) -> Bool {
-        return lhs.value == rhs
+    public static func != (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return !(lhs == rhs)
     }
-    public static func == (lhs: CGFloat, rhs: LiveFloat) -> Bool {
-        return lhs == rhs.value
-    }
+//    public static func == (lhs: LiveFloat, rhs: CGFloat) -> LiveBool {
+//        return lhs.value == rhs
+//    }
+//    public static func == (lhs: CGFloat, rhs: LiveFloat) -> LiveBool {
+//        return lhs == rhs.value
+//    }
     
     // MARK: Comparable
     
-    public static func < (lhs: LiveFloat, rhs: LiveFloat) -> Bool {
-        return lhs.value < rhs.value
+    public static func < (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return LiveBool({ return lhs.value < rhs.value })
     }
-//    public static func < (lhs: LiveFloat, rhs: CGFloat) -> Bool {
+    public static func <= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return LiveBool({ return lhs.value <= rhs.value })
+    }
+    public static func > (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return LiveBool({ return lhs.value > rhs.value })
+    }
+    public static func >= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
+        return LiveBool({ return lhs.value >= rhs.value })
+    }
+//    public static func < (lhs: LiveFloat, rhs: CGFloat) -> LiveBool {
 //        return LiveFloat({ return lhs.value < rhs })
 //    }
-//    public static func < (lhs: CGFloat, rhs: LiveFloat) -> Bool {
+//    public static func < (lhs: CGFloat, rhs: LiveFloat) -> LiveBool {
 //        return LiveFloat({ return lhs < rhs.value })
 //    }
     
@@ -160,6 +164,20 @@ public struct LiveFloat: LiveValue, Equatable, Comparable, ExpressibleByFloatLit
     
     public prefix static func - (operand: LiveFloat) -> LiveFloat {
         return LiveFloat({ return -operand.value })
+    }
+    
+    public prefix static func ! (operand: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return 1.0 - operand.value })
+    }
+    
+    // MARK: Local Funcs
+    
+    public func truncatingRemainder(dividingBy other: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return self.value.truncatingRemainder(dividingBy: other.value) })
+    }
+
+    public func remainder(dividingBy other: LiveFloat) -> LiveFloat {
+        return LiveFloat({ return self.value.remainder(dividingBy: other.value) })
     }
     
 }

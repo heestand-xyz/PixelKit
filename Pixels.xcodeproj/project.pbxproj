@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
+		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
+		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
+		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
 		3AF28BD4219312B90079FC7A /* Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* Pixels.swift */; };
 		3AF28BD5219312CA0079FC7A /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
 		3AF28BD6219312CA0079FC7A /* PixelsTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* PixelsTexture.swift */; };
@@ -169,6 +172,8 @@
 
 /* Begin PBXFileReference section */
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
+		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
+		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* Pixels_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
@@ -354,6 +359,8 @@
 			children = (
 				74317C1221A38D42006D9E12 /* Live.swift */,
 				7486537A21A896680073F758 /* LiveFloat.swift */,
+				3AA8019321AC2218009430C8 /* LiveInt.swift */,
+				3AA8019621AC2A1F009430C8 /* LiveBool.swift */,
 				7465FC77211A4E0400899359 /* LiveColor.swift */,
 			);
 			path = Live;
@@ -766,6 +773,7 @@
 				3AF28C07219312F50079FC7A /* FlipFlopPIX.swift in Sources */,
 				3AF28BD7219312CA0079FC7A /* PixelsRender.swift in Sources */,
 				3AF28C0A219312F50079FC7A /* SlopePIX.swift in Sources */,
+				3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */,
 				3AF28C2B219337CD0079FC7A /* CheckerView.swift in Sources */,
 				3AF28BD6219312CA0079FC7A /* PixelsTexture.swift in Sources */,
 			);
@@ -802,6 +810,7 @@
 				7473B4FD214176E2008C6F23 /* DisplacePIX.swift in Sources */,
 				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
 				747CBA7F214286C000CB2616 /* MetalEffectPIX.swift in Sources */,
+				3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */,
 				74B488A2214122320033B3B5 /* FlipFlopPIX.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
 				7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */,
@@ -843,6 +852,7 @@
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
 				740EC53A213EFC3E006E2996 /* PIXOperators.swift in Sources */,
+				3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */,
 				743F375D215BADDF002BC5BA /* AirPlayPIX.swift in Sources */,
 				7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,

@@ -160,10 +160,10 @@ public class LiveColor {
     }
     
     public init(r255: Int, g255: Int, b255: Int, a255: Int = 255/*, space: Space = Pixels.main.colorSpace*/) {
-        self.r = CGFloat(r255) / 255
-        self.g = CGFloat(g255) / 255
-        self.b = CGFloat(b255) / 255
-        self.a = CGFloat(a255) / 255
+        self.r = LiveFloat(static: CGFloat(r255) / 255)
+        self.g = LiveFloat(static: CGFloat(g255) / 255)
+        self.b = LiveFloat(static: CGFloat(b255) / 255)
+        self.a = LiveFloat(static: CGFloat(a255) / 255)
 //        self.space = space
     }
     
@@ -260,7 +260,7 @@ public class LiveColor {
     
     public init(h: LiveFloat, s: LiveFloat = 1.0, v: LiveFloat = 1.0, a: LiveFloat = 1.0/*, space: Space = Pixels.main.colorSpace*/) {
         var hh, p, q, t, ff: LiveFloat
-        var i: Int
+        var i: LiveInt
         if (s <= 0.0) {
             r = v
             g = v
@@ -270,8 +270,8 @@ public class LiveColor {
             return
         }
         hh = (h - floor(h)) * 360
-        hh /= 60.0
-        i = Int(hh)
+        hh = hh / 60.0
+        i = LiveInt(hh)
         ff = hh - LiveFloat(i)
         p = v * (1.0 - s)
         q = v * (1.0 - (s * ff))
@@ -307,17 +307,17 @@ public class LiveColor {
             b = q
         }
         self.a = a
-        self.space = space
+//        self.space = space
     }
     
     // MARK: - Hex
     
     public var hex: String {
-        let hexInt: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+        let hexInt: Int = (Int)(r.value*255)<<16 | (Int)(g.value*255)<<8 | (Int)(b.value*255)<<0
         return String(format:"#%06x", hexInt)
     }
     
-    public init(hex: String, a: LiveFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(hex: String, a: CGFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
         
         var hex = hex
         if hex[0..<1] == "#" {
@@ -338,12 +338,12 @@ public class LiveColor {
         let scanner: Scanner = Scanner(string: hex)
         scanner.scanHexInt32(&hexInt)
         
-        self.r = CGFloat((hexInt & 0xff0000) >> 16) / 255.0
-        self.g = CGFloat((hexInt & 0xff00) >> 8) / 255.0
-        self.b = CGFloat((hexInt & 0xff) >> 0) / 255.0
-        self.a = a
+        self.r = LiveFloat(static: CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
+        self.g = LiveFloat(static: CGFloat((hexInt & 0xff00) >> 8) / 255.0)
+        self.b = LiveFloat(static: CGFloat((hexInt & 0xff) >> 0) / 255.0)
+        self.a = LiveFloat(static: a)
         
-        self.space = space
+//        self.space = space
         
     }
     
@@ -383,22 +383,22 @@ public class LiveColor {
         case alpha
         var LiveColor: LiveColor {
             switch self {
-            case .red: return   LiveColor(r: 1.0, g: 0.0, b: 0.0, a: 0.0)
-            case .green: return LiveColor(r: 0.0, g: 1.0, b: 0.0, a: 0.0)
-            case .blue: return  LiveColor(r: 0.0, g: 0.0, b: 1.0, a: 0.0)
-            case .alpha: return LiveColor(r: 0.0, g: 0.0, b: 0.0, a: 1.0)
+            case .red:   return .init(r: 1.0, g: 0.0, b: 0.0, a: 0.0)
+            case .green: return .init(r: 0.0, g: 1.0, b: 0.0, a: 0.0)
+            case .blue:  return .init(r: 0.0, g: 0.0, b: 1.0, a: 0.0)
+            case .alpha: return .init(r: 0.0, g: 0.0, b: 0.0, a: 1.0)
             }
         }
     }
     
-    public var isPure: Bool {
-        let oneCount = (r == 1 ? 1 : 0) + (g == 1 ? 1 : 0) + (b == 1 ? 1 : 0) + (a == 1 ? 1 : 0)
-        let zeroCount = (r == 0 ? 1 : 0) + (g == 0 ? 1 : 0) + (b == 0 ? 1 : 0) + (a == 0 ? 1 : 0)
+    public var isPure: LiveBool {
+        let oneCount: LiveInt = (r == 1 ? 1 : 0) + (g == 1 ? 1 : 0) + (b == 1 ? 1 : 0) + (a == 1 ? 1 : 0)
+        let zeroCount: LiveInt = (r == 0 ? 1 : 0) + (g == 0 ? 1 : 0) + (b == 0 ? 1 : 0) + (a == 0 ? 1 : 0)
         return oneCount == 1 && zeroCount == 3
     }
     
     public var pure: Pure? {
-        guard isPure else { return nil }
+        guard isPure.value else { return nil }
         if r == 1 {
             return .red
         } else if g == 1 {
@@ -425,52 +425,52 @@ public class LiveColor {
         case .alpha:
             a = 1
         }
-        space = Pixels.main.colorSpace
+//        space = Pixels.main.colorSpace
     }
     
     // MARK: - Functions
     
-    public func withAlpha(of alpha: CGFloat) -> LiveColor {
+    public func withAlpha(of alpha: LiveFloat) -> LiveColor {
         return LiveColor(r: r, g: g, b: b, a: alpha)
     }
     
-    public func withHue(of hue: CGFloat, fullySaturated: Bool = false) -> LiveColor {
+    public func withHue(of hue: LiveFloat, fullySaturated: Bool = false) -> LiveColor {
         return LiveColor(h: hue, s: fullySaturated ? 1.0 : sat, v: val/*, space: space*/)
     }
-    public func withSat(of sat: CGFloat) -> LiveColor {
+    public func withSat(of sat: LiveFloat) -> LiveColor {
         return LiveColor(h: hue, s: sat, v: val/*, space: space*/)
     }
-    public func withVal(of val: CGFloat) -> LiveColor {
+    public func withVal(of val: LiveFloat) -> LiveColor {
         return LiveColor(h: hue, s: sat, v: val/*, space: space*/)
     }
     
-    public func withShiftedHue(by hueShift: CGFloat) -> LiveColor {
+    public func withShiftedHue(by hueShift: LiveFloat) -> LiveColor {
         return LiveColor(h: (hue + hueShift).remainder(dividingBy: 1.0), s: sat, v: val/*, space: space*/)
     }
     
     // MARK: - Operator Overloads
     
-    public static func ==(lhs: LiveColor, rhs: LiveColor) -> Bool {
+    public static func ==(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return lhs.r == rhs.r &&
                lhs.g == rhs.g &&
                lhs.b == rhs.b &&
                lhs.a == rhs.a
     }
-    public static func !=(lhs: LiveColor, rhs: LiveColor) -> Bool {
+    public static func !=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
         return !(lhs == rhs)
     }
     
-    public static func >(lhs: LiveColor, rhs: LiveColor) -> Bool {
-        return lhs.lum > rhs.lum
+    public static func >(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+        return lhs.val > rhs.val
     }
-    public static func <(lhs: LiveColor, rhs: LiveColor) -> Bool {
-        return lhs.lum < rhs.lum
+    public static func <(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+        return lhs.val < rhs.val
     }
-    public static func >=(lhs: LiveColor, rhs: LiveColor) -> Bool {
-        return lhs.lum >= rhs.lum
+    public static func >=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+        return lhs.val >= rhs.val
     }
-    public static func <=(lhs: LiveColor, rhs: LiveColor) -> Bool {
-        return lhs.lum <= rhs.lum
+    public static func <=(lhs: LiveColor, rhs: LiveColor) -> LiveBool {
+        return lhs.val <= rhs.val
     }
     
     public static func +(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
@@ -478,76 +478,76 @@ public class LiveColor {
             r: lhs.r + rhs.r,
             g: lhs.g + rhs.g,
             b: lhs.b + rhs.b,
-            a: lhs.a + rhs.a,
-            space: lhs.space)
+            a: lhs.a + rhs.a/*,
+            space: lhs.space*/)
     }
     public static func -(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs.r,
             g: lhs.g - rhs.g,
             b: lhs.b - rhs.b,
-            a: lhs.a,
-            space: lhs.space)
+            a: lhs.a/*,
+             space: lhs.space*/)
     }
     public static func --(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs.r,
             g: lhs.g - rhs.g,
             b: lhs.b - rhs.b,
-            a: lhs.a - rhs.a,
-            space: lhs.space)
+            a: lhs.a - rhs.a/*,
+             space: lhs.space*/)
     }
     public static func *(lhs: LiveColor, rhs: LiveColor) -> LiveColor {
         return LiveColor(
             r: lhs.r * rhs.r,
             g: lhs.g * rhs.g,
             b: lhs.b * rhs.b,
-            a: lhs.a * rhs.a,
-            space: lhs.space)
+            a: lhs.a * rhs.a/*,
+             space: lhs.space*/)
     }
     
-    public static func +(lhs: LiveColor, rhs: CGFloat) -> LiveColor {
+    public static func +(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r + rhs,
             g: lhs.g + rhs,
             b: lhs.b + rhs,
-            a: lhs.a + rhs,
-            space: lhs.space)
+            a: lhs.a + rhs/*,
+             space: lhs.space*/)
     }
-    public static func -(lhs: LiveColor, rhs: CGFloat) -> LiveColor {
+    public static func -(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs,
             g: lhs.g - rhs,
             b: lhs.b - rhs,
-            a: lhs.a,
-            space: lhs.space)
+            a: lhs.a/*,
+             space: lhs.space*/)
     }
-    public static func --(lhs: LiveColor, rhs: CGFloat) -> LiveColor {
+    public static func --(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r - rhs,
             g: lhs.g - rhs,
             b: lhs.b - rhs,
-            a: lhs.a - rhs,
-            space: lhs.space)
+            a: lhs.a - rhs/*,
+             space: lhs.space*/)
     }
-    public static func *(lhs: LiveColor, rhs: CGFloat) -> LiveColor {
+    public static func *(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
         return LiveColor(
             r: lhs.r * rhs,
             g: lhs.g * rhs,
             b: lhs.b * rhs,
-            a: lhs.a * rhs,
-            space: lhs.space)
+            a: lhs.a * rhs/*,
+             space: lhs.space*/)
     }
-    public static func /(lhs: LiveColor, rhs: CGFloat) -> LiveColor {
-        guard rhs != 0 else {
+    public static func /(lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
+        guard rhs != LiveFloat(0) else {
             return .init(lum: 1)
         }
         return LiveColor(
             r: lhs.r / rhs,
             g: lhs.g / rhs,
             b: lhs.b / rhs,
-            a: lhs.a / rhs,
-            space: lhs.space)
+            a: lhs.a / rhs/*,
+             space: lhs.space*/)
     }
     public static func +(lhs: CGFloat, rhs: LiveColor) -> LiveColor {
         return rhs + lhs
