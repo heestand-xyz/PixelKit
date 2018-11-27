@@ -13,8 +13,8 @@ protocol LiveValue {
     //    var futureValue: () -> (CGFloat) { get set }
     //    var value: CGFloat { get }
     
-//    var pxv: LiveValueType { mutating get }
-    var pxvIsNew: Bool { get }
-//    var pxvCache: LiveValueType? { get set }
+//    var uniform: LiveValueType { mutating get }
+    var uniformIsNew: Bool { get }
+//    var uniformCache: LiveValueType? { get set }
     
 }

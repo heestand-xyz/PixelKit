@@ -33,7 +33,7 @@ extension Bool {
     }
 }
 
-public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConvertible {
+public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConvertible {
     
     public var description: String {
         return "live(\(Bool(self)))"
@@ -44,16 +44,14 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
         return futureValue()
     }
     
-    var pxv: Bool {
-        mutating get {
-            pxvCache = Bool(self)
-            return Bool(self)
-        }
+    var uniform: Bool {
+        uniformCache = Bool(self)
+        return Bool(self)
     }
-    var pxvIsNew: Bool {
-        return pxvCache != Bool(self)
+    var uniformIsNew: Bool {
+        return uniformCache != Bool(self)
     }
-    var pxvCache: Bool? = nil
+    var uniformCache: Bool? = nil
     
     
     
@@ -65,7 +63,7 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
         futureValue = { return value }
     }
     
-    public init(booleanLiteral value: BooleanLiteralType) {
+    required public init(booleanLiteral value: BooleanLiteralType) {
         futureValue = { return value }
     }
     

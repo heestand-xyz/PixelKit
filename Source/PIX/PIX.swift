@@ -20,8 +20,28 @@ open class PIX/*/*: Codable*/*/ {
     let pixels = Pixels.main
     
     open var shader: String { return "" }
+    
     var liveValues: [LiveValue] { return [] }
-    open var uniforms: [CGFloat] { return [] }
+    open var uniforms: [CGFloat] {
+        var vals: [CGFloat] = []
+        for liveValue in liveValues {
+            if let liveFloat = liveValue as? LiveFloat {
+                vals.append(liveFloat.uniform)
+            } else if let liveInt = liveValue as? LiveInt {
+                vals.append(CGFloat(liveInt.uniform))
+            } else if let liveBool = liveValue as? LiveBool {
+                vals.append(liveBool.uniform ? 1.0 : 0.0)
+            } else if let liveColor = liveValue as? LiveColor {
+                vals.append(contentsOf: liveColor.uniformList)
+            } else if let livePoint = liveValue as? LivePoint {
+                vals.append(contentsOf: livePoint.uniformList)
+            } else if let liveSize = liveValue as? LiveSize {
+                vals.append(contentsOf: liveSize.uniformList)
+            }
+        }
+        return vals
+    }
+
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
     
@@ -284,7 +304,7 @@ open class PIX/*/*: Codable*/*/ {
     
     func checkLive() {
         for liveValue in liveValues {
-            if liveValue.pxvIsNew {
+            if liveValue.uniformIsNew {
                 setNeedsRender()
                 break
             }

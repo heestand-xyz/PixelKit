@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public struct LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
+public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
     
     public var w: LiveFloat
     public var h: LiveFloat
@@ -22,16 +22,14 @@ public struct LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByInteg
     public var width: LiveFloat { return w }
     public var height: LiveFloat { return h }
     
-    // MARK: PXV
+    // MARK: Uniform
     
-    var pxvIsNew: Bool {
-        return w.pxvIsNew || h.pxvIsNew
+    var uniformIsNew: Bool {
+        return w.uniformIsNew || h.uniformIsNew
     }
     
-    var pxvList: [CGFloat] {
-        mutating get {
-            return [w.pxv, h.pxv]
-        }
+    var uniformList: [CGFloat] {
+        return [w.uniform, h.uniform]
     }
     
     // MARK: Static Sizes
@@ -69,12 +67,12 @@ public struct LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByInteg
         h = LiveFloat(frozen: size.height)
     }
     
-    public init(floatLiteral value: FloatLiteralType) {
+    required public init(floatLiteral value: FloatLiteralType) {
         w = LiveFloat(frozen: CGFloat(value))
         h = LiveFloat(frozen: CGFloat(value))
     }
     
-    public init(integerLiteral value: IntegerLiteralType) {
+    required public init(integerLiteral value: IntegerLiteralType) {
         w = LiveFloat(frozen: CGFloat(value))
         h = LiveFloat(frozen: CGFloat(value))
     }

@@ -13,25 +13,33 @@ public class PolygonPIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var radius: CGFloat = 0.25 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var vertexCount: Int = 6 { didSet { setNeedsRender() } }
-    public var color: LiveColor = .white { didSet { setNeedsRender() } }
-    public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
+    public var radius: LiveFloat = 0.25
+    public var position: LivePoint = .zero
+    public var rotation: LiveFloat = 0.0
+    public var vertexCount: LiveInt = 6
+    public var color: LiveColor = .white
+    public var bgColor: LiveColor = .black
    
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [radius, position, rotation, vertexCount, color, bgColor]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case radius; case position; case rotation; case vertexCount; case color; case bgColor
 //    }
     
-    open override var uniforms: [CGFloat] {
-        var vals = [radius, position.x, position.y, rotation, CGFloat(vertexCount)]
-        vals.append(contentsOf: color.list)
-        vals.append(contentsOf: bgColor.list)
-        return vals
-    }
+//    open override var uniforms: [CGFloat] {
+//        var vals: [CGFloat] = []
+//        vals.append(radius.uniform)
+//        vals.append(contentsOf: position.uniformList)
+//        vals.append(rotation.uniform)
+//        vals.append(CGFloat(vertexCount.uniform))
+//        vals.append(contentsOf: color.uniformList)
+//        vals.append(contentsOf: bgColor.uniformList)
+//        return vals
+//    }
     
 //    // MARK: - JSON
 //    

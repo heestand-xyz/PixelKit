@@ -14,7 +14,7 @@ extension Int {
     }
 }
 
-public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntegerLiteral, CustomStringConvertible {
+public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntegerLiteral, CustomStringConvertible {
     
     public var description: String {
         return "live(\(value))"
@@ -25,16 +25,14 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
         return futureValue()
     }
     
-    var pxv: Int {
-        mutating get {
-            pxvCache = value
-            return value
-        }
+    var uniform: Int {
+        uniformCache = value
+        return value
     }
-    var pxvIsNew: Bool {
-        return pxvCache != value
+    var uniformIsNew: Bool {
+        return uniformCache != value
     }
-    var pxvCache: Int? = nil
+    var uniformCache: Int? = nil
     
     
 //    public var year: LiveInt!
@@ -67,7 +65,7 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
         futureValue = { return value }
     }
     
-    public init(integerLiteral value: IntegerLiteralType) {
+    required public init(integerLiteral value: IntegerLiteralType) {
         futureValue = { return value }
     }
     

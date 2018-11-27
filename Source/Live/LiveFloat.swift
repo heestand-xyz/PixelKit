@@ -30,7 +30,7 @@ extension Double {
 //    }
 //}
 
-public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
+public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
         return "live(\(CGFloat(self)))"
@@ -41,16 +41,16 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
         return futureValue()
     }
     
-    var pxv: CGFloat {
-        mutating get {
-            pxvCache = CGFloat(self)
+    var uniform: CGFloat {
+        get {
+            uniformCache = CGFloat(self)
             return CGFloat(self)
         }
     }
-    var pxvIsNew: Bool {
-        return pxvCache != CGFloat(self)
+    var uniformIsNew: Bool {
+        return uniformCache != CGFloat(self)
     }
-    var pxvCache: CGFloat? = nil
+    var uniformCache: CGFloat? = nil
     
     
     //    public var year: LiveFloat!
@@ -83,11 +83,11 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
         futureValue = { return CGFloat(value) }
     }
     
-    public init(floatLiteral value: FloatLiteralType) {
+    required public init(floatLiteral value: FloatLiteralType) {
         futureValue = { return CGFloat(value) }
     }
     
-    public init(integerLiteral value: IntegerLiteralType) {
+    required public init(integerLiteral value: IntegerLiteralType) {
         futureValue = { return CGFloat(value) }
     }
     

@@ -17,12 +17,17 @@ public class ColorPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
+    override var liveValues: [LiveValue] {
+        return [color]
+    }
+    
 //    enum CodingKeys: String, CodingKey {
 //        case color
 //    }
-    open override var uniforms: [CGFloat] {
-        return color.list
-    }
+
+//    open override var uniforms: [CGFloat] {
+//        return color.list
+//    }
     
 //    // MARK: - JSON
 //

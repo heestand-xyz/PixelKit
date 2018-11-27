@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public struct LivePoint: LiveValue, CustomStringConvertible {
+public class LivePoint: LiveValue, CustomStringConvertible {
     
     public var x: LiveFloat
     public var y: LiveFloat
@@ -19,16 +19,14 @@ public struct LivePoint: LiveValue, CustomStringConvertible {
         return "live(x:\("\(_x)".zfill(3)),y:\("\(_y)".zfill(3)))"
     }
     
-    // MARK: PXV
+    // MARK: Uniform
     
-    var pxvIsNew: Bool {
-        return x.pxvIsNew || y.pxvIsNew
+    var uniformIsNew: Bool {
+        return x.uniformIsNew || y.uniformIsNew
     }
     
-    var pxvList: [CGFloat] {
-        mutating get {
-            return [x.pxv, y.pxv]
-        }
+    var uniformList: [CGFloat] {
+        return [x.uniform, y.uniform]
     }
     
     // MARK: Points

@@ -28,14 +28,14 @@ public class RectanglePIX: PIXGenerator {
 //        case size; case position; case color; case bgColor
 //    }
     
-    open override var uniforms: [CGFloat] {
-        var vals: [CGFloat] = []
-        vals.append(contentsOf: size.pxvList)
-        vals.append(contentsOf: position.pxvList)
-        vals.append(contentsOf: color.pxvList)
-        vals.append(contentsOf: bgColor.pxvList)
-        return vals
-    }
+//    open override var uniforms: [CGFloat] {
+//        var vals: [CGFloat] = []
+//        vals.append(contentsOf: size.uniformList)
+//        vals.append(contentsOf: position.uniformList)
+//        vals.append(contentsOf: color.uniformList)
+//        vals.append(contentsOf: bgColor.uniformList)
+//        return vals
+//    }
     
 //    // MARK: - JSON
 //    

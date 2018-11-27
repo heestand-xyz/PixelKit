@@ -30,16 +30,16 @@ public class CirclePIX: PIXGenerator {
 //        case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
 //    }
     
-    open override var uniforms: [CGFloat] {
-        var vals: [CGFloat] = []
-        vals.append(radius.pxv)
-        vals.append(contentsOf: position.pxvList)
-        vals.append(edgeRadius.pxv)
-        vals.append(contentsOf: color.pxvList)
-        vals.append(contentsOf: edgeColor.pxvList)
-        vals.append(contentsOf: bgColor.pxvList)
-        return vals
-    }
+//    open override var uniforms: [CGFloat] {
+//        var vals: [CGFloat] = []
+//        vals.append(radius.uniform)
+//        vals.append(contentsOf: position.uniformList)
+//        vals.append(edgeRadius.uniform)
+//        vals.append(contentsOf: color.uniformList)
+//        vals.append(contentsOf: edgeColor.uniformList)
+//        vals.append(contentsOf: bgColor.uniformList)
+//        return vals
+//    }
     
 //     MARK: - JSON
 //

@@ -29,7 +29,7 @@ extension _Color {
     }
 }
 
-public struct LiveColor: LiveValue, CustomStringConvertible {
+public class LiveColor: LiveValue, CustomStringConvertible {
     
     public var r: LiveFloat
     public var g: LiveFloat
@@ -44,16 +44,14 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
         return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
     }
     
-    // MARK: PXV
+    // MARK: Uniform
     
-    var pxvIsNew: Bool {
-       return r.pxvIsNew || g.pxvIsNew || b.pxvIsNew || a.pxvIsNew
+    var uniformIsNew: Bool {
+       return r.uniformIsNew || g.uniformIsNew || b.uniformIsNew || a.uniformIsNew
     }
     
-    var pxvList: [CGFloat] {
-        mutating get {
-            return [r.pxv, g.pxv, b.pxv, a.pxv]
-        }
+    var uniformList: [CGFloat] {
+        return [r.uniform, g.uniform, b.uniform, a.uniform]
     }
     
     // MARK: Colors
