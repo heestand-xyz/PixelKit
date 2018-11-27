@@ -16,9 +16,9 @@ public class CirclePIX: PIXGenerator {
     public var radius: LiveFloat = sqrt(0.75) / 4
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var edgeRadius: LiveFloat = 0.0
-    public var color: LiveColor = .whiteShine { didSet { setNeedsRender() } }
-    public var edgeColor: LiveColor = .gray { didSet { setNeedsRender() } }
-    public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
+    public var color: LiveColor = .white
+    public var edgeColor: LiveColor = .gray
+    public var bgColor: LiveColor = .black
     
     // MARK: - Property Helpers
     
@@ -27,14 +27,14 @@ public class CirclePIX: PIXGenerator {
 //    }
     
     override var liveValues: [LiveValue] {
-        return [radius, edgeRadius]
+        return [radius, edgeRadius, color, edgeColor, bgColor]
     }
     
     open override var uniforms: [CGFloat] {
         var vals = [radius.pxv, position.x, position.y, edgeRadius.pxv]
-        vals.append(contentsOf: color.list)
-        vals.append(contentsOf: edgeColor.list)
-        vals.append(contentsOf: bgColor.list)
+        vals.append(contentsOf: color.pxvList)
+        vals.append(contentsOf: edgeColor.pxvList)
+        vals.append(contentsOf: bgColor.pxvList)
         return vals
     }
     

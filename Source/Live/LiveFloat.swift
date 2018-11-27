@@ -217,41 +217,41 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
 
 // MARK: Global Funcs
 
-func round(_ live: LiveFloat) -> LiveFloat {
+public func round(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return round(CGFloat(live)) })
 }
-func floor(_ live: LiveFloat) -> LiveFloat {
+public func floor(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return floor(CGFloat(live)) })
 }
-func ceil(_ live: LiveFloat) -> LiveFloat {
+public func ceil(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return ceil(CGFloat(live)) })
 }
 
-func sqrt(_ live: LiveFloat) -> LiveFloat {
+public func sqrt(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return sqrt(CGFloat(live)) })
 }
-func pow(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+public func pow(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return pow(CGFloat(live), CGFloat(live2)) })
 }
 
-func cos(_ live: LiveFloat) -> LiveFloat {
+public func cos(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return cos(CGFloat(live)) })
 }
-func sin(_ live: LiveFloat) -> LiveFloat {
+public func sin(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return sin(CGFloat(live)) })
 }
-func atan(_ live: LiveFloat) -> LiveFloat {
+public func atan(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan(CGFloat(live)) })
 }
-func atan2(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+public func atan2(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan2(CGFloat(live), CGFloat(live2)) })
 }
 
 // MARK: New Global Funcs
 
-func deg(rad live: LiveFloat) -> LiveFloat {
+public func deg(rad live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return (CGFloat(live) / .pi / 2.0) * 360.0 })
 }
-func rad(deg live: LiveFloat) -> LiveFloat {
+public func rad(deg live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return (CGFloat(live) / 360.0) * .pi * 2.0 })
 }

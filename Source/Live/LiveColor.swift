@@ -29,7 +29,7 @@ extension _Color {
     }
 }
 
-public struct LiveColor: CustomStringConvertible {
+public struct LiveColor: LiveValue, CustomStringConvertible {
     
 //    typealias LiveValueType = LiveColor.Type
     
@@ -39,6 +39,16 @@ public struct LiveColor: CustomStringConvertible {
         let _b: CGFloat = floor(CGFloat(b) * 1000) / 1000
         let _a: CGFloat = floor(CGFloat(a) * 1000) / 1000
         return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
+    }
+    
+    var pxvIsNew: Bool {
+       return r.pxvIsNew || g.pxvIsNew || b.pxvIsNew || a.pxvIsNew
+    }
+    
+    var pxvList: [CGFloat] {
+        mutating get {
+            return [r.pxv, g.pxv, b.pxv, a.pxv]
+        }
     }
     
 //    var futureValue: () -> (CGFloat)
@@ -63,19 +73,24 @@ public struct LiveColor: CustomStringConvertible {
     public var a: LiveFloat
     
     public static var whiteShine: LiveColor {
-        return LiveColor(r: 0.9 + 0.1 * cos(.seconds),
-                         g: 0.9 + 0.1 * sin(.seconds),
-                         b: 0.9 + 0.1 * (cos(.seconds / 2) + sin(.seconds / 2) / 2))
+        let shine: LiveFloat = 0.1
+        return LiveColor(r: (1.0 - shine / 2) + (shine / 2) * cos(.seconds),
+                         g: (1.0 - shine / 2) + (shine / 2) * sin(.seconds),
+                         b: (1.0 - shine / 2) + (shine / 2) * (cos(.seconds / 2) + sin(.seconds / 2) / 2))
+    }
+    
+    public static var rainbow: LiveColor {
+        return LiveColor(h: .secondsSince1970 / 6.0, s: 1.0, v: 1.0, a: 1.0)
     }
     
     public static var clear: LiveColor       { return LiveColor(r: 0.0, g: 0.0, b: 0.0, a: 0.0) }
     public static var clearWhite: LiveColor  { return LiveColor(r: 1.0, g: 1.0, b: 1.0, a: 0.0) }
 
-    public static var white: LiveColor       { return LiveColor(1.0) }
-    public static var lightGray: LiveColor   { return LiveColor(0.75) }
-    public static var gray: LiveColor        { return LiveColor(0.5) }
-    public static var darkGray: LiveColor    { return LiveColor(0.25) }
-    public static var black: LiveColor       { return LiveColor(0.0) }
+    public static var white: LiveColor       { return LiveColor(lum: 1.0) }
+    public static var lightGray: LiveColor   { return LiveColor(lum: 0.75) }
+    public static var gray: LiveColor        { return LiveColor(lum: 0.5) }
+    public static var darkGray: LiveColor    { return LiveColor(lum: 0.25) }
+    public static var black: LiveColor       { return LiveColor(lum: 0.0) }
     
     public static var red: LiveColor         { return LiveColor(r: 1.0, g: 0.0, b: 0.0) }
     public static var orange: LiveColor      { return LiveColor(r: 1.0, g: 0.5, b: 0.0) }
@@ -247,7 +262,7 @@ public struct LiveColor: CustomStringConvertible {
     
     // MARK: - Grayscale
     
-    public init(_ lum: LiveFloat, a: LiveFloat = 1.0) {
+    public init(lum: LiveFloat, a: LiveFloat = 1.0) {
 //        self.space = Pixels.main.colorSpace
         self.r = lum
         self.g = lum

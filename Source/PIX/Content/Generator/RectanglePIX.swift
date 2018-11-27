@@ -15,7 +15,7 @@ public class RectanglePIX: PIXGenerator {
     
     public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var color: LiveColor = .whiteShine { didSet { setNeedsRender() } }
+    public var color: LiveColor = .white { didSet { setNeedsRender() } }
     public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers

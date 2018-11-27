@@ -17,7 +17,7 @@ public class PolygonPIX: PIXGenerator {
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var vertexCount: Int = 6 { didSet { setNeedsRender() } }
-    public var color: LiveColor = .whiteShine { didSet { setNeedsRender() } }
+    public var color: LiveColor = .white { didSet { setNeedsRender() } }
     public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
    
     // MARK: - Property Helpers

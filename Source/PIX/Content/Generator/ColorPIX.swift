@@ -13,7 +13,7 @@ public class ColorPIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var color: LiveColor = .whiteShine { didSet { setNeedsRender() } }
+    public var color: LiveColor = .white { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     

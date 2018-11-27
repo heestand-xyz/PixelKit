@@ -42,7 +42,7 @@ public extension PIX {
         }
         
         func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            return blend(pix, LiveColor(val), blendingMode: blendingMode)
+            return blend(pix, LiveColor(lum: val), blendingMode: blendingMode)
         }
         
         func operatorName(of blendingMode: PIX.BlendingMode) -> String {

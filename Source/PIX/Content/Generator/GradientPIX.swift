@@ -55,7 +55,7 @@ public class GradientPIX: PIXGenerator {
     public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
     public var position: CGPoint = .zero { didSet { setNeedsRender() } }
     public var colorFirst: LiveColor = .black { didSet { setNeedsRender() } }
-    public var colorLast: LiveColor = .whiteShine { didSet { setNeedsRender() } }
+    public var colorLast: LiveColor = .white { didSet { setNeedsRender() } }
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
     

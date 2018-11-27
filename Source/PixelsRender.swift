@@ -84,7 +84,7 @@ extension Pixels {
         do {
             try render(pix, force: force, completed: { texture in
                 let renderTime = -renderStartTime.timeIntervalSinceNow
-                let renderTimeMs = Int(round(renderTime * 1000))
+                let renderTimeMs = CGFloat(Int(round(renderTime * 10_000))) / 10
 //                let renderFrames = self.frame - renderStartFrame
                 self.log(pix: pix, .info, .render, "Rendered \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
 //                for flowTime in self.flowTimes {
