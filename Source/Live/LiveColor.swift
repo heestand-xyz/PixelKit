@@ -398,30 +398,30 @@ public struct LiveColor: CustomStringConvertible {
     
     // MARK: - Pixel
     
-//    init(_ pixel: [CGFloat]/*, space: Space = Pixels.main.colorSpace*/) {
+    init(_ pixel: [CGFloat]/*, space: Space = Pixels.main.colorSpace*/) {
 //        self.space = space
-//        guard pixel.count == 4 else {
-//            Pixels.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
-//            r = 0
-//            g = 0
-//            b = 0
-//            a = 1
-//            return
-//        }
-//        switch Pixels.main.bits {
-//        case ._8:
-//            // CHECK BGRA Temp Fix
-//            b = pixel[0]
-//            g = pixel[1]
-//            r = pixel[2]
-//            a = pixel[3]
-//        case ._16, ._32:
-//            r = pixel[0]
-//            g = pixel[1]
-//            b = pixel[2]
-//            a = pixel[3]
-//        }
-//    }
+        guard pixel.count == 4 else {
+            Pixels.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
+            r = 0
+            g = 0
+            b = 0
+            a = 1
+            return
+        }
+        switch Pixels.main.bits {
+        case ._8:
+            // FIXME: BGRA Temp Fix
+            b = LiveFloat(static: pixel[0])
+            g = LiveFloat(static: pixel[1])
+            r = LiveFloat(static: pixel[2])
+            a = LiveFloat(static: pixel[3])
+        case ._16, ._32:
+            r = LiveFloat(static: pixel[0])
+            g = LiveFloat(static: pixel[1])
+            b = LiveFloat(static: pixel[2])
+            a = LiveFloat(static: pixel[3])
+        }
+    }
     
     // MARK: - Pure
     
@@ -523,82 +523,68 @@ public struct LiveColor: CustomStringConvertible {
     }
     
     public static func + (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
-        return LiveColor(
-            r: lhs.r + rhs.r,
-            g: lhs.g + rhs.g,
-            b: lhs.b + rhs.b,
-            a: lhs.a + rhs.a/*,
-            space: lhs.space*/)
+        return LiveColor(r: lhs.r + rhs.r,
+                         g: lhs.g + rhs.g,
+                         b: lhs.b + rhs.b,
+                         a: lhs.a + rhs.a/*,
+                        space: lhs.space*/)
     }
     public static func - (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
-        return LiveColor(
-            r: lhs.r - rhs.r,
-            g: lhs.g - rhs.g,
-            b: lhs.b - rhs.b,
-            a: lhs.a/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r - rhs.r,
+                         g: lhs.g - rhs.g,
+                         b: lhs.b - rhs.b,
+                         a: lhs.a/*,
+                         space: lhs.space*/)
     }
     public static func -- (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
-        return LiveColor(
-            r: lhs.r - rhs.r,
-            g: lhs.g - rhs.g,
-            b: lhs.b - rhs.b,
-            a: lhs.a - rhs.a/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r - rhs.r,
+                         g: lhs.g - rhs.g,
+                         b: lhs.b - rhs.b,
+                         a: lhs.a - rhs.a/*,
+                         space: lhs.space*/)
     }
     public static func * (lhs: LiveColor, rhs: LiveColor) -> LiveColor {
-        return LiveColor(
-            r: lhs.r * rhs.r,
-            g: lhs.g * rhs.g,
-            b: lhs.b * rhs.b,
-            a: lhs.a * rhs.a/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r * rhs.r,
+                         g: lhs.g * rhs.g,
+                         b: lhs.b * rhs.b,
+                         a: lhs.a * rhs.a/*,
+                         space: lhs.space*/)
     }
     
     public static func + (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor(
-            r: lhs.r + rhs,
-            g: lhs.g + rhs,
-            b: lhs.b + rhs,
-            a: lhs.a + rhs/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r + rhs,
+                         g: lhs.g + rhs,
+                         b: lhs.b + rhs,
+                         a: lhs.a + rhs/*,
+                         space: lhs.space*/)
     }
     public static func - (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor(
-            r: lhs.r - rhs,
-            g: lhs.g - rhs,
-            b: lhs.b - rhs,
-            a: lhs.a/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r - rhs,
+                         g: lhs.g - rhs,
+                         b: lhs.b - rhs,
+                         a: lhs.a/*,
+                         space: lhs.space*/)
     }
     public static func -- (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor(
-            r: lhs.r - rhs,
-            g: lhs.g - rhs,
-            b: lhs.b - rhs,
-            a: lhs.a - rhs/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r - rhs,
+                         g: lhs.g - rhs,
+                         b: lhs.b - rhs,
+                         a: lhs.a - rhs/*,
+                         space: lhs.space*/)
     }
     public static func * (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor(
-            r: lhs.r * rhs,
-            g: lhs.g * rhs,
-            b: lhs.b * rhs,
-            a: lhs.a * rhs/*,
-             space: lhs.space*/)
+        return LiveColor(r: lhs.r * rhs,
+                         g: lhs.g * rhs,
+                         b: lhs.b * rhs,
+                         a: lhs.a * rhs/*,
+                         space: lhs.space*/)
     }
     public static func / (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor({
-            guard rhs.value != 0.0 else {
-                return .init(1.0)
-            }
-            return LiveColor(
-                r: lhs.r / rhs,
-                g: lhs.g / rhs,
-                b: lhs.b / rhs,
-                a: lhs.a / rhs/*,
-                 space: lhs.space*/)
-        })
+        return LiveColor(r: lhs.r != 0.0 <? lhs.r / rhs <=> 1.0,
+                         g: lhs.g != 0.0 <? lhs.g / rhs <=> 1.0,
+                         b: lhs.b != 0.0 <? lhs.b / rhs <=> 1.0,
+                         a: lhs.a != 0.0 <? lhs.a / rhs <=> 1.0/*,
+                         space: lhs.space*/)
     }
     public static func + (lhs: LiveFloat, rhs: LiveColor) -> LiveColor {
         return rhs + lhs
@@ -610,50 +596,54 @@ public struct LiveColor: CustomStringConvertible {
         return rhs * lhs
     }
     
-//    public static func += (lhs: inout LiveColor, rhs: LiveColor) {
-//        lhs.r += rhs.r
-//        lhs.g += rhs.g
-//        lhs.b += rhs.b
-//        lhs.a += rhs.a
-//    }
-//    public static func -= (lhs: inout LiveColor, rhs: LiveColor) {
-//        lhs.r -= rhs.r
-//        lhs.g -= rhs.g
-//        lhs.b -= rhs.b
-//        lhs.a -= rhs.a
-//    }
-//    public static func *= (lhs: inout LiveColor, rhs: LiveColor) {
-//        lhs.r *= rhs.r
-//        lhs.g *= rhs.g
-//        lhs.b *= rhs.b
-//        lhs.a *= rhs.a
-//    }
-//
-//    public static func += (lhs: inout LiveColor, rhs: LiveFloat) {
-//        lhs.r += rhs
-//        lhs.g += rhs
-//        lhs.b += rhs
-//        lhs.a += rhs
-//    }
-//    public static func -= (lhs: inout LiveColor, rhs: LiveFloat) {
-//        lhs.r -= rhs
-//        lhs.g -= rhs
-//        lhs.b -= rhs
-//        lhs.a -= rhs
-//    }
-//    public static func *= (lhs: inout LiveColor, rhs: LiveFloat) {
-//        lhs.r *= rhs
-//        lhs.g *= rhs
-//        lhs.b *= rhs
-//        lhs.a *= rhs
-//    }
-//    public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
-//        guard rhs != 0 else { return }
-//        lhs.r /= rhs
-//        lhs.g /= rhs
-//        lhs.b /= rhs
-//        lhs.a /= rhs
-//    }
+    public static func += (lhs: inout LiveColor, rhs: LiveColor) {
+        lhs.r += rhs.r
+        lhs.g += rhs.g
+        lhs.b += rhs.b
+        lhs.a += rhs.a
+    }
+    public static func += (lhs: inout LiveColor, rhs: LiveFloat) {
+        lhs.r += rhs
+        lhs.g += rhs
+        lhs.b += rhs
+        lhs.a += rhs
+    }
+    public static func -= (lhs: inout LiveColor, rhs: LiveColor) {
+        lhs.r -= rhs.r
+        lhs.g -= rhs.g
+        lhs.b -= rhs.b
+        lhs.a -= rhs.a
+    }
+    public static func -= (lhs: inout LiveColor, rhs: LiveFloat) {
+        lhs.r -= rhs
+        lhs.g -= rhs
+        lhs.b -= rhs
+        lhs.a -= rhs
+    }
+    public static func *= (lhs: inout LiveColor, rhs: LiveColor) {
+        lhs.r *= rhs.r
+        lhs.g *= rhs.g
+        lhs.b *= rhs.b
+        lhs.a *= rhs.a
+    }
+    public static func *= (lhs: inout LiveColor, rhs: LiveFloat) {
+        lhs.r *= rhs
+        lhs.g *= rhs
+        lhs.b *= rhs
+        lhs.a *= rhs
+    }
+    public static func /= (lhs: inout LiveColor, rhs: LiveColor) {
+        lhs.r /= rhs.r != 0 <? rhs.r <=> 1.0
+        lhs.g /= rhs.g != 0 <? rhs.g <=> 1.0
+        lhs.b /= rhs.b != 0 <? rhs.b <=> 1.0
+        lhs.a /= rhs.a != 0 <? rhs.a <=> 1.0
+    }
+    public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
+        lhs.r /= rhs != 0 <? rhs <=> 1.0
+        lhs.g /= rhs != 0 <? rhs <=> 1.0
+        lhs.b /= rhs != 0 <? rhs <=> 1.0
+        lhs.a /= rhs != 0 <? rhs <=> 1.0
+    }
     
     public prefix static func - (operand: LiveColor) -> LiveColor {
         return LiveColor(

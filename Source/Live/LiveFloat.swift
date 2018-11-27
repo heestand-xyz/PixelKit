@@ -140,31 +140,31 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
     public static func + (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) + CGFloat(rhs) })
     }
-//    public static func += (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        lhs = LiveFloat({ return CGFloat(lhs) + CGFloat(rhs) })
-//    }
+    public static func += (lhs: inout LiveFloat, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) + CGFloat(rhs) })
+    }
     
     public static func - (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) - CGFloat(rhs) })
     }
-//    public static func -= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        lhs = LiveFloat({ return CGFloat(lhs) - CGFloat(rhs) })
-//    }
+    public static func -= (lhs: inout LiveFloat, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) - CGFloat(rhs) })
+    }
     
     
     public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
     }
-//    public static func *= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        lhs = LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
-//    }
+    public static func *= (lhs: inout LiveFloat, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) * CGFloat(rhs) })
+    }
     
     public static func / (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) / CGFloat(rhs) })
     }
-//    public static func /= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        lhs = LiveFloat({ return CGFloat(lhs) / CGFloat(rhs) })
-//    }
+    public static func /= (lhs: inout LiveFloat, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) / CGFloat(rhs) })
+    }
     
     
     public static func ** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {

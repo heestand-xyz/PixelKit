@@ -80,7 +80,7 @@ public extension PIX {
                     color += px.color
                 }
             }
-            color /= CGFloat(res.count)
+            color /= LiveFloat(static: CGFloat(res.count))
             return color
         }
         public var maximum: LiveColor {
@@ -91,7 +91,7 @@ public extension PIX {
                         color = px.color
                         continue
                     }
-                    if px.color > color {
+                    if Bool(px.color > color!) {
                         color = px.color
                     }
                 }
@@ -106,7 +106,7 @@ public extension PIX {
                         color = px.color
                         continue
                     }
-                    if px.color < color {
+                    if Bool(px.color < color!) {
                         color = px.color
                     }
                 }
@@ -133,7 +133,7 @@ public extension PIX {
                     let chan = rawPixels[j]
                     c.append(chan)
                 }
-                let color = Color(c)
+                let color = LiveColor(c)
                 let uv = CGVector(dx: u, dy: v)
                 let pixel = Pixels.Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)

@@ -88,14 +88,14 @@ public extension PIXOut {
         return rangePix
     }
     
-    func _range(inLow: PIX.LiveColor = .clear, inHigh: PIX.LiveColor = .white, outLow: PIX.LiveColor = .clear, outHigh: PIX.LiveColor = .white) -> RangePIX {
+    func _range(inLow: LiveColor = .clear, inHigh: LiveColor = .white, outLow: LiveColor = .clear, outHigh: LiveColor = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.inPix = self as? PIX & PIXOut
-        rangePix.inLowLiveColor = inLow
-        rangePix.inHighLiveColor = inHigh
-        rangePix.outLowLiveColor = outLow
-        rangePix.outHighLiveColor = outHigh
+        rangePix.inLowColor = inLow
+        rangePix.inHighColor = inHigh
+        rangePix.outLowColor = outLow
+        rangePix.outHighColor = outHigh
         return rangePix
     }
     

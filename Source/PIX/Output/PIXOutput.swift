@@ -23,8 +23,8 @@ open class PIXOutput: PIX, PIXInIO, PIXInSingle {
         pixInList = []
     }
     
-    required public init(from decoder: Decoder) throws {
-        fatalError("PIXOutput Decoder Initializer is not supported.") // CHECK
-    }
+//    required public init(from decoder: Decoder) throws {
+//        fatalError("PIXOutput Decoder Initializer is not supported.") // CHECK
+//    }
     
 }

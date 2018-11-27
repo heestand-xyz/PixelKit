@@ -14,7 +14,7 @@ public extension Pixels {
         public let x: Int
         public let y: Int
         public let uv: CGVector
-        public let color: _Color
+        public let color: LiveColor
     }
     
 }

@@ -47,9 +47,9 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     
     // MARK: - Property Helpers
     
-    enum CodingKeys: String, CodingKey {
-        case fps; case realtime
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case fps; case realtime
+//    }
     
     var customName: String?
     
@@ -74,21 +74,21 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         
     }
     
-    // MARK: - JSON
-    
-    required convenience init(from decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        fps = try container.decode(Int.self, forKey: .fps)
-        realtime = try container.decode(Bool.self, forKey: .realtime)
-        setNeedsRender()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(fps, forKey: .fps)
-        try container.encode(realtime, forKey: .realtime)
-    }
+//    // MARK: - JSON
+//
+//    required convenience init(from decoder: Decoder) throws {
+//        self.init()
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        fps = try container.decode(Int.self, forKey: .fps)
+//        realtime = try container.decode(Bool.self, forKey: .realtime)
+//        setNeedsRender()
+//    }
+//
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(fps, forKey: .fps)
+//        try container.encode(realtime, forKey: .realtime)
+//    }
     
     // MARK: - Record
     

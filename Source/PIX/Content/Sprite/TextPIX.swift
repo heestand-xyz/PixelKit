@@ -107,7 +107,7 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsTextColor() {
-        label.fontLiveColor = textColor._color
+        label.fontColor = textColor._color
     }
     
     func setNeedsFont() {

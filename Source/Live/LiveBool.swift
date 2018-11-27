@@ -14,12 +14,13 @@ import Foundation
 
 precedencegroup TernaryIf {
     associativity: right
-    lowerThan: ComparisonPrecedence
     higherThan: AssignmentPrecedence
+    lowerThan: ComparisonPrecedence
 }
 precedencegroup TernaryElse {
     associativity: left
     higherThan: ComparisonPrecedence
+    lowerThan: MultiplicationPrecedence
 }
 
 infix operator <?: TernaryIf
