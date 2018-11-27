@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 //infix operator *%* { precedence 50 }
 //infix operator %*% { precedence 60 }
