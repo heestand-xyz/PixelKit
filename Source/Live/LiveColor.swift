@@ -31,15 +31,20 @@ extension _Color {
 
 public struct LiveColor: LiveValue, CustomStringConvertible {
     
-//    typealias LiveValueType = LiveColor.Type
+    public var r: LiveFloat
+    public var g: LiveFloat
+    public var b: LiveFloat
+    public var a: LiveFloat
     
     public var description: String {
-        let _r: CGFloat = floor(CGFloat(r) * 1000) / 1000
-        let _g: CGFloat = floor(CGFloat(g) * 1000) / 1000
-        let _b: CGFloat = floor(CGFloat(b) * 1000) / 1000
-        let _a: CGFloat = floor(CGFloat(a) * 1000) / 1000
+        let _r: CGFloat = round(CGFloat(r) * 1_000) / 1_000
+        let _g: CGFloat = round(CGFloat(g) * 1_000) / 1_000
+        let _b: CGFloat = round(CGFloat(b) * 1_000) / 1_000
+        let _a: CGFloat = round(CGFloat(a) * 1_000) / 1_000
         return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
     }
+    
+    // MARK: PXV
     
     var pxvIsNew: Bool {
        return r.pxvIsNew || g.pxvIsNew || b.pxvIsNew || a.pxvIsNew
@@ -51,26 +56,7 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
         }
     }
     
-//    var futureValue: () -> (CGFloat)
-//    public var value: CGFloat {
-//        return futureValue()
-//    }
-//
-//    var pxv: CGFloat {
-//        mutating get {
-//            pxvCache = value
-//            return value
-//        }
-//    }
-//    var pxvIsNew: Bool {
-//        return pxvCache != value
-//    }
-//    var pxvCache: CGFloat? = nil
-    
-    public var r: LiveFloat
-    public var g: LiveFloat
-    public var b: LiveFloat
-    public var a: LiveFloat
+    // MARK: Colors
     
     public static var whiteShine: LiveColor {
         let shine: LiveFloat = 0.1
@@ -99,6 +85,8 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
     public static var cyan: LiveColor        { return LiveColor(r: 0.0, g: 1.0, b: 1.0) }
     public static var blue: LiveColor        { return LiveColor(r: 0.0, g: 0.0, b: 1.0) }
     public static var magenta: LiveColor     { return LiveColor(r: 1.0, g: 0.0, b: 1.0) }
+    
+    // MARK: Bits
 
     public enum Bits: Int, Codable {
         case _8 = 8
@@ -128,6 +116,8 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
         }
     }
     
+    // MARK: Space
+    
     /*public*/ enum Space: String, Codable {
         case sRGB
         case displayP3
@@ -153,6 +143,8 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
     var space: Space {
         return Pixels.main.colorSpace
     }
+    
+    // MARK: Properties
     
     var _color: _Color {
         #if os(iOS)

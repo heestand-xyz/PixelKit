@@ -11,6 +11,8 @@
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
+		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
+		3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
 		3AF28BD4219312B90079FC7A /* Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* Pixels.swift */; };
 		3AF28BD5219312CA0079FC7A /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
@@ -177,6 +179,7 @@
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
+		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* Pixels_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
@@ -374,6 +377,7 @@
 				3AA8019321AC2218009430C8 /* LiveInt.swift */,
 				3AA8019621AC2A1F009430C8 /* LiveBool.swift */,
 				7465FC77211A4E0400899359 /* LiveColor.swift */,
+				3ACD972921AD65FC005F5B76 /* LivePoint.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -743,6 +747,7 @@
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
 				3AF28BFC219312F50079FC7A /* ThresholdPIX.swift in Sources */,
+				3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */,
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
 				3AF28C2A219337850079FC7A /* PIXView.swift in Sources */,
 				3AF28C2621931DE10079FC7A /* LiveColor.swift in Sources */,
@@ -832,6 +837,7 @@
 				7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */,
 				748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */,
 				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,
+				3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */,
 				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
 				7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */,
 				743F375F215BB2C3002BC5BA /* RecPIX.swift in Sources */,
