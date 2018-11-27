@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
+		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
@@ -176,6 +178,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
@@ -378,6 +381,7 @@
 				3AA8019621AC2A1F009430C8 /* LiveBool.swift */,
 				7465FC77211A4E0400899359 /* LiveColor.swift */,
 				3ACD972921AD65FC005F5B76 /* LivePoint.swift */,
+				3A13063721AD760300C2F2CF /* LiveSize.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -751,6 +755,7 @@
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
 				3AF28C2A219337850079FC7A /* PIXView.swift in Sources */,
 				3AF28C2621931DE10079FC7A /* LiveColor.swift in Sources */,
+				3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */,
 				3AF28BF7219312F50079FC7A /* NilPIX.swift in Sources */,
 				3AF28BF0219312EB0079FC7A /* LumaBlurPIX.swift in Sources */,
 				3AF28C29219337270079FC7A /* PIXMetalView.swift in Sources */,
@@ -871,6 +876,7 @@
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
 				74A7B98621412BD70078DDE3 /* SlopePIX.swift in Sources */,
+				3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
 				740EC53A213EFC3E006E2996 /* PIXOperators.swift in Sources */,

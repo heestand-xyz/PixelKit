@@ -22,13 +22,13 @@ public class CirclePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
-//    }
-    
     override var liveValues: [LiveValue] {
         return [radius, position, edgeRadius, color, edgeColor, bgColor]
     }
+    
+//    enum CodingKeys: String, CodingKey {
+//        case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
+//    }
     
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []

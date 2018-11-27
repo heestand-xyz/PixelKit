@@ -80,7 +80,7 @@ public extension PIX {
                     color += px.color
                 }
             }
-            color /= LiveFloat(static: CGFloat(res.count))
+            color /= LiveFloat(frozen: CGFloat(res.count))
             return color
         }
         public var maximum: LiveColor {

@@ -13,21 +13,27 @@ public class RectanglePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var size: CGSize = CGSize(width: sqrt(0.75) / 2, height: sqrt(0.75) / 2) { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var color: LiveColor = .white { didSet { setNeedsRender() } }
-    public var bgColor: LiveColor = .black { didSet { setNeedsRender() } }
+    public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
+    public var position: LivePoint = .zero
+    public var color: LiveColor = .white
+    public var bgColor: LiveColor = .black
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [size, position, color, bgColor]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case size; case position; case color; case bgColor
 //    }
     
     open override var uniforms: [CGFloat] {
-        var vals = [size.width, size.height, position.x, position.y]
-        vals.append(contentsOf: color.list)
-        vals.append(contentsOf: bgColor.list)
+        var vals: [CGFloat] = []
+        vals.append(contentsOf: size.pxvList)
+        vals.append(contentsOf: position.pxvList)
+        vals.append(contentsOf: color.pxvList)
+        vals.append(contentsOf: bgColor.pxvList)
         return vals
     }
     

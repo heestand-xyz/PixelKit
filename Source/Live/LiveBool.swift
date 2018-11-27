@@ -61,7 +61,7 @@ public struct LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConv
         self.futureValue = futureValue
     }
     
-    public init(static value: Bool) {
+    public init(frozen value: Bool) {
         futureValue = { return value }
     }
     

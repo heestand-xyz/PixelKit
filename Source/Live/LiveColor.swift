@@ -207,6 +207,15 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
 ////        futureValue = { return CGFloat(value) }
 //    }
     
+    // MARK: - Life Cycle
+    
+    public init(_ futureValue: @escaping () -> (_Color)) {
+        r = LiveFloat({ return futureValue().redComponent })
+        g = LiveFloat({ return futureValue().greenComponent })
+        b = LiveFloat({ return futureValue().blueComponent })
+        a = LiveFloat({ return futureValue().alphaComponent })
+    }
+    
     // MARK: - RGB
     
     public init(r: LiveFloat, g: LiveFloat, b: LiveFloat, a: LiveFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
@@ -218,10 +227,10 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
     }
     
     public init(r255: Int, g255: Int, b255: Int, a255: Int = 255/*, space: Space = Pixels.main.colorSpace*/) {
-        self.r = LiveFloat(static: CGFloat(r255) / 255)
-        self.g = LiveFloat(static: CGFloat(g255) / 255)
-        self.b = LiveFloat(static: CGFloat(b255) / 255)
-        self.a = LiveFloat(static: CGFloat(a255) / 255)
+        self.r = LiveFloat(frozen: CGFloat(r255) / 255)
+        self.g = LiveFloat(frozen: CGFloat(g255) / 255)
+        self.b = LiveFloat(frozen: CGFloat(b255) / 255)
+        self.a = LiveFloat(frozen: CGFloat(a255) / 255)
 //        self.space = space
     }
     
@@ -230,10 +239,10 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
     #if os(iOS)
     public init(_ ui: UIColor/*, space: Space = Pixels.main.colorSpace*/) {
         let ci = CIColor(color: ui)
-        r = LiveFloat(static: ci.red)
-        g = LiveFloat(static: ci.green)
-        b = LiveFloat(static: ci.blue)
-        a = LiveFloat(static: ci.alpha)
+        r = LiveFloat(frozen: ci.red)
+        g = LiveFloat(frozen: ci.green)
+        b = LiveFloat(frozen: ci.blue)
+        a = LiveFloat(frozen: ci.alpha)
 //        self.space = space
     }
     #endif
@@ -244,10 +253,10 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
     public init(_ ns: NSColor/*, space: Space = Pixels.main.colorSpace*/) {
         let ci = CIColor(color: ns)
         // FIXME: Optional LiveFloat
-        r = LiveFloat(static: ci?.red ?? 0.0)
-        g = LiveFloat(static: ci?.green ?? 0.0)
-        b = LiveFloat(static: ci?.blue ?? 0.0)
-        a = LiveFloat(static: ci?.alpha ?? 0.0)
+        r = LiveFloat(frozen: ci?.red ?? 0.0)
+        g = LiveFloat(frozen: ci?.green ?? 0.0)
+        b = LiveFloat(frozen: ci?.blue ?? 0.0)
+        a = LiveFloat(frozen: ci?.alpha ?? 0.0)
 //        self.space = space
     }
     #endif
@@ -396,10 +405,10 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
         var hexInt: UInt32 = 0
         let scanner: Scanner = Scanner(string: hex)
         scanner.scanHexInt32(&hexInt)
-        self.r = LiveFloat(static: CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
-        self.g = LiveFloat(static: CGFloat((hexInt & 0xff00) >> 8) / 255.0)
-        self.b = LiveFloat(static: CGFloat((hexInt & 0xff) >> 0) / 255.0)
-        self.a = LiveFloat(static: a)
+        self.r = LiveFloat(frozen: CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
+        self.g = LiveFloat(frozen: CGFloat((hexInt & 0xff00) >> 8) / 255.0)
+        self.b = LiveFloat(frozen: CGFloat((hexInt & 0xff) >> 0) / 255.0)
+        self.a = LiveFloat(frozen: a)
 //        self.space = space
     }
     
@@ -418,15 +427,15 @@ public struct LiveColor: LiveValue, CustomStringConvertible {
         switch Pixels.main.bits {
         case ._8:
             // FIXME: BGRA Temp Fix
-            b = LiveFloat(static: pixel[0])
-            g = LiveFloat(static: pixel[1])
-            r = LiveFloat(static: pixel[2])
-            a = LiveFloat(static: pixel[3])
+            b = LiveFloat(frozen: pixel[0])
+            g = LiveFloat(frozen: pixel[1])
+            r = LiveFloat(frozen: pixel[2])
+            a = LiveFloat(frozen: pixel[3])
         case ._16, ._32:
-            r = LiveFloat(static: pixel[0])
-            g = LiveFloat(static: pixel[1])
-            b = LiveFloat(static: pixel[2])
-            a = LiveFloat(static: pixel[3])
+            r = LiveFloat(frozen: pixel[0])
+            g = LiveFloat(frozen: pixel[1])
+            b = LiveFloat(frozen: pixel[2])
+            a = LiveFloat(frozen: pixel[3])
         }
     }
     

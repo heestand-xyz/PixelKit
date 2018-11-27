@@ -187,6 +187,14 @@ public extension PIX {
             }
         }
         
+        static var scale: CGFloat {
+            #if os(iOS)
+            return UIScreen.main.nativeScale
+            #elseif os(macOS)
+            return NSScreen.main?.backingScaleFactor ?? 1.0
+            #endif
+        }
+        
         public var ppi: Int? {
             switch self {
             case .iPhone, .iPhoneXR: return 326
@@ -264,12 +272,7 @@ public extension PIX {
         }
         public func aspectBounds(to aspectFillMode: AspectFillMode, in res: Res) -> CGRect {
             let aRes = aspectRes(to: aspectFillMode, in: res)
-            #if os(iOS)
-            let scale: CGFloat = UIScreen.main.nativeScale
-            #elseif os(macOS)
-            let scale: CGFloat = 1.0
-            #endif
-            return CGRect(x: 0, y: 0, width: aRes.width / scale, height: aRes.height / scale)
+            return CGRect(x: 0, y: 0, width: aRes.width / Res.scale, height: aRes.height / Res.scale)
         }
         
         // MARK: - Life Cycle
@@ -309,12 +312,7 @@ public extension PIX {
         }
         
         public init(autoScaleSize: CGSize) {
-            #if os(iOS)
-            let scale: CGFloat = UIScreen.main.nativeScale
-            #elseif os(macOS)
-            let scale: CGFloat = NSScreen.main?.backingScaleFactor ?? 1.0
-            #endif
-            self.init(size: CGSize(width: autoScaleSize.width * scale, height: autoScaleSize.height * scale))
+            self.init(size: CGSize(width: autoScaleSize.width * Res.scale, height: autoScaleSize.height * Res.scale))
         }
         
         public init(_ raw: Raw) {

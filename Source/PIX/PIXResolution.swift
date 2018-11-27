@@ -6,6 +6,7 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+import CoreGraphics
 
 extension PIX {
     
@@ -45,6 +46,21 @@ extension PIX {
             }
             return inRes
         } else { return nil }
+    }
+    
+    public var liveResSize: LiveSize {
+        return LiveSize({ () -> (CGSize) in
+            // FIXME: Optional LiveSize
+            let res: PIX.Res = self.resolution ?? ._128
+            return res.size
+        })
+    }
+    
+    public var liveSize: LiveSize {
+        return LiveSize.fill(aspect: LiveFloat({ () -> (CGFloat) in
+            // FIXME: Optional LiveSize
+            return self.resolution?.aspect ?? 1.0
+        }))
     }
     
     func applyRes(applied: @escaping () -> ()) {

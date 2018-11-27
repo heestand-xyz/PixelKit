@@ -63,7 +63,7 @@ public struct LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntege
         futureValue = { return Int(liveFloat.value) }
     }
     
-    public init(static value: Int) {
+    public init(frozen value: Int) {
         futureValue = { return value }
     }
     

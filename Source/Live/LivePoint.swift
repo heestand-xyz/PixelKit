@@ -40,34 +40,44 @@ public struct LivePoint: LiveValue, CustomStringConvertible {
     
     // MARK: Life Cycle
     
+    public init(_ futureValue: @escaping () -> (CGPoint)) {
+        x = LiveFloat({ return futureValue().x })
+        y = LiveFloat({ return futureValue().y })
+    }
+    
     public init(x: LiveFloat, y: LiveFloat) {
         self.x = x
         self.y = y
     }
     
-    public init(point: CGPoint) {
-        x = LiveFloat(static: point.x)
-        y = LiveFloat(static: point.y)
+    public init(frozen point: CGPoint) {
+        x = LiveFloat(frozen: point.x)
+        y = LiveFloat(frozen: point.y)
     }
     
-    public init(vector: CGVector) {
-        x = LiveFloat(static: vector.dx)
-        y = LiveFloat(static: vector.dy)
+    public init(frozen vector: CGVector) {
+        x = LiveFloat(frozen: vector.dx)
+        y = LiveFloat(frozen: vector.dy)
     }
+    
+//    public init(xRel: LiveFloat, yRel: LiveFloat, res: PIX.Res) {
+//        x = LiveFloat({ return CGFloat(xRel) / res.width })
+//        y = LiveFloat({ return CGFloat(yRel) / res.width })
+//    }
     
     // MARK: Helpers
     
     public static func topLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(static: -res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: LiveFloat(frozen: -res.aspect / 2.0), y: 0.5)
     }
     public static func topRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(static: res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: LiveFloat(frozen: res.aspect / 2.0), y: 0.5)
     }
     public static func bottomLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(static: -res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: LiveFloat(frozen: -res.aspect / 2.0), y: -0.5)
     }
     public static func bottomRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(static: res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: LiveFloat(frozen: res.aspect / 2.0), y: -0.5)
     }
     
 }

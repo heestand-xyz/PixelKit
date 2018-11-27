@@ -79,7 +79,7 @@ public struct LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloa
         futureValue = { return CGFloat(Int(liveInt)) }
     }
     
-    public init(static value: CGFloat) {
+    public init(frozen value: CGFloat) {
         futureValue = { return CGFloat(value) }
     }
     
