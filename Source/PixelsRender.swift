@@ -203,6 +203,62 @@ extension Pixels {
             commandEncoder.setFragmentBuffer(uniformsBuffer, offset: 0, index: 0)
         }
         
+        // MARK: Uniform Arrays
+        
+        // Hardcoded at 32
+        // Must match shaders
+        let uniformArraysMaxLimit = 32
+        
+        var uniformArrays: [[Float]] = pix.uniformArrays.map { uniformArray -> [Float] in
+            return uniformArray.map({ uniform -> Float in return Float(uniform) })
+        }
+        
+        if !uniformArrays.isEmpty {
+            
+            var uniformArraysActive: [Bool] = uniformArrays.map { _ -> Bool in return true }
+            
+            if uniformArrays.count < uniformArraysMaxLimit {
+                let arrayCount = uniformArrays.first!.count
+                for _ in uniformArrays.count..<uniformArraysMaxLimit {
+                    var emptyArray: [Float] = []
+                    for _ in 0..<arrayCount {
+                        emptyArray.append(0.0)
+                    }
+                    uniformArrays.append(emptyArray)
+                    uniformArraysActive.append(false)
+                }
+            } else if uniformArrays.count > uniformArraysMaxLimit {
+                let overflow = uniformArraysMaxLimit - uniformArrays.count
+                for _ in 0..<overflow {
+                    uniformArrays.removeLast()
+                    uniformArraysActive.removeLast()
+                }
+                log(pix: pix, .warning, .render, "Max limit of uniform arrays exceeded. Last values will be truncated. \(uniformArrays.count) / \(uniformArraysMaxLimit)")
+            }
+            
+            var size: Int = 0
+            for uniformArray in uniformArrays {
+                size += MemoryLayout<Float>.size * uniformArray.count
+            }
+            guard let uniformsArraysBuffer = metalDevice.makeBuffer(length: size, options: []) else {
+                commandEncoder.endEncoding()
+                throw RenderError.uniformsBuffer
+            }
+            let bufferPointer = uniformsArraysBuffer.contents()
+            memcpy(bufferPointer, &uniformArrays, size)
+            commandEncoder.setFragmentBuffer(uniformsArraysBuffer, offset: 0, index: 1)
+            
+            let activeSize: Int = MemoryLayout<Float>.size * uniformArraysActive.count
+            guard let uniformsArraysActiveBuffer = metalDevice.makeBuffer(length: activeSize, options: []) else {
+                commandEncoder.endEncoding()
+                throw RenderError.uniformsBuffer
+            }
+            let activeBufferPointer = uniformsArraysActiveBuffer.contents()
+            memcpy(activeBufferPointer, &uniformArraysActive, activeSize)
+            commandEncoder.setFragmentBuffer(uniformsArraysActiveBuffer, offset: 0, index: 2)
+            
+        }
+        
         // MARK: Fragment Texture
         
         if !generator {

@@ -41,6 +41,27 @@ open class PIX/*/*: Codable*/*/ {
         }
         return vals
     }
+    
+    var liveValueArray: [LiveValue] { return [] }
+    open var uniformArrays: [[CGFloat]] {
+        var arrayVals: [[CGFloat]] = []
+        for liveValue in liveValueArray {
+            if let liveFloat = liveValue as? LiveFloat {
+                arrayVals.append([liveFloat.uniform])
+            } else if let liveInt = liveValue as? LiveInt {
+                arrayVals.append([CGFloat(liveInt.uniform)])
+            } else if let liveBool = liveValue as? LiveBool {
+                arrayVals.append([liveBool.uniform ? 1.0 : 0.0])
+            } else if let liveColor = liveValue as? LiveColor {
+                arrayVals.append(liveColor.uniformList)
+            } else if let livePoint = liveValue as? LivePoint {
+                arrayVals.append(livePoint.uniformList)
+            } else if let liveSize = liveValue as? LiveSize {
+                arrayVals.append(liveSize.uniformList)
+            }
+        }
+        return arrayVals
+    }
 
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }

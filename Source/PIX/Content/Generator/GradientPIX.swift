@@ -61,6 +61,14 @@ public class GradientPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
+//    override var liveValues: [LiveValue] {
+//        return [style, scale, offset, position, colorFirst, colorLast, extendRamp, colorSteps]
+//    }
+//
+//    override var liveValueArray: [LiveValue] {
+//        return [radius, position, rotation, vertexCount, color, bgColor]
+//    }
+    
 //    enum CodingKeys: String, CodingKey {
 //        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
 //    }
