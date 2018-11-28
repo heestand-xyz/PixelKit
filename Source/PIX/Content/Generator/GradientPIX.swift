@@ -28,43 +28,33 @@ public class GradientPIX: PIXGenerator {
         }
     }
     
-    public struct ColorStep/*: Codable*/ {
-        public let color: LiveColor
-        public let fraction: CGFloat
-        public init(_ color: LiveColor, at fraction: CGFloat) {
-            self.color = color
-            self.fraction = fraction
-        }
-    }
-    
-    public struct ColorSteps/*: Codable*/ {
-        public let a: ColorStep?
-        public let b: ColorStep?
-        public let c: ColorStep?
-        public let d: ColorStep?
-        public init(_ a: ColorStep, _ b: ColorStep? = nil, _ c: ColorStep? = nil, _ d: ColorStep? = nil) {
-            self.a = a
-            self.b = b
-            self.c = c
-            self.d = d
-        }
-    }
+//    public struct ColorStep/*: Codable*/ {
+//        public let color: LiveColor
+//        public let fraction: LiveFloat
+//        public init(_ color: LiveColor, at fraction: LiveFloat) {
+//            self.color = color
+//            self.fraction = fraction
+//        }
+//    }
     
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
-    public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var offset: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var colorFirst: LiveColor = .black { didSet { setNeedsRender() } }
-    public var colorLast: LiveColor = .white { didSet { setNeedsRender() } }
+    public var scale: LiveFloat = 1.0
+    public var offset: LiveFloat = 0.0
+    public var position: LivePoint = .zero
+//    public var colorFirst: LiveColor = .black
+//    public var colorLast: LiveColor = .white
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
-    public var colorSteps: ColorSteps? { didSet { setNeedsRender() } }
+    public var colorSteps: [(LiveFloat, LiveColor)] = [(0.0, .black), (1.0, .white)]
     
     // MARK: - Property Helpers
     
-//    override var liveValues: [LiveValue] {
-//        return [style, scale, offset, position, colorFirst, colorLast, extendRamp, colorSteps]
-//    }
-//
+    override var liveValues: [LiveValue] {
+        var liveValues: [LiveValue] = [scale, offset, position, position]
+        liveValues.append(contentsOf: colorSteps.map({ colorSteop -> LiveValue in return colorSteop.0 }))
+        liveValues.append(contentsOf: colorSteps.map({ colorSteop -> LiveValue in return colorSteop.1 }))
+        return liveValues
+    }
+
 //    override var liveValueArray: [LiveValue] {
 //        return [radius, position, rotation, vertexCount, color, bgColor]
 //    }
@@ -74,20 +64,7 @@ public class GradientPIX: PIXGenerator {
 //    }
     
     open override var uniforms: [CGFloat] {
-        var vals = [CGFloat(style.index), scale, offset, position.x, position.y]
-        vals.append(contentsOf: colorFirst.list)
-        vals.append(contentsOf: colorLast.list)
-        vals.append(CGFloat(extendRamp.index))
-        vals.append(colorSteps != nil ? 1 : 0)
-        vals.append(contentsOf: [colorSteps?.a != nil ? 1 : 0, colorSteps?.a?.fraction ?? 0])
-        vals.append(contentsOf: colorSteps?.a?.color.list ?? [0,0,0,0])
-        vals.append(contentsOf: [colorSteps?.b != nil ? 1 : 0, colorSteps?.b?.fraction ?? 0])
-        vals.append(contentsOf: colorSteps?.b?.color.list ?? [0,0,0,0])
-        vals.append(contentsOf: [colorSteps?.c != nil ? 1 : 0, colorSteps?.c?.fraction ?? 0])
-        vals.append(contentsOf: colorSteps?.c?.color.list ?? [0,0,0,0])
-        vals.append(contentsOf: [colorSteps?.d != nil ? 1 : 0, colorSteps?.d?.fraction ?? 0])
-        vals.append(contentsOf: colorSteps?.d?.color.list ?? [0,0,0,0])
-        return vals
+        return [CGFloat(style.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
     }
     
 //    // MARK: - JSON

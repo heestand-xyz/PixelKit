@@ -42,23 +42,27 @@ open class PIX/*/*: Codable*/*/ {
         return vals
     }
     
-    var liveValueArray: [LiveValue] { return [] }
-    open var uniformArrays: [[CGFloat]] {
+    var liveValueArray: [[LiveValue]] { return [] }
+    open var uniformArrays: [[[CGFloat]]] {
         var arrayVals: [[CGFloat]] = []
-        for liveValue in liveValueArray {
-            if let liveFloat = liveValue as? LiveFloat {
-                arrayVals.append([liveFloat.uniform])
-            } else if let liveInt = liveValue as? LiveInt {
-                arrayVals.append([CGFloat(liveInt.uniform)])
-            } else if let liveBool = liveValue as? LiveBool {
-                arrayVals.append([liveBool.uniform ? 1.0 : 0.0])
-            } else if let liveColor = liveValue as? LiveColor {
-                arrayVals.append(liveColor.uniformList)
-            } else if let livePoint = liveValue as? LivePoint {
-                arrayVals.append(livePoint.uniformList)
-            } else if let liveSize = liveValue as? LiveSize {
-                arrayVals.append(liveSize.uniformList)
+        for liveValueSubArray in liveValueArray {
+            var arraySubVals: [CGFloat] = []
+            for liveValue in liveValueSubArray {
+                if let liveFloat = liveValue as? LiveFloat {
+                    arraySubVals.append([liveFloat.uniform])
+                } else if let liveInt = liveValue as? LiveInt {
+                    arraySubVals.append([CGFloat(liveInt.uniform)])
+                } else if let liveBool = liveValue as? LiveBool {
+                    arraySubVals.append([liveBool.uniform ? 1.0 : 0.0])
+                } else if let liveColor = liveValue as? LiveColor {
+                    arraySubVals.append(liveColor.uniformList)
+                } else if let livePoint = liveValue as? LivePoint {
+                    arraySubVals.append(livePoint.uniformList)
+                } else if let liveSize = liveValue as? LiveSize {
+                    arraySubVals.append(liveSize.uniformList)
+                }
             }
+            arrayVals.append(arraySubVals)
         }
         return arrayVals
     }

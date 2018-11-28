@@ -65,9 +65,17 @@ struct Uniforms {
     float aspect;
 };
 
+struct UniformArray {
+    float fraction;
+    float cr;
+    float cg;
+    float cb;
+    float ca;
+};
+
 fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
                                             const device Uniforms& in [[ buffer(0) ]],
-                                            const device array<array<float, 4>, 32>& inArr [[ buffer(1) ]],
+                                            const device array<UniformArray, 32>& inArr [[ buffer(1) ]],
                                             const device array<bool, 32>& inArrActive [[ buffer(2) ]],
                                             sampler s [[ sampler(0) ]]) {
 
