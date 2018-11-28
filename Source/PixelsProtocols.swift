@@ -17,5 +17,5 @@ public protocol PixelsCustomRenderDelegate {
 }
 
 public protocol PixelsCustomGeometryDelegate {
-    func customVertecies() -> Pixels.Vertecies?
+    func customVertices() -> Pixels.Vertices?
 }

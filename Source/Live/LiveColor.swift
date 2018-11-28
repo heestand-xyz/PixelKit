@@ -11,6 +11,7 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+import CoreGraphics
 
 #if os(iOS)
 public typealias _Color = UIColor
@@ -180,7 +181,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         return CGColor(colorSpace: space.cg, components: list) ?? _Color.clear.cgColor
     }
     
-    var list: [CGFloat] {
+    public var list: [CGFloat] {
         return [CGFloat(r), CGFloat(g), CGFloat(b), CGFloat(a)]
     }
     
@@ -208,10 +209,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     // MARK: - Life Cycle
     
     public init(_ futureValue: @escaping () -> (_Color)) {
-        r = LiveFloat({ return futureValue().redComponent })
-        g = LiveFloat({ return futureValue().greenComponent })
-        b = LiveFloat({ return futureValue().blueComponent })
-        a = LiveFloat({ return futureValue().alphaComponent })
+        let liveColor = LiveColor(futureValue())
+        r = liveColor.r
+        g = liveColor.g
+        b = liveColor.b
+        a = liveColor.a
     }
     
     // MARK: - RGB
@@ -444,7 +446,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         case green
         case blue
         case alpha
-        var LiveColor: LiveColor {
+        var liveColor: LiveColor {
             switch self {
             case .red:   return .init(r: 1.0, g: 0.0, b: 0.0, a: 0.0)
             case .green: return .init(r: 0.0, g: 1.0, b: 0.0, a: 0.0)

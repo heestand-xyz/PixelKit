@@ -114,7 +114,7 @@ public class Pixels {
     var commandQueue: MTLCommandQueue!
     var textureCache: CVMetalTextureCache!
     var metalLibrary: MTLLibrary!
-    var quadVertecis: Vertecies!
+    var quadVertecis: Vertices!
     var quadVertexShader: MTLFunction!
     
     
@@ -330,7 +330,7 @@ public class Pixels {
         }
     }
     
-    public struct Vertecies {
+    public struct Vertices {
         public let buffer: MTLBuffer
         public let vertexCount: Int
         public let instanceCount: Int
@@ -345,8 +345,8 @@ public class Pixels {
         }
     }
     
-    func makeQuadVertecis() throws -> Vertecies {
-        return Vertecies(buffer: try makeQuadVertexBuffer(), vertexCount: 6, instanceCount: 2)
+    func makeQuadVertecis() throws -> Vertices {
+        return Vertices(buffer: try makeQuadVertexBuffer(), vertexCount: 6, instanceCount: 2)
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {

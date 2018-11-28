@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 extension Int {
     init(_ liveInt: LiveInt) {

@@ -55,21 +55,21 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     
     // MAKR: - Corenr Pin
     
-    public func customVertecies() -> Pixels.Vertecies? {
+    public func customVertices() -> Pixels.Vertices? {
         
-        let verteciesRaw = cornerPin()
-        let verteciesMapped = mapVertecies(verteciesRaw)
+        let verticesRaw = cornerPin()
+        let verticesMapped = mapVertices(verticesRaw)
         var vertexBuffers: [Float] = []
-        for vertex in verteciesMapped {
+        for vertex in verticesMapped {
             vertexBuffers += vertex.buffer
         }
         
         let vertexBuffersSize = vertexBuffers.count * MemoryLayout<Float>.size
-        let verteciesBuffer = Pixels.main.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
+        let verticesBuffer = Pixels.main.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
 
         let instanceCount = ((divisions + 1) * (divisions + 1)) / 3
         
-        return Pixels.Vertecies(buffer: verteciesBuffer, vertexCount: verteciesMapped.count, instanceCount: instanceCount)
+        return Pixels.Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count, instanceCount: instanceCount)
         
     }
     
@@ -149,23 +149,23 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
         
     }
     
-    func mapVertecies(_ vertecies: [[Pixels.Vertex]]) -> [Pixels.Vertex] {
-        var verteciesMap: [Pixels.Vertex] = []
+    func mapVertices(_ vertices: [[Pixels.Vertex]]) -> [Pixels.Vertex] {
+        var verticesMap: [Pixels.Vertex] = []
         for x in 0..<divisions {
             for y in 0..<divisions {
-                let vertexBottomLeft = vertecies[x][y]
-                let vertexTopLeft = vertecies[x][y + 1]
-                let vertexBottomRight = vertecies[x + 1][y]
-                let vertexTopRight = vertecies[x + 1][y + 1]
-                verteciesMap.append(vertexTopLeft)
-                verteciesMap.append(vertexTopRight)
-                verteciesMap.append(vertexBottomLeft)
-                verteciesMap.append(vertexBottomRight)
-                verteciesMap.append(vertexBottomLeft)
-                verteciesMap.append(vertexTopRight)
+                let vertexBottomLeft = vertices[x][y]
+                let vertexTopLeft = vertices[x][y + 1]
+                let vertexBottomRight = vertices[x + 1][y]
+                let vertexTopRight = vertices[x + 1][y + 1]
+                verticesMap.append(vertexTopLeft)
+                verticesMap.append(vertexTopRight)
+                verticesMap.append(vertexBottomLeft)
+                verticesMap.append(vertexBottomRight)
+                verticesMap.append(vertexBottomLeft)
+                verticesMap.append(vertexTopRight)
             }
         }
-        return verteciesMap
+        return verticesMap
     }
     
 }

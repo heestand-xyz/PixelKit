@@ -118,7 +118,7 @@ extension Pixels {
         case drawable(String)
         case commandEncoder
         case uniformsBuffer
-        case vertecies
+        case vertices
         case vertexTexture
     }
     
@@ -271,24 +271,24 @@ extension Pixels {
         
         commandEncoder.setFragmentSamplerState(pix.sampler, index: 0)
         
-        // MARK: Vertecies
+        // MARK: Vertices
         
-        let vertecies: Vertecies
+        let vertices: Vertices
         if pix.customGeometryActive {
-            guard let customVertecies = pix.customGeometryDelegate?.customVertecies() else {
+            guard let customVertices = pix.customGeometryDelegate?.customVertices() else {
                 commandEncoder.endEncoding()
-                throw RenderError.vertecies
+                throw RenderError.vertices
             }
-            vertecies = customVertecies
+            vertices = customVertices
         } else {
-            vertecies = quadVertecis
+            vertices = quadVertecis
         }
         
-        if vertecies.wireframe {
+        if vertices.wireframe {
             commandEncoder.setTriangleFillMode(.lines)
         }
 
-        commandEncoder.setVertexBuffer(vertecies.buffer, offset: 0, index: 0)
+        commandEncoder.setVertexBuffer(vertices.buffer, offset: 0, index: 0)
         
         // MARK: Vertex Uniforms
         
@@ -322,7 +322,7 @@ extension Pixels {
         
         // MARK: Draw
         
-        commandEncoder.drawPrimitives(type: vertecies.type, vertexStart: 0, vertexCount: vertecies.vertexCount, instanceCount: vertecies.instanceCount)
+        commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: vertices.instanceCount)
         
         // MARK: Render
         
