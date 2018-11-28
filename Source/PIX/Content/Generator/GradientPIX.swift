@@ -55,9 +55,11 @@ public class GradientPIX: PIXGenerator {
         return liveValues
     }
 
-//    override var liveValueArray: [LiveValue] {
-//        return [radius, position, rotation, vertexCount, color, bgColor]
-//    }
+    override var liveArray: [[LiveFloat]] {
+        return colorSteps.map({ fraction, color -> [LiveFloat] in
+            return [fraction, color.r, color.g, color.b, color.a]
+        })
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
@@ -100,15 +102,14 @@ public class GradientPIX: PIXGenerator {
 public extension PIXOut {
     
     // FIXME: Create custom shader
-    func _gradientMap(from colorFirst: LiveColor, to colorLast: LiveColor) -> LookupPIX {
+    func _gradientMap(from firstColor: LiveColor, to lastColor: LiveColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inPixA = self as? PIX & PIXOut
         let res: PIX.Res = Pixels.main.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
-        gradientPix.colorFirst = colorFirst
-        gradientPix.colorLast = colorLast
+        gradientPix.colorSteps = [(0.0, firstColor), (1.0, lastColor)]
         lookupPix.inPixB = gradientPix
         return lookupPix
     }

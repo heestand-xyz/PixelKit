@@ -42,29 +42,13 @@ open class PIX/*/*: Codable*/*/ {
         return vals
     }
     
-    var liveValueArray: [[LiveValue]] { return [] }
-    open var uniformArrays: [[[CGFloat]]] {
-        var arrayVals: [[CGFloat]] = []
-        for liveValueSubArray in liveValueArray {
-            var arraySubVals: [CGFloat] = []
-            for liveValue in liveValueSubArray {
-                if let liveFloat = liveValue as? LiveFloat {
-                    arraySubVals.append([liveFloat.uniform])
-                } else if let liveInt = liveValue as? LiveInt {
-                    arraySubVals.append([CGFloat(liveInt.uniform)])
-                } else if let liveBool = liveValue as? LiveBool {
-                    arraySubVals.append([liveBool.uniform ? 1.0 : 0.0])
-                } else if let liveColor = liveValue as? LiveColor {
-                    arraySubVals.append(liveColor.uniformList)
-                } else if let livePoint = liveValue as? LivePoint {
-                    arraySubVals.append(livePoint.uniformList)
-                } else if let liveSize = liveValue as? LiveSize {
-                    arraySubVals.append(liveSize.uniformList)
-                }
-            }
-            arrayVals.append(arraySubVals)
-        }
-        return arrayVals
+    var liveArray: [[LiveFloat]] { return [] }
+    open var uniformArray: [[CGFloat]] {
+        return liveArray.map({ liveFloats -> [CGFloat] in
+            return liveFloats.map({ liveFloat -> CGFloat in
+                return liveFloat.uniform
+            })
+        })
     }
 
     open var vertexUniforms: [CGFloat] { return [] }
@@ -332,6 +316,14 @@ open class PIX/*/*: Codable*/*/ {
             if liveValue.uniformIsNew {
                 setNeedsRender()
                 break
+            }
+        }
+        for liveValues in liveArray {
+            for liveValue in liveValues {
+                if liveValue.uniformIsNew {
+                    setNeedsRender()
+                    break
+                }
             }
         }
     }

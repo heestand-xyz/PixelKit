@@ -207,37 +207,37 @@ extension Pixels {
         
         // Hardcoded at 32
         // Must match shaders
-        let uniformArraysMaxLimit = 32
+        let uniformArrayMaxLimit = 32
         
-        var uniformArrays: [[Float]] = pix.uniformArrays.map { uniformArray -> [Float] in
-            return uniformArray.map({ uniform -> Float in return Float(uniform) })
+        var uniformArray: [[Float]] = pix.uniformArray.map { uniformValues -> [Float] in
+            return uniformValues.map({ uniform -> Float in return Float(uniform) })
         }
         
-        if !uniformArrays.isEmpty {
+        if !uniformArray.isEmpty {
             
-            var uniformArraysActive: [Bool] = uniformArrays.map { _ -> Bool in return true }
+            var uniformArrayActive: [Bool] = uniformArray.map { _ -> Bool in return true }
             
-            if uniformArrays.count < uniformArraysMaxLimit {
-                let arrayCount = uniformArrays.first!.count
-                for _ in uniformArrays.count..<uniformArraysMaxLimit {
+            if uniformArray.count < uniformArrayMaxLimit {
+                let arrayCount = uniformArray.first!.count
+                for _ in uniformArray.count..<uniformArrayMaxLimit {
                     var emptyArray: [Float] = []
                     for _ in 0..<arrayCount {
                         emptyArray.append(0.0)
                     }
-                    uniformArrays.append(emptyArray)
-                    uniformArraysActive.append(false)
+                    uniformArray.append(emptyArray)
+                    uniformArrayActive.append(false)
                 }
-            } else if uniformArrays.count > uniformArraysMaxLimit {
-                let overflow = uniformArraysMaxLimit - uniformArrays.count
+            } else if uniformArray.count > uniformArrayMaxLimit {
+                let overflow = uniformArrayMaxLimit - uniformArray.count
                 for _ in 0..<overflow {
-                    uniformArrays.removeLast()
-                    uniformArraysActive.removeLast()
+                    uniformArray.removeLast()
+                    uniformArrayActive.removeLast()
                 }
-                log(pix: pix, .warning, .render, "Max limit of uniform arrays exceeded. Last values will be truncated. \(uniformArrays.count) / \(uniformArraysMaxLimit)")
+                log(pix: pix, .warning, .render, "Max limit of uniform arrays exceeded. Last values will be truncated. \(uniformArray.count) / \(uniformArrayMaxLimit)")
             }
             
             var size: Int = 0
-            for uniformArray in uniformArrays {
+            for uniformArray in uniformArray {
                 size += MemoryLayout<Float>.size * uniformArray.count
             }
             guard let uniformsArraysBuffer = metalDevice.makeBuffer(length: size, options: []) else {
@@ -245,16 +245,16 @@ extension Pixels {
                 throw RenderError.uniformsBuffer
             }
             let bufferPointer = uniformsArraysBuffer.contents()
-            memcpy(bufferPointer, &uniformArrays, size)
+            memcpy(bufferPointer, &uniformArray, size)
             commandEncoder.setFragmentBuffer(uniformsArraysBuffer, offset: 0, index: 1)
             
-            let activeSize: Int = MemoryLayout<Float>.size * uniformArraysActive.count
+            let activeSize: Int = MemoryLayout<Float>.size * uniformArrayActive.count
             guard let uniformsArraysActiveBuffer = metalDevice.makeBuffer(length: activeSize, options: []) else {
                 commandEncoder.endEncoding()
                 throw RenderError.uniformsBuffer
             }
             let activeBufferPointer = uniformsArraysActiveBuffer.contents()
-            memcpy(activeBufferPointer, &uniformArraysActive, activeSize)
+            memcpy(activeBufferPointer, &uniformArrayActive, activeSize)
             commandEncoder.setFragmentBuffer(uniformsArraysActiveBuffer, offset: 0, index: 2)
             
         }
