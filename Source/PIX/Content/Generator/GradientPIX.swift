@@ -49,10 +49,14 @@ public class GradientPIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        var liveValues: [LiveValue] = [scale, offset, position, position]
-        liveValues.append(contentsOf: colorSteps.map({ colorSteop -> LiveValue in return colorSteop.0 }))
-        liveValues.append(contentsOf: colorSteps.map({ colorSteop -> LiveValue in return colorSteop.1 }))
-        return liveValues
+        return [scale, offset, position, position]
+    }
+    
+    override var preUniforms: [CGFloat] {
+        return [CGFloat(style.index)]
+    }
+    override var postUniforms: [CGFloat] {
+        return [CGFloat(extendRamp.index)]
     }
 
     override var liveArray: [[LiveFloat]] {

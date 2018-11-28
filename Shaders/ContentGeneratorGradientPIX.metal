@@ -9,15 +9,11 @@
 #include <metal_stdlib>
 using namespace metal;
 
+__constant int ARRMAX = 32;
+
 struct VertexOut {
     float4 position [[position]];
     float2 texCoord;
-};
-
-struct ColorStop {
-    bool enabled;
-    float position;
-    float4 color;
 };
 
 struct Uniforms {
@@ -26,40 +22,7 @@ struct Uniforms {
     float offset;
     float px;
     float py;
-    float ar;
-    float ag;
-    float ab;
-    float aa;
-    float br;
-    float bg;
-    float bb;
-    float ba;
     float extend;
-    float extra;
-    float eae;
-    float eap;
-    float ear;
-    float eag;
-    float eab;
-    float eaa;
-    float ebe;
-    float ebp;
-    float ebr;
-    float ebg;
-    float ebb;
-    float eba;
-    float ece;
-    float ecp;
-    float ecr;
-    float ecg;
-    float ecb;
-    float eca;
-    float ede;
-    float edp;
-    float edr;
-    float edg;
-    float edb;
-    float eda;
     float premultiply;
     float aspect;
 };
@@ -72,10 +35,16 @@ struct ArrayUniforms {
     float ca;
 };
 
+struct ColorStop {
+    bool enabled;
+    float position;
+    float4 color;
+};
+
 fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
                                             const device Uniforms& in [[ buffer(0) ]],
-                                            const device array<ArrayUniforms, 32>& inArr [[ buffer(1) ]],
-                                            const device array<bool, 32>& inArrActive [[ buffer(2) ]],
+                                            const device array<ArrayUniforms, ARRMAX>& inArr [[ buffer(1) ]],
+                                            const device array<bool, ARRMAX>& inArrActive [[ buffer(2) ]],
                                             sampler s [[ sampler(0) ]]) {
 
     float u = out.texCoord[0];
@@ -87,8 +56,8 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     
     float pi = 3.14159265359;
     
-    float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
-    float4 bc = float4(in.br, in.bg, in.bb, in.ba);
+//    float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
+//    float4 bc = float4(in.br, in.bg, in.bb, in.ba);
     
     float fraction = 0;
     if (in.type == 0) {
@@ -137,36 +106,40 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     }
     
     float4 c = 0;
-    if (!zero && in.extra) {
+    if (!zero) {
         
-        array<ColorStop, 6> color_stops;
-        for (int i = 0; i < 6; ++i) {
-            color_stops[i] = ColorStop();
+        array<ColorStop, ARRMAX> color_stops;
+        for (int i = 0; i < ARRMAX; ++i) {
+            ColorStop color_stop = ColorStop();
+            color_stop.enabled = inArrActive[i];
+            color_stop.position = inArr[i].fraction;
+            color_stop.color = float4(inArr[i].cr, inArr[i].cg, inArr[i].cb, inArr[i].ca);
+            color_stops[i] = color_stop;
         }
-        color_stops[0].enabled = true;
-        color_stops[0].position = 0.0;
-        color_stops[0].color = ac;
-        color_stops[1].enabled = in.eae;
-        color_stops[1].position = in.eap;
-        color_stops[1].color = float4(in.ear, in.eag, in.eab, in.eaa);
-        color_stops[2].enabled = in.ebe;
-        color_stops[2].position = in.ebp;
-        color_stops[2].color = float4(in.ebr, in.ebg, in.ebb, in.eba);
-        color_stops[3].enabled = in.ece;
-        color_stops[3].position = in.ecp;
-        color_stops[3].color = float4(in.ecr, in.ecg, in.ecb, in.eca);
-        color_stops[4].enabled = in.ede;
-        color_stops[4].position = in.edp;
-        color_stops[4].color = float4(in.edr, in.edg, in.edb, in.eda);
-        color_stops[5].enabled = true;
-        color_stops[5].position = 1.0;
-        color_stops[5].color = bc;
+//        color_stops[0].enabled = true;
+//        color_stops[0].position = 0.0;
+//        color_stops[0].color = ac;
+//        color_stops[1].enabled = in.eae;
+//        color_stops[1].position = in.eap;
+//        color_stops[1].color = float4(in.ear, in.eag, in.eab, in.eaa);
+//        color_stops[2].enabled = in.ebe;
+//        color_stops[2].position = in.ebp;
+//        color_stops[2].color = float4(in.ebr, in.ebg, in.ebb, in.eba);
+//        color_stops[3].enabled = in.ece;
+//        color_stops[3].position = in.ecp;
+//        color_stops[3].color = float4(in.ecr, in.ecg, in.ecb, in.eca);
+//        color_stops[4].enabled = in.ede;
+//        color_stops[4].position = in.edp;
+//        color_stops[4].color = float4(in.edr, in.edg, in.edb, in.eda);
+//        color_stops[5].enabled = true;
+//        color_stops[5].position = 1.0;
+//        color_stops[5].color = bc;
         
         ColorStop low_color_stop;
         bool low_color_stop_set = false;
         ColorStop high_color_stop;
         bool high_color_stop_set = false;
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < ARRMAX; ++i) {
             if (color_stops[i].enabled && color_stops[i].position <= fraction && (!low_color_stop_set || color_stops[i].position > low_color_stop.position)) {
                 low_color_stop = color_stops[i];
                 low_color_stop_set = true;
@@ -179,22 +152,23 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         
         float stop_fraction = (fraction - low_color_stop.position) / (high_color_stop.position - low_color_stop.position);
         
-        // Bug fix
-        if (in.extend == 1) {
-            if (stop_fraction < 0) {
-                stop_fraction = 0.0;
-            } else if (stop_fraction > 1) {
-                stop_fraction = 1.0;
-            }
-        }
+//        // Bug fix
+//        if (in.extend == 1) { // Zero
+//            if (stop_fraction < 0) {
+//                stop_fraction = 0.0;
+//            } else if (stop_fraction > 1) {
+//                stop_fraction = 1.0;
+//            }
+//        }
         
         c = mix(low_color_stop.color, high_color_stop.color, stop_fraction);
         
-    } else if (!zero) {
-        
-        c = mix(ac, bc, fraction);
-        
     }
+//    else if (!zero) {
+//
+//        c = mix(ac, bc, fraction);
+//
+//    }
     
     if (!zero && in.premultiply) {
         c = float4(c.r * c.a, c.g * c.a, c.b * c.a, c.a);

@@ -22,8 +22,11 @@ open class PIX/*/*: Codable*/*/ {
     open var shader: String { return "" }
     
     var liveValues: [LiveValue] { return [] }
+    var preUniforms: [CGFloat] { return [] }
+    var postUniforms: [CGFloat] { return [] }
     open var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
+        vals.append(contentsOf: preUniforms)
         for liveValue in liveValues {
             if let liveFloat = liveValue as? LiveFloat {
                 vals.append(liveFloat.uniform)
@@ -39,6 +42,7 @@ open class PIX/*/*: Codable*/*/ {
                 vals.append(contentsOf: liveSize.uniformList)
             }
         }
+        vals.append(contentsOf: postUniforms)
         return vals
     }
     

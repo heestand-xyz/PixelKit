@@ -206,7 +206,7 @@ extension Pixels {
         // MARK: Uniform Arrays
         
         // Hardcoded at 32
-        // Must match shaders
+        // Defined as ARRMAX in shaders
         let uniformArrayMaxLimit = 32
         
         var uniformArray: [[Float]] = pix.uniformArray.map { uniformValues -> [Float] in
