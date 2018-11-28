@@ -23,9 +23,15 @@ extension String {
     }
     
     public func zfill(_ length: Int) -> String {
+        guard contains(".") else { return self }
+        let diff = (length + 2) - count
+        let postfix = diff > 0 ? String(repeating: "0", count: diff) : ""
+        return self + postfix
+    }
+    
+    public func zfillOrg(_ length: Int) -> String {
         let diff = (length - count)
         let prefix = (diff > 0 ? String(repeating: "0", count: diff) : "")
-        
         return (prefix + self)
     }
     

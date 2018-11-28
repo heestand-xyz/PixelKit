@@ -61,12 +61,20 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         futureValue = { return Int(liveFloat.value) }
     }
     
+    // Figure out Frozen
     public init(frozen value: Int) {
         futureValue = { return value }
     }
     
-    required public init(integerLiteral value: IntegerLiteralType) {
+    public init(_ value: CGFloat) {
+        futureValue = { return Int(value) }
+    }
+    
+    public init(_ value: Int) {
         futureValue = { return value }
+    }
+    required public init(integerLiteral value: IntegerLiteralType) {
+        futureValue = { return Int(value) }
     }
     
 //    enum CodingKeys: String, CodingKey {

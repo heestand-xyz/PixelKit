@@ -33,7 +33,8 @@ extension Double {
 public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
-        return "live(\(CGFloat(self)))"
+        let _value: CGFloat = round(CGFloat(self) * 1_000) / 1_000
+        return "live(\("\(_value)".zfill(3)))"
     }
     
     var futureValue: () -> (CGFloat)
@@ -79,14 +80,21 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         futureValue = { return CGFloat(Int(liveInt)) }
     }
     
+    // Figure out Frozen
     public init(frozen value: CGFloat) {
-        futureValue = { return CGFloat(value) }
+        futureValue = { return value }
     }
     
+    public init(_ value: CGFloat) {
+        futureValue = { return value }
+    }
     required public init(floatLiteral value: FloatLiteralType) {
         futureValue = { return CGFloat(value) }
     }
     
+    public init(_ value: Int) {
+        futureValue = { return CGFloat(value) }
+    }
     required public init(integerLiteral value: IntegerLiteralType) {
         futureValue = { return CGFloat(value) }
     }

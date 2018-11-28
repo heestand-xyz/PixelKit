@@ -14,8 +14,8 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public var h: LiveFloat
     
     public var description: String {
-        let _w: CGFloat = round(CGFloat(w) * 10_000) / 10_000
-        let _h: CGFloat = round(CGFloat(h) * 10_000) / 10_000
+        let _w: CGFloat = round(CGFloat(w) * 1_000) / 1_000
+        let _h: CGFloat = round(CGFloat(h) * 1_000) / 1_000
         return "live(w:\("\(_w)".zfill(3)),h:\("\(_h)".zfill(3)))"
     }
     

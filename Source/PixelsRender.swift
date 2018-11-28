@@ -205,9 +205,9 @@ extension Pixels {
         
         // MARK: Uniform Arrays
         
-        // Hardcoded at 32
+        // Hardcoded at 24
         // Defined as ARRMAX in shaders
-        let uniformArrayMaxLimit = 32
+        let uniformArrayMaxLimit = 24
         
         var uniformArray: [[Float]] = pix.uniformArray.map { uniformValues -> [Float] in
             return uniformValues.map({ uniform -> Float in return Float(uniform) })
@@ -228,27 +228,27 @@ extension Pixels {
                     uniformArrayActive.append(false)
                 }
             } else if uniformArray.count > uniformArrayMaxLimit {
-                let overflow = uniformArrayMaxLimit - uniformArray.count
+                let origialCount = uniformArray.count
+                let overflow = origialCount - uniformArrayMaxLimit
                 for _ in 0..<overflow {
                     uniformArray.removeLast()
                     uniformArrayActive.removeLast()
                 }
-                log(pix: pix, .warning, .render, "Max limit of uniform arrays exceeded. Last values will be truncated. \(uniformArray.count) / \(uniformArrayMaxLimit)")
+                log(pix: pix, .warning, .render, "Max limit of uniform arrays exceeded. Last values will be truncated. \(origialCount) / \(uniformArrayMaxLimit)")
             }
             
-            var size: Int = 0
-            for uniformArray in uniformArray {
-                size += MemoryLayout<Float>.size * uniformArray.count
-            }
+            var uniformFlatMap = uniformArray.flatMap { uniformValues -> [Float] in return uniformValues }
+            
+            let size: Int = MemoryLayout<Float>.size * uniformFlatMap.count
             guard let uniformsArraysBuffer = metalDevice.makeBuffer(length: size, options: []) else {
                 commandEncoder.endEncoding()
                 throw RenderError.uniformsBuffer
             }
             let bufferPointer = uniformsArraysBuffer.contents()
-            memcpy(bufferPointer, &uniformArray, size)
+            memcpy(bufferPointer, &uniformFlatMap, size)
             commandEncoder.setFragmentBuffer(uniformsArraysBuffer, offset: 0, index: 1)
             
-            let activeSize: Int = MemoryLayout<Float>.size * uniformArrayActive.count
+            let activeSize: Int = MemoryLayout<Bool>.size * uniformArrayActive.count
             guard let uniformsArraysActiveBuffer = metalDevice.makeBuffer(length: activeSize, options: []) else {
                 commandEncoder.endEncoding()
                 throw RenderError.uniformsBuffer

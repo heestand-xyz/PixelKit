@@ -14,8 +14,8 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     public var y: LiveFloat
     
     public var description: String {
-        let _x: CGFloat = round(CGFloat(x) * 10_000) / 10_000
-        let _y: CGFloat = round(CGFloat(y) * 10_000) / 10_000
+        let _x: CGFloat = round(CGFloat(x) * 1_000) / 1_000
+        let _y: CGFloat = round(CGFloat(y) * 1_000) / 1_000
         return "live(x:\("\(_x)".zfill(3)),y:\("\(_y)".zfill(3)))"
     }
     

@@ -11,7 +11,7 @@ public class GradientPIX: PIXGenerator {
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     
-    // MARK: - Public Properties
+    // MARK: - Public Types
     
     public enum Style: String, Codable {
         case horizontal
@@ -28,21 +28,12 @@ public class GradientPIX: PIXGenerator {
         }
     }
     
-//    public struct ColorStep/*: Codable*/ {
-//        public let color: LiveColor
-//        public let fraction: LiveFloat
-//        public init(_ color: LiveColor, at fraction: LiveFloat) {
-//            self.color = color
-//            self.fraction = fraction
-//        }
-//    }
+    // MARK: - Public Properties
     
     public var style: Style = .horizontal { didSet { setNeedsRender() } }
     public var scale: LiveFloat = 1.0
     public var offset: LiveFloat = 0.0
     public var position: LivePoint = .zero
-//    public var colorFirst: LiveColor = .black
-//    public var colorLast: LiveColor = .white
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: [(LiveFloat, LiveColor)] = [(0.0, .black), (1.0, .white)]
     
@@ -100,6 +91,21 @@ public class GradientPIX: PIXGenerator {
 //        try container.encode(extendRamp, forKey: .extendRamp)
 //        try container.encode(colorSteps, forKey: .colorSteps)
 //    }
+    
+    // MARK: - Rainbow
+    
+    public static var rainbowColorSteps: [(LiveFloat, LiveColor)] {
+        var colorSteps: [(LiveFloat, LiveColor)] = []
+        let count = 7
+        for i in 0..<count {
+            let fraction = LiveFloat(i) / LiveFloat(count - 1)
+            colorSteps.append((fraction, LiveColor(h: fraction, s: 1.0, v: 1.0, a: 1.0)))
+        }
+        return colorSteps
+    }
+    public func rainbow() {
+        colorSteps = GradientPIX.rainbowColorSteps
+    }
     
 }
 

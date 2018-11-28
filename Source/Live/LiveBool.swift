@@ -59,6 +59,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
         self.futureValue = futureValue
     }
     
+    // Figure out Frozen
     public init(frozen value: Bool) {
         futureValue = { return value }
     }

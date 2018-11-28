@@ -9,7 +9,9 @@
 #include <metal_stdlib>
 using namespace metal;
 
-__constant int ARRMAX = 32;
+// Hardcoded at 24
+// Defined as uniformArrayMaxLimit in source
+__constant int ARRMAX = 24;
 
 struct VertexOut {
     float4 position [[position]];
@@ -50,15 +52,15 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     v = 1 - v; // Content Flip Fix
-    
+
     u -= in.px / in.aspect;
     v -= in.py;
-    
+
     float pi = 3.14159265359;
-    
+
 //    float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
 //    float4 bc = float4(in.br, in.bg, in.bb, in.ba);
-    
+
     float fraction = 0;
     if (in.type == 0) {
         // Horizontal
@@ -73,7 +75,7 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         // Angle
         fraction = (atan2(v - 0.5, (-u + 0.5) * in.aspect) / (pi * 2) + 0.5 - in.offset) / in.scale;
     }
-    
+
     bool zero = false;
     switch (int(in.extend)) {
         case 0: // Hold
@@ -104,10 +106,10 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
             }
             break;
     }
-    
+
     float4 c = 0;
     if (!zero) {
-        
+
         array<ColorStop, ARRMAX> color_stops;
         for (int i = 0; i < ARRMAX; ++i) {
             ColorStop color_stop = ColorStop();
@@ -134,7 +136,7 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
 //        color_stops[5].enabled = true;
 //        color_stops[5].position = 1.0;
 //        color_stops[5].color = bc;
-        
+
         ColorStop low_color_stop;
         bool low_color_stop_set = false;
         ColorStop high_color_stop;
@@ -149,30 +151,28 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
                 high_color_stop_set = true;
             }
         }
-        
+
         float stop_fraction = (fraction - low_color_stop.position) / (high_color_stop.position - low_color_stop.position);
-        
-//        // Bug fix
-//        if (in.extend == 1) { // Zero
-//            if (stop_fraction < 0) {
-//                stop_fraction = 0.0;
-//            } else if (stop_fraction > 1) {
-//                stop_fraction = 1.0;
-//            }
-//        }
-        
+
+        if (stop_fraction < 0) {
+            stop_fraction = 0.0;
+        } else if (stop_fraction > 1) {
+            stop_fraction = 1.0;
+        }
+
         c = mix(low_color_stop.color, high_color_stop.color, stop_fraction);
-        
+
     }
 //    else if (!zero) {
 //
 //        c = mix(ac, bc, fraction);
 //
 //    }
-    
+
     if (!zero && in.premultiply) {
         c = float4(c.r * c.a, c.g * c.a, c.b * c.a, c.a);
     }
-    
+
     return c;
+    return float4(inArrActive[0], inArrActive[1], inArrActive[2], 1);
 }
