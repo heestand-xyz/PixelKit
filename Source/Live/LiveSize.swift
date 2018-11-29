@@ -82,6 +82,36 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
 //        h = LiveFloat({ return CGFloat(hRel) / res.width })
 //    }
     
+    // MARK: Flow Funcs
+    
+    public func delay(frames: LiveInt) -> LiveSize {
+        return LiveSize(w: w.delay(frames: frames), h: h.delay(frames: frames))
+    }
+    
+    public func delay(seconds: LiveFloat) -> LiveSize {
+        return LiveSize(w: w.delay(seconds: seconds), h: h.delay(seconds: seconds))
+    }
+    
+    /// filter over frames. smooth off is linear. smooth on is cosine smoothness (default)
+    public func filter(frames: LiveInt, smooth: Bool = true) -> LiveSize {
+        return LiveSize(w: w.filter(frames: frames, smooth: smooth), h: h.filter(frames: frames, smooth: smooth))
+    }
+    
+    /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
+    public func filter(seconds: LiveFloat, smooth: Bool = true) -> LiveSize {
+        return LiveSize(w: w.filter(seconds: seconds, smooth: smooth), h: h.filter(seconds: seconds, smooth: smooth))
+    }
+    
+    /// noise is a combo of liveRandom and smooth filter
+    ///
+    /// deafults - liveRandom range: 0.0...1.0 - filter seconds: 1.0
+    public static func noise(wRange: ClosedRange<CGFloat> = 0.0...1.0,
+                             hRange: ClosedRange<CGFloat> = 0.0...1.0,
+                             seconds: LiveFloat = 1.0) -> LiveSize {
+        return LiveSize(w: LiveFloat.noise(range: wRange, seconds: seconds),
+                        h: LiveFloat.noise(range: hRange, seconds: seconds))
+    }
+    
     // MARK: Helpers
     
     public static func fill(aspect: LiveFloat) -> LiveSize {
@@ -94,27 +124,12 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     // MARK: Equatable
     
-//    public static func == (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return LiveBool({ return CGFloat(lhs) == CGFloat(rhs) })
-//    }
-//    public static func != (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return !(lhs == rhs)
-//    }
-    
-    // MARK: Comparable
-    
-//    public static func < (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return LiveBool({ return CGFloat(lhs) < CGFloat(rhs) })
-//    }
-//    public static func <= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return LiveBool({ return CGFloat(lhs) <= CGFloat(rhs) })
-//    }
-//    public static func > (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return LiveBool({ return CGFloat(lhs) > CGFloat(rhs) })
-//    }
-//    public static func >= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
-//        return LiveBool({ return CGFloat(lhs) >= CGFloat(rhs) })
-//    }
+    public static func == (lhs: LiveSize, rhs: LiveSize) -> LiveBool {
+        return LiveBool({ return CGFloat(lhs.w) == CGFloat(rhs.w) && CGFloat(lhs.h) == CGFloat(rhs.h) })
+    }
+    public static func != (lhs: LiveSize, rhs: LiveSize) -> LiveBool {
+        return !(lhs == rhs)
+    }
     
     // MARK: Operators
     
@@ -124,9 +139,15 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public static func + (lhs: LiveSize, rhs: LiveFloat) -> LiveSize {
         return LiveSize(w: lhs.w + rhs, h: lhs.h + rhs)
     }
-//    public static func += (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) + CGFloat(rhs) })
-//    }
+    public static func + (lhs: LiveFloat, rhs: LiveSize) -> LiveSize {
+        return LiveSize(w: lhs + rhs.w, h: lhs + rhs.h)
+    }
+    public static func += (lhs: inout LiveSize, rhs: LiveSize) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w + rhs.w, h: _lhs.h + rhs.h)
+    }
+    public static func += (lhs: inout LiveSize, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w + rhs, h: _lhs.h + rhs)
+    }
     
     public static func - (lhs: LiveSize, rhs: LiveSize) -> LiveSize {
         return LiveSize(w: lhs.w - rhs.w, h: lhs.h - rhs.h)
@@ -134,10 +155,15 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public static func - (lhs: LiveSize, rhs: LiveFloat) -> LiveSize {
         return LiveSize(w: lhs.w - rhs, h: lhs.h - rhs)
     }
-//    public static func -= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) - CGFloat(rhs) })
-//    }
-    
+    public static func - (lhs: LiveFloat, rhs: LiveSize) -> LiveSize {
+        return LiveSize(w: lhs - rhs.w, h: lhs - rhs.h)
+    }
+    public static func -= (lhs: inout LiveSize, rhs: LiveSize) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w - rhs.w, h: _lhs.h - rhs.h)
+    }
+    public static func -= (lhs: inout LiveSize, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w - rhs, h: _lhs.h - rhs)
+    }
     
     public static func * (lhs: LiveSize, rhs: LiveSize) -> LiveSize {
         return LiveSize(w: lhs.w * rhs.w, h: lhs.h * rhs.h)
@@ -145,9 +171,15 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public static func * (lhs: LiveSize, rhs: LiveFloat) -> LiveSize {
         return LiveSize(w: lhs.w * rhs, h: lhs.h * rhs)
     }
-//    public static func *= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) * CGFloat(rhs) })
-//    }
+    public static func * (lhs: LiveFloat, rhs: LiveSize) -> LiveSize {
+        return LiveSize(w: lhs * rhs.w, h: lhs * rhs.h)
+    }
+    public static func *= (lhs: inout LiveSize, rhs: LiveSize) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w * rhs.w, h: _lhs.h * rhs.h)
+    }
+    public static func *= (lhs: inout LiveSize, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w * rhs, h: _lhs.h * rhs)
+    }
     
     public static func / (lhs: LiveSize, rhs: LiveSize) -> LiveSize {
         return LiveSize(w: lhs.w / rhs.w, h: lhs.h / rhs.h)
@@ -155,44 +187,14 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public static func / (lhs: LiveSize, rhs: LiveFloat) -> LiveSize {
         return LiveSize(w: lhs.w / rhs, h: lhs.h / rhs)
     }
-//    public static func /= (lhs: inout LiveFloat, rhs: LiveFloat) {
-//        let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) / CGFloat(rhs) })
-//    }
-    
-    
-//    public static func ** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return pow(CGFloat(lhs), CGFloat(rhs)) })
-//    }
-//
-//    public static func !** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return pow(CGFloat(lhs), 1.0 / CGFloat(rhs)) })
-//    }
-//
-//    public static func % (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return CGFloat(lhs).truncatingRemainder(dividingBy: CGFloat(rhs)) })
-//    }
-    
-    
-//    public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return min(CGFloat(lhs), CGFloat(rhs)) })
-//    }
-//
-//    public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return max(CGFloat(lhs), CGFloat(rhs)) })
-//    }
-    
-    
-//    public prefix static func - (operand: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return -CGFloat(operand) })
-//    }
-//
-//    public prefix static func ! (operand: LiveFloat) -> LiveFloat {
-//        return LiveFloat({ return 1.0 - CGFloat(operand) })
-//    }
-    
-    
-//    public static func <=> (lhs: LiveFloat, rhs: LiveFloat) -> (LiveFloat, LiveFloat) {
-//        return (lhs, rhs)
-//    }
+    public static func / (lhs: LiveFloat, rhs: LiveSize) -> LiveSize {
+        return LiveSize(w: lhs / rhs.w, h: lhs / rhs.h)
+    }
+    public static func /= (lhs: inout LiveSize, rhs: LiveSize) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w / rhs.w, h: _lhs.h / rhs.h)
+    }
+    public static func /= (lhs: inout LiveSize, rhs: LiveFloat) {
+        let _lhs = lhs; lhs = LiveSize(w: _lhs.w / rhs, h: _lhs.h / rhs)
+    }
     
 }

@@ -117,7 +117,6 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return LiveInt({ return lhs.value - rhs.value })
     }
     
-    
     public static func * (lhs: LiveInt, rhs: LiveInt) -> LiveInt {
         return LiveInt({ return lhs.value * rhs.value })
     }

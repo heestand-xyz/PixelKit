@@ -155,7 +155,6 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) - CGFloat(rhs) })
     }
     
-    
     public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
     }
@@ -206,7 +205,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return (lhs, rhs)
     }
     
-    // MARK: Local Funcs
+    // MARK: Flow Funcs
     
     public func delay(frames: LiveInt) -> LiveFloat {
         var cache: [CGFloat] = []
@@ -284,12 +283,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
-    /// noise is a combo of liveRandom in 0.0...1.0 and smooth filter. seconds at 1.0 (default)
-    public static func noise(seconds: LiveFloat = 1.0) -> LiveFloat {
-        return LiveFloat.liveRandom(in: 0.0...1.0).filter(seconds: seconds, smooth: true)
+    /// noise is a combo of liveRandom and smooth filter
+    ///
+    /// deafults - liveRandom range: 0.0...1.0 - filter seconds: 1.0
+    public static func noise(range: ClosedRange<CGFloat> = 0...1.0, seconds: LiveFloat = 1.0) -> LiveFloat {
+        return LiveFloat.liveRandom(in: range).filter(seconds: seconds, smooth: true)
     }
     
-//    public func filter(for seconds: LiveFloat) -> LiveFloat {
+    // MARK: Local Funcs
     
     public func truncatingRemainder(dividingBy other: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(self).truncatingRemainder(dividingBy: CGFloat(other)) })
