@@ -325,6 +325,9 @@ public class Pixels {
         public var buffer: [Float] {
             return [x,y,s,t].map({ v -> Float in return Float(v) })
         }
+        public var buffer3d: [Float] {
+            return [x,y,z,s,t].map({ v -> Float in return Float(v) })
+        }
         public init(x: CGFloat, y: CGFloat, z: CGFloat = 0.0, s: CGFloat, t: CGFloat) {
             self.x = x; self.y = y; self.z = z; self.s = s; self.t = t
         }
