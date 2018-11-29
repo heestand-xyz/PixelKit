@@ -13,23 +13,27 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var seed: Int = 0 { didSet { setNeedsRender() } }
-    public var octaves: Int = 7 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var zPosition: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var zoom: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var colored: Bool = false { didSet { setNeedsRender() } }
-    public var random: Bool = false { didSet { setNeedsRender() } }
+    public var seed: LiveInt = LiveInt(Int.random(in: 0...100))
+    public var octaves: LiveInt = 7
+    public var position: LivePoint = .zero
+    public var zPosition: LiveFloat = 0.0
+    public var zoom: LiveFloat = 1.0
+    public var colored: LiveBool = false
+    public var random: LiveBool = false
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [seed, octaves, position, zPosition, zoom, colored, random]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
+//    }
     
 //    // MARK: - Life Cycle
 //
