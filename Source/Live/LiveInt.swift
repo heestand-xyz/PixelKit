@@ -153,4 +153,20 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return (lhs, rhs)
     }
     
+    // MARK: Local Funcs
+    
+    public static func random(in range: Range<Int>) -> LiveInt {
+        return LiveInt(frozen: Int.random(in: range))
+    }
+    public static func random(in range: ClosedRange<Int>) -> LiveInt {
+        return LiveInt(frozen: Int.random(in: range))
+    }
+    
+    public static func liveRandom(in range: Range<Int>) -> LiveInt {
+        return LiveInt({ return Int.random(in: range) })
+    }
+    public static func liveRandom(in range: ClosedRange<Int>) -> LiveInt {
+        return LiveInt({ return Int.random(in: range) })
+    }
+    
 }

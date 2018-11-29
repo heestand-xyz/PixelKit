@@ -13,7 +13,7 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var seed: LiveInt = LiveInt(Int.random(in: 0...100))
+    public var seed: LiveInt = LiveInt.random(in: 0..<100)
     public var octaves: LiveInt = 7
     public var position: LivePoint = .zero
     public var zPosition: LiveFloat = 0.0
