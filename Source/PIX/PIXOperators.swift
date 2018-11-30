@@ -203,7 +203,7 @@ public extension PIX {
             black.color = .black
             return black
         }
-        return pix._inverted()
+        return pix._invert()
     }
     
 }

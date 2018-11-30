@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-07-26.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-import CoreGraphics//x
 
 public class LevelsPIX: PIXSingleEffect {
     
@@ -13,22 +12,26 @@ public class LevelsPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var brightness: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var darkness: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var contrast: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var gamma: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var inverted: Bool = false { didSet { setNeedsRender() } }
-    public var opacity: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var brightness: LiveFloat = 1.0
+    public var darkness: LiveFloat = 0.0
+    public var contrast: LiveFloat = 0.0
+    public var gamma: LiveFloat = 1.0
+    public var inverted: LiveBool = false
+    public var opacity: LiveFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [brightness, darkness, contrast, gamma, inverted, opacity]
+    }
     
 //    enum LevelsCodingKeys: String, CodingKey {
 //        case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
+//    }
     
 //    // MARK: - JSON
 //
@@ -62,7 +65,7 @@ public class LevelsPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _brightness(_ brightness: CGFloat) -> LevelsPIX {
+    func _brightness(_ brightness: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "brightness:levels"
         levelsPix.inPix = self as? PIX & PIXOut
@@ -70,7 +73,7 @@ public extension PIXOut {
         return levelsPix
     }
     
-    func _darkness(_ darkness: CGFloat) -> LevelsPIX {
+    func _darkness(_ darkness: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "darkness:levels"
         levelsPix.inPix = self as? PIX & PIXOut
@@ -78,7 +81,7 @@ public extension PIXOut {
         return levelsPix
     }
     
-    func _contrast(_ contrast: CGFloat) -> LevelsPIX {
+    func _contrast(_ contrast: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "contrast:levels"
         levelsPix.inPix = self as? PIX & PIXOut
@@ -86,7 +89,7 @@ public extension PIXOut {
         return levelsPix
     }
     
-    func _gamma(_ gamma: CGFloat) -> LevelsPIX {
+    func _gamma(_ gamma: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "gamma:levels"
         levelsPix.inPix = self as? PIX & PIXOut
@@ -94,15 +97,15 @@ public extension PIXOut {
         return levelsPix
     }
     
-    func _inverted() -> LevelsPIX {
+    func _invert() -> LevelsPIX {
         let levelsPix = LevelsPIX()
-        levelsPix.name = "inverted:levels"
+        levelsPix.name = "invert:levels"
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.inverted = true
         return levelsPix
     }
     
-    func _opacity(_ opacity: CGFloat) -> LevelsPIX {
+    func _opacity(_ opacity: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "opacity:levels"
         levelsPix.inPix = self as? PIX & PIXOut
