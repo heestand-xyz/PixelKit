@@ -33,19 +33,23 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     }
     
     public var style: Style = .guassian { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    public var angle: LiveFloat = 0.0
+    public var position: LivePoint = .zero
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [radius, angle, position]
+    }
     
 //    enum BlurCodingKeys: String, CodingKey {
 //        case style; case radius; case quality; case angle; case position
 //    }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, CGFloat(position.x), CGFloat(position.y)]
+        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
     }
     
     override public init() {
@@ -98,6 +102,12 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
             pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
+//        let relRes: PIX.Res = ._4K
+//        let res: PIX.Res = resolution ?? relRes
+//        let relHeight = res.height / relRes.height
+//        let relRadius = min(radius * relHeight, 1.0)
+//        let maxRadius: CGFloat = 32 * 10
+//        let mappedRadius = relRadius * maxRadius
         let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(radius * 32 * 10))
         gaussianBlurKernel.edgeMode = extend.mps
         gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
@@ -108,7 +118,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
 
 public extension PIXOut {
     
-    func _blur(_ radius: CGFloat) -> BlurPIX {
+    func _blur(_ radius: LiveFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
         blurPix.inPix = self as? PIX & PIXOut
