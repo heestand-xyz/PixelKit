@@ -117,7 +117,6 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return LiveInt({ return lhs.value - rhs.value })
     }
     
-    
     public static func * (lhs: LiveInt, rhs: LiveInt) -> LiveInt {
         return LiveInt({ return lhs.value * rhs.value })
     }
@@ -151,6 +150,22 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     
     public static func <=> (lhs: LiveInt, rhs: LiveInt) -> (LiveInt, LiveInt) {
         return (lhs, rhs)
+    }
+    
+    // MARK: Local Funcs
+    
+    public static func random(in range: Range<Int>) -> LiveInt {
+        return LiveInt(frozen: Int.random(in: range))
+    }
+    public static func random(in range: ClosedRange<Int>) -> LiveInt {
+        return LiveInt(frozen: Int.random(in: range))
+    }
+    
+    public static func liveRandom(in range: Range<Int>) -> LiveInt {
+        return LiveInt({ return Int.random(in: range) })
+    }
+    public static func liveRandom(in range: ClosedRange<Int>) -> LiveInt {
+        return LiveInt({ return Int.random(in: range) })
     }
     
 }

@@ -30,6 +30,15 @@ extension Double {
 //    }
 //}
 
+public class MetalUniform {
+    public var name: String
+    public var value: LiveFloat
+    public init(name: String, value: LiveFloat = 0.0) {
+        self.name = name
+        self.value = value
+    }
+}
+
 public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {
@@ -103,10 +112,6 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
 //        case rawValue; case liveKey
 //    }
     
-//    func filter(for seconds: LiveFloat) -> LiveFloat {
-//        // ...
-//    }
-    
     // MARK: Equatable
     
     public static func == (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
@@ -159,7 +164,6 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         let _lhs = lhs; lhs = LiveFloat({ return CGFloat(_lhs) - CGFloat(rhs) })
     }
     
-    
     public static func * (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(lhs) * CGFloat(rhs) })
     }
@@ -210,6 +214,91 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return (lhs, rhs)
     }
     
+    // MARK: Flow Funcs
+    
+    public func delay(frames: LiveInt) -> LiveFloat {
+        var cache: [CGFloat] = []
+        return LiveFloat({ () -> (CGFloat) in
+            cache.append(CGFloat(self))
+            if cache.count > Int(frames) {
+                return cache.remove(at: 0)
+            }
+            return cache.first!
+        })
+    }
+    
+    public func delay(seconds: LiveFloat) -> LiveFloat {
+        var cache: [(date: Date, value: CGFloat)] = []
+        return LiveFloat({ () -> (CGFloat) in
+            let delaySeconds = max(Double(seconds), 0)
+            guard delaySeconds > 0 else {
+                return CGFloat(self)
+            }
+            cache.append((date: Date(), value: CGFloat(self)))
+            for _ in cache {
+                if -cache.first!.date.timeIntervalSinceNow > delaySeconds {
+                    cache.remove(at: 0)
+                    continue
+                }
+                break
+            }
+            return cache.first!.value
+        })
+    }
+    
+    /// filter over frames. smooth off is linear. smooth on is cosine smoothness (default)
+    public func filter(frames: LiveInt, smooth: Bool = true) -> LiveFloat {
+        var cache: [CGFloat] = []
+        return LiveFloat({ () -> (CGFloat) in
+            cache.append(CGFloat(self))
+            if cache.count > Int(frames) {
+                return cache.remove(at: 0)
+            }
+            var filteredValue: CGFloat = 0.0
+            for value in cache {
+                filteredValue += value
+            }
+            filteredValue /= CGFloat(cache.count)
+            return filteredValue
+        })
+    }
+    
+    /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
+    public func filter(seconds: LiveFloat, smooth: Bool = true) -> LiveFloat {
+        var cache: [(date: Date, value: CGFloat)] = []
+        return LiveFloat({ () -> (CGFloat) in
+            let delaySeconds = max(Double(seconds), 0)
+            guard delaySeconds > 0 else {
+                return CGFloat(self)
+            }
+            cache.append((date: Date(), value: CGFloat(self)))
+            for _ in cache {
+                if -cache.first!.date.timeIntervalSinceNow > delaySeconds {
+                    cache.remove(at: 0)
+                    continue
+                }
+                break
+            }
+            var filteredValue: CGFloat = 0.0
+            var weight: CGFloat = smooth ? 0.0 : CGFloat(cache.count)
+            for (i, dateValue) in cache.enumerated() {
+                let fraction = CGFloat(i) / CGFloat(cache.count - 1)
+                let smoothWeight: CGFloat = 1.0 - (cos(fraction * .pi * 2) / 2 + 0.5)
+                filteredValue += dateValue.value * (smooth ? smoothWeight : 1.0)
+                weight += smoothWeight
+            }
+            filteredValue /= weight
+            return filteredValue
+        })
+    }
+    
+    /// noise is a combo of liveRandom and smooth filter
+    ///
+    /// deafults - liveRandom range: 0.0...1.0 - filter seconds: 1.0
+    public static func noise(range: ClosedRange<CGFloat> = 0...1.0, seconds: LiveFloat = 1.0) -> LiveFloat {
+        return LiveFloat.liveRandom(in: range).filter(seconds: seconds, smooth: true)
+    }
+    
     // MARK: Local Funcs
     
     public func truncatingRemainder(dividingBy other: LiveFloat) -> LiveFloat {
@@ -218,6 +307,20 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
 
     public func remainder(dividingBy other: LiveFloat) -> LiveFloat {
         return LiveFloat({ return CGFloat(self).remainder(dividingBy: CGFloat(other)) })
+    }
+    
+    public static func random(in range: Range<CGFloat>) -> LiveFloat {
+        return LiveFloat(frozen: CGFloat.random(in: range))
+    }
+    public static func random(in range: ClosedRange<CGFloat>) -> LiveFloat {
+        return LiveFloat(frozen: CGFloat.random(in: range))
+    }
+    
+    public static func liveRandom(in range: Range<CGFloat>) -> LiveFloat {
+        return LiveFloat({ return CGFloat.random(in: range) })
+    }
+    public static func liveRandom(in range: ClosedRange<CGFloat>) -> LiveFloat {
+        return LiveFloat({ return CGFloat.random(in: range) })
     }
     
 }

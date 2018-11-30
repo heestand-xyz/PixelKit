@@ -5,14 +5,28 @@
 //  Created by Hexagons on 2018-09-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-import CoreGraphics//x
 
+/// Metal Shader (Merger Effect)
+///
+/// Example:
+/// ~~~~swift
+/// let metalMergerEffectPix = MetalMergerEffectPIX(code:
+///     """
+///     pix = pow(inPixA, 1.0 / inPixB);
+///     """
+/// )
+/// metalMergerEffectPix.inPixA = CameraPIX()
+/// metalMergerEffectPix.inPixB = ImagePIX("img_name")
+/// ~~~~
 public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
-    let metalFileName = "EffectMergerMetalPIX.metal"
     override open var shader: String { return "effectMergerMetalPIX" }
     
-    // MARK: - Public Properties
+    // MARK: - Private Properties
+    
+    let metalFileName = "EffectMergerMetalPIX.metal"
+    
+    var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String
     var metalCode: String? {
@@ -24,23 +38,25 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
         }
     }
     
-    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
-    
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case metalUniforms
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return metalUniforms.map({ metalUniform -> CGFloat in
-            return metalUniform.value
-        })
-    }
+//    open override var uniforms: [CGFloat] {
+//        return metalUniforms.map({ metalUniform -> CGFloat in
+//            return metalUniform.value
+//        })
+//    }
     
-    public init(code: String, uniforms: [MetalUniform] = []) {
-        metalEmbedCode = code
+    public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
+        metalEmbedCode = code
         super.init()
     }
     

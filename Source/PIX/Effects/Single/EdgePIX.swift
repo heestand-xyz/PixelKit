@@ -13,18 +13,22 @@ public class EdgePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var strength: CGFloat = 4 { didSet { setNeedsRender() } }
-    public var distance: CGFloat = 1 { didSet { setNeedsRender() } }
+    public var strength: LiveFloat = 1.0
+    public var distance: LiveFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [strength, distance]
+    }
     
 //    enum EdgeCodingKeys: String, CodingKey {
 //        case strength; case distance
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [strength, distance]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [strength, distance]
+//    }
     
 //    // MARK: - JSON
 //    

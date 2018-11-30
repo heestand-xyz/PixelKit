@@ -17,7 +17,7 @@ public class TextPIX: PIXSprite {
     // MARK: - Public Properties
     
     public var text: String = "Pixels" { didSet { setNeedsText(); setNeedsRender() } }
-    public var textColor: LiveColor = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
+    public var textColor: _Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     
     #if os(iOS)
     typealias _Font = UIFont
@@ -107,7 +107,7 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = textColor._color
+        label.fontColor = textColor//._color
     }
     
     func setNeedsFont() {

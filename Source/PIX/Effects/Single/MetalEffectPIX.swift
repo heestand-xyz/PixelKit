@@ -5,8 +5,19 @@
 //  Created by Hexagons on 2018-09-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-import CoreGraphics//x
 
+/// Metal Shader (Effect)
+///
+/// Example:
+/// ~~~~swift
+/// let metalEffectPix = MetalEffectPIX(code:
+///     """
+///     float gamma = 0.25;
+///     pix = pow(inPix, 1.0 / gamma);
+///     """
+/// )
+/// metalEffectPix.inPix = CameraPIX()
+/// ~~~~
 public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     
     override open var shader: String { return "effectSingleMetalPIX" }
@@ -14,6 +25,8 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     // MARK: - Private Properties
 
     let metalFileName = "EffectSingleMetalPIX.metal"
+    
+    var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String
     var metalCode: String? {
@@ -25,23 +38,25 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
         }
     }
     
-    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
-    
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case metalUniforms
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return metalUniforms.map({ metalUniform -> CGFloat in
-            return metalUniform.value
-        })
-    }
+//    open override var uniforms: [CGFloat] {
+//        return metalUniforms.map({ metalUniform -> CGFloat in
+//            return metalUniform.value
+//        })
+//    }
     
-    public init(code: String, uniforms: [MetalUniform] = []) {
-        metalEmbedCode = code
+    public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
+        metalEmbedCode = code
         super.init()
     }
     
