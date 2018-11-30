@@ -33,6 +33,9 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     }
     
     public var style: Style = .guassian { didSet { setNeedsRender() } }
+    /// radius is relative. default at 0.5
+    ///
+    /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
     public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: LiveFloat = 0.0
@@ -48,8 +51,19 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
 //        case style; case radius; case quality; case angle; case position
 //    }
     
+    var relRadius: CGFloat {
+        let radius = self.radius.uniform
+        let relRes: PIX.Res = ._4K
+        let res: PIX.Res = resolution ?? relRes
+        let relHeight = res.height / relRes.height
+        let relRadius = min(radius * relHeight, 1.0)
+        print(relRadius)
+        let maxRadius: CGFloat = 32 * 10
+        let mappedRadius = relRadius * maxRadius
+        return mappedRadius //radius.uniform * 32 * 10
+    }
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
+        return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
     }
     
     override public init() {
@@ -102,13 +116,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
             pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
-//        let relRes: PIX.Res = ._4K
-//        let res: PIX.Res = resolution ?? relRes
-//        let relHeight = res.height / relRes.height
-//        let relRadius = min(radius * relHeight, 1.0)
-//        let maxRadius: CGFloat = 32 * 10
-//        let mappedRadius = relRadius * maxRadius
-        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(radius * 32 * 10))
+        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(relRadius))
         gaussianBlurKernel.edgeMode = extend.mps
         gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
         return blurTexture
