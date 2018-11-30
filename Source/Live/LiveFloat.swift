@@ -30,6 +30,15 @@ extension Double {
 //    }
 //}
 
+public class MetalUniform {
+    public var name: String
+    public var value: LiveFloat
+    public init(name: String, value: LiveFloat = 0.0) {
+        self.name = name
+        self.value = value
+    }
+}
+
 public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
     public var description: String {

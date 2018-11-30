@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-09-07.
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
-import CoreGraphics//x
 
 public class MetalPIX: PIXGenerator, PIXMetal {
     
@@ -15,7 +14,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
     let metalFileName = "ContentGeneratorMetalPIX.metal"
     
-    var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
+    var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String
     var metalCode: String? {
@@ -29,15 +28,19 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     // MARK: - Property Helpers
     
+    override var liveValues: [LiveValue] {
+        return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
+    }
+    
 //    enum CodingKeys: String, CodingKey {
 //        case metalUniforms
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return metalUniforms.map({ metalUniform -> CGFloat in
-            return metalUniform.value
-        })
-    }
+//    open override var uniforms: [CGFloat] {
+//        return metalUniforms.map({ metalUniform -> CGFloat in
+//            return metalUniform.value
+//        })
+//    }
     
     // MARK: - Life Cycle
     
