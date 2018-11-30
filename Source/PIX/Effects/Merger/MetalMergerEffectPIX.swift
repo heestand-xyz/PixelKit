@@ -6,6 +6,18 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+/// Metal Shader (Merger Effect)
+///
+/// Example:
+/// ~~~~swift
+/// let metalMergerEffectPix = MetalMergerEffectPIX(code:
+///     """
+///     pix = pow(inPixA, 1.0 / inPixB);
+///     """
+/// )
+/// metalMergerEffectPix.inPixA = CameraPIX()
+/// metalMergerEffectPix.inPixB = ImagePIX("img_name")
+/// ~~~~
 public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     override open var shader: String { return "effectMergerMetalPIX" }
@@ -42,9 +54,9 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
 //        })
 //    }
     
-    public init(code: String, uniforms: [MetalUniform] = []) {
-        metalEmbedCode = code
+    public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
+        metalEmbedCode = code
         super.init()
     }
     

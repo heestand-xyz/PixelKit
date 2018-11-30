@@ -6,6 +6,20 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+/// Metal Shader (Multi Effect)
+///
+/// Example:
+/// ~~~~swift
+/// let metalMultiEffectPix = MetalMultiEffectPIX(code:
+///     """
+///     float4 inPixA = inTexs.sample(s, uv, 0);
+///     float4 inPixB = inTexs.sample(s, uv, 1);
+///     float4 inPixC = inTexs.sample(s, uv, 2);
+///     pix = inPixA + inPixB + inPixC;
+///     """
+/// )
+/// metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
+/// ~~~~
 public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     
     override open var shader: String { return "effectMultiMetalPIX" }
@@ -42,9 +56,9 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
 //        })
 //    }
     
-    public init(code: String, uniforms: [MetalUniform] = []) {
-        metalEmbedCode = code
+    public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
+        metalEmbedCode = code
         super.init()
     }
     

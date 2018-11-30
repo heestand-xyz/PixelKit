@@ -6,6 +6,16 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+/// Metal Shader (Generator)
+///
+/// Example:
+/// ~~~~swift
+/// let metalPix = MetalPIX(res: ._1080p, code:
+///     """
+///     pix = float4(u, v, 0.0, 1.0);
+///     """
+/// )
+/// ~~~~
 public class MetalPIX: PIXGenerator, PIXMetal {
     
     override open var shader: String { return "contentGeneratorMetalPIX" }
