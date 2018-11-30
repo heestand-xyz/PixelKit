@@ -123,7 +123,7 @@ extension Pixels {
     }
     
     func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
-
+        
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice)
@@ -131,6 +131,14 @@ extension Pixels {
 //            sharedCaptureManager.defaultCaptureScope = myCaptureScope
 //            myCaptureScope.begin()
 //        }
+
+        // Render Time
+        let globalRenderTime = Date()
+        var localRenderTime = Date()
+        var renderTime: Double = -1
+        var renderTimeMs: Double = -1
+        log(.debug, .metal, "Render Timer: Started")
+
         
         // MARK: Command Buffer
         
@@ -138,10 +146,24 @@ extension Pixels {
             throw RenderError.commandBuffer
         }
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
+        localRenderTime = Date()
+        
+        
         // MARK: Input Texture
         
         let generator: Bool = pix is PIXGenerator
         let (inputTexture, secondInputTexture) = try textures(from: pix, with: commandBuffer)
+        
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
+        localRenderTime = Date()
+        
         
         // MARK: Drawable
         
@@ -169,6 +191,13 @@ extension Pixels {
             log(pix: pix, .warning, .render, "High res: \(drawRes)")
         }
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
+        localRenderTime = Date()
+        
+        
         // MARK: Command Encoder
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -179,6 +208,13 @@ extension Pixels {
             throw RenderError.commandEncoder
         }
         commandEncoder.setRenderPipelineState(pix.pipeline)
+        
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
+        localRenderTime = Date()
+        
         
         // MARK: Uniforms
         
@@ -202,6 +238,13 @@ extension Pixels {
             memcpy(bufferPointer, &unifroms, size)
             commandEncoder.setFragmentBuffer(uniformsBuffer, offset: 0, index: 0)
         }
+        
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
+        localRenderTime = Date()
+        
         
         // MARK: Uniform Arrays
         
@@ -259,6 +302,13 @@ extension Pixels {
             
         }
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
+        localRenderTime = Date()
+        
+        
         // MARK: Fragment Texture
         
         if !generator {
@@ -270,6 +320,13 @@ extension Pixels {
         }
         
         commandEncoder.setFragmentSamplerState(pix.sampler, index: 0)
+        
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
+        localRenderTime = Date()
+        
         
         // MARK: Vertices
         
@@ -290,6 +347,13 @@ extension Pixels {
 
         commandEncoder.setVertexBuffer(vertices.buffer, offset: 0, index: 0)
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
+        localRenderTime = Date()
+        
+        
         // MARK: Vertex Uniforms
         
         var vertexUnifroms: [Float] = pix.vertexUniforms.map { uniform -> Float in return Float(uniform) }
@@ -303,6 +367,13 @@ extension Pixels {
             memcpy(bufferPointer, &vertexUnifroms, size)
             commandEncoder.setVertexBuffer(uniformsBuffer, offset: 0, index: 1)
         }
+        
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
+        localRenderTime = Date()
+        
         
         // MARK: Custom Vertex Texture
         
@@ -320,11 +391,25 @@ extension Pixels {
             
         }
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
+        localRenderTime = Date()
+        
+        
         // MARK: Draw
         
         commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: vertices.instanceCount)
         
-        // MARK: Render
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
+        localRenderTime = Date()
+        
+        
+        // MARK: Encode
         
         commandEncoder.endEncoding()
         
@@ -334,18 +419,46 @@ extension Pixels {
             commandBuffer.present(viewDrawable!)
         }
         
+        // Render Time
+        renderTime = -localRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
+        localRenderTime = Date()
+        
+        // Render Time
+        renderTime = -globalRenderTime.timeIntervalSinceNow
+        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
+        
+        
+        // MARK: Render
+        
         commandBuffer.addCompletedHandler({ _ in
             pix.rendering = false
             if let error = commandBuffer.error {
                 failed(error)
                 return
             }
+            
+            // Render Time
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            self.log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
+            
+            // Render Time
+            renderTime = -globalRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            self.log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
+            
+            self.log(.debug, .metal, "Render Timer: Ended")
+            
             DispatchQueue.main.async {
                 completed(drawableTexture)
             }
         })
         
         commandBuffer.commit()
+        
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
