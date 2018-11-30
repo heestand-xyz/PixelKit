@@ -336,20 +336,18 @@ public class Pixels {
     public struct Vertices {
         public let buffer: MTLBuffer
         public let vertexCount: Int
-        public let instanceCount: Int
         public let type: MTLPrimitiveType
         public let wireframe: Bool
-        public init(buffer: MTLBuffer, vertexCount: Int, instanceCount: Int, type: MTLPrimitiveType = .triangle, wireframe: Bool = false) {
+        public init(buffer: MTLBuffer, vertexCount: Int, type: MTLPrimitiveType = .triangle, wireframe: Bool = false) {
             self.buffer = buffer
             self.vertexCount = vertexCount
-            self.instanceCount = instanceCount
             self.type = type
             self.wireframe = wireframe
         }
     }
     
     func makeQuadVertecis() throws -> Vertices {
-        return Vertices(buffer: try makeQuadVertexBuffer(), vertexCount: 6, instanceCount: 2)
+        return Vertices(buffer: try makeQuadVertexBuffer(), vertexCount: 6)
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {

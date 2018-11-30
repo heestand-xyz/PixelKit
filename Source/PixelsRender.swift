@@ -400,7 +400,7 @@ extension Pixels {
         
         // MARK: Draw
         
-        commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: vertices.instanceCount)
+        commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: 1)
         
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow

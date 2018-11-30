@@ -67,9 +67,9 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
         let vertexBuffersSize = vertexBuffers.count * MemoryLayout<Float>.size
         let verticesBuffer = Pixels.main.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
 
-        let instanceCount = ((divisions + 1) * (divisions + 1)) / 3
+//        let instanceCount = ((divisions + 1) * (divisions + 1)) / 3
         
-        return Pixels.Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count, instanceCount: instanceCount)
+        return Pixels.Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count)
         
     }
     
