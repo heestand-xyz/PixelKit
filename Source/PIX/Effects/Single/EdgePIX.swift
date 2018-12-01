@@ -50,10 +50,11 @@ public class EdgePIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _edge() -> EdgePIX {
+    func _edge(_ strength: LiveFloat = 1.0) -> EdgePIX {
         let edgePix = EdgePIX()
         edgePix.name = ":edge:"
         edgePix.inPix = self as? PIX & PIXOut
+        edgePix.strength = strength
         return edgePix
     }
     
