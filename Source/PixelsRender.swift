@@ -402,6 +402,12 @@ extension Pixels {
         
         commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: 1)
         
+        // MARK: Matrix
+        
+//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var viewMatrix: matrix_float4x4 =
+        
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
