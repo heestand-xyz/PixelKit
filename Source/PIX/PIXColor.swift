@@ -13,9 +13,9 @@ import AppKit
 #endif
 
 #if os(iOS)
-typealias _Color = UIColor
+public typealias _Color = UIColor
 #elseif os(macOS)
-typealias _Color = NSColor
+public typealias _Color = NSColor
 #endif
 public extension _Color {
     var pixColor: PIX.Color {
@@ -107,7 +107,7 @@ public extension PIX {
         
         public let space: Space
         
-        var _color: _Color {
+        public var _color: _Color {
             #if os(iOS)
             return uiColor
             #elseif os(macOS)
