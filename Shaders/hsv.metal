@@ -3,7 +3,7 @@
 //  PixelsShaders
 //
 //  Created by Hexagons on 2018-08-23.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 //  https://stackoverflow.com/a/6930407/4586652
 //

@@ -3,7 +3,7 @@
 //  Pixels
 //
 //  Created by Hexagons on 2018-08-22.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 import MetalKit
@@ -404,9 +404,9 @@ extension Pixels {
         
         // MARK: Matrix
         
-//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var viewMatrix: matrix_float4x4 =
+        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
+        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
+        var viewMatrix: matrix_float4x4 = 
         
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow

@@ -3,7 +3,7 @@
 //  Pixels
 //
 //  Created by Hexagons on 2018-11-23.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 import Foundation
