@@ -1,5 +1,5 @@
 //
-//  EffectSingleHueSaturationPIX.metal
+//  EffectSingleHueSatPIX.metal
 //  PixelsShaders
 //
 //  Created by Hexagons on 2017-11-18.
@@ -22,7 +22,7 @@ struct Uniforms{
     float val;
 };
 
-fragment float4 effectSingleHueSaturationPIX(VertexOut out [[stage_in]],
+fragment float4 effectSingleHueSatPIX(VertexOut out [[stage_in]],
                                              texture2d<float>  inTex [[ texture(0) ]],
                                              const device Uniforms& in [[ buffer(0) ]],
                                              sampler s [[ sampler(0) ]]) {

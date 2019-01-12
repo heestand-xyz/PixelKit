@@ -212,13 +212,13 @@ func <b>chromaKey(\_: UIColor)</b> -> ChromaKeyPIX
 var <b>corners</b>: Corners<br>
 var <b>perspective</b>: Bool = false<br>
 var <b>divisions</b>: Int = 16
-### HueSaturationPIX
+### HueSatPIX
 var <b>hue</b>: CGFloat = 0.0<br>
 var <b>saturation</b>: CGFloat = 1.0<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
-func <b>hue(\_: CGFloat)</b> -> HueSaturationPIX<br>
-func <b>saturation(\_: CGFloat)</b> -> HueSaturationPIX
+func <b>hue(\_: CGFloat)</b> -> HueSatPIX<br>
+func <b>saturation(\_: CGFloat)</b> -> HueSatPIX
 ### CropPIX
 var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)<br>
 <br>

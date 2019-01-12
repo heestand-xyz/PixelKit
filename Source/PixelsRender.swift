@@ -404,9 +404,9 @@ extension Pixels {
         
         // MARK: Matrix
         
-        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
-        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
-        var viewMatrix: matrix_float4x4 = 
+//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var viewMatrix: matrix_float4x4 =
         
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow

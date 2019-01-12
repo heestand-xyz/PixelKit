@@ -1,15 +1,15 @@
 //
-//  HueSaturationPIX.swift
+//  HueSatPIX.swift
 //  Pixels
 //
 //  Created by Hexagons on 2018-09-04.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+import CoreGraphics
 
-public class HueSaturationPIX: PIXSingleEffect {
+public class HueSatPIX: PIXSingleEffect {
     
-    override open var shader: String { return "effectSingleHueSaturationPIX" }
+    override open var shader: String { return "effectSingleHueSatPIX" }
     
     // MARK: - Public Properties
 
@@ -46,24 +46,24 @@ public class HueSaturationPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _hue(_ hue: CGFloat) -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
+    func _hue(_ hue: CGFloat) -> HueSatPIX {
+        let hueSaturationPix = HueSatPIX()
         hueSaturationPix.name = "hue:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.hue = hue
         return hueSaturationPix
     }
     
-    func _saturation(_ saturation: CGFloat) -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
+    func _saturation(_ saturation: CGFloat) -> HueSatPIX {
+        let hueSaturationPix = HueSatPIX()
         hueSaturationPix.name = "saturation:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.saturation = saturation
         return hueSaturationPix
     }
     
-    func _monochrome() -> HueSaturationPIX {
-        let hueSaturationPix = HueSaturationPIX()
+    func _monochrome() -> HueSatPIX {
+        let hueSaturationPix = HueSatPIX()
         hueSaturationPix.name = "monochrome:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
         hueSaturationPix.saturation = 0.0

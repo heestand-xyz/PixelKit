@@ -2,7 +2,7 @@
 
 # Pixels
 a Live Graphics Framework for iOS and macOS (beta)<br>
-powered by Metal
+powered by Metal - inspired by TouchDesigner
 
 <b>ContentPIXs</b>:
 [CameraPIX](DOCS.md#camerapix) -
@@ -29,7 +29,7 @@ powered by Metal
 [ChannelMixPIX](DOCS.md#channelMixpix) -
 [ChromaKeyPIX](DOCS.md#chromaKeypix) -
 [CornerPinPIX](DOCS.md#cornerPinpix) -
-[HueSaturationPIX](DOCS.md#huesaturationpix) -
+[HueSatPIX](DOCS.md#huesaturationpix) -
 [CropPIX](DOCS.md#croppix) -
 [FlipFlopPIX](DOCS.md#flipfloppix) -
 [RangePIX](DOCS.md#rangepix) -
@@ -43,13 +43,10 @@ powered by Metal
 [ReorderPIX](DOCS.md#reorderpix) -
 [BlendsPIX](DOCS.md#blendspix)
 
-<!--
-[Docs](#docs) -
-[Tutorial](#tutorial) -
--->
 Examples:
 [Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen)<br>
+[Green Screen](#example-green-screen)
+<br>
 Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
@@ -100,7 +97,7 @@ levels.inPix = camera
 levels.gamma = 2.0
 levels.inverted = true
 
-let hueSaturation = HueSaturationPIX()
+let hueSaturation = HueSatPIX()
 hueSaturation.inPix = levels
 hueSaturation.hue = 0.5
 hueSaturation.saturation = 0.5
@@ -118,7 +115,7 @@ This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs)
 ```swift
 let pix = CameraPIX()._gamma(2.0)._invert()._hue(0.5)._saturation(0.5)._blur(0.25)
 ```
-Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
+Tho it is not as efficiant as two LevelsPIXs and  HueSatPIXs will be created.
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
@@ -159,8 +156,9 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ## Coordinate Space
 
-Pixels coordinate space is normailzed to the vertical axis with the origin in the center.<br>
-Note that compared to native UIKit views the vertical axis is flipped.
+Pixels coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
+Note that compared to native UIKit views the vertical axis is flipped and origin is moved, this is more convinent when working with graphics is Pixels.
+<!-- converter methods -->
 
 <b>Center:</b> CGPoint(x: 0, y: 0)<br>
 <b>Bottom Left:</b> CGPoint(x: -0.5 * aspectRatio, y: -0.5)<br>
@@ -206,8 +204,8 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>_twirl(0.5)</b> -> TwirlPIX
 - pix.<b>_swap(.red, .blue)</b> -> ChannelMixPIX
 - pix.<b>_key(.green)</b> -> ChromaKeyPIX
-- pix.<b>_hue(0.5)</b> -> HueSaturationPIX
-- pix.<b>_saturation(0.5)</b> -> HueSaturationPIX
+- pix.<b>_hue(0.5)</b> -> HueSatPIX
+- pix.<b>_saturation(0.5)</b> -> HueSatPIX
 - pix.<b>_crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
 - pix.<b>_flipX()</b> -> FlipFlopPIX
 - pix.<b>_flipY()</b> -> FlipFlopPIX
