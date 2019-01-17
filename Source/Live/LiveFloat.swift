@@ -82,16 +82,21 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     
     var isFrozen: Bool = false
-//    public static var live: LiveFloat {
-//        var value: CGFloat = 0.0
-//        return LiveFloat({ () -> (CGFloat) in
-//            // FIXME: More than one call per frame...
-//            if !self.live.isFrozen {
-//                value += 1.0 / CGFloat(Pixels.main.fps)
-//            }
-//            return value
-//        })
-//    }
+    public static var live: LiveFloat {
+        var value: CGFloat = 0.0
+        var lastFrame: Int = -1
+        return LiveFloat({ () -> (CGFloat) in
+            guard lastFrame != Pixels.main.frame else {
+                lastFrame = Pixels.main.frame
+                return value
+            }
+            if !self.live.isFrozen {
+                value += 1.0 / CGFloat(Pixels.main.fps)
+            }
+            lastFrame = Pixels.main.frame
+            return value
+        })
+    }
     
     
     public init(_ futureValue: @escaping () -> (CGFloat)) {
