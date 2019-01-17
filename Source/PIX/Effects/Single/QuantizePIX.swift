@@ -13,17 +13,21 @@ public class QuantizePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = 0.125 { didSet { setNeedsRender() } }
+    public var fraction: LiveFloat = 0.125
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [fraction]
+    }
     
 //    enum QuantizeCodingKeys: String, CodingKey {
 //        case fraction
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [fraction]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [fraction]
+//    }
     
 //    // MARK: - JSON
 //    
@@ -43,7 +47,7 @@ public class QuantizePIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _quantize(by fraction: CGFloat) -> QuantizePIX {
+    func _quantize(by fraction: LiveFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
         quantizePix.inPix = self as? PIX & PIXOut
