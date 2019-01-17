@@ -158,6 +158,7 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 Pixels coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
 Note that compared to native UIKit views the vertical axis is flipped and origin is moved, this is more convinent when working with graphics is Pixels.
+A full rotation is defined by 1.0 
 <!-- converter methods -->
 
 <b>Center:</b> CGPoint(x: 0, y: 0)<br>

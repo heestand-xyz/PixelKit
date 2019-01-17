@@ -110,7 +110,6 @@
 		7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* PixelsTexture.swift */; };
 		7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B2212F5A8B00401654 /* BlendPIX.swift */; };
 		7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B4212F5C9300401654 /* PIXModes.swift */; };
-		742DBF3321E9E5A800E01311 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742DBF3221E9E5A800E01311 /* Package.swift */; };
 		743054E0215EBB6B004E6B27 /* PixelsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743054DF215EBB6B004E6B27 /* PixelsTypes.swift */; };
 		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
 		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
@@ -859,7 +858,6 @@
 				74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */,
 				7486537B21A896680073F758 /* LiveFloat.swift in Sources */,
 				3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */,
-				742DBF3321E9E5A800E01311 /* Package.swift in Sources */,
 				7401CF3121147C9700000A38 /* ResPIX.swift in Sources */,
 				743054E0215EBB6B004E6B27 /* PixelsTypes.swift in Sources */,
 				747CBA82214286D800CB2616 /* MetalMergerEffectPIX.swift in Sources */,

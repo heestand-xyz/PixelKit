@@ -69,9 +69,9 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
         float fia = float(i) / in.i;
         float fib = float(i + 1) / in.i;
         float2 p1 = 0.5 + p;
-        float p2r = (fia + (in.r / 360)) * pi * 2;
+        float p2r = (fia + in.r) * pi * 2;
         float2 p2 = p1 + float2((sin(p2r) * in.s) / in.aspect, cos(p2r) * in.s);
-        float p3r = (fib + (in.r / 360)) * pi * 2;
+        float p3r = (fib + in.r) * pi * 2;
         float2 p3 = p1 + float2((sin(p3r) * in.s) / in.aspect, cos(p3r) * in.s);
         if (pointInTriangle(uv, p1, p2, p3)) {
             c = ac;

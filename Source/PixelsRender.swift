@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import CoreGraphics
 import MetalKit
 
 extension Pixels {

@@ -62,6 +62,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     var uniformCache: CGFloat? = nil
     
+    public static var pi: LiveFloat { return LiveFloat(frozen: .pi) }
     
     //    public var year: LiveFloat!
     //    public var month: LiveFloat!
@@ -79,6 +80,18 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return CGFloat(Date().timeIntervalSince1970)
         })
     }
+    
+    var isFrozen: Bool = false
+//    public static var live: LiveFloat {
+//        var value: CGFloat = 0.0
+//        return LiveFloat({ () -> (CGFloat) in
+//            // FIXME: More than one call per frame...
+//            if !self.live.isFrozen {
+//                value += 1.0 / CGFloat(Pixels.main.fps)
+//            }
+//            return value
+//        })
+//    }
     
     
     public init(_ futureValue: @escaping () -> (CGFloat)) {
@@ -365,4 +378,15 @@ public func deg(rad live: LiveFloat) -> LiveFloat {
 }
 public func rad(deg live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return (CGFloat(live) / 360.0) * .pi * 2.0 })
+}
+
+public func freeze(_ live: LiveFloat, _ frozen: LiveBool) -> LiveFloat {
+    var frozenLive: CGFloat? = nil
+    return LiveFloat({
+        live.isFrozen = frozen.value
+        if !live.isFrozen {
+            frozenLive = live.value
+        }
+        return live.isFrozen ? frozenLive ?? 0.0 : live.value
+    })
 }

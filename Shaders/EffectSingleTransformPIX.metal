@@ -28,6 +28,8 @@ fragment float4 effectSingleTransformPIX(VertexOut out [[stage_in]],
                                           texture2d<float>  inTex [[ texture(0) ]],
                                           const device Uniforms& in [[ buffer(0) ]],
                                           sampler s [[ sampler(0) ]]) {
+    float pi = 3.14159265359;
+    
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     
@@ -37,7 +39,7 @@ fragment float4 effectSingleTransformPIX(VertexOut out [[stage_in]],
 
     float2 size = float2(in.sx * in.s, in.sy * in.s);
 
-    float ang = atan2(v - 0.5 - in.ty, (u - 0.5) * aspect - in.tx) + -in.rot;
+    float ang = atan2(v - 0.5 - in.ty, (u - 0.5) * aspect - in.tx) + (-in.rot * pi * 2);
     float amp = sqrt(pow((u - 0.5) * aspect - in.tx, 2) + pow(v - 0.5 - in.ty, 2));
     float2 uv = float2((cos(ang) / aspect) * amp, sin(ang) * amp) / size + 0.5;
     float4 c = inTex.sample(s, uv);
