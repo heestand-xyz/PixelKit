@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-11.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class TwirlPIX: PIXSingleEffect {
     
@@ -13,17 +12,21 @@ public class TwirlPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var strength: CGFloat = 1 { didSet { setNeedsRender() } }
+    public var strength: LiveFloat = 1.0 { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [strength]
+    }
     
 //    enum TwirlCodingKeys: String, CodingKey {
 //        case strength
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [strength]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [strength]
+//    }
     
     // MARK: - Life Cycle
     
