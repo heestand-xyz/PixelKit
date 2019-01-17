@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-28.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class TransformPIX: PIXSingleEffect {
     
@@ -14,19 +13,23 @@ public class TransformPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
-    public var rotation: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var scale: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var size: CGSize = CGSize(width: 1.0, height: 1.0) { didSet { setNeedsRender() } }
+    public var position: LivePoint = .zero
+    public var rotation: LiveFloat = 0.0
+    public var scale: LiveFloat = 1.0
+    public var size: LiveSize = LiveSize(w: 1.0, h: 1.0)
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [position, rotation, scale, size]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case position; case rotation; case scale; case size
 //    }
-    open override var uniforms: [CGFloat] {
-        return [position.x, position.y, rotation, scale, size.width, size.height]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [position.x, position.y, rotation, scale, size.width, size.height]
+//    }
     
 //    // MARK: - JSON
 //    
@@ -52,7 +55,7 @@ public class TransformPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _position(at position: CGPoint) -> TransformPIX {
+    func _position(at position: LivePoint) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "position:transform"
         transformPix.inPix = self as? PIX & PIXOut
@@ -60,7 +63,7 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _rotatate(to rotation: CGFloat) -> TransformPIX {
+    func _rotatate(to rotation: LiveFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "rotatate:transform"
         transformPix.inPix = self as? PIX & PIXOut
@@ -68,7 +71,7 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _scale(by scale: CGFloat) -> TransformPIX {
+    func _scale(by scale: LiveFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
         transformPix.inPix = self as? PIX & PIXOut

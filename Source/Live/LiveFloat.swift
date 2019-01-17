@@ -317,6 +317,18 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat.liveRandom(in: range).filter(seconds: seconds, smooth: true)
     }
     
+    public static func wave(range: ClosedRange<CGFloat> = 0...1.0, seconds: LiveFloat = 1.0) -> LiveFloat {
+        return (cos((self.seconds / seconds) * .pi * 2) / -2 + 0.5).lerp(from: LiveFloat(range.lowerBound), to: LiveFloat(range.upperBound))
+    }
+
+//    public static func range(from rangeA: ClosedRange<CGFloat> = 0...1.0, to rangeB: ClosedRange<CGFloat> = 0...1.0) -> LiveFloat {
+//        return self...
+//    }
+
+    func lerp(from: LiveFloat, to: LiveFloat) -> LiveFloat {
+        return from * (1.0 - self) + to * self
+    }
+    
     // MARK: Local Funcs
     
     public func truncatingRemainder(dividingBy other: LiveFloat) -> LiveFloat {

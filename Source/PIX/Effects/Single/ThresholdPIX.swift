@@ -13,29 +13,35 @@ public class ThresholdPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var threshold: CGFloat = 0.5 { didSet { setNeedsRender() } }
-    public var smooth: Bool = true { didSet { setNeedsRender() } }
+    public var threshold: LiveFloat = 0.5
+    public var smooth: LiveBool = true
     var _smoothness: CGFloat = 0
-    public var smoothness: CGFloat {
+    public var smoothness: LiveFloat {
         set {
-            _smoothness = newValue
+            _smoothness = newValue.value
             setNeedsRender()
         }
         get {
-            guard smooth else { return 0.0 }
-            return max(_smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.bits.rawValue)))
+            return LiveFloat({ () -> (CGFloat) in
+                guard self.smooth.value else { return 0.0 }
+                return max(self._smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.bits.rawValue)))
+            })
         }
     }
     
     // MARK: - Property Helpers
     
+    override var liveValues: [LiveValue] {
+        return [threshold, smoothness]
+    }
+    
 //    enum EdgeCodingKeys: String, CodingKey {
 //        case threshold; case smoothness
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [threshold, smoothness]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [threshold, smoothness]
+//    }
     
 //    // MARK: - JSON
 //
@@ -57,7 +63,7 @@ public class ThresholdPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _threshold(at threshold: CGFloat = 0.5) -> ThresholdPIX {
+    func _threshold(at threshold: LiveFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.name = ":threshold:"
         thresholdPix.inPix = self as? PIX & PIXOut
