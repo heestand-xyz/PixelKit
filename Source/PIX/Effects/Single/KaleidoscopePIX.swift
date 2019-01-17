@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-18.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class KaleidoscopePIX: PIXSingleEffect {
     
@@ -13,20 +12,24 @@ public class KaleidoscopePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var divisions: Int = 12 { didSet { setNeedsRender() } }
-    public var mirror: Bool = true { didSet { setNeedsRender() } }
-    public var rotation: CGFloat = 0 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    public var divisions: LiveInt = 12
+    public var mirror: LiveBool = true
+    public var rotation: LiveFloat = 0
+    public var position: LivePoint = .zero
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [divisions, mirror, rotation, position]
+    }
     
 //    enum KaleidoscopeCodingKeys: String, CodingKey {
 //        case divisions; case mirror; case rotation; case position
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
+//    }
     
     public override required init() {
         super.init()
@@ -57,7 +60,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
+    func _kaleidoscope(divisions: LiveInt = 12, mirror: LiveBool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
         kaleidoscopePix.inPix = self as? PIX & PIXOut

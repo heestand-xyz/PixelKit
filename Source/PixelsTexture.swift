@@ -100,6 +100,7 @@ extension Pixels {
         var cvTextureOut: CVMetalTexture?
         CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, bits.mtl /*LiveColor.Bits._8.mtl*/, width, height, 0, &cvTextureOut)
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
+            // FIXME: macOS: https://stackoverflow.com/a/38128521/4586652
             throw TextureError.pixelBuffer
         }
         return inputTexture
