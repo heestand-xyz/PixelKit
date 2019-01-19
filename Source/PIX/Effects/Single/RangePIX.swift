@@ -13,31 +13,35 @@ public class RangePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var inLow: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var inHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var outLow: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var outHigh: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var inLowColor: LiveColor = .clear { didSet { setNeedsRender() } }
-    public var inHighColor: LiveColor = .white { didSet { setNeedsRender() } }
-    public var outLowColor: LiveColor = .clear { didSet { setNeedsRender() } }
-    public var outHighColor: LiveColor = .white { didSet { setNeedsRender() } }
-    public var ignoreAlpha: Bool = true { didSet { setNeedsRender() } }
+    public var inLow: LiveFloat = 0.0
+    public var inHigh: LiveFloat = 1.0
+    public var outLow: LiveFloat = 0.0
+    public var outHigh: LiveFloat = 1.0
+    public var inLowColor: LiveColor = .clear
+    public var inHighColor: LiveColor = .white
+    public var outLowColor: LiveColor = .clear
+    public var outHighColor: LiveColor = .white
+    public var ignoreAlpha: LiveBool = true
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case inLow; case inHigh; case outLow; case outHigh; case inLowColor; case inHighColor; case outLowColor; case outHighColor; case ignoreAlpha
 //    }
     
-    open override var uniforms: [CGFloat] {
-        var vals = [inLow, inHigh, outLow, outHigh]
-        vals.append(contentsOf: inLowColor.list)
-        vals.append(contentsOf: inHighColor.list)
-        vals.append(contentsOf: outLowColor.list)
-        vals.append(contentsOf: outHighColor.list)
-        vals.append(ignoreAlpha ? 1 : 0)
-        return vals
-    }
+//    open override var uniforms: [CGFloat] {
+//        var vals = [inLow, inHigh, outLow, outHigh]
+//        vals.append(contentsOf: inLowColor.list)
+//        vals.append(contentsOf: inHighColor.list)
+//        vals.append(contentsOf: outLowColor.list)
+//        vals.append(contentsOf: outHighColor.list)
+//        vals.append(ignoreAlpha ? 1 : 0)
+//        return vals
+//    }
     
     public override required init() {
         super.init()
@@ -77,7 +81,7 @@ public class RangePIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
+    func _range(inLow: LiveFloat = 0.0, inHigh: LiveFloat = 1.0, outLow: LiveFloat = 0.0, outHigh: LiveFloat = 1.0) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.inPix = self as? PIX & PIXOut
