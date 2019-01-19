@@ -13,18 +13,22 @@ public class HueSatPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
 
-    public var hue: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var saturation: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var hue: LiveFloat = 0.0
+    public var saturation: LiveFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [hue, saturation]
+    }
     
 //    enum LevelsCodingKeys: String, CodingKey {
 //        case hue; case saturation
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [hue, saturation, 1]
-    }
+//    open override var uniforms: [CGFloat] {
+//        return [hue, saturation, 1]
+//    }
     
 //    // MARK: - JSON
 //
@@ -46,7 +50,7 @@ public class HueSatPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _hue(_ hue: CGFloat) -> HueSatPIX {
+    func _hue(_ hue: LiveFloat) -> HueSatPIX {
         let hueSaturationPix = HueSatPIX()
         hueSaturationPix.name = "hue:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut
@@ -54,7 +58,7 @@ public extension PIXOut {
         return hueSaturationPix
     }
     
-    func _saturation(_ saturation: CGFloat) -> HueSatPIX {
+    func _saturation(_ saturation: LiveFloat) -> HueSatPIX {
         let hueSaturationPix = HueSatPIX()
         hueSaturationPix.name = "saturation:hueSaturation"
         hueSaturationPix.inPix = self as? PIX & PIXOut

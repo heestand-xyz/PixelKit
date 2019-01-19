@@ -19,7 +19,6 @@ struct VertexOut{
 struct Uniforms{
     float hue;
     float sat;
-    float val;
 };
 
 fragment float4 effectSingleHueSatPIX(VertexOut out [[stage_in]],
@@ -36,7 +35,6 @@ fragment float4 effectSingleHueSatPIX(VertexOut out [[stage_in]],
     
     hsv[0] += in.hue;
     hsv[1] *= in.sat;
-    hsv[2] *= in.val;
     
     float3 cc = hsv2rgb(hsv[0], hsv[1], hsv[2]);
    
