@@ -457,8 +457,8 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     
     public var isPure: LiveBool {
-        let oneCount: LiveInt = (r == 1.0 <? 1 <=> 0) + (g == 1.0 <? 1 <=> 0) + (b == 1.0 <? 1 <=> 0) + (a == 1.0 <? 1 <=> 0)
-        let zeroCount: LiveInt = (r == 0.0 <? 1 <=> 0) + (g == 0.0 <? 1 <=> 0) + (b == 0.0 <? 1 <=> 0) + (a == 0.0 <? 1 <=> 0)
+        let oneCount: LiveInt = (r == 1.0 <?> 1 <=> 0) + (g == 1.0 <?> 1 <=> 0) + (b == 1.0 <?> 1 <=> 0) + (a == 1.0 <?> 1 <=> 0)
+        let zeroCount: LiveInt = (r == 0.0 <?> 1 <=> 0) + (g == 0.0 <?> 1 <=> 0) + (b == 0.0 <?> 1 <=> 0) + (a == 0.0 <?> 1 <=> 0)
         return oneCount == 1 && zeroCount == 3
     }
     
@@ -596,10 +596,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
                          space: lhs.space*/)
     }
     public static func / (lhs: LiveColor, rhs: LiveFloat) -> LiveColor {
-        return LiveColor(r: lhs.r != 0.0 <? lhs.r / rhs <=> 1.0,
-                         g: lhs.g != 0.0 <? lhs.g / rhs <=> 1.0,
-                         b: lhs.b != 0.0 <? lhs.b / rhs <=> 1.0,
-                         a: lhs.a != 0.0 <? lhs.a / rhs <=> 1.0/*,
+        return LiveColor(r: lhs.r != 0.0 <?> lhs.r / rhs <=> 1.0,
+                         g: lhs.g != 0.0 <?> lhs.g / rhs <=> 1.0,
+                         b: lhs.b != 0.0 <?> lhs.b / rhs <=> 1.0,
+                         a: lhs.a != 0.0 <?> lhs.a / rhs <=> 1.0/*,
                          space: lhs.space*/)
     }
     public static func + (lhs: LiveFloat, rhs: LiveColor) -> LiveColor {
@@ -649,16 +649,16 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         lhs.a *= rhs
     }
     public static func /= (lhs: inout LiveColor, rhs: LiveColor) {
-        lhs.r /= rhs.r != 0 <? rhs.r <=> 1.0
-        lhs.g /= rhs.g != 0 <? rhs.g <=> 1.0
-        lhs.b /= rhs.b != 0 <? rhs.b <=> 1.0
-        lhs.a /= rhs.a != 0 <? rhs.a <=> 1.0
+        lhs.r /= rhs.r != 0 <?> rhs.r <=> 1.0
+        lhs.g /= rhs.g != 0 <?> rhs.g <=> 1.0
+        lhs.b /= rhs.b != 0 <?> rhs.b <=> 1.0
+        lhs.a /= rhs.a != 0 <?> rhs.a <=> 1.0
     }
     public static func /= (lhs: inout LiveColor, rhs: LiveFloat) {
-        lhs.r /= rhs != 0 <? rhs <=> 1.0
-        lhs.g /= rhs != 0 <? rhs <=> 1.0
-        lhs.b /= rhs != 0 <? rhs <=> 1.0
-        lhs.a /= rhs != 0 <? rhs <=> 1.0
+        lhs.r /= rhs != 0 <?> rhs <=> 1.0
+        lhs.g /= rhs != 0 <?> rhs <=> 1.0
+        lhs.b /= rhs != 0 <?> rhs <=> 1.0
+        lhs.a /= rhs != 0 <?> rhs <=> 1.0
     }
     
     public prefix static func - (operand: LiveColor) -> LiveColor {

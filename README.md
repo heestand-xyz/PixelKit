@@ -181,6 +181,15 @@ These are the supported `PIX.BlendingMode` operators:
 let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ```
 
+Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
+
+```swift
+let a: LiveFloat = 1.0
+let b: LiveFloat = 2.0
+let isOdd: LiveBool = .seconds % 2.0 < 1.0
+let ab: LiveFloat = isOdd <?> a <=> b
+```
+
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalFillMode = .aspectFill`
 

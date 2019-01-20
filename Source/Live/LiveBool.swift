@@ -24,7 +24,7 @@ precedencegroup TernaryElse {
     lowerThan: MultiplicationPrecedence
 }
 
-infix operator <?: TernaryIf
+infix operator <?>: TernaryIf
 infix operator <=>: TernaryElse
 
 extension Bool {
@@ -91,10 +91,10 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
 //        return lhs //...
 //    }
     
-    public static func <? (lhs: LiveBool, rhs: (LiveFloat, LiveFloat)) -> LiveFloat {
+    public static func <?> (lhs: LiveBool, rhs: (LiveFloat, LiveFloat)) -> LiveFloat {
         return LiveFloat({ return Bool(lhs) ? CGFloat(rhs.0) : CGFloat(rhs.1) })
     }
-    public static func <? (lhs: LiveBool, rhs: (LiveInt, LiveInt)) -> LiveInt {
+    public static func <?> (lhs: LiveBool, rhs: (LiveInt, LiveInt)) -> LiveInt {
         return LiveInt({ return Bool(lhs) ? Int(rhs.0) : Int(rhs.1) })
     }
     
