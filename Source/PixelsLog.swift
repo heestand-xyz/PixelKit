@@ -44,19 +44,19 @@ extension Pixels {
     
     public enum LogLevel: String {
         case info = "INFO"
-        case debug = "DEBUG"
         case warning = "WARNING"
         case error = "ERROR"
         case fatal = "FATAL"
         case detail = "DETAIL"
+        case debug = "DEBUG"
         public var index: Int {
             switch self {
             case .info: return 0
-            case .debug: return 1
-            case .warning: return 2
-            case .error: return 3
-            case .fatal: return 4
-            case .detail: return 5
+            case .warning: return 1
+            case .error: return 2
+            case .fatal: return 3
+            case .detail: return 4
+            case .debug: return 5
             }
         }
     }

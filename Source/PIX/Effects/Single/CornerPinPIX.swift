@@ -139,7 +139,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
                     let top = add(scale(corners.topLeft, by: 1.0 - u), scale(corners.topRight, by: u))
                     pos = add(scale(bottom, by: 1.0 - v), scale(top, by: v))
                 }
-                let vert = Pixels.Vertex(x: pos.x * 2 - 1, y: pos.y * 2 - 1, s: u, t: 1.0 - v)
+                let vert = Pixels.Vertex(x: LiveFloat(pos.x * 2 - 1), y: LiveFloat(pos.y * 2 - 1), s: LiveFloat(u), t: LiveFloat(1.0 - v))
                 col_verts.append(vert)
             }
             verts.append(col_verts)

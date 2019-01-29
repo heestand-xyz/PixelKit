@@ -50,6 +50,9 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     var value: CGFloat {
         return futureValue()
     }
+    public var cg: CGFloat {
+        return value
+    }
     
     var uniform: CGFloat {
         get {
@@ -114,6 +117,9 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     public init(_ value: CGFloat) {
         futureValue = { return value }
+    }
+    public init(_ value: Float) {
+        futureValue = { return CGFloat(value) }
     }
     required public init(floatLiteral value: FloatLiteralType) {
         futureValue = { return CGFloat(value) }
@@ -384,8 +390,15 @@ public func sin(_ live: LiveFloat) -> LiveFloat {
 public func atan(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan(CGFloat(live)) })
 }
-public func atan2(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
-    return LiveFloat({ return atan2(CGFloat(live), CGFloat(live2)) })
+public func atan2(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return atan2(CGFloat(live1), CGFloat(live2)) })
+}
+
+public func maximum(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return Swift.max(CGFloat(live1), CGFloat(live2)) })
+}
+public func minimum(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return Swift.min(CGFloat(live1), CGFloat(live2)) })
 }
 
 // MARK: New Global Funcs

@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-21.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class CrossPIX: PIXMergerEffect {
     
@@ -13,18 +12,22 @@ public class CrossPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    public var fraction: LiveFloat = 0.5
     
     // MARK: - Property Helpers
+    
+    override var liveValues: [LiveValue] {
+        return [fraction]
+    }
     
 //    enum CodingKeys: String, CodingKey {
 //        case fraction
 //    }
     
-    open override var uniforms: [CGFloat] {
-        return [fraction]
-    }
-        
+//    open override var uniforms: [CGFloat] {
+//        return [fraction]
+//    }
+    
 //    // MARK: - JSON
 //    
 //    required convenience init(from decoder: Decoder) throws {

@@ -28,6 +28,9 @@ public class FeedbackPIX: PIXSingleEffect {
     
     public override required init() {
         super.init()
+//        pixels.delay(frames: 10, done: {
+//            self.setNeedsRender()
+//        })
     }
     
     override public func didRender(texture: MTLTexture, force: Bool) {
@@ -42,9 +45,7 @@ public class FeedbackPIX: PIXSingleEffect {
 //        case .frameLoop:
 //            setNeedsRender()
 //        case .direct:
-//            pixels.delay(frames: 1, done: {
-//                self.setNeedsRender()
-//            })
+        
 //        }
     }
     
@@ -73,16 +74,25 @@ public extension PIXOut {
 //        return feedbackPix
 //    }
     
-    func _feed(_ fraction: CGFloat, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
+    func _feed(_ fraction: LiveFloat, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
         feedbackPix.inPix = self as? PIX & PIXOut
         let crossPix = CrossPIX()
         crossPix.name = "feed:cross"
-        crossPix.inPixA = self as? PIX & PIXOut
-        crossPix.inPixB = loop?(feedbackPix) ?? feedbackPix
+        crossPix.inPixA = loop?(feedbackPix) ?? feedbackPix
+        crossPix.inPixB = self as? PIX & PIXOut
         crossPix.fraction = fraction
         feedbackPix.feedPix = crossPix
+        return feedbackPix
+    }
+    
+    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & PIXOut))) -> FeedbackPIX {
+        let feedbackPix = FeedbackPIX()
+        feedbackPix.name = "feed:feedback"
+        let pix = self as! PIX & PIXOut
+        feedbackPix.inPix = pix
+        feedbackPix.feedPix = pix + loop(feedbackPix)
         return feedbackPix
     }
     
