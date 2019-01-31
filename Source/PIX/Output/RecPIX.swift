@@ -380,13 +380,13 @@ public class RecPIX: PIXOutput, PIXofaKind { //AVAudioRecorderDelegate {
                     
                     fillPixelBufferFromImage(pixel_buffer, cg_image: cg_image)
                     append_succeeded = pixel_buffer_adoptor.append(pixel_buffer, withPresentationTime: presentation_time)
-                    pixel_buffer_pointer.deinitialize()
+//                    pixel_buffer_pointer.deinitialize()
                     
                 } else {
                     self.pixels.log(pix: self, .error, nil, "Allocating pixel buffer from pool.")
                 }
                 
-                pixel_buffer_pointer.deallocate(capacity: 1)
+//                pixel_buffer_pointer.deallocate(capacity: 1)
                 
             } else {
                 self.pixels.log(pix: self, .error, nil, "pixel_buffer_adoptor.pixelBufferPool is nil")
