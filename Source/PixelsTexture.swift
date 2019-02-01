@@ -97,6 +97,7 @@ extension Pixels {
     func makeTexture(from pixelBuffer: CVPixelBuffer) throws -> MTLTexture {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
+        // MARK: Metal code doesn't compile on the Simulator.
         var cvTextureOut: CVMetalTexture?
         CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, bits.mtl /*LiveColor.Bits._8.mtl*/, width, height, 0, &cvTextureOut)
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
