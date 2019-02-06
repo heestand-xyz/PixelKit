@@ -13,7 +13,7 @@ powered by Metal
 [RectanglePIX](DOCS.md#rectanglepix) -
 [PolygonPIX](DOCS.md#polygonpix) -
 [GradientPIX](DOCS.md#gradientpix) -
-[NoisePIX](DOCS.md#noisepix) - 
+[NoisePIX](DOCS.md#noisepix) -
 [TextPIX](DOCS.md#textpix)
 <br>
 <b>EffectPIXs</b>:
@@ -60,15 +60,15 @@ Info:
 
 Under development.
 
---- 
+---
 
-Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
+Note that Pixels does not have simulator support. Metal for iOS can only run on a physical device.
 
 ## Docs
 Classes, Delegates and Properties of:<br>
 [Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
-[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
-[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
+[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) -
+[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) -
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
 ## Installing
@@ -112,15 +112,15 @@ blur.radius = 0.25
 let finalPix: PIX = blur
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
-~~~~ 
+~~~~
 
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
 let pix = CameraPIX()._gamma(2.0)._invert()._hue(0.5)._saturation(0.5)._blur(0.25)
 ```
-Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
+Though it is not as efficient as two LevelsPIXs, a HueSaturationPIXs will be created.
 
-Remeber to add `NSCameraUsageDescription` to your info.plist
+Remember to add `NSCameraUsageDescription` to your info.plist
 
 ## Example: Green Screen
 
@@ -145,7 +145,7 @@ blendPix.inPixB = supermanKeyed
 let finalPix: PIX = blendPix
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
-~~~~ 
+~~~~
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
@@ -159,7 +159,7 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ## Coordinate Space
 
-Pixels coordinate space is normailzed to the vertical axis with the origin in the center.<br>
+Pixels coordinate space is normalized to the vertical axis with the origin in the center.<br>
 Note that compared to native UIKit views the vertical axis is flipped.
 
 <b>Center:</b> CGPoint(x: 0, y: 0)<br>
@@ -200,7 +200,7 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>_threshold(at: 0.5)</b> -> ThresholdPIX
 - pix.<b>_quantize(by: 0.5)</b> -> QuantizePIX
 - pix.<b>_position(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
-- pix.<b>_rotatate(to: .pi)</b> -> TransformPIX
+- pix.<b>_rotate(to: .pi)</b> -> TransformPIX
 - pix.<b>_scale(by: 0.5)</b> -> TransformPIX
 - pix.<b>_kaleidoscope()</b> -> KaleidoscopePIX
 - pix.<b>_twirl(0.5)</b> -> TwirlPIX
@@ -235,15 +235,15 @@ You can find example files [here](https://github.com/anton-hexagons/Pixels/tree/
 let url = Bundle.main.url(forResource: "test", withExtension: "json")!
 let json = try! String(contentsOf: url)
 let project = try! Pixels.main.import(json: json)
-    
+
 let finalPix: PIX = project.pixs.last!
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
-~~~~ 
+~~~~
 
 To export just run `Pixels.main.export()` once you've created your PIXs.
 
-Note that exporting resourses like image and video are not yet supported.
+Note that exporting resources like image and video are not yet supported.
 
 ## High Bit Mode
 
