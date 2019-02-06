@@ -174,7 +174,7 @@ var <b>size</b>: CGSize = CGSize(width: 1.0, height: 1.0)<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
 func <b>position(at: CGPoint)</b> -> TransformPIX<br>
-func <b>rotatate(to: CGFloat)</b> -> TransformPIX<br>
+func <b>rotate(to: CGFloat)</b> -> TransformPIX<br>
 func <b>scale(by: CGFloat)</b> -> TransformPIX
 ### KaleidoscopePIX
 var <b>divisions</b>: Int = 12<br>
@@ -321,4 +321,3 @@ var <b>inPixs</b>: [PIX & PIXOut] = []
 var <b>blendingMode</b>: BlendingMode = .add
 ### MetalMultiEffectPIX
 var <b>metalUniforms</b>: [MetalUniform] = []
-

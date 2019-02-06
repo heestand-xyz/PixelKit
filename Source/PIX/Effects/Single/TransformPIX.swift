@@ -63,9 +63,9 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _rotatate(by rotation: CGFloat) -> TransformPIX {
+    func _rotate(by rotation: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
-        transformPix.name = "rotatate:transform"
+        transformPix.name = "rotate:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.rotation = rotation
         return transformPix
