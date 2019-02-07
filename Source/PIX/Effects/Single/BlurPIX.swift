@@ -134,4 +134,10 @@ public extension PIXOut {
         return blurPix
     }
     
+    func _bloom(radius: LiveFloat, amount: LiveFloat) -> CrossPIX {
+        let pix = self as? PIX & PIXOut
+        let bloomPix = (pix!._blur(radius) + pix!) / 2
+        return cross(pix!, bloomPix, at: amount)
+    }
+    
 }

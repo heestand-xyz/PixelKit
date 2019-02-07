@@ -25,7 +25,7 @@ public class ImagePIX: PIXResource {
     #endif
     
 //    // MARK: - JSON
-//    
+//
 //    required convenience init(from decoder: Decoder) throws { self.init() }
 //    override public func encode(to encoder: Encoder) throws {}
     

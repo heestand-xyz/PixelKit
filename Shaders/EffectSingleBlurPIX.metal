@@ -48,7 +48,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
     float angle = in.angle; //(in.angle / 360) * pi * 2;
     float2 pos = float2(in.x, in.y);
     
-    float ammounts = 1.0;
+    float amounts = 1.0;
 
     if (in.type == 1) {
         
@@ -59,7 +59,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                 if (x != 0 && y != 0) {
                     float dist = sqrt(pow(float(x), 2) + pow(float(y), 2));
                     if (dist <= res) {
-                        float ammount = pow(1.0 - dist / (res + 1), 0.5);
+                        float amount = pow(1.0 - dist / (res + 1), 0.5);
                         float xu = u;
                         float yv = v;
                         if (aspect < 1.0) {
@@ -69,8 +69,8 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                             xu += ((float(x) / ih) * in.radius) / res;
                             yv += ((float(y) / ih) * in.radius) / res;
                         }
-                        c += inTex.sample(s, float2(xu, yv)) * ammount;
-                        ammounts += ammount;
+                        c += inTex.sample(s, float2(xu, yv)) * amount;
+                        amounts += amount;
                     }
                 }
             }
@@ -82,7 +82,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
         
         for (int x = -res; x <= res; ++x) {
             if (x != 0) {
-                float ammount = pow(1.0 - x / (res + 1), 0.5);
+                float amount = pow(1.0 - x / (res + 1), 0.5);
                 float xu = u;
                 float yv = v;
                 if (aspect < 1.0) {
@@ -92,8 +92,8 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                     xu += ((float(x) / ih) * cos(-angle) * in.radius) / res;
                     yv += ((float(x) / ih) * sin(-angle) * in.radius) / res;
                 }
-                c += inTex.sample(s, float2(xu, yv)) * ammount;
-                ammounts += ammount;
+                c += inTex.sample(s, float2(xu, yv)) * amount;
+                amounts += amount;
             }
         }
         
@@ -103,7 +103,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
         
         for (int x = -res; x <= res; ++x) {
             if (x != 0) {
-                float ammount = pow(1.0 - x / (res + 1), 0.5);
+                float amount = pow(1.0 - x / (res + 1), 0.5);
                 float xu = u;
                 float yv = v;
                 if (aspect < 1.0) {
@@ -113,8 +113,8 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                     xu += (((float(x) * (u - 0.5 - pos.x)) / ih) * in.radius) / res;
                     yv += (((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res;
                 }
-                c += inTex.sample(s, float2(xu, yv)) * ammount;
-                ammounts += ammount;
+                c += inTex.sample(s, float2(xu, yv)) * amount;
+                amounts += amount;
             }
         }
         
@@ -125,7 +125,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
 //
 //        for (int x = -res; x <= res; ++x) {
 //            if (x != 0) {
-//                float ammount = pow(1.0 - x / (res + 1), 0.5);
+//                float amount = pow(1.0 - x / (res + 1), 0.5);
 //                float xu = u;
 //                float yv = v;
 //                if (aspect < 1.0) {
@@ -135,8 +135,8 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
 //                    xu += ((float(x) / ih) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius) / res;
 //                    yv += ((float(x) / ih) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius) / res;
 //                }
-//                c += inTex.sample(s, float2(xu, yv)) * ammount;
-//                ammounts += ammount;
+//                c += inTex.sample(s, float2(xu, yv)) * amount;
+//                amounts += amount;
 //            }
 //        }
 //
@@ -153,7 +153,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
         
     }
     
-    c /= ammounts;
+    c /= amounts;
     
     return c;
 }

@@ -198,7 +198,7 @@ extension Pixels {
         logList.append(log.message)
         
         if let e = log.error {
-            logList.append("Error: \"\(e.localizedDescription)\"")
+            logList.append("Error: \(e) LD: \"\(e.localizedDescription)\"")
         }
         
         if logSource {

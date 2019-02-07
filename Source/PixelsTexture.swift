@@ -12,7 +12,7 @@ extension Pixels {
     
     enum TextureError: Error {
         case pixelBuffer
-        case empty
+        case emptyFail
         case copy(String)
         case multi(String)
     }
@@ -110,10 +110,10 @@ extension Pixels {
     func emptyTexture(size: CGSize) throws -> MTLTexture {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: bits.mtl, width: Int(size.width), height: Int(size.height), mipmapped: true)
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
-        guard let t = metalDevice.makeTexture(descriptor: descriptor) else {
-            throw TextureError.empty
+        guard let texture = metalDevice.makeTexture(descriptor: descriptor) else {
+            throw TextureError.emptyFail
         }
-        return t
+        return texture
     }
     
     func copyTexture(from pix: PIX) throws -> MTLTexture {

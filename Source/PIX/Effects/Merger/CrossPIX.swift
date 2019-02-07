@@ -43,3 +43,12 @@ public class CrossPIX: PIXMergerEffect {
 //    }
     
 }
+
+func cross(_ pixA: PIX & PIXOut, _ pixB: PIX & PIXOut, at fraction: LiveFloat) -> CrossPIX {
+    let crossPix = CrossPIX()
+    crossPix.name = ":cross:"
+    crossPix.inPixA = pixA
+    crossPix.inPixB = pixB
+    crossPix.fraction = fraction
+    return crossPix
+}

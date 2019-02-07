@@ -124,7 +124,7 @@ open class PIX/*/*: Codable*/*/ {
             pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
         } catch {
-            pixels.log(pix: self, .fatal, nil, "Initialization faled.", e: error)
+            pixels.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
         }
             
         pixels.add(pix: self)
