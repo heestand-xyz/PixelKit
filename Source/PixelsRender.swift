@@ -168,6 +168,7 @@ extension Pixels {
         
         // MARK: Drawable
         
+        // MARK: Sim...
         var viewDrawable: CAMetalDrawable? = nil
         let drawableTexture: MTLTexture
         if pix.view.superview != nil {

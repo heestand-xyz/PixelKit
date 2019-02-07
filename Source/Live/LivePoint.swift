@@ -29,6 +29,10 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return [x.uniform, y.uniform]
     }
     
+    public var cg: CGPoint {
+        return CGPoint(x: x.cg, y: y.cg)
+    }
+    
     // MARK: Points
     
 //    public static var circle: LiveColor {

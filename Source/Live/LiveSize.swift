@@ -32,6 +32,10 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         return [w.uniform, h.uniform]
     }
     
+    public var cg: CGSize {
+        return CGSize(width: w.cg, height: h.cg)
+    }
+    
     // MARK: Static Sizes
     
     public static var one: LiveSize { return LiveSize(w: 1.0, h: 1.0) }
