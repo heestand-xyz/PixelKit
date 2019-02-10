@@ -32,6 +32,8 @@ extension _Color {
 
 public class LiveColor: LiveValue, CustomStringConvertible {
     
+    var name: String?
+    
     public var r: LiveFloat
     public var g: LiveFloat
     public var b: LiveFloat
@@ -227,10 +229,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     
     public init(r255: Int, g255: Int, b255: Int, a255: Int = 255/*, space: Space = Pixels.main.colorSpace*/) {
-        self.r = LiveFloat(frozen: CGFloat(r255) / 255)
-        self.g = LiveFloat(frozen: CGFloat(g255) / 255)
-        self.b = LiveFloat(frozen: CGFloat(b255) / 255)
-        self.a = LiveFloat(frozen: CGFloat(a255) / 255)
+        self.r = LiveFloat(CGFloat(r255) / 255)
+        self.g = LiveFloat(CGFloat(g255) / 255)
+        self.b = LiveFloat(CGFloat(b255) / 255)
+        self.a = LiveFloat(CGFloat(a255) / 255)
 //        self.space = space
     }
     
@@ -239,10 +241,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     #if os(iOS)
     public init(_ ui: UIColor/*, space: Space = Pixels.main.colorSpace*/) {
         let ci = CIColor(color: ui)
-        r = LiveFloat(frozen: ci.red)
-        g = LiveFloat(frozen: ci.green)
-        b = LiveFloat(frozen: ci.blue)
-        a = LiveFloat(frozen: ci.alpha)
+        r = LiveFloat(ci.red)
+        g = LiveFloat(ci.green)
+        b = LiveFloat(ci.blue)
+        a = LiveFloat(ci.alpha)
 //        self.space = space
     }
     #endif
@@ -253,10 +255,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     public init(_ ns: NSColor/*, space: Space = Pixels.main.colorSpace*/) {
         let ci = CIColor(color: ns)
         // FIXME: Optional LiveFloat
-        r = LiveFloat(frozen: ci?.red ?? 0.0)
-        g = LiveFloat(frozen: ci?.green ?? 0.0)
-        b = LiveFloat(frozen: ci?.blue ?? 0.0)
-        a = LiveFloat(frozen: ci?.alpha ?? 0.0)
+        r = LiveFloat(ci?.red ?? 0.0)
+        g = LiveFloat(ci?.green ?? 0.0)
+        b = LiveFloat(ci?.blue ?? 0.0)
+        a = LiveFloat(ci?.alpha ?? 0.0)
 //        self.space = space
     }
     #endif
@@ -405,10 +407,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         var hexInt: UInt32 = 0
         let scanner: Scanner = Scanner(string: hex)
         scanner.scanHexInt32(&hexInt)
-        self.r = LiveFloat(frozen: CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
-        self.g = LiveFloat(frozen: CGFloat((hexInt & 0xff00) >> 8) / 255.0)
-        self.b = LiveFloat(frozen: CGFloat((hexInt & 0xff) >> 0) / 255.0)
-        self.a = LiveFloat(frozen: a)
+        self.r = LiveFloat(CGFloat((hexInt & 0xff0000) >> 16) / 255.0)
+        self.g = LiveFloat(CGFloat((hexInt & 0xff00) >> 8) / 255.0)
+        self.b = LiveFloat(CGFloat((hexInt & 0xff) >> 0) / 255.0)
+        self.a = LiveFloat(a)
 //        self.space = space
     }
     
@@ -427,15 +429,15 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         switch Pixels.main.bits {
         case ._8:
             // FIXME: BGRA Temp Fix
-            b = LiveFloat(frozen: pixel[0])
-            g = LiveFloat(frozen: pixel[1])
-            r = LiveFloat(frozen: pixel[2])
-            a = LiveFloat(frozen: pixel[3])
+            b = LiveFloat(pixel[0])
+            g = LiveFloat(pixel[1])
+            r = LiveFloat(pixel[2])
+            a = LiveFloat(pixel[3])
         case ._16, ._32:
-            r = LiveFloat(frozen: pixel[0])
-            g = LiveFloat(frozen: pixel[1])
-            b = LiveFloat(frozen: pixel[2])
-            a = LiveFloat(frozen: pixel[3])
+            r = LiveFloat(pixel[0])
+            g = LiveFloat(pixel[1])
+            b = LiveFloat(pixel[2])
+            a = LiveFloat(pixel[3])
         }
     }
     

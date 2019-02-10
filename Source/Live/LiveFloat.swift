@@ -41,6 +41,8 @@ public class MetalUniform {
 
 public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
+    var name: String?
+    
     public var description: String {
         let _value: CGFloat = round(CGFloat(self) * 1_000) / 1_000
         return "live(\("\(_value)".zfill(3)))"
@@ -65,7 +67,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     var uniformCache: CGFloat? = nil
     
-    public static var pi: LiveFloat { return LiveFloat(frozen: .pi) }
+    public static var pi: LiveFloat { return LiveFloat(CGFloat.pi) }
     
     //    public var year: LiveFloat!
     //    public var month: LiveFloat!
@@ -110,11 +112,6 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         futureValue = { return CGFloat(Int(liveInt)) }
     }
     
-    // Figure out Frozen
-    public init(frozen value: CGFloat) {
-        futureValue = { return value }
-    }
-    
     public init(_ value: CGFloat) {
         futureValue = { return value }
     }
@@ -132,9 +129,10 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         futureValue = { return CGFloat(value) }
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case rawValue; case liveKey
-//    }
+    public init(name: String, value: CGFloat) {
+        self.name = name
+        futureValue = { return value }
+    }
     
     // MARK: Equatable
     
@@ -346,10 +344,10 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     
     public static func random(in range: Range<CGFloat>) -> LiveFloat {
-        return LiveFloat(frozen: CGFloat.random(in: range))
+        return LiveFloat(CGFloat.random(in: range))
     }
     public static func random(in range: ClosedRange<CGFloat>) -> LiveFloat {
-        return LiveFloat(frozen: CGFloat.random(in: range))
+        return LiveFloat(CGFloat.random(in: range))
     }
     
     public static func liveRandom(in range: Range<CGFloat>) -> LiveFloat {

@@ -10,6 +10,8 @@ import CoreGraphics
 
 public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
     
+    var name: String?
+    
     public var w: LiveFloat
     public var h: LiveFloat
     
@@ -66,19 +68,25 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         h = height
     }
     
-    public init(frozen size: CGSize) {
-        w = LiveFloat(frozen: size.width)
-        h = LiveFloat(frozen: size.height)
+    public init(_ size: CGSize) {
+        w = LiveFloat(size.width)
+        h = LiveFloat(size.height)
+    }
+    
+    public init(name: String, size: CGSize) {
+        self.name = name
+        w = LiveFloat(size.width)
+        h = LiveFloat(size.height)
     }
     
     required public init(floatLiteral value: FloatLiteralType) {
-        w = LiveFloat(frozen: CGFloat(value))
-        h = LiveFloat(frozen: CGFloat(value))
+        w = LiveFloat(CGFloat(value))
+        h = LiveFloat(CGFloat(value))
     }
     
     required public init(integerLiteral value: IntegerLiteralType) {
-        w = LiveFloat(frozen: CGFloat(value))
-        h = LiveFloat(frozen: CGFloat(value))
+        w = LiveFloat(CGFloat(value))
+        h = LiveFloat(CGFloat(value))
     }
     
 //    public init(wRel: LiveFloat, hRel: LiveFloat, res: PIX.Res) {

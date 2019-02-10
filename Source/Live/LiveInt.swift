@@ -17,6 +17,8 @@ extension Int {
 
 public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntegerLiteral, CustomStringConvertible {
     
+    var name: String?
+    
     public var description: String {
         return "live(\(value))"
     }
@@ -62,11 +64,6 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         futureValue = { return Int(liveFloat.value) }
     }
     
-    // Figure out Frozen
-    public init(frozen value: Int) {
-        futureValue = { return value }
-    }
-    
     public init(_ value: CGFloat) {
         futureValue = { return Int(value) }
     }
@@ -78,9 +75,10 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         futureValue = { return Int(value) }
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case rawValue; case liveKey
-//    }
+    public init(name: String, value: Int) {
+        self.name = name
+        futureValue = { return value }
+    }
     
     // MARK: Equatable
     
@@ -155,10 +153,10 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     // MARK: Local Funcs
     
     public static func random(in range: Range<Int>) -> LiveInt {
-        return LiveInt(frozen: Int.random(in: range))
+        return LiveInt(Int.random(in: range))
     }
     public static func random(in range: ClosedRange<Int>) -> LiveInt {
-        return LiveInt(frozen: Int.random(in: range))
+        return LiveInt(Int.random(in: range))
     }
     
     public static func liveRandom(in range: Range<Int>) -> LiveInt {

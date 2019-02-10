@@ -35,6 +35,8 @@ extension Bool {
 
 public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConvertible {
     
+    var name: String?
+    
     public var description: String {
         return "live(\(Bool(self)))"
     }
@@ -59,12 +61,12 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
         self.futureValue = futureValue
     }
     
-    // Figure out Frozen
-    public init(frozen value: Bool) {
+    required public init(booleanLiteral value: BooleanLiteralType) {
         futureValue = { return value }
     }
     
-    required public init(booleanLiteral value: BooleanLiteralType) {
+    public init(name: String, value: Bool) {
+        self.name = name
         futureValue = { return value }
     }
     

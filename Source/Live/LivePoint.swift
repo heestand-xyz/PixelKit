@@ -10,6 +10,8 @@ import CoreGraphics
 
 public class LivePoint: LiveValue, CustomStringConvertible {
     
+    var name: String?
+    
     public var x: LiveFloat
     public var y: LiveFloat
     
@@ -52,14 +54,26 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         self.y = y
     }
     
-    public init(frozen point: CGPoint) {
-        x = LiveFloat(frozen: point.x)
-        y = LiveFloat(frozen: point.y)
+    public init(_ point: CGPoint) {
+        x = LiveFloat(point.x)
+        y = LiveFloat(point.y)
     }
     
-    public init(frozen vector: CGVector) {
-        x = LiveFloat(frozen: vector.dx)
-        y = LiveFloat(frozen: vector.dy)
+    public init(name: String, point: CGPoint) {
+        self.name = name
+        x = LiveFloat(point.x)
+        y = LiveFloat(point.y)
+    }
+    
+    public init(_ vector: CGVector) {
+        x = LiveFloat(vector.dx)
+        y = LiveFloat(vector.dy)
+    }
+    
+    public init(name: String, vector: CGVector) {
+        self.name = name
+        x = LiveFloat(vector.dx)
+        y = LiveFloat(vector.dy)
     }
     
 //    public init(xRel: LiveFloat, yRel: LiveFloat, res: PIX.Res) {
@@ -100,16 +114,16 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     // MARK: Helpers
     
     public static func topLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(frozen: -res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: LiveFloat(-res.aspect / 2.0), y: 0.5)
     }
     public static func topRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(frozen: res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: LiveFloat(res.aspect / 2.0), y: 0.5)
     }
     public static func bottomLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(frozen: -res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: LiveFloat(-res.aspect / 2.0), y: -0.5)
     }
     public static func bottomRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(frozen: res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: LiveFloat(res.aspect / 2.0), y: -0.5)
     }
     
     // MARK: Equatable

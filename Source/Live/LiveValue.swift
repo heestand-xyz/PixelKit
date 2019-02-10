@@ -9,12 +9,9 @@
 import Foundation
 
 protocol LiveValue {
-//    associatedtype LiveValueType
-    //    var futureValue: () -> (CGFloat) { get set }
-    //    var value: CGFloat { get }
     
-//    var uniform: LiveValueType { mutating get }
+    var name: String? { get }
+    
     var uniformIsNew: Bool { get }
-//    var uniformCache: LiveValueType? { get set }
     
 }
