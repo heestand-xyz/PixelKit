@@ -9,9 +9,9 @@
 #include <metal_stdlib>
 using namespace metal;
 
-// Hardcoded at 24
+// Hardcoded at 13
 // Defined as uniformArrayMaxLimit in source
-__constant int ARRMAX = 24;
+__constant int ARRMAX = 13;
 
 struct VertexOut {
     float4 position [[position]];

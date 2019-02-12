@@ -249,9 +249,9 @@ extension Pixels {
         
         // MARK: Uniform Arrays
         
-        // Hardcoded at 24
+        // Hardcoded at 13
         // Defined as ARRMAX in shaders
-        let uniformArrayMaxLimit = 24
+        let uniformArrayMaxLimit = 13
         
         var uniformArray: [[Float]] = pix.uniformArray.map { uniformValues -> [Float] in
             return uniformValues.map({ uniform -> Float in return Float(uniform) })
