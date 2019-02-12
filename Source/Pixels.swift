@@ -24,20 +24,6 @@ public class Pixels {
     let kMetalLibName = "PixelsShaders-macOS"
     #endif
     
-    public struct Signature: Encodable {
-        public let id: String
-        public let version: String
-        public let build: Int
-        public var formatted: String {
-            return "\(id) - v\(version) - b\(build)"
-        }
-    }
-    public var signature: Signature {
-        return Signature(id: kBundleId,
-                         version: Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleShortVersionString"] as! String,
-                         build: Int(Bundle(identifier: kBundleId)!.infoDictionary!["CFBundleVersion"] as! String) ?? -1)
-    }
-    
     public var renderMode: RenderMode = .frameLoop
     
     // FIXME: Metal Lib Delivery Pipeline
@@ -161,7 +147,7 @@ public class Pixels {
         CVDisplayLinkStart(displayLink!)
         #endif
         
-        log(.info, .pixels, "\(signature.version)  Ready to render.", clean: true)
+        log(.info, .pixels, "ready to render.", clean: true)
         
     }
 
