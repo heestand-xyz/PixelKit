@@ -108,8 +108,8 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public static func noise(wRange: ClosedRange<CGFloat> = 0.0...1.0,
                              hRange: ClosedRange<CGFloat> = 0.0...1.0,
                              seconds: LiveFloat = 1.0) -> LiveSize {
-        return LiveSize(w: LiveFloat.noise(range: wRange, seconds: seconds),
-                        h: LiveFloat.noise(range: hRange, seconds: seconds))
+        return LiveSize(w: LiveFloat.noise(range: wRange, for: seconds),
+                        h: LiveFloat.noise(range: hRange, for: seconds))
     }
     
     // MARK: Helpers

@@ -9,9 +9,9 @@
 #include <metal_stdlib>
 using namespace metal;
 
-// Hardcoded at 13
+// Hardcoded at 7
 // Defined as uniformArrayMaxLimit in source
-__constant int ARRMAX = 13;
+__constant int ARRMAX = 7;
 
 struct VertexOut {
     float4 position [[position]];
@@ -118,24 +118,6 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
             color_stop.color = float4(inArr[i].cr, inArr[i].cg, inArr[i].cb, inArr[i].ca);
             color_stops[i] = color_stop;
         }
-//        color_stops[0].enabled = true;
-//        color_stops[0].position = 0.0;
-//        color_stops[0].color = ac;
-//        color_stops[1].enabled = in.eae;
-//        color_stops[1].position = in.eap;
-//        color_stops[1].color = float4(in.ear, in.eag, in.eab, in.eaa);
-//        color_stops[2].enabled = in.ebe;
-//        color_stops[2].position = in.ebp;
-//        color_stops[2].color = float4(in.ebr, in.ebg, in.ebb, in.eba);
-//        color_stops[3].enabled = in.ece;
-//        color_stops[3].position = in.ecp;
-//        color_stops[3].color = float4(in.ecr, in.ecg, in.ecb, in.eca);
-//        color_stops[4].enabled = in.ede;
-//        color_stops[4].position = in.edp;
-//        color_stops[4].color = float4(in.edr, in.edg, in.edb, in.eda);
-//        color_stops[5].enabled = true;
-//        color_stops[5].position = 1.0;
-//        color_stops[5].color = bc;
 
         ColorStop low_color_stop;
         bool low_color_stop_set = false;
