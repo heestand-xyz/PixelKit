@@ -64,34 +64,6 @@ public class GradientPIX: PIXGenerator {
         return [CGFloat(style.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128) // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        style = try container.decode(Style.self, forKey: .style)
-//        scale = try container.decode(CGFloat.self, forKey: .scale)
-//        offset = try container.decode(CGFloat.self, forKey: .offset)
-//        position = try container.decode(CGPoint.self, forKey: .position)
-//        colorFirst = try container.decode(Color.self, forKey: .colorFirst)
-//        colorLast = try container.decode(Color.self, forKey: .colorLast)
-//        extendRamp = try container.decode(ExtendMode.self, forKey: .extendRamp)
-//        colorSteps = try container.decode(ColorSteps.self, forKey: .colorSteps)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(style, forKey: .style)
-//        try container.encode(scale, forKey: .scale)
-//        try container.encode(offset, forKey: .offset)
-//        try container.encode(position, forKey: .position)
-//        try container.encode(colorFirst, forKey: .colorFirst)
-//        try container.encode(colorLast, forKey: .colorLast)
-//        try container.encode(extendRamp, forKey: .extendRamp)
-//        try container.encode(colorSteps, forKey: .colorSteps)
-//    }
-    
     // MARK: - Rainbow
     
     public static var rainbowColorSteps: [(LiveFloat, LiveColor)] {

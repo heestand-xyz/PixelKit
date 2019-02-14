@@ -47,36 +47,6 @@ public class RangePIX: PIXSingleEffect {
         super.init()
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        inLow = try container.decode(CGFloat.self, forKey: .inLow)
-//        inHigh = try container.decode(CGFloat.self, forKey: .inHigh)
-//        outLow = try container.decode(CGFloat.self, forKey: .outLow)
-//        outHigh = try container.decode(CGFloat.self, forKey: .outHigh)
-//        inLowLiveColor = try container.decode(Color.self, forKey: .inLowColor)
-//        inHighLiveColor = try container.decode(Color.self, forKey: .inHighColor)
-//        outLowLiveColor = try container.decode(Color.self, forKey: .outLowColor)
-//        outHighLiveColor = try container.decode(Color.self, forKey: .outHighColor)
-//        ignoreAlpha = try container.decode(Bool.self, forKey: .ignoreAlpha)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(inLow, forKey: .inLow)
-//        try container.encode(inHigh, forKey: .inHigh)
-//        try container.encode(outLow, forKey: .outLow)
-//        try container.encode(outHigh, forKey: .outHigh)
-//        try container.encode(inLowColor, forKey: .inLowColor)
-//        try container.encode(inHighColor, forKey: .inHighColor)
-//        try container.encode(outLowColor, forKey: .outLowColor)
-//        try container.encode(outHighColor, forKey: .outHighColor)
-//        try container.encode(ignoreAlpha, forKey: .ignoreAlpha)
-//    }
-    
 }
 
 public extension PIXOut {

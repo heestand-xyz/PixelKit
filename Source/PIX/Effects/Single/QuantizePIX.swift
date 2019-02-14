@@ -29,20 +29,6 @@ public class QuantizePIX: PIXSingleEffect {
 //        return [fraction]
 //    }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: QuantizeCodingKeys.self)
-//        fraction = try container.decode(CGFloat.self, forKey: .fraction)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: QuantizeCodingKeys.self)
-//        try container.encode(fraction, forKey: .fraction)
-//    }
-    
 }
 
 public extension PIXOut {

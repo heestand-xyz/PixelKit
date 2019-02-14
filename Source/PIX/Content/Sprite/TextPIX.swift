@@ -60,36 +60,6 @@ public class TextPIX: PIXSprite {
         
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128) // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        text = try container.decode(String.self, forKey: .text)
-//        textLiveColor = try container.decode(Color.self, forKey: .textColor)
-//        let fontContainer = try container.nestedContainer(keyedBy: FontCodingKeys.self, forKey: .font)
-//        let fontName = try fontContainer.decode(String.self, forKey: .name)
-//        let fontSize = try fontContainer.decode(CGFloat.self, forKey: .size)
-//        if let fontFont = _Font(name: fontName, size: fontSize) {
-//            pixels.log(pix: self, .error, nil, "Font \"\(fontName)\" from Pixels File is not valid.")
-//            font = fontFont
-//        } else {
-//            font = _Font.systemFont(ofSize: 100)
-//        }
-//        position = try container.decode(CGPoint.self, forKey: .position)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(text, forKey: .text)
-//        try container.encode(textColor, forKey: .textColor)
-//        var fontContainer = container.nestedContainer(keyedBy: FontCodingKeys.self, forKey: .font)
-//        try fontContainer.encode(font.fontName, forKey: .name)
-//        try fontContainer.encode(font.pointSize, forKey: .size)
-//        try container.encode(position, forKey: .position)
-//    }
-    
     // MARK: - Render
     
     override public func setNeedsRender() {

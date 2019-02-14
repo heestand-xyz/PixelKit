@@ -37,22 +37,6 @@ public class LookupPIX: PIXMergerEffect {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        axis = try container.decode(Axis.self, forKey: .axis)
-//        holdEdge = try container.decode(Bool.self, forKey: .holdEdge)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(axis, forKey: .axis)
-//        try container.encode(holdEdge, forKey: .holdEdge)
-//    }
-    
 }
 
 public extension PIXOut {

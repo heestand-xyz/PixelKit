@@ -37,24 +37,4 @@ public class RectanglePIX: PIXGenerator {
 //        return vals
 //    }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128) // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        size = try container.decode(CGSize.self, forKey: .size)
-//        position = try container.decode(CGPoint.self, forKey: .position)
-//        color = try container.decode(Color.self, forKey: .color)
-//        bgLiveColor = try container.decode(Color.self, forKey: .bgColor)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(size, forKey: .size)
-//        try container.encode(position, forKey: .position)
-//        try container.encode(color, forKey: .color)
-//        try container.encode(bgColor, forKey: .bgColor)
-//    }
-    
 }

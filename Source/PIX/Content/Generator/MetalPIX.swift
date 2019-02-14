@@ -60,20 +60,6 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         super.init(res: res)
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128, code: "") // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(metalUniforms, forKey: .metalUniforms)
-//    }
-    
 }
 
 public extension MetalPIX {

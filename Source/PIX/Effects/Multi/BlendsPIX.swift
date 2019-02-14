@@ -25,18 +25,4 @@ public class BlendsPIX: PIXMultiEffect {
         return [CGFloat(blendingMode.index)]
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: BlendsCodingKeys.self)
-//        blendingMode = try container.decode(BlendingMode.self, forKey: .blendingMode)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: BlendsCodingKeys.self)
-//        try container.encode(blendingMode, forKey: .blendingMode)
-//    }
-    
 }
