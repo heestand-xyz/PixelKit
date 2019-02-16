@@ -41,20 +41,26 @@ public class MetalUniform {
 
 public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible/*, BinaryFloatingPoint */ {
     
-    var name: String?
+    public var name: String?
     
     public var description: String {
         let _value: CGFloat = round(CGFloat(self) * 1_000) / 1_000
-        return "live(\("\(_value)".zfill(3)))"
+        return "live\(name != nil ? "[\(name!)]" : "")(\("\(_value)".zfill(3)))"
     }
     
-    var futureValue: () -> (CGFloat)
+    var liveValue: () -> (CGFloat)
     var value: CGFloat {
-        return futureValue()
+        return liveValue()
+//        guard limit else { return liveValue() }
+//        return Swift.max(Swift.min(liveValue(), max), min)
     }
     public var cg: CGFloat {
         return value
     }
+    
+//    var limit: Bool = false
+//    var min: CGFloat = 0.0
+//    var max: CGFloat = 1.0
     
     var uniform: CGFloat {
         get {
@@ -104,35 +110,46 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     
     
-    public init(_ futureValue: @escaping () -> (CGFloat)) {
-        self.futureValue = futureValue
+    public init(_ liveValue: @escaping () -> (CGFloat)) {
+        self.liveValue = liveValue
     }
     
     public init(_ liveInt: LiveInt) {
-        futureValue = { return CGFloat(Int(liveInt)) }
+        liveValue = { return CGFloat(Int(liveInt)) }
     }
     
     public init(_ value: CGFloat) {
-        futureValue = { return value }
+        liveValue = { return value }
     }
     public init(_ value: Float) {
-        futureValue = { return CGFloat(value) }
+        liveValue = { return CGFloat(value) }
+    }
+    public init(_ value: Double) {
+        liveValue = { return CGFloat(value) }
     }
     required public init(floatLiteral value: FloatLiteralType) {
-        futureValue = { return CGFloat(value) }
+        liveValue = { return CGFloat(value) }
     }
     
     public init(_ value: Int) {
-        futureValue = { return CGFloat(value) }
+        liveValue = { return CGFloat(value) }
     }
     required public init(integerLiteral value: IntegerLiteralType) {
-        futureValue = { return CGFloat(value) }
+        liveValue = { return CGFloat(value) }
     }
     
-    public init(name: String, value: CGFloat) {
-        self.name = name
-        futureValue = { return value }
-    }
+//    public init(name: String, value: CGFloat, min: CGFloat, max: CGFloat) {
+//        self.name = name
+//        self.min = min
+//        self.max = max
+//        liveValue = { return value }
+//    }
+    
+    // MARK: Assign
+    
+//    public static func = (lhs: inout LiveFloat, rhs: Double) {
+//        lhs = LiveFloat(rhs)
+//    }
     
     // MARK: Equatable
     
@@ -163,7 +180,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public static func >= (lhs: LiveFloat, rhs: LiveFloat) -> LiveBool {
         return LiveBool({ return CGFloat(lhs) >= CGFloat(rhs) })
     }
-//    public static func < (lhs: LiveFloat, rhs: CGFloat) -> LiveBool {
+//    public s1tatic func < (lhs: LiveFloat, rhs: CGFloat) -> LiveBool {
 //        return LiveFloat({ return lhs.value < rhs })
 //    }
 //    public static func < (lhs: CGFloat, rhs: LiveFloat) -> LiveBool {
@@ -215,11 +232,11 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     
     public static func <> (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return min(CGFloat(lhs), CGFloat(rhs)) })
+        return LiveFloat({ return Swift.min(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return max(CGFloat(lhs), CGFloat(rhs)) })
+        return LiveFloat({ return Swift.max(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     

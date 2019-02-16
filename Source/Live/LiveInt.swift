@@ -17,15 +17,17 @@ extension Int {
 
 public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByIntegerLiteral, CustomStringConvertible {
     
-    var name: String?
+    public var name: String?
     
     public var description: String {
-        return "live(\(value))"
+        return "live\(name != nil ? "[\(name!)]" : "")(\(value))"
     }
     
-    var futureValue: () -> (Int)
+    var liveValue: () -> (Int)
     var value: Int {
-        return futureValue()
+        return liveValue()
+//        guard limit else { return liveValue() }
+//        return Swift.max(Swift.min(liveValue(), max), min)
     }
     
     var uniform: Int {
@@ -36,6 +38,10 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return uniformCache != value
     }
     var uniformCache: Int? = nil
+    
+//    var limit: Bool = false
+//    var min: CGFloat = 0.0
+//    var max: CGFloat = 1.0
     
     
 //    public var year: LiveInt!
@@ -56,29 +62,32 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     }
     
     
-    public init(_ futureValue: @escaping () -> (Int)) {
-        self.futureValue = futureValue
+    public init(_ liveValue: @escaping () -> (Int)) {
+        self.liveValue = liveValue
     }
     
     public init(_ liveFloat: LiveFloat) {
-        futureValue = { return Int(liveFloat.value) }
+        liveValue = { return Int(liveFloat.value) }
     }
     
     public init(_ value: CGFloat) {
-        futureValue = { return Int(value) }
+        liveValue = { return Int(value) }
     }
     
     public init(_ value: Int) {
-        futureValue = { return value }
+        liveValue = { return value }
     }
     required public init(integerLiteral value: IntegerLiteralType) {
-        futureValue = { return Int(value) }
+        liveValue = { return Int(value) }
     }
     
-    public init(name: String, value: Int) {
-        self.name = name
-        futureValue = { return value }
-    }
+//    public init(name: String, value: Int, min: CGFloat, max: CGFloat) {
+//        self.name = name
+//        self.min = min
+//        self.max = max
+//        self.name = name
+//        liveValue = { return value }
+//    }
     
     // MARK: Equatable
     
@@ -119,7 +128,7 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return LiveInt({ return lhs.value * rhs.value })
     }
 //    public static func *= (lhs: inout LiveInt, rhs: LiveInt) {
-//        lhs.futureValue = { return lhs.value * rhs.value }
+//        lhs.liveValue = { return lhs.value * rhs.value }
 //    }
     
     public static func / (lhs: LiveInt, rhs: LiveInt) -> LiveInt {

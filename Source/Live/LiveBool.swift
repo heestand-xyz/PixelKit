@@ -35,15 +35,15 @@ extension Bool {
 
 public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConvertible {
     
-    var name: String?
+    public var name: String?
     
     public var description: String {
-        return "live(\(Bool(self)))"
+        return "live\(name != nil ? "[\(name!)]" : "")(\(Bool(self)))"
     }
     
-    var futureValue: () -> (Bool)
+    var liveValue: () -> (Bool)
     var value: Bool {
-        return futureValue()
+        return liveValue()
     }
     
     var uniform: Bool {
@@ -55,19 +55,18 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     var uniformCache: Bool? = nil
     
-    
-    
-    public init(_ futureValue: @escaping () -> (Bool)) {
-        self.futureValue = futureValue
+    public init(_ liveValue: @escaping () -> (Bool)) {
+        self.liveValue = liveValue
     }
     
     required public init(booleanLiteral value: BooleanLiteralType) {
-        futureValue = { return value }
+        liveValue = { return value }
     }
     
     public init(name: String, value: Bool) {
         self.name = name
-        futureValue = { return value }
+        self.name = name
+        liveValue = { return value }
     }
     
     // MARK: Equatable
@@ -83,7 +82,6 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     public static func || (lhs: LiveBool, rhs: LiveBool) -> LiveBool {
         return LiveBool({ return Bool(lhs) || Bool(rhs) })
     }
-    
     
     public prefix static func ! (operand: LiveBool) -> LiveBool {
         return LiveBool({ return !Bool(operand) })

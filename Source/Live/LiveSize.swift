@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral, CustomStringConvertible {
     
-    var name: String?
+    public var name: String?
     
     public var w: LiveFloat
     public var h: LiveFloat
@@ -18,7 +18,7 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public var description: String {
         let _w: CGFloat = round(CGFloat(w) * 1_000) / 1_000
         let _h: CGFloat = round(CGFloat(h) * 1_000) / 1_000
-        return "live(w:\("\(_w)".zfill(3)),h:\("\(_h)".zfill(3)))"
+        return "live\(name != nil ? "[\(name!)]" : "")(w:\("\(_w)".zfill(3)),h:\("\(_h)".zfill(3)))"
     }
     
     public var width: LiveFloat { return w }
@@ -53,9 +53,9 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
 
     // MARK: Life Cycle
     
-    public init(_ futureValue: @escaping () -> (CGSize)) {
-        w = LiveFloat({ return futureValue().width })
-        h = LiveFloat({ return futureValue().height })
+    public init(_ liveValue: @escaping () -> (CGSize)) {
+        w = LiveFloat({ return liveValue().width })
+        h = LiveFloat({ return liveValue().height })
     }
     
     public init(w: LiveFloat, h: LiveFloat) {

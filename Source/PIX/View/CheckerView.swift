@@ -41,12 +41,12 @@ class CheckerView: _View {
     #endif
     func checkerImage() -> _Image {
         #if os(iOS)
-        // FIXME: Test
         return UIGraphicsImageRenderer(size: CGSize(width: 64, height: 64)).image { ctx in
-            ctx.cgContext.setFillColor(LiveColor.darkGray.cgColor)
+            ctx.cgContext.setFillColor(LiveColor.lightGray.cgColor)
             ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: 32, height: 32))
             ctx.cgContext.addRect(CGRect(x: 32, y: 32, width: 32, height: 32))
-            ctx.cgContext.setFillColor(LiveColor.lightGray.cgColor)
+            ctx.cgContext.drawPath(using: .fill)
+            ctx.cgContext.setFillColor(LiveColor.darkGray.cgColor)
             ctx.cgContext.addRect(CGRect(x: 0, y: 32, width: 32, height: 32))
             ctx.cgContext.addRect(CGRect(x: 32, y: 0, width: 32, height: 32))
             ctx.cgContext.drawPath(using: .fill)

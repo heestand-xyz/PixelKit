@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class LivePoint: LiveValue, CustomStringConvertible {
     
-    var name: String?
+    public var name: String?
     
     public var x: LiveFloat
     public var y: LiveFloat
@@ -18,7 +18,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     public var description: String {
         let _x: CGFloat = round(CGFloat(x) * 1_000) / 1_000
         let _y: CGFloat = round(CGFloat(y) * 1_000) / 1_000
-        return "live(x:\("\(_x)".zfill(3)),y:\("\(_y)".zfill(3)))"
+        return "live\(name != nil ? "[\(name!)]" : "")(x:\("\(_x)".zfill(3)),y:\("\(_y)".zfill(3)))"
     }
     
     // MARK: Uniform
@@ -44,9 +44,9 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     
     // MARK: Life Cycle
     
-    public init(_ futureValue: @escaping () -> (CGPoint)) {
-        x = LiveFloat({ return futureValue().x })
-        y = LiveFloat({ return futureValue().y })
+    public init(_ liveValue: @escaping () -> (CGPoint)) {
+        x = LiveFloat({ return liveValue().x })
+        y = LiveFloat({ return liveValue().y })
     }
     
     public init(x: LiveFloat, y: LiveFloat) {

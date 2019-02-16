@@ -202,7 +202,6 @@
 		7424A1AE212F4A0100401654 /* PixelsTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsTexture.swift; sourceTree = "<group>"; };
 		7424A1B2212F5A8B00401654 /* BlendPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendPIX.swift; sourceTree = "<group>"; };
 		7424A1B4212F5C9300401654 /* PIXModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXModes.swift; sourceTree = "<group>"; };
-		742DBF3221E9E5A800E01311 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		743054DF215EBB6B004E6B27 /* PixelsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsTypes.swift; sourceTree = "<group>"; };
 		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
 		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
@@ -512,7 +511,6 @@
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39DB21011E3A004E9AA0 /* Info.plist */,
-				742DBF3221E9E5A800E01311 /* Package.swift */,
 				74BC39D921011E3A004E9AA0 /* Source */,
 				74BC39D821011E3A004E9AA0 /* Products */,
 				7400B860212DD087002811DC /* Frameworks */,

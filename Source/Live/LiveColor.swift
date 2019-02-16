@@ -32,7 +32,7 @@ extension _Color {
 
 public class LiveColor: LiveValue, CustomStringConvertible {
     
-    var name: String?
+    public var name: String?
     
     public var r: LiveFloat
     public var g: LiveFloat
@@ -44,7 +44,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         let _g: CGFloat = round(CGFloat(g) * 1_000) / 1_000
         let _b: CGFloat = round(CGFloat(b) * 1_000) / 1_000
         let _a: CGFloat = round(CGFloat(a) * 1_000) / 1_000
-        return "live(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
+        return "live\(name != nil ? "[\(name!)]" : "")(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
     }
     
     // MARK: Uniform
@@ -197,21 +197,21 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
 //    // MARK: - Future
 //
-//    public init(_ futureValue: @escaping () -> (LiveColor)) {
-//        r = futureValue().r
-//        g = futureValue.g
-//        b = futureValue.b
-//        a = futureValue.a
+//    public init(_ liveValue: @escaping () -> (LiveColor)) {
+//        r = liveValue().r
+//        g = liveValue.g
+//        b = liveValue.b
+//        a = liveValue.a
 //    }
 //
 //    required public init(floatLiteral value: FloatLiteralType) {
-////        futureValue = { return CGFloat(value) }
+////        liveValue = { return CGFloat(value) }
 //    }
     
     // MARK: - Life Cycle
     
-    public init(_ futureValue: @escaping () -> (_Color)) {
-        let liveColor = LiveColor(futureValue())
+    public init(_ liveValue: @escaping () -> (_Color)) {
+        let liveColor = LiveColor(liveValue())
         r = liveColor.r
         g = liveColor.g
         b = liveColor.b
