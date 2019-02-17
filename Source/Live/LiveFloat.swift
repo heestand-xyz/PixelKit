@@ -57,6 +57,9 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public var cg: CGFloat {
         return value
     }
+    public var db: Double {
+        return Double(value)
+    }
     
 //    var limit: Bool = false
 //    var min: CGFloat = 0.0

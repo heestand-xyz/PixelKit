@@ -39,6 +39,10 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     }
     var uniformCache: Int? = nil
     
+    public var int: Int {
+        return value
+    }
+    
 //    var limit: Bool = false
 //    var min: CGFloat = 0.0
 //    var max: CGFloat = 1.0

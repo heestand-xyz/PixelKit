@@ -201,4 +201,18 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         let _lhs = lhs; lhs = LivePoint(x: _lhs.x / rhs, y: _lhs.y / rhs)
     }
     
+    
+    public func flipX() -> LivePoint {
+        return LivePoint(x: -x, y: y)
+    }
+    public func flipY() -> LivePoint {
+        return LivePoint(x: x, y: -y)
+    }
+    public func flipXY() -> LivePoint {
+        return LivePoint(x: -x, y: -y)
+    }
+    public func flop() -> LivePoint {
+        return LivePoint(x: y, y: x)
+    }
+    
 }

@@ -67,7 +67,7 @@ extension PIX {
         }
     }
     
-    public enum ExtendMode: String, Codable {
+    public enum ExtendMode: String, Codable, CaseIterable {
         case hold
         case zero
         case `repeat`

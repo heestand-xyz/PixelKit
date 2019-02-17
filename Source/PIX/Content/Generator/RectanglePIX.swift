@@ -13,8 +13,8 @@ public class RectanglePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
     public var position: LivePoint = .zero
+    public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
     public var color: LiveColor = .white
     public var bgColor: LiveColor = .black
     

@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-18.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class PolygonPIX: PIXGenerator {
     
@@ -13,8 +12,8 @@ public class PolygonPIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var radius: LiveFloat = 0.25
     public var position: LivePoint = .zero
+    public var radius: LiveFloat = 0.25
     public var rotation: LiveFloat = 0.0
     public var vertexCount: LiveInt = 6
     public var color: LiveColor = .white

@@ -13,8 +13,8 @@ public class CirclePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var radius: LiveFloat = sqrt(0.75) / 4
     public var position: LivePoint = .zero
+    public var radius: LiveFloat = sqrt(0.75) / 4
     public var edgeRadius: LiveFloat = 0.0
     public var color: LiveColor = .white
     public var edgeColor: LiveColor = .gray

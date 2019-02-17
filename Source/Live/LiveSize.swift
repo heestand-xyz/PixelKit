@@ -72,7 +72,7 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         w = LiveFloat(size.width)
         h = LiveFloat(size.height)
     }
-    
+        
     public init(name: String, size: CGSize) {
         self.name = name
         w = LiveFloat(size.width)
@@ -207,6 +207,11 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     }
     public static func /= (lhs: inout LiveSize, rhs: LiveFloat) {
         let _lhs = lhs; lhs = LiveSize(w: _lhs.w / rhs, h: _lhs.h / rhs)
+    }
+    
+    
+    public func flop() -> LiveSize {
+        return LiveSize(w: h, h: w)
     }
     
 }

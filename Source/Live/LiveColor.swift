@@ -32,7 +32,7 @@ extension _Color {
 
 public class LiveColor: LiveValue, CustomStringConvertible {
     
-    public var name: String?
+    public  var name: String?
     
     public var r: LiveFloat
     public var g: LiveFloat

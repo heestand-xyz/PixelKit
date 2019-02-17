@@ -13,7 +13,7 @@ public class GradientPIX: PIXGenerator {
     
     // MARK: - Public Types
     
-    public enum Style: String, Codable {
+    public enum Style: String, Codable, CaseIterable {
         case horizontal
         case vertical
         case radial
