@@ -17,10 +17,6 @@ public class SlopePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case amplitude
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [amplitude]
     }

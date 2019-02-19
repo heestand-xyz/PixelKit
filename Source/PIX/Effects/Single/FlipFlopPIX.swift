@@ -42,10 +42,6 @@ public class FlipFlopPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case flip; case flop
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [CGFloat(flip?.index ?? 0), CGFloat(flop?.index ?? 0)]
     }

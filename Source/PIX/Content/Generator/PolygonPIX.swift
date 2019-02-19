@@ -26,19 +26,4 @@ public class PolygonPIX: PIXGenerator {
         return [radius, position, rotation, vertexCount, color, bgColor]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case radius; case position; case rotation; case vertexCount; case color; case bgColor
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(radius.uniform)
-//        vals.append(contentsOf: position.uniformList)
-//        vals.append(rotation.uniform)
-//        vals.append(CGFloat(vertexCount.uniform))
-//        vals.append(contentsOf: color.uniformList)
-//        vals.append(contentsOf: bgColor.uniformList)
-//        return vals
-//    }
-    
 }

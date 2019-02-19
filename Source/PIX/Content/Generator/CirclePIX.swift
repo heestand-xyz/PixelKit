@@ -26,19 +26,4 @@ public class CirclePIX: PIXGenerator {
         return [radius, position, edgeRadius, color, edgeColor, bgColor]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case radius; case position; case edgeRadius; case color; case edgeColor; case bgColor
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(radius.uniform)
-//        vals.append(contentsOf: position.uniformList)
-//        vals.append(edgeRadius.uniform)
-//        vals.append(contentsOf: color.uniformList)
-//        vals.append(contentsOf: edgeColor.uniformList)
-//        vals.append(contentsOf: bgColor.uniformList)
-//        return vals
-//    }
-    
 }

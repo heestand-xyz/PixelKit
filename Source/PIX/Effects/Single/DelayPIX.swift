@@ -19,10 +19,6 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     // MARK: - Property Helpers
     
-//    enum EdgeCodingKeys: String, CodingKey {
-//        case delayFrames
-//    }
-    
     var cachedTextures: [MTLTexture] = []
     
     public override required init() {

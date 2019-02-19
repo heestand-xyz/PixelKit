@@ -22,14 +22,6 @@ public class EdgePIX: PIXSingleEffect {
         return [strength, distance]
     }
     
-//    enum EdgeCodingKeys: String, CodingKey {
-//        case strength; case distance
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [strength, distance]
-//    }
-    
 }
 
 public extension PIXOut {

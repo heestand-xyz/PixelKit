@@ -20,14 +20,6 @@ public class TwirlPIX: PIXSingleEffect {
         return [strength]
     }
     
-//    enum TwirlCodingKeys: String, CodingKey {
-//        case strength
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [strength]
-//    }
-    
     // MARK: - Life Cycle
     
     public override init() {

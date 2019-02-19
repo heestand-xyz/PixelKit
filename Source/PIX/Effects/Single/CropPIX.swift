@@ -19,10 +19,6 @@ public class CropPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case cropFrame
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [cropFrame.minX, cropFrame.maxX, cropFrame.minY, cropFrame.maxY]
     }

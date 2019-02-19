@@ -35,14 +35,6 @@ public class ThresholdPIX: PIXSingleEffect {
         return [threshold, smoothness]
     }
     
-//    enum EdgeCodingKeys: String, CodingKey {
-//        case threshold; case smoothness
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [threshold, smoothness]
-//    }
-    
 }
 
 public extension PIXOut {

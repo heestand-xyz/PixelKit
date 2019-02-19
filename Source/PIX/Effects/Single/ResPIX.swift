@@ -22,10 +22,6 @@ public class ResPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum ResCodingKeys: String, CodingKey {
-//        case resMultiplier; case inheritInRes; case fillMode
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [CGFloat(fillMode.index)]
     }

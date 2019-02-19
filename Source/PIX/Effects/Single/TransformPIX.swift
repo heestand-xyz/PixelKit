@@ -23,13 +23,6 @@ public class TransformPIX: PIXSingleEffect {
     override var liveValues: [LiveValue] {
         return [position, rotation, scale, size]
     }
-    
-//    enum CodingKeys: String, CodingKey {
-//        case position; case rotation; case scale; case size
-//    }
-//    open override var uniforms: [CGFloat] {
-//        return [position.x, position.y, rotation, scale, size.width, size.height]
-//    }
       
 }
 

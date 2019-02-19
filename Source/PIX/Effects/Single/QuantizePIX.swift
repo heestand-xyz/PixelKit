@@ -21,14 +21,6 @@ public class QuantizePIX: PIXSingleEffect {
         return [fraction]
     }
     
-//    enum QuantizeCodingKeys: String, CodingKey {
-//        case fraction
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [fraction]
-//    }
-    
 }
 
 public extension PIXOut {

@@ -56,10 +56,6 @@ public class GradientPIX: PIXGenerator {
         })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case style; case scale; case offset; case position; case colorFirst; case colorLast; case extendRamp; case colorSteps
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
     }

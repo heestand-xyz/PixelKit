@@ -29,20 +29,6 @@ public class RangePIX: PIXSingleEffect {
         return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case inLow; case inHigh; case outLow; case outHigh; case inLowColor; case inHighColor; case outLowColor; case outHighColor; case ignoreAlpha
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals = [inLow, inHigh, outLow, outHigh]
-//        vals.append(contentsOf: inLowColor.list)
-//        vals.append(contentsOf: inHighColor.list)
-//        vals.append(contentsOf: outLowColor.list)
-//        vals.append(contentsOf: outHighColor.list)
-//        vals.append(ignoreAlpha ? 1 : 0)
-//        return vals
-//    }
-    
     public override required init() {
         super.init()
     }

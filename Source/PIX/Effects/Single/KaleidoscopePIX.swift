@@ -23,14 +23,6 @@ public class KaleidoscopePIX: PIXSingleEffect {
         return [divisions, mirror, rotation, position]
     }
     
-//    enum KaleidoscopeCodingKeys: String, CodingKey {
-//        case divisions; case mirror; case rotation; case position
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
-//    }
-    
     public override required init() {
         super.init()
         extend = .mirror

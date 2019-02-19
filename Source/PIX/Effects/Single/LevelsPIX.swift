@@ -25,14 +25,6 @@ public class LevelsPIX: PIXSingleEffect {
         return [brightness, darkness, contrast, gamma, inverted, opacity]
     }
     
-//    enum LevelsCodingKeys: String, CodingKey {
-//        case brightness; case darkness; case contrast; case gamma; case inverted; case opacity
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [brightness, darkness, contrast, gamma, inverted ? 1 : 0, opacity]
-//    }
-    
 }
 
 public extension PIXOut {
@@ -83,6 +75,11 @@ public extension PIXOut {
         levelsPix.inPix = self as? PIX & PIXOut
         levelsPix.opacity = opacity
         return levelsPix
+    }
+    
+    func _hdr(_ gamma: LiveFloat, blur: LiveFloat) -> BlendPIX {
+        let pix = self as! PIX & PIXOut
+        return ((pix - 0.5) !** ((pix._blur(blur)) * gamma)) + 0.5
     }
     
 }

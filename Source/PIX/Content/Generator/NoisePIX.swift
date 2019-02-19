@@ -27,14 +27,6 @@ public class NoisePIX: PIXGenerator {
         return [seed, octaves, position, zPosition, zoom, colored, random]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case seed; case octaves; case position; case zPosition; case zoom; case colored; case random
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [CGFloat(seed), CGFloat(octaves), position.x, position.y, zPosition, zoom, colored ? 1 : 0, random ? 1 : 0]
-//    }
-    
 //    // MARK: - Life Cycle
 //
 //    public init(res: Res, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {

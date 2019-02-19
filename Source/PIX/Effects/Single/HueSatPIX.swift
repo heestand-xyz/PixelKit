@@ -22,14 +22,6 @@ public class HueSatPIX: PIXSingleEffect {
         return [hue, saturation]
     }
     
-//    enum LevelsCodingKeys: String, CodingKey {
-//        case hue; case saturation
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [hue, saturation, 1]
-//    }
-    
 }
 
 public extension PIXOut {

@@ -47,10 +47,6 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
         return [radius, angle, position]
     }
     
-//    enum BlurCodingKeys: String, CodingKey {
-//        case style; case radius; case quality; case angle; case position
-//    }
-    
     var relRadius: CGFloat {
         let radius = self.radius.uniform
         let relRes: PIX.Res = ._4K

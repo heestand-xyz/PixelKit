@@ -17,10 +17,6 @@ public class SharpenPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case contrast
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [contrast]
     }

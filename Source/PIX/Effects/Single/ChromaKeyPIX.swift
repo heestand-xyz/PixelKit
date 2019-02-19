@@ -25,17 +25,6 @@ public class ChromaKeyPIX: PIXSingleEffect {
         return [keyColor, range, softness, edgeDesaturation, premultiply]
     }
     
-//    enum ChromaKeyCodingKeys: String, CodingKey {
-//        case keyColor; case range; case softness; case edgeDesaturation; case premultiply
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(contentsOf: keyColor.list)
-//        vals.append(contentsOf: [range, softness, edgeDesaturation, premultiply ? 1 : 0])
-//        return vals
-//    }
-    
 }
 
 public extension PIXOut {

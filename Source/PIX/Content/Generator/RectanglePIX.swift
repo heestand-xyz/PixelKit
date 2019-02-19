@@ -24,17 +24,4 @@ public class RectanglePIX: PIXGenerator {
         return [size, position, color, bgColor]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case size; case position; case color; case bgColor
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(contentsOf: size.uniformList)
-//        vals.append(contentsOf: position.uniformList)
-//        vals.append(contentsOf: color.uniformList)
-//        vals.append(contentsOf: bgColor.uniformList)
-//        return vals
-//    }
-    
 }

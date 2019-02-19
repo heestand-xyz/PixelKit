@@ -21,23 +21,4 @@ public class ColorPIX: PIXGenerator {
         return [color]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case color
-//    }
-
-//    open override var uniforms: [CGFloat] {
-//        return color.list
-//    }
-    
 }
-
-//public extension PIX {
-//    
-//    func __color(_ color: LiveColor, res: PIX.Res) -> ColorPIX {
-//        let colorPix = ColorPIX(res: res)
-//        colorPix.name = ":color:"
-//        colorPix.color = color
-//        return colorPix
-//    }
-//
-//}

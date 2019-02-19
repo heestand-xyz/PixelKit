@@ -42,16 +42,6 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case metalUniforms
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return metalUniforms.map({ metalUniform -> CGFloat in
-//            return metalUniform.value
-//        })
-//    }
-    
     // MARK: - Life Cycle
     
     public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
