@@ -5,7 +5,7 @@
 //  Created by Hexagons on 2018-08-07.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
@@ -23,11 +23,6 @@ public class ImagePIX: PIXResource {
     #elseif os(macOS)
     public var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws { self.init() }
-//    override public func encode(to encoder: Encoder) throws {}
     
     // MARK: Buffer
     

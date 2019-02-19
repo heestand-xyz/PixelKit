@@ -17,27 +17,9 @@ public class SlopePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case amplitude
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [amplitude]
     }
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        amplitude = try container.decode(CGFloat.self, forKey: .amplitude)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(amplitude, forKey: .amplitude)
-//    }
     
 }
 

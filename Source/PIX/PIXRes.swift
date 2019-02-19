@@ -72,7 +72,7 @@ public extension PIX {
             ]
         }
         
-        case full
+        case fullscreen
         
         case size(_ size: CGSize)
         case custom(w: Int, h: Int)
@@ -109,7 +109,7 @@ public extension PIX {
                 case .iPadPro_10_5(let ori): return "iPad Pro 10.5‑inch" + ori.postfix
                 case .iPadPro_11(let ori): return "iPad Pro 11‑inch" + ori.postfix
                 case .iPadPro_12_9(let ori): return "iPad Pro 12.9‑inch" + ori.postfix
-                case .full: return "Full Screen"
+                case .fullscreen: return "Full Screen"
                 default: return "\(raw.w)x\(raw.h)"
             }
         }
@@ -173,7 +173,7 @@ public extension PIX {
                 let size = CGSize(width: 2048, height: 2732)
                 if ori == .portrait { return size }
                 else { return CGSize(width: size.height, height: size.width) }
-            case .full:
+            case .fullscreen:
                 #if os(iOS)
                 let size = UIScreen.main.nativeBounds.size
                 if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return size }
@@ -306,7 +306,7 @@ public extension PIX {
             case Res.iPadPro_10_5(.landscape).size: self = .iPadPro_10_5(.landscape)
             case Res.iPadPro_12_9(.portrait).size: self = .iPadPro_12_9(.portrait)
             case Res.iPadPro_12_9(.landscape).size: self = .iPadPro_12_9(.landscape)
-            case Res.full.size: self = .full
+            case Res.fullscreen.size: self = .fullscreen
             default: self = .custom(w: Int(size.width), h: Int(size.height))
             }
         }

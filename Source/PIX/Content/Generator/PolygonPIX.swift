@@ -25,43 +25,4 @@ public class PolygonPIX: PIXGenerator {
         return [radius, position, rotation, vertexCount, color, bgColor]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case radius; case position; case rotation; case vertexCount; case color; case bgColor
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(radius.uniform)
-//        vals.append(contentsOf: position.uniformList)
-//        vals.append(rotation.uniform)
-//        vals.append(CGFloat(vertexCount.uniform))
-//        vals.append(contentsOf: color.uniformList)
-//        vals.append(contentsOf: bgColor.uniformList)
-//        return vals
-//    }
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128) // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        radius = try container.decode(CGFloat.self, forKey: .radius)
-//        position = try container.decode(CGPoint.self, forKey: .position)
-//        rotation = try container.decode(CGFloat.self, forKey: .rotation)
-//        vertexCount = try container.decode(Int.self, forKey: .vertexCount)
-//        color = try container.decode(Color.self, forKey: .color)
-//        bgLiveColor = try container.decode(Color.self, forKey: .bgColor)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(radius, forKey: .radius)
-//        try container.encode(position, forKey: .position)
-//        try container.encode(rotation, forKey: .rotation)
-//        try container.encode(vertexCount, forKey: .vertexCount)
-//        try container.encode(color, forKey: .color)
-//        try container.encode(bgColor, forKey: .bgColor)
-//    }
-    
 }

@@ -59,20 +59,9 @@ public class FeedbackPIX: PIXSingleEffect {
         setNeedsRender()
     }
     
-//    required init(from decoder: Decoder) throws {
-//        fatalError("init(from:) has not been implemented")
-//    }
-    
 }
 
 public extension PIXOut {
-    
-//    func _feed(loop: (FeedbackPIX) -> (PIX & PIXOut)) -> FeedbackPIX {
-//        let feedbackPix = FeedbackPIX()
-//        feedbackPix.inPix = self as? PIX & PIXOut
-//        feedbackPix.feedPix = loop(feedbackPix)
-//        return feedbackPix
-//    }
     
     func _feed(_ fraction: LiveFloat, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()

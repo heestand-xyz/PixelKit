@@ -42,30 +42,9 @@ public class FlipFlopPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case flip; case flop
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [CGFloat(flip?.index ?? 0), CGFloat(flop?.index ?? 0)]
     }
-    
-//    // MARK: - JSON
-//
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        flip = try container.decode(Flip.self, forKey: .flip)
-//        flop = try container.decode(Flop.self, forKey: .flop)
-//        setNeedsRender()
-//    }
-//
-//    override public func encode(to encoder: Encoder) throws {
-//        try super.encode(to: encoder)
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(flip, forKey: .flip)
-//        try container.encode(flop, forKey: .flop)
-//    }
     
 }
 

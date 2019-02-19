@@ -11,7 +11,6 @@ import Foundation
 extension Pixels {
     
     public struct Log {
-        public let signature: Signature
         public let prefix: String
         public let level: LogLevel
         public let category: LogCategory?
@@ -88,7 +87,7 @@ extension Pixels {
         let pixRef = pix != nil ? PIXRef(for: pix!) : nil
         let codeRef = CodeRef(file: file, function: function, line: line)
         
-        let log = Log(signature: signature, prefix: prefix, level: level, category: category, time: time, codeRef: codeRef, pixRef: pixRef, message: message, error: error, loop: loop)
+        let log = Log(prefix: prefix, level: level, category: category, time: time, codeRef: codeRef, pixRef: pixRef, message: message, error: error, loop: loop)
         
         guard level != .fatal else {
             logCallback?(log)
@@ -101,7 +100,7 @@ extension Pixels {
         
         if loop && logLoopLimitActive && frame > logLoopLimitFrameCount {
             if !logLoopLimitIndicated {
-                print("Pixels Running...")
+                print("Pixels running...")
                 logLoopLimitIndicated = true
             }
             return
@@ -198,7 +197,7 @@ extension Pixels {
         logList.append(log.message)
         
         if let e = log.error {
-            logList.append("Error: \"\(e.localizedDescription)\"")
+            logList.append("Error: \(e) LD: \"\(e.localizedDescription)\"")
         }
         
         if logSource {

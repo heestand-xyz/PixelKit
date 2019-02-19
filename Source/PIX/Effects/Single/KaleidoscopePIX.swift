@@ -23,38 +23,10 @@ public class KaleidoscopePIX: PIXSingleEffect {
         return [divisions, mirror, rotation, position]
     }
     
-//    enum KaleidoscopeCodingKeys: String, CodingKey {
-//        case divisions; case mirror; case rotation; case position
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return [CGFloat(divisions), mirror ? 1 : 0, rotation, position.x, position.y]
-//    }
-    
     public override required init() {
         super.init()
         extend = .mirror
     }
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: KaleidoscopeCodingKeys.self)
-//        divisions = try container.decode(Int.self, forKey: .divisions)
-//        mirror = try container.decode(Bool.self, forKey: .mirror)
-//        rotation = try container.decode(CGFloat.self, forKey: .rotation)
-//        position = try container.decode(CGPoint.self, forKey: .position)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: KaleidoscopeCodingKeys.self)
-//        try container.encode(divisions, forKey: .divisions)
-//        try container.encode(mirror, forKey: .mirror)
-//        try container.encode(rotation, forKey: .rotation)
-//        try container.encode(position, forKey: .position)
-//    }
     
 }
 

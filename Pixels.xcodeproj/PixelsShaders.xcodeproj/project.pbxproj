@@ -42,7 +42,7 @@
 		7449A18A2142793100FAA8CC /* EffectMergerReorderPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7449A1892142793100FAA8CC /* EffectMergerReorderPIX.metal */; };
 		746F7470213FF7C200C2AE62 /* EffectSingleCropPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 746F746F213FF7C200C2AE62 /* EffectSingleCropPIX.metal */; };
 		7473B4FB214175C0008C6F23 /* EffectMergerDisplacePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7473B4FA214175C0008C6F23 /* EffectMergerDisplacePIX.metal */; };
-		7483FC34213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC33213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal */; };
+		7483FC34213ECA9800D3F713 /* EffectSingleHueSatPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC33213ECA9800D3F713 /* EffectSingleHueSatPIX.metal */; };
 		748859DF212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 748859DE212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal */; };
 		749F5B8D213576EA00511EA4 /* NilFlipPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 749F5B8C213576EA00511EA4 /* NilFlipPIX.metal */; };
 		74A7B97E21412B5B0078DDE3 /* EffectSingleSlopePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74A7B97B21412B5A0078DDE3 /* EffectSingleSlopePIX.metal */; };
@@ -73,7 +73,7 @@
 		74E9F6E12193815F00F541DE /* EffectSingleCropPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 746F746F213FF7C200C2AE62 /* EffectSingleCropPIX.metal */; };
 		74E9F6E22193815F00F541DE /* EffectSingleEdgePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE368212DD5030065F49B /* EffectSingleEdgePIX.metal */; };
 		74E9F6E32193815F00F541DE /* EffectSingleFlipFlopPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74B4889F214121920033B3B5 /* EffectSingleFlipFlopPIX.metal */; };
-		74E9F6E42193815F00F541DE /* EffectSingleHueSaturationPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC33213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal */; };
+		74E9F6E42193815F00F541DE /* EffectSingleHueSatPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC33213ECA9800D3F713 /* EffectSingleHueSatPIX.metal */; };
 		74E9F6E52193815F00F541DE /* EffectSingleKaleidoscopePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE365212DD5030065F49B /* EffectSingleKaleidoscopePIX.metal */; };
 		74E9F6E62193815F00F541DE /* EffectSingleLevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE36F212DD5030065F49B /* EffectSingleLevelsPIX.metal */; };
 		74E9F6E72193815F00F541DE /* EffectSingleQuantizePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE36C212DD5030065F49B /* EffectSingleQuantizePIX.metal */; };
@@ -131,7 +131,7 @@
 		746F746F213FF7C200C2AE62 /* EffectSingleCropPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleCropPIX.metal; sourceTree = "<group>"; };
 		7473A66A210F4FD0003CF329 /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		7473B4FA214175C0008C6F23 /* EffectMergerDisplacePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectMergerDisplacePIX.metal; sourceTree = "<group>"; };
-		7483FC33213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleHueSaturationPIX.metal; sourceTree = "<group>"; };
+		7483FC33213ECA9800D3F713 /* EffectSingleHueSatPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleHueSatPIX.metal; sourceTree = "<group>"; };
 		748859DE212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentGeneratorRectanglePIX.metal; sourceTree = "<group>"; };
 		749F5B8C213576EA00511EA4 /* NilFlipPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NilFlipPIX.metal; sourceTree = "<group>"; };
 		74A7B97B21412B5A0078DDE3 /* EffectSingleSlopePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleSlopePIX.metal; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 				746F746F213FF7C200C2AE62 /* EffectSingleCropPIX.metal */,
 				740EE368212DD5030065F49B /* EffectSingleEdgePIX.metal */,
 				74B4889F214121920033B3B5 /* EffectSingleFlipFlopPIX.metal */,
-				7483FC33213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal */,
+				7483FC33213ECA9800D3F713 /* EffectSingleHueSatPIX.metal */,
 				740EE365212DD5030065F49B /* EffectSingleKaleidoscopePIX.metal */,
 				740EE36F212DD5030065F49B /* EffectSingleLevelsPIX.metal */,
 				740EE36C212DD5030065F49B /* EffectSingleQuantizePIX.metal */,
@@ -290,7 +290,7 @@
 				74A7B98021412B5B0078DDE3 /* EffectSingleSharpenPIX.metal in Sources */,
 				740EE382212DD5030065F49B /* EffectSingleTwirlPIX.metal in Sources */,
 				741510DA212F2FC900B251E7 /* ContentGeneratorColorPIX.metal in Sources */,
-				7483FC34213ECA9800D3F713 /* EffectSingleHueSaturationPIX.metal in Sources */,
+				7483FC34213ECA9800D3F713 /* EffectSingleHueSatPIX.metal in Sources */,
 				7424A1A7212F426C00401654 /* EffectSingleChromaKeyPIX.metal in Sources */,
 				740EE381212DD5030065F49B /* ContentGeneratorGradientPIX.metal in Sources */,
 				740EE37A212DD5030065F49B /* ContentGeneratorPolygonPIX.metal in Sources */,
@@ -339,7 +339,7 @@
 				74E9F6DC2193815F00F541DE /* EffectMergerReorderPIX.metal in Sources */,
 				74E9F6D62193815F00F541DE /* EffectMergerBlendPIX.metal in Sources */,
 				74E9F6DD2193815F00F541DE /* EffectMultiBlendsPIX.metal in Sources */,
-				74E9F6E42193815F00F541DE /* EffectSingleHueSaturationPIX.metal in Sources */,
+				74E9F6E42193815F00F541DE /* EffectSingleHueSatPIX.metal in Sources */,
 				74E9F6F32193815F00F541DE /* noise_header.metal in Sources */,
 				74E9F6EF2193815F00F541DE /* hsv_header.metal in Sources */,
 				74E9F6CF2193815F00F541DE /* ContentGeneratorColorPIX.metal in Sources */,

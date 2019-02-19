@@ -16,8 +16,4 @@ open class PIXContent: PIX, PIXOutIO {
         super.init()
     }
     
-//    required public init(from decoder: Decoder) throws {
-//        fatalError("PIXContent Decoder Initializer is not supported.") // CHECK
-//    }
-    
 }

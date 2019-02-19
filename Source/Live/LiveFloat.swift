@@ -337,11 +337,11 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     /// noise is a combo of liveRandom and smooth filter
     ///
     /// deafults - liveRandom range: 0.0...1.0 - filter seconds: 1.0
-    public static func noise(range: ClosedRange<CGFloat> = 0...1.0, seconds: LiveFloat = 1.0) -> LiveFloat {
+    public static func noise(range: ClosedRange<CGFloat> = 0...1.0, for seconds: LiveFloat = 1.0) -> LiveFloat {
         return LiveFloat.liveRandom(in: range).filter(seconds: seconds, smooth: true)
     }
     
-    public static func wave(range: ClosedRange<CGFloat> = 0...1.0, seconds: LiveFloat = 1.0) -> LiveFloat {
+    public static func liveWave(range: ClosedRange<CGFloat> = 0...1.0, for seconds: LiveFloat = 1.0) -> LiveFloat {
         return (cos((self.seconds / seconds) * .pi * 2) / -2 + 0.5).lerp(from: LiveFloat(range.lowerBound), to: LiveFloat(range.upperBound))
     }
 

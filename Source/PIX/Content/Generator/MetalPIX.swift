@@ -42,16 +42,6 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case metalUniforms
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return metalUniforms.map({ metalUniform -> CGFloat in
-//            return metalUniform.value
-//        })
-//    }
-    
     // MARK: - Life Cycle
     
     public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
@@ -59,20 +49,6 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         metalEmbedCode = code
         super.init(res: res)
     }
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(res: ._128, code: "") // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        setNeedsRender()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(metalUniforms, forKey: .metalUniforms)
-//    }
     
 }
 

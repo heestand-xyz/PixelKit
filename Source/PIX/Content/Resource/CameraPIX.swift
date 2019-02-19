@@ -5,7 +5,7 @@
 //  Created by Hexagons on 2018-07-26.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
 import AVKit
 
 #if os(iOS)
@@ -28,8 +28,6 @@ public class CameraPIX: PIXResource {
     // MARK: - Public Properties
     
     public enum CamRes: String, Codable, CaseIterable {
-//        case autoLow = "Low"
-//        case autoHigh = "High"
         case vga = "VGA"
         case _720p = "720p"
         #if os(iOS)
@@ -38,12 +36,6 @@ public class CameraPIX: PIXResource {
         #endif
         public var sessionPreset: AVCaptureSession.Preset {
             switch self {
-//            case .autoLow:
-//                return .low
-//            case .autoMid:
-//                return .medium
-//            case .autoHigh:
-//                return .high
             case .vga:
                 return .vga640x480
             case ._720p:
@@ -54,8 +46,6 @@ public class CameraPIX: PIXResource {
             case ._4K:
                 return .hd4K3840x2160
             #endif
-//            case .photo:
-//                return .photo
             }
         }
         public var res: Res {
@@ -105,10 +95,6 @@ public class CameraPIX: PIXResource {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case camera; case camRes
-//    }
-    
     open override var uniforms: [CGFloat] {
         #if os(iOS)
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
@@ -137,26 +123,6 @@ public class CameraPIX: PIXResource {
     deinit {
         helper!.stop()
     }
-    
-//    // MARK: - JSON
-//
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let camera = try container.decode(Camera.self, forKey: .camera)
-//        let camRes = try container.decode(CamRes.self, forKey: .camRes)
-//        if camera != self.camera || camRes != self.camRes {
-//            self.camera = camera
-//            self.camRes = camRes
-//            setupCamera()
-//        }
-//    }
-//
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(camera, forKey: .camera)
-//        try container.encode(camRes, forKey: .camRes)
-//    }
     
     // MARK: Access
     

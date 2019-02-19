@@ -10,7 +10,7 @@ import Metal
 import MetalKit
 import MetalPerformanceShaders
 
-open class PIX/*/*: Codable*/*/ {
+open class PIX {
     
     public var id = UUID()
     public var name: String?
@@ -124,7 +124,7 @@ open class PIX/*/*: Codable*/*/ {
             pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
         } catch {
-            pixels.log(pix: self, .fatal, nil, "Initialization faled.", e: error)
+            pixels.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
         }
             
         pixels.add(pix: self)
@@ -132,14 +132,6 @@ open class PIX/*/*: Codable*/*/ {
         pixels.log(pix: self, .detail, nil, "Linked with Pixels.", clean: true)
     
     }
-    
-//    // MARK: - JSON
-//
-//    public required init(from decoder: Decoder) throws {
-//        fatalError("PIX Decoder Initializer is not supported.") // CHECK
-//    }
-//
-//    public func encode(to encoder: Encoder) throws {}
     
     // MARK: Sampler
     

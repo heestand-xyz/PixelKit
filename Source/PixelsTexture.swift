@@ -12,7 +12,7 @@ extension Pixels {
     
     enum TextureError: Error {
         case pixelBuffer
-        case empty
+        case emptyFail
         case copy(String)
         case multi(String)
     }
@@ -97,11 +97,9 @@ extension Pixels {
     func makeTexture(from pixelBuffer: CVPixelBuffer) throws -> MTLTexture {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
-        // MARK: Metal code doesn't compile on the Simulator.
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, bits.mtl /*LiveColor.Bits._8.mtl*/, width, height, 0, &cvTextureOut)
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, bits.mtl, width, height, 0, &cvTextureOut)
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
-            // FIXME: macOS: https://stackoverflow.com/a/38128521/4586652
             throw TextureError.pixelBuffer
         }
         return inputTexture
@@ -110,10 +108,10 @@ extension Pixels {
     func emptyTexture(size: CGSize) throws -> MTLTexture {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: bits.mtl, width: Int(size.width), height: Int(size.height), mipmapped: true)
         descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
-        guard let t = metalDevice.makeTexture(descriptor: descriptor) else {
-            throw TextureError.empty
+        guard let texture = metalDevice.makeTexture(descriptor: descriptor) else {
+            throw TextureError.emptyFail
         }
-        return t
+        return texture
     }
     
     func copyTexture(from pix: PIX) throws -> MTLTexture {

@@ -53,7 +53,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
     float angle = (in.angle / 360) * pi * 2;
     float2 pos = float2(in.x, in.y);
     
-    float ammounts = 1.0;
+    float amounts = 1.0;
     
     if (in.type < 0.5) {
         
@@ -64,7 +64,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                 if (x != 0 && y != 0) {
                     float dist = sqrt(pow(float(x), 2) + pow(float(y), 2));
                     if (dist <= res) {
-                        float ammount = pow(1.0 - dist / (res + 1), 0.5);
+                        float amount = pow(1.0 - dist / (res + 1), 0.5);
                         float xu = u;
                         float yv = v;
                         if (aspect < 1.0) {
@@ -74,8 +74,8 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                             xu += ((float(x) / h) * in.radius * lum) / res;
                             yv += ((float(y) / h) * in.radius * lum) / res;
                         }
-                        ca += inTexA.sample(s, float2(xu, yv)) * ammount;
-                        ammounts += ammount;
+                        ca += inTexA.sample(s, float2(xu, yv)) * amount;
+                        amounts += amount;
                     }
                 }
             }
@@ -87,7 +87,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         
         for (int x = -res; x <= res; ++x) {
             if (x != 0) {
-                float ammount = pow(1.0 - x / (res + 1), 0.5);
+                float amount = pow(1.0 - x / (res + 1), 0.5);
                 float xu = u;
                 float yv = v;
                 if (aspect < 1.0) {
@@ -97,8 +97,8 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                     xu += ((float(x) / h) * cos(-angle) * in.radius * lum) / res;
                     yv += ((float(x) / h) * sin(-angle) * in.radius * lum) / res;
                 }
-                ca += inTexA.sample(s, float2(xu, yv)) * ammount;
-                ammounts += ammount;
+                ca += inTexA.sample(s, float2(xu, yv)) * amount;
+                amounts += amount;
             }
         }
         
@@ -108,7 +108,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         
         for (int x = -res; x <= res; ++x) {
             if (x != 0) {
-                float ammount = pow(1.0 - x / (res + 1), 0.5);
+                float amount = pow(1.0 - x / (res + 1), 0.5);
                 float xu = u;
                 float yv = v;
                 if (aspect < 1.0) {
@@ -118,8 +118,8 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                     xu += (((float(x) * (u - 0.5 - pos.x)) / h) * in.radius * lum) / res;
                     yv += (((float(x) * (v - 0.5 + pos.y)) / h) * in.radius * lum) / res;
                 }
-                ca += inTexA.sample(s, float2(xu, yv)) * ammount;
-                ammounts += ammount;
+                ca += inTexA.sample(s, float2(xu, yv)) * amount;
+                amounts += amount;
             }
         }
         
@@ -129,7 +129,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         
         for (int x = -res; x <= res; ++x) {
             if (x != 0) {
-                float ammount = pow(1.0 - x / (res + 1), 0.5);
+                float amount = pow(1.0 - x / (res + 1), 0.5);
                 float xu = u;
                 float yv = v;
                 if (aspect < 1.0) {
@@ -139,8 +139,8 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                     xu += ((float(x) / h) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
                     yv += ((float(x) / h) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
                 }
-                ca += inTexA.sample(s, float2(xu, yv)) * ammount;
-                ammounts += ammount;
+                ca += inTexA.sample(s, float2(xu, yv)) * amount;
+                amounts += amount;
             }
         }
         
@@ -157,7 +157,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         
     }
     
-    ca /= ammounts;
+    ca /= amounts;
     
     return ca;
 }

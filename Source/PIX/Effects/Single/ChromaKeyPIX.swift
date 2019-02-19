@@ -25,39 +25,6 @@ public class ChromaKeyPIX: PIXSingleEffect {
         return [keyColor, range, softness, edgeDesaturation, premultiply]
     }
     
-//    enum ChromaKeyCodingKeys: String, CodingKey {
-//        case keyColor; case range; case softness; case edgeDesaturation; case premultiply
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        var vals: [CGFloat] = []
-//        vals.append(contentsOf: keyColor.list)
-//        vals.append(contentsOf: [range, softness, edgeDesaturation, premultiply ? 1 : 0])
-//        return vals
-//    }
-    
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        let container = try decoder.container(keyedBy: ChromaKeyCodingKeys.self)
-//        keyLiveColor = try container.decode(Color.self, forKey: .keyColor)
-//        range = try container.decode(CGFloat.self, forKey: .range)
-//        softness = try container.decode(CGFloat.self, forKey: .softness)
-//        edgeDesaturation = try container.decode(CGFloat.self, forKey: .edgeDesaturation)
-//        premultiply = try container.decode(Bool.self, forKey: .premultiply)
-//        setNeedsRender()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: ChromaKeyCodingKeys.self)
-//        try container.encode(keyColor, forKey: .keyColor)
-//        try container.encode(range, forKey: .range)
-//        try container.encode(softness, forKey: .softness)
-//        try container.encode(edgeDesaturation, forKey: .edgeDesaturation)
-//        try container.encode(premultiply, forKey: .premultiply)
-//    }
-    
 }
 
 public extension PIXOut {
