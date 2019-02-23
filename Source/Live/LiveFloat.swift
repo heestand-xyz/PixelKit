@@ -417,6 +417,12 @@ public func atan(_ live: LiveFloat) -> LiveFloat {
 public func atan2(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan2(CGFloat(live1), CGFloat(live2)) })
 }
+public func atan(of point: LivePoint) -> LiveFloat {
+    return LiveFloat({ return atan2(CGFloat(point.y), CGFloat(point.x)) })
+}
+public func angle(of point: LivePoint) -> LiveFloat {
+    return atan(of: point) / (.pi * 2)
+}
 
 public func maximum(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return Swift.max(CGFloat(live1), CGFloat(live2)) })
