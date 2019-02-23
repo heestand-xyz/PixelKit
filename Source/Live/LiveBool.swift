@@ -55,6 +55,18 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     var uniformCache: Bool? = nil
     
+    public static var touch: LiveBool {
+        return LiveBool({ () -> (Bool) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if pix.view.liveTouchView.touchDown {
+                    return true
+                }
+            }
+            return false
+        })
+    }
+    
     public init(_ liveValue: @escaping () -> (Bool)) {
         self.liveValue = liveValue
     }
@@ -96,6 +108,9 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     public static func <?> (lhs: LiveBool, rhs: (LiveInt, LiveInt)) -> LiveInt {
         return LiveInt({ return Bool(lhs) ? Int(rhs.0) : Int(rhs.1) })
+    }
+    public static func <?> (lhs: LiveBool, rhs: (LiveColor, LiveColor)) -> LiveColor {
+        return LiveColor({ return Bool(lhs) ? rhs.0._color : rhs.1._color })
     }
     
 }

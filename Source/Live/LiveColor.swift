@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import AVFoundation
+
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
@@ -108,6 +110,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         }
         var os: OSType {
             return kCVPixelFormatType_32BGRA
+//            switch self {
+//            case ._8: return kCVPixelFormatType_32BGRA
+//            case ._16, ._32: return kCVPixelFormatType_32ARGB
+//            }
         }
         var osARGB: OSType {
             return kCVPixelFormatType_32ARGB
@@ -143,6 +149,12 @@ public class LiveColor: LiveValue, CustomStringConvertible {
 
     var space: Space {
         return Pixels.main.colorSpace
+    }
+    
+    // MARK: Touch
+    
+    public static var touch: LiveColor {
+        return LiveColor(lum: .touch)
     }
     
     // MARK: Properties
@@ -239,12 +251,12 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     // MARK: - UI
     
     #if os(iOS)
-    public init(_ ui: UIColor/*, space: Space = Pixels.main.colorSpace*/) {
-        let ci = CIColor(color: ui)
-        r = LiveFloat(ci.red)
-        g = LiveFloat(ci.green)
-        b = LiveFloat(ci.blue)
-        a = LiveFloat(ci.alpha)
+    public init(_ uiColor: UIColor/*, space: Space = Pixels.main.colorSpace*/) {
+        let ciColor = CIColor(color: uiColor)
+        r = LiveFloat(ciColor.red)
+        g = LiveFloat(ciColor.green)
+        b = LiveFloat(ciColor.blue)
+        a = LiveFloat(ciColor.alpha)
 //        self.space = space
     }
     #endif
@@ -252,13 +264,13 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     // MARK: - NS
     
     #if os(macOS)
-    public init(_ ns: NSColor/*, space: Space = Pixels.main.colorSpace*/) {
-        let ci = CIColor(color: ns)
+    public init(_ nsColor: NSColor/*, space: Space = Pixels.main.colorSpace*/) {
+        let ciColor = CIColor(color: nsColor)
         // FIXME: Optional LiveFloat
-        r = LiveFloat(ci?.red ?? 0.0)
-        g = LiveFloat(ci?.green ?? 0.0)
-        b = LiveFloat(ci?.blue ?? 0.0)
-        a = LiveFloat(ci?.alpha ?? 0.0)
+        r = LiveFloat(ciColor?.red ?? 0.0)
+        g = LiveFloat(ciColor?.green ?? 0.0)
+        b = LiveFloat(ciColor?.blue ?? 0.0)
+        a = LiveFloat(ciColor?.alpha ?? 0.0)
 //        self.space = space
     }
     #endif
@@ -688,6 +700,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
             b: 1.0 - operand.b,
             a: operand.a/*,
              space: operand.space*/)
+    }
+    
+    public static func <=> (lhs: LiveColor, rhs: LiveColor) -> (LiveColor, LiveColor) {
+        return (lhs, rhs)
     }
     
 }

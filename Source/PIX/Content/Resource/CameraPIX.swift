@@ -240,6 +240,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         sessionOutput.alwaysDiscardsLateVideoFrames = true
         sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
         
+//        print("->>>>>>> availableVideoCVPixelFormatTypes:", AVCaptureVideoDataOutput.recommendedVideoSettings(sessionOutput))
+        //availableVideoCVPixelFormatTypes
+        
         #if os(iOS)
         let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
         #elseif os(macOS)

@@ -112,6 +112,12 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    public static var touch: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return Bool(LiveBool.touch) ? 1.0 : 0.0
+        })
+    }
+    
     
     public init(_ liveValue: @escaping () -> (CGFloat)) {
         self.liveValue = liveValue

@@ -38,6 +38,8 @@ public class PIXView: _View {
     public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
     let checkerView: CheckerView
     
+    let liveTouchView: LiveTouchView
+    
     #if os(macOS)
     public override var frame: NSRect { didSet { _ = layoutFillMode() } }
     #endif
@@ -48,6 +50,8 @@ public class PIXView: _View {
 
         metalView = PIXMetalView()
         
+        liveTouchView = LiveTouchView()
+        
         super.init(frame: .zero)
         
         #if os(iOS)
@@ -57,6 +61,8 @@ public class PIXView: _View {
         addSubview(checkerView)
         
         addSubview(metalView)
+        
+        addSubview(liveTouchView)
         
         autoLayout()
         
@@ -77,6 +83,12 @@ public class PIXView: _View {
         heightLayoutConstraint = metalView.heightAnchor.constraint(equalToConstant: 1)
         widthLayoutConstraint.isActive = true
         heightLayoutConstraint.isActive = true
+        
+        liveTouchView.translatesAutoresizingMaskIntoConstraints = false
+        liveTouchView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        liveTouchView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        liveTouchView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
+        liveTouchView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
         
     }
     

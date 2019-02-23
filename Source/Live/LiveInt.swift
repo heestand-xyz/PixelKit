@@ -43,6 +43,12 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return value
     }
     
+    public static var touch: LiveInt {
+        return LiveInt({ () -> (Int) in
+            return Bool(LiveBool.touch) ? 1 : 0
+        })
+    }
+    
 //    var limit: Bool = false
 //    var min: CGFloat = 0.0
 //    var max: CGFloat = 1.0
