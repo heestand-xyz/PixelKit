@@ -42,6 +42,18 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     
     public static var zero: LivePoint { return LivePoint(x: 0.0, y: 0.0) }
     
+    public static var touchPoint: LivePoint {
+        return LivePoint({ () -> (CGPoint) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if let touchPoint = pix.view.liveTouchView.touchPoint {
+                    return touchPoint
+                }
+            }
+            return .zero
+        })
+    }
+    
     // MARK: Life Cycle
     
     public init(_ liveValue: @escaping () -> (CGPoint)) {

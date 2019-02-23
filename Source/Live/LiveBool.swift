@@ -59,7 +59,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
         return LiveBool({ () -> (Bool) in
             for pix in Pixels.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
-                if pix.view.liveTouchView.touchDown {
+                if pix.view.liveTouchView.touch {
                     return true
                 }
             }
