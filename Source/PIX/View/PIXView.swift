@@ -155,6 +155,10 @@ public class PIXView: _View {
 //        }
     }
     
+    public func liveTouch(active: Bool) {
+        liveTouchView.isUserInteractionEnabled = active
+    }
+    
     #if os(iOS)
     public override func layoutSubviews() {
         super.layoutSubviews()

@@ -72,6 +72,10 @@ class LiveTouchView: UIView {
 //        }
     }
     
+//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+//        return false
+//    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
