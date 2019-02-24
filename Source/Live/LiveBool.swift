@@ -55,6 +55,10 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     var uniformCache: Bool? = nil
     
+    public var val: Bool {
+        return value
+    }
+    
     public static var touch: LiveBool {
         return LiveBool({ () -> (Bool) in
             for pix in Pixels.main.linkedPixs {
@@ -69,6 +73,10 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     
     public init(_ liveValue: @escaping () -> (Bool)) {
         self.liveValue = liveValue
+    }
+    
+    public init(_ value: Bool) {
+        liveValue = { return value }
     }
     
     required public init(booleanLiteral value: BooleanLiteralType) {

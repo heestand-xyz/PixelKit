@@ -94,12 +94,11 @@ extension Pixels {
         return pixelBuffer
     }
     
-    func makeTexture(from pixelBuffer: CVPixelBuffer) throws -> MTLTexture {
-        let scale = 1
-        let width = CVPixelBufferGetWidth(pixelBuffer) / scale
-        let height = CVPixelBufferGetHeight(pixelBuffer) / scale
+    func makeTexture(from pixelBuffer: CVPixelBuffer, force8bit: Bool = false) throws -> MTLTexture {
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, bits.mtl, width, height, 0, &cvTextureOut)
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, force8bit ? LiveColor.Bits._8.mtl : bits.mtl, width, height, 0, &cvTextureOut)
         guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
             throw TextureError.pixelBuffer
         }
@@ -171,7 +170,7 @@ extension Pixels {
                 guard let pixelBuffer = pixResource.pixelBuffer else {
                     throw RenderError.texture("Pixel Buffer is nil.")
                 }
-                inputTexture = try makeTexture(from: pixelBuffer)
+                inputTexture = try makeTexture(from: pixelBuffer, force8bit: (pix as? CameraPIX) != nil)
             } else if pixContent is PIXGenerator {
                 generator = true
             } else if let pixSprite = pixContent as? PIXSprite {

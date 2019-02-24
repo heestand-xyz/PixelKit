@@ -39,7 +39,7 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     }
     var uniformCache: Int? = nil
     
-    public var int: Int {
+    public var val: Int {
         return value
     }
     
