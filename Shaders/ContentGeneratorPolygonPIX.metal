@@ -58,7 +58,7 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
     v = 1 - v; // Content Flip Fix
     float2 uv = float2(u, v);
     
-    float2 p = float2(in.x, -in.y);
+    float2 p = float2(in.x / in.aspect, in.y);
     
     float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
     float4 bc = float4(in.br, in.bg, in.bb, in.ba);

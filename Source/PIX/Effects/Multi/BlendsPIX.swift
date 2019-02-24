@@ -26,3 +26,15 @@ public class BlendsPIX: PIXMultiEffect {
     }
     
 }
+//
+//public extension PIXOut {
+//
+//    func _blendRepeate() -> BlendsPIX {
+//        let blendsPix = BlendsPIX()
+//        blendsPix.name = "_blendRepeate:blends"
+//        blendsPix.inPix = self as? PIX & PIXOut
+//        blendsPix.brightness = brightness
+//        return blendsPix
+//    }
+//
+//}

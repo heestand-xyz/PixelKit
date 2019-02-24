@@ -46,13 +46,29 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return LivePoint({ () -> (CGPoint) in
             for pix in Pixels.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
-                if let touchPoint = pix.view.liveTouchView.touchPoint {
+                if let touchPoint = pix.view.liveTouchView.touchPointMain {
                     return touchPoint
                 }
             }
             return .zero
         })
     }
+//    public static var touchPoints: [LivePoint] {
+//        var points: [LivePoint] = []
+//        for i in 0..<10 {
+//            let point = LivePoint({ () -> (CGPoint) in
+//                for pix in Pixels.main.linkedPixs {
+//                    guard pix.view.superview != nil else { continue }
+//                    let touchPoints = pix.view.liveTouchView.touchPoints
+//                    guard touchPoints.count > i else { continue }
+//                    return touchPoints[i]
+//                }
+//                return .zero
+//            })
+//            points.append(point)
+//        }
+//        return points
+//    }
     
     // MARK: Life Cycle
     
