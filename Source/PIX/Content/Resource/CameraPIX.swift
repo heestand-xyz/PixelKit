@@ -194,15 +194,17 @@ public class CameraPIX: PIXResource {
     
 }
 
-class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
     
     let pixels = Pixels.main
     
     let cameraPosition: AVCaptureDevice.Position
+    let photoSupport: Bool
     
     let captureSession: AVCaptureSession
-    let sessionOutput: AVCaptureVideoDataOutput
-    
+    let videoOutput: AVCaptureVideoDataOutput
+    let photoOutput: AVCapturePhotoOutput?
+
     var lastUIOrientation: _Orientation
 
     var initialFrameCaptured = false
@@ -211,9 +213,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, photoSupport: Bool = false, setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         self.cameraPosition = cameraPosition
+        self.photoSupport = photoSupport
         
         setupCallback = setup
         capturedCallback = captured
@@ -225,9 +228,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         #endif
         
         captureSession = AVCaptureSession()
-        sessionOutput = AVCaptureVideoDataOutput()
+        videoOutput = AVCaptureVideoDataOutput()
+        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
+        
         
         super.init()
+        
         
         let preset: AVCaptureSession.Preset = camRes.sessionPreset
         
@@ -237,8 +243,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             captureSession.sessionPreset = .high
         }
         
-        sessionOutput.alwaysDiscardsLateVideoFrames = true
-        sessionOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
+        videoOutput.alwaysDiscardsLateVideoFrames = true
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
         
 //        print("->>>>>>> availableVideoCVPixelFormatTypes:", AVCaptureVideoDataOutput.recommendedVideoSettings(sessionOutput))
         //availableVideoCVPixelFormatTypes
@@ -254,10 +260,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                 let input = try AVCaptureDeviceInput(device: device!)
                 if captureSession.canAddInput(input) {
                     captureSession.addInput(input)
-                    if captureSession.canAddOutput(sessionOutput){
-                        captureSession.addOutput(sessionOutput)
+                    if captureSession.canAddOutput(videoOutput){
+                        captureSession.addOutput(videoOutput)
                         let queue = DispatchQueue(label: "se.hexagons.pixels.pix.camera.queue")
-                        sessionOutput.setSampleBufferDelegate(self, queue: queue)
+                        videoOutput.setSampleBufferDelegate(self, queue: queue)
                         start()
                     } else {
                         pixels.log(.error, .resource, "Camera can't add output.")
@@ -372,5 +378,46 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         captureSession.stopRunning()
     }
     
+    // MARK: Photo
+    
+    func capture() {
+        guard photoSupport else {
+            pixels.log(.warning, .resource, "Photo Capture not enabled.")
+            return
+        }
+        guard let availableRawFormat = photoOutput!.availableRawPhotoPixelFormatTypes.first else { return }
+        let photoSettings = AVCapturePhotoSettings(rawPixelFormatType: availableRawFormat,
+                                                   processedFormat: [AVVideoCodecKey : AVVideoCodecType.hevc])
+        photoSettings.isAutoStillImageStabilizationEnabled = false // RAW is incompatible with image stabilization.
+        photoOutput!.capturePhoto(with: photoSettings, delegate: self)
+    }
+    
+    var rawImageFileURL: URL?
+//    var compressedFileData: Data?
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+        if photo.isRawPhoto {
+            // Save the RAW (DNG) file data to a URL.
+            let dngFileURL = self.makeUniqueTempFileURL(extension: "dng")
+            do {
+                try photo.fileDataRepresentation()!.write(to: dngFileURL)
+                // ...
+            } catch {
+                fatalError("couldn't write DNG file to URL")
+            }
+        } else {
+//            self.compressedFileData = photo.fileDataRepresentation()!
+        }
+        
+    }
+
+    func makeUniqueTempFileURL(extension type: String) -> URL {
+        let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+        let uniqueFilename = ProcessInfo.processInfo.globallyUniqueString
+        let urlNoExt = temporaryDirectoryURL.appendingPathComponent(uniqueFilename)
+        let url = urlNoExt.appendingPathExtension(type)
+        return url
+    }
 }
 
