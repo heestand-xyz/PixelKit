@@ -53,7 +53,6 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
         let res: PIX.Res = resolution ?? relRes
         let relHeight = res.height / relRes.height
         let relRadius = min(radius * relHeight, 1.0)
-        print(relRadius)
         let maxRadius: CGFloat = 32 * 10
         let mappedRadius = relRadius * maxRadius
         return mappedRadius //radius.uniform * 32 * 10
