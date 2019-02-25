@@ -77,9 +77,4 @@ public extension PIXOut {
         return levelsPix
     }
     
-    func _hdr(_ gamma: LiveFloat, blur: LiveFloat) -> BlendPIX {
-        let pix = self as! PIX & PIXOut
-        return ((pix - 0.5) !** (!pix._blur(blur) * gamma)) + 0.5
-    }
-    
 }
