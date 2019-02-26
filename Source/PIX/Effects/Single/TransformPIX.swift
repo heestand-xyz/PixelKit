@@ -36,12 +36,20 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _rotatate(to rotation: LiveFloat) -> TransformPIX {
+    func _rotatate(by rotation: LiveFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "rotatate:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.rotation = rotation
         return transformPix
+    }
+    
+    func _rotatate(by360 rotation: LiveFloat) -> TransformPIX {
+        return (self as! PIX & PIXOut)._rotatate(by: rotation / 360)
+    }
+    
+    func _rotatate(by2pi rotation: LiveFloat) -> TransformPIX {
+        return (self as! PIX & PIXOut)._rotatate(by: rotation / (.pi * 2))
     }
     
     func _scale(by scale: LiveFloat) -> TransformPIX {

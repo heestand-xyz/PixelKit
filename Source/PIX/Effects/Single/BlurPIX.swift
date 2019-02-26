@@ -61,6 +61,8 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
         return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
     }
     
+    override open var shaderNeedsAspect: Bool { return true }
+    
     override public init() {
         super.init()
         extend = .hold

@@ -23,6 +23,7 @@ struct Uniforms{
     float angle;
     float x;
     float y;
+    float aspect;
 };
 
 fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
@@ -64,10 +65,10 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                         float yv = v;
                         if (aspect < 1.0) {
                             xu += ((float(x) / iw) * in.radius) / res;
-                            yv += ((float(y) / iw) * in.radius) / res;
+                            yv += (((float(y) / iw) * in.radius) / res) * in.aspect;
                         } else {
                             xu += ((float(x) / ih) * in.radius) / res;
-                            yv += ((float(y) / ih) * in.radius) / res;
+                            yv += (((float(y) / ih) * in.radius) / res) * in.aspect;
                         }
                         c += inTex.sample(s, float2(xu, yv)) * amount;
                         amounts += amount;
@@ -87,10 +88,10 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                 float yv = v;
                 if (aspect < 1.0) {
                     xu += ((float(x) / iw) * cos(-angle) * in.radius) / res;
-                    yv += ((float(x) / iw) * sin(-angle) * in.radius) / res;
+                    yv += (((float(x) / iw) * sin(-angle) * in.radius) / res) * in.aspect;
                 } else {
                     xu += ((float(x) / ih) * cos(-angle) * in.radius) / res;
-                    yv += ((float(x) / ih) * sin(-angle) * in.radius) / res;
+                    yv += (((float(x) / ih) * sin(-angle) * in.radius) / res) * in.aspect;
                 }
                 c += inTex.sample(s, float2(xu, yv)) * amount;
                 amounts += amount;
@@ -108,10 +109,10 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                 float yv = v;
                 if (aspect < 1.0) {
                     xu += (((float(x) * (u - 0.5 - pos.x)) / iw) * in.radius) / res;
-                    yv += (((float(x) * (v - 0.5 + pos.y)) / iw) * in.radius) / res;
+                    yv += ((((float(x) * (v - 0.5 + pos.y)) / iw) * in.radius) / res) * in.aspect;
                 } else {
                     xu += (((float(x) * (u - 0.5 - pos.x)) / ih) * in.radius) / res;
-                    yv += (((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res;
+                    yv += ((((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res) * in.aspect;
                 }
                 c += inTex.sample(s, float2(xu, yv)) * amount;
                 amounts += amount;
@@ -148,7 +149,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
         float ru = loki_rnd_u.rand();
         Loki loki_rnd_v = Loki(1, u * max_res, v * max_res);
         float rv = loki_rnd_v.rand();
-        float2 ruv = uv + (float2(ru, rv) - 0.5) * in.radius * 0.001;
+        float2 ruv = uv + (float2(ru, rv) - 0.5) * in.radius * 0.001 * float2(1.0, in.aspect);
         c = inTex.sample(s, ruv);
         
     }
