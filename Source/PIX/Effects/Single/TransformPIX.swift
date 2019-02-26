@@ -28,12 +28,16 @@ public class TransformPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _position(at position: LivePoint) -> TransformPIX {
+    func _move(by position: LivePoint) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "position:transform"
         transformPix.inPix = self as? PIX & PIXOut
         transformPix.position = position
         return transformPix
+    }
+    
+    func _move(x: LiveFloat = 0.0, y: LiveFloat = 0.0) -> TransformPIX {
+        return (self as! PIX & PIXOut)._move(by: LivePoint(x: x, y: y))
     }
     
     func _rotatate(by rotation: LiveFloat) -> TransformPIX {

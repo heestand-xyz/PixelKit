@@ -129,6 +129,10 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return LivePoint(x: x.filter(seconds: seconds, smooth: smooth), y: y.filter(seconds: seconds, smooth: smooth))
     }
     
+    public func liveCircle(seconds: LiveFloat = 1.0, scale: LiveFloat = 1.0) -> LivePoint {
+        return LivePoint(x: cos(.live * seconds) * scale, y: sin(.live * seconds) * scale)
+    }
+    
     /// noise is a combo of liveRandom and smooth filter
     ///
     /// deafults - liveRandom range: -0.5...0.5 - filter seconds: 1.0
