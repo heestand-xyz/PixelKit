@@ -22,8 +22,19 @@ class LiveTouchView: UIView {
 //    }
 //    var allTouches: [UITouch] = []
     
+    var touchEventCallback: ((Bool) -> ())?
+    var touchPointEventCallback: ((CGPoint) -> ())?
+    
     init() {
         super.init(frame: .zero)
+    }
+    
+    func touchEvent(_ callback: @escaping (Bool) -> ()) {
+        touchEventCallback = callback
+    }
+    
+    func touchPointEvent(_ callback: @escaping (CGPoint) -> ()) {
+        touchPointEventCallback = callback
     }
     
     func point(of touch: UITouch) -> CGPoint {
@@ -43,6 +54,7 @@ class LiveTouchView: UIView {
 //        for touch in touches {
 //            allTouches.append(touch)
 //        }
+        touchEventCallback?(true)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -50,7 +62,9 @@ class LiveTouchView: UIView {
     }
     func moved(_ touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
-        touchPointMain = point(of: touch)
+        let touchPoint = point(of: touch)
+        touchPointMain = touchPoint
+        touchPointEventCallback?(touchPoint)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,6 +84,7 @@ class LiveTouchView: UIView {
 //                }
 //            }
 //        }
+        touchEventCallback?(false)
     }
     
 //    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

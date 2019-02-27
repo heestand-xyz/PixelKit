@@ -47,6 +47,16 @@ public extension PIXOut {
         return displacePix
     }
     
+    func _noiseDisplace(distance: CGFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
+        let pix = self as! PIX & PIXOut
+        let noisePix = NoisePIX(res: pix.resolution ?? ._128) // FIXME: with LiveRes
+        noisePix.name = "noiseDisplace:noise"
+        noisePix.colored = true
+        noisePix.zPosition = zPosition
+        noisePix.octaves = octaves
+        return pix._displace(with: noisePix, distance: distance)
+    }
+    
 //    func _displaceNoise(distance: CGFloat, octaves: Int) -> DisplacePIX {
 //        let noisePix = NoisePIX(res: (self as? PIX & PIXOut)?.resolution ?? ._128)
 //        noisePix.name = "displaceNoise:noise"

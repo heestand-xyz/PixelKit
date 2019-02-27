@@ -159,6 +159,27 @@ public class PIXView: _View {
         liveTouchView.isUserInteractionEnabled = active
     }
     
+    public func touchEvent(_ callback: @escaping (Bool) -> ()) {
+        liveTouchView.touchEvent { touch in
+            callback(touch)
+        }
+    }
+    
+    public func touchPointEvent(_ callback: @escaping (CGPoint) -> ()) {
+        liveTouchView.touchPointEvent { point in
+            callback(point)
+        }
+    }
+    
+    public func touchUVEvent(_ callback: @escaping (CGPoint) -> ()) {
+        liveTouchView.touchPointEvent { point in
+            guard self.boundsReady else { return }
+            let aspect = self.bounds.width / self.bounds.height
+            let uv = CGPoint(x: (point.x + aspect / 2) / aspect, y: point.y + 0.5)
+            callback(uv)
+        }
+    }
+    
     #if os(iOS)
     public override func layoutSubviews() {
         super.layoutSubviews()
