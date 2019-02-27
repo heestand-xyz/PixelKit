@@ -7,11 +7,12 @@
 //
 
 import MetalKit
+import VideoToolbox
 
 extension Pixels {
     
     enum TextureError: Error {
-        case pixelBuffer
+        case pixelBuffer(Int)
         case emptyFail
         case copy(String)
         case multi(String)
@@ -95,14 +96,38 @@ extension Pixels {
     }
     
     func makeTexture(from pixelBuffer: CVPixelBuffer, force8bit: Bool = false) throws -> MTLTexture {
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, force8bit ? LiveColor.Bits._8.mtl : bits.mtl, width, height, 0, &cvTextureOut)
-        guard let cvTexture = cvTextureOut, let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
-            throw TextureError.pixelBuffer
+//        let width = CVPixelBufferGetWidth(pixelBuffer)
+//        let height = CVPixelBufferGetHeight(pixelBuffer)
+//        var cvTextureOut: CVMetalTexture?
+//        let colorBits: MTLPixelFormat = force8bit ? LiveColor.Bits._8.mtl : bits.mtl
+//        let attributes = [
+////            "IOSurfaceOpenGLESFBOCompatibility": true,
+////            "IOSurfaceOpenGLESTextureCompatibility": true,
+//            "IOSurfaceCoreAnimationCompatibility": true
+//            ] as CFDictionary
+//        let kCVReturn = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, attributes, colorBits, width, height, 0, &cvTextureOut)
+//        guard kCVReturn == kCVReturnSuccess else {
+//            throw TextureError.pixelBuffer(-1)
+//        }
+//        guard let cvTexture = cvTextureOut else {
+//            throw TextureError.pixelBuffer(-2)
+//        }
+//        guard let inputTexture = CVMetalTextureGetTexture(cvTexture) else {
+//            throw TextureError.pixelBuffer(-3)
+//        }
+//        return inputTexture
+        var cgImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+        guard let image = cgImage else {
+            throw TextureError.pixelBuffer(-4)
         }
-        return inputTexture
+        return try makeTexture(from: image)
+    }
+
+    func makeTexture(from image: CGImage) throws -> MTLTexture {
+        let textureLoader = MTKTextureLoader(device: metalDevice)
+        let texture: MTLTexture = try textureLoader.newTexture(cgImage: image, options: nil)
+        return texture
     }
     
     func emptyTexture(size: CGSize) throws -> MTLTexture {

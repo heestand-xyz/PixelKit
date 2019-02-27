@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
+		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
+		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
+		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
@@ -178,6 +181,9 @@
 
 /* Begin PBXFileReference section */
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
+		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
+		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
+		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
@@ -321,6 +327,7 @@
 				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
 				7424A1B4212F5C9300401654 /* PIXModes.swift */,
 				74076D04211A27D2000E56E0 /* PIXRes.swift */,
+				3A370F6422268C44001B0208 /* Peer.swift */,
 				7465FC75211A3CAC00899359 /* View */,
 				7452F4C7210A336A001AA523 /* Content */,
 				7452F4C8210A3378001AA523 /* Effects */,
@@ -357,6 +364,7 @@
 				7452F4C4210A3337001AA523 /* PIXOutput.swift */,
 				743F375C215BADDF002BC5BA /* AirPlayPIX.swift */,
 				743F375E215BB2C3002BC5BA /* RecPIX.swift */,
+				3A370F6622268EC1001B0208 /* StreamOutPIX.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -452,6 +460,7 @@
 				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
 				749EB33E2119A5D900921BDF /* ImagePIX.swift */,
 				7441339F212F859D00326015 /* VideoPIX.swift */,
+				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -806,6 +815,7 @@
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
+				3A370F6522268C45001B0208 /* Peer.swift in Sources */,
 				7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
@@ -815,6 +825,7 @@
 				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
 				747CBA7F214286C000CB2616 /* MetalEffectPIX.swift in Sources */,
 				3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */,
+				3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */,
 				74B488A2214122320033B3B5 /* FlipFlopPIX.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
 				7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */,
@@ -858,6 +869,7 @@
 				3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */,
 				7413742F2119C9990001890B /* PIXMetalView.swift in Sources */,
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
+				3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */,
 				740EC53A213EFC3E006E2996 /* PIXOperators.swift in Sources */,
 				3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */,
 				743F375D215BADDF002BC5BA /* AirPlayPIX.swift in Sources */,
