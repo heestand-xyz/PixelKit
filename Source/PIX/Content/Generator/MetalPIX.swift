@@ -24,12 +24,14 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
     let metalFileName = "ContentGeneratorMetalPIX.metal"
     
-    var metalUniforms: [MetalUniform]
+    public var metalUniforms: [MetalUniform] { didSet { setNeedsRender() } }
     
-    var metalEmbedCode: String
+    public var code: String { didSet { setNeedsRender() } }
+    public var isRawCode: Bool = false
     var metalCode: String? {
+        if isRawCode { return code }
         do {
-          return try pixels.embedMetalCode(uniforms: metalUniforms, code: metalEmbedCode, fileName: metalFileName)
+          return try pixels.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixels.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
@@ -46,7 +48,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
-        metalEmbedCode = code
+        self.code = code
         super.init(res: res)
     }
     
@@ -54,7 +56,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
 public extension MetalPIX {
     
-    public static func _uv(res: Res) -> MetalPIX {
+    static func _uv(res: Res) -> MetalPIX {
         let metalPix = MetalPIX(res: res, code:
             """
             pix = float4(u, v, 0.0, 1.0);
