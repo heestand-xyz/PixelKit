@@ -42,7 +42,7 @@ fragment float4 effectSingleLevelsPIX(VertexOut out [[stage_in]],
     c *= in.brightness;
     
     c -= 0.5;
-    c *= 1.0 - in.contrast;
+    c *= 1.0 + in.contrast;
     c += 0.5;
     
     c = pow(c, 1 / max(0.001, in.gamma));

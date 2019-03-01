@@ -107,6 +107,7 @@
 		741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
 		741D2CF921AC9CC0007259E3 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* ExtensionString.swift */; };
 		741D2CFB21ACA05E007259E3 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* ExtensionString.swift */; };
+		741F3B852229912100D188DF /* PixelsShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */; };
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
@@ -289,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				741F3B852229912100D188DF /* PixelsShaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

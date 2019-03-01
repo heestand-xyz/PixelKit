@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Metal
 import MetalKit
 
 public class Pixels {
