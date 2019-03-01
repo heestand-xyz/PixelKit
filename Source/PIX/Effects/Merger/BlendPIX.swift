@@ -32,7 +32,7 @@ public class BlendPIX: PIXMergerEffect {
 //    }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(blendingMode.index), !bypassTransform.value ? 1 : 0, position.x.cg, position.y.cg, rotation.cg, scale.cg, size.width.cg, size.height.cg]
+        return [CGFloat(blendingMode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
     }
     
 }
