@@ -48,6 +48,8 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     func startHosting() {
         self.mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "pxn-stream", discoveryInfo: nil, session: mcSession)
         self.mcAdvertiserAssistant.start()
+        imgInIndex = 0
+        imgOutIndex = 0
     }
     
     func joinSession() {
@@ -58,6 +60,8 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
             return
         }
         vc.present(mcBrowser, animated: true)
+        imgInIndex = 0
+        imgOutIndex = 0
     }
     
     func sendImg(img: UIImage, quality: CGFloat) {
@@ -102,6 +106,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         } catch let error as NSError {
             Pixels.main.log(.error, .connection, "StreamPeer: Send dissconnect.", e: error)
         }
+        imgOutIndex = 0
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
@@ -136,6 +141,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
                 if self.disconnect != nil {
                     DispatchQueue.main.async {
                         self.disconnect!()
+                        self.imgInIndex = 0
                     }
                 }
             }
