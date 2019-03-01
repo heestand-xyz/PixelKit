@@ -57,7 +57,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public var cg: CGFloat {
         return value
     }
-    public var db: Double {
+    public var double: Double {
         return Double(value)
     }
     

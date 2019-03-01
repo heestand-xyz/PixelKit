@@ -15,7 +15,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     // MARK: - Public Properties
     
-    public enum Style: String, Codable {
+    public enum Style: String, Codable, CaseIterable {
         case guassian
         case box
         case angle
