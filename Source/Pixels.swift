@@ -395,6 +395,7 @@ public class Pixels {
         case metal(String)
         case sampler(String)
         case metalCode
+        case metalError(Error, MTLFunction)
         case metalErrorError
         case notFound(String)
     }
@@ -404,25 +405,31 @@ public class Pixels {
     func makeFrag(_ shaderName: String, with customMetalLibrary: MTLLibrary? = nil, from pix: PIX) throws -> MTLFunction {
         let frag: MTLFunction
         if let metalPix = pix as? PIXMetal {
-            do {
-                guard let metalCode = metalPix.metalCode else {
-                    throw ShaderError.metalCode
-                }
-                let metalFrag = try makeMetalFrag(code: metalCode, name: shaderName)
-                frag = metalFrag
-            } catch {
-                log(.error, nil, "Metal code in \"\(shaderName)\".", e: error)
-                guard let errorFrag = metalLibrary.makeFunction(name: "error") else {
-                    throw ShaderError.metalErrorError
-                }
-                frag = errorFrag
-            }
+            return try makeMetalFrag(shaderName, from: metalPix)
         } else {
             let lib = (customMetalLibrary ?? metalLibrary)!
             guard let shaderFrag = lib.makeFunction(name: shaderName) else {
                 throw ShaderError.notFound(shaderName)
             }
             frag = shaderFrag
+        }
+        return frag
+    }
+    
+    func makeMetalFrag(_ shaderName: String, from metalPix: PIXMetal) throws -> MTLFunction {
+        let frag: MTLFunction
+        do {
+            guard let metalCode = metalPix.metalCode else {
+                throw ShaderError.metalCode
+            }
+            let metalFrag = try makeMetalFrag(code: metalCode, name: shaderName)
+            frag = metalFrag
+        } catch {
+            log(.error, nil, "Metal code in \"\(shaderName)\".", e: error)
+            guard let errorFrag = metalLibrary.makeFunction(name: "error") else {
+                throw ShaderError.metalErrorError
+            }
+            throw ShaderError.metalError(error, errorFrag)
         }
         return frag
     }
