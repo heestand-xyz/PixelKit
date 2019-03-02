@@ -96,7 +96,7 @@ extension PIX {
         }
     }
     
-    public enum SampleQualityMode: Int, Codable {
+    public enum SampleQualityMode: Int, Codable, CaseIterable {
         case low = 4
         case mid = 8
         case high = 16
