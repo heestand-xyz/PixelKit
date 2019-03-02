@@ -64,4 +64,15 @@ public extension PIXOut {
         return lumaBlurPix
     }
     
+    func _tiltShift(radius: CGFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
+        let pix = self as! PIX & PIXOut
+        let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
+        gradientPix.name = "tiltShift:gradient"
+        gradientPix.style = .vertical
+        gradientPix.offset = 0.5
+        gradientPix.scale = 0.5
+        gradientPix.extendRamp = .mirror
+        return pix._lumaBlur(with: gradientPix !** gamma, radius: radius)
+    }
+    
 }

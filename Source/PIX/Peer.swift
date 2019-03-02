@@ -17,10 +17,14 @@ enum PeerState {
 
 class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     
-    
     var peerID: MCPeerID!
     var mcSession: MCSession!
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
+    
+    var imgInIndex: Int = 0
+    var imgOutIndex: Int = 0
+    
+    var sendCallback: (() -> ())?
     
     let gotImg: ((UIImage) -> ())?
     let peer: (PeerState, String) -> ()
@@ -44,6 +48,8 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     func startHosting() {
         self.mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "pxn-stream", discoveryInfo: nil, session: mcSession)
         self.mcAdvertiserAssistant.start()
+        imgInIndex = 0
+        imgOutIndex = 0
     }
     
     func joinSession() {
@@ -54,16 +60,42 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
             return
         }
         vc.present(mcBrowser, animated: true)
+        imgInIndex = 0
+        imgOutIndex = 0
     }
     
     func sendImg(img: UIImage, quality: CGFloat) {
-        if !mcSession.connectedPeers.isEmpty {
-            if let imageData = img.jpegData(compressionQuality: quality) {
-                do {
-                    try mcSession.send(imageData, toPeers: mcSession.connectedPeers, with: .reliable)
-                } catch let error as NSError {
-                    Pixels.main.log(.error, .connection, "StreamPeer: Send.", e: error)
+        sendCheck(index: imgOutIndex) {
+            if !self.mcSession.connectedPeers.isEmpty {
+                if let imageData = img.jpegData(compressionQuality: quality) {
+                    do {
+                        try self.mcSession.send(imageData, toPeers: self.mcSession.connectedPeers, with: .reliable)
+                        self.imgOutIndex += 1
+                    } catch let error as NSError {
+                        Pixels.main.log(.error, .connection, "StreamPeer: Send Img.", e: error)
+                    }
                 }
+            }
+        }
+    }
+    
+    func sendCheck(index: Int, callback: @escaping () -> ()) {
+        sendCallback = callback
+        if !mcSession.connectedPeers.isEmpty {
+            do {
+                try mcSession.send("check:\(index)".data(using: .utf8)!, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch let error as NSError {
+                Pixels.main.log(.error, .connection, "StreamPeer: Send Check.", e: error)
+            }
+        }
+    }
+    
+    func sendChecked() {
+        if !mcSession.connectedPeers.isEmpty {
+            do {
+                try mcSession.send("checked".data(using: .utf8)!, toPeers: mcSession.connectedPeers, with: .reliable)
+            } catch let error as NSError {
+                Pixels.main.log(.error, .connection, "StreamPeer: Send Checked.", e: error)
             }
         }
     }
@@ -74,6 +106,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         } catch let error as NSError {
             Pixels.main.log(.error, .connection, "StreamPeer: Send dissconnect.", e: error)
         }
+        imgOutIndex = 0
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
@@ -93,17 +126,33 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         if let image = UIImage(data: data) {
             if self.gotImg != nil {
                 DispatchQueue.main.async {
+                    self.imgInIndex += 1
                     self.gotImg!(image)
                 }
             }
         } else if let msg = String(data: data, encoding: .utf8) {
-            if msg == "disconnect" {
+            if msg == "checked" {
+                self.sendCallback?()
+                self.sendCallback = nil
+            } else if msg.starts(with: "check") {
+                let index = Int(msg.split(separator: ":").last!)!
+                ioCheck(index: index)
+            } else if msg == "disconnect" {
                 if self.disconnect != nil {
                     DispatchQueue.main.async {
                         self.disconnect!()
+                        self.imgInIndex = 0
                     }
                 }
             }
+        }
+    }
+    
+    func ioCheck(index: Int) {
+        if index == imgInIndex {
+            sendChecked()
+        } else {
+            Pixels.main.log(.warning, .connection, "StreamPeer: Waiting.")
         }
     }
     

@@ -21,6 +21,7 @@ public class ChannelMixPIX: PIXSingleEffect {
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
+        // CHECK: liveValue.uniform
         var vals: [CGFloat] = []
         vals.append(contentsOf: red.list)
         vals.append(contentsOf: green.list)

@@ -118,6 +118,16 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    public static var touchForce: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                return pix.view.liveTouchView.force
+            }
+            return 0.0
+        })
+    }
+    
     
     public init(_ liveValue: @escaping () -> (CGFloat)) {
         self.liveValue = liveValue

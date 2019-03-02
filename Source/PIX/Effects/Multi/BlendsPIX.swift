@@ -24,17 +24,17 @@ public class BlendsPIX: PIXMultiEffect {
     open override var uniforms: [CGFloat] {
         return [CGFloat(blendingMode.index)]
     }
+
+    public static func loop(_ range: Range<Int>, with blendingMode: BlendingMode, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+        let blendsPix = BlendsPIX()
+        blendsPix.name = "loop:blends"
+        blendsPix.blendingMode = blendingMode
+        for i in range {
+            let fraction = LiveFloat(i) / LiveFloat(range.upperBound - 1)
+            let pix = loop(LiveInt(i), fraction)
+            blendsPix.inPixs.append(pix)
+        }
+        return blendsPix
+    }
     
 }
-//
-//public extension PIXOut {
-//
-//    func _blendRepeate() -> BlendsPIX {
-//        let blendsPix = BlendsPIX()
-//        blendsPix.name = "_blendRepeate:blends"
-//        blendsPix.inPix = self as? PIX & PIXOut
-//        blendsPix.brightness = brightness
-//        return blendsPix
-//    }
-//
-//}
