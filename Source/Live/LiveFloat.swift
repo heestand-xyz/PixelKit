@@ -118,6 +118,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    public static var touchX: LiveFloat {
+        return LivePoint.touchPoint.x
+    }
+    
+    public static var touchY: LiveFloat {
+        return LivePoint.touchPoint.y
+    }
+    
     public static var touchForce: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             for pix in Pixels.main.linkedPixs {

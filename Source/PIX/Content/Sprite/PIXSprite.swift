@@ -10,7 +10,7 @@ import SpriteKit
 
 open class PIXSprite: PIXContent {
     
-    override open var shader: String { return "nilFlipPIX" }
+    override open var shader: String { return "spritePIX" }
     
     // MARK: - Public Properties
     
