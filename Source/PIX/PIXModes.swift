@@ -10,7 +10,7 @@ import MetalPerformanceShaders
 
 extension PIX {
     
-    public enum Placement: String, Codable {
+    public enum Placement: String, Codable, CaseIterable {
         case fill
         case aspectFit
         case aspectFill
