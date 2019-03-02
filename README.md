@@ -191,7 +191,7 @@ let ab: LiveFloat = isOdd <?> a <=> b
 ```
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
-`PIX.blendOperators.globalFillMode = .aspectFill`
+`PIX.blendOperators.globalPlacement = .aspectFill`
 
 ## Effect Convenience Funcs
 

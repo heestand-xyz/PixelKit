@@ -120,7 +120,7 @@ var <b>inPix</b>: (PIX & PIXOut)?
 var <b>res</b>: Res<br>
 var <b>resMultiplier</b>: CGFloat = 1.0<br>
 var <b>inheritInRes</b>: Bool = false<br>
-var <b>fillMode</b>: FillMode = .aspectFit<br>
+var <b>placement</b>: Placement = .aspectFit<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
 func <b>reRes(to: PIX.Res)</b> -> ResPIX<br>
@@ -264,7 +264,7 @@ var <b>metalUniforms</b>: [MetalUniform] = []
 ## PIXMergerEffect</b>: PIXEffect
 var <b>inPixA</b>: (PIX & PIXOut)?<br>
 var <b>inPixB</b>: (PIX & PIXOut)?<br>
-var <b>fillMode</b>: FillMode = .aspectFit
+var <b>placement</b>: Placement = .aspectFit
 
 ### CrossPIX
 var <b>lerp</b>: CGFloat = 0.5
