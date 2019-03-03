@@ -14,7 +14,7 @@ public class ThresholdPIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     public var threshold: LiveFloat = 0.5
-    public var smooth: LiveBool = true
+    public var smooth: LiveBool = false
     var _smoothness: CGFloat = 0
     public var smoothness: LiveFloat {
         set {
