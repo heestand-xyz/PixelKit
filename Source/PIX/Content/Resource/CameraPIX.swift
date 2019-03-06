@@ -256,6 +256,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         #endif
         
         if device != nil {
+//            do {
+//                try device!.lockForConfiguration()
+//                device!.whiteBalanceMode = .locked
+//            } catch {
+//                pixels.log(.error, .resource, "Camera white balance failed to set.", e: error)
+//            }
             do {
                 let input = try AVCaptureDeviceInput(device: device!)
                 if captureSession.canAddInput(input) {

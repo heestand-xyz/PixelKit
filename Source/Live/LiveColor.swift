@@ -46,7 +46,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         let _g: CGFloat = round(CGFloat(g) * 1_000) / 1_000
         let _b: CGFloat = round(CGFloat(b) * 1_000) / 1_000
         let _a: CGFloat = round(CGFloat(a) * 1_000) / 1_000
-        return "live\(name != nil ? "[\(name!)]" : "")(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3))"
+        return "live\(name != nil ? "[\(name!)]" : "")(r:\("\(_r)".zfill(3)),g:\("\(_g)".zfill(3)),b:\("\(_b)".zfill(3)),a:\("\(_a)".zfill(3)))"
     }
     
     // MARK: Uniform

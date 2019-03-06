@@ -28,6 +28,14 @@ public extension PIX {
         return NSImage(cgImage: cgImage, size: size)
         #endif
     }
+    func nextRenderedImage(callback: @escaping (_Image) -> ()) {
+        if let image = renderedImage {
+            callback(image)
+        }
+        Pixels.main.delay(frames: 1, done: {
+            self.nextRenderedImage(callback: callback)
+        })
+    }
     
     var renderedRaw8: [UInt8]? {
         guard let texture = renderedTexture else { return nil }
