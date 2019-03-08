@@ -13,7 +13,7 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger {
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     override var connectedIn: Bool { return pixInList.count == 2 }
     
-    public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    public var placement: Placement = .aspectFit { didSet { setNeedsRender() } }
     
     // MARK: - Life Cycle
     

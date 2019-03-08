@@ -18,12 +18,12 @@ public class ResPIX: PIXSingleEffect {
     public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyRes { self.setNeedsRender() } } }
     public var inheritInRes: Bool = false { didSet { applyRes { self.setNeedsRender() } } } // CHECK upstream resolution exists
-    public var fillMode: FillMode = .aspectFit { didSet { setNeedsRender() } }
+    public var placement: Placement = .aspectFit { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(fillMode.index)]
+        return [CGFloat(placement.index)]
     }
     
     // MARK: - Life Cycle

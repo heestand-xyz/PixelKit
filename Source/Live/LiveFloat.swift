@@ -57,7 +57,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public var cg: CGFloat {
         return value
     }
-    public var db: Double {
+    public var double: Double {
         return Double(value)
     }
     
@@ -116,6 +116,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat({ () -> (CGFloat) in
             return Bool(LiveBool.touch) ? 1.0 : 0.0
         })
+    }
+    
+    public static var touchX: LiveFloat {
+        return LivePoint.touchPoint.x
+    }
+    
+    public static var touchY: LiveFloat {
+        return LivePoint.touchPoint.y
     }
     
     public static var touchForce: LiveFloat {

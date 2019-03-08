@@ -88,11 +88,82 @@ public class CameraPIX: PIXResource {
     public var camera: Camera = .front { didSet { setupCamera() } }
     #endif
     
-    
     #if os(macOS)
     public var autoDetect: Bool = true
     #endif
     
+    public var manualExposure: Bool = false {
+        didSet {
+            helper?.manualExposure(manualExposure)
+            if manualExposure {
+                helper?.setLight(exposure, iso)
+//                helper?.setTorch(torch)
+            }
+        }
+    }
+    public var exposure: CGFloat = 0.05 {
+        didSet {
+            guard manualExposure else { return }
+            helper?.setLight(exposure, iso)
+        }
+    }
+    public var iso: CGFloat = 400 {
+        didSet {
+            guard manualExposure else { return }
+            helper?.setLight(exposure, iso)
+        }
+    }
+//    public var torch: CGFloat = 0.0 {
+//        didSet {
+//            guard manualExposure else { return }
+//            helper?.setTorch(torch)
+//        }
+//    }
+    
+    public var manualFocus: Bool = false {
+        didSet {
+            helper?.manualFocus(manualFocus)
+            if manualFocus {
+                helper?.setFocus(focus)
+            }
+        }
+    }
+    public var focus: CGFloat = 1.0 {
+        didSet {
+            guard manualFocus else { return }
+            helper?.setFocus(focus)
+        }
+    }
+    
+    public var manualWhiteBalance: Bool = false {
+        didSet {
+            helper?.manualWhiteBalance(manualWhiteBalance)
+            if manualWhiteBalance {
+                helper?.setWhiteBalance(LiveColor(whiteBalance))
+            }
+        }
+    }
+    public var whiteBalance: UIColor = .white {
+        didSet {
+            guard manualWhiteBalance else { return }
+            helper?.setWhiteBalance(LiveColor(whiteBalance))
+        }
+    }
+
+    public var minExposure: CGFloat {
+        return helper?.minExposure ?? 0.0
+    }
+    public var maxExposure: CGFloat {
+        return helper?.maxExposure ?? 0.0
+    }
+    
+    public var minISO: CGFloat {
+        return helper?.minISO ?? 0.0
+    }
+    public var maxISO: CGFloat {
+        return helper?.maxISO ?? 0.0
+    }
+
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
@@ -198,6 +269,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
     
     let pixels = Pixels.main
     
+    let device: AVCaptureDevice?
+    
     let cameraPosition: AVCaptureDevice.Position
     let photoSupport: Bool
     
@@ -214,6 +287,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
     let capturedCallback: (CVPixelBuffer) -> ()
     
     init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, photoSupport: Bool = false, setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+        
+        #if os(iOS)
+        device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        #elseif os(macOS)
+        device = AVCaptureDevice.default(for: .video)
+        #endif
         
         self.cameraPosition = cameraPosition
         self.photoSupport = photoSupport
@@ -245,15 +324,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
-        
-//        print("->>>>>>> availableVideoCVPixelFormatTypes:", AVCaptureVideoDataOutput.recommendedVideoSettings(sessionOutput))
-        //availableVideoCVPixelFormatTypes
-        
-        #if os(iOS)
-        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
-        #elseif os(macOS)
-        let device = AVCaptureDevice.default(for: .video)
-        #endif
         
         if device != nil {
             do {
@@ -378,46 +448,108 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         captureSession.stopRunning()
     }
     
-    // MARK: Photo
+    // MARK: Manual
     
-    func capture() {
-        guard photoSupport else {
-            pixels.log(.warning, .resource, "Photo Capture not enabled.")
-            return
+    func manualExposure(_ active: Bool) {
+        do {
+            try device?.lockForConfiguration()
+            device?.exposureMode = active ? .custom : .continuousAutoExposure
+        } catch {
+            pixels.log(.error, .resource, "Camera custom setting (exposureMode) failed.", e: error)
         }
-        guard let availableRawFormat = photoOutput!.availableRawPhotoPixelFormatTypes.first else { return }
-        let photoSettings = AVCapturePhotoSettings(rawPixelFormatType: availableRawFormat,
-                                                   processedFormat: [AVVideoCodecKey : AVVideoCodecType.hevc])
-        photoSettings.isAutoStillImageStabilizationEnabled = false // RAW is incompatible with image stabilization.
-        photoOutput!.capturePhoto(with: photoSettings, delegate: self)
     }
     
-    var rawImageFileURL: URL?
-//    var compressedFileData: Data?
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        
-        if photo.isRawPhoto {
-            // Save the RAW (DNG) file data to a URL.
-            let dngFileURL = self.makeUniqueTempFileURL(extension: "dng")
-            do {
-                try photo.fileDataRepresentation()!.write(to: dngFileURL)
-                // ...
-            } catch {
-                fatalError("couldn't write DNG file to URL")
-            }
-        } else {
-//            self.compressedFileData = photo.fileDataRepresentation()!
+    func manualFocus(_ active: Bool) {
+        do {
+            try device?.lockForConfiguration()
+            device?.focusMode = active ? .locked : .continuousAutoFocus
+        } catch {
+            pixels.log(.error, .resource, "Camera custom setting (focusMode) failed.", e: error)
         }
-        
     }
+    
+    func manualWhiteBalance(_ active: Bool) {
+        do {
+            try device?.lockForConfiguration()
+            device?.whiteBalanceMode = active ? .locked : .continuousAutoWhiteBalance
+        } catch {
+            pixels.log(.error, .resource, "Camera custom setting (whiteBalanceMode) failed.", e: error)
+        }
+    }
+    
+    var minExposure: CGFloat {
+        return CGFloat(device!.activeFormat.minExposureDuration.seconds)
+    }
+    var maxExposure: CGFloat {
+        return CGFloat(device!.activeFormat.maxExposureDuration.seconds)
+    }
+    
+    var minISO: CGFloat {
+        return CGFloat(device!.activeFormat.minISO)
+    }
+    var maxISO: CGFloat {
+        return CGFloat(device!.activeFormat.maxISO)
+    }
+    
+    func setLight(_ exposure: CGFloat, _ iso: CGFloat) {
+        let clampedExposure = min(max(exposure, minExposure), maxExposure)
+        let clampedIso = min(max(iso, minISO), maxISO)
+        device!.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
+    }
+//    func setTorch(_ value: CGFloat) {
+//        try? device!.setTorchModeOn(level: Float(max(value, 0.001)))
+//    }
+    
+    func setFocus(_ value: CGFloat) {
+        device!.setFocusModeLocked(lensPosition: Float(value))
+    }
+    
+    func setWhiteBalance(_ color: LiveColor) {
+        let range = device!.maxWhiteBalanceGain - 1.0
+        device!.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r.cg) * range, greenGain: 1.0 + Float(color.g.cg) * range, blueGain: 1.0 + Float(color.b.cg) * range))
+    }
+    
+//    // MARK: Photo
+//
+//    func capture() {
+//        guard photoSupport else {
+//            pixels.log(.warning, .resource, "Photo Capture not enabled.")
+//            return
+//        }
+//        guard let availableRawFormat = photoOutput!.availableRawPhotoPixelFormatTypes.first else { return }
+//        let photoSettings = AVCapturePhotoSettings(rawPixelFormatType: availableRawFormat,
+//                                                   processedFormat: [AVVideoCodecKey : AVVideoCodecType.hevc])
+//        photoSettings.isAutoStillImageStabilizationEnabled = false // RAW is incompatible with image stabilization.
+//        photoOutput!.capturePhoto(with: photoSettings, delegate: self)
+//    }
+//
+//    var rawImageFileURL: URL?
+////    var compressedFileData: Data?
+//
+//    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+//
+//        if photo.isRawPhoto {
+//            // Save the RAW (DNG) file data to a URL.
+//            let dngFileURL = self.makeUniqueTempFileURL(extension: "dng")
+//            do {
+//                try photo.fileDataRepresentation()!.write(to: dngFileURL)
+//                // ...
+//            } catch {
+//                fatalError("couldn't write DNG file to URL")
+//            }
+//        } else {
+////            self.compressedFileData = photo.fileDataRepresentation()!
+//        }
+//
+//    }
+//
+//    func makeUniqueTempFileURL(extension type: String) -> URL {
+//        let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+//        let uniqueFilename = ProcessInfo.processInfo.globallyUniqueString
+//        let urlNoExt = temporaryDirectoryURL.appendingPathComponent(uniqueFilename)
+//        let url = urlNoExt.appendingPathExtension(type)
+//        return url
+//    }
 
-    func makeUniqueTempFileURL(extension type: String) -> URL {
-        let temporaryDirectoryURL = FileManager.default.temporaryDirectory
-        let uniqueFilename = ProcessInfo.processInfo.globallyUniqueString
-        let urlNoExt = temporaryDirectoryURL.appendingPathComponent(uniqueFilename)
-        let url = urlNoExt.appendingPathExtension(type)
-        return url
-    }
 }
 

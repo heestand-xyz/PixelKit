@@ -21,14 +21,14 @@ public class PIXView: _View {
 
     var boundsReady: Bool { return bounds.width > 0 }
 
-    public enum FillMode {
+    public enum Placement {
         case aspectFit
         case aspectFill
         case pixelPerfect
         case fill
     }
     /// Defaults to `.aspectFit`.
-    public var fillMode: FillMode = .aspectFit { didSet { layoutFillMode() } }
+    public var placement: Placement = .aspectFit { didSet { layoutPlacement() } }
     
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
@@ -41,7 +41,7 @@ public class PIXView: _View {
     let liveTouchView: LiveTouchView
     
     #if os(macOS)
-    public override var frame: NSRect { didSet { _ = layoutFillMode() } }
+    public override var frame: NSRect { didSet { _ = layoutPlacement() } }
     #endif
     
     init() {
@@ -92,7 +92,7 @@ public class PIXView: _View {
         
     }
     
-    func layoutFillMode() {
+    func layoutPlacement() {
         
         guard boundsReady else { return }
         guard let res = res else { return }
@@ -104,7 +104,7 @@ public class PIXView: _View {
         
         let width: CGFloat
         let height: CGFloat
-        switch fillMode {
+        switch placement {
         case .aspectFit:
             width = resolutionAspect >= viewAspect ? bounds.width : bounds.width / dynamicAspect
             height = resolutionAspect <= viewAspect ? bounds.height : bounds.height / dynamicAspect
@@ -143,7 +143,7 @@ public class PIXView: _View {
         
         res = newRes
         metalView.res = newRes
-        layoutFillMode()
+        layoutPlacement()
         // FIXME: Set by user..
 //        if !boundsReady {
 //            #if os(iOS)
@@ -183,12 +183,12 @@ public class PIXView: _View {
     #if os(iOS)
     public override func layoutSubviews() {
         super.layoutSubviews()
-        _ = layoutFillMode()
+        _ = layoutPlacement()
     }
     #elseif os(macOS)
     public override func layout() {
         super.layout()
-        _ = layoutFillMode()
+        _ = layoutPlacement()
     }
     #endif
     

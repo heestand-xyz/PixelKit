@@ -5,7 +5,8 @@
 //  Created by Hexagons on 2018-08-28.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
+import CoreGraphics
 import SpriteKit
 
 public class TextPIX: PIXSprite {
@@ -16,8 +17,8 @@ public class TextPIX: PIXSprite {
     
     // MARK: - Public Properties
     
-    public var text: String = "Pixels" { didSet { setNeedsText(); setNeedsRender() } }
-    public var textColor: _Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
+    public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); setNeedsRender() } }
+    public var color: _Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     
     #if os(iOS)
     typealias _Font = UIFont
@@ -28,6 +29,8 @@ public class TextPIX: PIXSprite {
     #endif
     
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
+    public var fontWeight: CGFloat = 1.0 { didSet { setNeedsFont(); setNeedsRender() } }
+    public var fontSize: CGFloat = 250.0 { didSet { setNeedsFont(); setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -77,18 +80,18 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = textColor//._color
+        label.fontColor = color//._color
     }
     
     func setNeedsFont() {
         
         label.fontName = font.fontName // CHECK family
         
-        #if os(iOS)
-        let fontSize = font.pointSize * UIScreen.main.nativeScale // CHECK weight
-        #elseif os(macOS)
-        let fontSize = font.pointSize
-        #endif
+//        #if os(iOS)
+//        let fontSize = font.pointSize * UIScreen.main.nativeScale // CHECK weight
+//        #elseif os(macOS)
+//        let fontSize = font.pointSize
+//        #endif
         label.fontSize = fontSize
         
         // setPosition...
@@ -96,7 +99,8 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsPosition() {
-        label.position = CGPoint(x: scene.size.width / 2 + position.x * scene.size.height, y: scene.size.height / 2 + position.y * scene.size.height)
+        label.position = CGPoint(x: scene.size.width / 2 + position.x * scene.size.height,
+                                 y: scene.size.height / 2 + position.y * scene.size.height)
     }
     
 }

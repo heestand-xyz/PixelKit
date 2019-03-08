@@ -225,7 +225,7 @@ extension Pixels {
             unifroms.append(genPix.premultiply ? 1 : 0)
         }
         if let mergerEffectPix = pix as? PIXMergerEffect {
-            unifroms.append(Float(mergerEffectPix.fillMode.index))
+            unifroms.append(Float(mergerEffectPix.placement.index))
         }
         if pix.shaderNeedsAspect {
             unifroms.append(Float(drawableTexture.width) / Float(drawableTexture.height))
@@ -349,6 +349,21 @@ extension Pixels {
 
         commandEncoder.setVertexBuffer(vertices.buffer, offset: 0, index: 0)
         
+        // MARK: Matrix
+
+//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
+//        var viewMatrix: matrix_float4x4 = matrix_identity_float4x4
+        
+        var nodeModelMatrix = matrix_float4x4()
+        guard let uniformBuffer = metalDevice.makeBuffer(length: MemoryLayout<Float>.size * 16, options: []) else {
+            commandEncoder.endEncoding()
+            throw RenderError.uniformsBuffer
+        }
+        let bufferPointer = uniformBuffer.contents()
+        memcpy(bufferPointer, &nodeModelMatrix, MemoryLayout<Float>.size * 16)
+        commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
+        
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
@@ -403,12 +418,6 @@ extension Pixels {
         // MARK: Draw
         
         commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: 1)
-        
-        // MARK: Matrix
-        
-//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var viewMatrix: matrix_float4x4 =
         
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow

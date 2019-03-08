@@ -248,19 +248,19 @@ public extension PIX {
             return size.width / size.height
         }
         
-        public enum AspectFillMode {
+        public enum AspectPlacement {
             case fit
             case fill
         }
         
-        public func aspectRes(to aspectFillMode: AspectFillMode, in res: Res) -> Res {
+        public func aspectRes(to aspectPlacement: AspectPlacement, in res: Res) -> Res {
             var comboAspect = aspect / res.aspect
             if aspect < res.aspect {
                 comboAspect = 1 / comboAspect
             }
             let width: CGFloat
             let height: CGFloat
-            switch aspectFillMode {
+            switch aspectPlacement {
             case .fit:
                 width = aspect >= res.aspect ? res.width : res.width / comboAspect
                 height = aspect <= res.aspect ? res.height : res.height / comboAspect
@@ -270,8 +270,8 @@ public extension PIX {
             }
             return .size(CGSize(width: width, height: height))
         }
-        public func aspectBounds(to aspectFillMode: AspectFillMode, in res: Res) -> CGRect {
-            let aRes = aspectRes(to: aspectFillMode, in: res)
+        public func aspectBounds(to aspectPlacement: AspectPlacement, in res: Res) -> CGRect {
+            let aRes = aspectRes(to: aspectPlacement, in: res)
             return CGRect(x: 0, y: 0, width: aRes.width / Res.scale, height: aRes.height / Res.scale)
         }
         

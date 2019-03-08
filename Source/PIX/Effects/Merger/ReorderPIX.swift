@@ -68,7 +68,7 @@ public class ReorderPIX: PIXMergerEffect {
         vals.append(contentsOf: [blueInput == .a ? 0 : 1, CGFloat(blueChannel.index)])
         vals.append(contentsOf: [alphaInput == .a ? 0 : 1, CGFloat(alphaChannel.index)])
         vals.append(premultiply ? 1 : 0)
-        vals.append(CGFloat(fillMode.index))
+        vals.append(CGFloat(placement.index))
         return vals
     }
         

@@ -31,7 +31,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                                     const device Uniforms& in [[ buffer(0) ]],
                                     sampler s [[ sampler(0) ]]) {
     
-//    float pi = 3.14159265359;
+    float pi = 3.14159265359;
     int max_res = 16384 - 1;
     
     float u = out.texCoord[0];
@@ -46,7 +46,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
     
     int res = int(in.res);
     
-    float angle = in.angle; //(in.angle / 360) * pi * 2;
+    float angle = in.angle * pi * 2;
     float2 pos = float2(in.x, in.y);
     
     float amounts = 1.0;

@@ -19,7 +19,7 @@ public extension PIX {
     
     class BlendOperators {
         
-        public var globalFillMode: FillMode = .aspectFit
+        public var globalPlacement: Placement = .aspectFit
         
         func blend(_ pixA: PIX, _ pixB: PIX & PIXOut, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let pixA = (pixA as? PIX & PIXOut) ?? ColorPIX(res: ._128) // CHECK
@@ -27,7 +27,7 @@ public extension PIX {
             blendPix.name = operatorName(of: blendingMode)
             blendPix.blendingMode = blendingMode
             blendPix.bypassTransform = true
-            blendPix.fillMode = globalFillMode
+            blendPix.placement = globalPlacement
             blendPix.inPixA = pixA
             blendPix.inPixB = pixB
             return blendPix

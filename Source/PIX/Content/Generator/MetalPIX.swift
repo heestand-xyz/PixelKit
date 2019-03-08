@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import Metal
+
 /// Metal Shader (Generator)
 ///
 /// Example:
@@ -24,17 +26,21 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
     let metalFileName = "ContentGeneratorMetalPIX.metal"
     
-    var metalUniforms: [MetalUniform]
+    public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
     
-    var metalEmbedCode: String
+    public var code: String { didSet { bakeFrag() } }
+    public var isRawCode: Bool = false
     var metalCode: String? {
+        if isRawCode { return code }
+        console = nil
         do {
-          return try pixels.embedMetalCode(uniforms: metalUniforms, code: metalEmbedCode, fileName: metalFileName)
+          return try pixels.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixels.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
+    public var console: String?
     
     // MARK: - Property Helpers
     
@@ -46,15 +52,42 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
-        metalEmbedCode = code
+        self.code = code
         super.init(res: res)
+//        bakeFrag()
+    }
+    
+    func bakeFrag() {
+        do {
+            let frag = try pixels.makeMetalFrag(shader, from: self)
+            try makePipeline(with: frag)
+        } catch {
+            switch error {
+            case Pixels.ShaderError.metalError(let codeError, let errorFrag):
+                pixels.log(pix: self, .fatal, nil, "Metal code failed.", e: codeError)
+                console = codeError.localizedDescription
+                do {
+                    try makePipeline(with: errorFrag)
+                } catch {
+                    pixels.log(pix: self, .fatal, nil, "Metal fail failed.", e: error)
+                }
+            default:
+                pixels.log(pix: self, .fatal, nil, "Metal bake failed.", e: error)
+            }
+        }
+    }
+    
+    func makePipeline(with frag: MTLFunction) throws {
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
+        setNeedsRender()
     }
     
 }
 
 public extension MetalPIX {
     
-    public static func _uv(res: Res) -> MetalPIX {
+    static func _uv(res: Res) -> MetalPIX {
         let metalPix = MetalPIX(res: res, code:
             """
             pix = float4(u, v, 0.0, 1.0);
