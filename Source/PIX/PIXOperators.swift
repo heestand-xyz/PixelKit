@@ -197,7 +197,7 @@ public extension PIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .divide)
     }
     
-    prefix static func ! (operand: PIX) -> PIX {
+    prefix static func ! (operand: PIX) -> PIX & PIXOut {
         guard let pix = operand as? PIXOut else {
             let black = ColorPIX(res: ._128)
             black.color = .black
