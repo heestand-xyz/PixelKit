@@ -351,10 +351,6 @@ extension Pixels {
         
         // MARK: Matrix
 
-//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var viewMatrix: matrix_float4x4 = matrix_identity_float4x4
-        
         var nodeModelMatrix = matrix_float4x4()
         guard let uniformBuffer = metalDevice.makeBuffer(length: MemoryLayout<Float>.size * 16, options: []) else {
             commandEncoder.endEncoding()

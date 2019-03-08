@@ -108,6 +108,8 @@
 		741D2CF921AC9CC0007259E3 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* ExtensionString.swift */; };
 		741D2CFB21ACA05E007259E3 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* ExtensionString.swift */; };
 		741F3B852229912100D188DF /* PixelsShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
+		7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
+		7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */; };
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
@@ -203,6 +205,7 @@
 		74179CA821271046007F9579 /* ThresholdPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPIX.swift; sourceTree = "<group>"; };
 		7418E60022205D9600075769 /* LiveTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTouchView.swift; sourceTree = "<group>"; };
 		741D2CF821AC9CC0007259E3 /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
+		7421ED3E2231782E00E60A0E /* FreezePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreezePIX.swift; sourceTree = "<group>"; };
 		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
 		7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMixPIX.swift; sourceTree = "<group>"; };
 		7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyPIX.swift; sourceTree = "<group>"; };
@@ -421,6 +424,7 @@
 				74A7B98321412BC80078DDE3 /* SharpenPIX.swift */,
 				74A7B98521412BD70078DDE3 /* SlopePIX.swift */,
 				3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */,
+				7421ED3E2231782E00E60A0E /* FreezePIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -766,6 +770,7 @@
 				3AF28C19219313050079FC7A /* MetalPIX.swift in Sources */,
 				3AF28C13219313050079FC7A /* ColorPIX.swift in Sources */,
 				3AF28BEF219312EB0079FC7A /* LookupPIX.swift in Sources */,
+				7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */,
 				3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */,
 				3AF28BFA219312F50079FC7A /* BlurPIX.swift in Sources */,
 				741D2CF621AC7540007259E3 /* LiveBool.swift in Sources */,
@@ -814,6 +819,7 @@
 				74A40E1B210A11200085041D /* PIXView.swift in Sources */,
 				741D2CF921AC9CC0007259E3 /* ExtensionString.swift in Sources */,
 				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
+				7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */,
 				74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
