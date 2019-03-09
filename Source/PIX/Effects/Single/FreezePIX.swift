@@ -8,13 +8,9 @@
 
 import Metal
 
-public class FreezePIX: PIXSingleEffect/*, PixelsCustomRenderDelegate*/ {
+public class FreezePIX: PIXSingleEffect {
     
     override open var shader: String { return "nilPIX" }
-    
-    // MARK: - Private Properties
-    
-//    var cachedTexture: MTLTexture?
     
     // MARK: - Public Properties
     
@@ -30,8 +26,6 @@ public class FreezePIX: PIXSingleEffect/*, PixelsCustomRenderDelegate*/ {
     
     public override required init() {
         super.init()
-//        customRenderActive = true
-//        customRenderDelegate = self
     }
     
     // MARK: Freeze
@@ -41,21 +35,6 @@ public class FreezePIX: PIXSingleEffect/*, PixelsCustomRenderDelegate*/ {
             super.setNeedsRender()
         }
     }
-    
-//    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-//        return freeze.val ? texture : nil
-//        if freeze.val {
-//            if cachedTexture == nil {
-//                cachedTexture = texture
-//            }
-//            return cachedTexture!
-//        } else {
-//            if cachedTexture != nil {
-//                cachedTexture = nil
-//            }
-//            return texture
-//        }
-//    }
     
 }
 
