@@ -5,21 +5,29 @@
 //  Created by Anton Heestand on 2018-09-23.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
 import Metal
 
 public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     override open var shader: String { return "nilPIX" }
     
+    // MARK: - Private Properties
+    
+    var cachedTextures: [MTLTexture] = []
+    
     // MARK: - Public Properties
     
-//    public var delaySeconds: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var delayFrames: Int = 1 { didSet { setNeedsRender() } }
+//    public var seconds: LiveFloat = 1.0
+    public var delayFrames: Int = 10 { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
-    var cachedTextures: [MTLTexture] = []
+//    override var liveValues: [LiveValue] {
+//        return [seconds]
+//    }
+    
+    // MARK: - Life Cycle
     
     public override required init() {
         super.init()
@@ -30,12 +38,17 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     // MARK: Delay
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        guard delayFrames > 0 else { return texture }
-        cachedTextures.append(texture)
-        if cachedTextures.count > delayFrames {
+        if cachedTextures.count > 0 {
             cachedTextures.remove(at: 0)
         }
-        return cachedTextures.first!
+        while delayFrames != cachedTextures.count {
+            if cachedTextures.count < delayFrames {
+                cachedTextures.append(texture)
+            } else {
+                cachedTextures.remove(at: 0)
+            }
+        }
+        return cachedTextures.first ?? texture
     }
     
 }
