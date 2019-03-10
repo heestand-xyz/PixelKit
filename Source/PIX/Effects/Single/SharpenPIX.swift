@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-09-06.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class SharpenPIX: PIXSingleEffect {
     
@@ -13,11 +12,11 @@ public class SharpenPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var contrast: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var contrast: LiveFloat = 1.0
     
     // MARK: - Property Helpers
     
-    open override var uniforms: [CGFloat] {
+    override var liveValues: [LiveValue] {
         return [contrast]
     }
     
@@ -29,7 +28,7 @@ public class SharpenPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
+    func _sharpen(_ contrast: LiveFloat = 1.0) -> SharpenPIX {
         let sharpenPix = SharpenPIX()
         sharpenPix.name = ":sharpen:"
         sharpenPix.inPix = self as? PIX & PIXOut
