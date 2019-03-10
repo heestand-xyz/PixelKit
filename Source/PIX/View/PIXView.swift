@@ -38,7 +38,9 @@ public class PIXView: _View {
     public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
     let checkerView: CheckerView
     
+    #if os(iOS)
     let liveTouchView: LiveTouchView
+    #endif
     
     #if os(macOS)
     public override var frame: NSRect { didSet { _ = layoutPlacement() } }
@@ -50,7 +52,9 @@ public class PIXView: _View {
 
         metalView = PIXMetalView()
         
+        #if os(iOS)
         liveTouchView = LiveTouchView()
+        #endif
         
         super.init(frame: .zero)
         
@@ -62,7 +66,9 @@ public class PIXView: _View {
         
         addSubview(metalView)
         
+        #if os(iOS)
         addSubview(liveTouchView)
+        #endif
         
         autoLayout()
         
@@ -84,11 +90,13 @@ public class PIXView: _View {
         widthLayoutConstraint.isActive = true
         heightLayoutConstraint.isActive = true
         
+        #if os(iOS)
         liveTouchView.translatesAutoresizingMaskIntoConstraints = false
         liveTouchView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         liveTouchView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         liveTouchView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
         liveTouchView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
+        #endif
         
     }
     
@@ -155,6 +163,8 @@ public class PIXView: _View {
 //        }
     }
     
+    #if os(iOS)
+    
     public func liveTouch(active: Bool) {
         liveTouchView.isUserInteractionEnabled = active
     }
@@ -179,6 +189,8 @@ public class PIXView: _View {
             callback(uv)
         }
     }
+    
+    #endif
     
     #if os(iOS)
     public override func layoutSubviews() {

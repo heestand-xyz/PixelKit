@@ -42,6 +42,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     
     public static var zero: LivePoint { return LivePoint(x: 0.0, y: 0.0) }
     
+    #if os(iOS)
     public static var touchPoint: LivePoint {
         return LivePoint({ () -> (CGPoint) in
             for pix in Pixels.main.linkedPixs {
@@ -69,6 +70,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
 //        }
 //        return points
 //    }
+    #endif
     
     // MARK: Life Cycle
     

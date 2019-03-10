@@ -153,9 +153,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: Touch
     
+    #if os(iOS)
     public static var touch: LiveColor {
         return LiveColor(lum: .touch)
     }
+    #endif
     
     // MARK: Properties
     

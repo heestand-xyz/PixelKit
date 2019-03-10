@@ -59,6 +59,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
         return value
     }
     
+    #if os(iOS)
     public static var touch: LiveBool {
         return LiveBool({ () -> (Bool) in
             for pix in Pixels.main.linkedPixs {
@@ -70,6 +71,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
             return false
         })
     }
+    #endif
     
     public init(_ liveValue: @escaping () -> (Bool)) {
         self.liveValue = liveValue
