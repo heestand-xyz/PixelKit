@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-09-06.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class SlopePIX: PIXSingleEffect {
     
@@ -13,11 +12,11 @@ public class SlopePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var amplitude: CGFloat = 1.0 { didSet { setNeedsRender() } }
+    public var amplitude: LiveFloat = 1.0
     
     // MARK: - Property Helpers
     
-    open override var uniforms: [CGFloat] {
+    override var liveValues: [LiveValue] {
         return [amplitude]
     }
     
@@ -25,7 +24,7 @@ public class SlopePIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
+    func _slope(_ amplitude: LiveFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.name = ":slope:"
         slopePix.inPix = self as? PIX & PIXOut
