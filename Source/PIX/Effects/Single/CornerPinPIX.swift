@@ -22,12 +22,15 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     public var corners: Corners { didSet { setNeedsRender() } }
     
     public var perspective: Bool = false { didSet { setNeedsRender() } }
-    public var divisions: Int = 16  { didSet { setNeedsRender() } }
+    public var subdivisions: Int = 16  { didSet { setNeedsRender() } }
     
     // MARK: - Life Cycle
     
     public override init() {
-        corners = Corners(topLeft: CGPoint(x: 0, y: 1), topRight: CGPoint(x: 1, y: 1), bottomLeft: CGPoint(x: 0, y: 0), bottomRight: CGPoint(x: 1, y: 0))
+        corners = Corners(topLeft: CGPoint(x: 0, y: 1),
+                          topRight: CGPoint(x: 1, y: 1),
+                          bottomLeft: CGPoint(x: 0, y: 0),
+                          bottomRight: CGPoint(x: 1, y: 0))
         super.init()
         customGeometryActive = true
         customGeometryDelegate = self
@@ -106,11 +109,11 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
         
         var verts: [[Pixels.Vertex]] = []
         
-        for x in 0...divisions {
+        for x in 0...subdivisions {
             var col_verts: [Pixels.Vertex] = []
-            for y in 0...divisions {
-                let u = CGFloat(x) / CGFloat(divisions)
-                let v = CGFloat(y) / CGFloat(divisions)
+            for y in 0...subdivisions {
+                let u = CGFloat(x) / CGFloat(subdivisions)
+                let v = CGFloat(y) / CGFloat(subdivisions)
                 let pos: CGPoint
                 if perspective {
                     pos = CGPoint(x: (a*u + b*v + c)/(g*u+h*v+1), y: (d*u + e*v + f)/(g*u+h*v+1))
@@ -131,8 +134,8 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     
     func mapVertices(_ vertices: [[Pixels.Vertex]]) -> [Pixels.Vertex] {
         var verticesMap: [Pixels.Vertex] = []
-        for x in 0..<divisions {
-            for y in 0..<divisions {
+        for x in 0..<subdivisions {
+            for y in 0..<subdivisions {
                 let vertexBottomLeft = vertices[x][y]
                 let vertexTopLeft = vertices[x][y + 1]
                 let vertexBottomRight = vertices[x + 1][y]
