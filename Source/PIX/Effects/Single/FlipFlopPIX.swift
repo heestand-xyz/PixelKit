@@ -13,12 +13,14 @@ public class FlipFlopPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
         
-    public enum Flip: String, Codable {
+    public enum Flip: String, Codable, CaseIterable {
+        case none
         case x
         case y
         case xy
         var index: Int {
             switch self {
+            case .none: return 0
             case .x: return 1
             case .y: return 2
             case .xy: return 3
@@ -26,24 +28,26 @@ public class FlipFlopPIX: PIXSingleEffect {
         }
     }
     
-    public enum Flop: String, Codable {
+    public enum Flop: String, Codable, CaseIterable {
+        case none
         case left
         case right
         var index: Int {
             switch self {
+            case .none: return 0
             case .left: return 1
             case .right: return 2
             }
         }
     }
     
-    public var flip: Flip? = nil { didSet { setNeedsRender() } }
-    public var flop: Flop? = nil { didSet { applyRes { self.setNeedsRender() } } }
+    public var flip: Flip = .none { didSet { setNeedsRender() } }
+    public var flop: Flop = .none { didSet { applyRes { self.setNeedsRender() } } }
     
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(flip?.index ?? 0), CGFloat(flop?.index ?? 0)]
+        return [CGFloat(flip.index), CGFloat(flop.index)]
     }
     
 }
