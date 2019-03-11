@@ -12,12 +12,10 @@ public extension PIX {
     
     var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     
-    
     var renderedCIImage: CIImage? {
         guard let texture = renderedTexture else { return nil }
         return CIImage(mtlTexture: texture, options: nil)
     }
-    
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
@@ -58,7 +56,7 @@ public extension PIX {
         let flags = CVPixelBufferLockFlags(rawValue: 0)
         guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { return nil }
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
-        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.last.rawValue) else { return nil }
+        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width, height: res.height))
         return pixelBuffer
     }
