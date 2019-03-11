@@ -12,15 +12,25 @@ public extension PIX {
     
     var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     
+    
+    var renderedCIImage: CIImage? {
+        guard let texture = renderedTexture else { return nil }
+        return CIImage(mtlTexture: texture, options: nil)
+    }
+    
+    
+    var renderedCGImage: CGImage? {
+        guard let ciImage = renderedCIImage else { return nil }
+        return CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg)
+    }
+    
     #if os(iOS)
     typealias _Image = UIImage
     #elseif os(macOS)
     typealias _Image = NSImage
     #endif
     var renderedImage: _Image? {
-        guard let texture = renderedTexture else { return nil }
-        guard let ciImage = CIImage(mtlTexture: texture, options: nil) else { return nil }
-        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
+        guard let cgImage = renderedCGImage else { return nil }
         #if os(iOS)
         return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         #elseif os(macOS)
@@ -35,6 +45,22 @@ public extension PIX {
         Pixels.main.delay(frames: 1, done: {
             self.nextRenderedImage(callback: callback)
         })
+    }
+    
+    public var renderedPixelBuffer: CVPixelBuffer? {
+        guard let res = resolution else { return nil }
+        guard let cgImage = renderedCGImage else { return nil }
+        var maybePixelBuffer: CVPixelBuffer?
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, res.w, res.h, Pixels.main.bits.os, attrs as CFDictionary, &maybePixelBuffer)
+        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { return nil }
+        let flags = CVPixelBufferLockFlags(rawValue: 0)
+        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { return nil }
+        defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
+        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.last.rawValue) else { return nil }
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width, height: res.height))
+        return pixelBuffer
     }
     
     var renderedRaw8: [UInt8]? {

@@ -14,9 +14,16 @@ typealias _Orientation = UIInterfaceOrientation
 typealias _Orientation = Void
 #endif
 
+public protocol CameraPIXDelegate {
+    func cameraSetup(pix: CameraPIX)
+    func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
+}
+
 public class CameraPIX: PIXResource {
         
     override open var shader: String { return "contentResourceCameraPIX" }
+    
+    public var cameraDelegate: CameraPIXDelegate?
     
     // MARK: - Private Properties
     
@@ -250,6 +257,7 @@ public class CameraPIX: PIXResource {
             #elseif os(macOS)
             self.flop = false
             #endif
+            self.cameraDelegate?.cameraSetup(pix: self)
         }, captured: { pixelBuffer in
             self.pixels.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -258,6 +266,7 @@ public class CameraPIX: PIXResource {
             } else {
                 self.setNeedsRender()
             }
+            self.cameraDelegate?.cameraFrame(pix: self, pixelBuffer: pixelBuffer)
         })
     }
     
