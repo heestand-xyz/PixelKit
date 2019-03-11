@@ -38,7 +38,7 @@ extension PIX {
         case gamma
         case power
         case divide
-        case average
+//        case average
         var index: Int {
             switch self {
             case .over: return 0
@@ -53,7 +53,7 @@ extension PIX {
             case .gamma: return 9
             case .power: return 10
             case .divide: return 11
-            case .average: return 12
+//            case .average: return 12
             }
         }
     }
