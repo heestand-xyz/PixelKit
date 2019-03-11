@@ -158,7 +158,7 @@ open class PIX {
             return
         }
         guard resolution != nil else {
-            pixels.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
+//            pixels.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
             return
         }
         guard view.metalView.res != nil else {
