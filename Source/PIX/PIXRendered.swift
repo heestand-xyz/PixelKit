@@ -45,7 +45,7 @@ public extension PIX {
         })
     }
     
-    public var renderedPixelBuffer: CVPixelBuffer? {
+    var renderedPixelBuffer: CVPixelBuffer? {
         guard let res = resolution else { return nil }
         guard let cgImage = renderedCGImage else { return nil }
         var maybePixelBuffer: CVPixelBuffer?
