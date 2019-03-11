@@ -15,8 +15,8 @@ typealias _Orientation = Void
 #endif
 
 public protocol CameraPIXDelegate {
-    func setup()
-    func captured(pixelBuffer: CVPixelBuffer)
+    func cameraSetup(pix: CameraPIX)
+    func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
 public class CameraPIX: PIXResource {
@@ -257,7 +257,7 @@ public class CameraPIX: PIXResource {
             #elseif os(macOS)
             self.flop = false
             #endif
-            self.cameraDelegate?.setup()
+            self.cameraDelegate?.cameraSetup(pix: self)
         }, captured: { pixelBuffer in
             self.pixels.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -266,7 +266,7 @@ public class CameraPIX: PIXResource {
             } else {
                 self.setNeedsRender()
             }
-            self.cameraDelegate?.captured(pixelBuffer: pixelBuffer)
+            self.cameraDelegate?.cameraFrame(pix: self, pixelBuffer: pixelBuffer)
         })
     }
     
