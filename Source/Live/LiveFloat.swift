@@ -112,6 +112,8 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    #if os(iOS)
+    
     public static var touch: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             return Bool(LiveBool.touch) ? 1.0 : 0.0
@@ -135,6 +137,8 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return 0.0
         })
     }
+
+    #endif
     
     
     public init(_ liveValue: @escaping () -> (CGFloat)) {

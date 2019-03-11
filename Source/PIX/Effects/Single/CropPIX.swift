@@ -16,6 +16,22 @@ public class CropPIX: PIXSingleEffect {
     var resScale: Res { return .size(cropFrame.size) }
     
     public var cropFrame: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) { didSet { applyRes { self.setNeedsRender() } } }
+    public var cropLeft: CGFloat {
+        get { return cropFrame.minX }
+        set { cropFrame = CGRect(x: newValue, y: cropFrame.minY, width: cropFrame.width - (newValue - cropFrame.minX), height: cropFrame.height) }
+    }
+    public var cropRight: CGFloat {
+        get { return cropFrame.maxX }
+        set { cropFrame = CGRect(x: cropFrame.minX, y: cropFrame.minY, width: newValue, height: cropFrame.height) }
+    }
+    public var cropBottom: CGFloat {
+        get { return cropFrame.minY }
+        set { cropFrame = CGRect(x: cropFrame.minX, y: newValue, width: cropFrame.width, height: cropFrame.height - (newValue - cropFrame.minY)) }
+    }
+    public var cropTop: CGFloat {
+        get { return cropFrame.maxY }
+        set { cropFrame = CGRect(x: cropFrame.minX, y: cropFrame.minY, width: cropFrame.width, height: newValue) }
+    }
     
     // MARK: - Property Helpers
     

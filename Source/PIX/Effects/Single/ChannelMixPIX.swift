@@ -5,7 +5,6 @@
 //  Created by Hexagons on 2018-08-23.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
 public class ChannelMixPIX: PIXSingleEffect {
     
@@ -20,14 +19,8 @@ public class ChannelMixPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    open override var uniforms: [CGFloat] {
-        // CHECK: liveValue.uniform
-        var vals: [CGFloat] = []
-        vals.append(contentsOf: red.list)
-        vals.append(contentsOf: green.list)
-        vals.append(contentsOf: blue.list)
-        vals.append(contentsOf: alpha.list)
-        return vals
+    override var liveValues: [LiveValue] {
+        return [red, green, blue, alpha]
     }
     
 }
@@ -39,16 +32,16 @@ public extension PIXOut {
         channelMixPix.name = "swap:channelMix"
         channelMixPix.inPix = self as? PIX & PIXOut
         switch pureColorA {
-        case .red: channelMixPix.red = .init(pure: pureColorB)
-        case .green: channelMixPix.green = .init(pure: pureColorB)
-        case .blue: channelMixPix.blue = .init(pure: pureColorB)
-        case .alpha: channelMixPix.alpha = .init(pure: pureColorB)
+        case .red: channelMixPix.red = LiveColor(pure: pureColorB)
+        case .green: channelMixPix.green = LiveColor(pure: pureColorB)
+        case .blue: channelMixPix.blue = LiveColor(pure: pureColorB)
+        case .alpha: channelMixPix.alpha = LiveColor(pure: pureColorB)
         }
         switch pureColorB {
-        case .red: channelMixPix.red = .init(pure: pureColorA)
-        case .green: channelMixPix.green = .init(pure: pureColorA)
-        case .blue: channelMixPix.blue = .init(pure: pureColorA)
-        case .alpha: channelMixPix.alpha = .init(pure: pureColorA)
+        case .red: channelMixPix.red = LiveColor(pure: pureColorA)
+        case .green: channelMixPix.green = LiveColor(pure: pureColorA)
+        case .blue: channelMixPix.blue = LiveColor(pure: pureColorA)
+        case .alpha: channelMixPix.alpha = LiveColor(pure: pureColorA)
         }
         return channelMixPix
     }

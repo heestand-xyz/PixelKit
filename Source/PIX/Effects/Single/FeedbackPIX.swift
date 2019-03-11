@@ -76,12 +76,12 @@ public extension PIXOut {
         return feedbackPix
     }
     
-    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & PIXOut))) -> FeedbackPIX {
+    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
         let pix = self as! PIX & PIXOut
         feedbackPix.inPix = pix
-        feedbackPix.feedPix = pix + loop(feedbackPix)
+        feedbackPix.feedPix = pix + (loop?(feedbackPix) ?? feedbackPix)
         return feedbackPix
     }
     

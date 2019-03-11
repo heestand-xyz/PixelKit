@@ -92,6 +92,8 @@ public class CameraPIX: PIXResource {
     public var autoDetect: Bool = true
     #endif
     
+    #if os(iOS)
+    
     public var manualExposure: Bool = false {
         didSet {
             helper?.manualExposure(manualExposure)
@@ -101,14 +103,20 @@ public class CameraPIX: PIXResource {
             }
         }
     }
-    public var exposure: CGFloat = 0.05 {
-        didSet {
+    public var exposure: CGFloat {
+        get {
+            return helper?.getExposure() ?? 0.0
+        }
+        set {
             guard manualExposure else { return }
             helper?.setLight(exposure, iso)
         }
     }
-    public var iso: CGFloat = 400 {
-        didSet {
+    public var iso: CGFloat {
+        get {
+            return helper?.getISO() ?? 0.0
+        }
+        set {
             guard manualExposure else { return }
             helper?.setLight(exposure, iso)
         }
@@ -134,6 +142,9 @@ public class CameraPIX: PIXResource {
             helper?.setFocus(focus)
         }
     }
+    public var focusPoint: CGPoint {
+        return helper?.getFocusPoint() ?? .zero
+    }
     
     public var manualWhiteBalance: Bool = false {
         didSet {
@@ -143,8 +154,11 @@ public class CameraPIX: PIXResource {
             }
         }
     }
-    public var whiteBalance: UIColor = .white {
-        didSet {
+    public var whiteBalance: UIColor {
+        get {
+            return helper?.getWhiteBalance().uiColor ?? .white
+        }
+        set {
             guard manualWhiteBalance else { return }
             helper?.setWhiteBalance(LiveColor(whiteBalance))
         }
@@ -163,6 +177,8 @@ public class CameraPIX: PIXResource {
     public var maxISO: CGFloat {
         return helper?.maxISO ?? 0.0
     }
+    
+    #endif
 
     // MARK: - Property Helpers
     
@@ -265,18 +281,18 @@ public class CameraPIX: PIXResource {
     
 }
 
-class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
+class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
     
     let pixels = Pixels.main
     
     let device: AVCaptureDevice?
     
     let cameraPosition: AVCaptureDevice.Position
-    let photoSupport: Bool
+//    let photoSupport: Bool
     
     let captureSession: AVCaptureSession
     let videoOutput: AVCaptureVideoDataOutput
-    let photoOutput: AVCapturePhotoOutput?
+//    let photoOutput: AVCapturePhotoOutput?
 
     var lastUIOrientation: _Orientation
 
@@ -286,7 +302,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, photoSupport: Bool = false, setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         #if os(iOS)
         device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
@@ -295,7 +311,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         #endif
         
         self.cameraPosition = cameraPosition
-        self.photoSupport = photoSupport
+//        self.photoSupport = photoSupport
         
         setupCallback = setup
         capturedCallback = captured
@@ -308,7 +324,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         
         captureSession = AVCaptureSession()
         videoOutput = AVCaptureVideoDataOutput()
-        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
+//        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
         
         
         super.init()
@@ -450,6 +466,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
     
     // MARK: Manual
     
+    #if os(iOS)
+    
     func manualExposure(_ active: Bool) {
         do {
             try device?.lockForConfiguration()
@@ -508,6 +526,27 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         let range = device!.maxWhiteBalanceGain - 1.0
         device!.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r.cg) * range, greenGain: 1.0 + Float(color.g.cg) * range, blueGain: 1.0 + Float(color.b.cg) * range))
     }
+    
+    func getExposure() -> CGFloat {
+        return CGFloat(device!.exposureDuration.seconds)
+    }
+    
+    func getISO() -> CGFloat {
+        return CGFloat(device!.iso)
+    }
+    
+    func getFocusPoint() -> CGPoint {
+        return device!.focusPointOfInterest
+    }
+
+    func getWhiteBalance() -> LiveColor {
+        let range = device!.maxWhiteBalanceGain - 1.0
+        return LiveColor(r: LiveFloat((device!.deviceWhiteBalanceGains.redGain - 1.0) / range),
+                          g: LiveFloat((device!.deviceWhiteBalanceGains.greenGain - 1.0) / range),
+                          b: LiveFloat((device!.deviceWhiteBalanceGains.blueGain - 1.0) / range))
+    }
+    
+    #endif
     
 //    // MARK: Photo
 //

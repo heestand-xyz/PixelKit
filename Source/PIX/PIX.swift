@@ -97,6 +97,7 @@ open class PIX {
     open var customVertexShaderName: String? { return nil }
     open var customVertexTextureActive: Bool { return false }
     open var customVertexPixIn: (PIX & PIXOut)? { return nil }
+    open var customMatrices: [matrix_float4x4] { return [] }
     public var customLinkedPixs: [PIX] = []
 
     var rendering = false

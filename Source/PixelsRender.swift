@@ -350,20 +350,18 @@ extension Pixels {
         commandEncoder.setVertexBuffer(vertices.buffer, offset: 0, index: 0)
         
         // MARK: Matrix
-
-//        var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var worldMatrix: matrix_float4x4 = matrix_identity_float4x4
-//        var viewMatrix: matrix_float4x4 = matrix_identity_float4x4
         
-        var nodeModelMatrix = matrix_float4x4()
-        guard let uniformBuffer = metalDevice.makeBuffer(length: MemoryLayout<Float>.size * 16, options: []) else {
-            commandEncoder.endEncoding()
-            throw RenderError.uniformsBuffer
+        if !pix.customMatrices.isEmpty {
+            var matrices = pix.customMatrices
+            guard let uniformBuffer = metalDevice.makeBuffer(length: MemoryLayout<Float>.size * 16 * matrices.count, options: []) else {
+                commandEncoder.endEncoding()
+                throw RenderError.uniformsBuffer
+            }
+            let bufferPointer = uniformBuffer.contents()
+            memcpy(bufferPointer, &matrices, MemoryLayout<Float>.size * 16 * matrices.count)
+            commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
         }
-        let bufferPointer = uniformBuffer.contents()
-        memcpy(bufferPointer, &nodeModelMatrix, MemoryLayout<Float>.size * 16)
-        commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 1)
-        
+
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
