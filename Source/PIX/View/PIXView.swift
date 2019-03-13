@@ -120,11 +120,7 @@ public class PIXView: _View {
             width = resolutionAspect <= viewAspect ? bounds.width : bounds.width * dynamicAspect
             height = resolutionAspect >= viewAspect ? bounds.height : bounds.height * dynamicAspect
         case .pixelPerfect:
-            #if os(iOS)
-            let scale: CGFloat = UIScreen.main.nativeScale
-            #elseif os(macOS)
-            let scale: CGFloat = 1.0
-            #endif
+            let scale: CGFloat = PIX.Res.scale
             width = res.width / scale
             height = res.height / scale
         case .fill:

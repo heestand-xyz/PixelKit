@@ -14,7 +14,11 @@ import AppKit
 
 public class ImagePIX: PIXResource {
     
-    override open var shader: String { return "contentResourceImagePIX" }
+    #if os(iOS)
+    override open var shader: String { return "contentResourceFlipPIX" }
+    #elseif os(macOS)
+    override open var shader: String { return "contentResourcePIX" }
+    #endif
     
     // MARK: - Public Properties
     
