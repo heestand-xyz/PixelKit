@@ -68,6 +68,8 @@ Classes, Delegates and Properties of:<br>
 [PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
+[Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)
+
 ## Installing
 
 Pod coming soon!
