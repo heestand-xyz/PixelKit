@@ -76,6 +76,8 @@ public class CameraPIX: PIXResource {
         case front = "Front Camera"
         #if os(iOS)
         case back = "Back Camera"
+        #elseif os(macOS)
+        case external = "External Camera"
         #endif
         var position: AVCaptureDevice.Position {
             switch self {
@@ -84,10 +86,22 @@ public class CameraPIX: PIXResource {
             #if os(iOS)
             case .back:
                 return .back
+            #elseif os(macOS)
+            case .external:
+                return .back
             #endif
             }
         }
-        var mirrored: Bool { return self == .front }
+        var mirrored: Bool {
+            return self == .front
+        }
+        var flipFlop: Bool {
+            #if os(iOS)
+            return false
+            #elseif os(macOS)
+            return true
+            #endif
+        }
     }
     #if os(iOS)
     public var camera: Camera = .back { didSet { setupCamera() } }
@@ -191,9 +205,9 @@ public class CameraPIX: PIXResource {
     
     open override var uniforms: [CGFloat] {
         #if os(iOS)
-        return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0]
+        return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #elseif os(macOS)
-        return [0, camera.mirrored ? 1 : 0]
+        return [0, camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #endif
     }
     
@@ -204,13 +218,17 @@ public class CameraPIX: PIXResource {
         setupCamera()
         
         #if os(macOS)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
             self.camAttatched(device: notif.object! as! AVCaptureDevice)
         }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
             self.camDeattatched(device: notif.object! as! AVCaptureDevice)
         }
         #endif
+        
+//        #if os(iOS)
+//        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceSubjectAreaDidChange, object: nil, queue: nil) { (notif) -> Void in }
+//        #endif
         
     }
     
@@ -248,7 +266,12 @@ public class CameraPIX: PIXResource {
             }
         }
         helper?.stop()
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, setup: { _, orientation in
+        #if os(iOS)
+        let extCam = false
+        #elseif os(macOS)
+        let extCam = camera == .external
+        #endif
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, useExternalCamera: extCam, setup: { _, orientation in
             self.pixels.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -273,19 +296,19 @@ public class CameraPIX: PIXResource {
     // MARK: - Camera Attatchment
     
     #if os(macOS)
+    
     func camAttatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
         self.pixels.log(pix: self, .info, .resource, "Camera Attatched.")
         setupCamera()
     }
-    #endif
     
-    #if os(macOS)
     func camDeattatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
         self.pixels.log(pix: self, .info, .resource, "Camera Deattatched.")
         setupCamera()
     }
+    
     #endif
     
 }
@@ -294,7 +317,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     let pixels = Pixels.main
     
-    let device: AVCaptureDevice?
+    var device: AVCaptureDevice?
     
     let cameraPosition: AVCaptureDevice.Position
 //    let photoSupport: Bool
@@ -311,12 +334,30 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         #if os(iOS)
         device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
         #elseif os(macOS)
-        device = AVCaptureDevice.default(for: .video)
+        if !useExternalCamera {
+            device = AVCaptureDevice.default(for: .video)
+        } else {
+            var firstFound = false
+            var secondFound = false
+            for iDevice in AVCaptureDevice.devices() {
+                if iDevice.hasMediaType(.video) {
+                    if firstFound {
+                        device = iDevice
+                        secondFound = true
+                        break
+                    }
+                    firstFound = true
+                }
+            }
+            if !secondFound {
+                device = AVCaptureDevice.default(for: .video)
+            }
+        }
         #endif
         
         self.cameraPosition = cameraPosition

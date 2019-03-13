@@ -12,12 +12,10 @@ public extension PIX {
     
     var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     
-    
     var renderedCIImage: CIImage? {
         guard let texture = renderedTexture else { return nil }
         return CIImage(mtlTexture: texture, options: nil)
     }
-    
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }

@@ -44,6 +44,7 @@ public extension PIXOut {
         thresholdPix.name = ":threshold:"
         thresholdPix.inPix = self as? PIX & PIXOut
         thresholdPix.threshold = threshold
+        thresholdPix.smooth = true
         return thresholdPix
     }
     

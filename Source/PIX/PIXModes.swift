@@ -25,7 +25,7 @@ extension PIX {
         }
     }
     
-    public enum BlendingMode: String, Codable {
+    public enum BlendingMode: String, Codable, CaseIterable {
         case over
         case under
         case add
