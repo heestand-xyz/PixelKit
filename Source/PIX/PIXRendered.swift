@@ -48,17 +48,17 @@ public extension PIX {
     }
     
     public var renderedPixelBuffer: CVPixelBuffer? {
-        guard let res = resolution else { return nil }
-        guard let cgImage = renderedCGImage else { return nil }
+        guard let res = resolution else { pixels.log(.error, nil, "renderedPixelBuffer: no res."); return nil }
+        guard let cgImage = renderedCGImage else { pixels.log(.error, nil, "renderedPixelBuffer: no cgImage."); return nil }
         var maybePixelBuffer: CVPixelBuffer?
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
                      kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
         let status = CVPixelBufferCreate(kCFAllocatorDefault, res.w, res.h, Pixels.main.bits.os, attrs as CFDictionary, &maybePixelBuffer)
-        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { return nil }
+        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { pixels.log(.error, nil, "renderedPixelBuffer: CVPixelBufferCreate failed with status \(status)"); return nil }
         let flags = CVPixelBufferLockFlags(rawValue: 0)
-        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { return nil }
+        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { pixels.log(.error, nil, "renderedPixelBuffer: CVPixelBufferLockBaseAddress failed."); return nil }
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
-        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.last.rawValue) else { return nil }
+        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { pixels.log(.error, nil, "renderedPixelBuffer: context failed to be created."); return nil }
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width, height: res.height))
         return pixelBuffer
     }
