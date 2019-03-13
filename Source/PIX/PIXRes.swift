@@ -179,7 +179,9 @@ public extension PIX {
                 if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return size }
                 else { return CGSize(width: size.height, height: size.width) }
                 #elseif os(macOS)
-                return NSScreen.main?.frame.size ?? Res._128.size
+                let size = NSScreen.main?.frame.size ?? Res._128.size
+                let scale = NSScreen.main?.backingScaleFactor ?? 1.0
+                return CGSize(width: size.width * scale, height: size.height * scale)
                 #endif
             case .size(let size): return size
             case .custom(let w, let h): return CGSize(width: w, height: h)
