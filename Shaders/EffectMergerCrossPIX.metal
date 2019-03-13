@@ -64,8 +64,8 @@ fragment float4 effectMergerCrossPIX(VertexOut out [[stage_in]],
             }
             break;
         case 3: // Center
-            bu = 0.5 + (u - 0.5) * (aw / bw);
-            bv = 0.5 + (v - 0.5) * (ah / bh);
+            bu = 0.5 + ((u - 0.5) * aw) / bw;
+            bv = 0.5 + ((v - 0.5) * ah) / bh;
             break;
     }
     float4 cb = inTexB.sample(s, float2(bu, bv));

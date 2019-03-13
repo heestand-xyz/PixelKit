@@ -14,9 +14,9 @@ struct VertexOut{
     float2 texCoord;
 };
 
-fragment float4 contentResourceImagePIX(VertexOut out [[stage_in]],
-                                         texture2d<float>  inTex [[ texture(0) ]],
-                                         sampler s [[ sampler(0) ]]) {
+fragment float4 contentResourceFlipPIX(VertexOut out [[stage_in]],
+                                       texture2d<float>  inTex [[ texture(0) ]],
+                                       sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
