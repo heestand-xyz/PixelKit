@@ -13,7 +13,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum Style: String, Codable {
+    public enum Style: String, CaseIterable {
         case box
         case angle
         case zoom
@@ -29,19 +29,19 @@ public class LumaBlurPIX: PIXMergerEffect {
     }
     
     public var style: Style = .box { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 0.5 { didSet { setNeedsRender() } }
+    public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0 { didSet { setNeedsRender() } }
-    public var position: CGPoint = .zero { didSet { setNeedsRender() } }
+    public var angle: LiveFloat = 0.0
+    public var position: LivePoint = .zero
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case style; case radius; case quality; case angle; case position
-//    }
+    override var liveValues: [LiveValue] {
+        return [radius, angle, position]
+    }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
+        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
     }
     
     // MARK: - Life Cycle
@@ -55,7 +55,7 @@ public class LumaBlurPIX: PIXMergerEffect {
 
 public extension PIXOut {
     
-    func _lumaBlur(with pix: PIX & PIXOut, radius: CGFloat) -> LumaBlurPIX {
+    func _lumaBlur(with pix: PIX & PIXOut, radius: LiveFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inPixA = self as? PIX & PIXOut
@@ -64,7 +64,7 @@ public extension PIXOut {
         return lumaBlurPix
     }
     
-    func _tiltShift(radius: CGFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
+    func _tiltShift(radius: LiveFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
         let pix = self as! PIX & PIXOut
         let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
         gradientPix.name = "tiltShift:gradient"
