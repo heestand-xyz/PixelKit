@@ -13,7 +13,7 @@ public class LookupPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum Axis: String, Codable {
+    public enum Axis: String, CaseIterable {
         case x
         case y
     }
