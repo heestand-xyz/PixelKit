@@ -6,25 +6,19 @@
 //  Open Source - MIT License
 //
 
-import CoreGraphics//x
-
 public class DisplacePIX: PIXMergerEffect {
     
     override open var shader: String { return "effectMergerDisplacePIX" }
     
     // MARK: - Public Properties
     
-    public var distance: CGFloat = 1.0 { didSet { setNeedsRender() } }
-    public var origin: CGPoint = CGPoint(x: 0.5, y: 0.5) { didSet { setNeedsRender() } }
+    public var distance: LiveFloat = 1.0
+    public var origin: LiveFloat = 0.5
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case distance; case origin
-//    }
-    
-    open override var uniforms: [CGFloat] {
-        return [distance, origin.x, origin.y]
+    override var liveValues: [LiveValue] {
+        return [distance, origin]
     }
     
     // MARK: - Life Cycle
@@ -38,7 +32,7 @@ public class DisplacePIX: PIXMergerEffect {
 
 public extension PIXOut {
     
-    func _displace(with pix: PIX & PIXOut, distance: CGFloat) -> DisplacePIX {
+    func _displace(with pix: PIX & PIXOut, distance: LiveFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
         displacePix.name = ":displace:"
         displacePix.inPixA = self as? PIX & PIXOut
@@ -47,7 +41,7 @@ public extension PIXOut {
         return displacePix
     }
     
-    func _noiseDisplace(distance: CGFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
+    func _noiseDisplace(distance: LiveFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
         let pix = self as! PIX & PIXOut
         let noisePix = NoisePIX(res: pix.resolution ?? ._128) // FIXME: with LiveRes
         noisePix.name = "noiseDisplace:noise"
@@ -56,13 +50,5 @@ public extension PIXOut {
         noisePix.octaves = octaves
         return pix._displace(with: noisePix, distance: distance)
     }
-    
-//    func _displaceNoise(distance: CGFloat, octaves: Int) -> DisplacePIX {
-//        let noisePix = NoisePIX(res: (self as? PIX & PIXOut)?.resolution ?? ._128)
-//        noisePix.name = "displaceNoise:noise"
-//        noisePix.colored = true
-//        noisePix.octaves = octaves
-//        return _displace(with: noisePix, distance: distance)
-//    }
     
 }
