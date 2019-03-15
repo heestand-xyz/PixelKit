@@ -32,6 +32,14 @@ class LiveMouseView: NSView {
     }
     
     override func mouseMoved(with event: NSEvent) {
+        moved(with: event)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        moved(with: event)
+    }
+    
+    func moved(with event: NSEvent) {
         let point = convert(event.locationInWindow, to: self)
         let coord = getCoord(from: point)
         mousePoint = coord
