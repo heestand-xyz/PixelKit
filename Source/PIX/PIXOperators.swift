@@ -12,6 +12,7 @@ infix operator !**
 infix operator !&
 infix operator <>
 infix operator ><
+infix operator ~
 
 public extension PIX {
     
@@ -59,6 +60,7 @@ public extension PIX {
             case .gamma: return "!**"
             case .power: return "**"
             case .divide: return "/"
+            case .average: return "~"
             }
         }
         
@@ -194,6 +196,18 @@ public extension PIX {
     }
     static func /(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs / lhs }
     static func /(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    
+    static func ~(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    static func ~(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
+    static func ~(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+    }
+    static func ~(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
+    static func ~(lhs: PIX, rhs: LiveColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .divide)
     }
     
