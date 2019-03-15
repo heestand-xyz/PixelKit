@@ -50,7 +50,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
     
     int res = int(in.res);
     
-    float angle = (in.angle / 360) * pi * 2;
+    float angle = in.angle * pi * 2;
     float2 pos = float2(in.x, in.y);
     
     float amounts = 1.0;
@@ -127,22 +127,22 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         
         // Radial
         
-        for (int x = -res; x <= res; ++x) {
-            if (x != 0) {
-                float amount = pow(1.0 - x / (res + 1), 0.5);
-                float xu = u;
-                float yv = v;
-                if (aspect < 1.0) {
-                    xu += ((float(x) / w) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
-                    yv += ((float(x) / w) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
-                } else {
-                    xu += ((float(x) / h) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
-                    yv += ((float(x) / h) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
-                }
-                ca += inTexA.sample(s, float2(xu, yv)) * amount;
-                amounts += amount;
-            }
-        }
+//        for (int x = -res; x <= res; ++x) {
+//            if (x != 0) {
+//                float amount = pow(1.0 - x / (res + 1), 0.5);
+//                float xu = u;
+//                float yv = v;
+//                if (aspect < 1.0) {
+//                    xu += ((float(x) / w) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
+//                    yv += ((float(x) / w) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
+//                } else {
+//                    xu += ((float(x) / h) * cos(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
+//                    yv += ((float(x) / h) * sin(atan2(v - 0.5 + pos.y, u - 0.5 - pos.x) + pi / 2) * in.radius * lum) / res;
+//                }
+//                ca += inTexA.sample(s, float2(xu, yv)) * amount;
+//                amounts += amount;
+//            }
+//        }
         
     } else if (in.type > 3.5 && in.type < 4.5) {
         
@@ -152,7 +152,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
         float ru = loki_rnd_u.rand();
         Loki loki_rnd_v = Loki(1, u * max_res, v * max_res);
         float rv = loki_rnd_v.rand();
-        float2 ruv = uv + (float2(ru, rv) - 0.5) * in.radius * 0.001;
+        float2 ruv = uv + (float2(ru, rv) - 0.5) * in.radius * lum * 0.001;
         ca = inTexA.sample(s, ruv);
         
     }

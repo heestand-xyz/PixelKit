@@ -16,8 +16,7 @@ struct VertexOut{
 
 struct Uniforms{
     float dist;
-    float origin_x;
-    float origin_y;
+    float origin;
 };
 
 fragment float4 effectMergerDisplacePIX(VertexOut out [[stage_in]],
@@ -31,7 +30,8 @@ fragment float4 effectMergerDisplacePIX(VertexOut out [[stage_in]],
     
     float4 cb = inTexB.sample(s, uv);
 
-    float4 ca = inTexA.sample(s, float2(u + (cb.r - in.origin_x) * in.dist, v + (cb.g - in.origin_y) * in.dist));
+    float4 ca = inTexA.sample(s, float2(u + (cb.r - in.origin) * in.dist,
+                                        v + (cb.g - in.origin) * in.dist));
     
     return ca;
 }
