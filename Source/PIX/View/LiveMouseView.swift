@@ -71,7 +71,6 @@ class LiveMouseView: NSView {
     
     func getCoord(from localPoint: CGPoint) -> CGPoint {
         let uv = CGPoint(x: localPoint.x / bounds.width, y: localPoint.y / bounds.height)
-        print("Mouse Point:", localPoint, "in", bounds, "- uv:", uv)
         let aspect = bounds.width / bounds.height
         let point = CGPoint(x: (uv.x - 0.5) * aspect, y: uv.y - 0.5)
         return point
