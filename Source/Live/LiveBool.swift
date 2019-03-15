@@ -71,6 +71,40 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
             return false
         })
     }
+    #elseif os(macOS)
+    public static var mouseLeft: LiveBool {
+        return LiveBool({ () -> (Bool) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if pix.view.liveMouseView.mouseLeft {
+                    return true
+                }
+            }
+            return false
+        })
+    }
+    public static var mouseRight: LiveBool {
+        return LiveBool({ () -> (Bool) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if pix.view.liveMouseView.mouseRight {
+                    return true
+                }
+            }
+            return false
+        })
+    }
+    public static var mouseInView: LiveBool {
+        return LiveBool({ () -> (Bool) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if pix.view.liveMouseView.mouseInView {
+                    return true
+                }
+            }
+            return false
+        })
+    }
     #endif
     
     public init(_ liveValue: @escaping () -> (Bool)) {
