@@ -26,6 +26,8 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
     let metalFileName = "ContentGeneratorMetalPIX.metal"
     
+    public override var shaderNeedsAspect: Bool { return true }
+    
     public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
     
     public var code: String { didSet { bakeFrag() } }

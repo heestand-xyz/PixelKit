@@ -28,6 +28,8 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     
     let metalFileName = "EffectMultiMetalPIX.metal"
     
+    public override var shaderNeedsAspect: Bool { return true }
+    
     var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String

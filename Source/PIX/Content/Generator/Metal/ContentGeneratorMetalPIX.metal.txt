@@ -16,6 +16,7 @@ struct VertexOut{
 
 struct Uniforms{
     /*<uniforms>*/
+    float aspect;
 };
 
 fragment float4 contentGeneratorMetalPIX(VertexOut out [[stage_in]],

@@ -16,6 +16,7 @@ struct VertexOut{
 
 struct Uniforms{
     /*<uniforms>*/
+    float aspect;
 };
 
 fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],

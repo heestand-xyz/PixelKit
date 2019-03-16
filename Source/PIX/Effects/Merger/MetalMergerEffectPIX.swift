@@ -26,6 +26,8 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     let metalFileName = "EffectMergerMetalPIX.metal"
     
+    public override var shaderNeedsAspect: Bool { return true }
+    
     var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String

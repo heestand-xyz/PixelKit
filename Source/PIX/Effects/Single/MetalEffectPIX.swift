@@ -26,6 +26,8 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
 
     let metalFileName = "EffectSingleMetalPIX.metal"
     
+    public override var shaderNeedsAspect: Bool { return true }
+    
     var metalUniforms: [MetalUniform]
     
     var metalEmbedCode: String
