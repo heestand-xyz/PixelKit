@@ -20,6 +20,7 @@ fragment float4 effectMergerRemapPIX(VertexOut out [[stage_in]],
                                       sampler s [[ sampler(0) ]]) {
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    v = 1 - v; // Content Flip Fix
     float2 uv = float2(u, v);
     
     float4 cb = inTexB.sample(s, uv);
