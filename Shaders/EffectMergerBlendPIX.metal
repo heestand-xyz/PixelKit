@@ -136,6 +136,9 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
         case 11: // Divide
             c = ca / cb;
             break;
+        case 12: // Average
+            c = ca / 2 + cb / 2;
+            break;
     }
     
     return c;

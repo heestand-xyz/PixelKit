@@ -25,10 +25,11 @@ public class BlendsPIX: PIXMultiEffect {
         return [CGFloat(blendingMode.index)]
     }
 
-    public static func loop(_ range: Range<Int>, with blendingMode: BlendingMode, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+    public static func loop(_ range: Range<Int>, with blendingMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
         let blendsPix = BlendsPIX()
         blendsPix.name = "loop:blends"
         blendsPix.blendingMode = blendingMode
+        blendsPix.extend = extend
         for i in range {
             let fraction = LiveFloat(i) / LiveFloat(range.upperBound - 1)
             let pix = loop(LiveInt(i), fraction)

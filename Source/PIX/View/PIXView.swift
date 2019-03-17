@@ -40,6 +40,8 @@ public class PIXView: _View {
     
     #if os(iOS)
     let liveTouchView: LiveTouchView
+    #elseif os(macOS)
+    let liveMouseView: LiveMouseView
     #endif
     
     #if os(macOS)
@@ -54,6 +56,8 @@ public class PIXView: _View {
         
         #if os(iOS)
         liveTouchView = LiveTouchView()
+        #elseif os(macOS)
+        liveMouseView = LiveMouseView()
         #endif
         
         super.init(frame: .zero)
@@ -68,6 +72,8 @@ public class PIXView: _View {
         
         #if os(iOS)
         addSubview(liveTouchView)
+        #elseif os(macOS)
+        addSubview(liveMouseView)
         #endif
         
         autoLayout()
@@ -96,6 +102,12 @@ public class PIXView: _View {
         liveTouchView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         liveTouchView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
         liveTouchView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
+        #elseif os(macOS)
+        liveMouseView.translatesAutoresizingMaskIntoConstraints = false
+        liveMouseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        liveMouseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        liveMouseView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
+        liveMouseView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
         #endif
         
     }

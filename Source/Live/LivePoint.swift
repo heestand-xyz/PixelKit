@@ -6,6 +6,9 @@
 //  Open Source - MIT License
 //
 
+#if os(macOS)
+import AppKit
+#endif
 import CoreGraphics
 
 public class LivePoint: LiveValue, CustomStringConvertible {
@@ -70,6 +73,23 @@ public class LivePoint: LiveValue, CustomStringConvertible {
 //        }
 //        return points
 //    }
+    #elseif os(macOS)
+    public static var mousePointGlobal: LivePoint {
+        return LivePoint({ () -> (CGPoint) in
+            return NSEvent.mouseLocation
+        })
+    }
+    public static var mousePoint: LivePoint {
+        return LivePoint({ () -> (CGPoint) in
+            for pix in Pixels.main.linkedPixs {
+                guard pix.view.superview != nil else { continue }
+                if let mousePoint = pix.view.liveMouseView.mousePoint {
+                    return mousePoint
+                }
+            }
+            return .zero
+        })
+    }
     #endif
     
     // MARK: Life Cycle

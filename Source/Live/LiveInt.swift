@@ -49,6 +49,16 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
             return Bool(LiveBool.touch) ? 1 : 0
         })
     }
+    #elseif os(macOS)
+    public static var mouseLeft: LiveInt {
+        return LiveBool.mouseLeft <?> 1 <=> 0
+    }
+    public static var mouseRight: LiveInt {
+        return LiveBool.mouseRight <?> 1 <=> 0
+    }
+    public static var mouseInView: LiveInt {
+        return LiveBool.mouseInView <?> 1 <=> 0
+    }
     #endif
     
     #if os(macOS)

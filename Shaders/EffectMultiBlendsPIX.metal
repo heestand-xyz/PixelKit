@@ -139,6 +139,14 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c /= ci;
                 }
                 break;
+            case 12: // Average
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci / count;
+                } else {
+                    c += ci / count;
+                }
+                break;
         }
     }
     

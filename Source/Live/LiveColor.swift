@@ -157,6 +157,16 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     public static var touch: LiveColor {
         return LiveColor(lum: .touch)
     }
+    #elseif os(macOS)
+    public static var mouseLeft: LiveColor {
+        return LiveBool.mouseLeft <?> .white <=> .black
+    }
+    public static var mouseRight: LiveColor {
+        return LiveBool.mouseRight <?> .white <=> .black
+    }
+    public static var mouseInView: LiveColor {
+        return LiveBool.mouseInView <?> .white <=> .black
+    }
     #endif
     
     // MARK: MIDI

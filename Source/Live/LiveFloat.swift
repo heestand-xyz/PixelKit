@@ -137,7 +137,19 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return 0.0
         })
     }
+    
+    #elseif os(macOS)
 
+    public static var mouseLeft: LiveFloat {
+        return LiveBool.mouseLeft <?> 1.0 <=> 0.0
+    }
+    public static var mouseRight: LiveFloat {
+        return LiveBool.mouseRight <?> 1.0 <=> 0.0
+    }
+    public static var mouseInView: LiveFloat {
+        return LiveBool.mouseInView <?> 1.0 <=> 0.0
+    }
+    
     #endif
     
     #if os(macOS)
