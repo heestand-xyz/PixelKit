@@ -21,7 +21,7 @@ fragment float4 effectMergerTimeMachinePIX(VertexOut out [[stage_in]],
                                            sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
-    float v = 1.0 - out.texCoord[1];
+    float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
     float4 cb = inTexB.sample(s, uv);

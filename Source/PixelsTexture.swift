@@ -156,7 +156,7 @@ extension Pixels {
         return textureCopy
     }
     
-    func makeMultiTexture(from textures: [MTLTexture], with commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
+    func makeMultiTexture(from textures: [MTLTexture], with commandBuffer: MTLCommandBuffer, in3D: Bool = false) throws -> MTLTexture {
         
         guard !textures.isEmpty else {
             throw TextureError.multi("Passed Textures array is empty.")
@@ -164,10 +164,14 @@ extension Pixels {
         
         let descriptor = MTLTextureDescriptor()
         descriptor.pixelFormat = bits.mtl
-        descriptor.textureType = .type2DArray
+        descriptor.textureType = in3D ? .type3D : .type2DArray
         descriptor.width = textures.first!.width
         descriptor.height = textures.first!.height
-        descriptor.arrayLength = textures.count
+        if in3D {
+            descriptor.depth = textures.count
+        } else {
+            descriptor.arrayLength = textures.count
+        }
         
         guard let multiTexture = metalDevice.makeTexture(descriptor: descriptor) else {
             throw TextureError.multi("Texture creation failed.")
@@ -178,7 +182,7 @@ extension Pixels {
         }
         
         for (i, texture) in textures.enumerated() {
-            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
+            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
         }
         blitEncoder.endEncoding()
         
@@ -279,6 +283,11 @@ extension Pixels {
                 inputTexture = textureA
                 secondInputTexture = textureB
             }
+        }
+        
+        if let timeMachinePix = pix as? TimeMachinePIX {
+            let textures = timeMachinePix.customRender(inputTexture!, with: commandBuffer)
+            inputTexture = try makeMultiTexture(from: textures, with: commandBuffer, in3D: true)
         }
         
         return (inputTexture, secondInputTexture)
