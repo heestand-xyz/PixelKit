@@ -260,6 +260,20 @@ Note that exporting resourses like image and video are not yet supported.
 
 -->
 
+## MIDI
+
+Here's an example of live midi values in range 0.0 to 1.0.
+
+```
+let circle = CirclePIX(res: ._1024)
+circle.radius = .midi("#13")
+circle.color = .midi("#17")
+```
+
+You can find the addresses by enabeling logging like this:
+
+`MIDI.main.log = true`
+
 ## High Bit Mode
 
 Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>

@@ -18,7 +18,7 @@ public class MIDI {
     var list: [String: CGFloat?] = [:]
     var listRaw: [String: Int?] = [:]
 
-    public var log: Bool = true
+    public var log: Bool = false
 
     init() {
         
