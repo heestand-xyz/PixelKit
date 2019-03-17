@@ -159,6 +159,16 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     #endif
     
+    // MARK: MIDI
+    
+    #if os(macOS)
+    
+    public static var midiAny: LiveColor {
+        return LiveColor(lum: LiveFloat.midiAny)
+    }
+    
+    #endif
+    
     // MARK: Properties
     
     var _color: _Color {
@@ -707,5 +717,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     public static func <=> (lhs: LiveColor, rhs: LiveColor) -> (LiveColor, LiveColor) {
         return (lhs, rhs)
     }
+    
+    #if os(macOS)
+    public static func midi(_ address: String) -> LiveColor {
+        return LiveColor(lum: LiveFloat.midi(address))
+    }
+    #endif
     
 }

@@ -16,6 +16,10 @@ public protocol PixelsCustomRenderDelegate {
     func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture?
 }
 
+public protocol PixelsCustomMergerRenderDelegate {
+    func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> (a: MTLTexture?, b: MTLTexture?)
+}
+
 public protocol PixelsCustomGeometryDelegate {
     func customVertices() -> Pixels.Vertices?
 }

@@ -264,6 +264,23 @@ extension Pixels {
             inputTexture = customRenderedTexture
         }
         
+        if pix is PIXInMerger {
+            if !generator && pix.customMergerRenderActive {
+                guard let customMergerRenderDelegate = pix.customMergerRenderDelegate else {
+                    throw RenderError.custom("PixelsCustomMergerRenderDelegate not implemented.")
+                }
+                let customRenderedTextures = customMergerRenderDelegate.customRender(a: inputTexture!, b: secondInputTexture!, with: commandBuffer)
+                guard let textureA = customRenderedTextures.a else {
+                    throw RenderError.custom("Custom Merger Render A faild.")
+                }
+                guard let textureB = customRenderedTextures.b else {
+                    throw RenderError.custom("Custom Merger Render B faild.")
+                }
+                inputTexture = textureA
+                secondInputTexture = textureB
+            }
+        }
+        
         return (inputTexture, secondInputTexture)
         
     }

@@ -73,6 +73,14 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     #endif
     
+    #if os(macOS)
+    
+    public static var midiAny: LiveBool {
+        return LiveBool({ return LiveInt.midiAny.val > 0 })
+    }
+    
+    #endif
+    
     public init(_ liveValue: @escaping () -> (Bool)) {
         self.liveValue = liveValue
     }
@@ -122,5 +130,11 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     public static func <?> (lhs: LiveBool, rhs: (LiveColor, LiveColor)) -> LiveColor {
         return LiveColor({ return Bool(lhs) ? rhs.0._color : rhs.1._color })
     }
+    
+    #if os(macOS)
+    public static func midi(_ address: String) -> LiveBool {
+        return LiveBool({ return LiveInt.midi(address).val > 0 })
+    }
+    #endif
     
 }

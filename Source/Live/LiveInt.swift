@@ -51,6 +51,16 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     }
     #endif
     
+    #if os(macOS)
+    
+    public static var midiAny: LiveInt {
+        return LiveInt({ () -> (Int) in
+            return MIDI.main.firstAnyRaw ?? 0
+        })
+    }
+    
+    #endif
+    
 //    var limit: Bool = false
 //    var min: CGFloat = 0.0
 //    var max: CGFloat = 1.0
@@ -186,5 +196,11 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     public static func liveRandom(in range: ClosedRange<Int>) -> LiveInt {
         return LiveInt({ return Int.random(in: range) })
     }
+    
+    #if os(macOS)
+    public static func midi(_ address: String) -> LiveInt {
+        return LiveInt({ return (MIDI.main.listRaw[address] ?? 0) ?? 0 })
+    }
+    #endif
     
 }

@@ -91,6 +91,8 @@ open class PIX {
     
     public var customRenderActive: Bool = false
     public var customRenderDelegate: PixelsCustomRenderDelegate?
+    public var customMergerRenderActive: Bool = false
+    public var customMergerRenderDelegate: PixelsCustomMergerRenderDelegate?
     public var customGeometryActive: Bool = false
     public var customGeometryDelegate: PixelsCustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
