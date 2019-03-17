@@ -729,6 +729,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     
     #if os(macOS)
+    /// find addresses with `MIDI.main.log = true`
     public static func midi(_ address: String) -> LiveColor {
         return LiveColor(lum: LiveFloat.midi(address))
     }

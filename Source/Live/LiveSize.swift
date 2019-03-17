@@ -104,10 +104,10 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         return LiveSize(w: w.delay(seconds: seconds), h: h.delay(seconds: seconds))
     }
     
-    /// filter over frames. smooth off is linear. smooth on is cosine smoothness (default)
-    public func filter(frames: LiveInt, smooth: Bool = true) -> LiveSize {
-        return LiveSize(w: w.filter(frames: frames, smooth: smooth), h: h.filter(frames: frames, smooth: smooth))
-    }
+//    /// filter over frames.
+//    public func filter(frames: LiveInt, smooth: Bool = true) -> LiveSize {
+//        return LiveSize(w: w.filter(frames: frames), h: h.filter(frames: frames))
+//    }
     
     /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
     public func filter(seconds: LiveFloat, smooth: Bool = true) -> LiveSize {

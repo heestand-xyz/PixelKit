@@ -166,6 +166,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     
     #if os(macOS)
+    /// find addresses with `MIDI.main.log = true`
     public static func midi(_ address: String) -> LiveBool {
         return LiveBool({ return LiveInt.midi(address).val > 0 })
     }

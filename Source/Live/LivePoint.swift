@@ -141,10 +141,10 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return LivePoint(x: x.delay(seconds: seconds), y: y.delay(seconds: seconds))
     }
     
-    /// filter over frames. smooth off is linear. smooth on is cosine smoothness (default)
-    public func filter(frames: LiveInt, smooth: Bool = true) -> LivePoint {
-        return LivePoint(x: x.filter(frames: frames, smooth: smooth), y: y.filter(frames: frames, smooth: smooth))
-    }
+//    /// filter over frames.
+//    public func filter(frames: LiveInt) -> LivePoint {
+//        return LivePoint(x: x.filter(frames: frames), y: y.filter(frames: frames))
+//    }
     
     /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
     public func filter(seconds: LiveFloat, smooth: Bool = true) -> LivePoint {

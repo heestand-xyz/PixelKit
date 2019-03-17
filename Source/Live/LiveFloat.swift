@@ -338,22 +338,22 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
-    /// filter over frames. smooth off is linear. smooth on is cosine smoothness (default)
-    public func filter(frames: LiveInt, smooth: Bool = true) -> LiveFloat {
-        var cache: [CGFloat] = []
-        return LiveFloat({ () -> (CGFloat) in
-            cache.append(CGFloat(self))
-            if cache.count > Int(frames) {
-                return cache.remove(at: 0)
-            }
-            var filteredValue: CGFloat = 0.0
-            for value in cache {
-                filteredValue += value
-            }
-            filteredValue /= CGFloat(cache.count)
-            return filteredValue
-        })
-    }
+//    /// filter over frames.
+//    public func filter(frames: LiveInt) -> LiveFloat {
+//        var cache: [CGFloat] = []
+//        return LiveFloat({ () -> (CGFloat) in
+//            cache.append(CGFloat(self))
+//            if cache.count > Int(frames) {
+//                return cache.remove(at: 0)
+//            }
+//            var filteredValue: CGFloat = 0.0
+//            for value in cache {
+//                filteredValue += value
+//            }
+//            filteredValue /= CGFloat(cache.count)
+//            return filteredValue
+//        })
+//    }
     
     /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
     public func filter(seconds: LiveFloat, smooth: Bool = true) -> LiveFloat {
@@ -428,6 +428,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
 
     #if os(macOS)
+    /// find addresses with `MIDI.main.log = true`
     public static func midi(_ address: String) -> LiveFloat {
         return LiveFloat({ return (MIDI.main.list[address] ?? 0.0) ?? 0.0 })
     }
