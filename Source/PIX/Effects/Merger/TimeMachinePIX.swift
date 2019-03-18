@@ -38,29 +38,21 @@ public class TimeMachinePIX: PIXMergerEffect {
 //        customMergerRenderDelegate = self
         Pixels.main.listenToFrames { () -> (Bool) in
             self.frameLoop()
-            return true
+            self.setNeedsRender()
+            return false
         }
     }
     
     // MARK: - Frame Loop
     
     func frameLoop() {
-
-//        var textures: [MTLTexture] = []
-//        for (i, cached) in self.textureCache.enumerated() {
-//            let relDelay = cached.date.timeIntervalSinceNow + seconds.double
-//            if relDelay >= 0 {
-//                textures.append(cached.texture)
-//            } else {
-//                var i = i
-//                if i == 0 {
-//                    textures.append(cached.texture)
-//                    i = 1
-//                }
-//                self.textureCache.removeSubrange(i..<self.textureCache.count)
-//                break
-//            }
-//        }
+        
+        if let firstCachedTexture = textureCache.first {
+            if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(Pixels.main.fps)) {
+                let newCachedTexture = CachedTexture(texture: firstCachedTexture.texture, date: Date())
+                textureCache.insert(newCachedTexture, at: 0)
+            }
+        }
         
         let count = textureCache.count
         for i in 0..<count {
