@@ -21,7 +21,6 @@ fragment float4 error(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = 1.0 - out.texCoord[1];
-    float2 uv = float2(u, v);
     
     bool err_u = u * 6 - floor(u * 6) > 0.5;
     bool err_v = v * 6 - floor(v * 6) > 0.5;
