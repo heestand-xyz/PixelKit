@@ -12,7 +12,7 @@ class LiveTouchView: UIView {
     
     var touch: Bool = false
     var force: CGFloat = 0
-    var touchPointMain: CGPoint?
+    var touchPointMain: CGPoint = .zero
 //    var touchPoint: CGPoint? {
 //        return touchPoints.first
 //    }
@@ -78,7 +78,7 @@ class LiveTouchView: UIView {
     func ended(_ touches: Set<UITouch>) {
         touch = false
         force = 0.0
-        touchPointMain = nil
+//        touchPointMain = nil
 //        for touch in touches {
 //            for (i, oldTouch) in allTouches.enumerated() {
 //                if oldTouch == touch {

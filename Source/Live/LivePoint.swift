@@ -50,9 +50,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return LivePoint({ () -> (CGPoint) in
             for pix in Pixels.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
-                if let touchPoint = pix.view.liveTouchView.touchPointMain {
-                    return touchPoint
-                }
+                return pix.view.liveTouchView.touchPointMain
             }
             return .zero
         })
