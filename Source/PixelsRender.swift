@@ -23,7 +23,7 @@ extension Pixels {
     
     public enum RenderMode {
         case frameLoop
-//        case direct
+        case direct
     }
     
     func renderPIXs() {
