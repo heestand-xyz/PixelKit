@@ -14,7 +14,7 @@ public class BlendPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var blendingMode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var mode: BlendingMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: LiveBool = false
     public var position: LivePoint = .zero
     public var rotation: LiveFloat = 0.0
@@ -27,12 +27,8 @@ public class BlendPIX: PIXMergerEffect {
         return [bypassTransform, position, rotation, scale, size]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case blendingMode; case bypassTransform; case position; case rotation; case scale; case size
-//    }
-    
     open override var uniforms: [CGFloat] {
-        return [CGFloat(blendingMode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
+        return [CGFloat(mode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
     }
     
 }

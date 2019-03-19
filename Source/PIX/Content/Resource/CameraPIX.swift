@@ -124,20 +124,14 @@ public class CameraPIX: PIXResource {
             }
         }
     }
-    public var exposure: CGFloat {
-        get {
-            return helper?.getExposure() ?? 0.0
-        }
-        set {
+    public var exposure: CGFloat = 0.05 {
+        didSet {
             guard manualExposure else { return }
             helper?.setLight(exposure, iso)
         }
     }
-    public var iso: CGFloat {
-        get {
-            return helper?.getISO() ?? 0.0
-        }
-        set {
+    public var iso: CGFloat = 300 {
+        didSet {
             guard manualExposure else { return }
             helper?.setLight(exposure, iso)
         }

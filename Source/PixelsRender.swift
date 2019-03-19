@@ -51,9 +51,13 @@ extension Pixels {
                     pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
                     #endif
                     log(pix: pix, .detail, .render, "View Render requested.", loop: true)
+                    guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
+                        self.log(pix: pix, .error, .render, "Current Drawable not found.")
+                        continue
+                    }
                     pix.view.metalView.readyToRender = {
                         pix.view.metalView.readyToRender = nil
-                        self.renderPIX(pix)
+                        self.renderPIX(pix, with: currentDrawable)
                     }
                 } else {
                     renderPIX(pix)
@@ -62,15 +66,19 @@ extension Pixels {
         }
     }
     
-    func renderPIX(_ pix: PIX, force: Bool = false) {
-        guard !pix.rendering else {
-            log(pix: pix, .warning, .render, "Render in progress...", loop: true)
-            return
-        }
-        pix.needsRender = false
-        let renderStartTime = Date()
+    func renderPIX(_ pix: PIX, with currentDrawable: CAMetalDrawable? = nil, force: Bool = false) {
+//        let queue = DispatchQueue(label: "pixels-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
+//        queue.async {
+            guard !pix.rendering else {
+                self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
+                return
+            }
+//            DispatchQueue.main.async {
+                pix.needsRender = false
+//            }
+            let renderStartTime = Date()
 //        let renderStartFrame = frame
-        log(pix: pix, .detail, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
+            self.log(pix: pix, .detail, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
 //        for flowTime in flowTimes {
 //            if flowTime.fromPixRenderState.ref.id == pix.id {
 //                if !flowTime.fromPixRenderState.requested {
@@ -82,12 +90,12 @@ extension Pixels {
 //
 //            }
 //        }
-        do {
-            try render(pix, force: force, completed: { texture in
-                let renderTime = -renderStartTime.timeIntervalSinceNow
-                let renderTimeMs = CGFloat(Int(round(renderTime * 10_000))) / 10
+            do {
+                try self.render(pix, with: currentDrawable, force: force, completed: { texture in
+                    let renderTime = -renderStartTime.timeIntervalSinceNow
+                    let renderTimeMs = CGFloat(Int(round(renderTime * 10_000))) / 10
 //                let renderFrames = self.frame - renderStartFrame
-                self.log(pix: pix, .info, .render, "Rendered \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
+                    self.log(pix: pix, .info, .render, "Rendered \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
 //                for flowTime in self.flowTimes {
 //                    if flowTime.fromPixRenderState.requested {
 //                        if !flowTime.fromPixRenderState.rendered {
@@ -95,21 +103,26 @@ extension Pixels {
 //                        }
 //                    }
 //                }
-                pix.didRender(texture: texture, force: force)
-            }, failed: { error in
-                var ioafMsg: String? = nil
-                let err = error.localizedDescription
-                if err.contains("IOAF code") {
-                    if let iofaCode = Int(err[err.count - 2..<err.count - 1]) {
-                        self.metalErrorCodeCallback?(.IOAF(iofaCode))
-                        ioafMsg = "IOAF code \(iofaCode). Sorry, this is an Metal GPU error, usually seen on older devices."
+//                    DispatchQueue.main.async {
+                        pix.didRender(texture: texture, force: force)
+//                    }
+                }, failed: { error in
+                    var ioafMsg: String? = nil
+                    let err = error.localizedDescription
+                    if err.contains("IOAF code") {
+                        if let iofaCode = Int(err[err.count - 2..<err.count - 1]) {
+//                            DispatchQueue.main.async {
+                                self.metalErrorCodeCallback?(.IOAF(iofaCode))
+//                            }
+                            ioafMsg = "IOAF code \(iofaCode). Sorry, this is an Metal GPU error, usually seen on older devices."
+                        }
                     }
-                }
-                self.log(pix: pix, .error, .render, "Render of shader failed... \(force ? "Forced." : "") \(ioafMsg ?? "")", loop: true, e: error)
-            })
-        } catch {
-            log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)
-        }
+                    self.log(pix: pix, .error, .render, "Render of shader failed... \(force ? "Forced." : "") \(ioafMsg ?? "")", loop: true, e: error)
+                })
+            } catch {
+                self.log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)
+            }
+//        }
     }
     
     enum RenderError: Error {
@@ -123,7 +136,7 @@ extension Pixels {
         case vertexTexture
     }
     
-    func render(_ pix: PIX, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
+    func render(_ pix: PIX, with currentDrawable: CAMetalDrawable?, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
         
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
@@ -171,12 +184,9 @@ extension Pixels {
         // MARK: Sim...
         var viewDrawable: CAMetalDrawable? = nil
         let drawableTexture: MTLTexture
-        if pix.view.superview != nil {
-            guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
-                throw RenderError.drawable("Current Drawable not found.")
-            }
-            viewDrawable = currentDrawable
-            drawableTexture = currentDrawable.texture
+        if currentDrawable != nil {
+            viewDrawable = currentDrawable!
+            drawableTexture = currentDrawable!.texture
         } else {
             guard let res = pix.resolution else {
                 throw RenderError.drawable("PIX Resolution not set.")

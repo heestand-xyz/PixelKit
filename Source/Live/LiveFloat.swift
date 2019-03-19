@@ -121,11 +121,11 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     
     public static var touchX: LiveFloat {
-        return LivePoint.touchPoint.x
+        return LivePoint.touchXY.x
     }
     
     public static var touchY: LiveFloat {
-        return LivePoint.touchPoint.y
+        return LivePoint.touchXY.y
     }
     
     public static var touchForce: LiveFloat {

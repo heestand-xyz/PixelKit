@@ -46,7 +46,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     public static var zero: LivePoint { return LivePoint(x: 0.0, y: 0.0) }
     
     #if os(iOS)
-    public static var touchPoint: LivePoint {
+    public static var touchXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
             for pix in Pixels.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
