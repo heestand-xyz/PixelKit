@@ -72,12 +72,12 @@ public class LivePoint: LiveValue, CustomStringConvertible {
 //        return points
 //    }
     #elseif os(macOS)
-    public static var mousePointGlobal: LivePoint {
+    public static var mouseXYAbs: LivePoint {
         return LivePoint({ () -> (CGPoint) in
             return NSEvent.mouseLocation
         })
     }
-    public static var mousePoint: LivePoint {
+    public static var mouseXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
             for pix in Pixels.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
