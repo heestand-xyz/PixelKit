@@ -1,5 +1,5 @@
 //
-//  ContentResourceImagePIX.metal
+//  ContentResourceBGRPIX.metal
 //  Pixels Shaders
 //
 //  Created by Hexagons on 2018-07-31.
@@ -14,9 +14,9 @@ struct VertexOut{
     float2 texCoord;
 };
 
-fragment float4 contentResourcePIX(VertexOut out [[stage_in]],
-                                   texture2d<float>  inTex [[ texture(0) ]],
-                                   sampler s [[ sampler(0) ]]) {
+fragment float4 ContentResourceBGRPIX(VertexOut out [[stage_in]],
+                                      texture2d<float>  inTex [[ texture(0) ]],
+                                      sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
@@ -24,7 +24,7 @@ fragment float4 contentResourcePIX(VertexOut out [[stage_in]],
     
     float4 c = inTex.sample(s, uv);
     
-    return float4(c.r, c.g, c.b, c.a);
+    return float4(c.b, c.g, c.r, c.a);
 }
 
 

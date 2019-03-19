@@ -17,7 +17,7 @@ public class ImagePIX: PIXResource {
     #if os(iOS)
     override open var shader: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shader: String { return "contentResourcePIX" }
+    override open var shader: String { return "contentResourceBGRPIX" }
     #endif
     
     // MARK: - Public Properties

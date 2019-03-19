@@ -37,6 +37,7 @@ public class Pixels {
     public var logSource: Bool = false
     public var logLoopLimitActive = true
     public var logLoopLimitFrameCount = 30
+    public var logHighResWarnings = true
     var logLoopLimitIndicated = false
 
     public var logTime = false

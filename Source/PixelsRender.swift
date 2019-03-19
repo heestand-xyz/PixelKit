@@ -62,6 +62,31 @@ extension Pixels {
                 } else {
                     renderPIX(pix)
                 }
+//                if pix.view.superview != nil {
+//                    #if os(iOS)
+//                    pix.view.metalView.setNeedsDisplay()
+//                    #elseif os(macOS)
+//                    guard let size = pix.resolution?.size else {
+//                        log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+//                        continue
+//                    }
+//                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//                    #endif
+//                    log(pix: pix, .detail, .render, "View Render requested.", loop: true)
+//                }
+//                if let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable {
+//                    if pix.view.superview != nil {
+//                        pix.view.metalView.readyToRender = {
+//                            pix.view.metalView.readyToRender = nil
+//                            self.renderPIX(pix, with: currentDrawable)
+//                        }
+//                    } else {
+//                        renderPIX(pix, with: currentDrawable)
+//                    }
+//                } else {
+//                    log(pix: pix, .error, .render, "Current Drawable not found.")
+//                    renderPIX(pix)
+//                }
             }
         }
     }
@@ -194,13 +219,15 @@ extension Pixels {
             drawableTexture = try emptyTexture(size: res.size)
         }
         
-        let drawRes = PIX.Res(texture: drawableTexture)
-        if (drawRes >= ._16384) != false {
-            log(pix: pix, .warning, .render, "Epic res: \(drawRes)")
-        } else if (drawRes >= ._8192) != false {
-            log(pix: pix, .warning, .render, "Extreme res: \(drawRes)")
-        } else if (drawRes >= ._4096) != false {
-            log(pix: pix, .warning, .render, "High res: \(drawRes)")
+        if logHighResWarnings {        
+            let drawRes = PIX.Res(texture: drawableTexture)
+            if (drawRes >= ._16384) != false {
+                log(pix: pix, .warning, .render, "Epic res: \(drawRes)")
+            } else if (drawRes >= ._8192) != false {
+                log(pix: pix, .warning, .render, "Extreme res: \(drawRes)")
+            } else if (drawRes >= ._4096) != false {
+                log(pix: pix, .warning, .render, "High res: \(drawRes)")
+            }
         }
         
         // Render Time
