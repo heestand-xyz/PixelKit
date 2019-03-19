@@ -174,7 +174,11 @@ public class PIXView: _View {
     #if os(iOS)
     
     public func liveTouch(active: Bool) {
+        #if os(iOS)
         liveTouchView.isUserInteractionEnabled = active
+        #elseif os(macOS)
+        liveMouseView.isUserInteractionEnabled = active
+        #endif
     }
     
     public func touchEvent(_ callback: @escaping (Bool) -> ()) {
@@ -196,6 +200,12 @@ public class PIXView: _View {
             let uv = CGPoint(x: (point.x + aspect / 2) / aspect, y: point.y + 0.5)
             callback(uv)
         }
+    }
+    
+    #elseif os(macOS)
+    
+    public func liveMouse(active: Bool) {
+        liveMouseView.isHidden = !active
     }
     
     #endif

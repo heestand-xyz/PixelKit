@@ -149,6 +149,12 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public static var mouseInView: LiveFloat {
         return LiveBool.mouseInView <?> 1.0 <=> 0.0
     }
+    public static var mouseX: LiveFloat {
+        return LivePoint.mouseXY.x
+    }
+    public static var mouseY: LiveFloat {
+        return LivePoint.mouseXY.y
+    }
     
     #endif
     
