@@ -138,7 +138,7 @@ extension Pixels {
         var localRenderTime = Date()
         var renderTime: Double = -1
         var renderTimeMs: Double = -1
-        log(.debug, .metal, "Render Timer: Started")
+        log(pix: pix, .debug, .metal, "Render Timer: Started")
 
         
         // MARK: Command Buffer
@@ -150,7 +150,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
         localRenderTime = Date()
         
         
@@ -162,7 +162,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
         localRenderTime = Date()
         
         
@@ -196,7 +196,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
         localRenderTime = Date()
         
         
@@ -214,7 +214,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
         localRenderTime = Date()
         
         
@@ -244,7 +244,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
         localRenderTime = Date()
         
         
@@ -307,7 +307,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
         localRenderTime = Date()
         
         
@@ -326,7 +326,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
         localRenderTime = Date()
         
         
@@ -365,7 +365,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
         localRenderTime = Date()
         
         
@@ -386,7 +386,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
         localRenderTime = Date()
         
         
@@ -409,7 +409,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
         localRenderTime = Date()
         
         
@@ -420,7 +420,7 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
         localRenderTime = Date()
         
         
@@ -437,13 +437,13 @@ extension Pixels {
         // Render Time
         renderTime = -localRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
         localRenderTime = Date()
         
         // Render Time
         renderTime = -globalRenderTime.timeIntervalSinceNow
         renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
+        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
         
         
         // MARK: Render
@@ -458,14 +458,14 @@ extension Pixels {
             // Render Time
             renderTime = -localRenderTime.timeIntervalSinceNow
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-            self.log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
+            self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
             
             // Render Time
             renderTime = -globalRenderTime.timeIntervalSinceNow
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-            self.log(.debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
+            self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
             
-            self.log(.debug, .metal, "Render Timer: Ended")
+            self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
             
             DispatchQueue.main.async {
                 completed(drawableTexture)
