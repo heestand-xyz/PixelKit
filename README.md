@@ -61,8 +61,6 @@ Under development.
 
 ## Install
 
-[Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)
-
 To get up and running, follow these steps:
 1. Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
 2. Add the framework files in from the zip to the root of your Xcode project.
@@ -81,7 +79,10 @@ Classes, Delegates and Properties of:<br>
 [PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
-## Tutorial
+## Tutorials
+
+[Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
+[Getting started with Metal in Pixels](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
 
 [High Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov) (1,5 GB) -
 [Mid Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_compressed.mov) (0,5 GB) -
