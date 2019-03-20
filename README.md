@@ -59,6 +59,14 @@ Under development.
 
 --- 
 
+## Install
+
+[Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)
+
+- Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
+- Add the framework files in from the zip to the root of your Xcode project. Then in your project settings under *General* and *Embedded Binaries* add **Pixels.framework**. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
+- Now you can `import Pixels`.
+
 Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.<b>
 
 ## Docs
@@ -67,8 +75,6 @@ Classes, Delegates and Properties of:<br>
 [PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
 [PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
-
-[Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)
 
 ## Installing
 
