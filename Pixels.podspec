@@ -82,7 +82,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "feature/live", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "feature/live" } #, :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -102,7 +102,7 @@ Pod::Spec.new do |spec|
   						   "Source/PIX/Output/StreamOutPIX.swift",
   						   "Source/PIX/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
-                           "Source/PIX/Peer.swift"
+                           "Source/PIX/IO/Peer.swift"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
