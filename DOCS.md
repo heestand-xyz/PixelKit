@@ -52,6 +52,8 @@ func <b>seek(toTime: CMTime)</b><br>
 func <b>seek(toFraction: CGFloat)</b><br>
 func <b>restart()</b><br>
 func <b>reset()</b>
+### ScreenCapturePIX
+var <b>screenIndex</b>: Int = 0
 ### VectorPIX <i>(coming soon)</i>
 ### TextPIX <i>(coming soon)</i>
 ### PaintPIX <i>(coming soon)</i>

@@ -8,6 +8,7 @@ powered by Metal - inspired by TouchDesigner
 [CameraPIX](DOCS.md#camerapix) -
 [ImagePIX](DOCS.md#imagepix) -
 [VideoPIX](DOCS.md#videopix) -
+[ScreenCapturePIX](DOCS.md#screencapturepix)-
 [ColorPIX](DOCS.md#colorpix) -
 [CirclePIX](DOCS.md#circlepix) -
 [RectanglePIX](DOCS.md#rectanglepix) -

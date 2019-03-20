@@ -131,7 +131,7 @@ Pod::Spec.new do |spec|
   # spec.framework  = "SomeFramework"
   # spec.frameworks = "UIKit" #, "AnotherFramework"
 
-  spec.library   = "PixelsShaders.metallib"
+  # spec.library   = "PixelsShaders.metallib"
   # spec.libraries = "iconv", "xml2"
 
 
