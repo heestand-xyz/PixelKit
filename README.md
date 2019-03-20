@@ -70,11 +70,6 @@ To get up and running, follow these steps:
 4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
 5. Now you can `import Pixels`.
 
-To contribute, follow these steps:
-1. Drag `Pixels.xcodeproj` in to your Xcode project.
-2. Drag `Pixels.framework` under Products to your projects embedded binaries section of the general tab of your app target.
-3. Drag `PixelsShaders.metallib` under Products (from the nested `PixelsShaders.xcodeproj`) to your projects copy bundle resources under build phases of your app target.
-
 Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.<b>
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
