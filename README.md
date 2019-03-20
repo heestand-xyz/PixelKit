@@ -63,11 +63,21 @@ Under development.
 
 [Getting started with Pixels in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)
 
-- Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
-- Add the framework files in from the zip to the root of your Xcode project. Then in your project settings under *General* and *Embedded Binaries* add **Pixels.framework**. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
-- Now you can `import Pixels`.
+To get up and running, follow these steps:
+1. Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
+2. Add the framework files in from the zip to the root of your Xcode project.
+3. In your project settings under *General* and *Embedded Binaries* add **Pixels.framework**.
+4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
+5. Now you can `import Pixels`.
+
+To contribute, follow these steps:
+1. Drag `Pixels.xcodeproj` in to your Xcode project.
+2. Drag `Pixels.framework` under Products to your projects embedded binaries section of the general tab of your app target.
+3. Drag `PixelsShaders.metallib` under Products (from the nested `PixelsShaders.xcodeproj`) to your projects copy bundle resources under build phases of your app target.
 
 Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.<b>
+
+To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
 ## Docs
 Classes, Delegates and Properties of:<br>
@@ -75,17 +85,6 @@ Classes, Delegates and Properties of:<br>
 [PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
 [PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
 [PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
-
-## Installing
-
-Pod coming soon!
-
-To contribute or test, follow these three steps:
-1. Drag `Pixels.xcodeproj` in to your Xcode project.
-2. Drag `Pixels.framework` under Products to your projects embedded binaries section of the general tab of your app target.
-3. Drag `PixelsShaders.metallib` under Products (from the nested `PixelsShaders.xcodeproj`) to your projects copy bundle resources under build phases of your app target.
-
-To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
 ## Tutorial
 
