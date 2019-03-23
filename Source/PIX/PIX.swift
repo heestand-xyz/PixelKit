@@ -231,19 +231,23 @@ open class PIX {
     }
     
     func connectSingle(_ pixOut: PIX & PIXOutIO) {
+        guard pixOut != self else {
+            pixels.log(.error, .connection, "Can't connect to self.")
+            return
+        }
+        var pixOut = pixOut
         guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = [pixOut]
-        var pixOut = pixOut
         pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
         applyRes { self.setNeedsRender() }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = [pixOutA, pixOutB]
         var pixOutA = pixOutA
         var pixOutB = pixOutB
+        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        pixInIO.pixInList = [pixOutA, pixOutB]
         pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
         pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
         pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
@@ -265,7 +269,7 @@ open class PIX {
     
     func disconnectSingle() {
         guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        var pixOut = pixInIO.pixInList.first! as! PIXOutIO
+        guard var pixOut = pixInIO.pixInList.first as? PIXOutIO else { return }
         for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
             if pixOutPath.pixIn == pixInIO {
                 pixOut.pixOutPathList.remove(at: i)
@@ -273,6 +277,8 @@ open class PIX {
             }
         }
         pixInIO.pixInList = []
+        pixels.log(pix: self, .info, .connection, "Disonnected Single.")
+        applyRes { self.setNeedsRender() }
 //        view.setResolution(nil)
     }
     
