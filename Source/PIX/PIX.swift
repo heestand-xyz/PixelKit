@@ -278,7 +278,7 @@ open class PIX {
         }
         pixInIO.pixInList = []
         pixels.log(pix: self, .info, .connection, "Disonnected Single.")
-        applyRes { self.setNeedsRender() }
+//        applyRes { self.setNeedsRender() }
 //        view.setResolution(nil)
     }
     
