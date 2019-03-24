@@ -218,6 +218,23 @@ public extension PIX {
             return .raw(raw.flopped)
         }
         
+        // MARK: Is
+        
+        public static var isiPhone: Bool {
+            return Res.fullscreen == .iPhone(.landscape) || Res.fullscreen == .iPhone(.portrait) ||
+                Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
+                Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
+                Res.fullscreen == .iPhoneXR(.landscape) || Res.fullscreen == .iPhoneXR(.portrait) ||
+                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait)
+        }
+        
+        public static var isiPad: Bool {
+            return Res.fullscreen == .iPad(.landscape) || Res.fullscreen == .iPad(.portrait) ||
+               Res.fullscreen == .iPadPro_11(.landscape) || Res.fullscreen == .iPadPro_11(.portrait) ||
+               Res.fullscreen == .iPadPro_10_5(.landscape) || Res.fullscreen == .iPadPro_10_5(.portrait) ||
+               Res.fullscreen == .iPadPro_12_9(.landscape) || Res.fullscreen == .iPadPro_12_9(.portrait)
+        }
+        
         // MARK: Raw
         
         public struct Raw/*: Codable*/ {
