@@ -10,6 +10,8 @@ import Metal
 
 /// Metal Shader (Generator)
 ///
+/// vars: pi, u, v, uv
+///
 /// Example:
 /// ~~~~swift
 /// let metalPix = MetalPIX(res: ._1080p, code:

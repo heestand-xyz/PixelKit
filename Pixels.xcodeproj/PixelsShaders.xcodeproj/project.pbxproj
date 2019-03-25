@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A2839BC2238FED900D0FD69 /* ContentResourcePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2839BB2238FED900D0FD69 /* ContentResourcePIX.metal */; };
 		3A2839BD2238FED900D0FD69 /* ContentResourcePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2839BB2238FED900D0FD69 /* ContentResourcePIX.metal */; };
+		3A2924482249117800A05B7A /* EffectSingleFlarePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924472249117800A05B7A /* EffectSingleFlarePIX.metal */; };
+		3A2924492249117800A05B7A /* EffectSingleFlarePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924472249117800A05B7A /* EffectSingleFlarePIX.metal */; };
 		3A2C1DAB2249068B0040D5D0 /* EffectSingleSepiaPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */; };
 		3A2C1DAC2249068B0040D5D0 /* EffectSingleSepiaPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */; };
 		3A77CD8021B169FC006BB415 /* error.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A77CD7F21B169FC006BB415 /* error.metal */; };
@@ -104,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		3A2839BB2238FED900D0FD69 /* ContentResourcePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentResourcePIX.metal; sourceTree = "<group>"; };
+		3A2924472249117800A05B7A /* EffectSingleFlarePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleFlarePIX.metal; sourceTree = "<group>"; };
 		3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleSepiaPIX.metal; sourceTree = "<group>"; };
 		3A77CD7F21B169FC006BB415 /* error.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = error.metal; sourceTree = "<group>"; };
 		740EE35E212DD5030065F49B /* noise.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = noise.metal; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 				74A7B97D21412B5B0078DDE3 /* EffectSingleSharpenPIX.metal */,
 				74A7B97B21412B5A0078DDE3 /* EffectSingleSlopePIX.metal */,
 				3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */,
+				3A2924472249117800A05B7A /* EffectSingleFlarePIX.metal */,
 				740EE363212DD5030065F49B /* EffectSingleThresholdPIX.metal */,
 				74CE2FCC21358AD600B2BD2C /* EffectSingleTransformPIX.metal */,
 				740EE36A212DD5030065F49B /* EffectSingleTwirlPIX.metal */,
@@ -341,6 +345,7 @@
 				748859DF212F36EB00E04F17 /* ContentGeneratorRectanglePIX.metal in Sources */,
 				740EE38D212DD5030065F49B /* NilPIX.metal in Sources */,
 				740EE383212DD5030065F49B /* EffectSingleBlurPIX.metal in Sources */,
+				3A2924482249117800A05B7A /* EffectSingleFlarePIX.metal in Sources */,
 				740EE377212DD5030065F49B /* ContentResourceFlipPIX.metal in Sources */,
 				3A77CD8021B169FC006BB415 /* error.metal in Sources */,
 				3A2839BC2238FED900D0FD69 /* ContentResourcePIX.metal in Sources */,
@@ -374,6 +379,7 @@
 				74E9F6EE2193815F00F541DE /* EffectSingleTwirlPIX.metal in Sources */,
 				74E9F6F72193815F00F541DE /* random.metal in Sources */,
 				74E9F6E82193815F00F541DE /* EffectSingleRangePIX.metal in Sources */,
+				3A2924492249117800A05B7A /* EffectSingleFlarePIX.metal in Sources */,
 				74E9F6DA2193815F00F541DE /* EffectMergerLumaBlurPIX.metal in Sources */,
 				74E9F6F02193815F00F541DE /* hsv.metal in Sources */,
 				74E9F6D42193815F00F541DE /* ContentResourceCameraPIX.metal in Sources */,

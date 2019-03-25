@@ -8,6 +8,8 @@
 
 /// Metal Shader (Multi Effect)
 ///
+/// vars: pi, u, v, uv, pixCount
+///
 /// Example:
 /// ~~~~swift
 /// let metalMultiEffectPix = MetalMultiEffectPIX(code:

@@ -8,6 +8,8 @@
 
 /// Metal Shader (Merger Effect)
 ///
+/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inPixA, wB, hB, wuB, hvB, inPixB
+///
 /// Example:
 /// ~~~~swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:

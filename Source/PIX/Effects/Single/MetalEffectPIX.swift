@@ -8,6 +8,8 @@
 
 /// Metal Shader (Effect)
 ///
+/// vars: pi, u, v, uv, w, h, wu, hv, inPix
+///
 /// Example:
 /// ~~~~swift
 /// let metalEffectPix = MetalEffectPIX(code:
