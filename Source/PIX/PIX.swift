@@ -58,7 +58,12 @@ open class PIX {
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
     
-    public var bypass: Bool = false
+    public var bypass: Bool = false {
+        didSet {
+            guard !bypass else { return }
+            setNeedsRender()
+        }
+    }
 
     var _texture: MTLTexture?
     var texture: MTLTexture? {

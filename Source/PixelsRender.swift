@@ -94,6 +94,10 @@ extension Pixels {
     func renderPIX(_ pix: PIX, with currentDrawable: CAMetalDrawable? = nil, force: Bool = false) {
 //        let queue = DispatchQueue(label: "pixels-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
 //        queue.async {
+        guard !pix.bypass else {
+            self.log(pix: pix, .info, .render, "Render bypassed.", loop: true)
+            return
+        }
             guard !pix.rendering else {
                 self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
                 return

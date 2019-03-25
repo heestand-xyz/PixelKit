@@ -189,7 +189,7 @@ public extension PIX {
             }
         }
         
-        static var scale: CGFloat {
+        public static var scale: CGFloat {
             #if os(iOS)
             return UIScreen.main.nativeScale
             #elseif os(macOS)
