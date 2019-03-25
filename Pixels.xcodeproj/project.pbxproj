@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
+		3A2C1DA9224906220040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
+		3A2C1DAD2249068D0040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
@@ -190,6 +192,7 @@
 
 /* Begin PBXFileReference section */
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
+		3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SepiaPIX.swift; sourceTree = "<group>"; };
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
@@ -445,6 +448,7 @@
 				74A7B98121412BBF0078DDE3 /* RangePIX.swift */,
 				74A7B98321412BC80078DDE3 /* SharpenPIX.swift */,
 				74A7B98521412BD70078DDE3 /* SlopePIX.swift */,
+				3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */,
 				3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */,
 				7421ED3E2231782E00E60A0E /* FreezePIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
@@ -772,6 +776,7 @@
 				3AF28C04219312F50079FC7A /* CornerPinPIX.swift in Sources */,
 				3AF28BFB219312F50079FC7A /* EdgePIX.swift in Sources */,
 				3AF28BDB219312CF0079FC7A /* PIX.swift in Sources */,
+				3A2C1DAD2249068D0040D5D0 /* SepiaPIX.swift in Sources */,
 				3AF28BE1219312CF0079FC7A /* PIXModes.swift in Sources */,
 				3AF28C19219313050079FC7A /* MetalPIX.swift in Sources */,
 				3AF28C13219313050079FC7A /* ColorPIX.swift in Sources */,
@@ -894,6 +899,7 @@
 				74D90B1A213317250028A69E /* CheckerView.swift in Sources */,
 				74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */,
 				74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */,
+				3A2C1DA9224906220040D5D0 /* SepiaPIX.swift in Sources */,
 				744133A0212F859D00326015 /* VideoPIX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
