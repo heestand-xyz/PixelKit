@@ -75,7 +75,8 @@ public class CameraPIX: PIXResource {
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
         #if os(iOS)
-        case back = "Back Camera"
+        case back = "Wide Camera"
+        case tele = "Tele Camera"
         #elseif os(macOS)
         case external = "External Camera"
         #endif
@@ -84,7 +85,7 @@ public class CameraPIX: PIXResource {
             case .front:
                 return .front
             #if os(iOS)
-            case .back:
+            case .back, .tele:
                 return .back
             #elseif os(macOS)
             case .external:
@@ -100,6 +101,13 @@ public class CameraPIX: PIXResource {
             return false
             #elseif os(macOS)
             return true
+            #endif
+        }
+        var isTele: Bool {
+            #if os(iOS)
+            return self == .tele
+            #elseif os(macOS)
+            return false
             #endif
         }
     }
@@ -265,7 +273,7 @@ public class CameraPIX: PIXResource {
         #elseif os(macOS)
         let extCam = camera == .external
         #endif
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, useExternalCamera: extCam, setup: { _, orientation in
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, useExternalCamera: extCam, setup: { _, orientation in
             self.pixels.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -328,10 +336,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         #if os(iOS)
-        device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        device = AVCaptureDevice.default(tele ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
         #elseif os(macOS)
         if !useExternalCamera {
             device = AVCaptureDevice.default(for: .video)
