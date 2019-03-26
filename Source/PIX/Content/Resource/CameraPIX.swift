@@ -530,6 +530,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     }
     
     func manualFocus(_ active: Bool) {
+        guard device!.isFocusModeSupported(.locked) else { return }
         do {
             try device?.lockForConfiguration()
             device?.focusMode = active ? .locked : .continuousAutoFocus
@@ -571,6 +572,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //    }
     
     func setFocus(_ value: CGFloat) {
+        guard device!.isFocusModeSupported(.locked) else { return }
         device!.setFocusModeLocked(lensPosition: Float(value))
     }
     
