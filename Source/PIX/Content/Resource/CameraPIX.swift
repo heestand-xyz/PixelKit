@@ -340,6 +340,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         #if os(iOS)
         device = AVCaptureDevice.default(tele ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
+        if device == nil {
+            device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        }
         #elseif os(macOS)
         if !useExternalCamera {
             device = AVCaptureDevice.default(for: .video)
