@@ -209,7 +209,7 @@ public class CameraPIX: PIXResource {
         #if os(iOS)
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #elseif os(macOS)
-        return [0, camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
+        return [4, camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #endif
     }
     
