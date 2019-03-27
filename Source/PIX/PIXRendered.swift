@@ -39,6 +39,7 @@ public extension PIX {
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {
             callback(image)
+            return
         }
         Pixels.main.delay(frames: 1, done: {
             self.nextRenderedImage(callback: callback)
