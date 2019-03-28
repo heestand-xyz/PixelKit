@@ -6,8 +6,8 @@
 //  Open Source - MIT License
 //
 
-public class CirclePIX: PIXGenerator {
-    
+public class CirclePIX: PIXGenerator, Layoutable {
+
     override open var shader: String { return "contentGeneratorCirclePIX" }
     
     // MARK: - Public Properties
@@ -24,5 +24,9 @@ public class CirclePIX: PIXGenerator {
     override var liveValues: [LiveValue] {
         return [radius, position, edgeRadius, color, edgeColor, bgColor]
     }
+
+    // MARK: Layout
+    
+    var bounds: CGRect {}
     
 }

@@ -102,6 +102,10 @@
 		3AF28C29219337270079FC7A /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
 		3AF28C2A219337850079FC7A /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
 		3AF28C2B219337CD0079FC7A /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
+		74013306224D298000826395 /* PIXLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* PIXLayout.swift */; };
+		74013307224D29E800826395 /* PIXLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* PIXLayout.swift */; };
+		74013309224D2A7500826395 /* LiveRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013308224D2A7500826395 /* LiveRect.swift */; };
+		7401330A224D2D9A00826395 /* LiveRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013308224D2A7500826395 /* LiveRect.swift */; };
 		7401CF3121147C9700000A38 /* ResPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResPIX.swift */; };
 		74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AF8212C38DB00E77766 /* FeedbackPIX.swift */; };
 		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
@@ -212,6 +216,8 @@
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* Pixels_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74013305224D298000826395 /* PIXLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXLayout.swift; sourceTree = "<group>"; };
+		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
 		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
@@ -354,6 +360,7 @@
 				7498CA032122073200B07711 /* PIXResolution.swift */,
 				748ADFB32120C1E3007462F8 /* PIXRendered.swift */,
 				7424A1B4212F5C9300401654 /* PIXModes.swift */,
+				74013305224D298000826395 /* PIXLayout.swift */,
 				74076D04211A27D2000E56E0 /* PIXRes.swift */,
 				747E2328223E799E0072A4AD /* IO */,
 				7465FC75211A3CAC00899359 /* View */,
@@ -429,6 +436,7 @@
 				7465FC77211A4E0400899359 /* LiveColor.swift */,
 				3ACD972921AD65FC005F5B76 /* LivePoint.swift */,
 				3A13063721AD760300C2F2CF /* LiveSize.swift */,
+				74013308224D2A7500826395 /* LiveRect.swift */,
 			);
 			path = Live;
 			sourceTree = "<group>";
@@ -790,6 +798,7 @@
 				3AF28BF9219312F50079FC7A /* LevelsPIX.swift in Sources */,
 				3AF28C04219312F50079FC7A /* CornerPinPIX.swift in Sources */,
 				3AF28BFB219312F50079FC7A /* EdgePIX.swift in Sources */,
+				7401330A224D2D9A00826395 /* LiveRect.swift in Sources */,
 				3AF28BDB219312CF0079FC7A /* PIX.swift in Sources */,
 				3A2C1DAD2249068D0040D5D0 /* SepiaPIX.swift in Sources */,
 				3AF28BE1219312CF0079FC7A /* PIXModes.swift in Sources */,
@@ -817,6 +826,7 @@
 				3AF28C18219313050079FC7A /* NoisePIX.swift in Sources */,
 				3AF28C05219312F50079FC7A /* HueSatPIX.swift in Sources */,
 				3AF28C12219313050079FC7A /* PIXGenerator.swift in Sources */,
+				74013307224D29E800826395 /* PIXLayout.swift in Sources */,
 				3AF28C07219312F50079FC7A /* FlipFlopPIX.swift in Sources */,
 				3AF28BD7219312CA0079FC7A /* PixelsRender.swift in Sources */,
 				3AF28C0A219312F50079FC7A /* SlopePIX.swift in Sources */,
@@ -836,6 +846,7 @@
 				74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */,
 				74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */,
 				745A8F95212DC9AD006DA59D /* PixelsRender.swift in Sources */,
+				74013309224D2A7500826395 /* LiveRect.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				747CBA85214286EC00CB2616 /* MetalMultiEffectPIX.swift in Sources */,
 				74032AFC212C478000E77766 /* CrossPIX.swift in Sources */,
@@ -895,6 +906,7 @@
 				74032AF9212C38DB00E77766 /* FeedbackPIX.swift in Sources */,
 				74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */,
 				7449A18C2142797100FAA8CC /* ReorderPIX.swift in Sources */,
+				74013306224D298000826395 /* PIXLayout.swift in Sources */,
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
 				747CBA972142882700CB2616 /* MetalPIX.swift in Sources */,
 				7498CA042122073200B07711 /* PIXResolution.swift in Sources */,

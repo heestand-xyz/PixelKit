@@ -24,6 +24,8 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public var width: LiveFloat { return w }
     public var height: LiveFloat { return h }
     
+    public var point: LivePoint { return LivePoint(x: w, y: h) }
+    
     // MARK: Uniform
     
     var uniformIsNew: Bool {
@@ -130,9 +132,9 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         return LiveSize(w: aspect, h: 1.0)
     }
     
-//    public static func fill(res: PIX.Res) -> LiveSize {
-//        return LiveSize.fill(aspect: LiveFloat(frozen: res.aspect))
-//    }
+    public static func fill(res: PIX.Res) -> LiveSize {
+        return LiveSize.fill(aspect: LiveFloat(res.aspect))
+    }
     
     // MARK: Equatable
     

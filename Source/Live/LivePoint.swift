@@ -24,6 +24,8 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         return "live\(name != nil ? "[\(name!)]" : "")(x:\("\(_x)".zfill(3)),y:\("\(_y)".zfill(3)))"
     }
     
+    public var size: LiveSize { return LiveSize(w: x, h: y) }
+    
     // MARK: Uniform
     
     var uniformIsNew: Bool {

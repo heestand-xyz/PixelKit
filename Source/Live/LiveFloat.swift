@@ -445,6 +445,13 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
 
 // MARK: Global Funcs
 
+public func min(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return min(CGFloat(live1), CGFloat(live2)) })
+}
+public func max(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return max(CGFloat(live1), CGFloat(live2)) })
+}
+
 public func round(_ live: LiveFloat) -> LiveFloat {
     return LiveFloat({ return round(CGFloat(live)) })
 }
