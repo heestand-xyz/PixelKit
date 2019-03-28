@@ -20,6 +20,8 @@
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
+		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
+		3AA4AC27224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
@@ -204,6 +206,7 @@
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
+		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
@@ -513,6 +516,7 @@
 				741510DB212F300B00B251E7 /* ColorPIX.swift */,
 				74076D07211A2C80000E56E0 /* CirclePIX.swift */,
 				3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */,
+				3AA4AC25224D077400E894B2 /* LinePIX.swift */,
 				748859E0212F371800E04F17 /* RectanglePIX.swift */,
 				74AE242521284F0900E80B96 /* PolygonPIX.swift */,
 				74BA6232211CE7AB005F5FBC /* GradientPIX.swift */,
@@ -765,6 +769,7 @@
 				3AF28BFC219312F50079FC7A /* ThresholdPIX.swift in Sources */,
 				3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */,
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
+				3AA4AC27224D077500E894B2 /* LinePIX.swift in Sources */,
 				3AF28C2A219337850079FC7A /* PIXView.swift in Sources */,
 				3AF28C2621931DE10079FC7A /* LiveColor.swift in Sources */,
 				3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */,
@@ -878,6 +883,7 @@
 				3A2924452249114F00A05B7A /* FlarePIX.swift in Sources */,
 				7486537B21A896680073F758 /* LiveFloat.swift in Sources */,
 				3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */,
+				3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */,
 				7401CF3121147C9700000A38 /* ResPIX.swift in Sources */,
 				7410E6CC223D1DD700DF64AC /* TimeMachinePIX.swift in Sources */,
 				743054E0215EBB6B004E6B27 /* PixelsTypes.swift in Sources */,
