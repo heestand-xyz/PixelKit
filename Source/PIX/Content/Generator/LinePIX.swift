@@ -12,10 +12,10 @@ public class LinePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var positionFrom: LivePoint = LivePoint(x: -0.25, y: 0.25)
-    public var positionTo: LivePoint = LivePoint(x: -0.25, y: 0.25)
-    public var scale: LiveFloat = sqrt(0.75) / 4
-    public var color: LiveColor = .black
+    public var positionFrom: LivePoint = LivePoint(x: -0.25, y: -0.25)
+    public var positionTo: LivePoint = LivePoint(x: 0.25, y: 0.25)
+    public var scale: LiveFloat = 0.01
+    public var color: LiveColor = .white
     public var bgColor: LiveColor = .black
     
     // MARK: - Property Helpers
