@@ -70,6 +70,11 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         h = height
     }
     
+    public init(scale: LiveFloat) {
+        w = scale
+        h = scale
+    }
+    
     public init(_ size: CGSize) {
         w = LiveFloat(size.width)
         h = LiveFloat(size.height)

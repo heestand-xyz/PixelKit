@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-public class ArcPIX: PIXGenerator {
+public class ArcPIX: PIXGenerator, Layoutable {
     
     override open var shader: String { return "contentGeneratorArcPIX" }
     
@@ -26,6 +26,39 @@ public class ArcPIX: PIXGenerator {
     
     override var liveValues: [LiveValue] {
         return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, edgeColor, bgColor]
+    }
+    
+    // MARK: Layout
+    
+    public var frame: LiveRect {
+        get {
+            let positionFrom = LivePoint(x: position.x + cos(angleFrom) * radius, y: position.y + sin(angleFrom) * radius)
+            let positionTo = LivePoint(x: position.x + cos(angleTo) * radius, y: position.y + sin(angleTo) * radius)
+            let minPoint = LivePoint(x: min(positionFrom.x, positionTo.x), y: min(positionFrom.y, positionTo.y))
+            let maxPoint = LivePoint(x: max(positionFrom.x, positionTo.x), y: max(positionFrom.y, positionTo.y))
+            return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
+        }
+        set {
+            reFrame(to: frame)
+        }
+    }
+    
+    public func reFrame(to frame: LiveRect) {}
+    public func reFrame(to layoutable: Layoutable) {
+        frame = layoutable.frame
+    }
+    
+    public func anchor(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor) {
+        Layout.anchor(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor)
+    }
+    public func anchor(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor) {
+        anchor(targetXAnchor, to: layoutable.frame, sourceXAnchor)
+    }
+    public func anchor(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor) {
+        Layout.anchor(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor)
+    }
+    public func anchor(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor) {
+        anchor(targetYAnchor, to: layoutable.frame, sourceYAnchor)
     }
     
 }

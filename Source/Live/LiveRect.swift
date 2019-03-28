@@ -29,11 +29,22 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public var minY: LiveFloat { return y }
     public var maxX: LiveFloat { return x + w }
     public var maxY: LiveFloat { return y + h }
+
     public var origin: LivePoint { return LivePoint(x: x, y: y) }
     public var center: LivePoint { return LivePoint(x: x + w / 2, y: y + h / 2) }
-    public var size: LiveSize { return LiveSize(w: w, h: h) }
+    
     public var width: LiveFloat { return w }
     public var height: LiveFloat { return h }
+    public var size: LiveSize { return LiveSize(w: w, h: h) }
+    
+    public var centerTop: LivePoint { return LivePoint(x: x + w / 2, y: y + h) }
+    public var centerBottom: LivePoint { return LivePoint(x: x + w / 2, y: y) }
+    public var centerLeft: LivePoint { return LivePoint(x: x, y: y + h / 2) }
+    public var centerRight: LivePoint { return LivePoint(x: x + w, y: y + h / 2) }
+    public var topLeft: LivePoint { return LivePoint(x: x, y: y + h) }
+    public var topRight: LivePoint { return LivePoint(x: x + w, y: y + h) }
+    public var bottomLeft: LivePoint { return LivePoint(x: x, y: y) }
+    public var bottomRight: LivePoint { return LivePoint(x: x + w, y: y) }
     
     // MARK: Uniform
     
@@ -75,6 +86,13 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     public init(origin: LivePoint, size: LiveSize) {
         x = origin.x
         y = origin.y
+        w = size.w
+        h = size.h
+    }
+    
+    public init(center: LivePoint, size: LiveSize) {
+        x = center.x - size.w / 2
+        y = center.y - size.h / 2
         w = size.w
         h = size.h
     }

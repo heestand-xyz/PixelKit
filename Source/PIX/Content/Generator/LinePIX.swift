@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-public class LinePIX: PIXGenerator {
+public class LinePIX: PIXGenerator, Layoutable {
     
     override open var shader: String { return "contentGeneratorLinePIX" }
     
@@ -22,6 +22,37 @@ public class LinePIX: PIXGenerator {
     
     override var liveValues: [LiveValue] {
         return [positionFrom, positionTo, scale, color, bgColor]
+    }
+    
+    // MARK: Layout
+    
+    public var frame: LiveRect {
+        get {
+            let minPoint = LivePoint(x: min(positionFrom.x, positionTo.x), y: min(positionFrom.y, positionTo.y))
+            let maxPoint = LivePoint(x: max(positionFrom.x, positionTo.x), y: max(positionFrom.y, positionTo.y))
+            return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
+        }
+        set {
+            reFrame(to: frame)
+        }
+    }
+    
+    public func reFrame(to frame: LiveRect) {}
+    public func reFrame(to layoutable: Layoutable) {
+        frame = layoutable.frame
+    }
+    
+    public func anchor(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor) {
+        Layout.anchor(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor)
+    }
+    public func anchor(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor) {
+        anchor(targetXAnchor, to: layoutable.frame, sourceXAnchor)
+    }
+    public func anchor(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor) {
+        Layout.anchor(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor)
+    }
+    public func anchor(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor) {
+        anchor(targetYAnchor, to: layoutable.frame, sourceYAnchor)
     }
     
 }
