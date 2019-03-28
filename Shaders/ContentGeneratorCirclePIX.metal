@@ -1,5 +1,5 @@
 //
-//  CirclePIX.metal
+//  ContentGeneratorCirclePIX.metal
 //  Pixels Shaders
 //
 //  Created by Hexagons on 2017-11-17.

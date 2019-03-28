@@ -15,6 +15,8 @@
 		3A2C1DAC2249068B0040D5D0 /* EffectSingleSepiaPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */; };
 		3A77CD8021B169FC006BB415 /* error.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A77CD7F21B169FC006BB415 /* error.metal */; };
 		3A77CD8121B169FC006BB415 /* error.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A77CD7F21B169FC006BB415 /* error.metal */; };
+		3AA4AC23224CFC3800E894B2 /* ContentGeneratorArcPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC22224CFC3800E894B2 /* ContentGeneratorArcPIX.metal */; };
+		3AA4AC24224CFC3800E894B2 /* ContentGeneratorArcPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC22224CFC3800E894B2 /* ContentGeneratorArcPIX.metal */; };
 		740EE376212DD5030065F49B /* noise.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE35E212DD5030065F49B /* noise.metal */; };
 		740EE377212DD5030065F49B /* ContentResourceFlipPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE35F212DD5030065F49B /* ContentResourceFlipPIX.metal */; };
 		740EE378212DD5030065F49B /* ContentGeneratorNoisePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 740EE360212DD5030065F49B /* ContentGeneratorNoisePIX.metal */; };
@@ -109,6 +111,7 @@
 		3A2924472249117800A05B7A /* EffectSingleFlarePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleFlarePIX.metal; sourceTree = "<group>"; };
 		3A2C1DAA2249068B0040D5D0 /* EffectSingleSepiaPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleSepiaPIX.metal; sourceTree = "<group>"; };
 		3A77CD7F21B169FC006BB415 /* error.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = error.metal; sourceTree = "<group>"; };
+		3AA4AC22224CFC3800E894B2 /* ContentGeneratorArcPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentGeneratorArcPIX.metal; sourceTree = "<group>"; };
 		740EE35E212DD5030065F49B /* noise.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = noise.metal; sourceTree = "<group>"; };
 		740EE35F212DD5030065F49B /* ContentResourceFlipPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentResourceFlipPIX.metal; sourceTree = "<group>"; };
 		740EE360212DD5030065F49B /* ContentGeneratorNoisePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentGeneratorNoisePIX.metal; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				740EE374212DD5030065F49B /* ContentGeneratorCirclePIX.metal */,
+				3AA4AC22224CFC3800E894B2 /* ContentGeneratorArcPIX.metal */,
 				741510D9212F2FC900B251E7 /* ContentGeneratorColorPIX.metal */,
 				740EE369212DD5030065F49B /* ContentGeneratorGradientPIX.metal */,
 				740EE360212DD5030065F49B /* ContentGeneratorNoisePIX.metal */,
@@ -310,6 +314,7 @@
 				740EE382212DD5030065F49B /* EffectSingleTwirlPIX.metal in Sources */,
 				741510DA212F2FC900B251E7 /* ContentGeneratorColorPIX.metal in Sources */,
 				7483FC34213ECA9800D3F713 /* EffectSingleHueSatPIX.metal in Sources */,
+				3AA4AC23224CFC3800E894B2 /* ContentGeneratorArcPIX.metal in Sources */,
 				7424A1A7212F426C00401654 /* EffectSingleChromaKeyPIX.metal in Sources */,
 				740EE381212DD5030065F49B /* ContentGeneratorGradientPIX.metal in Sources */,
 				740EE37A212DD5030065F49B /* ContentGeneratorPolygonPIX.metal in Sources */,
@@ -393,6 +398,7 @@
 				74E9F6D22193815F00F541DE /* ContentGeneratorPolygonPIX.metal in Sources */,
 				74E9F6D52193815F00F541DE /* ContentResourceFlipPIX.metal in Sources */,
 				74E9F6D72193815F00F541DE /* EffectMergerCrossPIX.metal in Sources */,
+				3AA4AC24224CFC3800E894B2 /* ContentGeneratorArcPIX.metal in Sources */,
 				74E9F6F12193815F00F541DE /* SpritePIX.metal in Sources */,
 				74E9F6E32193815F00F541DE /* EffectSingleFlipFlopPIX.metal in Sources */,
 				74E9F6F62193815F00F541DE /* random_header.metal in Sources */,
