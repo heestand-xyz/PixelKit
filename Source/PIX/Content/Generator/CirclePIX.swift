@@ -56,5 +56,12 @@ public class CirclePIX: PIXGenerator, Layoutable {
     public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor) {
         anchorY(targetYAnchor, to: layoutable.frame, sourceYAnchor)
     }
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor) {
+        Layout.anchorX(target: self, targetXAnchor, toBoundAnchor: sourceXAnchor)
+    }
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor) {
+        Layout.anchorY(target: self, targetYAnchor, toBoundAnchor: sourceYAnchor)
+    }
+    
     
 }
