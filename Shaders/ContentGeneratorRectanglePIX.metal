@@ -51,29 +51,34 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
     float right = in.x + in.sx / 2;
     float bottom = -in.y - in.sy / 2;
     float top = -in.y + in.sy / 2;
+    
+    float width = right - left;
+    float height = top - bottom;
+    
+    float cr = min(min(in.cr, width / 2), height / 2);
    
     float in_x = x > left && x < right;
     float in_y = y > bottom && y < top;
     
-    if (in.cr == 0.0) {
+    if (cr == 0.0) {
         if (in_x && in_y) {
             c = ac;
         }
     } else {
-        float in_x_inset = x > left + in.cr && x < right - in.cr;
-        float in_y_inset = y > bottom + in.cr && y < top - in.cr;
+        float in_x_inset = x > left + cr && x < right - cr;
+        float in_y_inset = y > bottom + cr && y < top - cr;
         if ((in_x_inset && in_y) || (in_x && in_y_inset)) {
             c = ac;
         }
-        float2 c1 = float2(left + in.cr, bottom + in.cr);
-        float2 c2 = float2(left + in.cr, top - in.cr);
-        float2 c3 = float2(right - in.cr, bottom + in.cr);
-        float2 c4 = float2(right - in.cr, top - in.cr);
+        float2 c1 = float2(left + cr, bottom + cr);
+        float2 c2 = float2(left + cr, top - cr);
+        float2 c3 = float2(right - cr, bottom + cr);
+        float2 c4 = float2(right - cr, top - cr);
         float c1r = sqrt(pow(x - c1.x, 2) + pow(y - c1.y, 2));
         float c2r = sqrt(pow(x - c2.x, 2) + pow(y - c2.y, 2));
         float c3r = sqrt(pow(x - c3.x, 2) + pow(y - c3.y, 2));
         float c4r = sqrt(pow(x - c4.x, 2) + pow(y - c4.y, 2));
-        if (c1r < in.cr || c2r < in.cr || c3r < in.cr || c4r < in.cr) {
+        if (c1r < cr || c2r < cr || c3r < cr || c4r < cr) {
             c = ac;
         }
     }
