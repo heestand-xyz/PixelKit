@@ -27,13 +27,13 @@ public protocol Layoutable {
 //    func reCenter(to layoutable: Layoutable)
 //    func reSize(to layoutable: Layoutable)
 
-    func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor)
-    func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
     
-    func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
 
 }
 
@@ -41,29 +41,29 @@ class Layout {
     
     // MARK: X
     
-    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor) {
+    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .left:
-            sourceValue = sourceFrame.x
+            sourceValue = sourceFrame.x + constant
         case .center:
-            sourceValue = sourceFrame.center.x
+            sourceValue = sourceFrame.center.x + constant
         case .right:
-            sourceValue = sourceFrame.centerRight.x
+            sourceValue = sourceFrame.centerRight.x + constant
         }
         Layout.anchorX(target: layoutable, targetAnchor, to: sourceValue)
     }
     
-    static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor) {
+    static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
         let aspect = LiveFloat({ return layoutablePix.resolution?.aspect ?? 1.0 })
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .left:
-            sourceValue = -aspect / 2
+            sourceValue = -aspect / 2 + constant
         case .center:
-            sourceValue = 0.0
+            sourceValue = constant
         case .right:
-            sourceValue = aspect / 2
+            sourceValue = aspect / 2 + constant
         }
         Layout.anchorX(target: layoutablePix, targetAnchor, to: sourceValue)
     }
@@ -90,28 +90,28 @@ class Layout {
     
     // MARK: Y
     
-    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutYAnchor) {
+    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutYAnchor, constant: LiveFloat) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .bottom:
-            sourceValue = sourceFrame.y
+            sourceValue = sourceFrame.y + constant
         case .center:
-            sourceValue = sourceFrame.center.y
+            sourceValue = sourceFrame.center.y + constant
         case .top:
-            sourceValue = sourceFrame.centerTop.y
+            sourceValue = sourceFrame.centerTop.y + constant
         }
         Layout.anchorY(target: layoutable, targetAnchor, to: sourceValue)
     }
     
-    static func anchorY(target layoutablePix: Layoutable, _ targetAnchor: LayoutYAnchor, toBoundAnchor sourceAnchor: LayoutYAnchor) {
+    static func anchorY(target layoutablePix: Layoutable, _ targetAnchor: LayoutYAnchor, toBoundAnchor sourceAnchor: LayoutYAnchor, constant: LiveFloat) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .bottom:
-            sourceValue = -0.5
+            sourceValue = -0.5 + constant
         case .center:
-            sourceValue = 0.0
+            sourceValue = constant
         case .top:
-            sourceValue = 0.5
+            sourceValue = 0.5 + constant
         }
         Layout.anchorY(target: layoutablePix, targetAnchor, to: sourceValue)
     }
