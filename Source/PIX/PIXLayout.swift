@@ -27,16 +27,16 @@ public protocol Layoutable {
 //    func reCenter(to layoutable: Layoutable)
 //    func reSize(to layoutable: Layoutable)
 
-    func anchor(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor)
-    func anchor(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor)
-    func anchor(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor)
-    func anchor(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor)
 
 }
 
 class Layout {
     
-    static func anchor(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor) {
+    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .left:
@@ -46,22 +46,26 @@ class Layout {
         case .right:
             sourceValue = sourceFrame.centerRight.x
         }
-//        let targetValue: LiveFloat
         switch targetAnchor {
         case .left:
-            layoutable.reFrame(to: LiveRect(x: sourceValue, y: layoutable.frame.y,
-                                            w: layoutable.frame.maxX - sourceValue, h: layoutable.frame.h))
+            layoutable.reFrame(to: LiveRect(x: sourceValue,
+                                            y: layoutable.frame.y,
+                                            w: layoutable.frame.maxX - sourceValue,
+                                            h: layoutable.frame.h))
         case .center:
-//            targetValue = sourceValue - layoutable.frame.w / 2
-            break
+            layoutable.reFrame(to: LiveRect(x: sourceValue - layoutable.frame.w / 2,
+                                            y: layoutable.frame.y,
+                                            w: layoutable.frame.w,
+                                            h: layoutable.frame.h))
         case .right:
-            break
-//            layoutable.reFrame(to: LiveRect(x: sourceValue - layoutable.frame.w, y: layoutable.frame.y,
-//                                            w: sourceValue - layoutable.frame.minX, h: layoutable.frame.h))
+            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
+                                            y: layoutable.frame.y,
+                                            w: sourceValue - layoutable.frame.minX,
+                                            h: layoutable.frame.h))
         }
     }
     
-    static func anchor(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutYAnchor) {
+    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutYAnchor) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .bottom:
@@ -71,16 +75,23 @@ class Layout {
         case .top:
             sourceValue = sourceFrame.centerTop.y
         }
-        let targetValue: LiveFloat
         switch targetAnchor {
         case .bottom:
-            targetValue = sourceValue
+            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
+                                            y: sourceValue,
+                                            w: layoutable.frame.w,
+                                            h: layoutable.frame.maxY - sourceValue))
         case .center:
-            targetValue = sourceValue - layoutable.frame.h / 2
+            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
+                                            y: sourceValue - layoutable.frame.h / 2,
+                                            w: layoutable.frame.w,
+                                            h: layoutable.frame.h))
         case .top:
-            targetValue = sourceValue - layoutable.frame.h
+            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
+                                            y: layoutable.frame.y,
+                                            w: layoutable.frame.w,
+                                            h: sourceValue - layoutable.frame.minY))
         }
-        layoutable.reFrame(to: LiveRect(x: layoutable.frame.x, y: targetValue, w: layoutable.frame.w, h: layoutable.frame.maxY - targetValue))
     }
     
 }

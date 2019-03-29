@@ -27,6 +27,8 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     public var minX: LiveFloat { return x }
     public var minY: LiveFloat { return y }
+    public var midX: LiveFloat { return x + w / 2 }
+    public var midY: LiveFloat { return y + h / 2 }
     public var maxX: LiveFloat { return x + w }
     public var maxY: LiveFloat { return y + h }
 

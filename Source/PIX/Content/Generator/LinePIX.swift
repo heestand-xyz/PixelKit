@@ -42,17 +42,17 @@ public class LinePIX: PIXGenerator, Layoutable {
         frame = layoutable.frame
     }
     
-    public func anchor(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor) {
-        Layout.anchor(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor)
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor) {
+        Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor)
     }
-    public func anchor(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor) {
-        anchor(targetXAnchor, to: layoutable.frame, sourceXAnchor)
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor) {
+        anchorX(targetXAnchor, to: layoutable.frame, sourceXAnchor)
     }
-    public func anchor(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor) {
-        Layout.anchor(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor)
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor) {
+        Layout.anchorY(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor)
     }
-    public func anchor(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor) {
-        anchor(targetYAnchor, to: layoutable.frame, sourceYAnchor)
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor) {
+        anchorY(targetYAnchor, to: layoutable.frame, sourceYAnchor)
     }
     
 }
