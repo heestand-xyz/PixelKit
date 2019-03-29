@@ -15,13 +15,14 @@ public class RectanglePIX: PIXGenerator, Layoutable {
     
     public var position: LivePoint = .zero
     public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
+    public var cornerRadius: LiveFloat = 0.01
     public var color: LiveColor = .white
     public var bgColor: LiveColor = .black
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [size, position, color, bgColor]
+        return [size, position, cornerRadius, color, bgColor]
     }
     
     // MARK: Layout

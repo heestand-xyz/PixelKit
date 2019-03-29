@@ -19,6 +19,7 @@ struct Uniforms{
     float sy;
     float x;
     float y;
+    float cr;
     float ar;
     float ag;
     float ab;
@@ -43,10 +44,38 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
     
     float4 c = bc;
     
-    float in_x = (u - 0.5) * in.aspect > in.x - in.sx / 2 && (u - 0.5) * in.aspect < in.x + in.sx / 2;
-    float in_y = v - 0.5 > -in.y - in.sy / 2 && v - 0.5 < -in.y + in.sy / 2;
-    if (in_x && in_y) {
-        c = ac;
+    float x = (u - 0.5) * in.aspect;
+    float y = v - 0.5;
+    
+    float left = in.x - in.sx / 2;
+    float right = in.x + in.sx / 2;
+    float bottom = -in.y - in.sy / 2;
+    float top = -in.y + in.sy / 2;
+   
+    float in_x = x > left && x < right;
+    float in_y = y > bottom && y < top;
+    
+    if (in.cr == 0.0) {
+        if (in_x && in_y) {
+            c = ac;
+        }
+    } else {
+        float in_x_inset = x > left + in.cr && x < right - in.cr;
+        float in_y_inset = y > bottom + in.cr && y < top - in.cr;
+        if ((in_x_inset && in_y) || (in_x && in_y_inset)) {
+            c = ac;
+        }
+        float2 c1 = float2(left + in.cr, bottom + in.cr);
+        float2 c2 = float2(left + in.cr, top - in.cr);
+        float2 c3 = float2(right - in.cr, bottom + in.cr);
+        float2 c4 = float2(right - in.cr, top - in.cr);
+        float c1r = sqrt(pow(x - c1.x, 2) + pow(y - c1.y, 2));
+        float c2r = sqrt(pow(x - c2.x, 2) + pow(y - c2.y, 2));
+        float c3r = sqrt(pow(x - c3.x, 2) + pow(y - c3.y, 2));
+        float c4r = sqrt(pow(x - c4.x, 2) + pow(y - c4.y, 2));
+        if (c1r < in.cr || c2r < in.cr || c3r < in.cr || c4r < in.cr) {
+            c = ac;
+        }
     }
     
     if (in.premultiply) {
