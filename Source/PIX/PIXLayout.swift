@@ -22,7 +22,7 @@ public protocol Layoutable {
     
     var frame: LiveRect { get set }
     
-    func reFrame(to frame: LiveRect)
+    func reFrame(to frame: LiveRect, update: Bool)
     func reFrame(to layoutable: Layoutable)
 //    func reCenter(to layoutable: Layoutable)
 //    func reSize(to layoutable: Layoutable)
@@ -74,17 +74,17 @@ class Layout {
             layoutable.reFrame(to: LiveRect(x: sourceValue,
                                             y: layoutable.frame.y,
                                             w: layoutable.frame.maxX - sourceValue,
-                                            h: layoutable.frame.h))
+                                            h: layoutable.frame.h), update: true)
         case .center:
             layoutable.reFrame(to: LiveRect(x: sourceValue - layoutable.frame.w / 2,
                                             y: layoutable.frame.y,
                                             w: layoutable.frame.w,
-                                            h: layoutable.frame.h))
+                                            h: layoutable.frame.h), update: true)
         case .right:
             layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
                                             y: layoutable.frame.y,
                                             w: sourceValue - layoutable.frame.minX,
-                                            h: layoutable.frame.h))
+                                            h: layoutable.frame.h), update: true)
         }
     }
     
@@ -122,17 +122,17 @@ class Layout {
             layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
                                             y: sourceValue,
                                             w: layoutable.frame.w,
-                                            h: layoutable.frame.maxY - sourceValue))
+                                            h: layoutable.frame.maxY - sourceValue), update: true)
         case .center:
             layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
                                             y: sourceValue - layoutable.frame.h / 2,
                                             w: layoutable.frame.w,
-                                            h: layoutable.frame.h))
+                                            h: layoutable.frame.h), update: true)
         case .top:
             layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
                                             y: layoutable.frame.y,
                                             w: layoutable.frame.w,
-                                            h: sourceValue - layoutable.frame.minY))
+                                            h: sourceValue - layoutable.frame.minY), update: true)
         }
     }
     
