@@ -221,13 +221,7 @@ open class PIX {
     
     func setNeedsConnect() {
         if self is PIXIn {
-            if var pixInSingle = self as? PIXInSingle {
-                if pixInSingle.inPix != nil {
-                    connectSingle(pixInSingle.inPix! as! PIX & PIXOutIO)
-                } else {
-                    disconnectSingle()
-                }
-            } else if let pixInMerger = self as? PIXInMerger {
+            if let pixInMerger = self as? PIXInMerger {
                 if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
                     connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
                 } else {
@@ -239,17 +233,30 @@ open class PIX {
         }
     }
     
-    func connectSingle(_ pixOut: PIX & PIXOutIO) {
-        guard pixOut != self else {
-            pixels.log(.error, .connection, "Can't connect to self.")
-            return
-        }
-        var pixOut = pixOut
+    func setNeedsConnectSingle(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?) {
         guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = [pixOut]
-        pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
-        applyRes { self.setNeedsRender() }
+        if let oldPixOut = oldInPix {
+            var pixOut = oldPixOut as! (PIX & PIXOutIO)
+            for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
+                if pixOutPath.pixIn == pixInIO {
+                    pixOut.pixOutPathList.remove(at: i)
+                    break
+                }
+            }
+            pixInIO.pixInList = []
+            pixels.log(pix: self, .info, .connection, "Disonnected Single: \(pixOut)")
+        }
+        if let newPixOut = newInPix {
+            guard newPixOut != self else {
+                pixels.log(.error, .connection, "Can't connect to self.")
+                return
+            }
+            var pixOut = newPixOut as! (PIX & PIXOutIO)
+            pixInIO.pixInList = [pixOut]
+            pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+            pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
+            applyRes { self.setNeedsRender() }
+        }
     }
     
     func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
@@ -272,23 +279,6 @@ open class PIX {
         }
         pixels.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
-    }
-    
-    // MARK: Diconnect
-    
-    func disconnectSingle() {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        guard var pixOut = pixInIO.pixInList.first as? PIXOutIO else { return }
-        for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-            if pixOutPath.pixIn == pixInIO {
-                pixOut.pixOutPathList.remove(at: i)
-                break
-            }
-        }
-        pixInIO.pixInList = []
-        pixels.log(pix: self, .info, .connection, "Disonnected Single.")
-//        applyRes { self.setNeedsRender() }
-//        view.setResolution(nil)
     }
     
     // MARK: - Other
