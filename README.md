@@ -355,6 +355,13 @@ lumUniform.value = 0.5
 a Live Graphics Node Editor for iPad<br>
 powered by Pixels<br>
 
+<img src="http://hexagons.se/layercam/assets/Layer-Cam.png" width="64"/>
+
+### [Layer Cam](http://hexagons.se/layercam/)
+
+a camera app lets you live layer filters of your choice.<br>
+combine effects to create new cool styles.
+
 ---
 
 by Anton Heestand, [Hexagons](http://hexagons.se/)
