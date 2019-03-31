@@ -203,6 +203,10 @@ open class PIX {
             for pixOutPath in pixOut.pixOutPathList {
                 let pix = pixOutPath.pixIn
                 guard !pix.destroyed else { continue }
+                guard pix != self else {
+                    pixels.log(.error, .render, "Connected to self.")
+                    continue
+                }
                 pix.setNeedsRender()
             }
         }
