@@ -344,38 +344,54 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
-//    /// filter over frames.
-//    public func filter(frames: LiveInt) -> LiveFloat {
-//        var cache: [CGFloat] = []
-//        return LiveFloat({ () -> (CGFloat) in
-//            cache.append(CGFloat(self))
-//            if cache.count > Int(frames) {
-//                return cache.remove(at: 0)
-//            }
-//            var filteredValue: CGFloat = 0.0
-//            for value in cache {
-//                filteredValue += value
-//            }
-//            filteredValue /= CGFloat(cache.count)
-//            return filteredValue
-//        })
-//    }
+    /// filter over frames.
+    public func filter(frames: LiveInt, bypassLower: Bool = false, bypassHigher: Bool = false) -> LiveFloat {
+        var cache: [CGFloat] = []
+        Pixels.main.listenToFrames { () -> (Bool) in
+            cache.append(CGFloat(self))
+            while cache.count > Int(frames) {
+                cache.remove(at: 0)
+            }
+            return false
+        }
+        return LiveFloat({ () -> (CGFloat) in
+            var filteredValue: CGFloat = 0.0
+            for value in cache {
+                filteredValue += value
+            }
+            filteredValue /= CGFloat(cache.count)
+            if bypassLower {
+                return min(CGFloat(self), filteredValue)
+            } else if bypassHigher {
+                return max(CGFloat(self), filteredValue)
+            }
+            return filteredValue
+        })
+    }
     
     /// filter over seconds. smooth off is linear. smooth on is cosine smoothness (default)
-    public func filter(seconds: LiveFloat, smooth: Bool = true) -> LiveFloat {
+    public func filter(seconds: LiveFloat, smooth: Bool = true, bypassLower: Bool = false, bypassHigher: Bool = false) -> LiveFloat {
         var cache: [(date: Date, value: CGFloat)] = []
         return LiveFloat({ () -> (CGFloat) in
             let delaySeconds = max(Double(seconds), 0)
             guard delaySeconds > 0 else {
                 return CGFloat(self)
             }
-            cache.append((date: Date(), value: CGFloat(self)))
+            let value = CGFloat(self)
+            let dateValue = (date: Date(), value: value)
+            cache.append(dateValue)
             for _ in cache {
                 if -cache.first!.date.timeIntervalSinceNow > delaySeconds {
                     cache.remove(at: 0)
                     continue
                 }
                 break
+            }
+            guard cache.count > 1 else {
+                return cache[0].value
+            }
+            guard cache.count > 2 else {
+                return (cache[0].value + cache[1].value) / 2
             }
             var filteredValue: CGFloat = 0.0
             var weight: CGFloat = smooth ? 0.0 : CGFloat(cache.count)
@@ -386,6 +402,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
                 weight += smoothWeight
             }
             filteredValue /= weight
+            if bypassLower && value < filteredValue {
+                cache = [dateValue]
+                return value
+            }
+            if bypassHigher && value > filteredValue {
+                cache = [dateValue]
+                return value
+            }
             return filteredValue
         })
     }
@@ -439,6 +463,13 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat({ return (MIDI.main.list[address] ?? 0.0) ?? 0.0 })
     }
     #endif
+    
+    public func log(_ message: String? = nil) -> LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            print("Live Log - \(message != nil ? "\"" + message! + "\" - " : "")\(self.description)")
+            return self.cg
+        })
+    }
 
 }
 
