@@ -19,7 +19,14 @@ public extension PIX {
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
-        return CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg)
+        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
+        guard let size = resolution?.size else { return nil }
+        guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        context.scaleBy(x: 1, y: -1)
+        context.translateBy(x: 0, y: -size.height)
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        guard let image = context.makeImage() else { return nil }
+        return image
     }
     
     #if os(iOS)
@@ -46,7 +53,7 @@ public extension PIX {
         })
     }
     
-    public var renderedPixelBuffer: CVPixelBuffer? {
+    var renderedPixelBuffer: CVPixelBuffer? {
         guard let res = resolution else { pixels.log(.error, nil, "renderedPixelBuffer: no res."); return nil }
         guard let cgImage = renderedCGImage else { pixels.log(.error, nil, "renderedPixelBuffer: no cgImage."); return nil }
         var maybePixelBuffer: CVPixelBuffer?
