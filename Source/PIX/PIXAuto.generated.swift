@@ -16,6 +16,19 @@ public enum AutoPIXGenerator: String, CaseIterable {
 	case polygonpix
 	case rectanglepix
 
+	public var name: String {
+		switch self {
+		case .arcpix: return "ArcPIX"
+		case .circlepix: return "CirclePIX"
+		case .colorpix: return "ColorPIX"
+		case .gradientpix: return "GradientPIX"
+		case .linepix: return "LinePIX"
+		case .noisepix: return "NoisePIX"
+		case .polygonpix: return "PolygonPIX"
+		case .rectanglepix: return "RectanglePIX"
+		}
+	}
+
 	public var pixType: PIXGenerator.Type {
 		switch self {
 		case .arcpix: return ArcPIX.self
@@ -501,6 +514,19 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 	case reorderpix
 	case timemachinepix
 
+	public var name: String {
+		switch self {
+		case .blendpix: return "BlendPIX"
+		case .crosspix: return "CrossPIX"
+		case .displacepix: return "DisplacePIX"
+		case .lookuppix: return "LookupPIX"
+		case .lumablurpix: return "LumaBlurPIX"
+		case .remappix: return "RemapPIX"
+		case .reorderpix: return "ReorderPIX"
+		case .timemachinepix: return "TimeMachinePIX"
+		}
+	}
+
 	public var pixType: PIXMergerEffect.Type {
 		switch self {
 		case .blendpix: return BlendPIX.self
@@ -931,6 +957,12 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 
 	case blendspix
 
+	public var name: String {
+		switch self {
+		case .blendspix: return "BlendsPIX"
+		}
+	}
+
 	public var pixType: PIXMultiEffect.Type {
 		switch self {
 		case .blendspix: return BlendsPIX.self
@@ -1044,6 +1076,33 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 	case thresholdpix
 	case transformpix
 	case twirlpix
+
+	public var name: String {
+		switch self {
+		case .blurpix: return "BlurPIX"
+		case .channelmixpix: return "ChannelMixPIX"
+		case .chromakeypix: return "ChromaKeyPIX"
+		case .clamppix: return "ClampPIX"
+		case .cornerpinpix: return "CornerPinPIX"
+		case .croppix: return "CropPIX"
+		case .delaypix: return "DelayPIX"
+		case .edgepix: return "EdgePIX"
+		case .flarepix: return "FlarePIX"
+		case .flipfloppix: return "FlipFlopPIX"
+		case .freezepix: return "FreezePIX"
+		case .huesatpix: return "HueSatPIX"
+		case .kaleidoscopepix: return "KaleidoscopePIX"
+		case .levelspix: return "LevelsPIX"
+		case .quantizepix: return "QuantizePIX"
+		case .rangepix: return "RangePIX"
+		case .sepiapix: return "SepiaPIX"
+		case .sharpenpix: return "SharpenPIX"
+		case .slopepix: return "SlopePIX"
+		case .thresholdpix: return "ThresholdPIX"
+		case .transformpix: return "TransformPIX"
+		case .twirlpix: return "TwirlPIX"
+		}
+	}
 
 	public var pixType: PIXSingleEffect.Type {
 		switch self {

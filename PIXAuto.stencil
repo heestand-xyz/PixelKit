@@ -15,6 +15,18 @@ public enum Auto{{ parentType.name }}: String, CaseIterable {
 	{% endfor %}
 	{% endfor %}
 
+	public var name: String {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% for subType in type.inheritedTypes %}
+		{% if subType == parentType.name %}
+		case .{{ type.name|lowercase }}: return "{{ type.name }}"
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+		}
+	}
+
 	public var pixType: {{ parentType.name }}.Type {
 		switch self {
 		{% for type in types.implementing.PIXAuto %}
