@@ -39,6 +39,7 @@ extension PIX {
         case power
         case divide
         case average
+        case cosine
         var index: Int {
             switch self {
             case .over: return 0
@@ -54,6 +55,7 @@ extension PIX {
             case .power: return 10
             case .divide: return 11
             case .average: return 12
+            case .cosine: return 13
             }
         }
     }

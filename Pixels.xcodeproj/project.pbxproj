@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
+		3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17FBC3225238EC00453079 /* ClampPIX.swift */; };
+		3A17FBC82252398900453079 /* ClampPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17FBC3225238EC00453079 /* ClampPIX.swift */; };
 		3A2924452249114F00A05B7A /* FlarePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924442249114F00A05B7A /* FlarePIX.swift */; };
 		3A2924462249114F00A05B7A /* FlarePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924442249114F00A05B7A /* FlarePIX.swift */; };
 		3A2C1DA9224906220040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
@@ -202,6 +204,7 @@
 
 /* Begin PBXFileReference section */
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
+		3A17FBC3225238EC00453079 /* ClampPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClampPIX.swift; sourceTree = "<group>"; };
 		3A2924442249114F00A05B7A /* FlarePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlarePIX.swift; sourceTree = "<group>"; };
 		3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SepiaPIX.swift; sourceTree = "<group>"; };
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
@@ -467,6 +470,7 @@
 				74A7B98521412BD70078DDE3 /* SlopePIX.swift */,
 				3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */,
 				3A2924442249114F00A05B7A /* FlarePIX.swift */,
+				3A17FBC3225238EC00453079 /* ClampPIX.swift */,
 				3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */,
 				7421ED3E2231782E00E60A0E /* FreezePIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
@@ -795,6 +799,7 @@
 				741D2CFB21ACA05E007259E3 /* ExtensionString.swift in Sources */,
 				3AF28BFF219312F50079FC7A /* KaleidoscopePIX.swift in Sources */,
 				3AF28BF4219312EB0079FC7A /* MetalMergerEffectPIX.swift in Sources */,
+				3A17FBC82252398900453079 /* ClampPIX.swift in Sources */,
 				3AF28BF9219312F50079FC7A /* LevelsPIX.swift in Sources */,
 				3AF28C04219312F50079FC7A /* CornerPinPIX.swift in Sources */,
 				3AF28BFB219312F50079FC7A /* EdgePIX.swift in Sources */,
@@ -883,6 +888,7 @@
 				7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */,
 				743F375F215BB2C3002BC5BA /* RecPIX.swift in Sources */,
 				7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */,
+				3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */,
 				74E642512135396600D7B57F /* PIXSprite.swift in Sources */,
 				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,
 				74076D05211A27D2000E56E0 /* PIXRes.swift in Sources */,
