@@ -23,7 +23,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			return [
 				{% for var in type.storedVariables %}
 				{% if var.typeName.name == "LiveFloat" %}
-				AutoFloatProperty{{ type.name }}(name: "{{ var.name }}", getCallback: {
+				AutoFloatProperty(name: "{{ var.name }}", getCallback: {
 					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
 				}, setCallback: { value in
 					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
@@ -43,7 +43,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			return [
 				{% for var in type.storedVariables %}
 				{% if var.typeName.name == "LiveInt" %}
-				AutoIntProperty{{ type.name }}(name: "{{ var.name }}", getCallback: {
+				AutoIntProperty(name: "{{ var.name }}", getCallback: {
 					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
 				}, setCallback: { value in
 					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
@@ -56,50 +56,6 @@ public enum AutoPIXGenerator: String, CaseIterable {
 		}	
 	}
 }
-
-{% for type in types.implementing.PIXAuto %}
-{% if type.inherits.PIXGenerator %}
-class AutoFloatProperty{{ type.name }}: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-{% endif %}
-{% endfor %}
-
-{% for type in types.implementing.PIXAuto %}
-{% if type.inherits.PIXGenerator %}
-class AutoIntProperty{{ type.name }}: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-{% endif %}
-{% endfor %}
-
-
 
 
 

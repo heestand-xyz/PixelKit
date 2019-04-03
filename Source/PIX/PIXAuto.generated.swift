@@ -28,27 +28,27 @@ public enum AutoPIXGenerator: String, CaseIterable {
 		switch self {
 		case .arcpix:
 			return [
-				AutoFloatPropertyArcPIX(name: "radius", getCallback: {
+				AutoFloatProperty(name: "radius", getCallback: {
 					return (pix as! ArcPIX)[keyPath: \.radius]
 				}, setCallback: { value in
 					(pix as! ArcPIX)[keyPath: \.radius] = value
 				}),
-				AutoFloatPropertyArcPIX(name: "angleFrom", getCallback: {
+				AutoFloatProperty(name: "angleFrom", getCallback: {
 					return (pix as! ArcPIX)[keyPath: \.angleFrom]
 				}, setCallback: { value in
 					(pix as! ArcPIX)[keyPath: \.angleFrom] = value
 				}),
-				AutoFloatPropertyArcPIX(name: "angleTo", getCallback: {
+				AutoFloatProperty(name: "angleTo", getCallback: {
 					return (pix as! ArcPIX)[keyPath: \.angleTo]
 				}, setCallback: { value in
 					(pix as! ArcPIX)[keyPath: \.angleTo] = value
 				}),
-				AutoFloatPropertyArcPIX(name: "angleOffset", getCallback: {
+				AutoFloatProperty(name: "angleOffset", getCallback: {
 					return (pix as! ArcPIX)[keyPath: \.angleOffset]
 				}, setCallback: { value in
 					(pix as! ArcPIX)[keyPath: \.angleOffset] = value
 				}),
-				AutoFloatPropertyArcPIX(name: "edgeRadius", getCallback: {
+				AutoFloatProperty(name: "edgeRadius", getCallback: {
 					return (pix as! ArcPIX)[keyPath: \.edgeRadius]
 				}, setCallback: { value in
 					(pix as! ArcPIX)[keyPath: \.edgeRadius] = value
@@ -56,12 +56,12 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .circlepix:
 			return [
-				AutoFloatPropertyCirclePIX(name: "radius", getCallback: {
+				AutoFloatProperty(name: "radius", getCallback: {
 					return (pix as! CirclePIX)[keyPath: \.radius]
 				}, setCallback: { value in
 					(pix as! CirclePIX)[keyPath: \.radius] = value
 				}),
-				AutoFloatPropertyCirclePIX(name: "edgeRadius", getCallback: {
+				AutoFloatProperty(name: "edgeRadius", getCallback: {
 					return (pix as! CirclePIX)[keyPath: \.edgeRadius]
 				}, setCallback: { value in
 					(pix as! CirclePIX)[keyPath: \.edgeRadius] = value
@@ -72,12 +72,12 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .gradientpix:
 			return [
-				AutoFloatPropertyGradientPIX(name: "scale", getCallback: {
+				AutoFloatProperty(name: "scale", getCallback: {
 					return (pix as! GradientPIX)[keyPath: \.scale]
 				}, setCallback: { value in
 					(pix as! GradientPIX)[keyPath: \.scale] = value
 				}),
-				AutoFloatPropertyGradientPIX(name: "offset", getCallback: {
+				AutoFloatProperty(name: "offset", getCallback: {
 					return (pix as! GradientPIX)[keyPath: \.offset]
 				}, setCallback: { value in
 					(pix as! GradientPIX)[keyPath: \.offset] = value
@@ -85,7 +85,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .linepix:
 			return [
-				AutoFloatPropertyLinePIX(name: "scale", getCallback: {
+				AutoFloatProperty(name: "scale", getCallback: {
 					return (pix as! LinePIX)[keyPath: \.scale]
 				}, setCallback: { value in
 					(pix as! LinePIX)[keyPath: \.scale] = value
@@ -93,12 +93,12 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .noisepix:
 			return [
-				AutoFloatPropertyNoisePIX(name: "zPosition", getCallback: {
+				AutoFloatProperty(name: "zPosition", getCallback: {
 					return (pix as! NoisePIX)[keyPath: \.zPosition]
 				}, setCallback: { value in
 					(pix as! NoisePIX)[keyPath: \.zPosition] = value
 				}),
-				AutoFloatPropertyNoisePIX(name: "zoom", getCallback: {
+				AutoFloatProperty(name: "zoom", getCallback: {
 					return (pix as! NoisePIX)[keyPath: \.zoom]
 				}, setCallback: { value in
 					(pix as! NoisePIX)[keyPath: \.zoom] = value
@@ -106,12 +106,12 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .polygonpix:
 			return [
-				AutoFloatPropertyPolygonPIX(name: "radius", getCallback: {
+				AutoFloatProperty(name: "radius", getCallback: {
 					return (pix as! PolygonPIX)[keyPath: \.radius]
 				}, setCallback: { value in
 					(pix as! PolygonPIX)[keyPath: \.radius] = value
 				}),
-				AutoFloatPropertyPolygonPIX(name: "rotation", getCallback: {
+				AutoFloatProperty(name: "rotation", getCallback: {
 					return (pix as! PolygonPIX)[keyPath: \.rotation]
 				}, setCallback: { value in
 					(pix as! PolygonPIX)[keyPath: \.rotation] = value
@@ -119,7 +119,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .rectanglepix:
 			return [
-				AutoFloatPropertyRectanglePIX(name: "cornerRadius", getCallback: {
+				AutoFloatProperty(name: "cornerRadius", getCallback: {
 					return (pix as! RectanglePIX)[keyPath: \.cornerRadius]
 				}, setCallback: { value in
 					(pix as! RectanglePIX)[keyPath: \.cornerRadius] = value
@@ -146,12 +146,12 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .noisepix:
 			return [
-				AutoIntPropertyNoisePIX(name: "seed", getCallback: {
+				AutoIntProperty(name: "seed", getCallback: {
 					return (pix as! NoisePIX)[keyPath: \.seed]
 				}, setCallback: { value in
 					(pix as! NoisePIX)[keyPath: \.seed] = value
 				}),
-				AutoIntPropertyNoisePIX(name: "octaves", getCallback: {
+				AutoIntProperty(name: "octaves", getCallback: {
 					return (pix as! NoisePIX)[keyPath: \.octaves]
 				}, setCallback: { value in
 					(pix as! NoisePIX)[keyPath: \.octaves] = value
@@ -159,7 +159,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .polygonpix:
 			return [
-				AutoIntPropertyPolygonPIX(name: "vertexCount", getCallback: {
+				AutoIntProperty(name: "vertexCount", getCallback: {
 					return (pix as! PolygonPIX)[keyPath: \.vertexCount]
 				}, setCallback: { value in
 					(pix as! PolygonPIX)[keyPath: \.vertexCount] = value
@@ -171,266 +171,6 @@ public enum AutoPIXGenerator: String, CaseIterable {
 		}	
 	}
 }
-
-class AutoFloatPropertyArcPIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyCirclePIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyColorPIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyGradientPIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyLinePIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyNoisePIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyPolygonPIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-class AutoFloatPropertyRectanglePIX: AutoFloatProperty {
-	let name: String
-	let getCallback: () -> (LiveFloat)
-	let setCallback: (LiveFloat) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveFloat {
-        return getCallback()
-    }
-	func set(_ value: LiveFloat) {
-     	setCallback(value)
-    }    
-}
-
-class AutoIntPropertyArcPIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyCirclePIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyColorPIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyGradientPIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyLinePIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyNoisePIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyPolygonPIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-class AutoIntPropertyRectanglePIX: AutoIntProperty {
-	let name: String
-	let getCallback: () -> (LiveInt)
-	let setCallback: (LiveInt) -> ()
-	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
-		self.name = name
-		self.getCallback = getCallback
-		self.setCallback = setCallback
-	}
-    func get() -> LiveInt {
-        return getCallback()
-    }
-	func set(_ value: LiveInt) {
-     	setCallback(value)
-    }    
-}
-
-
 
 
 

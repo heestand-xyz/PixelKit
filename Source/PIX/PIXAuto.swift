@@ -12,14 +12,38 @@ public protocol AutoProperty {
     var name: String { get }
 }
 
-public protocol AutoFloatProperty: AutoProperty {
-    func get() -> LiveFloat
-    func set(_ value: LiveFloat)
+public class AutoFloatProperty: AutoProperty {
+    public let name: String
+    let getCallback: () -> (LiveFloat)
+    let setCallback: (LiveFloat) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
+    public func get() -> LiveFloat {
+        return getCallback()
+    }
+    public func set(_ value: LiveFloat) {
+        setCallback(value)
+    }
 }
 
-public protocol AutoIntProperty: AutoProperty {
-    func get() -> LiveInt
-    func set(_ value: LiveInt)
+public class AutoIntProperty: AutoProperty {
+    public let name: String
+    let getCallback: () -> (LiveInt)
+    let setCallback: (LiveInt) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
+    public func get() -> LiveInt {
+        return getCallback()
+    }
+    public func set(_ value: LiveInt) {
+        setCallback(value)
+    }
 }
 
 public protocol AutoBoolProperty: AutoProperty {
