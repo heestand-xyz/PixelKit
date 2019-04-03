@@ -7,7 +7,7 @@
 //
 import CoreGraphics//x
 
-open class PIXMergerEffect: PIXEffect, PIXInMerger {
+open class PIXMergerEffect: PIXEffect, PIXInMerger, PIXAutoParent {
     
     public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }

@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-16.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-open class PIXGenerator: PIXContent {
+import CoreGraphics
+
+open class PIXGenerator: PIXContent, PIXAutoParent {
     
     var _res: Res
     public var res: Res {

@@ -7,7 +7,7 @@
 //
 
 
-open class PIXMultiEffect: PIXEffect, PIXInMulti {
+open class PIXMultiEffect: PIXEffect, PIXInMulti, PIXAutoParent {
     
     public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     

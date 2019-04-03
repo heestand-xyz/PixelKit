@@ -1,632 +1,88 @@
-import CoreGraphics
 
-public enum AutoPIXGenerator: String, CaseIterable {
+{% for parentType in types.implementing.PIXAutoParent %}
+{% for inheritedType in parentType.inheritedTypes %}
+{% if inheritedType == "PIXAutoParent" %}
+
+// MARK - {{ parentType.name }}
+
+public enum Auto{{ parentType.name }}: String, CaseIterable {
+
 	{% for type in types.implementing.PIXAuto %}
-	{% if type.inherits.PIXGenerator %}
+	{% for subType in type.inheritedTypes %}
+	{% if subType == parentType.name %}
 	case {{ type.name|lowercase }}
 	{% endif %}
 	{% endfor %}
-	public var pixType: PIXGenerator.Type {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}: return {{ type.name }}.self
-		{% endif %}
-		{% endfor %}
-		}
-	}
-	public func autoFloats(for pix: PIXGenerator) -> [AutoFloatProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveFloat" %}
-				AutoFloatProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoInts(for pix: PIXGenerator) -> [AutoIntProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveInt" %}
-				AutoIntProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoBools(for pix: PIXGenerator) -> [AutoBoolProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveBool" %}
-				AutoBoolProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoColors(for pix: PIXGenerator) -> [AutoColorProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveColor" %}
-				AutoColorProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoPoints(for pix: PIXGenerator) -> [AutoPointProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LivePoint" %}
-				AutoPointProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoSizes(for pix: PIXGenerator) -> [AutoSizeProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveSize" %}
-				AutoSizeProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoRects(for pix: PIXGenerator) -> [AutoRectProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXGenerator %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveRect" %}
-				AutoRectProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-}
-
-
-public enum AutoPIXSingleEffect: String, CaseIterable {
-	{% for type in types.implementing.PIXAuto %}
-	{% if type.inherits.PIXSingleEffect %}
-	case {{ type.name|lowercase }}
-	{% endif %}
 	{% endfor %}
-	public var pixType: PIXSingleEffect.Type {
+
+	public var pixType: {{ parentType.name }}.Type {
 		switch self {
 		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
+		{% for subType in type.inheritedTypes %}
+		{% if subType == parentType.name %}
 		case .{{ type.name|lowercase }}: return {{ type.name }}.self
 		{% endif %}
 		{% endfor %}
+		{% endfor %}
 		}
 	}
-	public func autoFloats(for pix: PIXSingleEffect) -> [AutoFloatProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveFloat" %}
-				AutoFloatProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoInts(for pix: PIXSingleEffect) -> [AutoIntProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveInt" %}
-				AutoIntProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoBools(for pix: PIXSingleEffect) -> [AutoBoolProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveBool" %}
-				AutoBoolProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoColors(for pix: PIXSingleEffect) -> [AutoColorProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveColor" %}
-				AutoColorProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoPoints(for pix: PIXSingleEffect) -> [AutoPointProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LivePoint" %}
-				AutoPointProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoSizes(for pix: PIXSingleEffect) -> [AutoSizeProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveSize" %}
-				AutoSizeProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoRects(for pix: PIXSingleEffect) -> [AutoRectProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXSingleEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveRect" %}
-				AutoRectProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-}
 
-
-public enum AutoPIXMergerEffect: String, CaseIterable {
-	{% for type in types.implementing.PIXAuto %}
-	{% if type.inherits.PIXMergerEffect %}
-	case {{ type.name|lowercase }}
-	{% endif %}
+	{% for liveType in types.implementing.LiveValue %}
+	public func auto{{ liveType.name }}s(for pix: {{ parentType.name }}) -> [Auto{{ liveType.name }}Property] {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% for subType in type.inheritedTypes %}
+		{% if subType == parentType.name %}
+		case .{{ type.name|lowercase }}:
+			return [
+				{% for var in type.storedVariables %}
+				{% if var.typeName.name == liveType.name %}
+				Auto{{ liveType.name }}Property(name: "{{ var.name }}", getCallback: {
+					return (pix as! {{ type.name }}).{{ var.name }}
+				}, setCallback: { value in
+					(pix as! {{ type.name }}).{{ var.name }} = value
+				}),
+				{% endif %}
+				{% endfor %}
+			]
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+		}	
+	}
 	{% endfor %}
-	public var pixType: PIXMergerEffect.Type {
+
+	public func autoEnums(for pix: {{ parentType.name }}) -> [AutoEnumProperty] {
 		switch self {
 		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}: return {{ type.name }}.self
-		{% endif %}
-		{% endfor %}
-		}
-	}
-	public func autoFloats(for pix: PIXMergerEffect) -> [AutoFloatProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
+		{% for subType in type.inheritedTypes %}
+		{% if subType == parentType.name %}
 		case .{{ type.name|lowercase }}:
 			return [
+				{% for enum in types.enums where enum.parentName == type.name %}
 				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveFloat" %}
-				AutoFloatProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
+				{% if var.typeName.name == enum.localName %}	
+				AutoEnumProperty(name: "{{ var.name }}", cases: [
+					{% for case in enum.cases %}
+						"{{ case.name }}",
+					{% endfor %}
+				], getCallback: {
+					return (pix as! {{ type.name }}).{{ var.name }}.rawValue
 				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
+					(pix as! {{ type.name }}).{{ var.name }} = {{ enum.name }}(rawValue: value)!
 				}),
 				{% endif %}
+				{% endfor %}
 				{% endfor %}
 			]
 		{% endif %}
 		{% endfor %}
-		}	
-	}
-	public func autoInts(for pix: PIXMergerEffect) -> [AutoIntProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveInt" %}
-				AutoIntProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
 		{% endfor %}
 		}	
 	}
-	public func autoBools(for pix: PIXMergerEffect) -> [AutoBoolProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveBool" %}
-				AutoBoolProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoColors(for pix: PIXMergerEffect) -> [AutoColorProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveColor" %}
-				AutoColorProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoPoints(for pix: PIXMergerEffect) -> [AutoPointProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LivePoint" %}
-				AutoPointProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoSizes(for pix: PIXMergerEffect) -> [AutoSizeProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveSize" %}
-				AutoSizeProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoRects(for pix: PIXMergerEffect) -> [AutoRectProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMergerEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveRect" %}
-				AutoRectProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
+
 }
 
-
-public enum AutoPIXMultiEffect: String, CaseIterable {
-	{% for type in types.implementing.PIXAuto %}
-	{% if type.inherits.PIXMultiEffect %}
-	case {{ type.name|lowercase }}
-	{% endif %}
-	{% endfor %}
-	public var pixType: PIXMultiEffect.Type {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}: return {{ type.name }}.self
-		{% endif %}
-		{% endfor %}
-		}
-	}
-	public func autoFloats(for pix: PIXMultiEffect) -> [AutoFloatProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveFloat" %}
-				AutoFloatProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoInts(for pix: PIXMultiEffect) -> [AutoIntProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveInt" %}
-				AutoIntProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoBools(for pix: PIXMultiEffect) -> [AutoBoolProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveBool" %}
-				AutoBoolProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoColors(for pix: PIXMultiEffect) -> [AutoColorProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveColor" %}
-				AutoColorProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoPoints(for pix: PIXMultiEffect) -> [AutoPointProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LivePoint" %}
-				AutoPointProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoSizes(for pix: PIXMultiEffect) -> [AutoSizeProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveSize" %}
-				AutoSizeProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-	public func autoRects(for pix: PIXMultiEffect) -> [AutoRectProperty] {
-		switch self {
-		{% for type in types.implementing.PIXAuto %}
-		{% if type.inherits.PIXMultiEffect %}
-		case .{{ type.name|lowercase }}:
-			return [
-				{% for var in type.storedVariables %}
-				{% if var.typeName.name == "LiveRect" %}
-				AutoRectProperty(name: "{{ var.name }}", getCallback: {
-					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
-				}, setCallback: { value in
-					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
-				}),
-				{% endif %}
-				{% endfor %}
-			]
-		{% endif %}
-		{% endfor %}
-		}	
-	}
-}
+{% endif %}
+{% endfor %}
+{% endfor %}
