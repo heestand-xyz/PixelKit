@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class BlendPIX: PIXMergerEffect {
+public class BlendPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerBlendPIX" }
     

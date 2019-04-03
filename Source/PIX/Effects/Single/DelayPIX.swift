@@ -8,7 +8,7 @@
 
 import Metal
 
-public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
+public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     override open var shader: String { return "nilPIX" }
     

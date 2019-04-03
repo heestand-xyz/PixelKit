@@ -1,0 +1,159 @@
+import CoreGraphics
+
+public enum AutoPIXGenerator: String, CaseIterable {
+	{% for type in types.implementing.PIXAuto %}
+	{% if type.inherits.PIXGenerator %}
+	case {{ type.name|lowercase }}
+	{% endif %}
+	{% endfor %}
+	public var pixType: PIXGenerator.Type {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXGenerator %}
+		case .{{ type.name|lowercase }}: return {{ type.name }}.self
+		{% endif %}
+		{% endfor %}
+		}
+	}
+	public func autoFloats(for pix: PIXGenerator) -> [AutoFloatProperty] {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXGenerator %}
+		case .{{ type.name|lowercase }}:
+			return [
+				{% for var in type.storedVariables %}
+				{% if var.typeName.name == "LiveFloat" %}
+				AutoFloatProperty{{ type.name }}(name: "{{ var.name }}", getCallback: {
+					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
+				}, setCallback: { value in
+					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
+				}),
+				{% endif %}
+				{% endfor %}
+			]
+		{% endif %}
+		{% endfor %}
+		}	
+	}
+	public func autoInts(for pix: PIXGenerator) -> [AutoIntProperty] {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXGenerator %}
+		case .{{ type.name|lowercase }}:
+			return [
+				{% for var in type.storedVariables %}
+				{% if var.typeName.name == "LiveInt" %}
+				AutoIntProperty{{ type.name }}(name: "{{ var.name }}", getCallback: {
+					return (pix as! {{ type.name }})[keyPath: \.{{ var.name }}]
+				}, setCallback: { value in
+					(pix as! {{ type.name }})[keyPath: \.{{ var.name }}] = value
+				}),
+				{% endif %}
+				{% endfor %}
+			]
+		{% endif %}
+		{% endfor %}
+		}	
+	}
+}
+
+{% for type in types.implementing.PIXAuto %}
+{% if type.inherits.PIXGenerator %}
+class AutoFloatProperty{{ type.name }}: AutoFloatProperty {
+	let name: String
+	let getCallback: () -> (LiveFloat)
+	let setCallback: (LiveFloat) -> ()
+	init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
+		self.name = name
+		self.getCallback = getCallback
+		self.setCallback = setCallback
+	}
+    func get() -> LiveFloat {
+        return getCallback()
+    }
+	func set(_ value: LiveFloat) {
+     	setCallback(value)
+    }    
+}
+{% endif %}
+{% endfor %}
+
+{% for type in types.implementing.PIXAuto %}
+{% if type.inherits.PIXGenerator %}
+class AutoIntProperty{{ type.name }}: AutoIntProperty {
+	let name: String
+	let getCallback: () -> (LiveInt)
+	let setCallback: (LiveInt) -> ()
+	init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
+		self.name = name
+		self.getCallback = getCallback
+		self.setCallback = setCallback
+	}
+    func get() -> LiveInt {
+        return getCallback()
+    }
+	func set(_ value: LiveInt) {
+     	setCallback(value)
+    }    
+}
+{% endif %}
+{% endfor %}
+
+
+
+
+
+
+
+
+
+public enum AutoPIXSingleEffect {
+	{% for type in types.implementing.PIXAuto %}
+	{% if type.inherits.PIXSingleEffect %}
+	case {{ type.name|lowercase }}
+	{% endif %}
+	{% endfor %}
+	public var pixType: PIXSingleEffect.Type {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXSingleEffect %}
+		case .{{ type.name|lowercase }}: return {{ type.name }}.self
+		{% endif %}
+		{% endfor %}
+		}
+	}
+}
+
+public enum AutoPIXMergerEffect {
+	{% for type in types.implementing.PIXAuto %}
+	{% if type.inherits.PIXMergerEffect %}
+	case {{ type.name|lowercase }}
+	{% endif %}
+	{% endfor %}
+	public var pixType: PIXMergerEffect.Type {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXMergerEffect %}
+		case .{{ type.name|lowercase }}: return {{ type.name }}.self
+		{% endif %}
+		{% endfor %}
+		}
+	}
+}
+
+public enum AutoPIXMultiEffect {
+	{% for type in types.implementing.PIXAuto %}
+	{% if type.inherits.PIXMultiEffect %}
+	case {{ type.name|lowercase }}
+	{% endif %}
+	{% endfor %}
+	public var pixType: PIXMultiEffect.Type {
+		switch self {
+		{% for type in types.implementing.PIXAuto %}
+		{% if type.inherits.PIXMultiEffect %}
+		case .{{ type.name|lowercase }}: return {{ type.name }}.self
+		{% endif %}
+		{% endfor %}
+		}
+	}
+}

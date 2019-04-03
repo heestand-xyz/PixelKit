@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class KaleidoscopePIX: PIXSingleEffect {
+public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleKaleidoscopePIX" }
     

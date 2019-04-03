@@ -41,3 +41,5 @@ protocol PIXMetal {
     var metalCode: String? { get }
     var metalUniforms: [MetalUniform] { get }
 }
+
+protocol PIXAuto {}

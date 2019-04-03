@@ -20,7 +20,7 @@ open class PIXGenerator: PIXContent {
     
     public static var globalResMultiplier: CGFloat = 1
     
-    public init(res: Res) {
+    public required init(res: Res) {
         _res = res
         super.init()
         applyRes { self.setNeedsRender() }

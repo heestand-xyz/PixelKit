@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-17.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class ThresholdPIX: PIXSingleEffect {
+import CoreGraphics
+
+public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleThresholdPIX" }
     

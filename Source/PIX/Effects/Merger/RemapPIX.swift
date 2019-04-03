@@ -5,21 +5,10 @@
 //  Created by Hexagons on 2018-09-07.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class RemapPIX: PIXMergerEffect {
+public class RemapPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerRemapPIX" }
-    
-//    // MARK: - JSON
-//
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init()
-//        setNeedsRender()
-//    }
-//
-//    public override func encode(to encoder: Encoder) throws {}
-    
     
 }
 

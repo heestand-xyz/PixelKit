@@ -5,9 +5,8 @@
 //  Created by Hexagons on 2018-09-04.
 //  Open Source - MIT License
 //
-import CoreGraphics
 
-public class HueSatPIX: PIXSingleEffect {
+public class HueSatPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleHueSatPIX" }
     

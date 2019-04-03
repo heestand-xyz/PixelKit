@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class ChannelMixPIX: PIXSingleEffect {
+public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleChannelMixPIX" }
     

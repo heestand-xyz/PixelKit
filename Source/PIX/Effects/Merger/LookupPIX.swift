@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-18.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class LookupPIX: PIXMergerEffect {
+import CoreGraphics
+
+public class LookupPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerLookupPIX" }
     

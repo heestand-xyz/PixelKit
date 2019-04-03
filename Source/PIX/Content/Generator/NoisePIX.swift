@@ -5,9 +5,8 @@
 //  Created by Hexagons on 2018-08-14.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class NoisePIX: PIXGenerator {
+public class NoisePIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorNoisePIX" }
     

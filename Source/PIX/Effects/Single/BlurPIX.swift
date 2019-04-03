@@ -5,11 +5,11 @@
 //  Created by Hexagons on 2018-08-02.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
 import MetalKit
 import MetalPerformanceShaders
 
-public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
+public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     override open var shader: String { return "effectSingleBlurPIX" }
     

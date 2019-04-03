@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class DisplacePIX: PIXMergerEffect {
+public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerDisplacePIX" }
     

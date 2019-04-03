@@ -17,7 +17,7 @@ public struct ColorStep {
     }
 }
 
-public class GradientPIX: PIXGenerator {
+public class GradientPIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     

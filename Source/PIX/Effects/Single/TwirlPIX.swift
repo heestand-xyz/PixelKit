@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class TwirlPIX: PIXSingleEffect {
+public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleTwirlPIX" }
     

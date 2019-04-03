@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class TransformPIX: PIXSingleEffect {
+public class TransformPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleTransformPIX" }
     // FIXME: shaderAspect

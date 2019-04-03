@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-09.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class LumaBlurPIX: PIXMergerEffect {
+import CoreGraphics
+
+public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerLumaBlurPIX" }
     

@@ -8,7 +8,7 @@
 
 import Metal
 
-public class FreezePIX: PIXSingleEffect {
+public class FreezePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "nilPIX" }
     
