@@ -9,7 +9,7 @@
 
 open class PIXSingleEffect: PIXEffect, PIXInSingle {
     
-    public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
+    public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
     
     // MARK: - Life Cycle
     

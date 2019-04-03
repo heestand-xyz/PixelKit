@@ -73,12 +73,9 @@ Note that Pixels dose not have simulator support. Metal for iOS can only run on 
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
-## Docs
-Classes, Delegates and Properties of:<br>
-[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
-[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
-[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
-[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
+## Example
+
+[Hello Pixels](https://github.com/hexagons/Hello-Pixels)
 
 ## Tutorials
 
@@ -90,6 +87,13 @@ Classes, Delegates and Properties of:<br>
 [Low Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov) (200 MB) -
 [Screen Lapse x4](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_screen_lapse_x4.mov) (100 MB)<br>
 Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
+
+## Docs
+Classes, Delegates and Properties of:<br>
+[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
+[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
+[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
+[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
 ## Example: Camera Effects
 
@@ -354,6 +358,13 @@ lumUniform.value = 0.5
 
 a Live Graphics Node Editor for iPad<br>
 powered by Pixels<br>
+
+<img src="http://hexagons.se/layercam/assets/Layer-Cam.png" width="64"/>
+
+### [Layer Cam](http://hexagons.se/layercam/)
+
+a camera app lets you live layer filters of your choice.<br>
+combine effects to create new cool styles.
 
 ---
 

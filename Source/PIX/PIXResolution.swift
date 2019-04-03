@@ -80,11 +80,11 @@ extension PIX {
         applied()
         delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..
-        if let pixOut = self as? PIXOutIO {
-            for pathList in pixOut.pixOutPathList {
-                pathList.pixIn.applyRes(applied: {})
-            }
-        }
+//        if let pixOut = self as? PIXOutIO {
+//            for pathList in pixOut.pixOutPathList {
+//                pathList.pixIn.applyRes(applied: {})
+//            }
+//        }
     }
     
 }
