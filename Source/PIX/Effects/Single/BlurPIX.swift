@@ -5,17 +5,17 @@
 //  Created by Hexagons on 2018-08-02.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
 import MetalKit
 import MetalPerformanceShaders
 
-public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
+public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     override open var shader: String { return "effectSingleBlurPIX" }
     
     // MARK: - Public Properties
     
-    public enum Style: String, CaseIterable {
+    public enum BlurStyle: String, CaseIterable {
         case guassian
         case box
         case angle
@@ -32,7 +32,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
         }
     }
     
-    public var style: Style = .guassian { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .guassian { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -63,7 +63,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     override open var shaderNeedsAspect: Bool { return true }
     
-    override public init() {
+    public required init() {
         super.init()
         extend = .hold
         customRenderDelegate = self

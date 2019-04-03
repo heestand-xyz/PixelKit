@@ -5,15 +5,16 @@
 //  Created by Hexagons on 2018-08-09.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class LumaBlurPIX: PIXMergerEffect {
+import CoreGraphics
+
+public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerLumaBlurPIX" }
     
     // MARK: - Public Properties
     
-    public enum Style: String, CaseIterable {
+    public enum LumaBlurStyle: String, CaseIterable {
         case box
         case angle
         case zoom
@@ -28,7 +29,7 @@ public class LumaBlurPIX: PIXMergerEffect {
         }
     }
     
-    public var style: Style = .box { didSet { setNeedsRender() } }
+    public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
     public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: LiveFloat = 0.0
@@ -46,7 +47,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required init() {
         super.init()
         extend = .hold
     }
@@ -68,7 +69,7 @@ public extension PIXOut {
         let pix = self as! PIX & PIXOut
         let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
         gradientPix.name = "tiltShift:gradient"
-        gradientPix.style = .vertical
+        gradientPix.direction = .vertical
         gradientPix.offset = 0.5
         gradientPix.scale = 0.5
         gradientPix.extendRamp = .mirror

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class FlarePIX: PIXSingleEffect {
+public class FlarePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleFlarePIX" }
     

@@ -5,9 +5,8 @@
 //  Created by Hexagons on 2018-08-06.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class EdgePIX: PIXSingleEffect {
+public class EdgePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleEdgePIX" }
     

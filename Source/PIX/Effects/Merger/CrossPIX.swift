@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class CrossPIX: PIXMergerEffect {
+public class CrossPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerCrossPIX" }
     

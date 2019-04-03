@@ -39,6 +39,7 @@ extension PIX {
         case power
         case divide
         case average
+        case cosine
         var index: Int {
             switch self {
             case .over: return 0
@@ -54,6 +55,7 @@ extension PIX {
             case .power: return 10
             case .divide: return 11
             case .average: return 12
+            case .cosine: return 13
             }
         }
     }
@@ -72,13 +74,13 @@ extension PIX {
     public enum ExtendMode: String, Codable, CaseIterable {
         case hold
         case zero
-        case `repeat`
+        case loop
         case mirror
         var mtl: MTLSamplerAddressMode {
             switch self {
             case .hold: return .clampToEdge
             case .zero: return .clampToZero
-            case .repeat: return .repeat
+            case .loop: return .repeat
             case .mirror: return .mirrorRepeat
             }
         }
@@ -92,7 +94,7 @@ extension PIX {
             switch self {
             case .hold: return 0
             case .zero: return 1
-            case .repeat: return 2
+            case .loop: return 2
             case .mirror: return 3
             }
         }

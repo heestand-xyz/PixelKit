@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-09-05.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class CropPIX: PIXSingleEffect {
+import CoreGraphics
+
+public class CropPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleCropPIX" }
     

@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class LevelsPIX: PIXSingleEffect {
+public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleLevelsPIX" }
     

@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-09-06.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class FlipFlopPIX: PIXSingleEffect {
+import CoreGraphics
+
+public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleFlipFlopPIX" }
     

@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-27.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
+import CoreGraphics
+
+public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAuto {
     
     override open var shader: String { return "nilPIX" }
     
@@ -26,7 +27,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required init() {
         corners = Corners(topLeft: CGPoint(x: 0, y: 1),
                           topRight: CGPoint(x: 1, y: 1),
                           bottomLeft: CGPoint(x: 0, y: 0),

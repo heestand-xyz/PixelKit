@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SepiaPIX: PIXSingleEffect {
+public class SepiaPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleSepiaPIX" }
     

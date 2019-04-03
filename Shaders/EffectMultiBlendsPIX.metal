@@ -9,6 +9,10 @@
 #include <metal_stdlib>
 using namespace metal;
 
+float4 lerpColors(float4 fraction, float4 from, float4 to) {
+    return from * (1.0 - fraction) + to * fraction;
+}
+
 struct VertexOut{
     float4 position [[position]];
     float2 texCoord;
@@ -22,6 +26,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                                       texture2d_array<float>  inTexs [[ texture(0) ]],
                                       const device Uniforms& in [[ buffer(0) ]],
                                       sampler s [[ sampler(0) ]]) {
+    float pi = 3.14159265359;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
@@ -145,6 +150,14 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = ci / count;
                 } else {
                     c += ci / count;
+                }
+                break;
+            case 13: // Cosine
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    c = lerpColors(c, ci, cos(ci * pi + pi) / 2 + 0.5);
                 }
                 break;
         }

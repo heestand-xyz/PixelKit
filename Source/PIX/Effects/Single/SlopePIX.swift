@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class SlopePIX: PIXSingleEffect {
+public class SlopePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleSlopePIX" }
     

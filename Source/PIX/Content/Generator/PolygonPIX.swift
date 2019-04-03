@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class PolygonPIX: PIXGenerator, Layoutable {
+public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorPolygonPIX" }
     

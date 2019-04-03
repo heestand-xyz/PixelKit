@@ -7,7 +7,7 @@
 //
 import CoreGraphics//x
 
-public class RectanglePIX: PIXGenerator, Layoutable {
+public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorRectanglePIX" }
     

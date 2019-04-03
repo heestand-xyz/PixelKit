@@ -5,9 +5,10 @@
 //  Created by Hexagons on 2018-08-16.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-open class PIXGenerator: PIXContent {
+import CoreGraphics
+
+open class PIXGenerator: PIXContent, PIXAutoParent {
     
     var _res: Res
     public var res: Res {
@@ -20,7 +21,7 @@ open class PIXGenerator: PIXContent {
     
     public static var globalResMultiplier: CGFloat = 1
     
-    public init(res: Res) {
+    public required init(res: Res) {
         _res = res
         super.init()
         applyRes { self.setNeedsRender() }

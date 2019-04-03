@@ -7,13 +7,13 @@
 //
 
 
-open class PIXMultiEffect: PIXEffect, PIXInMulti {
+open class PIXMultiEffect: PIXEffect, PIXInMulti, PIXAutoParent {
     
     public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required override init() {
         super.init()
     }
     

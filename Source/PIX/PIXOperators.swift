@@ -13,6 +13,8 @@ infix operator !&
 infix operator <>
 infix operator ><
 infix operator ~
+infix operator °
+prefix operator °
 
 public extension PIX {
     
@@ -61,6 +63,7 @@ public extension PIX {
             case .power: return "**"
             case .divide: return "/"
             case .average: return "~"
+            case .cosine: return "°"
             }
         }
         
@@ -200,15 +203,27 @@ public extension PIX {
     }
     
     static func ~(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+        return blendOperators.blend(lhs, rhs, blendingMode: .average)
     }
     static func ~(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
     static func ~(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+        return blendOperators.blend(lhs, rhs, blendingMode: .average)
     }
     static func ~(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
     static func ~(lhs: PIX, rhs: LiveColor) -> BlendPIX {
-        return blendOperators.blend(lhs, rhs, blendingMode: .divide)
+        return blendOperators.blend(lhs, rhs, blendingMode: .average)
+    }
+    
+    static func °(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .cosine)
+    }
+    static func °(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs ° lhs }
+    static func °(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .cosine)
+    }
+    static func °(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs ° lhs }
+    static func °(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .cosine)
     }
     
     prefix static func ! (operand: PIX) -> PIX & PIXOut {
@@ -218,6 +233,10 @@ public extension PIX {
             return black
         }
         return pix._invert()
+    }
+    
+    prefix static func ° (operand: PIX) -> PIX & PIXOut {
+        return operand ° 1.0
     }
     
 }

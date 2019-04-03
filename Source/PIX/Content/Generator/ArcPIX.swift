@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-public class ArcPIX: PIXGenerator, Layoutable {
+public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorArcPIX" }
     

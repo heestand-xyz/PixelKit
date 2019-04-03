@@ -5,9 +5,9 @@
 //  Created by Hexagons on 2018-09-06.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
 
-public class RangePIX: PIXSingleEffect {
+
+public class RangePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleRangePIX" }
     

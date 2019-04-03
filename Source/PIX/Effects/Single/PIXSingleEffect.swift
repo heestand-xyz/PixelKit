@@ -7,13 +7,13 @@
 //
 
 
-open class PIXSingleEffect: PIXEffect, PIXInSingle {
+open class PIXSingleEffect: PIXEffect, PIXInSingle, PIXAutoParent {
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required override init() {
         super.init()
     }
     

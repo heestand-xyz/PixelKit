@@ -79,10 +79,10 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     bool zero = false;
     switch (int(in.extend)) {
         case 0: // Hold
-            if (fraction < 0) {
-                fraction = 0.0;
-            } else if (fraction > 1) {
-                fraction = 1.0;
+            if (fraction < 0.0001) {
+                fraction = 0.0001;
+            } else if (fraction > 0.9999) {
+                fraction = 0.9999;
             }
             break;
         case 1: // Zero
@@ -156,5 +156,4 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     }
 
     return c;
-    return float4(inArrActive[0], inArrActive[1], inArrActive[2], 1);
 }

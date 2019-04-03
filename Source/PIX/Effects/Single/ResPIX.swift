@@ -32,7 +32,12 @@ public class ResPIX: PIXSingleEffect {
         self.res = res
         super.init()
     }
-
+    
+    required override init() {
+        self.res = ._128
+        super.init()
+    }
+    
 }
 
 public extension PIXOut {

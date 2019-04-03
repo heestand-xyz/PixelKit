@@ -9,6 +9,10 @@
 #include <metal_stdlib>
 using namespace metal;
 
+float4 lerpColor(float4 fraction, float4 from, float4 to) {
+    return from * (1.0 - fraction) + to * fraction;
+}
+
 struct VertexOut{
     float4 position [[position]];
     float2 texCoord;
@@ -138,6 +142,9 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
             break;
         case 12: // Average
             c = ca / 2 + cb / 2;
+            break;
+        case 13: // Cosine
+            c = lerpColor(cb, ca, cos(ca * pi + pi) / 2 + 0.5);
             break;
     }
     

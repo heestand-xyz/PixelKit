@@ -7,7 +7,7 @@
 //
 import CoreGraphics//x
 
-open class PIXMergerEffect: PIXEffect, PIXInMerger {
+open class PIXMergerEffect: PIXEffect, PIXInMerger, PIXAutoParent {
     
     public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnect() } }
@@ -17,7 +17,7 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required override init() {
         super.init()
     }
     

@@ -8,7 +8,7 @@
 
 import Metal
 
-public class TimeMachinePIX: PIXMergerEffect {
+public class TimeMachinePIX: PIXMergerEffect, PIXAuto {
    
     override open var shader: String { return "effectMergerTimeMachinePIX" }
     

@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-public class SharpenPIX: PIXSingleEffect {
+public class SharpenPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleSharpenPIX" }
     

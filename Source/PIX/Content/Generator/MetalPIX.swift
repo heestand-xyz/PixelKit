@@ -61,6 +61,12 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 //        bakeFrag()
     }
     
+    required init(res: Res) {
+        metalUniforms = []
+        code = ""
+        super.init(res: res)
+    }
+    
     func bakeFrag() {
         do {
             let frag = try pixels.makeMetalFrag(shader, from: self)

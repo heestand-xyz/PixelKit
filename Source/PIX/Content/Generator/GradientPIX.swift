@@ -17,13 +17,13 @@ public struct ColorStep {
     }
 }
 
-public class GradientPIX: PIXGenerator {
+public class GradientPIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     
     // MARK: - Public Types
     
-    public enum Style: String, Codable, CaseIterable {
+    public enum Direction: String, Codable, CaseIterable {
         case horizontal
         case vertical
         case radial
@@ -40,7 +40,7 @@ public class GradientPIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var style: Style = .horizontal { didSet { setNeedsRender() } }
+    public var direction: Direction = .horizontal { didSet { setNeedsRender() } }
     public var scale: LiveFloat = 1.0
     public var offset: LiveFloat = 0.0
     public var position: LivePoint = .zero
@@ -54,7 +54,7 @@ public class GradientPIX: PIXGenerator {
     }
     
     override var preUniforms: [CGFloat] {
-        return [CGFloat(style.index)]
+        return [CGFloat(direction.index)]
     }
     override var postUniforms: [CGFloat] {
         return [CGFloat(extendRamp.index)]
@@ -67,7 +67,7 @@ public class GradientPIX: PIXGenerator {
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
+        return [CGFloat(direction.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
     }
     
     // MARK: - Rainbow
