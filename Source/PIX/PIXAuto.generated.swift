@@ -449,15 +449,25 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .gradientpix:
 			return [
-				AutoEnumProperty(name: "style", cases: [
+				AutoEnumProperty(name: "direction", cases: [
 						"horizontal",
 						"vertical",
 						"radial",
 						"angle",
 				], getCallback: {
-					return (pix as! GradientPIX).style.rawValue
+					return (pix as! GradientPIX).direction.rawValue
 				}, setCallback: { value in
-					(pix as! GradientPIX).style = GradientPIX.Style(rawValue: value)!
+					(pix as! GradientPIX).direction = GradientPIX.Direction(rawValue: value) ?? .horizontal
+				}),
+				AutoEnumProperty(name: "extendRamp", cases: [
+						"hold",
+						"zero",
+						"loop",
+						"mirror",
+				], getCallback: {
+					return (pix as! GradientPIX).extendRamp.rawValue
+				}, setCallback: { value in
+					(pix as! GradientPIX).extendRamp = PIX.ExtendMode(rawValue: value) ?? .hold
 				}),
 			]
 		case .linepix:
@@ -765,6 +775,26 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		switch self {
 		case .blendpix:
 			return [
+				AutoEnumProperty(name: "mode", cases: [
+						"over",
+						"under",
+						"add",
+						"multiply",
+						"difference",
+						"subtractWithAlpha",
+						"subtract",
+						"maximum",
+						"minimum",
+						"gamma",
+						"power",
+						"divide",
+						"average",
+						"cosine",
+				], getCallback: {
+					return (pix as! BlendPIX).mode.rawValue
+				}, setCallback: { value in
+					(pix as! BlendPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+				}),
 			]
 		case .crosspix:
 			return [
@@ -780,7 +810,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! LookupPIX).axis.rawValue
 				}, setCallback: { value in
-					(pix as! LookupPIX).axis = LookupPIX.Axis(rawValue: value)!
+					(pix as! LookupPIX).axis = LookupPIX.Axis(rawValue: value) ?? .x
 				}),
 			]
 		case .lumablurpix:
@@ -793,7 +823,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! LumaBlurPIX).style.rawValue
 				}, setCallback: { value in
-					(pix as! LumaBlurPIX).style = LumaBlurPIX.Style(rawValue: value)!
+					(pix as! LumaBlurPIX).style = LumaBlurPIX.LumaBlurStyle(rawValue: value) ?? .box
 				}),
 			]
 		case .remappix:
@@ -801,6 +831,14 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 			]
 		case .reorderpix:
 			return [
+				AutoEnumProperty(name: "redInput", cases: [
+						"a",
+						"b",
+				], getCallback: {
+					return (pix as! ReorderPIX).redInput.rawValue
+				}, setCallback: { value in
+					(pix as! ReorderPIX).redInput = ReorderPIX.Input(rawValue: value) ?? .a
+				}),
 				AutoEnumProperty(name: "redChannel", cases: [
 						"red",
 						"green",
@@ -812,7 +850,15 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! ReorderPIX).redChannel.rawValue
 				}, setCallback: { value in
-					(pix as! ReorderPIX).redChannel = ReorderPIX.Channel(rawValue: value)!
+					(pix as! ReorderPIX).redChannel = ReorderPIX.Channel(rawValue: value) ?? .red
+				}),
+				AutoEnumProperty(name: "greenInput", cases: [
+						"a",
+						"b",
+				], getCallback: {
+					return (pix as! ReorderPIX).greenInput.rawValue
+				}, setCallback: { value in
+					(pix as! ReorderPIX).greenInput = ReorderPIX.Input(rawValue: value) ?? .a
 				}),
 				AutoEnumProperty(name: "greenChannel", cases: [
 						"red",
@@ -825,7 +871,15 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! ReorderPIX).greenChannel.rawValue
 				}, setCallback: { value in
-					(pix as! ReorderPIX).greenChannel = ReorderPIX.Channel(rawValue: value)!
+					(pix as! ReorderPIX).greenChannel = ReorderPIX.Channel(rawValue: value) ?? .red
+				}),
+				AutoEnumProperty(name: "blueInput", cases: [
+						"a",
+						"b",
+				], getCallback: {
+					return (pix as! ReorderPIX).blueInput.rawValue
+				}, setCallback: { value in
+					(pix as! ReorderPIX).blueInput = ReorderPIX.Input(rawValue: value) ?? .a
 				}),
 				AutoEnumProperty(name: "blueChannel", cases: [
 						"red",
@@ -838,7 +892,15 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! ReorderPIX).blueChannel.rawValue
 				}, setCallback: { value in
-					(pix as! ReorderPIX).blueChannel = ReorderPIX.Channel(rawValue: value)!
+					(pix as! ReorderPIX).blueChannel = ReorderPIX.Channel(rawValue: value) ?? .red
+				}),
+				AutoEnumProperty(name: "alphaInput", cases: [
+						"a",
+						"b",
+				], getCallback: {
+					return (pix as! ReorderPIX).alphaInput.rawValue
+				}, setCallback: { value in
+					(pix as! ReorderPIX).alphaInput = ReorderPIX.Input(rawValue: value) ?? .a
 				}),
 				AutoEnumProperty(name: "alphaChannel", cases: [
 						"red",
@@ -851,39 +913,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! ReorderPIX).alphaChannel.rawValue
 				}, setCallback: { value in
-					(pix as! ReorderPIX).alphaChannel = ReorderPIX.Channel(rawValue: value)!
-				}),
-				AutoEnumProperty(name: "redInput", cases: [
-						"a",
-						"b",
-				], getCallback: {
-					return (pix as! ReorderPIX).redInput.rawValue
-				}, setCallback: { value in
-					(pix as! ReorderPIX).redInput = ReorderPIX.Input(rawValue: value)!
-				}),
-				AutoEnumProperty(name: "greenInput", cases: [
-						"a",
-						"b",
-				], getCallback: {
-					return (pix as! ReorderPIX).greenInput.rawValue
-				}, setCallback: { value in
-					(pix as! ReorderPIX).greenInput = ReorderPIX.Input(rawValue: value)!
-				}),
-				AutoEnumProperty(name: "blueInput", cases: [
-						"a",
-						"b",
-				], getCallback: {
-					return (pix as! ReorderPIX).blueInput.rawValue
-				}, setCallback: { value in
-					(pix as! ReorderPIX).blueInput = ReorderPIX.Input(rawValue: value)!
-				}),
-				AutoEnumProperty(name: "alphaInput", cases: [
-						"a",
-						"b",
-				], getCallback: {
-					return (pix as! ReorderPIX).alphaInput.rawValue
-				}, setCallback: { value in
-					(pix as! ReorderPIX).alphaInput = ReorderPIX.Input(rawValue: value)!
+					(pix as! ReorderPIX).alphaChannel = ReorderPIX.Channel(rawValue: value) ?? .red
 				}),
 			]
 		case .timemachinepix:
@@ -961,6 +991,26 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 		switch self {
 		case .blendspix:
 			return [
+				AutoEnumProperty(name: "mode", cases: [
+						"over",
+						"under",
+						"add",
+						"multiply",
+						"difference",
+						"subtractWithAlpha",
+						"subtract",
+						"maximum",
+						"minimum",
+						"gamma",
+						"power",
+						"divide",
+						"average",
+						"cosine",
+				], getCallback: {
+					return (pix as! BlendsPIX).mode.rawValue
+				}, setCallback: { value in
+					(pix as! BlendsPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+				}),
 			]
 		}	
 	}
@@ -1816,7 +1866,7 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! BlurPIX).style.rawValue
 				}, setCallback: { value in
-					(pix as! BlurPIX).style = BlurPIX.Style(rawValue: value)!
+					(pix as! BlurPIX).style = BlurPIX.BlurStyle(rawValue: value) ?? .guassian
 				}),
 			]
 		case .channelmixpix:
@@ -1853,7 +1903,7 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! FlipFlopPIX).flip.rawValue
 				}, setCallback: { value in
-					(pix as! FlipFlopPIX).flip = FlipFlopPIX.Flip(rawValue: value)!
+					(pix as! FlipFlopPIX).flip = FlipFlopPIX.Flip(rawValue: value) ?? .none
 				}),
 				AutoEnumProperty(name: "flop", cases: [
 						"none",
@@ -1862,7 +1912,7 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				], getCallback: {
 					return (pix as! FlipFlopPIX).flop.rawValue
 				}, setCallback: { value in
-					(pix as! FlipFlopPIX).flop = FlipFlopPIX.Flop(rawValue: value)!
+					(pix as! FlipFlopPIX).flop = FlipFlopPIX.Flop(rawValue: value) ?? .none
 				}),
 			]
 		case .freezepix:

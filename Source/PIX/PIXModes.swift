@@ -74,13 +74,13 @@ extension PIX {
     public enum ExtendMode: String, Codable, CaseIterable {
         case hold
         case zero
-        case `repeat`
+        case loop
         case mirror
         var mtl: MTLSamplerAddressMode {
             switch self {
             case .hold: return .clampToEdge
             case .zero: return .clampToZero
-            case .repeat: return .repeat
+            case .loop: return .repeat
             case .mirror: return .mirrorRepeat
             }
         }
@@ -94,7 +94,7 @@ extension PIX {
             switch self {
             case .hold: return 0
             case .zero: return 1
-            case .repeat: return 2
+            case .loop: return 2
             case .mirror: return 3
             }
         }

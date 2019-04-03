@@ -15,7 +15,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     // MARK: - Public Properties
     
-    public enum Style: String, CaseIterable {
+    public enum BlurStyle: String, CaseIterable {
         case guassian
         case box
         case angle
@@ -32,7 +32,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
         }
     }
     
-    public var style: Style = .guassian { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .guassian { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0

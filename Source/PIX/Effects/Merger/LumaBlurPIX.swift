@@ -14,7 +14,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public enum Style: String, CaseIterable {
+    public enum LumaBlurStyle: String, CaseIterable {
         case box
         case angle
         case zoom
@@ -29,7 +29,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
         }
     }
     
-    public var style: Style = .box { didSet { setNeedsRender() } }
+    public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
     public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: LiveFloat = 0.0
@@ -69,7 +69,7 @@ public extension PIXOut {
         let pix = self as! PIX & PIXOut
         let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
         gradientPix.name = "tiltShift:gradient"
-        gradientPix.style = .vertical
+        gradientPix.direction = .vertical
         gradientPix.offset = 0.5
         gradientPix.scale = 0.5
         gradientPix.extendRamp = .mirror

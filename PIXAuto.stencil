@@ -59,8 +59,9 @@ public enum Auto{{ parentType.name }}: String, CaseIterable {
 		{% if subType == parentType.name %}
 		case .{{ type.name|lowercase }}:
 			return [
-				{% for enum in types.enums where enum.parentName == type.name %}
 				{% for var in type.storedVariables %}
+				{% for enum in types.enums where enum.localName == var.typeName.name %}
+				{% if enum.rawTypeName.name == "String" %}	
 				{% if var.typeName.name == enum.localName %}	
 				AutoEnumProperty(name: "{{ var.name }}", cases: [
 					{% for case in enum.cases %}
@@ -69,8 +70,9 @@ public enum Auto{{ parentType.name }}: String, CaseIterable {
 				], getCallback: {
 					return (pix as! {{ type.name }}).{{ var.name }}.rawValue
 				}, setCallback: { value in
-					(pix as! {{ type.name }}).{{ var.name }} = {{ enum.name }}(rawValue: value)!
+					(pix as! {{ type.name }}).{{ var.name }} = {{ enum.name }}(rawValue: value) ?? .{{ enum.cases[0].name }}
 				}),
+				{% endif %}
 				{% endif %}
 				{% endfor %}
 				{% endfor %}
