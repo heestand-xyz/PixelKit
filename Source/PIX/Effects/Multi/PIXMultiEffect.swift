@@ -13,7 +13,7 @@ open class PIXMultiEffect: PIXEffect, PIXInMulti {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required override init() {
         super.init()
     }
     

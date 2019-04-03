@@ -64,6 +64,12 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
         super.init()
     }
     
+    required override init() {
+        metalUniforms = []
+        metalEmbedCode = ""
+        super.init()
+    }
+    
 //    // MARK: - JSON
 //
 //    required convenience init(from decoder: Decoder) throws {

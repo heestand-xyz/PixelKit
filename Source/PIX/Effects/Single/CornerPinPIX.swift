@@ -27,7 +27,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required init() {
         corners = Corners(topLeft: CGPoint(x: 0, y: 1),
                           topRight: CGPoint(x: 1, y: 1),
                           bottomLeft: CGPoint(x: 0, y: 0),

@@ -63,7 +63,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     override open var shaderNeedsAspect: Bool { return true }
     
-    override public init() {
+    public required init() {
         super.init()
         extend = .hold
         customRenderDelegate = self

@@ -64,4 +64,10 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
         super.init()
     }
     
+    required init() {
+        metalUniforms = []
+        metalEmbedCode = ""
+        super.init()
+    }
+    
 }

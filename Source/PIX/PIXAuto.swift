@@ -14,6 +14,10 @@ public protocol AutoProperty {
 
 public class AutoFloatProperty: AutoProperty {
     public let name: String
+    public var value: LiveFloat {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
     let getCallback: () -> (LiveFloat)
     let setCallback: (LiveFloat) -> ()
     init(name: String, getCallback: @escaping () -> (LiveFloat), setCallback: @escaping (LiveFloat) -> ()) {
@@ -21,16 +25,14 @@ public class AutoFloatProperty: AutoProperty {
         self.getCallback = getCallback
         self.setCallback = setCallback
     }
-    public func get() -> LiveFloat {
-        return getCallback()
-    }
-    public func set(_ value: LiveFloat) {
-        setCallback(value)
-    }
 }
 
 public class AutoIntProperty: AutoProperty {
     public let name: String
+    public var value: LiveInt {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
     let getCallback: () -> (LiveInt)
     let setCallback: (LiveInt) -> ()
     init(name: String, getCallback: @escaping () -> (LiveInt), setCallback: @escaping (LiveInt) -> ()) {
@@ -38,35 +40,79 @@ public class AutoIntProperty: AutoProperty {
         self.getCallback = getCallback
         self.setCallback = setCallback
     }
-    public func get() -> LiveInt {
-        return getCallback()
+}
+
+public class AutoBoolProperty: AutoProperty {
+    public let name: String
+    public var value: LiveBool {
+        get { return getCallback() }
+        set { setCallback(newValue) }
     }
-    public func set(_ value: LiveInt) {
-        setCallback(value)
+    let getCallback: () -> (LiveBool)
+    let setCallback: (LiveBool) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveBool), setCallback: @escaping (LiveBool) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
     }
 }
 
-public protocol AutoBoolProperty: AutoProperty {
-    func get() -> LiveBool
-    func set(_ value: LiveBool)
+public class AutoColorProperty: AutoProperty {
+    public let name: String
+    public var value: LiveColor {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
+    let getCallback: () -> (LiveColor)
+    let setCallback: (LiveColor) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveColor), setCallback: @escaping (LiveColor) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
 }
 
-public protocol AutoColorProperty: AutoProperty {
-    func get() -> LiveColor
-    func set(_ value: LiveColor)
+public class AutoPointProperty: AutoProperty {
+    public let name: String
+    public var value: LivePoint {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
+    let getCallback: () -> (LivePoint)
+    let setCallback: (LivePoint) -> ()
+    init(name: String, getCallback: @escaping () -> (LivePoint), setCallback: @escaping (LivePoint) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
 }
 
-public protocol AutoPointProperty: AutoProperty {
-    func get() -> LivePoint
-    func set(_ value: LivePoint)
+public class AutoSizeProperty: AutoProperty {
+    public let name: String
+    public var value: LiveSize {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
+    let getCallback: () -> (LiveSize)
+    let setCallback: (LiveSize) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveSize), setCallback: @escaping (LiveSize) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
 }
 
-public protocol AutoSizeProperty: AutoProperty {
-    func get() -> LiveSize
-    func set(_ value: LiveSize)
-}
-
-public protocol AutoRectProperty: AutoProperty {
-    func get() -> LiveRect
-    func set(_ value: LiveRect)
+public class AutoRectProperty: AutoProperty {
+    public let name: String
+    public var value: LiveRect {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
+    let getCallback: () -> (LiveRect)
+    let setCallback: (LiveRect) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveRect), setCallback: @escaping (LiveRect) -> ()) {
+        self.name = name
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
 }

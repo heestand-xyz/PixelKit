@@ -17,7 +17,7 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required override init() {
         super.init()
     }
     

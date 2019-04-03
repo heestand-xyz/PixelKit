@@ -22,7 +22,7 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public required init() {
         super.init()
         extend = .mirror
     }
