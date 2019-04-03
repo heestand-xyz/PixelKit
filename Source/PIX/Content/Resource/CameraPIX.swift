@@ -279,8 +279,6 @@ public class CameraPIX: PIXResource {
             self.orientation = orientation
             #if os(iOS)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
-            #elseif os(macOS)
-            self.flop = false
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
         }, captured: { pixelBuffer in
