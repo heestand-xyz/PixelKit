@@ -32,3 +32,14 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     }
     
 }
+
+public extension PIXOut {
+    
+    func _flare() -> FlarePIX {
+        let flarePix = FlarePIX()
+        flarePix.name = ":flare:"
+        flarePix.inPix = self as? PIX & PIXOut
+        return flarePix
+    }
+    
+}
