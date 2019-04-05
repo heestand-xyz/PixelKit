@@ -8,7 +8,7 @@
 
 import Metal
 
-public class TimeMachinePIX: PIXMergerEffect, PIXAuto {
+public class TimeMachinePIX: PIXMergerEffect {
    
     override open var shader: String { return "effectMergerTimeMachinePIX" }
     
@@ -32,7 +32,7 @@ public class TimeMachinePIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public override required init() {
+    public required init() {
         super.init()
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self

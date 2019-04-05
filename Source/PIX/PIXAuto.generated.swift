@@ -512,7 +512,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 	case lumablurpix
 	case remappix
 	case reorderpix
-	case timemachinepix
 
 	public var name: String {
 		switch self {
@@ -523,7 +522,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		case .lumablurpix: return "LumaBlurPIX"
 		case .remappix: return "RemapPIX"
 		case .reorderpix: return "ReorderPIX"
-		case .timemachinepix: return "TimeMachinePIX"
 		}
 	}
 
@@ -536,7 +534,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		case .lumablurpix: return LumaBlurPIX.self
 		case .remappix: return RemapPIX.self
 		case .reorderpix: return ReorderPIX.self
-		case .timemachinepix: return TimeMachinePIX.self
 		}
 	}
 
@@ -568,9 +565,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		case .reorderpix:
 			return [
 			]
-		case .timemachinepix:
-			return [
-			]
 		}	
 	}
 	public func autoLiveColors(for pix: PIXMergerEffect) -> [AutoLiveColorProperty] {
@@ -594,9 +588,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 			return [
 			]
 		case .reorderpix:
-			return [
-			]
-		case .timemachinepix:
 			return [
 			]
 		}	
@@ -659,14 +650,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		case .reorderpix:
 			return [
 			]
-		case .timemachinepix:
-			return [
-				AutoLiveFloatProperty(name: "seconds", getCallback: {
-					return (pix as! TimeMachinePIX).seconds
-				}, setCallback: { value in
-					(pix as! TimeMachinePIX).seconds = value
-				}),
-			]
 		}	
 	}
 	public func autoLiveInts(for pix: PIXMergerEffect) -> [AutoLiveIntProperty] {
@@ -690,9 +673,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 			return [
 			]
 		case .reorderpix:
-			return [
-			]
-		case .timemachinepix:
 			return [
 			]
 		}	
@@ -730,9 +710,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		case .reorderpix:
 			return [
 			]
-		case .timemachinepix:
-			return [
-			]
 		}	
 	}
 	public func autoLiveRects(for pix: PIXMergerEffect) -> [AutoLiveRectProperty] {
@@ -756,9 +733,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 			return [
 			]
 		case .reorderpix:
-			return [
-			]
-		case .timemachinepix:
 			return [
 			]
 		}	
@@ -789,9 +763,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 			return [
 			]
 		case .reorderpix:
-			return [
-			]
-		case .timemachinepix:
 			return [
 			]
 		}	
@@ -942,9 +913,6 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 					(pix as! ReorderPIX).alphaChannel = ReorderPIX.Channel(rawValue: value) ?? .red
 				}),
 			]
-		case .timemachinepix:
-			return [
-			]
 		}	
 	}
 
@@ -1060,11 +1028,9 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 	case clamppix
 	case cornerpinpix
 	case croppix
-	case delaypix
 	case edgepix
 	case flarepix
 	case flipfloppix
-	case freezepix
 	case huesatpix
 	case kaleidoscopepix
 	case levelspix
@@ -1085,11 +1051,9 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .clamppix: return "ClampPIX"
 		case .cornerpinpix: return "CornerPinPIX"
 		case .croppix: return "CropPIX"
-		case .delaypix: return "DelayPIX"
 		case .edgepix: return "EdgePIX"
 		case .flarepix: return "FlarePIX"
 		case .flipfloppix: return "FlipFlopPIX"
-		case .freezepix: return "FreezePIX"
 		case .huesatpix: return "HueSatPIX"
 		case .kaleidoscopepix: return "KaleidoscopePIX"
 		case .levelspix: return "LevelsPIX"
@@ -1112,11 +1076,9 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .clamppix: return ClampPIX.self
 		case .cornerpinpix: return CornerPinPIX.self
 		case .croppix: return CropPIX.self
-		case .delaypix: return DelayPIX.self
 		case .edgepix: return EdgePIX.self
 		case .flarepix: return FlarePIX.self
 		case .flipfloppix: return FlipFlopPIX.self
-		case .freezepix: return FreezePIX.self
 		case .huesatpix: return HueSatPIX.self
 		case .kaleidoscopepix: return KaleidoscopePIX.self
 		case .levelspix: return LevelsPIX.self
@@ -1161,9 +1123,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1172,14 +1131,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 			]
 		case .flipfloppix:
 			return [
-			]
-		case .freezepix:
-			return [
-				AutoLiveBoolProperty(name: "freeze", getCallback: {
-					return (pix as! FreezePIX).freeze
-				}, setCallback: { value in
-					(pix as! FreezePIX).freeze = value
-				}),
 			]
 		case .huesatpix:
 			return [
@@ -1281,9 +1232,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1296,9 +1244,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				}),
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1416,9 +1361,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 				AutoLiveFloatProperty(name: "strength", getCallback: {
@@ -1461,9 +1403,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				}),
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1616,9 +1555,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1636,9 +1572,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				}),
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1706,9 +1639,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1716,9 +1646,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 			return [
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1786,9 +1713,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1796,9 +1720,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 			return [
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1856,9 +1777,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1866,9 +1784,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 			return [
 			]
 		case .flipfloppix:
-			return [
-			]
-		case .freezepix:
 			return [
 			]
 		case .huesatpix:
@@ -1943,9 +1858,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 		case .croppix:
 			return [
 			]
-		case .delaypix:
-			return [
-			]
 		case .edgepix:
 			return [
 			]
@@ -1973,9 +1885,6 @@ public enum AutoPIXSingleEffect: String, CaseIterable {
 				}, setCallback: { value in
 					(pix as! FlipFlopPIX).flop = FlipFlopPIX.Flop(rawValue: value) ?? .none
 				}),
-			]
-		case .freezepix:
-			return [
 			]
 		case .huesatpix:
 			return [
