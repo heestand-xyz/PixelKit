@@ -8,7 +8,7 @@
 
 import Metal
 
-public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
+public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     override open var shader: String { return "nilPIX" }
     
@@ -29,7 +29,7 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public override required init() {
+    public required init() {
         super.init()
         customRenderActive = true
         customRenderDelegate = self

@@ -8,7 +8,7 @@
 
 import Metal
 
-public class FreezePIX: PIXSingleEffect, PIXAuto {
+public class FreezePIX: PIXSingleEffect {
     
     override open var shader: String { return "nilPIX" }
     
@@ -24,7 +24,7 @@ public class FreezePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public override required init() {
+    public required init() {
         super.init()
     }
     
