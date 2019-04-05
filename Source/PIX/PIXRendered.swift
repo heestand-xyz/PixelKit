@@ -20,6 +20,9 @@ public extension PIX {
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
         guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixels.bits.ci, colorSpace: pixels.colorSpace.cg) else { return nil }
+        #if os(iOS)
+        return cgImage
+        #elseif os(macOS)
         guard let size = resolution?.size else { return nil }
         guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
         context.scaleBy(x: 1, y: -1)
@@ -27,6 +30,7 @@ public extension PIX {
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         guard let image = context.makeImage() else { return nil }
         return image
+        #endif
     }
     
     #if os(iOS)
