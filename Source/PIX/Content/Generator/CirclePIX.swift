@@ -17,7 +17,7 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     public var edgeRadius: LiveFloat = 0.0
     public var color: LiveColor = .white
     public var edgeColor: LiveColor = .gray
-    public var bgColor: LiveColor = .black
+    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
