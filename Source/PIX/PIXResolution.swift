@@ -48,6 +48,16 @@ extension PIX {
         } else { return nil }
     }
     
+    public func nextResolution(callback: @escaping (Res) -> ()) {
+        if let res = resolution {
+            callback(res)
+            return
+        }
+        Pixels.main.delay(frames: 1, done: {
+            self.nextResolution(callback: callback)
+        })
+    }
+    
     public var liveResSize: LiveSize {
         return LiveSize({ () -> (CGSize) in
             // FIXME: Optional LiveSize
