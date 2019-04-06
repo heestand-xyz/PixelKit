@@ -221,13 +221,7 @@ open class PIX {
     
     func setNeedsConnect() {
         if self is PIXIn {
-            if let pixInMerger = self as? PIXInMerger {
-                if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
-                    connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
-                } else {
-                    // CHECK DISCONNECT
-                }
-            } else if let pixInMulti = self as? PIXInMulti {
+            if let pixInMulti = self as? PIXInMulti {
                 connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
             }
         }
@@ -254,20 +248,35 @@ open class PIX {
             var pixOut = newPixOut as! (PIX & PIXOutIO)
             pixInIO.pixInList = [pixOut]
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-            pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
             applyRes { self.setNeedsRender() }
+            pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
         }
     }
     
-    func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
-        var pixOutA = pixOutA
-        var pixOutB = pixOutB
+    func setNeedsConnectMerger(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?, second: Bool) {
         guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = [pixOutA, pixOutB]
-        pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
-        pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
-        applyRes { self.setNeedsRender() }
+        guard let pixInMerger = self as? PIXInMerger else { return }
+        if let oldPixOut = oldInPix {
+            var pixOut = oldPixOut as! (PIX & PIXOutIO)
+            for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
+                if pixOutPath.pixIn == pixInIO {
+                    pixOut.pixOutPathList.remove(at: i)
+                    break
+                }
+            }
+            pixInIO.pixInList = []
+            pixels.log(pix: self, .info, .connection, "Disonnected Merger: \(pixOut)")
+        }
+        if let newPixOut = newInPix {
+            if var pixOutA = (!second ? newPixOut : pixInMerger.inPixA) as? (PIX & PIXOutIO),
+                var pixOutB = (second ? newPixOut : pixInMerger.inPixB) as? (PIX & PIXOutIO) {
+                pixInIO.pixInList = [pixOutA, pixOutB]
+                pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+                pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
+                applyRes { self.setNeedsRender() }
+                pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+            }
+        }
     }
     
     func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
