@@ -46,6 +46,8 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
     uint h = inTexB.get_height();
     float aspect = float(w) / float(h);
     
+    float rot = in.rot * pi * 2;
+    
     float4 ca = inTexA.sample(s, uv);
     
     // Place
@@ -91,7 +93,7 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
     float4 cb;
     if (in.transform) {
         float2 size = float2(in.sx * in.s, in.sy * in.s);
-        float ang = atan2(bv - 0.5 - in.ty, (bu - 0.5) * aspect - in.tx) + (-in.rot / 360) * pi * 2;
+        float ang = atan2(bv - 0.5 - in.ty, (bu - 0.5) * aspect - in.tx) - rot;
         float amp = sqrt(pow((bu - 0.5) * aspect - in.tx, 2) + pow(bv - 0.5 - in.ty, 2));
         float2 buv = float2((cos(ang) / aspect) * amp, sin(ang) * amp) / size + 0.5;
         cb = inTexB.sample(s, buv);
