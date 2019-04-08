@@ -17,12 +17,11 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     public var edgeRadius: LiveFloat = 0.0
     public var color: LiveColor = .white
     public var edgeColor: LiveColor = .gray
-    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, position, edgeRadius, color, edgeColor, bgColor]
+        return [radius, position, edgeRadius, color, edgeColor, super.bgColor]
     }
 
     // MARK: Layout

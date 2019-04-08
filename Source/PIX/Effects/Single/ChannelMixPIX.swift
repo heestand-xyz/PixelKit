@@ -6,21 +6,28 @@
 //  Open Source - MIT License
 //
 
+import CoreGraphics
+
 public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleChannelMixPIX" }
     
     // MARK: - Public Properties
     
-    public var red: LiveColor = LiveColor(pure: .red) { didSet { setNeedsRender() } }
-    public var green: LiveColor = LiveColor(pure: .green) { didSet { setNeedsRender() } }
-    public var blue: LiveColor = LiveColor(pure: .blue) { didSet { setNeedsRender() } }
-    public var alpha: LiveColor = LiveColor(pure: .alpha) { didSet { setNeedsRender() } }
+    public var red: LiveColor.Pure = .red { didSet { setNeedsRender() } }
+    public var green: LiveColor.Pure = .green { didSet { setNeedsRender() } }
+    public var blue: LiveColor.Pure = .blue { didSet { setNeedsRender() } }
+    public var alpha: LiveColor.Pure = .alpha { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
-        return [red, green, blue, alpha]
+    public override var uniforms: [CGFloat] {
+        var uniforms: [CGFloat] = []
+        uniforms.append(contentsOf: LiveColor(pure: red).uniformList)
+        uniforms.append(contentsOf: LiveColor(pure: green).uniformList)
+        uniforms.append(contentsOf: LiveColor(pure: blue).uniformList)
+        uniforms.append(contentsOf: LiveColor(pure: alpha).uniformList)
+        return uniforms
     }
     
 }
@@ -32,16 +39,16 @@ public extension PIXOut {
         channelMixPix.name = "swap:channelMix"
         channelMixPix.inPix = self as? PIX & PIXOut
         switch pureColorA {
-        case .red: channelMixPix.red = LiveColor(pure: pureColorB)
-        case .green: channelMixPix.green = LiveColor(pure: pureColorB)
-        case .blue: channelMixPix.blue = LiveColor(pure: pureColorB)
-        case .alpha: channelMixPix.alpha = LiveColor(pure: pureColorB)
+        case .red: channelMixPix.red = pureColorB
+        case .green: channelMixPix.green = pureColorB
+        case .blue: channelMixPix.blue = pureColorB
+        case .alpha: channelMixPix.alpha = pureColorB
         }
         switch pureColorB {
-        case .red: channelMixPix.red = LiveColor(pure: pureColorA)
-        case .green: channelMixPix.green = LiveColor(pure: pureColorA)
-        case .blue: channelMixPix.blue = LiveColor(pure: pureColorA)
-        case .alpha: channelMixPix.alpha = LiveColor(pure: pureColorA)
+        case .red: channelMixPix.red = pureColorA
+        case .green: channelMixPix.green = pureColorA
+        case .blue: channelMixPix.blue = pureColorA
+        case .alpha: channelMixPix.alpha = pureColorA
         }
         return channelMixPix
     }

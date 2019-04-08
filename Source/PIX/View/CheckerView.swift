@@ -41,8 +41,8 @@ class CheckerView: _View {
     #endif
     func checkerImage() -> _Image {
         let scale: CGFloat = 20
-        let darkColor: CGColor = UIColor(white: 1 / 3, alpha: 1.0).cgColor
-        let lightColor: CGColor = UIColor(white: 2 / 3, alpha: 1.0).cgColor
+        let darkColor = CGColor(gray: 1 / 3, alpha: 1.0)
+        let lightColor = CGColor(gray: 2 / 3, alpha: 1.0)
         #if os(iOS)
         return UIGraphicsImageRenderer(size: CGSize(width: scale * 2, height: scale * 2)).image { ctx in
             ctx.cgContext.setFillColor(darkColor)

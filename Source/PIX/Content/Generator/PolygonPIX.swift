@@ -17,12 +17,11 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     public var rotation: LiveFloat = 0.0
     public var vertexCount: LiveInt = 6
     public var color: LiveColor = .white
-    public var bgColor: LiveColor = .clear
    
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, position, rotation, vertexCount, color, bgColor]
+        return [radius, position, rotation, vertexCount, color, super.bgColor]
     }
     
     // MARK: Layout

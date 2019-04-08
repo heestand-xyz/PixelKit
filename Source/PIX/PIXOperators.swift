@@ -38,7 +38,7 @@ public extension PIX {
         
         func blend(_ pix: PIX, _ color: LiveColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
-            colorPix.color = color
+            colorPix.bgColor = color
             let blendPix = blend(pix, colorPix, blendingMode: blendingMode)
             blendPix.extend = .hold
             return blendPix
@@ -229,7 +229,7 @@ public extension PIX {
     prefix static func ! (operand: PIX) -> PIX & PIXOut {
         guard let pix = operand as? PIXOut else {
             let black = ColorPIX(res: ._128)
-            black.color = .black
+            black.bgColor = .black
             return black
         }
         return pix._invert()
