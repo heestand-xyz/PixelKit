@@ -28,7 +28,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     public var frame: LiveRect {
         get {
-            return LiveRect(center: position, size: LiveSize(scale: radius))
+            return LiveRect(center: position, size: LiveSize(scale: radius * 2))
         }
         set {
             reFrame(to: frame)
