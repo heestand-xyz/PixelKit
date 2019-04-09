@@ -24,7 +24,7 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
 
 public extension PIXOut {
     
-    func _quantize(by fraction: LiveFloat) -> QuantizePIX {
+    func _quantize(_ fraction: LiveFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
         quantizePix.inPix = self as? PIX & PIXOut

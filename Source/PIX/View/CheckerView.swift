@@ -40,27 +40,30 @@ class CheckerView: _View {
     typealias _Image = NSImage
     #endif
     func checkerImage() -> _Image {
+        let scale: CGFloat = 20
+        let darkColor = CGColor(gray: 1 / 3, alpha: 1.0)
+        let lightColor = CGColor(gray: 2 / 3, alpha: 1.0)
         #if os(iOS)
-        return UIGraphicsImageRenderer(size: CGSize(width: 64, height: 64)).image { ctx in
-            ctx.cgContext.setFillColor(LiveColor.lightGray.cgColor)
-            ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: 32, height: 32))
-            ctx.cgContext.addRect(CGRect(x: 32, y: 32, width: 32, height: 32))
+        return UIGraphicsImageRenderer(size: CGSize(width: scale * 2, height: scale * 2)).image { ctx in
+            ctx.cgContext.setFillColor(darkColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: scale, height: scale))
+            ctx.cgContext.addRect(CGRect(x: scale, y: scale, width: scale, height: scale))
             ctx.cgContext.drawPath(using: .fill)
-            ctx.cgContext.setFillColor(LiveColor.darkGray.cgColor)
-            ctx.cgContext.addRect(CGRect(x: 0, y: 32, width: 32, height: 32))
-            ctx.cgContext.addRect(CGRect(x: 32, y: 0, width: 32, height: 32))
+            ctx.cgContext.setFillColor(lightColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: scale, width: scale, height: scale))
+            ctx.cgContext.addRect(CGRect(x: scale, y: 0, width: scale, height: scale))
             ctx.cgContext.drawPath(using: .fill)
         }
         #elseif os(macOS)
-        let img = NSImage(size: CGSize(width: 64, height: 64))
+        let img = NSImage(size: CGSize(width: scale * 2, height: scale * 2))
         img.lockFocus()
         let ctx = NSGraphicsContext.current!.cgContext
-        ctx.setFillColor(LiveColor.darkGray.cgColor)
-        ctx.fill(CGRect(x: 0, y: 0, width: 32, height: 32))
-        ctx.fill(CGRect(x: 32, y: 32, width: 32, height: 32))
-        ctx.setFillColor(LiveColor.lightGray.cgColor)
-        ctx.fill(CGRect(x: 0, y: 32, width: 32, height: 32))
-        ctx.fill(CGRect(x: 32, y: 0, width: 32, height: 32))
+        ctx.setFillColor(darkColor)
+        ctx.fill(CGRect(x: 0, y: 0, width: scale, height: scale))
+        ctx.fill(CGRect(x: scale, y: scale, width: scale, height: scale))
+        ctx.setFillColor(lightColor)
+        ctx.fill(CGRect(x: 0, y: scale, width: scale, height: scale))
+        ctx.fill(CGRect(x: scale, y: 0, width: scale, height: scale))
         img.unlockFocus()
         return img
         #endif

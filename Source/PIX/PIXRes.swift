@@ -218,7 +218,7 @@ public extension PIX {
             return .raw(raw.flopped)
         }
         
-        // MARK: Is
+        // MARK: Checks
         
         public static var isiPhone: Bool {
             return Res.fullscreen == .iPhone(.landscape) || Res.fullscreen == .iPhone(.portrait) ||
@@ -233,6 +233,12 @@ public extension PIX {
                Res.fullscreen == .iPadPro_11(.landscape) || Res.fullscreen == .iPadPro_11(.portrait) ||
                Res.fullscreen == .iPadPro_10_5(.landscape) || Res.fullscreen == .iPadPro_10_5(.portrait) ||
                Res.fullscreen == .iPadPro_12_9(.landscape) || Res.fullscreen == .iPadPro_12_9(.portrait)
+        }
+        
+        public static var hasDualCamera: Bool {
+            return Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
+                Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
+                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait)
         }
         
         // MARK: Raw

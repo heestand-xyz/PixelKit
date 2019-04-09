@@ -40,7 +40,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
 
 public extension PIXOut {
     
-    func _threshold(at threshold: LiveFloat = 0.5) -> ThresholdPIX {
+    func _threshold(_ threshold: LiveFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.name = ":threshold:"
         thresholdPix.inPix = self as? PIX & PIXOut
