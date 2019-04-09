@@ -33,17 +33,15 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
+    public var frameRotation: LiveFloat {
+        get { return 0 }
+        set {}
+    }
     
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
-        // ...
-        if update { self.frame = frame }
-    }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
-    }
+    public func reFrame(to frame: LiveRect) {}
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)
