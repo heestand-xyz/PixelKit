@@ -31,17 +31,17 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(center: position, size: LiveSize(scale: radius))
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
+    public var frameRotation: LiveFloat {
+        get { return rotation }
+        set { rotation = newValue }
+    }
     
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
+    public func reFrame(to frame: LiveRect) {
         position = frame.center
         radius = frame.w / 2
-        if update { self.frame = frame }
-    }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
