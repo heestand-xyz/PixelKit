@@ -14,13 +14,13 @@ extension PIX {
         case fill
         case aspectFit
         case aspectFill
-        case center
+        case custom
         var index: Int {
             switch self {
             case .fill: return 0
             case .aspectFit: return 1
             case .aspectFill: return 2
-            case .center: return 3
+            case .custom: return 3
             }
         }
     }
