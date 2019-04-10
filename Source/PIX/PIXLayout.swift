@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import UIKit
+
 public enum LayoutXAnchor {
     case left
     case center
@@ -33,6 +35,26 @@ public protocol Layoutable {
     func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
     func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
 
+}
+
+public extension PIX {
+    
+    func point(of point: CGPoint) -> CGPoint {
+        let uv = CGPoint(x: point.x / view.bounds.width, y: point.y / view.bounds.height)
+        let aspect = view.bounds.width / view.bounds.height
+        let point = CGPoint(x: (uv.x - 0.5) * aspect, y: (uv.y - 0.5) * -1)
+        return point
+    }
+    
+    func point(of livePoint: LivePoint) -> LivePoint {
+        return LivePoint(point(of: livePoint.cg))
+    }
+    
+    func point(of touch: UITouch) -> LivePoint {
+        let location = touch.location(in: view)
+        return LivePoint(point(of: location))
+    }
+    
 }
 
 class Layout {
