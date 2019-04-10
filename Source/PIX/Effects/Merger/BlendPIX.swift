@@ -35,8 +35,16 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     
     public var frame: LiveRect {
         get {
-            guard placement == .custom else { return LiveRect(x: 0, y: 0, w: 0, h: 0) }
-            return LiveRect(center: position, size: LiveSize(scale: scale) * size)
+            guard let resA = inPixA?.resolution else { return LiveRect(x: 0, y: 0, w: 0, h: 0) }
+            guard let resB = inPixB?.resolution else { return LiveRect(x: 0, y: 0, w: 0, h: 0) }
+            let frameSize: LiveSize
+            if resA.aspect / resB.aspect < 1 {
+                frameSize = LiveSize(w: LiveFloat(resB.aspect), h: 1.0)
+            } else {
+                frameSize = LiveSize(w: LiveFloat(resA.aspect), h: LiveFloat(resA.aspect / resB.aspect))
+            }
+            let resScale = LiveFloat(resB.height / resA.height)
+            return LiveRect(center: position, size: frameSize * resScale * scale * size)
         }
         set {
             reFrame(to: frame)
