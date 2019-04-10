@@ -35,16 +35,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     
     public var frame: LiveRect {
         get {
-            guard let resA = inPixA?.resolution else { return LiveRect(x: 0, y: 0, w: 0, h: 0) }
-            guard let resB = inPixB?.resolution else { return LiveRect(x: 0, y: 0, w: 0, h: 0) }
-            let frameSize: LiveSize
-            if resA.aspect / resB.aspect < 1 {
-                frameSize = LiveSize(w: LiveFloat(resB.aspect), h: 1.0)
-            } else {
-                frameSize = LiveSize(w: LiveFloat(resA.aspect), h: LiveFloat(resA.aspect / resB.aspect))
-            }
-            let resScale = LiveFloat(resB.height / resA.height)
-            return LiveRect(center: position, size: frameSize * resScale * scale * size)
+            return LiveRect(center: position * resScale(), size: frameSize() * resScale() * scale * size)
         }
         set {
             reFrame(to: frame)
@@ -56,10 +47,9 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     }
     
     public func reFrame(to frame: LiveRect) {
-        placement = .custom
-        position = frame.center
+        position = frame.center / resScale()
         scale = 1.0
-        size = frame.size
+        size = frame.size / (frameSize() * resScale())
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
@@ -79,6 +69,18 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     }
     public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, toBoundAnchor: sourceYAnchor, constant: constant)
+    }
+    
+    func frameSize() -> LiveSize {
+        guard let resB = inPixB?.resolution else { return LiveSize(scale: 1.0) }
+        return LiveSize(w: LiveFloat(resB.aspect), h: 1.0)
+    }
+    
+    func resScale() -> LiveFloat {
+        guard let resA = inPixA?.resolution else { return 1.0 }
+        guard let resB = inPixB?.resolution else { return 1.0 }
+        let resScale = LiveFloat(resB.height / resA.height)
+        return resScale
     }
     
 }
