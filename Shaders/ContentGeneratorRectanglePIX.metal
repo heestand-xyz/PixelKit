@@ -19,6 +19,7 @@ struct Uniforms{
     float sy;
     float x;
     float y;
+//    float rot;
     float cr;
     float ar;
     float ag;
@@ -47,6 +48,16 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
     float x = (u - 0.5) * in.aspect;
     float y = v - 0.5;
     
+//    float _x = in.x;
+//    float _y = in.y;
+//
+//    float _rot = atan2(_y, _x);
+//    float _rad = sqrt(pow(_x, 2) + pow(-y, 2));
+//    _rot += in.rot;
+//
+//    float __x = cos(_rot) * _rad;
+//    float __y = sin(_rot) * _rad;
+    
     float left = in.x - in.sx / 2;
     float right = in.x + in.sx / 2;
     float bottom = -in.y - in.sy / 2;
@@ -67,7 +78,7 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
     } else {
         float in_x_inset = x > left + cr && x < right - cr;
         float in_y_inset = y > bottom + cr && y < top - cr;
-        if ((in_x_inset && in_y) || (in_x && in_y_inset)) {
+        if ((in_x_inset && in_y) || (in_x && in_y_inset)) {
             c = ac;
         }
         float2 c1 = float2(left + cr, bottom + cr);
@@ -78,7 +89,7 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
         float c2r = sqrt(pow(x - c2.x, 2) + pow(y - c2.y, 2));
         float c3r = sqrt(pow(x - c3.x, 2) + pow(y - c3.y, 2));
         float c4r = sqrt(pow(x - c4.x, 2) + pow(y - c4.y, 2));
-        if (c1r < cr || c2r < cr || c3r < cr || c4r < cr) {
+        if (c1r < cr || c2r < cr || c3r < cr || c4r < cr) {
             c = ac;
         }
     }
