@@ -41,7 +41,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     public func reFrame(to frame: LiveRect) {
         position = frame.center
-        radius = frame.w / 2
+        radius = frame.h / 2
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
