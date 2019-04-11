@@ -13,8 +13,8 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Public Properties
     
     public var position: LivePoint = .zero
-    public var radius: LiveFloat = sqrt(0.75) / 4
-    public var edgeRadius: LiveFloat = 0.0
+    public var radius: LiveFloat = LiveFloat(0.25, max: 1.0)
+    public var edgeRadius: LiveFloat = LiveFloat(0.0, max: 1.0)
     public var color: LiveColor = .white
     public var edgeColor: LiveColor = .gray
     

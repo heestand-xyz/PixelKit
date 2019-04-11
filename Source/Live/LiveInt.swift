@@ -25,10 +25,13 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     
     var liveValue: () -> (Int)
     var value: Int {
-        return liveValue()
-//        guard limit else { return liveValue() }
-//        return Swift.max(Swift.min(liveValue(), max), min)
+        guard limit else { return liveValue() }
+        return Swift.max(Swift.min(liveValue(), max), min)
     }
+    
+    var limit: Bool = false
+    var min: Int = 0
+    var max: Int = 1
     
     var uniform: Int {
         uniformCache = value
@@ -61,11 +64,6 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     
     #endif
     
-//    var limit: Bool = false
-//    var min: CGFloat = 0.0
-//    var max: CGFloat = 1.0
-    
-    
 //    public var year: LiveInt!
 //    public var month: LiveInt!
 //    public var day: LiveInt!
@@ -96,8 +94,11 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         liveValue = { return Int(value) }
     }
     
-    public init(_ value: Int) {
+    public init(_ value: Int, min: Int? = nil, max: Int? = nil) {
         liveValue = { return value }
+        limit = min != nil || max != nil
+        self.min = min ?? 0
+        self.max = max ?? 1
     }
     required public init(integerLiteral value: IntegerLiteralType) {
         liveValue = { return Int(value) }
