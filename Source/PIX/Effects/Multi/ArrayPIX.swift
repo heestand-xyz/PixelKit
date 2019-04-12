@@ -9,11 +9,11 @@
 import CoreGraphics
 
 public struct Coordinate {
-    public var position: LivePoint
-    public var scale: LiveFloat
-    public var rotation: LiveFloat
-    public var textueIndex: LiveInt
-    public init(_ position: LivePoint, scale: LiveFloat = 1.0, rotation: LiveFloat = 0.0, textueIndex: LiveInt = 0) {
+    public var position: CGPoint
+    public var scale: CGFloat
+    public var rotation: CGFloat
+    public var textueIndex: Int
+    public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, textueIndex: Int = 0) {
         self.position = position
         self.scale = scale
         self.rotation = rotation
@@ -31,19 +31,28 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
     public var coordinates: [Coordinate] = [] { didSet { setNeedsRender() } }
+    public var bgColor: LiveColor = .black
     
     // MARK: - Property Helpers
     
+    override var liveValues: [LiveValue] {
+        return [bgColor]
+    }
+    
     open override var uniforms: [CGFloat] {
-        return [CGFloat(blendMode.index), CGFloat(coordinates.count)]
+        var uniforms = [CGFloat(blendMode.index), CGFloat(coordinates.count)]
+        uniforms.append(contentsOf: bgColor.uniformList)
+        return uniforms
     }
     
     public override var uniformArray: [[CGFloat]] {
         return coordinates.map({ coordinate -> [CGFloat] in
             var uniforms: [CGFloat] = []
-            uniforms.append(contentsOf: coordinate.position.uniformList)
-            uniforms.append(coordinate.scale.uniform)
-            uniforms.append(coordinate.rotation.uniform)
+            uniforms.append(coordinate.position.x)
+            uniforms.append(coordinate.position.y)
+            uniforms.append(coordinate.scale)
+            uniforms.append(coordinate.rotation)
+            uniforms.append(CGFloat(coordinate.textueIndex))
             return uniforms
         })
     }
@@ -54,7 +63,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         
         super.init()
         
-//        buildGrid(xCount: 5, yCount: 5)
+        buildGrid(xCount: 5, yCount: 5)
         
     }
     
@@ -68,9 +77,9 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
                 let yFraction = CGFloat(y) / CGFloat(yCount - 1);
                 let xRangeBounds = xRange.upperBound - xRange.lowerBound
                 let yRangeBounds = yRange.upperBound - yRange.lowerBound
-                let position = LivePoint(x: LiveFloat(xRange.lowerBound + xRangeBounds * xFraction),
-                                         y: LiveFloat(yRange.lowerBound + yRangeBounds * yFraction))
-                let coordinate = Coordinate(position, scale: LiveFloat(yRangeBounds) / LiveFloat(yCount))
+                let position = CGPoint(x: xRange.lowerBound + xRangeBounds * xFraction,
+                                         y: yRange.lowerBound + yRangeBounds * yFraction)
+                let coordinate = Coordinate(position, scale: yRangeBounds / CGFloat(yCount))
                 coordinates.append(coordinate)
             }
         }

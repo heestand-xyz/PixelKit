@@ -25,11 +25,16 @@ struct VertexOut {
 struct Uniforms {
     float mode;
     float count;
+    float br;
+    float bg;
+    float bb;
+    float ba;
     float aspect;
 };
 
 struct Coord {
-    float2 pos;
+    float x;
+    float y;
     float scl;
     float rot;
     float index;
@@ -57,15 +62,21 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
     float4 ci;
     for (int j = 0; j < count; ++j) {
         
-        float2 pos = inArr[j].pos;
+        float2 pos = float2(inArr[j].x, inArr[j].y);
         float scl = inArr[j].scl;
         float rot = inArr[j].rot;
+        
+//        pos = float2(float(j) / 10, 0);
+        
+//        return pos.y == 0.0 ? 1.0 : 0.0;
+//        scl = 1;
+//        rot = 0;
         
         int i = int(inArr[j].index);
         if (i < 0) {
             i = 0;
-        } else if (i > texCount) {
-            i = texCount;
+        } else if (i > texCount - 1) {
+            i = texCount - 1;
         }
 
         float ang = atan2(v - 0.5 + pos.y, (u - 0.5) * in.aspect - pos.x) - rot;
@@ -73,11 +84,11 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
         float2 juv = float2((cos(ang) / in.aspect) * amp, sin(ang) * amp) / scl + 0.5;
 
         // Blend
-        uint ir = count - i - 1;
+        uint ir = texCount - i - 1;
         switch (int(in.mode)) {
             case 0: // Over
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     float3 c_rgb = float3(c);
@@ -87,7 +98,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 1: // Under
                 ci = inTexs.sample(s, juv, ir);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     float3 c_rgb = float3(c);
@@ -97,7 +108,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 2: // Add
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c += ci;
@@ -105,7 +116,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 3: // Mult
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c *= ci;
@@ -113,7 +124,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 4: // Diff
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     float3 c_rgb = float3(c);
@@ -123,7 +134,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 5: // Sub
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c -= ci;
@@ -131,7 +142,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 6: // Sub Color
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     float3 c_rgb = float3(c);
@@ -141,7 +152,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 7: // Max
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c = max(c, ci);
@@ -149,7 +160,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 8: // Min
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c = min(c, ci);
@@ -157,7 +168,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 9: // Gamma
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c = pow(c, 1 / ci);
@@ -165,7 +176,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 10: // Power
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c = pow(c, ci);
@@ -173,7 +184,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 11: // Divide
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c /= ci;
@@ -181,7 +192,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 12: // Average
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci / count;
                 } else {
                     c += ci / count;
@@ -189,7 +200,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                 break;
             case 13: // Cosine
                 ci = inTexs.sample(s, juv, i);
-                if (i == 0) {
+                if (j == 0) {
                     c = ci;
                 } else {
                     c = lerpColorsB(c, ci, cos(ci * pi + pi) / 2 + 0.5);
@@ -199,5 +210,8 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
         
     }
     
-    return c;
+    float4 cb = float4(in.br, in.bg, in.bb, in.ba);
+    float4 o = float4(cb.rgb * (1.0 - c.a) + c.rgb, max(cb.a, c.a));
+    
+    return o;
 }
