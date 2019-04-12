@@ -210,6 +210,11 @@ public enum AutoPIXGenerator: String, CaseIterable {
 				}, setCallback: { value in
 					(pix as! PolygonPIX).rotation = value
 				}),
+				AutoLiveFloatProperty(name: "cornerRadius", getCallback: {
+					return (pix as! PolygonPIX).cornerRadius
+				}, setCallback: { value in
+					(pix as! PolygonPIX).cornerRadius = value
+				}),
 			]
 		case .rectanglepix:
 			return [
