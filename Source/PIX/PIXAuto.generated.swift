@@ -873,22 +873,28 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 
 public enum AutoPIXMultiEffect: String, CaseIterable {
 
+	case arraypix
 	case blendspix
 
 	public var name: String {
 		switch self {
+		case .arraypix: return "ArrayPIX"
 		case .blendspix: return "BlendsPIX"
 		}
 	}
 
 	public var pixType: PIXMultiEffect.Type {
 		switch self {
+		case .arraypix: return ArrayPIX.self
 		case .blendspix: return BlendsPIX.self
 		}
 	}
 
 	public func autoLiveBools(for pix: PIXMultiEffect) -> [AutoLiveBoolProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -896,6 +902,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveColors(for pix: PIXMultiEffect) -> [AutoLiveColorProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -903,6 +912,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveFloats(for pix: PIXMultiEffect) -> [AutoLiveFloatProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -910,6 +922,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveInts(for pix: PIXMultiEffect) -> [AutoLiveIntProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -917,6 +932,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLivePoints(for pix: PIXMultiEffect) -> [AutoLivePointProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -924,6 +942,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveRects(for pix: PIXMultiEffect) -> [AutoLiveRectProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -931,6 +952,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveSizes(for pix: PIXMultiEffect) -> [AutoLiveSizeProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -939,6 +963,29 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 
 	public func autoEnums(for pix: PIXMultiEffect) -> [AutoEnumProperty] {
 		switch self {
+		case .arraypix:
+			return [
+				AutoEnumProperty(name: "blendMode", cases: [
+						"over",
+						"under",
+						"add",
+						"multiply",
+						"difference",
+						"subtractWithAlpha",
+						"subtract",
+						"maximum",
+						"minimum",
+						"gamma",
+						"power",
+						"divide",
+						"average",
+						"cosine",
+				], getCallback: {
+					return (pix as! ArrayPIX).blendMode.rawValue
+				}, setCallback: { value in
+					(pix as! ArrayPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
+				}),
+			]
 		case .blendspix:
 			return [
 				AutoEnumProperty(name: "mode", cases: [

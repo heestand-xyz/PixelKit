@@ -35,7 +35,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
     uint count = inTexs.get_array_size();
     
     // Blend
-    float4 c;
+    float4 c = 0;
     float4 ci;
     for (uint i = 0; i < count; ++i) {
         uint ir = count - i - 1;
