@@ -19,8 +19,8 @@ float angleBetween(float2 v1, float2 v2) {
 //    float s = v1.x * v2.y - v2.x * v1.y;
 //    float c = v1.x * v2.x + v1.y * v2.y;
 //    return atan2(s, c);
-//    return atan2(v2.y, v2.x) - atan2(v1.y, v1.x);
-    return atan((v1.y - v2.y) / (v2.x - v1.x));
+    return atan2(v2.y, v2.x) - atan2(v1.y, v1.x);
+//    return atan((v1.y - v2.y) / (v2.x - v1.x));
 }
 
 float sign(float2 p1, float2 p2, float2 p3) {
@@ -87,23 +87,25 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
         float p3r = (fib + in.r) * pi * 2;
         float2 p3 = p1 + float2((sin(p3r) * in.s) / in.aspect, cos(p3r) * in.s);
         
-        float2 v1 = p2 - p1;
-        float2 v2 = p3 - p1;
+//        float2 v1 = p2 - p1;
+//        float2 v2 = p3 - p1;
+//
+//        float r = 0.05;
+//        float a23 = angleBetween(v1, v2);
+//        float a123 = (pi - a23) / 2;
+//        float a321 = pi / 2 - a123;
+//        float q = (r * sin(a123)) / sin(a321);//(r * sin(a32)) / sin(a23); // r * tan(a32);
+//
+//        float2 p12 = p2 - (p2 - p1) * q;
+//        float2 p13 = p3 - (p3 - p1) * q;
+//        float p12d = sqrt(pow(p12.x - uv.x, 2) + pow(p12.y - uv.y, 2));
+//        float p13d = sqrt(pow(p13.x - uv.x, 2) + pow(p13.y - uv.y, 2));
         
-        float r = 0.05;
-        float a23 = angleBetween(v1, v2);
-        float a123 = (pi - a23) / 2;
-        float a321 = pi / 2 - a123;
-        float q = (r * sin(a321)) / sin(a123);//(r * sin(a32)) / sin(a23); // r * tan(a32);
-        
-        float2 p12 = p2 - (p2 - p1) * q;
-        float2 p13 = p3 - (p3 - p1) * q;
-        float p12d = sqrt(pow(p12.x - uv.x, 2) + pow(p12.y - uv.y, 2));
-        float p13d = sqrt(pow(p13.x - uv.x, 2) + pow(p13.y - uv.y, 2));
-        if (p12d > r && p13d > r && pointInTriangle(uv, p1, p2, p3)) {
+        if (/*p12d > r && p13d > r && */ pointInTriangle(uv, p1, p2, p3)) {
             c = ac;
             break;
         }
+        
     }
     
     if (in.premultiply) {
