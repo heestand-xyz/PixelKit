@@ -15,12 +15,11 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     public var positionFrom: LivePoint = LivePoint(x: -0.25, y: -0.25)
     public var positionTo: LivePoint = LivePoint(x: 0.25, y: 0.25)
     public var scale: LiveFloat = 0.01
-    public var color: LiveColor = .white
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [positionFrom, positionTo, scale, color, super.bgColor]
+        return [positionFrom, positionTo, scale, super.color, super.bgColor]
     }
     
     // MARK: Layout

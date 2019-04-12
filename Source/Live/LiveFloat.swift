@@ -298,7 +298,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     }
     
     public static func >< (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
-        return LiveFloat({ return Swift.max(CGFloat(lhs), CGFloat(rhs)) })
+       return LiveFloat({ return Swift.max(CGFloat(lhs), CGFloat(rhs)) })
     }
     
     

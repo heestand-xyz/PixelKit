@@ -6,6 +6,11 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+//
+//  cd ~/Documents/hexagons/all-of-pixels/pixels/Source/PIX
+//  sourcery --sources .. --output . --templates . --watch
+//
+
 import Foundation
 
 protocol PIXAutoParent {}

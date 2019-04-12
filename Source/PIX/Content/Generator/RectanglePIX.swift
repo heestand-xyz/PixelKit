@@ -17,12 +17,11 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
 //    public var rotation: LiveFloat = 0.0
     public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
     public var cornerRadius: LiveFloat = 0.0
-    public var color: LiveColor = .white
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [size, position/*, rotation*/, cornerRadius, color, super.bgColor]
+        return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     
     // MARK: Layout

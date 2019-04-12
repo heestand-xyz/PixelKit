@@ -89,19 +89,9 @@ public enum AutoPIXGenerator: String, CaseIterable {
 				}, setCallback: { value in
 					(pix as! ArcPIX).fillColor = value
 				}),
-				AutoLiveColorProperty(name: "edgeColor", getCallback: {
-					return (pix as! ArcPIX).edgeColor
-				}, setCallback: { value in
-					(pix as! ArcPIX).edgeColor = value
-				}),
 			]
 		case .circlepix:
 			return [
-				AutoLiveColorProperty(name: "color", getCallback: {
-					return (pix as! CirclePIX).color
-				}, setCallback: { value in
-					(pix as! CirclePIX).color = value
-				}),
 				AutoLiveColorProperty(name: "edgeColor", getCallback: {
 					return (pix as! CirclePIX).edgeColor
 				}, setCallback: { value in
@@ -116,30 +106,15 @@ public enum AutoPIXGenerator: String, CaseIterable {
 			]
 		case .linepix:
 			return [
-				AutoLiveColorProperty(name: "color", getCallback: {
-					return (pix as! LinePIX).color
-				}, setCallback: { value in
-					(pix as! LinePIX).color = value
-				}),
 			]
 		case .noisepix:
 			return [
 			]
 		case .polygonpix:
 			return [
-				AutoLiveColorProperty(name: "color", getCallback: {
-					return (pix as! PolygonPIX).color
-				}, setCallback: { value in
-					(pix as! PolygonPIX).color = value
-				}),
 			]
 		case .rectanglepix:
 			return [
-				AutoLiveColorProperty(name: "color", getCallback: {
-					return (pix as! RectanglePIX).color
-				}, setCallback: { value in
-					(pix as! RectanglePIX).color = value
-				}),
 			]
 		}	
 	}
@@ -234,6 +209,11 @@ public enum AutoPIXGenerator: String, CaseIterable {
 					return (pix as! PolygonPIX).rotation
 				}, setCallback: { value in
 					(pix as! PolygonPIX).rotation = value
+				}),
+				AutoLiveFloatProperty(name: "cornerRadius", getCallback: {
+					return (pix as! PolygonPIX).cornerRadius
+				}, setCallback: { value in
+					(pix as! PolygonPIX).cornerRadius = value
 				}),
 			]
 		case .rectanglepix:

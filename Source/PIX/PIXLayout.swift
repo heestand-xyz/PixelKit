@@ -6,7 +6,10 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import CoreGraphics
+#if os(iOS)
 import UIKit
+#endif
 
 public enum LayoutXAnchor {
     case left
@@ -50,10 +53,12 @@ public extension PIX {
         return LivePoint(point(of: livePoint.cg))
     }
     
+    #if os(iOS)
     func point(of touch: UITouch) -> LivePoint {
         let location = touch.location(in: view)
         return LivePoint(point(of: location))
     }
+    #endif
     
 }
 
