@@ -165,11 +165,11 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
 //    }
     
     public static func <> (lhs: LiveInt, rhs: LiveInt) -> LiveInt {
-        return LiveInt({ return min(lhs.value, rhs.value) })
+        return LiveInt({ return Swift.min(lhs.value, rhs.value) })
     }
     
     public static func >< (lhs: LiveInt, rhs: LiveInt) -> LiveInt {
-        return LiveInt({ return max(lhs.value, rhs.value) })
+        return LiveInt({ return Swift.max(lhs.value, rhs.value) })
     }
     
     

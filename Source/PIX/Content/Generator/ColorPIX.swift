@@ -13,7 +13,7 @@ public class ColorPIX: PIXGenerator, PIXAuto {
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [bgColor]
+        return [color]
     }
     
 }

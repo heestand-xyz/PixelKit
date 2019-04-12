@@ -19,12 +19,11 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     public var angleOffset: LiveFloat = 0.0
     public var edgeRadius: LiveFloat = 0.05
     public var fillColor: LiveColor = .clear
-    public var edgeColor: LiveColor = .white
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, edgeColor, super.bgColor]
+        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.bgColor]
     }
     
     // MARK: Layout
