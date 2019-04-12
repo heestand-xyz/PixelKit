@@ -50,20 +50,20 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     var liveValue: () -> (CGFloat)
     var value: CGFloat {
-        return liveValue()
-//        guard limit else { return liveValue() }
-//        return Swift.max(Swift.min(liveValue(), max), min)
+        guard limit else { return liveValue() }
+        return Swift.max(Swift.min(liveValue(), max), min)
     }
+    
+    var limit: Bool = false
+    var min: CGFloat = 0.0
+    var max: CGFloat = 1.0
+    
     public var cg: CGFloat {
         return value
     }
     public var double: Double {
         return Double(value)
     }
-    
-//    var limit: Bool = false
-//    var min: CGFloat = 0.0
-//    var max: CGFloat = 1.0
     
     var uniform: CGFloat {
         get {
@@ -177,8 +177,11 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         liveValue = { return CGFloat(Int(liveInt)) }
     }
     
-    public init(_ value: CGFloat) {
+    public init(_ value: CGFloat, min: CGFloat? = nil, max: CGFloat? = nil) {
         liveValue = { return value }
+        limit = min != nil || max != nil
+        self.min = min ?? 0.0
+        self.max = max ?? 1.0
     }
     public init(_ value: Float) {
         liveValue = { return CGFloat(value) }

@@ -10,14 +10,10 @@ public class ColorPIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorColorPIX" }
     
-    // MARK: - Public Properties
-    
-    public var color: LiveColor = .white { didSet { setNeedsRender() } }
-    
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [color]
+        return [bgColor]
     }
     
 }

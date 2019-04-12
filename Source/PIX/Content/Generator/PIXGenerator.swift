@@ -21,6 +21,8 @@ open class PIXGenerator: PIXContent, PIXAutoParent {
     
     public static var globalResMultiplier: CGFloat = 1
     
+    public var bgColor: LiveColor = .black
+    
     public required init(res: Res) {
         _res = res
         super.init()

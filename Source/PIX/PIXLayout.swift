@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import UIKit
+
 public enum LayoutXAnchor {
     case left
     case center
@@ -21,11 +23,9 @@ public enum LayoutYAnchor {
 public protocol Layoutable {
     
     var frame: LiveRect { get set }
-    
-    func reFrame(to frame: LiveRect, update: Bool)
-    func reFrame(to layoutable: Layoutable)
-//    func reCenter(to layoutable: Layoutable)
-//    func reSize(to layoutable: Layoutable)
+    var frameRotation: LiveFloat { get set }
+
+    func reFrame(to frame: LiveRect)
 
     func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
     func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
@@ -35,6 +35,26 @@ public protocol Layoutable {
     func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
     func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
 
+}
+
+public extension PIX {
+    
+    func point(of point: CGPoint) -> CGPoint {
+        let uv = CGPoint(x: point.x / view.bounds.width, y: point.y / view.bounds.height)
+        let aspect = view.bounds.width / view.bounds.height
+        let point = CGPoint(x: (uv.x - 0.5) * aspect, y: (uv.y - 0.5) * -1)
+        return point
+    }
+    
+    func point(of livePoint: LivePoint) -> LivePoint {
+        return LivePoint(point(of: livePoint.cg))
+    }
+    
+    func point(of touch: UITouch) -> LivePoint {
+        let location = touch.location(in: view)
+        return LivePoint(point(of: location))
+    }
+    
 }
 
 class Layout {
@@ -69,28 +89,30 @@ class Layout {
     }
     
     static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceValue: LiveFloat) {
+        var layoutable = layoutable
         switch targetAnchor {
         case .left:
-            layoutable.reFrame(to: LiveRect(x: sourceValue,
-                                            y: layoutable.frame.y,
-                                            w: layoutable.frame.maxX - sourceValue,
-                                            h: layoutable.frame.h), update: true)
+            layoutable.frame = LiveRect(x: sourceValue,
+                                        y: layoutable.frame.y,
+                                        w: layoutable.frame.maxX - sourceValue,
+                                        h: layoutable.frame.h)
         case .center:
-            layoutable.reFrame(to: LiveRect(x: sourceValue - layoutable.frame.w / 2,
-                                            y: layoutable.frame.y,
-                                            w: layoutable.frame.w,
-                                            h: layoutable.frame.h), update: true)
+            layoutable.frame = LiveRect(x: sourceValue - layoutable.frame.w / 2,
+                                        y: layoutable.frame.y,
+                                        w: layoutable.frame.w,
+                                        h: layoutable.frame.h)
         case .right:
-            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
-                                            y: layoutable.frame.y,
-                                            w: sourceValue - layoutable.frame.minX,
-                                            h: layoutable.frame.h), update: true)
+            layoutable.frame = LiveRect(x: layoutable.frame.x,
+                                        y: layoutable.frame.y,
+                                        w: sourceValue - layoutable.frame.minX,
+                                        h: layoutable.frame.h)
         }
     }
     
     // MARK: Y
     
-    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutYAnchor, constant: LiveFloat) {
+    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor:
+        LayoutYAnchor, constant: LiveFloat) {
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .bottom:
@@ -117,22 +139,23 @@ class Layout {
     }
     
     static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceValue: LiveFloat) {
+        var layoutable = layoutable
         switch targetAnchor {
         case .bottom:
-            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
-                                            y: sourceValue,
-                                            w: layoutable.frame.w,
-                                            h: layoutable.frame.maxY - sourceValue), update: true)
+            layoutable.frame = LiveRect(x: layoutable.frame.x,
+                                        y: sourceValue,
+                                        w: layoutable.frame.w,
+                                        h: layoutable.frame.maxY - sourceValue)
         case .center:
-            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
-                                            y: sourceValue - layoutable.frame.h / 2,
-                                            w: layoutable.frame.w,
-                                            h: layoutable.frame.h), update: true)
+            layoutable.frame = LiveRect(x: layoutable.frame.x,
+                                        y: sourceValue - layoutable.frame.h / 2,
+                                        w: layoutable.frame.w,
+                                        h: layoutable.frame.h)
         case .top:
-            layoutable.reFrame(to: LiveRect(x: layoutable.frame.x,
-                                            y: layoutable.frame.y,
-                                            w: layoutable.frame.w,
-                                            h: sourceValue - layoutable.frame.minY), update: true)
+            layoutable.frame = LiveRect(x: layoutable.frame.x,
+                                        y: layoutable.frame.y,
+                                        w: layoutable.frame.w,
+                                        h: sourceValue - layoutable.frame.minY)
         }
     }
     

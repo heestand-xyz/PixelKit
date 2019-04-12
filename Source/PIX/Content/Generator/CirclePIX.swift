@@ -13,16 +13,15 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Public Properties
     
     public var position: LivePoint = .zero
-    public var radius: LiveFloat = sqrt(0.75) / 4
-    public var edgeRadius: LiveFloat = 0.0
+    public var radius: LiveFloat = LiveFloat(0.25, max: 1.0)
+    public var edgeRadius: LiveFloat = LiveFloat(0.0, max: 1.0)
     public var color: LiveColor = .white
     public var edgeColor: LiveColor = .gray
-    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, position, edgeRadius, color, edgeColor, bgColor]
+        return [radius, position, edgeRadius, color, edgeColor, super.bgColor]
     }
 
     // MARK: Layout
@@ -32,17 +31,17 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(center: position, size: LiveSize(scale: radius * 2 + edgeRadius))
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
-    
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
-        position = frame.center
-        radius = frame.w / 2
-        if update { self.frame = frame }
+    public var frameRotation: LiveFloat {
+        get { return 0 }
+        set {}
     }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
+    
+    public func reFrame(to frame: LiveRect) {
+        position = frame.center
+        radius = frame.h / 2
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {

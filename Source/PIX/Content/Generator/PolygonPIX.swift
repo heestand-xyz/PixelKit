@@ -17,32 +17,31 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     public var rotation: LiveFloat = 0.0
     public var vertexCount: LiveInt = 6
     public var color: LiveColor = .white
-    public var bgColor: LiveColor = .clear
    
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, position, rotation, vertexCount, color, bgColor]
+        return [radius, position, rotation, vertexCount, color, super.bgColor]
     }
     
     // MARK: Layout
     
     public var frame: LiveRect {
         get {
-            return LiveRect(center: position, size: LiveSize(scale: radius))
+            return LiveRect(center: position, size: LiveSize(scale: radius * 2))
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
-    
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
-        position = frame.center
-        radius = frame.w / 2
-        if update { self.frame = frame }
+    public var frameRotation: LiveFloat {
+        get { return rotation }
+        set { rotation = newValue }
     }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
+    
+    public func reFrame(to frame: LiveRect) {
+        position = frame.center
+        radius = frame.h / 2
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {

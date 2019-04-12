@@ -16,12 +16,11 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     public var positionTo: LivePoint = LivePoint(x: 0.25, y: 0.25)
     public var scale: LiveFloat = 0.01
     public var color: LiveColor = .white
-    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [positionFrom, positionTo, scale, color, bgColor]
+        return [positionFrom, positionTo, scale, color, super.bgColor]
     }
     
     // MARK: Layout
@@ -33,17 +32,15 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
+    public var frameRotation: LiveFloat {
+        get { return 0 }
+        set {}
+    }
     
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
-        // ...
-        if update { self.frame = frame }
-    }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
-    }
+    public func reFrame(to frame: LiveRect) {}
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)

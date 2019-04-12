@@ -20,12 +20,11 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     public var edgeRadius: LiveFloat = 0.05
     public var fillColor: LiveColor = .clear
     public var edgeColor: LiveColor = .white
-    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, edgeColor, bgColor]
+        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, edgeColor, super.bgColor]
     }
     
     // MARK: Layout
@@ -39,17 +38,15 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
+    public var frameRotation: LiveFloat {
+        get { return angleOffset }
+        set { angleOffset = newValue }
+    }
     
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
-        // ...
-        if update { self.frame = frame }
-    }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
-    }
+    public func reFrame(to frame: LiveRect) {}
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)

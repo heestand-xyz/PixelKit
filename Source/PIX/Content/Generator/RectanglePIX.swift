@@ -14,15 +14,15 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Public Properties
     
     public var position: LivePoint = .zero
+//    public var rotation: LiveFloat = 0.0
     public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
     public var cornerRadius: LiveFloat = 0.0
     public var color: LiveColor = .white
-    public var bgColor: LiveColor = .clear
     
     // MARK: - Property Helpers
     
     override var liveValues: [LiveValue] {
-        return [size, position, cornerRadius, color, bgColor]
+        return [size, position/*, rotation*/, cornerRadius, color, super.bgColor]
     }
     
     // MARK: Layout
@@ -32,17 +32,17 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(center: position, size: size)
         }
         set {
-            reFrame(to: frame, update: false)
+            reFrame(to: frame)
         }
     }
+    public var frameRotation: LiveFloat {
+        get { return 0 }
+        set {}
+    }
     
-    public func reFrame(to frame: LiveRect, update: Bool = true) {
+    public func reFrame(to frame: LiveRect) {
         position = frame.center
         size = frame.size
-        if update { self.frame = frame }
-    }
-    public func reFrame(to layoutable: Layoutable) {
-        reFrame(to: layoutable.frame)
     }
     
     public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
