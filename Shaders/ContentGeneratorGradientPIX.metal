@@ -9,9 +9,9 @@
 #include <metal_stdlib>
 using namespace metal;
 
-// Hardcoded at 7
+// Hardcoded at 128
 // Defined as uniformArrayMaxLimit in source
-__constant int ARRMAX = 7;
+__constant int ARRMAX = 128;
 
 struct VertexOut {
     float4 position [[position]];
@@ -109,9 +109,9 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
 
     float4 c = 0;
     if (!zero) {
-
-        array<ColorStop, ARRMAX> color_stops;
-        for (int i = 0; i < ARRMAX; ++i) {
+        
+        array<ColorStop, 7> color_stops;
+        for (int i = 0; i < 7; ++i) {
             ColorStop color_stop = ColorStop();
             color_stop.enabled = inArrActive[i];
             color_stop.position = inArr[i].fraction;
@@ -123,7 +123,7 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         bool low_color_stop_set = false;
         ColorStop high_color_stop;
         bool high_color_stop_set = false;
-        for (int i = 0; i < ARRMAX; ++i) {
+        for (int i = 0; i < 7; ++i) {
             if (color_stops[i].enabled && color_stops[i].position <= fraction && (!low_color_stop_set || color_stops[i].position > low_color_stop.position)) {
                 low_color_stop = color_stops[i];
                 low_color_stop_set = true;
