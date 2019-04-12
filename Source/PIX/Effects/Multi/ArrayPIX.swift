@@ -68,8 +68,8 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     }
     
     // MARK - Builders
-
-    func buildGrid(xCount: Int, xRange: ClosedRange<CGFloat> = -0.5...0.5, yCount: Int, yRange: ClosedRange<CGFloat> = -0.5...0.5) {
+    
+    func buildGrid(xCount: Int, xRange: ClosedRange<CGFloat> = -0.5...0.5, yCount: Int, yRange: ClosedRange<CGFloat> = -0.5...0.5, scaleMultiplier: CGFloat = 1.0) {
         coordinates = []
         for x in 0..<xCount {
             for y in 0..<yCount {
@@ -78,10 +78,35 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
                 let xRangeBounds = xRange.upperBound - xRange.lowerBound
                 let yRangeBounds = yRange.upperBound - yRange.lowerBound
                 let position = CGPoint(x: xRange.lowerBound + xRangeBounds * xFraction,
-                                         y: yRange.lowerBound + yRangeBounds * yFraction)
-                let coordinate = Coordinate(position, scale: yRangeBounds / CGFloat(yCount))
+                                       y: yRange.lowerBound + yRangeBounds * yFraction)
+                let coordinate = Coordinate(position, scale: (yRangeBounds / CGFloat(yCount)) * scaleMultiplier)
                 coordinates.append(coordinate)
             }
+        }
+    }
+    
+    func buildCircle(count: Int, scale: CGFloat = 0.5, scaleMultiplier: CGFloat = 1.0) {
+        coordinates = []
+        for i in 0..<count {
+            let fraction = CGFloat(i) / CGFloat(count);
+            let position = CGPoint(x: cos(fraction * .pi * 2) * scale,
+                                   y: sin(fraction * .pi * 2) * scale)
+            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25)
+            coordinates.append(coordinate)
+        }
+    }
+    
+    func buildLine(count: Int, from fromPoint: CGPoint, to toPoint: CGPoint, scaleMultiplier: CGFloat = 1.0) {
+        coordinates = []
+        for i in 0..<count {
+            let fraction = CGFloat(i) / CGFloat(count - 1);
+            let vector = CGPoint(x: toPoint.x - fromPoint.x,
+                                 y: toPoint.y - fromPoint.y)
+            let position = CGPoint(x: fromPoint.x + vector.x * fraction,
+                                   y: fromPoint.y + vector.y * fraction)
+            let rotation = atan2(vector.y, vector.x) / (.pi * 2) + 0.25
+            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * scaleMultiplier, rotation: rotation)
+            coordinates.append(coordinate)
         }
     }
     

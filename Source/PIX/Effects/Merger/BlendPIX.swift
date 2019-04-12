@@ -14,7 +14,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var mode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: LiveBool = false
     public var position: LivePoint = .zero
     public var rotation: LiveFloat = 0.0
@@ -28,7 +28,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(mode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
+        return [CGFloat(blendMode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
     }
     
     // MARK: Layout

@@ -64,13 +64,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
         
         float2 pos = float2(inArr[j].x, inArr[j].y);
         float scl = inArr[j].scl;
-        float rot = inArr[j].rot;
-        
-//        pos = float2(float(j) / 10, 0);
-        
-//        return pos.y == 0.0 ? 1.0 : 0.0;
-//        scl = 1;
-//        rot = 0;
+        float rot = inArr[j].rot * pi * 2;
         
         int i = int(inArr[j].index);
         if (i < 0) {

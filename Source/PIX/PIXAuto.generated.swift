@@ -722,7 +722,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		switch self {
 		case .blendpix:
 			return [
-				AutoEnumProperty(name: "mode", cases: [
+				AutoEnumProperty(name: "blendMode", cases: [
 						"over",
 						"under",
 						"add",
@@ -738,9 +738,9 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 						"average",
 						"cosine",
 				], getCallback: {
-					return (pix as! BlendPIX).mode.rawValue
+					return (pix as! BlendPIX).blendMode.rawValue
 				}, setCallback: { value in
-					(pix as! BlendPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+					(pix as! BlendPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
 				}),
 			]
 		case .crosspix:
@@ -904,6 +904,11 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 		switch self {
 		case .arraypix:
 			return [
+				AutoLiveColorProperty(name: "bgColor", getCallback: {
+					return (pix as! ArrayPIX).bgColor
+				}, setCallback: { value in
+					(pix as! ArrayPIX).bgColor = value
+				}),
 			]
 		case .blendspix:
 			return [
@@ -988,7 +993,7 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 			]
 		case .blendspix:
 			return [
-				AutoEnumProperty(name: "mode", cases: [
+				AutoEnumProperty(name: "blendMode", cases: [
 						"over",
 						"under",
 						"add",
@@ -1004,9 +1009,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 						"average",
 						"cosine",
 				], getCallback: {
-					return (pix as! BlendsPIX).mode.rawValue
+					return (pix as! BlendsPIX).blendMode.rawValue
 				}, setCallback: { value in
-					(pix as! BlendsPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+					(pix as! BlendsPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
 				}),
 			]
 		}	

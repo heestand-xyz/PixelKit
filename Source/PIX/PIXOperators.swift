@@ -28,7 +28,7 @@ public extension PIX {
             let pixA = (pixA as? PIX & PIXOut) ?? ColorPIX(res: ._128) // CHECK
             let blendPix = BlendPIX()
             blendPix.name = operatorName(of: blendingMode)
-            blendPix.mode = blendingMode
+            blendPix.blendMode = blendingMode
             blendPix.bypassTransform = true
             blendPix.placement = globalPlacement
             blendPix.inPixA = pixA
