@@ -5,7 +5,7 @@
 
 // MARK - {{ parentType.name }}
 
-public enum Auto{{ parentType.name }}: String, CaseIterable {
+public enum Auto{{ parentType.name }}: String, Codable, CaseIterable {
 
 	{% for type in types.implementing.PIXAuto %}
 	{% for subType in type.inheritedTypes %}

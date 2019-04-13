@@ -5,7 +5,7 @@
 
 // MARK - PIXGenerator
 
-public enum AutoPIXGenerator: String, CaseIterable {
+public enum AutoPIXGenerator: String, Codable, CaseIterable {
 
 	case arcpix
 	case circlepix
@@ -453,7 +453,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 
 // MARK - PIXMergerEffect
 
-public enum AutoPIXMergerEffect: String, CaseIterable {
+public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 
 	case blendpix
 	case crosspix
@@ -871,7 +871,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 
 // MARK - PIXMultiEffect
 
-public enum AutoPIXMultiEffect: String, CaseIterable {
+public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 
 	case arraypix
 	case blendspix
@@ -1022,7 +1022,7 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 
 // MARK - PIXSingleEffect
 
-public enum AutoPIXSingleEffect: String, CaseIterable {
+public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 
 	case blurpix
 	case channelmixpix
