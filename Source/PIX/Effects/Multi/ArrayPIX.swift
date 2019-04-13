@@ -110,4 +110,19 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         }
     }
     
+    func buildRandom(count: Int) {
+        coordinates = []
+        let pixCount = inPixs.isEmpty ? 1 : inPixs.count
+        for _ in 0..<count {
+            let aspect = resolution?.aspect ?? 1.0
+            let position = CGPoint(x: CGFloat.random(in: (-aspect / 2)...(aspect / 2)),
+                                   y: CGFloat.random(in: -0.5...0.5))
+            let rotation = CGFloat.random(in: 0.0...1.0)
+            let scale = CGFloat.random(in: 0.1...0.5)
+            let textueIndex = Int.random(in: 0..<pixCount)
+            let coordinate = Coordinate(position, scale: scale, rotation: rotation, textueIndex: textueIndex)
+            coordinates.append(coordinate)
+        }
+    }
+    
 }
