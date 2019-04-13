@@ -75,15 +75,31 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
             for y in 0..<yCount {
                 let xFraction = CGFloat(x) / CGFloat(xCount - 1);
                 let yFraction = CGFloat(y) / CGFloat(yCount - 1);
-                let xRangeBounds = xRange.upperBound - xRange.lowerBound
-                let yRangeBounds = yRange.upperBound - yRange.lowerBound
-                let position = CGPoint(x: xRange.lowerBound + xRangeBounds * xFraction,
-                                       y: yRange.lowerBound + yRangeBounds * yFraction)
-                let coordinate = Coordinate(position, scale: (yRangeBounds / CGFloat(yCount)) * scaleMultiplier)
+                let xBounds = xRange.upperBound - xRange.lowerBound
+                let yBounds = yRange.upperBound - yRange.lowerBound
+                let position = CGPoint(x: xRange.lowerBound + xBounds * xFraction,
+                                       y: yRange.lowerBound + yBounds * yFraction)
+                let coordinate = Coordinate(position, scale: (yBounds / CGFloat(yCount)) * scaleMultiplier)
                 coordinates.append(coordinate)
             }
         }
     }
+    
+//    func buildHexagonalGrid(xCount: Int, yCount: Int, scaleMultiplier: CGFloat = 1.0) {
+//        coordinates = []
+//        for x in 0..<xCount {
+//            for y in 0..<yCount {
+//                let xFraction = CGFloat(x) / CGFloat(xCount - 1);
+//                let yFraction = CGFloat(y) / CGFloat(yCount - 1);
+//                let xBounds = (1.0 / CGFloat(xCount)) * sqrt(0.75)
+//                let yBounds = 1.0 / CGFloat(yCount)
+//                let position = CGPoint(x: -xBounds / 2 + xRangeBounds * xFraction,
+//                                       y: -yBounds / 2 + yRangeBounds * yFraction)
+//                let coordinate = Coordinate(position, scale: (yRangeBounds / CGFloat(yCount)) * scaleMultiplier)
+//                coordinates.append(coordinate)
+//            }
+//        }
+//    }
     
     func buildCircle(count: Int, scale: CGFloat = 0.5, scaleMultiplier: CGFloat = 1.0) {
         coordinates = []
