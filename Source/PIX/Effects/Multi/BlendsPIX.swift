@@ -26,7 +26,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
         return [CGFloat(blendMode.index)]
     }
 
-    public static func loop(_ count: Int, with blendMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+    public static func loop(_ count: Int, blendMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
         let blendsPix = BlendsPIX()
         blendsPix.name = "loop:blends"
         blendsPix.blendMode = blendMode
