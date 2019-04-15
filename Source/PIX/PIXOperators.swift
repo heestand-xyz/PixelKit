@@ -14,6 +14,11 @@ infix operator <>
 infix operator ><
 infix operator ~
 infix operator °
+infix operator <->
+//infix operator <+>
+infix operator >-<
+//infix operator >+<
+infix operator +-+
 prefix operator °
 
 public extension PIX {
@@ -28,7 +33,7 @@ public extension PIX {
             let pixA = (pixA as? PIX & PIXOut) ?? ColorPIX(res: ._128) // CHECK
             let blendPix = BlendPIX()
             blendPix.name = operatorName(of: blendingMode)
-            blendPix.mode = blendingMode
+            blendPix.blendMode = blendingMode
             blendPix.bypassTransform = true
             blendPix.placement = globalPlacement
             blendPix.inPixA = pixA
@@ -64,6 +69,11 @@ public extension PIX {
             case .divide: return "/"
             case .average: return "~"
             case .cosine: return "°"
+            case .inside: return "<->"
+//            case .insideDestination: return "<+>"
+            case .outside: return ">-<"
+//            case .outsideDestination: return ">+<"
+            case .exclusiveOr: return "+-+"
             }
         }
         
@@ -224,6 +234,66 @@ public extension PIX {
     static func °(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs ° lhs }
     static func °(lhs: PIX, rhs: LiveColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .cosine)
+    }
+    
+    static func <->(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .inside)
+    }
+    static func <->(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs <-> lhs }
+    static func <->(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .inside)
+    }
+    static func <->(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs <-> lhs }
+    static func <->(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .inside)
+    }
+    
+//    static func <+>(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .insideDestination)
+//    }
+//    static func <+>(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs <+> lhs }
+//    static func <+>(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .insideDestination)
+//    }
+//    static func <+>(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs <+> lhs }
+//    static func <+>(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .insideDestination)
+//    }
+    
+    static func >-<(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .outside)
+    }
+    static func >-<(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs >-< lhs }
+    static func >-<(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .outside)
+    }
+    static func >-<(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs >-< lhs }
+    static func >-<(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .outside)
+    }
+    
+//    static func >+<(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .outsideDestination)
+//    }
+//    static func >+<(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs >+< lhs }
+//    static func >+<(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .outsideDestination)
+//    }
+//    static func >+<(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs >+< lhs }
+//    static func >+<(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+//        return blendOperators.blend(lhs, rhs, blendingMode: .outsideDestination)
+//    }
+    
+    static func +-+(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .exclusiveOr)
+    }
+    static func +-+(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs +-+ lhs }
+    static func +-+(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .exclusiveOr)
+    }
+    static func +-+(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs +-+ lhs }
+    static func +-+(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .exclusiveOr)
     }
     
     prefix static func ! (operand: PIX) -> PIX & PIXOut {

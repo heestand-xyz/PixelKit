@@ -14,7 +14,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var mode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -23,13 +23,13 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
 //    }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(mode.index)]
+        return [CGFloat(blendMode.index)]
     }
 
-    public static func loop(_ count: Int, with mode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+    public static func loop(_ count: Int, with blendMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
         let blendsPix = BlendsPIX()
         blendsPix.name = "loop:blends"
-        blendsPix.mode = mode
+        blendsPix.blendMode = blendMode
         blendsPix.extend = extend
         for i in 0..<count {
             let fraction = LiveFloat(i) / LiveFloat(count - 1)

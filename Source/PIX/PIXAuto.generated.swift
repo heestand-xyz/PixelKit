@@ -5,7 +5,7 @@
 
 // MARK - PIXGenerator
 
-public enum AutoPIXGenerator: String, CaseIterable {
+public enum AutoPIXGenerator: String, Codable, CaseIterable {
 
 	case arcpix
 	case circlepix
@@ -209,6 +209,11 @@ public enum AutoPIXGenerator: String, CaseIterable {
 					return (pix as! PolygonPIX).rotation
 				}, setCallback: { value in
 					(pix as! PolygonPIX).rotation = value
+				}),
+				AutoLiveFloatProperty(name: "cornerRadius", getCallback: {
+					return (pix as! PolygonPIX).cornerRadius
+				}, setCallback: { value in
+					(pix as! PolygonPIX).cornerRadius = value
 				}),
 			]
 		case .rectanglepix:
@@ -448,7 +453,7 @@ public enum AutoPIXGenerator: String, CaseIterable {
 
 // MARK - PIXMergerEffect
 
-public enum AutoPIXMergerEffect: String, CaseIterable {
+public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 
 	case blendpix
 	case crosspix
@@ -717,7 +722,7 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 		switch self {
 		case .blendpix:
 			return [
-				AutoEnumProperty(name: "mode", cases: [
+				AutoEnumProperty(name: "blendMode", cases: [
 						"over",
 						"under",
 						"add",
@@ -732,10 +737,15 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
 				], getCallback: {
-					return (pix as! BlendPIX).mode.rawValue
+					return (pix as! BlendPIX).blendMode.rawValue
 				}, setCallback: { value in
-					(pix as! BlendPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+					(pix as! BlendPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
 				}),
 			]
 		case .crosspix:
@@ -866,24 +876,30 @@ public enum AutoPIXMergerEffect: String, CaseIterable {
 
 // MARK - PIXMultiEffect
 
-public enum AutoPIXMultiEffect: String, CaseIterable {
+public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 
+	case arraypix
 	case blendspix
 
 	public var name: String {
 		switch self {
+		case .arraypix: return "ArrayPIX"
 		case .blendspix: return "BlendsPIX"
 		}
 	}
 
 	public var pixType: PIXMultiEffect.Type {
 		switch self {
+		case .arraypix: return ArrayPIX.self
 		case .blendspix: return BlendsPIX.self
 		}
 	}
 
 	public func autoLiveBools(for pix: PIXMultiEffect) -> [AutoLiveBoolProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -891,6 +907,14 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveColors(for pix: PIXMultiEffect) -> [AutoLiveColorProperty] {
 		switch self {
+		case .arraypix:
+			return [
+				AutoLiveColorProperty(name: "bgColor", getCallback: {
+					return (pix as! ArrayPIX).bgColor
+				}, setCallback: { value in
+					(pix as! ArrayPIX).bgColor = value
+				}),
+			]
 		case .blendspix:
 			return [
 			]
@@ -898,6 +922,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveFloats(for pix: PIXMultiEffect) -> [AutoLiveFloatProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -905,6 +932,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveInts(for pix: PIXMultiEffect) -> [AutoLiveIntProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -912,6 +942,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLivePoints(for pix: PIXMultiEffect) -> [AutoLivePointProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -919,6 +952,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveRects(for pix: PIXMultiEffect) -> [AutoLiveRectProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -926,6 +962,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 	}
 	public func autoLiveSizes(for pix: PIXMultiEffect) -> [AutoLiveSizeProperty] {
 		switch self {
+		case .arraypix:
+			return [
+			]
 		case .blendspix:
 			return [
 			]
@@ -934,9 +973,9 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 
 	public func autoEnums(for pix: PIXMultiEffect) -> [AutoEnumProperty] {
 		switch self {
-		case .blendspix:
+		case .arraypix:
 			return [
-				AutoEnumProperty(name: "mode", cases: [
+				AutoEnumProperty(name: "blendMode", cases: [
 						"over",
 						"under",
 						"add",
@@ -951,10 +990,43 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
 				], getCallback: {
-					return (pix as! BlendsPIX).mode.rawValue
+					return (pix as! ArrayPIX).blendMode.rawValue
 				}, setCallback: { value in
-					(pix as! BlendsPIX).mode = PIX.BlendingMode(rawValue: value) ?? .over
+					(pix as! ArrayPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
+				}),
+			]
+		case .blendspix:
+			return [
+				AutoEnumProperty(name: "blendMode", cases: [
+						"over",
+						"under",
+						"add",
+						"multiply",
+						"difference",
+						"subtractWithAlpha",
+						"subtract",
+						"maximum",
+						"minimum",
+						"gamma",
+						"power",
+						"divide",
+						"average",
+						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
+				], getCallback: {
+					return (pix as! BlendsPIX).blendMode.rawValue
+				}, setCallback: { value in
+					(pix as! BlendsPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
 				}),
 			]
 		}	
@@ -965,7 +1037,7 @@ public enum AutoPIXMultiEffect: String, CaseIterable {
 
 // MARK - PIXSingleEffect
 
-public enum AutoPIXSingleEffect: String, CaseIterable {
+public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 
 	case blurpix
 	case channelmixpix

@@ -16,7 +16,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     public var radius: LiveFloat = 0.25
     public var rotation: LiveFloat = 0.0
     public var vertexCount: LiveInt = 6
-    public var cornerRadius: LiveFloat = 0.1
+    public var cornerRadius: LiveFloat = 0
    
     // MARK: - Property Helpers
     

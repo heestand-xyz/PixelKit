@@ -40,6 +40,11 @@ extension PIX {
         case divide
         case average
         case cosine
+        case inside
+//        case insideDestination
+        case outside
+//        case outsideDestination
+        case exclusiveOr
         var index: Int {
             switch self {
             case .over: return 0
@@ -56,6 +61,11 @@ extension PIX {
             case .divide: return 11
             case .average: return 12
             case .cosine: return 13
+            case .inside: return 14
+//            case .insideDestination: return 15
+            case .outside: return 15
+//            case .outsideDestination: return 17
+            case .exclusiveOr: return 16
             }
         }
     }

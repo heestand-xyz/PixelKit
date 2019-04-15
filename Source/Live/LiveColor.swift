@@ -89,6 +89,8 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     public static var blue: LiveColor        { return LiveColor(r: 0.0, g: 0.0, b: 1.0) }
     public static var magenta: LiveColor     { return LiveColor(r: 1.0, g: 0.0, b: 1.0) }
     
+    public static var random: LiveColor { return LiveColor(h: .random(in: 0.0..<1.0)) }
+    
     // MARK: Bits
 
     public enum Bits: Int, Codable {
