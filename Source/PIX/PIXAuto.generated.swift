@@ -737,6 +737,11 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
 				], getCallback: {
 					return (pix as! BlendPIX).blendMode.rawValue
 				}, setCallback: { value in
@@ -985,6 +990,11 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
 				], getCallback: {
 					return (pix as! ArrayPIX).blendMode.rawValue
 				}, setCallback: { value in
@@ -1008,6 +1018,11 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
+						"insideSource",
+						"insideDestination",
+						"outsideSource",
+						"outsideDestination",
+						"xor",
 				], getCallback: {
 					return (pix as! BlendsPIX).blendMode.rawValue
 				}, setCallback: { value in

@@ -106,13 +106,16 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
     float4 c;
     float3 rgb_a = float3(ca);
     float3 rgb_b = float3(cb);
-    float alpha = max(ca.a, cb.a);
+    float aa = max(ca.a, cb.a);
+    float ia = min(ca.a, cb.a);
+    float oa = ca.a - cb.a;
+    float xa = abs(ca.a - cb.a);
     switch (int(in.mode)) {
         case 0: // Over
-            c = float4(rgb_a * (1.0 - cb.a) + rgb_b * cb.a, alpha);
+            c = float4(rgb_a * (1.0 - cb.a) + rgb_b * cb.a, aa);
             break;
         case 1: // Under
-            c = float4(rgb_a * ca.a + rgb_b * (1.0 - ca.a), alpha);
+            c = float4(rgb_a * ca.a + rgb_b * (1.0 - ca.a), aa);
             break;
         case 2: // Add
             c = ca + cb;
@@ -121,13 +124,13 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
             c = ca * cb;
             break;
         case 4: // Diff
-            c = float4(abs(rgb_a - rgb_b), alpha);
+            c = float4(abs(rgb_a - rgb_b), aa);
             break;
         case 5: // Sub
             c = ca - cb;
             break;
         case 6: // Sub Color
-            c = float4(rgb_a - rgb_b, alpha);
+            c = float4(rgb_a - rgb_b, aa);
             break;
         case 7: // Max
             c = max(ca, cb);
@@ -149,6 +152,21 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
             break;
         case 13: // Cosine
             c = lerpColor(cb, ca, cos(ca * pi + pi) / 2 + 0.5);
+            break;
+        case 14: // Inside Source
+            c = float4(rgb_a * ia, ia);
+            break;
+//        case 15: // Inside Destination
+//            c = float4(rgb_b * ia, ia);
+//            break;
+        case 15: // Outside Source
+            c = float4(rgb_a * oa, oa);
+            break;
+//        case 17: // Outside Destination
+//            c = float4(rgb_b * oa, oa);
+//            break;
+        case 16: // XOR
+            c = float4(rgb_a * (ca.a * xa) + rgb_b * (cb.a * xa), xa);
             break;
     }
     
