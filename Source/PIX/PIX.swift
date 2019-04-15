@@ -76,10 +76,18 @@ open class PIX {
         }
         set {
             _texture = newValue
+            nextTextureAvalibleCallback?()
         }
     }
     public var didRenderTexture: Bool {
         return _texture != nil
+    }
+    var nextTextureAvalibleCallback: (() -> ())?
+    public func nextTextureAvalible(_ callback: @escaping () -> ()) {
+        nextTextureAvalibleCallback = {
+            callback()
+            self.nextTextureAvalibleCallback = nil
+        }
     }
     
     public let view: PIXView

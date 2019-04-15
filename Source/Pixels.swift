@@ -200,7 +200,7 @@ public class Pixels {
         }
     }
     
-    func delay(frames: Int, done: @escaping () -> ()) {
+    public func delay(frames: Int, done: @escaping () -> ()) {
         let startFrameIndex = frame
         listenToFrames(callback: {
             if self.frame >= startFrameIndex + frames {
