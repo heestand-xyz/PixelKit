@@ -12,7 +12,7 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var strength: LiveFloat = 1.0
+    public var strength: LiveFloat = 2.0
     
     // MARK: - Property Helpers
     
