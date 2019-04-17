@@ -13,7 +13,7 @@ public class HueSatPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
 
     public var hue: LiveFloat = 0.0
-    public var sat: LiveFloat = 1.0
+    public var sat: LiveFloat = 0.5
     
     // MARK: - Property Helpers
     
