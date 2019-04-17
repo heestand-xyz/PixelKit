@@ -89,6 +89,16 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 				}, setCallback: { value in
 					(pix as! ArcPIX).fillColor = value
 				}),
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! ArcPIX).bgColor
+                }, setCallback: { value in
+                    (pix as! ArcPIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! ArcPIX).color
+                }, setCallback: { value in
+                    (pix as! ArcPIX).color = value
+                }),
 			]
 		case .circlepix:
 			return [
@@ -97,24 +107,94 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 				}, setCallback: { value in
 					(pix as! CirclePIX).edgeColor = value
 				}),
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! CirclePIX).bgColor
+                }, setCallback: { value in
+                    (pix as! CirclePIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! CirclePIX).color
+                }, setCallback: { value in
+                    (pix as! CirclePIX).color = value
+                }),
 			]
 		case .colorpix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! ColorPIX).bgColor
+                }, setCallback: { value in
+                    (pix as! ColorPIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! ColorPIX).color
+                }, setCallback: { value in
+                    (pix as! ColorPIX).color = value
+                }),
 			]
 		case .gradientpix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! GradientPIX).bgColor
+                }, setCallback: { value in
+                    (pix as! GradientPIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! GradientPIX).color
+                }, setCallback: { value in
+                    (pix as! GradientPIX).color = value
+                }),
 			]
 		case .linepix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! LinePIX).bgColor
+                }, setCallback: { value in
+                    (pix as! LinePIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! LinePIX).color
+                }, setCallback: { value in
+                    (pix as! LinePIX).color = value
+                }),
 			]
 		case .noisepix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! NoisePIX).bgColor
+                }, setCallback: { value in
+                    (pix as! NoisePIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! NoisePIX).color
+                }, setCallback: { value in
+                    (pix as! NoisePIX).color = value
+                }),
 			]
 		case .polygonpix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! PolygonPIX).bgColor
+                }, setCallback: { value in
+                    (pix as! PolygonPIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! PolygonPIX).color
+                }, setCallback: { value in
+                    (pix as! PolygonPIX).color = value
+                }),
 			]
 		case .rectanglepix:
 			return [
+                AutoLiveColorProperty(name: "bgColor", getCallback: {
+                    return (pix as! RectanglePIX).bgColor
+                }, setCallback: { value in
+                    (pix as! RectanglePIX).bgColor = value
+                }),
+                AutoLiveColorProperty(name: "color", getCallback: {
+                    return (pix as! RectanglePIX).color
+                }, setCallback: { value in
+                    (pix as! RectanglePIX).color = value
+                }),
 			]
 		}	
 	}
@@ -737,11 +817,9 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
-						"insideSource",
-						"insideDestination",
-						"outsideSource",
-						"outsideDestination",
-						"xor",
+						"inside",
+						"outside",
+						"exclusiveOr",
 				], getCallback: {
 					return (pix as! BlendPIX).blendMode.rawValue
 				}, setCallback: { value in
@@ -990,11 +1068,9 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
-						"insideSource",
-						"insideDestination",
-						"outsideSource",
-						"outsideDestination",
-						"xor",
+						"inside",
+						"outside",
+						"exclusiveOr",
 				], getCallback: {
 					return (pix as! ArrayPIX).blendMode.rawValue
 				}, setCallback: { value in
@@ -1018,11 +1094,9 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 						"divide",
 						"average",
 						"cosine",
-						"insideSource",
-						"insideDestination",
-						"outsideSource",
-						"outsideDestination",
-						"xor",
+						"inside",
+						"outside",
+						"exclusiveOr",
 				], getCallback: {
 					return (pix as! BlendsPIX).blendMode.rawValue
 				}, setCallback: { value in
