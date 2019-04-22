@@ -43,8 +43,8 @@ public protocol Layoutable {
 public extension PIX {
     
     func point(of point: CGPoint) -> CGPoint {
-        let uv = CGPoint(x: point.x / view.bounds.width, y: point.y / view.bounds.height)
-        let aspect = view.bounds.width / view.bounds.height
+        let uv = CGPoint(x: point.x / view.metalView.bounds.width, y: point.y / view.metalView.bounds.height)
+        let aspect = view.metalView.bounds.width / view.metalView.bounds.height
         let point = CGPoint(x: (uv.x - 0.5) * aspect, y: (uv.y - 0.5) * -1)
         return point
     }
@@ -55,7 +55,7 @@ public extension PIX {
     
     #if os(iOS)
     func point(of touch: UITouch) -> LivePoint {
-        let location = touch.location(in: view)
+        let location = touch.location(in: view.metalView)
         return LivePoint(point(of: location))
     }
     #endif
