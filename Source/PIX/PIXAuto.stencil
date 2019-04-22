@@ -56,6 +56,15 @@ public enum Auto{{ parentType.name }}: String, Codable, CaseIterable {
 				}),
 				{% endif %}
 				{% endfor %}
+                {% for var in parentType.storedVariables %}
+                {% if var.typeName.name == liveType.name %}
+                Auto{{ liveType.name }}Property(name: "{{ var.name }}", getCallback: {
+                    return (pix as! {{ type.name }}).{{ var.name }}
+                }, setCallback: { value in
+                    (pix as! {{ type.name }}).{{ var.name }} = value
+                }),
+                {% endif %}
+                {% endfor %}
 			]
 		{% endif %}
 		{% endfor %}
