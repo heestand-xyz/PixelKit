@@ -14,7 +14,7 @@ public extension PIX {
     
     var renderedCIImage: CIImage? {
         guard let texture = renderedTexture else { return nil }
-        return CIImage(mtlTexture: texture, options: nil)
+        return CIImage(mtlTexture: texture, options: [.colorSpace: Pixels.main.colorSpace.cg])
     }
     
     var renderedCGImage: CGImage? {

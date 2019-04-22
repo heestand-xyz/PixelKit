@@ -32,7 +32,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
         blendsPix.blendMode = blendMode
         blendsPix.extend = extend
         for i in 0..<count {
-            let fraction = LiveFloat(i) / LiveFloat(count - 1)
+            let fraction = LiveFloat(i) / LiveFloat(count)
             let pix = loop(LiveInt(i), fraction)
             blendsPix.inPixs.append(pix)
         }
