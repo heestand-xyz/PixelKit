@@ -43,7 +43,7 @@ public extension PIX {
         
         func blend(_ pix: PIX, _ color: LiveColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
-            colorPix.bgColor = color
+            colorPix.color = color
             let blendPix = blend(pix, colorPix, blendingMode: blendingMode)
             blendPix.extend = .hold
             return blendPix
