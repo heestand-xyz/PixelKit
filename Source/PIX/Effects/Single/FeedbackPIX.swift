@@ -63,14 +63,14 @@ public class FeedbackPIX: PIXSingleEffect {
 
 public extension PIXOut {
     
-    func _feed(_ fraction: LiveFloat = 0, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
+    func _feed(_ fraction: LiveFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
         feedbackPix.inPix = self as? PIX & PIXOut
         let crossPix = CrossPIX()
         crossPix.name = "feed:cross"
-        crossPix.inPixA = loop?(feedbackPix) ?? feedbackPix
-        crossPix.inPixB = self as? PIX & PIXOut
+        crossPix.inPixA = self as? PIX & PIXOut
+        crossPix.inPixB = loop?(feedbackPix) ?? feedbackPix
         crossPix.fraction = fraction
         feedbackPix.feedPix = crossPix
         return feedbackPix
