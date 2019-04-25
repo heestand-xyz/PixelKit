@@ -18,6 +18,24 @@ struct Uniforms{
     float mode;
 };
 
+// https://stackoverflow.com/a/32391780
+
+float2 squareToCircle(float u, float v) {
+    float x1 = 0.5 * sqrt(max(2.0 + pow(u, 2.0) - pow(v, 2.0) + 2.0 * u * sqrt(2.0), 0.0));
+    float x2 = 0.5 * sqrt(max(2.0 + pow(u, 2.0) - pow(v, 2.0) - 2.0 * u * sqrt(2.0), 0.0));
+    float x = x1 - x2;
+    float y1 = 0.5 * sqrt(max(2.0 - pow(u, 2.0) + pow(v, 2.0) + 2.0 * v * sqrt(2.0), 0.0));
+    float y2 = 0.5 * sqrt(max(2.0 - pow(u, 2.0) + pow(v, 2.0) - 2.0 * v * sqrt(2.0), 0.0));
+    float y = y1 - y2;
+    return float2(x, y);
+}
+    
+float2 circleToSquare(float u, float v) {
+    float x = u * sqrt(1 - 0.5 * pow(v, 2));
+    float y = v * sqrt(1 - 0.5 * pow(u, 2));
+    return float2(x, y);
+}
+
 fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
                                        texture2d<float>  inTex [[ texture(0) ]],
                                        const device Uniforms& in [[ buffer(0) ]],
@@ -47,11 +65,17 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
     da = da - floor(da);
 
     switch (int(in.mode)) {
-        case 0: // Equirectangular
+        case 0: // domeToEquirectangular
             uv = float2(0.5 + cos(ea) * er, 0.5 + sin(ea) * er);
             break;
-        case 1: // Dome
+        case 1: // equirectangularToDome
             uv = float2(dr, da);
+            break;
+        case 2: // squareToCircle
+            uv = squareToCircle(u * 2 - 1, v * 2 - 1) / 2 + 0.5;
+            break;
+        case 3: // circleToSquare
+            uv = circleToSquare(u * 2 - 1, v * 2 - 1) / 2 + 0.5;
             break;
     }
     

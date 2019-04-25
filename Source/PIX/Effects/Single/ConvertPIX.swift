@@ -15,16 +15,20 @@ public class ConvertPIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     public enum ConvertMode: String, CaseIterable {
-        case equirectangular
-        case dome
+        case domeToEquirectangular
+        case equirectangularToDome
+        case squareToCircle
+        case circleToSquare
         var index: Int {
             switch self {
-            case .equirectangular: return 0
-            case .dome: return 1
+            case .domeToEquirectangular: return 0
+            case .equirectangularToDome: return 1
+            case .squareToCircle: return 2
+            case .circleToSquare: return 3
             }
         }
     }
-    public var mode: ConvertMode = .dome
+    public var mode: ConvertMode = .domeToEquirectangular
     
     // MARK: - Property Helpers
     
