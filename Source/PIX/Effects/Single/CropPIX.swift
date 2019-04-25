@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CropPIX: PIXSingleEffect, PIXAuto {
+public class CropPIX: PIXSingleEffect {
     
     override open var shader: String { return "effectSingleCropPIX" }
     
