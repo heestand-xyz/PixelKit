@@ -44,33 +44,24 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-//    v = 1 - v; // Content Flip Fix A
+    v = 1 - v; // Content Flip Fix A
     float2 uv = float2(u, v);
     
     float er = v;
     float ea = u * pi * 2;
     
-//    float radius = 0.5;
-//
-//    float theta = u;
-//    float phi = v;
-//
-//    float x = cos(theta) * cos(phi) * radius;
-//    float y = sin(theta) * cos(phi) * radius;
-//    float z = sin(phi) * radius;
-    
-    float dr = sqrt(pow(u - 0.5, 2) + pow(v, 2)) + 0.5;
-    float da = atan2(v, u - 0.5) / (pi * 2);
-    dr = dr - floor(dr);
-    da = da - floor(da);
+//    float dr = sqrt(pow(u - 0.5, 2) + pow(v, 2)) + 0.5;
+//    float da = atan2(v, u - 0.5) / (pi * 2);
+//    dr = dr - floor(dr);
+//    da = da - floor(da);
 
     switch (int(in.mode)) {
         case 0: // domeToEquirectangular
             uv = float2(0.5 + cos(ea) * er, 0.5 + sin(ea) * er);
             break;
-        case 1: // equirectangularToDome
-            uv = float2(dr, da);
-            break;
+//        case 1: // equirectangularToDome
+//            uv = float2(dr, da);
+//            break;
         case 2: // squareToCircle
             uv = squareToCircle(u * 2 - 1, v * 2 - 1) / 2 + 0.5;
             break;
