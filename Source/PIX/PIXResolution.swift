@@ -40,7 +40,9 @@ extension PIX {
             }
             guard let inRes = pixIn.pixInList.first?.resolution else { return nil }
             if let cropPix = self as? CropPIX {
-                return inRes * cropPix.resScale
+                return .size((LiveSize(inRes.size) * LiveSize(cropPix.resScale)).cg)
+            } else if let convertPix = self as? ConvertPIX {
+                return .size((LiveSize(inRes.size) * LiveSize(convertPix.resScale)).cg)
             } else if let flipFlopPix = self as? FlipFlopPIX {
                 return flipFlopPix.flop != .none ? Res(inRes.raw.flopped) : inRes
             }
@@ -86,7 +88,7 @@ extension PIX {
             return
         }
         view.setRes(res)
-        pixels.log(pix: self, .detail, .res, "Applied: \(res)")
+        pixels.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
         delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

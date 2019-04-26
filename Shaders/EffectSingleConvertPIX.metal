@@ -29,12 +29,86 @@ float2 squareToCircle(float u, float v) {
     float y = y1 - y2;
     return float2(x, y);
 }
-    
 float2 circleToSquare(float u, float v) {
     float x = u * sqrt(1 - 0.5 * pow(v, 2));
     float y = v * sqrt(1 - 0.5 * pow(u, 2));
     return float2(x, y);
 }
+
+// https://stackoverflow.com/a/29681646/4586652
+//float cot(float angle) {
+//    return 1.0 / tan(angle);
+//}
+//float projection(float theta, float phi) {
+//    if (theta<0.615) {
+//        return projectTop(theta,phi)
+//    } else if (theta>2.527) {
+//        return projectBottom(theta,phi)
+//    } else if (phi <= pi/4 or phi > 7*pi/4) {
+//        return projectLeft(theta,phi)
+//    } else if (phi > pi/4 and phi <= 3*pi/4) {
+//        return projectFront(theta,phi)
+//    } else if (phi > 3*pi/4 and phi <= 5*pi/4) {
+//        return projectRight(theta,phi)
+//    } else if (phi > 5*pi/4 and phi <= 7*pi/4) {
+//        return projectBack(theta,phi)
+//    }
+//}
+//float projectLeft(float theta, float phi) {
+//    x = 1
+//    y = tan(phi)
+//    z = cot(theta) / cos(phi)
+//    if z < -1 {
+//        return projectBottom(theta,phi)
+//    }
+//    if z > 1 {
+//    return projectTop(theta,phi)
+//    return ("Left",x,y,z)
+//}
+//float projectFront(float theta, float phi) {
+//    x = tan(phi-pi/2)
+//    y = 1
+//    z = cot(theta) / cos(phi-pi/2)
+//    if z < -1 {
+//    return projectBottom(theta,phi)
+//    if z > 1 {
+//    return projectTop(theta,phi)
+//    return ("Front",x,y,z)
+//}
+//float projectRight(float theta, float phi) {
+//    x = -1
+//    y = tan(phi)
+//    z = -cot(theta) / cos(phi)
+//    if z < -1 {
+//    return projectBottom(theta,phi)
+//    if z > 1 {
+//    return projectTop(theta,phi)
+//    return ("Right",x,-y,z)
+//    }
+//float projectBack(float theta, float phi) {
+//    x = tan(phi-3*pi/2)
+//    y = -1
+//    z = cot(theta) / cos(phi-3*pi/2)
+//    if z < -1 {
+//    return projectBottom(theta,phi)
+//    if z > 1 {
+//    return projectTop(theta,phi)
+//    return ("Back",-x,y,z)
+//    }
+//float projectTop(float theta, float phi) {
+//    a = 1 / cos(theta)
+//    x = tan(theta) * cos(phi)
+//    y = tan(theta) * sin(phi)
+//    z = 1
+//    return ("Top",x,y,z)
+//}
+//float projectBottom(float theta, float phi) {
+//    a = -1 / cos(theta)
+//    x = -tan(theta) * cos(phi)
+//    y = -tan(theta) * sin(phi)
+//    z = -1
+//    return ("Bottom",x,y,z)
+//}
 
 fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
                                        texture2d<float>  inTex [[ texture(0) ]],
@@ -47,104 +121,81 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
 //    v = 1 - v; // Content Flip Fix A
     float2 uv = float2(u, v);
     
+    // domeToEqui
     float er = v;
     float ea = u * pi * 2;
     
-//    float radius = 0.5;
-//    float theta = u * pi;
-//    float phi = (v * pi) / 2.0;
-//    float x = cos(theta) * cos(phi) * radius;
-//    float y = sin(theta) * cos(phi) * radius;
-//    float z = sin(phi) * radius;
-    
+    // equiToDome
     float rv = sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) / 2 + 0.25;
     float au = 1.0 - (atan2(v - 0.5, u - 0.5) / (pi * 2) + 0.25);
     if (au > 1) {
         au -= 1;
     }
-//    dr = dr - floor(dr);
-//    da = da - floor(da);
 
-//    float theta = u * pi;
-//    float phi = (v * pi) / 2.0;
-//    float x = cos(phi) * sin(theta);
-//    float y = sin(phi);
-//    float z = cos(phi) * cos(theta);
-//    float scale;
-//    float2 px;
-    
-//    float x = u;
-//    float y = v;
-//    float2 cp = isCenterPt ? (center_point * 2 - 1) * float2(pi, pi * 2) : (self.screen_points * 2 - 1) * float2(pi, pi * 2) * (np.ones(self.screen_points.shape) * self.FOV)
-//    float rou = sqrt(pow(x, 2) + pow(y, 2));
-//    float cc = atan(rou);
-//    float sin_c = sin(cc);
-//    float cos_c = cos(cc);
-//    float lat = asin(cos_c * sin(cp.y) + (y * sin_c * cos(cp.y)) / rou);
-//    float lon = cp.x + atan2(x * sin_c, rou * cos(cp.y) * cos_c - y * sin(cp.y) * sin_c);
-//    lat = (lat / (pi * 2) + 1.) * 0.5;
-//    lon = (lon / pi + 1.) * 0.5;
-    
-//    float ang = atan2(y, x);
-//    float rad = sqrt(pow(x, 2) + pow(y, 2));
+    // cubeToEqui
+    float theta = u * pi * 2;
+    float phi = ((1.0 - v) * pi) + pi / 2;
+    float x = cos(phi) * sin(theta);
+    float y = sin(phi);
+    float z = cos(phi) * cos(theta);
+    float scale;
+    float2 px;
     
     switch (int(in.mode)) {
-        case 0: // domeToEquirectangular
+        case 0: // domeToEqui
             uv = float2(0.5 + cos(ea) * er, 0.5 - sin(ea) * er);
             break;
-        case 1: // equirectangularToDome
+        case 1: // equiToDome
             uv = float2(au, rv);
             break;
-//        case 2: // cubeToEquirectangular
-//            if (abs(x) >= abs(y) && abs(x) >= abs(z)) {
-//                if (x < 0.0) {
-//                    scale = -1.0 / x;
-//                    px.x = ( z*scale + 1.0) / 2.0;
-//                    px.y = ( y*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4, px.y / 3 + 1 / 3);
-////                    src = texture(cubeLeftImage, px);
-//                }
-//                else {
-//                    scale = 1.0 / x;
-//                    px.x = (-z*scale + 1.0) / 2.0;
-//                    px.y = ( y*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4 + 2 / 4, px.y / 3 + 1 / 3);
-////                    src = texture(cubeRightImage, px);
-//                }
-//            }
-//            else if (abs(y) >= abs(z)) {
-//                if (y < 0.0) {
-//                    scale = -1.0 / y;
-//                    px.x = ( x*scale + 1.0) / 2.0;
-//                    px.y = ( z*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4 + 1 / 4, px.y / 3 + 2 / 3);
-////                    src = texture(cubeTopImage, px);
-//                }
-//                else {
-//                    scale = 1.0 / y;
-//                    px.x = ( x*scale + 1.0) / 2.0;
-//                    px.y = (-z*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4 + 1 / 4, px.y / 3);
-////                    src = texture(cubeBottomImage, px);
-//                }
-//            }
-//            else {
-//                if (z < 0.0) {
-//                    scale = -1.0 / z;
-//                    px.x = (-x*scale + 1.0) / 2.0;
-//                    px.y = ( y*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4 + 3 / 4, px.y / 3 + 1 / 3);
-////                    src = texture(cubeBackImage, px);
-//                }
-//                else {
-//                    scale = 1.0 / z;
-//                    px.x = ( x*scale + 1.0) / 2.0;
-//                    px.y = ( y*scale + 1.0) / 2.0;
-//                    uv = float2(px.x / 4 + 1 / 4, px.y / 3 + 1 / 3);
-////                    src = texture(cubeFrontImage, px);
-//                }
-//            }
-//            break;
+        case 2: // cubeToEqui
+            if (abs(x) >= abs(y) && abs(x) >= abs(z)) {
+                if (x < 0.0) { // Left
+                    scale = -1.0 / x;
+                    px.x = ( z*scale + 1.0) / 2.0;
+                    px.y = ( y*scale + 1.0) / 2.0;
+                    uv = float2(px.x / 4, (px.y + 1) / 3 + 1 / 3);
+                }
+                else { // Right
+                    scale = 1.0 / x;
+                    px.x = (-z*scale + 1.0) / 2.0;
+                    px.y = ( y*scale + 1.0) / 2.0;
+                    uv = float2((px.x + 2) / 4 + 2 / 4, (px.y + 1) / 3 + 1 / 3);
+                }
+            }
+            else if (abs(y) >= abs(z)) {
+                if (y < 0.0) { // Top
+                    scale = -1.0 / y;
+                    px.x = ( x*scale + 1.0) / 2.0;
+                    px.y = ( z*scale + 1.0) / 2.0;
+                    uv = float2((px.x + 1) / 4 + 1 / 4, px.y / 3 + 2 / 3);
+                }
+                else { // Bottom
+                    scale = 1.0 / y;
+                    px.x = ( x*scale + 1.0) / 2.0;
+                    px.y = (-z*scale + 1.0) / 2.0;
+                    uv = float2((px.x + 1) / 4 + 1 / 4, (px.y + 2) / 3);
+                }
+            }
+            else {
+                if (z < 0.0) { // Back
+                    scale = -1.0 / z;
+                    px.x = (-x*scale + 1.0) / 2.0;
+                    px.y = ( y*scale + 1.0) / 2.0;
+                    uv = float2((px.x + 3) / 4 + 3 / 4, (px.y + 1) / 3 + 1 / 3);
+                }
+                else { // Front
+                    scale = 1.0 / z;
+                    px.x = ( x*scale + 1.0) / 2.0;
+                    px.y = ( y*scale + 1.0) / 2.0;
+                    uv = float2((px.x + 1) / 4 + 1 / 4, (px.y + 1) / 3 + 1 / 3);
+                }
+            }
+            break;
+        case 3: // equiToCube
+            
+            
+            break;
         case 4: // squareToCircle
             uv = squareToCircle(u * 2 - 1, v * 2 - 1) / 2 + 0.5;
             break;
@@ -154,10 +205,18 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
     }
     
     float4 c = inTex.sample(s, uv);
-    if (int(in.mode) == 1) { // equirectangularToDome
-        if (sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) > 0.5) {
-            c = 0;
-        }
+    
+    switch (int(in.mode)) {
+        case 0: // domeToEqui
+            if (v > 0.5) {
+                c = 0;
+            }
+            break;
+        case 1: // equiToDome
+            if (sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) > 0.5) {
+                c = 0;
+            }
+            break;
     }
     
     return c;
