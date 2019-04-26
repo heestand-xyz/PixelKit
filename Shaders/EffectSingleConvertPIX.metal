@@ -44,7 +44,7 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-    v = 1 - v; // Content Flip Fix A
+//    v = 1 - v; // Content Flip Fix A
     float2 uv = float2(u, v);
     
     float er = v;
@@ -57,8 +57,8 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
 //    float y = sin(theta) * cos(phi) * radius;
 //    float z = sin(phi) * radius;
     
-//    float dr = sqrt(pow(u - 0.5, 2) + pow(v, 2)) + 0.5;
-//    float da = atan2(v, u - 0.5) / (pi * 2);
+    float rv = sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) / 2 + 0.25;
+    float au = atan2(v - 0.5, u - 0.5) / (pi * 2) + 0.5;
 //    dr = dr - floor(dr);
 //    da = da - floor(da);
 
@@ -70,13 +70,28 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
 //    float scale;
 //    float2 px;
     
+//    float x = u;
+//    float y = v;
+//    float2 cp = isCenterPt ? (center_point * 2 - 1) * float2(pi, pi * 2) : (self.screen_points * 2 - 1) * float2(pi, pi * 2) * (np.ones(self.screen_points.shape) * self.FOV)
+//    float rou = sqrt(pow(x, 2) + pow(y, 2));
+//    float cc = atan(rou);
+//    float sin_c = sin(cc);
+//    float cos_c = cos(cc);
+//    float lat = asin(cos_c * sin(cp.y) + (y * sin_c * cos(cp.y)) / rou);
+//    float lon = cp.x + atan2(x * sin_c, rou * cos(cp.y) * cos_c - y * sin(cp.y) * sin_c);
+//    lat = (lat / (pi * 2) + 1.) * 0.5;
+//    lon = (lon / pi + 1.) * 0.5;
+    
+//    float ang = atan2(y, x);
+//    float rad = sqrt(pow(x, 2) + pow(y, 2));
+    
     switch (int(in.mode)) {
         case 0: // domeToEquirectangular
-            uv = float2(0.5 + cos(ea) * er, 0.5 + sin(ea) * er);
+            uv = float2(0.5 + cos(ea) * er, 0.5 - sin(ea) * er);
             break;
-//        case 1: // equirectangularToDome
-//            uv = float2(x, y);
-//            break;
+        case 1: // equirectangularToDome
+            uv = float2(au, rv);
+            break;
 //        case 2: // cubeToEquirectangular
 //            if (abs(x) >= abs(y) && abs(x) >= abs(z)) {
 //                if (x < 0.0) {
@@ -136,6 +151,11 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
     }
     
     float4 c = inTex.sample(s, uv);
+    if (int(in.mode) == 1) { // equirectangularToDome
+        if (sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) > 0.5) {
+            c = 0;
+        }
+    }
     
     return c;
 }
