@@ -58,7 +58,10 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
 //    float z = sin(phi) * radius;
     
     float rv = sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) / 2 + 0.25;
-    float au = atan2(v - 0.5, u - 0.5) / (pi * 2) + 0.5;
+    float au = 1.0 - (atan2(v - 0.5, u - 0.5) / (pi * 2) + 0.25);
+    if (au > 1) {
+        au -= 1;
+    }
 //    dr = dr - floor(dr);
 //    da = da - floor(da);
 
