@@ -139,6 +139,7 @@
 		7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* PixelsTexture.swift */; };
 		7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B2212F5A8B00401654 /* BlendPIX.swift */; };
 		7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B4212F5C9300401654 /* PIXModes.swift */; };
+		7425CF5B22759D8100757CD2 /* SyphonOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7425CF5422759B6E00757CD2 /* SyphonOutPIX.swift */; };
 		743054E0215EBB6B004E6B27 /* PixelsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743054DF215EBB6B004E6B27 /* PixelsTypes.swift */; };
 		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
 		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
@@ -165,6 +166,8 @@
 		7473B4FD214176E2008C6F23 /* DisplacePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B4FC214176E2008C6F23 /* DisplacePIX.swift */; };
 		74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */; };
 		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
+		7479F6AF2275BFF8009B4B65 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7479F6AE2275BFF8009B4B65 /* Syphon.framework */; };
+		7479F6B02275C000009B4B65 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7479F6AE2275BFF8009B4B65 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		747CBA7F214286C000CB2616 /* MetalEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */; };
 		747CBA82214286D800CB2616 /* MetalMergerEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA81214286D800CB2616 /* MetalMergerEffectPIX.swift */; };
 		747CBA85214286EC00CB2616 /* MetalMultiEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA84214286EC00CB2616 /* MetalMultiEffectPIX.swift */; };
@@ -210,6 +213,19 @@
 		74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		746B50452275A171003F5C37 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7479F6B02275C000009B4B65 /* Syphon.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
 		3A17FBC3225238EC00453079 /* ClampPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClampPIX.swift; sourceTree = "<group>"; };
@@ -253,6 +269,8 @@
 		7424A1AE212F4A0100401654 /* PixelsTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsTexture.swift; sourceTree = "<group>"; };
 		7424A1B2212F5A8B00401654 /* BlendPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendPIX.swift; sourceTree = "<group>"; };
 		7424A1B4212F5C9300401654 /* PIXModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXModes.swift; sourceTree = "<group>"; };
+		7425CF5422759B6E00757CD2 /* SyphonOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonOutPIX.swift; sourceTree = "<group>"; };
+		7425CF5A22759CE300757CD2 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		743054DF215EBB6B004E6B27 /* PixelsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelsTypes.swift; sourceTree = "<group>"; };
 		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
 		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
@@ -278,6 +296,8 @@
 		7473B4FC214176E2008C6F23 /* DisplacePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplacePIX.swift; sourceTree = "<group>"; };
 		74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwirlPIX.swift; sourceTree = "<group>"; };
 		747845B121131B080077AB89 /* BlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurPIX.swift; sourceTree = "<group>"; };
+		7479F6AE2275BFF8009B4B65 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = Frameworks/Syphon.framework; sourceTree = "<group>"; };
+		7479F6B12275C04D009B4B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalEffectPIX.swift; sourceTree = "<group>"; };
 		747CBA81214286D800CB2616 /* MetalMergerEffectPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalMergerEffectPIX.swift; sourceTree = "<group>"; };
 		747CBA84214286EC00CB2616 /* MetalMultiEffectPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalMultiEffectPIX.swift; sourceTree = "<group>"; };
@@ -308,7 +328,6 @@
 		74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMergerMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/Generator/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
 		74BC39D721011E3A004E9AA0 /* Pixels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		74BC39DB21011E3A004E9AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCapturePIX.swift; sourceTree = "<group>"; };
 		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
 		74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapPIX.swift; sourceTree = "<group>"; };
@@ -331,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */,
+				7479F6AF2275BFF8009B4B65 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +368,7 @@
 		7400B860212DD087002811DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7479F6AE2275BFF8009B4B65 /* Syphon.framework */,
 				74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */,
 				74E9F6B621937A5000F541DE /* PixelsShaders.metallib */,
 			);
@@ -419,6 +440,7 @@
 				743F375C215BADDF002BC5BA /* AirPlayPIX.swift */,
 				743F375E215BB2C3002BC5BA /* RecPIX.swift */,
 				3A370F6622268EC1001B0208 /* StreamOutPIX.swift */,
+				7425CF5422759B6E00757CD2 /* SyphonOutPIX.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -592,9 +614,9 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
+				7479F6B12275C04D009B4B65 /* Info.plist */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
-				74BC39DB21011E3A004E9AA0 /* Info.plist */,
 				74BC39D921011E3A004E9AA0 /* Source */,
 				74BC39D821011E3A004E9AA0 /* Products */,
 				7400B860212DD087002811DC /* Frameworks */,
@@ -623,6 +645,7 @@
 				7486537921A896530073F758 /* Live */,
 				7452F4C6210A3362001AA523 /* PIX */,
 				741D2CFA21AC9CD5007259E3 /* Extensions */,
+				7425CF5A22759CE300757CD2 /* BridgingHeader.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -660,6 +683,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "Pixels-macOS" */;
 			buildPhases = (
+				746B50452275A171003F5C37 /* CopyFiles */,
 				3AF28BC7219312900079FC7A /* Headers */,
 				3AF28BC8219312900079FC7A /* Sources */,
 				3AF28BC9219312900079FC7A /* Frameworks */,
@@ -794,6 +818,7 @@
 				3AF28C0B219312F50079FC7A /* DelayPIX.swift in Sources */,
 				7486537C21A897BF0073F758 /* LiveFloat.swift in Sources */,
 				3AF28C08219312F50079FC7A /* RangePIX.swift in Sources */,
+				7425CF5B22759D8100757CD2 /* SyphonOutPIX.swift in Sources */,
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
@@ -972,6 +997,8 @@
 		3AF28BD1219312900079FC7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -980,6 +1007,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Resources/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -994,6 +1026,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1001,6 +1034,8 @@
 		3AF28BD2219312900079FC7A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1009,6 +1044,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Resources/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1023,6 +1063,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1158,6 +1199,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1189,6 +1234,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
