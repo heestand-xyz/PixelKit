@@ -18,6 +18,8 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
+		3A5B861F22770D590030F98E /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5B861D22770D530030F98E /* Syphon.framework */; };
+		3A5B862A22770EAD0030F98E /* SyphonOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
@@ -218,6 +220,8 @@
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
+		3A5B861D22770D530030F98E /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = Frameworks/Syphon.framework; sourceTree = "<group>"; };
+		3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyphonOutPIX.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXAuto.generated.swift; sourceTree = "<group>"; };
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
@@ -331,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */,
+				3A5B861F22770D590030F98E /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +353,7 @@
 		7400B860212DD087002811DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A5B861D22770D530030F98E /* Syphon.framework */,
 				74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */,
 				74E9F6B621937A5000F541DE /* PixelsShaders.metallib */,
 			);
@@ -419,6 +425,7 @@
 				743F375C215BADDF002BC5BA /* AirPlayPIX.swift */,
 				743F375E215BB2C3002BC5BA /* RecPIX.swift */,
 				3A370F6622268EC1001B0208 /* StreamOutPIX.swift */,
+				3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -794,6 +801,7 @@
 				3AF28C0B219312F50079FC7A /* DelayPIX.swift in Sources */,
 				7486537C21A897BF0073F758 /* LiveFloat.swift in Sources */,
 				3AF28C08219312F50079FC7A /* RangePIX.swift in Sources */,
+				3A5B862A22770EAD0030F98E /* SyphonOutPIX.swift in Sources */,
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
@@ -980,6 +988,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1009,6 +1021,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1158,6 +1174,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1189,6 +1209,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
