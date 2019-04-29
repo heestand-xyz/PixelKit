@@ -51,7 +51,9 @@ public class TextPIX: PIXSprite {
         
         label.verticalAlignmentMode = .center
         if #available(iOS 11, *) {
-            label.numberOfLines = 0
+            if #available(OSX 10.13, *) {
+                label.numberOfLines = 0
+            }
         }
         
         setNeedsText()

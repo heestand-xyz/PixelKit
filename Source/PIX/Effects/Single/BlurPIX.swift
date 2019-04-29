@@ -81,16 +81,20 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     }
     
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixels.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
-        descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-        guard let blurTexture = pixels.metalDevice.makeTexture(descriptor: descriptor) else {
-            pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
-            return nil
+        if #available(OSX 10.13, *) {
+            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixels.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
+            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
+            guard let blurTexture = pixels.metalDevice.makeTexture(descriptor: descriptor) else {
+                pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
+                return nil
+            }
+            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(relRadius))
+            gaussianBlurKernel.edgeMode = extend.mps!
+            gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
+            return blurTexture
+        } else {
+            return texture
         }
-        let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(relRadius))
-        gaussianBlurKernel.edgeMode = extend.mps
-        gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
-        return blurTexture
     }
     
 }

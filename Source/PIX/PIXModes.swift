@@ -94,10 +94,20 @@ extension PIX {
             case .mirror: return .mirrorRepeat
             }
         }
-        var mps: MPSImageEdgeMode {
+        var mps: MPSImageEdgeMode? {
             switch self {
-            case .zero: return .zero
-            default: return .clamp
+            case .zero:
+                if #available(OSX 10.13, *) {
+                    return .zero
+                } else {
+                    return nil
+                }
+            default:
+                if #available(OSX 10.13, *) {
+                    return .clamp
+                } else {
+                    return nil
+                }
             }
         }
         var index: Int {
