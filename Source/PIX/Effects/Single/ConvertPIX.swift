@@ -17,7 +17,7 @@ public class ConvertPIX: PIXSingleEffect {
         case .domeToEqui: return CGSize(width: 2.0, height: 1.0)
         case .equiToDome: return CGSize(width: 0.5, height: 1.0)
         case .cubeToEqui: return CGSize(width: (3.0 / 4.0) * 2.0, height: 1.0)
-        case .equiToCube: return CGSize(width: (4.0 / 3.0) / 2.0, height: 1.0)
+//        case .equiToCube: return CGSize(width: (4.0 / 3.0) / 2.0, height: 1.0)
         case .squareToCircle: return CGSize(width: 1.0, height: 1.0)
         case .circleToSquare: return CGSize(width: 1.0, height: 1.0)
         }
@@ -29,7 +29,7 @@ public class ConvertPIX: PIXSingleEffect {
         case domeToEqui
         case equiToDome
         case cubeToEqui
-        case equiToCube
+//        case equiToCube
         case squareToCircle
         case circleToSquare
         var index: Int {
@@ -37,7 +37,7 @@ public class ConvertPIX: PIXSingleEffect {
             case .domeToEqui: return 0
             case .equiToDome: return 1
             case .cubeToEqui: return 2
-            case .equiToCube: return 3
+//            case .equiToCube: return 3
             case .squareToCircle: return 4
             case .circleToSquare: return 5
             }
