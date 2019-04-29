@@ -6,4 +6,4 @@ Package.swift
 
 Pixels Example macOS App/*
 
-*.frameworks
+*.framework
