@@ -182,12 +182,18 @@ public class Pixels {
         frameDate = Date()
     }
     
-    func listenToFrames(callback: @escaping () -> (Bool)) {
+    func listenToFramesWithId(callback: @escaping () -> (Bool)) {
         let id = UUID()
         frameCallbacks.append((id: id, callback: {
             if callback() {
                 self.unlistenToFrames(for: id)
             }
+        }))
+    }
+    
+    func listenToFrames(callback: @escaping () -> ()) {
+        frameCallbacks.append((id: UUID(), callback: {
+            callback()
         }))
     }
     
@@ -202,7 +208,7 @@ public class Pixels {
     
     public func delay(frames: Int, done: @escaping () -> ()) {
         let startFrameIndex = frame
-        listenToFrames(callback: {
+        listenToFramesWithId(callback: {
             if self.frame >= startFrameIndex + frames {
                 done()
                 return true

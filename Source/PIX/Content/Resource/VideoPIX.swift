@@ -150,12 +150,11 @@ class VideoHelper: NSObject {
         
         super.init()
         
-        Pixels.main.listenToFrames { () -> (Bool) in
+        Pixels.main.listenToFrames(callback: {  
             if self.loaded {
                 self.readBuffer()
             }
-            return false
-        }
+        })
         
     }
     

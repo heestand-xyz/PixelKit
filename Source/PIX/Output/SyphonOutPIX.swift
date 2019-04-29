@@ -15,11 +15,16 @@ public class SyphonOutPIX: PIXOutput {
     var surface: IOSurfaceRef!
     var server: SyphonServer!
     
+    var lastTexture: MTLTexture?
+    
     // MARK: - Life Cycle
 
     override public init() {
         super.init()
         setup()
+        if pixels.bits != ._8 {
+            pixels.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
+        }
     }
     
     deinit {
@@ -42,16 +47,18 @@ public class SyphonOutPIX: PIXOutput {
         context = NSOpenGLContext(format: format, share: nil)
         server = SyphonServer(name: "Pixels", context: context.cglContextObj, options: nil)
         if server == nil {
-            pixels.log(.error, .connection, "Syphon init failed.")
+            pixels.log(.error, .connection, "Syphon server init failed.")
+        }
+    }
+    
+    public override func setNeedsRender() {
+        super.setNeedsRender()
+        if let texture = inPix?.texture {
+            stream(texture: texture)
         }
     }
 
-    public override func didRender(texture: MTLTexture, force: Bool = false) {
-        super.didRender(texture: texture, force: force)
-        stream(texture: texture)
-    }
-
-    public func stream(texture: MTLTexture) {
+    func stream(texture: MTLTexture) {
         guard server != nil else { return }
         if let newSurface = texture.iosurface {
             if surface != nil { IOSurfaceDecrementUseCount(surface!) }
@@ -80,7 +87,6 @@ public class SyphonOutPIX: PIXOutput {
                                        imageRegion: NSRect(origin: CGPoint(x: 0, y: 0), size: size),
                                        textureDimensions: size,
                                        flipped: false)
-//            server.unbindAndPublish()
             context.flushBuffer()
         }
     }

@@ -36,10 +36,9 @@ public class TimeMachinePIX: PIXMergerEffect {
         super.init()
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
-        Pixels.main.listenToFrames { () -> (Bool) in
+        Pixels.main.listenToFrames {
             self.frameLoop()
             self.setNeedsRender()
-            return false
         }
     }
     

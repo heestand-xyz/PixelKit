@@ -96,9 +96,8 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     // MARK: Export
     
     func realtimeListen() {
-        pixels.listenToFrames(callback: { () -> (Bool) in
+        pixels.listenToFrames(callback: {
             self.frameLoop()
-            return false
         })
     }
     

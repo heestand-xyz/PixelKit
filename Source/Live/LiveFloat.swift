@@ -350,13 +350,12 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     /// filter over frames.
     public func filter(frames: LiveInt, bypassLower: Bool = false, bypassHigher: Bool = false) -> LiveFloat {
         var cache: [CGFloat] = []
-        Pixels.main.listenToFrames { () -> (Bool) in
+        Pixels.main.listenToFrames(callback: {
             cache.append(CGFloat(self))
             while cache.count > Int(frames) {
                 cache.remove(at: 0)
             }
-            return false
-        }
+        })
         return LiveFloat({ () -> (CGFloat) in
             var filteredValue: CGFloat = 0.0
             for value in cache {

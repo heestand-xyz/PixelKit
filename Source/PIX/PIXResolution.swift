@@ -87,6 +87,7 @@ extension PIX {
             pixels.log(pix: self, .error, .res, "Unknown.")
             return
         }
+        guard view.res == nil || view.res! != res else { return }
         view.setRes(res)
         pixels.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
