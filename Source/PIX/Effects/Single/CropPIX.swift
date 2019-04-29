@@ -14,7 +14,7 @@ public class CropPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    var resScale: Res { return .size(cropFrame.size) }
+    var resScale: CGSize { return cropFrame.size }
     
     public var cropFrame: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) { didSet { applyRes { self.setNeedsRender() } } }
     public var cropLeft: CGFloat {
