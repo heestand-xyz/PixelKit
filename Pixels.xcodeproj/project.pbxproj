@@ -139,7 +139,6 @@
 		7424A1AF212F4A0100401654 /* PixelsTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* PixelsTexture.swift */; };
 		7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B2212F5A8B00401654 /* BlendPIX.swift */; };
 		7424A1B5212F5C9300401654 /* PIXModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B4212F5C9300401654 /* PIXModes.swift */; };
-		7425CF5B22759D8100757CD2 /* SyphonOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7425CF5422759B6E00757CD2 /* SyphonOutPIX.swift */; };
 		743054E0215EBB6B004E6B27 /* PixelsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743054DF215EBB6B004E6B27 /* PixelsTypes.swift */; };
 		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
 		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
@@ -166,8 +165,6 @@
 		7473B4FD214176E2008C6F23 /* DisplacePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B4FC214176E2008C6F23 /* DisplacePIX.swift */; };
 		74764BB3211EEEDB00ED0FBB /* TwirlPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74764BB2211EEEDB00ED0FBB /* TwirlPIX.swift */; };
 		747845B221131B080077AB89 /* BlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747845B121131B080077AB89 /* BlurPIX.swift */; };
-		7479F6AF2275BFF8009B4B65 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7479F6AE2275BFF8009B4B65 /* Syphon.framework */; };
-		7479F6B02275C000009B4B65 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7479F6AE2275BFF8009B4B65 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		747CBA7F214286C000CB2616 /* MetalEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */; };
 		747CBA82214286D800CB2616 /* MetalMergerEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA81214286D800CB2616 /* MetalMergerEffectPIX.swift */; };
 		747CBA85214286EC00CB2616 /* MetalMultiEffectPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA84214286EC00CB2616 /* MetalMultiEffectPIX.swift */; };
@@ -220,7 +217,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7479F6B02275C000009B4B65 /* Syphon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +346,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */,
-				7479F6AF2275BFF8009B4B65 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,7 +813,6 @@
 				3AF28C0B219312F50079FC7A /* DelayPIX.swift in Sources */,
 				7486537C21A897BF0073F758 /* LiveFloat.swift in Sources */,
 				3AF28C08219312F50079FC7A /* RangePIX.swift in Sources */,
-				7425CF5B22759D8100757CD2 /* SyphonOutPIX.swift in Sources */,
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
