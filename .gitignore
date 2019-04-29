@@ -3,7 +3,3 @@
 xcuserdata/
 
 Package.swift
-
-Pixels Example macOS App/*
-
-*.framework

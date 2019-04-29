@@ -9,6 +9,6 @@
 #ifndef BridgingHeader_h
 #define BridgingHeader_h
 
-//#import <Syphon/Syphon.h>
+#import <Syphon/Syphon.h>
 
 #endif /* BridgingHeader_h */
