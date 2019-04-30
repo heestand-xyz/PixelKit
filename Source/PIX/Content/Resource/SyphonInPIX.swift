@@ -71,14 +71,13 @@ public class SyphonInPIX: PIXResource {
             CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags.readOnly)
         }
 
-        CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32BGRA, nil, &pixelBuffer) //kCVPixelFormatType_32BGRA
+        CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32RGBA, nil, &pixelBuffer)
 
         CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags.readOnly)
-//        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer!)
+        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer!)
 
 //        glBindTexture(GLenum(GL_TEXTURE_2D), glTexture)
 //        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(size.width), GLsizei(size.height))
-//        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
         
         
 //        let attributes: [CGLPixelFormatAttribute] = [
@@ -116,22 +115,35 @@ public class SyphonInPIX: PIXResource {
 
         
         
-        glBindBuffer(CVOpenGLTextureGetTarget(pixelBuffer!), CVOpenGLTextureGetName(pixelBuffer!))
+//        glBindBuffer(CVOpenGLTextureGetTarget(pixelBuffer!), CVOpenGLTextureGetName(pixelBuffer!))
         
-        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), nil) //GL_UNSIGNED_INT_8_8_8_8_REV
+//        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), nil) //GL_UNSIGNED_INT_8_8_8_8_REV
+        
+        glGenTextures(1, &glTexture)
+        glBindTexture(GLenum(GL_TEXTURE_2D), glTexture)
+        glCopyTexImage2D(GLenum(GL_TEXTURE_2D), 0, GLenum(GL_RGBA), 0, 0, GLsizei(size.width), GLsizei(size.height), 0)
+        
+//        glGetTexImage(0, 1, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), &pixelBuffer)
+        
+        glPixelStorei(GLenum(GL_PACK_ALIGNMENT), 1)
+        glGetTexImage(GLenum(GL_TEXTURE_2D), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
+        
+//        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
+        
+//        return raw_frame;
         
 //        glGenFramebuffers(1, &glTexture);
 //        glBindRenderbuffer(GLenum(GL_RENDERBUFFER), glTexture);
 //        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(size.width), GLsizei(size.height));
 
-        glGenFramebuffers(1, &glTexture);
-        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), glTexture);
-        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), CVOpenGLTextureGetName(pixelBuffer!), 0);
-        glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), glTexture);
-        
-        if glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE {
-            print("failed to make complete framebuffer object:", glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)));
-        }
+//        glGenFramebuffers(1, &glTexture);
+//        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), glTexture);
+//        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), CVOpenGLTextureGetName(pixelBuffer!), 0);
+//        glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), glTexture);
+//
+//        if glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE {
+//            print("failed to make complete framebuffer object:", glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)));
+//        }
         
 //        glBindTexture(GLenum(GL_TEXTURE_2D), 0)
         
