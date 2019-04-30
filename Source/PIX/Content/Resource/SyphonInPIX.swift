@@ -17,6 +17,11 @@ public class SyphonInPIX: PIXResource {
     var context: NSOpenGLContext?
     var clinet: SyphonClient?
     
+//    var eaglContext: EAGLContext!
+//    var frameBuffer: SRFrameBuffer!
+    var cvGlTextureCache: CVOpenGLTextureCache!
+    var cvGlTexture: CVOpenGLTexture!
+    
     // MARK: - Public Properties
     
     public override init() {
@@ -34,6 +39,7 @@ public class SyphonInPIX: PIXResource {
     }
     
     func setup(server: Any) {
+//        eaglContext = EAGLContext()
         let glPFAttributes: [NSOpenGLPixelFormatAttribute] = [
             UInt32(NSOpenGLPFAAccelerated),
             UInt32(NSOpenGLPFADoubleBuffer),
@@ -59,6 +65,7 @@ public class SyphonInPIX: PIXResource {
     }
     
     func render(glTexture: GLuint, at size: NSSize) {
+        var glTexture = glTexture
         
         if pixelBuffer != nil {
             CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags.readOnly)
@@ -67,13 +74,55 @@ public class SyphonInPIX: PIXResource {
         CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32BGRA, nil, &pixelBuffer) //kCVPixelFormatType_32BGRA
 
         CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags.readOnly)
-        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer!)
+//        let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer!)
 
-        glBindTexture(GLenum(GL_TEXTURE_2D), glTexture)
+//        glBindTexture(GLenum(GL_TEXTURE_2D), glTexture)
 //        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(size.width), GLsizei(size.height))
-//        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), baseAddress) //GL_UNSIGNED_INT_8_8_8_8_REV
-        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
-        glBindTexture(GLenum(GL_TEXTURE_2D), 0)
+//        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
+        
+        
+        
+//        var err: CVReturn = CVOpenGLTextureCacheCreate(kCFAllocatorDefault, nil, context!.cglContextObj!, GL_RGBA, nil, &cvGlTextureCache)
+//        if err != 0 {
+//            print("CVOpenGLESTextureCacheCreate error:", err)
+//            return
+//        }
+//
+//        var empty: CFDictionary? // empty value for attr value.
+//        var attrs: CFMutableDictionary?
+//        empty = CFDictionaryCreate(kCFAllocatorDefault,  /* our empty IOSurface properties dictionary */nil, nil, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks)
+//        attrs = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks)
+//
+//        CFDictionarySetValue(attrs, kCVPixelBufferIOSurfacePropertiesKey, empty)
+//        CVPixelBufferCreate(kCFAllocatorDefault, size.width, size.height, kCVPixelFormatType_32BGRA, attrs, target)
+//
+//        CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, target, nil,  /* texture attributes */GL_TEXTURE_2D, GL_RGBA,  /* opengl format */size.width, size.height, GL_BGRA,  /* native iOS format */GL_UNSIGNED_BYTE, 0, texture)
+
+        
+        
+//        frameBuffer = SRFrameBuffer(context: context, withSize: CGSize(width: 512, height: 512))
+//        CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, frameBuffer.target, &formatDescription)
+
+        
+        
+        glBindBuffer(CVOpenGLTextureGetTarget(pixelBuffer!), CVOpenGLTextureGetName(pixelBuffer!))
+        
+        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), nil) //GL_UNSIGNED_INT_8_8_8_8_REV
+        
+        glGenFramebuffers(1, &glTexture);
+        glBindRenderbuffer(GLenum(GL_RENDERBUFFER), glTexture);
+        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(size.width), GLsizei(size.height));
+
+        glGenFramebuffers(1, &glTexture);
+        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), glTexture);
+        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), CVOpenGLTextureGetName(pixelBuffer!), 0);
+        glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), glTexture);
+        
+        if glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)) != GL_FRAMEBUFFER_COMPLETE {
+            print("failed to make complete framebuffer object:", glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)));
+        }
+        
+//        glBindTexture(GLenum(GL_TEXTURE_2D), 0)
         
 //        IOSurface
         
