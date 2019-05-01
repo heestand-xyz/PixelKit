@@ -69,7 +69,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     // MARK - Builders
     
-    func buildGrid(xCount: Int, xRange: ClosedRange<CGFloat> = -0.5...0.5, yCount: Int, yRange: ClosedRange<CGFloat> = -0.5...0.5, scaleMultiplier: CGFloat = 1.0) {
+    public func buildGrid(xCount: Int, xRange: ClosedRange<CGFloat> = -0.5...0.5, yCount: Int, yRange: ClosedRange<CGFloat> = -0.5...0.5, scaleMultiplier: CGFloat = 1.0) {
         coordinates = []
         for x in 0..<xCount {
             for y in 0..<yCount {
@@ -85,23 +85,30 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         }
     }
     
-//    func buildHexagonalGrid(xCount: Int, yCount: Int, scaleMultiplier: CGFloat = 1.0) {
-//        coordinates = []
-//        for x in 0..<xCount {
-//            for y in 0..<yCount {
-//                let xFraction = CGFloat(x) / CGFloat(xCount - 1);
-//                let yFraction = CGFloat(y) / CGFloat(yCount - 1);
-//                let xBounds = (1.0 / CGFloat(xCount)) * sqrt(0.75)
-//                let yBounds = 1.0 / CGFloat(yCount)
-//                let position = CGPoint(x: -xBounds / 2 + xRangeBounds * xFraction,
-//                                       y: -yBounds / 2 + yRangeBounds * yFraction)
-//                let coordinate = Coordinate(position, scale: (yRangeBounds / CGFloat(yCount)) * scaleMultiplier)
-//                coordinates.append(coordinate)
-//            }
-//        }
-//    }
+    public func buildHexagonalGrid(scale: CGFloat = 0.4) {
+        coordinates = []
+        let aspect = resolution?.aspect ?? 1.0
+        let hexScale: CGFloat = sqrt(0.75)
+        let xScale = hexScale * scale
+        let yScale = (3 / 4) * scale
+        var xEdge = (aspect - xScale) / xScale / 2
+        var yEdge = (1.0 - yScale) / yScale / 2
+        xEdge = round(xEdge * 1_000_000) / 1_000_000
+        yEdge = round(yEdge * 1_000_000) / 1_000_000
+        let xEdgeCount = Int(ceil(xEdge))
+        let yEdgeCount = Int(ceil(yEdge))
+        for x in (-xEdgeCount - 1)...xEdgeCount {
+            for y in -yEdgeCount...yEdgeCount {
+                let isOdd = abs(y) % 2 == 1
+                let position = CGPoint(x: CGFloat(x) * xScale + (isOdd ? xScale / 2 : 0),
+                                       y: CGFloat(y) * yScale)
+                let coordinate = Coordinate(position, scale: scale)
+                coordinates.append(coordinate)
+            }
+        }
+    }
     
-    func buildCircle(count: Int, scale: CGFloat = 0.5, scaleMultiplier: CGFloat = 1.0) {
+    public func buildCircle(count: Int, scale: CGFloat = 0.5, scaleMultiplier: CGFloat = 1.0) {
         coordinates = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count);
@@ -112,7 +119,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         }
     }
     
-    func buildLine(count: Int, from fromPoint: CGPoint, to toPoint: CGPoint, scaleMultiplier: CGFloat = 1.0) {
+    public func buildLine(count: Int, from fromPoint: CGPoint, to toPoint: CGPoint, scaleMultiplier: CGFloat = 1.0) {
         coordinates = []
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1);
@@ -126,7 +133,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         }
     }
     
-    func buildRandom(count: Int) {
+    public func buildRandom(count: Int) {
         coordinates = []
         let pixCount = inPixs.isEmpty ? 1 : inPixs.count
         for _ in 0..<count {
