@@ -64,7 +64,7 @@ class MIDIAssistant {
                     if j == 2 {
                         dumpVal = attr.value as? UInt8
                     } else if j == 1 {
-                        dumpStr += String(format:"#%02X", attr.value as! UInt8)
+                        dumpStr += String(format:"%02X", attr.value as! UInt8)
                     }
                     
                     i -= 1

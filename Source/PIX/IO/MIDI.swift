@@ -12,13 +12,19 @@ public class MIDI {
     
     public static let main = MIDI()
     
-    var firstAny: CGFloat?
+    public var firstAny: CGFloat?
     var firstAnyRaw: Int?
     
-    var list: [String: CGFloat?] = [:]
-    var listRaw: [String: Int?] = [:]
+    public var list: [String: CGFloat] = [:]
+    var listRaw: [String: Int] = [:]
 
     public var log: Bool = false
+    
+    struct Listener {
+        let address: String
+        let callback: (CGFloat) -> ()
+    }
+    var listeners: [Listener] = []
 
     init() {
         
@@ -26,10 +32,17 @@ public class MIDI {
         
         MIDIAssistant.shared.listenToMIDI.append { address, value in
             if self.log { print("MIDI:", address, value ?? 0) }
-            let floatVal = value != nil ? CGFloat(value!) / 127.0 : nil
+            let floatVal = value != nil ? CGFloat(value!) / 127.0 : -1.0
+            let intVal = value != nil ? Int(value!) : -1
+            for listener in self.listeners {
+                if address == listener.address {
+                    if floatVal != self.list[address] {
+                        listener.callback(floatVal)
+                    }
+                }
+            }
             self.firstAny = floatVal
             self.list[address] = floatVal
-            let intVal = value != nil ? Int(value!) : nil
             self.firstAnyRaw = intVal
             self.listRaw[address] = intVal
         }
@@ -43,6 +56,10 @@ public class MIDI {
 //        }
 //        MIDIAssistant.shared.listenToDevice(index!)
 //        self.device_index = index
+    }
+    
+    public func listen(to address: String, callback: @escaping (CGFloat) -> ()) {
+        listeners.append(MIDI.Listener(address: address, callback: callback))
     }
     
 }
