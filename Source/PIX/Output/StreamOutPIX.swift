@@ -36,6 +36,9 @@ public class StreamOutPIX: PIXOutput {
         peer = Peer(peer: { connect_state, device_name in
             if connect_state == .connected {
                 self.connected = .connected
+                if let texture = self.texture {
+                    self.stream(texture: texture)
+                }
             } else {
                 self.connected = .disconnected
             }
@@ -45,7 +48,10 @@ public class StreamOutPIX: PIXOutput {
     
     public override func didRender(texture: MTLTexture, force: Bool = false) {
         super.didRender(texture: texture, force: force)
-        
+        stream(texture: texture)
+    }
+    
+    func stream(texture: MTLTexture) {
         guard connected == .connected else { return }
         let ci_image = CIImage(mtlTexture: texture, options: nil)
         if ci_image != nil {
@@ -58,7 +64,7 @@ public class StreamOutPIX: PIXOutput {
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             if image != nil {
-
+                
                 peer.sendImg(img: image!, quality: quality)
                 
             } else {
@@ -67,7 +73,6 @@ public class StreamOutPIX: PIXOutput {
         } else {
             pixels.log(.warning, .resource, "Stream Image Convert A.")
         }
-        
     }
     
     public func connect() {

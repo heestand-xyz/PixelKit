@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class StreamInPIX: PIXResource {
     
-    override open var shader: String { return "contentResourceImagePIX" }
+    override open var shader: String { return "contentResourceBGRPIX" }
     
     enum Connected {
         case disconnected

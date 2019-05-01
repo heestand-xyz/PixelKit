@@ -58,6 +58,7 @@
 		743FBC662260C5E00009DA97 /* EffectMultiArrayPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 743FBC652260C5E00009DA97 /* EffectMultiArrayPIX.metal */; };
 		743FBC672260C5E00009DA97 /* EffectMultiArrayPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 743FBC652260C5E00009DA97 /* EffectMultiArrayPIX.metal */; };
 		7449A18A2142793100FAA8CC /* EffectMergerReorderPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7449A1892142793100FAA8CC /* EffectMergerReorderPIX.metal */; };
+		7460CAF3227A037300F6ECB2 /* ContentResourceBGRPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74BF327F22416D6200F039F1 /* ContentResourceBGRPIX.metal */; };
 		746F7470213FF7C200C2AE62 /* EffectSingleCropPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 746F746F213FF7C200C2AE62 /* EffectSingleCropPIX.metal */; };
 		7473B4FB214175C0008C6F23 /* EffectMergerDisplacePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7473B4FA214175C0008C6F23 /* EffectMergerDisplacePIX.metal */; };
 		7483FC34213ECA9800D3F713 /* EffectSingleHueSatPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7483FC33213ECA9800D3F713 /* EffectSingleHueSatPIX.metal */; };
@@ -357,6 +358,7 @@
 				7410E6D1223D2ED900DF64AC /* EffectMergerTimeMachinePIX.metal in Sources */,
 				7424A1A9212F42A500401654 /* hsv.metal in Sources */,
 				743FBC662260C5E00009DA97 /* EffectMultiArrayPIX.metal in Sources */,
+				7460CAF3227A037300F6ECB2 /* ContentResourceBGRPIX.metal in Sources */,
 				740EE379212DD5030065F49B /* EffectMergerLumaBlurPIX.metal in Sources */,
 				740EE38B212DD5030065F49B /* EffectSingleResPIX.metal in Sources */,
 				74CE2FCD21358AD600B2BD2C /* EffectSingleTransformPIX.metal in Sources */,
