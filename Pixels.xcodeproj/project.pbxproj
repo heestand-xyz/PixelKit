@@ -320,6 +320,7 @@
 		749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXGenerator.swift; sourceTree = "<group>"; };
 		749DC6CA2124E12600AE5F6A /* PIXResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResource.swift; sourceTree = "<group>"; };
 		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
+		74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelsShaders-macOS.metallib"; path = "../../../../Library/Developer/Xcode/DerivedData/3D_Lab-bcfyramynmzomkddcqbcmnoakxjh/Build/Products/Debug/PixelsShaders-macOS.metallib"; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
 		74A7B98121412BBF0078DDE3 /* RangePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePIX.swift; sourceTree = "<group>"; };
 		74A7B98321412BC80078DDE3 /* SharpenPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharpenPIX.swift; sourceTree = "<group>"; };
@@ -627,6 +628,7 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
+				74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39D921011E3A004E9AA0 /* Source */,
@@ -1035,7 +1037,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1073,7 +1075,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
