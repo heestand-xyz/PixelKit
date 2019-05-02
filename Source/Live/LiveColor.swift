@@ -51,11 +51,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: Uniform
     
-    var uniformIsNew: Bool {
+    public var uniformIsNew: Bool {
        return r.uniformIsNew || g.uniformIsNew || b.uniformIsNew || a.uniformIsNew
     }
     
-    var uniformList: [CGFloat] {
+    public var uniformList: [CGFloat] {
         return [r.uniform, g.uniform, b.uniform, a.uniform]
     }
     

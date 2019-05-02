@@ -28,11 +28,11 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     // MARK: Uniform
     
-    var uniformIsNew: Bool {
+    public var uniformIsNew: Bool {
         return w.uniformIsNew || h.uniformIsNew
     }
     
-    var uniformList: [CGFloat] {
+    public var uniformList: [CGFloat] {
         return [w.uniform, h.uniform]
     }
     

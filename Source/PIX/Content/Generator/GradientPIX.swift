@@ -49,14 +49,14 @@ public class GradientPIX: PIXGenerator, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [scale, offset, position, position]
     }
     
-    override var preUniforms: [CGFloat] {
+    override public var preUniforms: [CGFloat] {
         return [CGFloat(direction.index)]
     }
-    override var postUniforms: [CGFloat] {
+    override public var postUniforms: [CGFloat] {
         return [CGFloat(extendRamp.index)]
     }
 

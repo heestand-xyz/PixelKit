@@ -79,61 +79,61 @@ public class SyphonInPIX: PIXResource {
     }
     
     func glSetup(at size: NSSize) {
-        // Set-up: usually do this once and re-use these resources, however you may
-        // have to recreate them if the dimensions change
-
-        // Set-up: usually do this once and re-use these resources, however you may
-        // have to recreate them if the dimensions change
-
-
-        // Store previous state
-        glGetIntegerv(GLenum(GL_FRAMEBUFFER_BINDING), &prevFBO)
-        glGetIntegerv(GLenum(GL_READ_FRAMEBUFFER_BINDING), &prevReadFBO)
-        glGetIntegerv(GLenum(GL_DRAW_FRAMEBUFFER_BINDING), &prevDrawFBO)
-
-        // Push attribs
-//        glPushAttrib(GL_ALL_SHADER_BITS)
-
-        glEnable(GLenum(GL_TEXTURE_RECTANGLE))
-
-        // Create the texture we draw into
-        glGenTextures(1, &tex)
-        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), tex)
-        glTexImage2D(GLenum(GL_TEXTURE_RECTANGLE), 0, GL_RGBA8, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_BGRA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), nil)
-
-        // Create the FBO
-        glGenFramebuffers(1, &fbo)
-        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), fbo)
-
-        // Test that binding works
-        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_RECTANGLE), tex, 0)
-        let status: GLenum = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
-        if status != GL_FRAMEBUFFER_COMPLETE {
-            // Deal with this error - you won't be able to draw into the FBO
-            pixels.log(.error, .connection, "Syphon In FBO failed.")
-        }
-
-        // Restore state we're done with thus-far
-        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0)
-        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), GLuint(prevFBO))
-        glBindFramebuffer(GLenum(GL_READ_FRAMEBUFFER), GLuint(prevReadFBO))
-        glBindFramebuffer(GLenum(GL_DRAW_FRAMEBUFFER), GLuint(prevDrawFBO))
-
-        // Save PBO state
-        glGetIntegerv(GLenum(GL_PIXEL_PACK_BUFFER_BINDING), &prevPBO)
-
-        // Create our PBO and request storage for it
-        glGenBuffers(1, &pbo)
-        glBindBuffer(GLenum(GL_PIXEL_PACK_BUFFER), pbo)
-        glBufferData(GLenum(GL_PIXEL_PACK_BUFFER), Int(size.width) * Int(size.height) * 4, nil, GLenum(GL_DYNAMIC_READ))
-        if glGetError() != GL_NO_ERROR {
-            // Storage for the PBO couldn't be allocated, deal with it here
-            pixels.log(.error, .connection, "Syphon In PBO failed.")
-        }
-
-        // Restore state
-        glBindBuffer(GLenum(GL_PIXEL_PACK_BUFFER), GLuint(prevPBO))
-//        glPopAttrib()
+//        // Set-up: usually do this once and re-use these resources, however you may
+//        // have to recreate them if the dimensions change
+//
+//        // Set-up: usually do this once and re-use these resources, however you may
+//        // have to recreate them if the dimensions change
+//
+//
+//        // Store previous state
+//        glGetIntegerv(GLenum(GL_FRAMEBUFFER_BINDING), &prevFBO)
+//        glGetIntegerv(GLenum(GL_READ_FRAMEBUFFER_BINDING), &prevReadFBO)
+//        glGetIntegerv(GLenum(GL_DRAW_FRAMEBUFFER_BINDING), &prevDrawFBO)
+//
+//        // Push attribs
+////        glPushAttrib(GL_ALL_SHADER_BITS)
+//
+//        glEnable(GLenum(GL_TEXTURE_RECTANGLE))
+//
+//        // Create the texture we draw into
+//        glGenTextures(1, &tex)
+//        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), tex)
+//        glTexImage2D(GLenum(GL_TEXTURE_RECTANGLE), 0, GL_RGBA8, GLsizei(size.width), GLsizei(size.height), 0, GLenum(GL_BGRA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), nil)
+//
+//        // Create the FBO
+//        glGenFramebuffers(1, &fbo)
+//        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), fbo)
+//
+//        // Test that binding works
+//        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_RECTANGLE), tex, 0)
+//        let status: GLenum = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
+//        if status != GL_FRAMEBUFFER_COMPLETE {
+//            // Deal with this error - you won't be able to draw into the FBO
+//            pixels.log(.error, .connection, "Syphon In FBO failed.")
+//        }
+//
+//        // Restore state we're done with thus-far
+//        glBindTexture(GLenum(GL_TEXTURE_RECTANGLE), 0)
+//        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), GLuint(prevFBO))
+//        glBindFramebuffer(GLenum(GL_READ_FRAMEBUFFER), GLuint(prevReadFBO))
+//        glBindFramebuffer(GLenum(GL_DRAW_FRAMEBUFFER), GLuint(prevDrawFBO))
+//
+//        // Save PBO state
+//        glGetIntegerv(GLenum(GL_PIXEL_PACK_BUFFER_BINDING), &prevPBO)
+//
+//        // Create our PBO and request storage for it
+//        glGenBuffers(1, &pbo)
+//        glBindBuffer(GLenum(GL_PIXEL_PACK_BUFFER), pbo)
+//        glBufferData(GLenum(GL_PIXEL_PACK_BUFFER), Int(size.width) * Int(size.height) * 4, nil, GLenum(GL_DYNAMIC_READ))
+//        if glGetError() != GL_NO_ERROR {
+//            // Storage for the PBO couldn't be allocated, deal with it here
+//            pixels.log(.error, .connection, "Syphon In PBO failed.")
+//        }
+//
+//        // Restore state
+//        glBindBuffer(GLenum(GL_PIXEL_PACK_BUFFER), GLuint(prevPBO))
+////        glPopAttrib()
 
     }
     

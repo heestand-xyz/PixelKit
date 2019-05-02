@@ -50,11 +50,11 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     // MARK: Uniform
     
-    var uniformIsNew: Bool {
+    public var uniformIsNew: Bool {
         return x.uniformIsNew || y.uniformIsNew || w.uniformIsNew || h.uniformIsNew
     }
     
-    var uniformList: [CGFloat] {
+    public var uniformList: [CGFloat] {
         return [x.uniform, y.uniform, w.uniform, h.uniform]
     }
     

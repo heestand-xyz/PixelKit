@@ -317,10 +317,10 @@ public class Pixels {
         public var x,y,z: LiveFloat
         public var s,t: LiveFloat
         public var buffer: [Float] {
-            return [x,y,s,t].map({ v -> Float in return Float(v) })
+            return [x,y,s,t].map({ v -> Float in return Float(v.uniform) })
         }
         public var buffer3d: [Float] {
-            return [x,y,z,s,t].map({ v -> Float in return Float(v) })
+            return [x,y,z,s,t].map({ v -> Float in return Float(v.uniform) })
         }
         public init(x: LiveFloat, y: LiveFloat, z: LiveFloat = 0.0, s: LiveFloat, t: LiveFloat) {
             self.x = x; self.y = y; self.z = z; self.s = s; self.t = t

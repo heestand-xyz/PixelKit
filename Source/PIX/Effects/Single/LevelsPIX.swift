@@ -21,7 +21,7 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [brightness, darkness, contrast, gamma, inverted, opacity]
     }
     

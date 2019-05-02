@@ -23,7 +23,7 @@ public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
     
     // MARK: - Property Helpers
     
-//    override var liveValues: [LiveValue] {
+//    override public var liveValues: [LiveValue] {
 //        return [seconds]
 //    }
     

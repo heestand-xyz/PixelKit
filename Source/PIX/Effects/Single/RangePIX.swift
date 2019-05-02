@@ -25,7 +25,7 @@ public class RangePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     

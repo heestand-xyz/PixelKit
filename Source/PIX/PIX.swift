@@ -21,9 +21,9 @@ open class PIX {
     
     open var shader: String { return "" }
     
-    var liveValues: [LiveValue] { return [] }
-    var preUniforms: [CGFloat] { return [] }
-    var postUniforms: [CGFloat] { return [] }
+    open var liveValues: [LiveValue] { return [] }
+    open var preUniforms: [CGFloat] { return [] }
+    open var postUniforms: [CGFloat] { return [] }
     open var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: preUniforms)
@@ -203,6 +203,7 @@ open class PIX {
         }
         if !force { // CHECK the force!
             renderOuts()
+            renderCustomVertexTexture()
         }
     }
     
@@ -216,6 +217,18 @@ open class PIX {
                     continue
                 }
                 pix.setNeedsRender()
+            }
+        }
+    }
+    
+    func renderCustomVertexTexture() {
+        for pix in pixels.linkedPixs {
+            if pix.customVertexTextureActive {
+                if let inPix = pix.customVertexPixIn {
+                    if inPix == self {
+                        pix.setNeedsRender()
+                    }
+                }
             }
         }
     }

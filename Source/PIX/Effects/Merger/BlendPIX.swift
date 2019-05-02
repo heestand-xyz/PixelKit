@@ -23,7 +23,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [bypassTransform, position, rotation, scale, size]
     }
     

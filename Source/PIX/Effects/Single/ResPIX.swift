@@ -33,7 +33,7 @@ public class ResPIX: PIXSingleEffect {
         super.init()
     }
     
-    required override init() {
+    required init() {
         self.res = ._128
         super.init()
     }

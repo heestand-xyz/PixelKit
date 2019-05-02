@@ -33,11 +33,11 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     var min: Int = 0
     var max: Int = 1
     
-    var uniform: Int {
+    public var uniform: Int {
         uniformCache = value
         return value
     }
-    var uniformIsNew: Bool {
+    public var uniformIsNew: Bool {
         return uniformCache != value
     }
     var uniformCache: Int? = nil

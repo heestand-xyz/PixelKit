@@ -22,7 +22,7 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.bgColor]
     }
     

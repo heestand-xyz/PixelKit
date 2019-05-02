@@ -28,11 +28,11 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     
     // MARK: Uniform
     
-    var uniformIsNew: Bool {
+    public var uniformIsNew: Bool {
         return x.uniformIsNew || y.uniformIsNew
     }
     
-    var uniformList: [CGFloat] {
+    public var uniformList: [CGFloat] {
         return [x.uniform, y.uniform]
     }
     

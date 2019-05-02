@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LiveValue {
+public protocol LiveValue {
     
     var name: String? { get }
     

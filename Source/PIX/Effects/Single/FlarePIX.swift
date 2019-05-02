@@ -27,7 +27,7 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [scale, count, angle, threshold, brightness, gamma, color, rayRes]
     }
     

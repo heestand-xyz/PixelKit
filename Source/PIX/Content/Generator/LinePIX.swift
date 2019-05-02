@@ -18,7 +18,7 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [positionFrom, positionTo, scale, super.color, super.bgColor]
     }
     

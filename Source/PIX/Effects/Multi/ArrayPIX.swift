@@ -35,7 +35,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [bgColor]
     }
     

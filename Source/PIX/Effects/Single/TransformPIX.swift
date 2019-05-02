@@ -20,7 +20,7 @@ public class TransformPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [position, rotation, scale, size]
     }
       

@@ -16,7 +16,7 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [amplitude]
     }
     

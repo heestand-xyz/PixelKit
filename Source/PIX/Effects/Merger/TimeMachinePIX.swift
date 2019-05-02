@@ -26,7 +26,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return [seconds]
     }
     

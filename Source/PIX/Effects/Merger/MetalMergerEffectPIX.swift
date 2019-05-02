@@ -44,7 +44,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     // MARK: - Property Helpers
     
-    override var liveValues: [LiveValue] {
+    override public var liveValues: [LiveValue] {
         return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
     }
     
