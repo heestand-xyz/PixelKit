@@ -109,6 +109,16 @@ public extension PIXOut {
         return blurPix
     }
     
+    func _zoomBlur(_ radius: LiveFloat) -> BlurPIX {
+        let blurPix = BlurPIX()
+        blurPix.name = ":zoom-blur:"
+        blurPix.style = .zoom
+        blurPix.quality = .epic
+        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.radius = radius
+        return blurPix
+    }
+    
     func _bloom(radius: LiveFloat, amount: LiveFloat) -> CrossPIX {
         let pix = self as? PIX & PIXOut
         let bloomPix = (pix!._blur(radius) + pix!) / 2
