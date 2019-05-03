@@ -472,18 +472,18 @@ public class Pixels {
     
     // MARK: Sampler
     
-    func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode, compare: MTLCompareFunction = .never) throws -> MTLSamplerState {
+    func makeSampler(interpolate: MTLSamplerMinMagFilter, extend: MTLSamplerAddressMode, mipFilter: MTLSamplerMipFilter, compare: MTLCompareFunction = .never) throws -> MTLSamplerState {
         let samplerInfo = MTLSamplerDescriptor()
         samplerInfo.minFilter = interpolate
         samplerInfo.magFilter = interpolate
         samplerInfo.sAddressMode = extend
         samplerInfo.tAddressMode = extend
         samplerInfo.compareFunction = compare
-        samplerInfo.mipFilter = .linear
-        guard let s = metalDevice.makeSamplerState(descriptor: samplerInfo) else {
+        samplerInfo.mipFilter = mipFilter
+        guard let sampler = metalDevice.makeSamplerState(descriptor: samplerInfo) else {
             throw ShaderError.sampler("Shader Sampler failed to make.")
         }
-        return s
+        return sampler
     }
     
     

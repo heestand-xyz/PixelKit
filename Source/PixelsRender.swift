@@ -442,7 +442,7 @@ extension Pixels {
             
             commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
             
-            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
+            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge, mipFilter: .linear)
             commandEncoder.setVertexSamplerState(sampler, index: 0)
             
         }
