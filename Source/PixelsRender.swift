@@ -48,7 +48,7 @@ extension Pixels {
                         log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
                         continue
                     }
-                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
                     #endif
                     log(pix: pix, .detail, .render, "View Render requested.", loop: true)
                     guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
