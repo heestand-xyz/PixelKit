@@ -479,6 +479,7 @@ public class Pixels {
         samplerInfo.sAddressMode = extend
         samplerInfo.tAddressMode = extend
         samplerInfo.compareFunction = compare
+        samplerInfo.mipFilter = .linear
         guard let s = metalDevice.makeSamplerState(descriptor: samplerInfo) else {
             throw ShaderError.sampler("Shader Sampler failed to make.")
         }
