@@ -19,8 +19,9 @@ public extension PIX {
         case _720p
         case _1080p
         case _4K
+        case _8K
         public static var standardCases: [Res] {
-            return [._720p, ._1080p, ._4K]
+            return [._720p, ._1080p, ._4K, ._8K]
         }
 
         case fullHD(Orientation)
@@ -74,8 +75,10 @@ public extension PIX {
         
         case fullscreen
         
-        case size(_ size: CGSize)
+        case cgSize(_ size: CGSize)
+        case size(_ size: LiveSize)
         case custom(w: Int, h: Int)
+        case square(_ val: Int)
         case raw(_ raw: Raw)
         
         public enum Orientation {
@@ -116,76 +119,79 @@ public extension PIX {
 
         // MARK: Size
 
-        public var size: CGSize {
+        public var size: LiveSize {
             switch self {
-            case ._720p: return CGSize(width: 1280, height: 720)
-            case ._1080p: return CGSize(width: 1920, height: 1080)
-            case ._4K: return CGSize(width: 3840, height: 2160)
+            case ._720p: return LiveSize(w: 1280, h: 720)
+            case ._1080p: return LiveSize(w: 1920, h: 1080)
+            case ._4K: return LiveSize(w: 3840, h: 2160)
+            case ._8K: return LiveSize(w: 7680, h: 4320)
             case .fullHD(let ori):
-                let size = CGSize(width: 1920, height: 1080)
+                let size = LiveSize(w: 1920, h: 1080)
                 if ori == .landscape { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .ultraHD(let ori):
-                let size = CGSize(width: 3840, height: 2160)
+                let size = LiveSize(w: 3840, h: 2160)
                 if ori == .landscape { return size }
-                else { return CGSize(width: size.height, height: size.width) }
-            case ._128: return CGSize(width: 128, height: 128)
-            case ._256: return CGSize(width: 256, height: 256)
-            case ._512: return CGSize(width: 512, height: 512)
-            case ._1024: return CGSize(width: 1024, height: 1024)
-            case ._2048: return CGSize(width: 2048, height: 2048)
-            case ._4096: return CGSize(width: 4096, height: 4096)
-            case ._8192: return CGSize(width: 8192, height: 8192)
-            case ._16384: return CGSize(width: 16384, height: 16384)
+                else { return LiveSize(w: size.height, h: size.width) }
+            case ._128: return LiveSize(w: 128, h: 128)
+            case ._256: return LiveSize(w: 256, h: 256)
+            case ._512: return LiveSize(w: 512, h: 512)
+            case ._1024: return LiveSize(w: 1024, h: 1024)
+            case ._2048: return LiveSize(w: 2048, h: 2048)
+            case ._4096: return LiveSize(w: 4096, h: 4096)
+            case ._8192: return LiveSize(w: 8192, h: 8192)
+            case ._16384: return LiveSize(w: 16384, h: 16384)
             case .iPhone(let ori):
-                let size = CGSize(width: 750, height: 1334)
+                let size = LiveSize(w: 750, h: 1334)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPhonePlus(let ori):
-                let size = CGSize(width: 1080, height: 1920)
+                let size = LiveSize(w: 1080, h: 1920)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPhoneX(let ori):
-                let size = CGSize(width: 1125, height: 2436)
+                let size = LiveSize(w: 1125, h: 2436)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPhoneXSMax(let ori):
-                let size = CGSize(width: 1242, height: 2688)
+                let size = LiveSize(w: 1242, h: 2688)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPhoneXR(let ori):
-                let size = CGSize(width: 828, height: 1792)
+                let size = LiveSize(w: 828, h: 1792)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPad(let ori):
-                let size = CGSize(width: 1536, height: 2048)
+                let size = LiveSize(w: 1536, h: 2048)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPadPro_10_5(let ori):
-                let size = CGSize(width: 1668, height: 2224)
+                let size = LiveSize(w: 1668, h: 2224)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPadPro_11(let ori):
-                let size = CGSize(width: 1668, height: 2388)
+                let size = LiveSize(w: 1668, h: 2388)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .iPadPro_12_9(let ori):
-                let size = CGSize(width: 2048, height: 2732)
+                let size = LiveSize(w: 2048, h: 2732)
                 if ori == .portrait { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                else { return LiveSize(w: size.height, h: size.width) }
             case .fullscreen:
                 #if os(iOS)
                 let size = UIScreen.main.nativeBounds.size
-                if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return size }
-                else { return CGSize(width: size.height, height: size.width) }
+                if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return LiveSize(size) }
+                else { return LiveSize(size) }
                 #elseif os(macOS)
-                let size = NSScreen.main?.frame.size ?? Res._128.size
+                let size = NSScreen.main?.frame.size ?? Res._128.size.cg
                 let scale = NSScreen.main?.backingScaleFactor ?? 1.0
-                return CGSize(width: size.width * scale, height: size.height * scale)
+                return LiveSize(size) * LiveFloat(scale)
                 #endif
+            case .cgSize(let size): return LiveSize(size)
             case .size(let size): return size
-            case .custom(let w, let h): return CGSize(width: w, height: h)
-            case .raw(let raw): return CGSize(width: raw.w, height: raw.h)
+            case .custom(let w, let h): return LiveSize(w: LiveFloat(w), h: LiveFloat(h))
+            case .square(let val): return LiveSize(w: LiveFloat(val), h: LiveFloat(val))
+            case .raw(let raw): return LiveSize(w: LiveFloat(raw.w), h: LiveFloat(raw.h))
             }
         }
         
@@ -207,10 +213,10 @@ public extension PIX {
             }
         }
         
-        public var width: CGFloat {
+        public var width: LiveFloat {
             return size.width
         }
-        public var height: CGFloat {
+        public var height: LiveFloat {
             return size.height
         }
         
@@ -253,7 +259,7 @@ public extension PIX {
         }
         
         public var raw: Raw {
-            return Raw(w: Int(size.width), h: Int(size.height))
+            return Raw(w: Int(size.width.cg), h: Int(size.height.cg))
         }
         
         public var w: Int {
@@ -269,7 +275,7 @@ public extension PIX {
         
         // MARK: - Aspect
         
-        public var aspect: CGFloat {
+        public var aspect: LiveFloat {
             return size.width / size.height
         }
         
@@ -279,59 +285,60 @@ public extension PIX {
         }
         
         public func aspectRes(to aspectPlacement: AspectPlacement, in res: Res) -> Res {
-            var comboAspect = aspect / res.aspect
-            if aspect < res.aspect {
+            var comboAspect = aspect.cg / res.aspect.cg
+            if aspect.cg < res.aspect.cg {
                 comboAspect = 1 / comboAspect
             }
             let width: CGFloat
             let height: CGFloat
             switch aspectPlacement {
             case .fit:
-                width = aspect >= res.aspect ? res.width : res.width / comboAspect
-                height = aspect <= res.aspect ? res.height : res.height / comboAspect
+                width = aspect.cg >= res.aspect.cg ? res.width.cg : res.width.cg / comboAspect
+                height = aspect.cg <= res.aspect.cg ? res.height.cg : res.height.cg / comboAspect
             case .fill:
-                width = aspect <= res.aspect ? res.width : res.width * comboAspect
-                height = aspect >= res.aspect ? res.height : res.height * comboAspect
+                width = aspect.cg <= res.aspect.cg ? res.width.cg : res.width.cg * comboAspect
+                height = aspect.cg >= res.aspect.cg ? res.height.cg : res.height.cg * comboAspect
             }
-            return .size(CGSize(width: width, height: height))
+            return .cgSize(CGSize(width: width, height: height))
         }
         public func aspectBounds(to aspectPlacement: AspectPlacement, in res: Res) -> CGRect {
             let aRes = aspectRes(to: aspectPlacement, in: res)
-            return CGRect(x: 0, y: 0, width: aRes.width / Res.scale, height: aRes.height / Res.scale)
+            return CGRect(x: 0, y: 0, width: aRes.width.cg / Res.scale, height: aRes.height.cg / Res.scale)
         }
         
         // MARK: - Life Cycle
         
         public init(size: CGSize) {
             switch size {
-            case Res._720p.size: self = ._720p
-            case Res._1080p.size: self = ._1080p
-            case Res._4K.size: self = ._4K
-            case Res.fullHD(.portrait).size: self = .fullHD(.portrait)
-            case Res.fullHD(.landscape).size: self = .fullHD(.landscape)
-            case Res.ultraHD(.portrait).size: self = .ultraHD(.portrait)
-            case Res.ultraHD(.landscape).size: self = .ultraHD(.landscape)
-            case Res._128.size: self = ._128
-            case Res._256.size: self = ._256
-            case Res._512.size: self = ._512
-            case Res._1024.size: self = ._1024
-            case Res._2048.size: self = ._2048
-            case Res._4096.size: self = ._4096
-            case Res._8192.size: self = ._8192
-            case Res._16384.size: self = ._16384
-            case Res.iPhone(.portrait).size: self = .iPhone(.portrait)
-            case Res.iPhone(.landscape).size: self = .iPhone(.landscape)
-            case Res.iPhonePlus(.portrait).size: self = .iPhonePlus(.portrait)
-            case Res.iPhonePlus(.landscape).size: self = .iPhonePlus(.landscape)
-            case Res.iPhoneX(.portrait).size: self = .iPhoneX(.portrait)
-            case Res.iPhoneX(.landscape).size: self = .iPhoneX(.landscape)
-            case Res.iPad(.portrait).size: self = .iPad(.portrait)
-            case Res.iPad(.landscape).size: self = .iPad(.landscape)
-            case Res.iPadPro_10_5(.portrait).size: self = .iPadPro_10_5(.portrait)
-            case Res.iPadPro_10_5(.landscape).size: self = .iPadPro_10_5(.landscape)
-            case Res.iPadPro_12_9(.portrait).size: self = .iPadPro_12_9(.portrait)
-            case Res.iPadPro_12_9(.landscape).size: self = .iPadPro_12_9(.landscape)
-            case Res.fullscreen.size: self = .fullscreen
+            case Res._720p.size.cg: self = ._720p
+            case Res._1080p.size.cg: self = ._1080p
+            case Res._4K.size.cg: self = ._4K
+            case Res._8K.size.cg: self = ._8K
+            case Res.fullHD(.portrait).size.cg: self = .fullHD(.portrait)
+            case Res.fullHD(.landscape).size.cg: self = .fullHD(.landscape)
+            case Res.ultraHD(.portrait).size.cg: self = .ultraHD(.portrait)
+            case Res.ultraHD(.landscape).size.cg: self = .ultraHD(.landscape)
+            case Res._128.size.cg: self = ._128
+            case Res._256.size.cg: self = ._256
+            case Res._512.size.cg: self = ._512
+            case Res._1024.size.cg: self = ._1024
+            case Res._2048.size.cg: self = ._2048
+            case Res._4096.size.cg: self = ._4096
+            case Res._8192.size.cg: self = ._8192
+            case Res._16384.size.cg: self = ._16384
+            case Res.iPhone(.portrait).size.cg: self = .iPhone(.portrait)
+            case Res.iPhone(.landscape).size.cg: self = .iPhone(.landscape)
+            case Res.iPhonePlus(.portrait).size.cg: self = .iPhonePlus(.portrait)
+            case Res.iPhonePlus(.landscape).size.cg: self = .iPhonePlus(.landscape)
+            case Res.iPhoneX(.portrait).size.cg: self = .iPhoneX(.portrait)
+            case Res.iPhoneX(.landscape).size.cg: self = .iPhoneX(.landscape)
+            case Res.iPad(.portrait).size.cg: self = .iPad(.portrait)
+            case Res.iPad(.landscape).size.cg: self = .iPad(.landscape)
+            case Res.iPadPro_10_5(.portrait).size.cg: self = .iPadPro_10_5(.portrait)
+            case Res.iPadPro_10_5(.landscape).size.cg: self = .iPadPro_10_5(.landscape)
+            case Res.iPadPro_12_9(.portrait).size.cg: self = .iPadPro_12_9(.portrait)
+            case Res.iPadPro_12_9(.landscape).size.cg: self = .iPadPro_12_9(.landscape)
+            case Res.fullscreen.size.cg: self = .fullscreen
             default: self = .custom(w: Int(size.width), h: Int(size.height))
             }
         }
@@ -404,7 +411,7 @@ public extension PIX {
             return Res(Raw(w: lhs.w - rhs.w, h: lhs.h - rhs.h))
         }
         public static func *(lhs: Res, rhs: Res) -> Res {
-            return Res(Raw(w: Int(lhs.width * rhs.width), h: Int(lhs.height * rhs.height)))
+            return Res(Raw(w: Int(lhs.width.cg * rhs.width.cg), h: Int(lhs.height.cg * rhs.height.cg)))
         }
         
         public static func +(lhs: Res, rhs: CGFloat) -> Res {
@@ -414,10 +421,10 @@ public extension PIX {
             return Res(Raw(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs)))
         }
         public static func *(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(round(lhs.width * rhs)), h: Int(round(lhs.height * rhs))))
+            return Res(Raw(w: Int(round(lhs.width.cg * rhs)), h: Int(round(lhs.height.cg * rhs))))
         }
         public static func /(lhs: Res, rhs: CGFloat) -> Res {
-            return Res(Raw(w: Int(round(lhs.width / rhs)), h: Int(round(lhs.height / rhs))))
+            return Res(Raw(w: Int(round(lhs.width.cg / rhs)), h: Int(round(lhs.height.cg / rhs))))
         }
         public static func +(lhs: CGFloat, rhs: Res) -> Res {
             return rhs + lhs

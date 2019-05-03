@@ -22,7 +22,7 @@ extension PIX {
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.res
             } else if let pixSprite = pixContent as? PIXSprite {
-                return .size(pixSprite.scene.size)
+                return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128))
             } else { return nil }
         } else if let resPix = self as? ResPIX {
             let resRes: Res
@@ -40,9 +40,9 @@ extension PIX {
             }
             guard let inRes = pixIn.pixInList.first?.resolution else { return nil }
             if let cropPix = self as? CropPIX {
-                return .size((LiveSize(inRes.size) * LiveSize(cropPix.resScale)).cg)
+                return .size(inRes.size * LiveSize(cropPix.resScale))
             } else if let convertPix = self as? ConvertPIX {
-                return .size((LiveSize(inRes.size) * LiveSize(convertPix.resScale)).cg)
+                return .size(inRes.size * LiveSize(convertPix.resScale))
             } else if let flipFlopPix = self as? FlipFlopPIX {
                 return flipFlopPix.flop != .none ? Res(inRes.raw.flopped) : inRes
             }
@@ -58,21 +58,6 @@ extension PIX {
         Pixels.main.delay(frames: 1, done: {
             self.nextResolution(callback: callback)
         })
-    }
-    
-    public var liveResSize: LiveSize {
-        return LiveSize({ () -> (CGSize) in
-            // FIXME: Optional LiveSize
-            let res: PIX.Res = self.resolution ?? ._128
-            return res.size
-        })
-    }
-    
-    public var liveSize: LiveSize {
-        return LiveSize.fill(aspect: LiveFloat({ () -> (CGFloat) in
-            // FIXME: Optional LiveSize
-            return self.resolution?.aspect ?? 1.0
-        }))
     }
     
     public func applyRes(applied: @escaping () -> ()) {

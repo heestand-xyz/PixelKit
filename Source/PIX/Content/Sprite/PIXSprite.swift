@@ -34,9 +34,9 @@ open class PIXSprite: PIXContent {
     }
     
     func setup() {
-        scene = SKScene(size: res.size)
+        scene = SKScene(size: res.size.cg)
         scene.backgroundColor = bgColor._color
-        sceneView = SKView(frame: CGRect(x: 0, y: 0, width: res.width, height: res.height))
+        sceneView = SKView(frame: CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)
     }

@@ -138,7 +138,7 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     }
     
     public static func fill(res: PIX.Res) -> LiveSize {
-        return LiveSize.fill(aspect: LiveFloat(res.aspect))
+        return LiveSize.fill(aspect: res.aspect)
     }
     
     // MARK: Equatable

@@ -73,13 +73,13 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto {
     
     func frameSize() -> LiveSize {
         guard let resB = inPixB?.resolution else { return LiveSize(scale: 1.0) }
-        return LiveSize(w: LiveFloat(resB.aspect), h: 1.0)
+        return LiveSize(w: resB.aspect, h: 1.0)
     }
     
     func resScale() -> LiveFloat {
         guard let resA = inPixA?.resolution else { return 1.0 }
         guard let resB = inPixB?.resolution else { return 1.0 }
-        let resScale = LiveFloat(resB.height / resA.height)
+        let resScale = resB.height / resA.height
         return resScale
     }
     

@@ -117,7 +117,7 @@ public class PIXView: _View {
         guard boundsReady else { return }
         guard let res = res else { return }
         
-        let resolutionAspect = res.width / res.height
+        let resolutionAspect = res.width.cg / res.height.cg
         let viewAspect = bounds.width / bounds.height
         let combinedAspect = resolutionAspect / viewAspect
         let dynamicAspect = resolutionAspect > viewAspect ? combinedAspect : 1 / combinedAspect
@@ -133,8 +133,8 @@ public class PIXView: _View {
             height = resolutionAspect >= viewAspect ? bounds.height : bounds.height * dynamicAspect
         case .pixelPerfect:
             let scale: CGFloat = PIX.Res.scale
-            width = res.width / scale
-            height = res.height / scale
+            width = res.width.cg / scale
+            height = res.height.cg / scale
         case .fill:
             width = bounds.width
             height = bounds.height

@@ -69,7 +69,7 @@ public extension PIX {
         guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { pixels.log(.error, nil, "renderedPixelBuffer: CVPixelBufferLockBaseAddress failed."); return nil }
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
         guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: Pixels.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: Pixels.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { pixels.log(.error, nil, "renderedPixelBuffer: context failed to be created."); return nil }
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width, height: res.height))
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg))
         return pixelBuffer
     }
     
@@ -100,15 +100,15 @@ public extension PIX {
             return raw[y][x]
         }
         public func pixel(uv: CGVector) -> Pixels.Pixel {
-            let xMax = res.width - 1
-            let yMax = res.height - 1
+            let xMax = res.width.cg - 1
+            let yMax = res.height.cg - 1
             let x = max(0, min(Int(round(uv.dx * xMax + 0.5)), Int(xMax)))
             let y = max(0, min(Int(round(uv.dy * yMax + 0.5)), Int(yMax)))
             return pixel(pos: CGPoint(x: x, y: y))
         }
         public func pixel(pos: CGPoint) -> Pixels.Pixel {
-            let xMax = res.width - 1
-            let yMax = res.height - 1
+            let xMax = res.width.cg - 1
+            let yMax = res.height.cg - 1
             let x = max(0, min(Int(round(pos.x)), Int(xMax)))
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
@@ -163,8 +163,8 @@ public extension PIX {
         guard let res = resolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
         var pixels: [[Pixels.Pixel]] = []
-        let w = Int(res.width)
-        let h = Int(res.height)
+        let w = Int(res.width.cg)
+        let h = Int(res.height.cg)
         for y in 0..<h {
             let v = (CGFloat(y) + 0.5) / CGFloat(h)
             var pixelRow: [Pixels.Pixel] = []
