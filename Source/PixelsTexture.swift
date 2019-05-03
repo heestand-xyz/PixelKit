@@ -207,7 +207,7 @@ extension Pixels {
                     throw RenderError.texture("Sprite Texture fail.")
                 }
                 let spriteImage: CGImage = spriteTexture.cgImage()
-                guard let spriteBuffer = buffer(from: spriteImage, at: pixSprite.res.size) else {
+                guard let spriteBuffer = buffer(from: spriteImage, at: pixSprite.res.size.cg) else {
                     throw RenderError.texture("Sprite Buffer fail.")
                 }
                 inputTexture = try makeTexture(from: spriteBuffer)

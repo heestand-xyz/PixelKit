@@ -168,16 +168,16 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     // MARK: Helpers
     
     public static func topLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(-res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: -res.aspect / 2.0, y: 0.5)
     }
     public static func topRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(res.aspect / 2.0), y: 0.5)
+        return LivePoint(x: res.aspect / 2.0, y: 0.5)
     }
     public static func bottomLeft(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(-res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: -res.aspect / 2.0, y: -0.5)
     }
     public static func bottomRight(res: PIX.Res) -> LivePoint {
-        return LivePoint(x: LiveFloat(res.aspect / 2.0), y: -0.5)
+        return LivePoint(x: res.aspect / 2.0, y: -0.5)
     }
     
     // MARK: Equatable

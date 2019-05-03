@@ -40,7 +40,9 @@ public class FeedbackPIX: PIXSingleEffect {
             feedReset = false
         }
         readyToFeed = true
-        setNeedsRender()
+//        RunLoop.current.add(Timer(timeInterval: 2.0 / Double(pixels._fps), repeats: false, block: { t in
+            self.setNeedsRender()
+//        }), forMode: .common)
 //        switch pixels.renderMode {
 //        case .frameLoop:
 //            setNeedsRender()

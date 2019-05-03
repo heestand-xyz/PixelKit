@@ -15,7 +15,7 @@ class PIXMetalView: MTKView {
     var res: PIX.Res? {
         didSet {
             guard let res = res else { return }
-            drawableSize = res.size
+            drawableSize = res.size.cg
         }
     }
     

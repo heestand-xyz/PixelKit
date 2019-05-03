@@ -158,7 +158,7 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     }
     
     public static func fill(res: PIX.Res) -> LiveRect {
-        return LiveRect.fill(aspect: LiveFloat(res.aspect))
+        return LiveRect.fill(aspect: res.aspect)
     }
     
     // MARK: Equatable

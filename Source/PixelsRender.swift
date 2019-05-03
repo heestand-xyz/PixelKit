@@ -220,17 +220,17 @@ extension Pixels {
             guard let res = pix.resolution else {
                 throw RenderError.drawable("PIX Resolution not set.")
             }
-            drawableTexture = try emptyTexture(size: res.size)
+            drawableTexture = try emptyTexture(size: res.size.cg)
         }
         
         if logHighResWarnings {        
             let drawRes = PIX.Res(texture: drawableTexture)
             if (drawRes >= ._16384) != false {
-                log(pix: pix, .warning, .render, "Epic res: \(drawRes)")
+                log(pix: pix, .detail, .render, "Epic res: \(drawRes)")
             } else if (drawRes >= ._8192) != false {
-                log(pix: pix, .warning, .render, "Extreme res: \(drawRes)")
+                log(pix: pix, .detail, .render, "Extreme res: \(drawRes)")
             } else if (drawRes >= ._4096) != false {
-                log(pix: pix, .warning, .render, "High res: \(drawRes)")
+                log(pix: pix, .detail, .render, "High res: \(drawRes)")
             }
         }
         

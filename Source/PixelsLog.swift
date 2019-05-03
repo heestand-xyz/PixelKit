@@ -185,7 +185,7 @@ extension Pixels {
             }
         }
         
-        if logPadding { padding += 30; logList.append(spaces(tc + ext + padding - logLength(logList))) }
+        if logPadding { padding += 20; logList.append(spaces(tc + ext + padding - logLength(logList))) }
         
         if let c = log.category {
             logList.append(c.rawValue)

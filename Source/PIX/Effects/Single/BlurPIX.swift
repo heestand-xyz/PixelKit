@@ -51,7 +51,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
         let radius = self.radius.uniform
         let relRes: PIX.Res = ._4K
         let res: PIX.Res = resolution ?? relRes
-        let relHeight = res.height / relRes.height
+        let relHeight = res.height.cg / relRes.height.cg
         let relRadius = min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
         let mappedRadius = relRadius * maxRadius

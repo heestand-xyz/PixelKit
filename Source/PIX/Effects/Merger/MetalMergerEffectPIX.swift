@@ -10,6 +10,8 @@
 ///
 /// vars: pi, u, v, uv, wA, hA, wuA, hvA, inPixA, wB, hB, wuB, hvB, inPixB
 ///
+/// float4 inPixA = inTexA.sample(s, uv);
+///
 /// Example:
 /// ~~~~swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:
