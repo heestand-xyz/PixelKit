@@ -178,6 +178,7 @@ extension Pixels {
         descriptor.textureType = in3D ? .type3D : .type2DArray
         descriptor.width = textures.first!.width
         descriptor.height = textures.first!.height
+        descriptor.mipmapLevelCount = textures.first?.mipmapLevelCount ?? 1
         if in3D {
             descriptor.depth = textures.count
         } else {
@@ -193,7 +194,9 @@ extension Pixels {
         }
         
         for (i, texture) in textures.enumerated() {
-            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+            for j in 0..<texture.mipmapLevelCount {
+                blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: j, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: j, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+            }
         }
         blitEncoder.endEncoding()
         
@@ -230,6 +233,7 @@ extension Pixels {
                     guard let pixOutTexture = pixOut.texture else {
                         throw RenderError.texture("IO Texture \(i) not found for: \(pixOut)")
                     }
+                    try mipmap(texture: pixOutTexture, with: commandBuffer)
                     inTextures.append(pixOutTexture)
                 }
                 inputTexture = try makeMultiTexture(from: inTextures, with: commandBuffer)
