@@ -143,6 +143,10 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
 
     float4 c = bc;
     
+    if (in.s <= 0) {
+        return c;
+    }
+    
     for (int i = 0; i < int(in.i); ++i) {
         float fia = float(i) / in.i;
         float fib = float(i + 1) / in.i;

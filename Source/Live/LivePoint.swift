@@ -270,3 +270,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     }
     
 }
+
+public func atan(of point: LivePoint) -> LiveFloat {
+    return LiveFloat({ return atan2(CGFloat(point.y), CGFloat(point.x)) })
+}
