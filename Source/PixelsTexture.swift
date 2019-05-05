@@ -203,7 +203,7 @@ extension Pixels {
         return multiTexture
     }
     
-    func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (MTLTexture?, MTLTexture?) {
+    func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
 
         var generator: Bool = false
         var inputTexture: MTLTexture? = nil
@@ -282,14 +282,15 @@ extension Pixels {
         
         // MARK: Custom Render
         
+        var customTexture: MTLTexture?
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
                 throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
             }
-            guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
-                throw RenderError.custom("Custom Render faild.")
+            if let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) {
+                inputTexture = nil
+                customTexture = customRenderedTexture
             }
-            inputTexture = customRenderedTexture
         }
         
         if pix is PIXInMerger {
@@ -298,14 +299,11 @@ extension Pixels {
                     throw RenderError.custom("PixelsCustomMergerRenderDelegate not implemented.")
                 }
                 let customRenderedTextures = customMergerRenderDelegate.customRender(a: inputTexture!, b: secondInputTexture!, with: commandBuffer)
-                guard let textureA = customRenderedTextures.a else {
-                    throw RenderError.custom("Custom Merger Render A faild.")
+                if let customRenderedTexture = customRenderedTextures {                
+                    inputTexture = nil
+                    secondInputTexture = nil
+                    customTexture = customRenderedTexture
                 }
-                guard let textureB = customRenderedTextures.b else {
-                    throw RenderError.custom("Custom Merger Render B faild.")
-                }
-                inputTexture = textureA
-                secondInputTexture = textureB
             }
         }
         
@@ -314,7 +312,7 @@ extension Pixels {
             inputTexture = try makeMultiTexture(from: textures, with: commandBuffer, in3D: true)
         }
         
-        return (inputTexture, secondInputTexture)
+        return (inputTexture, secondInputTexture, customTexture)
         
     }
     

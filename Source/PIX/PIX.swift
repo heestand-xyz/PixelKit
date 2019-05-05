@@ -121,9 +121,10 @@ open class PIX {
         didSet {
             guard needsRender else { return }
             guard pixels.renderMode == .direct else { return }
-            pixels.renderPIX(self)
+            pixels.renderPIX(self, done: { _ in })
         }
     }
+    var renderIndex: Int = 0
     
     // MARK: - Life Cycle
     
@@ -198,6 +199,7 @@ open class PIX {
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
+        renderIndex += 1
         delegate?.pixDidRender(self)
         for customLinkedPix in customLinkedPixs {
             customLinkedPix.setNeedsRender()
@@ -348,7 +350,8 @@ open class PIX {
     
     func checkLive() {
         for liveValue in liveValues {
-            if liveValue.uniformIsNew {
+            let isNew = liveValue.uniformIsNew
+            if isNew {
                 setNeedsRender()
                 break
             }

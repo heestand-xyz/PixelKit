@@ -57,8 +57,32 @@ public class Pixels {
     
     // MARK: Linked PIXs
     
+    public var finalPix: PIX?
+    
     var linkedPixs: [PIX] = []
     
+//    struct RenderedPIX {
+//        let pix: PIX
+//        let rendered: Bool
+//    }
+//    var renderedPixs: [RenderedPIX] = []
+//    var allPixRendered: Bool {
+//        for renderedPix in renderedPixs {
+//            if !renderedPix.rendered {
+//                return false
+//            }
+//        }
+//        return true
+//    }
+//    var noPixRendered: Bool {
+//        for renderedPix in renderedPixs {
+//            if renderedPix.rendered {
+//                return false
+//            }
+//        }
+//        return true
+//    }
+
     func linkIndex(of pix: PIX) -> Int? {
         for (i, linkedPix) in linkedPixs.enumerated() {
             if linkedPix == pix {
@@ -80,14 +104,18 @@ public class Pixels {
     var frameCallbacks: [(id: UUID, callback: () -> ())] = []
     
     public var frame = 0
+    public var finalFrame = 0
     let startDate = Date()
     var frameDate = Date()
+    var finalFrameDate: Date?
     public var seconds: CGFloat {
         return CGFloat(-startDate.timeIntervalSinceNow)
     }
 
     var _fps: Int = -1
     public var fps: Int { return min(_fps, fpsMax) }
+    var _finalFps: Int = -1
+    public var finalFps: Int? { return finalPix != nil && _finalFps != -1 ? min(_finalFps, fpsMax) : nil }
     public var fpsMax: Int { if #available(iOS 10.3, *) {
         #if os(iOS)
         return UIScreen.main.maximumFramesPerSecond
@@ -95,6 +123,8 @@ public class Pixels {
         return 60
         #endif
     } else { return -1 } }
+    
+    var instantQueueActivated: Bool = false
     
     // MARK: Metal
     
@@ -163,11 +193,21 @@ public class Pixels {
                 frameCallback.callback()
             }
             self.checkAllLive()
-            self.renderPIXs()
+            if [.frameLoop, .frameLoopQueue].contains(self.renderMode) {
+                self.renderPIXs()
+            } else if [.instantQueue, .instantQueueSemaphore].contains(self.renderMode) {
+                if !self.instantQueueActivated {
+                    DispatchQueue.global(qos: .background).async {
+                        while true {
+                            self.renderPIXs()
+                        }
+                    }
+                    self.instantQueueActivated = true
+                }
+            }
         }
 //        DispatchQueue(label: "pixels-frame-loop").async {}
         calcFPS()
-        frame += 1
     }
     
     func checkAllLive() {
@@ -177,9 +217,22 @@ public class Pixels {
     }
     
     func calcFPS() {
+
         let frameTime = -frameDate.timeIntervalSinceNow
         _fps = Int(round(1.0 / frameTime))
         frameDate = Date()
+        frame += 1
+
+        if let finalFrameDate = finalFrameDate {
+            let finalFrameTime = -finalFrameDate.timeIntervalSinceNow
+            _finalFps = Int(round(1.0 / finalFrameTime))
+        }
+        let finalFrame = finalPix?.renderIndex ?? 0
+        if finalFrame != self.finalFrame {
+            finalFrameDate = Date()
+        }
+        self.finalFrame = finalFrame
+        
     }
     
     func listenToFramesWithId(callback: @escaping () -> (Bool)) {

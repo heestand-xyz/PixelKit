@@ -75,6 +75,7 @@ extension Pixels {
     }
     
     public func logAll() {
+        Pixels.main.logLevel = .debug
         Pixels.main.logLoopLimitActive = false
         Pixels.main.logTime = true
         Pixels.main.logPadding = true

@@ -93,7 +93,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture
         } else {
-            return texture
+            return nil
         }
     }
     

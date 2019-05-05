@@ -72,7 +72,13 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         }
     }
     public var uniformIsNew: Bool {
-        return uniformCache != CGFloat(self)
+        let diff = uniformCache != CGFloat(self)
+        if diff {
+            let a = uniformCache
+            let b = CGFloat(self)
+            print("DIFF")
+        }
+        return diff
     }
     var uniformCache: CGFloat? = nil
     
@@ -108,6 +114,21 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
                 value += 1.0 / CGFloat(Pixels.main.fps)
             }
             lastFrame = Pixels.main.frame
+            return value
+        })
+    }
+    public static var liveFinal: LiveFloat {
+        var value: CGFloat = 0.0
+        var lastFrame: Int = -1
+        return LiveFloat({ () -> (CGFloat) in
+            guard lastFrame != Pixels.main.finalFrame else {
+                lastFrame = Pixels.main.finalFrame
+                return value
+            }
+            if !self.live.isFrozen {
+                value += 1.0 / CGFloat(Pixels.main.finalFps ?? Pixels.main.fpsMax)
+            }
+            lastFrame = Pixels.main.finalFrame
             return value
         })
     }

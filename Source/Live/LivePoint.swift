@@ -274,3 +274,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
 public func atan(of point: LivePoint) -> LiveFloat {
     return LiveFloat({ return atan2(CGFloat(point.y), CGFloat(point.x)) })
 }
+
+public func pointFrom(angle: LiveFloat, radius: LiveFloat = 0.5) -> LivePoint {
+    return LivePoint(x: cos(angle * .pi * 2) * radius, y: sin(angle * .pi * 2) * radius)
+}
