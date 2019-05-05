@@ -50,15 +50,15 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
     
     float4 ca = inTexA.sample(s, uv);
     
-    // Kernels
-    switch (int(in.mode)) {
-        case 2: // Add
-            return ca;
-        case 3: // Mult
-            return ca;
-        case 5: // Sub
-            return ca;
-    }
+//    // Kernels
+//    switch (int(in.mode)) {
+//        case 2: // Add
+//            return ca;
+//        case 3: // Mult
+//            return ca;
+//        case 5: // Sub
+//            return ca;
+//    }
     
     // Place
     // CHECK swap a & b

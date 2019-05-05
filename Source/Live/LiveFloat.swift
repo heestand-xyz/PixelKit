@@ -72,13 +72,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         }
     }
     public var uniformIsNew: Bool {
-        let diff = uniformCache != CGFloat(self)
-        if diff {
-            let a = uniformCache
-            let b = CGFloat(self)
-            print("DIFF")
-        }
-        return diff
+        return uniformCache != CGFloat(self)
     }
     var uniformCache: CGFloat? = nil
     

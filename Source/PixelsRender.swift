@@ -197,8 +197,6 @@ extension Pixels {
     
     func render(_ pix: PIX, with currentDrawable: CAMetalDrawable?, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
         
-        pix.rendering = true
-        
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice)
@@ -283,6 +281,8 @@ extension Pixels {
 //            if viewDrawable != nil {
 //                commandBuffer.present(viewDrawable!)
 //            }
+//
+//            pix.rendering = true
 //
 //            commandBuffer.addCompletedHandler({ _ in
 //
@@ -585,6 +585,7 @@ extension Pixels {
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
         }
         
+        pix.rendering = true
         
         // MARK: Render
         

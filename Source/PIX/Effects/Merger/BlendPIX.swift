@@ -40,12 +40,13 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelsCustomMergerR
     
     // MARK - Custom Render
     public func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        switch blendMode {
-        case .add, .multiply, .subtract:
-            return kernel(a: textureA, b: textureB, with: commandBuffer)
-        default:
-            return nil
-        }
+//        switch blendMode {
+//        case .add, .multiply, .subtract:
+//            return kernel(a: textureA, b: textureB, with: commandBuffer)
+//        default:
+//            return nil
+//        }
+        return nil
     }
     
     func kernel(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

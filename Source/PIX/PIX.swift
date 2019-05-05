@@ -350,8 +350,7 @@ open class PIX {
     
     func checkLive() {
         for liveValue in liveValues {
-            let isNew = liveValue.uniformIsNew
-            if isNew {
+            if liveValue.uniformIsNew {
                 setNeedsRender()
                 break
             }
