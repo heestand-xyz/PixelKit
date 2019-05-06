@@ -151,7 +151,10 @@ fragment float4 effectMergerBlendPIX(VertexOut out [[stage_in]],
             c = ca / 2 + cb / 2;
             break;
         case 13: // Cosine
-            c = lerpColor(cb, ca, cos(ca * pi + pi) / 2 + 0.5);
+            c = lerpColor(min(cb.r, 1.0), ca, cos(ca * pi + pi) / 2 + 0.5);
+            for (int i = 1; i < int(ceil(cb.r)); i++) {
+                c = lerpColor(min(max(cb.r - float(i), 0.0), 1.0), c, cos(c * pi + pi) / 2 + 0.5);
+            }
             break;
         case 14: // Inside Source
             c = float4(rgb_a * ia, ia);
