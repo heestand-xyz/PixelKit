@@ -16,6 +16,7 @@ extension Pixels {
         case emptyFail
         case copy(String)
         case multi(String)
+        case mipmap
     }
     
     func buffer(from image: CGImage, at size: CGSize?) -> CVPixelBuffer? {
@@ -95,7 +96,7 @@ extension Pixels {
         return pixelBuffer
     }
     
-    func makeTexture(from pixelBuffer: CVPixelBuffer, force8bit: Bool = false) throws -> MTLTexture {
+    func makeTexture(from pixelBuffer: CVPixelBuffer, with commandBuffer: MTLCommandBuffer, force8bit: Bool = false) throws -> MTLTexture {
 //        let width = CVPixelBufferGetWidth(pixelBuffer)
 //        let height = CVPixelBufferGetHeight(pixelBuffer)
 //        var cvTextureOut: CVMetalTexture?
@@ -121,13 +122,22 @@ extension Pixels {
         guard let image = cgImage else {
             throw TextureError.pixelBuffer(-4)
         }
-        return try makeTexture(from: image)
+        return try makeTexture(from: image, with: commandBuffer)
     }
 
-    func makeTexture(from image: CGImage) throws -> MTLTexture {
+    func makeTexture(from image: CGImage, with commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
         let textureLoader = MTKTextureLoader(device: metalDevice)
         let texture: MTLTexture = try textureLoader.newTexture(cgImage: image, options: nil)
+        try mipmap(texture: texture, with: commandBuffer)
         return texture
+    }
+    
+    func mipmap(texture: MTLTexture, with commandBuffer: MTLCommandBuffer) throws {
+        guard let commandEncoder: MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder() else {
+            throw TextureError.mipmap
+        }
+        commandEncoder.generateMipmaps(for: texture)
+        commandEncoder.endEncoding()
     }
     
     func emptyTexture(size: CGSize) throws -> MTLTexture {
@@ -151,6 +161,7 @@ extension Pixels {
             throw TextureError.copy("Blit Command Encoder make failed.")
         }
         blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: textureCopy, destinationSlice: 0, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
+//        blitEncoder.generateMipmaps(for: textureCopy)
         blitEncoder.endEncoding()
         commandBuffer.commit()
         return textureCopy
@@ -167,6 +178,7 @@ extension Pixels {
         descriptor.textureType = in3D ? .type3D : .type2DArray
         descriptor.width = textures.first!.width
         descriptor.height = textures.first!.height
+        descriptor.mipmapLevelCount = textures.first?.mipmapLevelCount ?? 1
         if in3D {
             descriptor.depth = textures.count
         } else {
@@ -182,14 +194,16 @@ extension Pixels {
         }
         
         for (i, texture) in textures.enumerated() {
-            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+            for j in 0..<texture.mipmapLevelCount {
+                blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: j, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: j, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+            }
         }
         blitEncoder.endEncoding()
         
         return multiTexture
     }
     
-    func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (MTLTexture?, MTLTexture?) {
+    func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
 
         var generator: Bool = false
         var inputTexture: MTLTexture? = nil
@@ -199,7 +213,7 @@ extension Pixels {
                 guard let pixelBuffer = pixResource.pixelBuffer else {
                     throw RenderError.texture("Pixel Buffer is nil.")
                 }
-                inputTexture = try makeTexture(from: pixelBuffer, force8bit: (pix as? CameraPIX) != nil)
+                inputTexture = try makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: (pix as? CameraPIX) != nil)
             } else if pixContent is PIXGenerator {
                 generator = true
             } else if let pixSprite = pixContent as? PIXSprite {
@@ -210,7 +224,7 @@ extension Pixels {
                 guard let spriteBuffer = buffer(from: spriteImage, at: pixSprite.res.size.cg) else {
                     throw RenderError.texture("Sprite Buffer fail.")
                 }
-                inputTexture = try makeTexture(from: spriteBuffer)
+                inputTexture = try makeTexture(from: spriteBuffer, with: commandBuffer)
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
             if let pixInMulti = pixIn as? PIXInMulti {
@@ -219,6 +233,7 @@ extension Pixels {
                     guard let pixOutTexture = pixOut.texture else {
                         throw RenderError.texture("IO Texture \(i) not found for: \(pixOut)")
                     }
+                    try mipmap(texture: pixOutTexture, with: commandBuffer)
                     inTextures.append(pixOutTexture)
                 }
                 inputTexture = try makeMultiTexture(from: inTextures, with: commandBuffer)
@@ -256,16 +271,26 @@ extension Pixels {
             throw RenderError.texture("Input Texture missing.")
         }
         
+        // Mipmap
+        
+        if inputTexture != nil {
+            try mipmap(texture: inputTexture!, with: commandBuffer)
+        }
+        if secondInputTexture != nil {
+            try mipmap(texture: secondInputTexture!, with: commandBuffer)
+        }
+        
         // MARK: Custom Render
         
+        var customTexture: MTLTexture?
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
                 throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
             }
-            guard let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) else {
-                throw RenderError.custom("Custom Render faild.")
+            if let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) {
+                inputTexture = nil
+                customTexture = customRenderedTexture
             }
-            inputTexture = customRenderedTexture
         }
         
         if pix is PIXInMerger {
@@ -274,14 +299,11 @@ extension Pixels {
                     throw RenderError.custom("PixelsCustomMergerRenderDelegate not implemented.")
                 }
                 let customRenderedTextures = customMergerRenderDelegate.customRender(a: inputTexture!, b: secondInputTexture!, with: commandBuffer)
-                guard let textureA = customRenderedTextures.a else {
-                    throw RenderError.custom("Custom Merger Render A faild.")
+                if let customRenderedTexture = customRenderedTextures {                
+                    inputTexture = nil
+                    secondInputTexture = nil
+                    customTexture = customRenderedTexture
                 }
-                guard let textureB = customRenderedTextures.b else {
-                    throw RenderError.custom("Custom Merger Render B faild.")
-                }
-                inputTexture = textureA
-                secondInputTexture = textureB
             }
         }
         
@@ -290,7 +312,7 @@ extension Pixels {
             inputTexture = try makeMultiTexture(from: textures, with: commandBuffer, in3D: true)
         }
         
-        return (inputTexture, secondInputTexture)
+        return (inputTexture, secondInputTexture, customTexture)
         
     }
     

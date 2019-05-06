@@ -109,10 +109,10 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
                 float yv = v;
                 if (aspect < 1.0) {
                     xu += (((float(x) * (u - 0.5 - pos.x)) / iw) * in.radius) / res;
-                    yv += ((((float(x) * (v - 0.5 + pos.y)) / iw) * in.radius) / res) * in.aspect;
+                    yv += ((((float(x) * (v - 0.5 + pos.y)) / iw) * in.radius) / res);// * in.aspect;
                 } else {
                     xu += (((float(x) * (u - 0.5 - pos.x)) / ih) * in.radius) / res;
-                    yv += ((((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res) * in.aspect;
+                    yv += ((((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res);// * in.aspect;
                 }
                 c += inTex.sample(s, float2(xu, yv)) * amount;
                 amounts += amount;

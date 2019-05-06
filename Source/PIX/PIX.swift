@@ -94,6 +94,7 @@ open class PIX {
     
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
+    public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
     var compare: MTLCompareFunction = .never
     
     var pipeline: MTLRenderPipelineState!
@@ -120,9 +121,10 @@ open class PIX {
         didSet {
             guard needsRender else { return }
             guard pixels.renderMode == .direct else { return }
-            pixels.renderPIX(self)
+            pixels.renderPIX(self, done: { _ in })
         }
     }
+    var renderIndex: Int = 0
     
     // MARK: - Life Cycle
     
@@ -138,7 +140,7 @@ open class PIX {
             let frag = try pixels.makeFrag(shader, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
             pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
+            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
         } catch {
             pixels.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
         }
@@ -153,7 +155,7 @@ open class PIX {
     
     func updateSampler() {
         do {
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
+            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
             pixels.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
             setNeedsRender()
         } catch {
@@ -197,6 +199,7 @@ open class PIX {
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
+        renderIndex += 1
         delegate?.pixDidRender(self)
         for customLinkedPix in customLinkedPixs {
             customLinkedPix.setNeedsRender()

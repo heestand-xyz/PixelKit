@@ -111,6 +111,21 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return value
         })
     }
+    public static var liveFinal: LiveFloat {
+        var value: CGFloat = 0.0
+        var lastFrame: Int = -1
+        return LiveFloat({ () -> (CGFloat) in
+            guard lastFrame != Pixels.main.finalFrame else {
+                lastFrame = Pixels.main.finalFrame
+                return value
+            }
+            if !self.live.isFrozen {
+                value += 1.0 / CGFloat(Pixels.main.finalFps ?? Pixels.main.fpsMax)
+            }
+            lastFrame = Pixels.main.finalFrame
+            return value
+        })
+    }
     
     #if os(iOS)
     
@@ -513,9 +528,6 @@ public func atan(_ live: LiveFloat) -> LiveFloat {
 }
 public func atan2(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return atan2(CGFloat(live1), CGFloat(live2)) })
-}
-public func atan(of point: LivePoint) -> LiveFloat {
-    return LiveFloat({ return atan2(CGFloat(point.y), CGFloat(point.x)) })
 }
 public func angle(of point: LivePoint) -> LiveFloat {
     return atan(of: point) / (.pi * 2)

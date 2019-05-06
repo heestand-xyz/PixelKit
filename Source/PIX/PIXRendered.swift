@@ -24,10 +24,10 @@ public extension PIX {
         return cgImage
         #elseif os(macOS)
         guard let size = resolution?.size else { return nil }
-        guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
         context.scaleBy(x: 1, y: -1)
-        context.translateBy(x: 0, y: -size.height)
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        context.translateBy(x: 0, y: -size.height.cg)
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
         guard let image = context.makeImage() else { return nil }
         return image
         #endif
@@ -44,7 +44,7 @@ public extension PIX {
         return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         #elseif os(macOS)
         guard let size = resolution?.size else { return nil }
-        return NSImage(cgImage: cgImage, size: size)
+        return NSImage(cgImage: cgImage, size: size.cg)
         #endif
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {

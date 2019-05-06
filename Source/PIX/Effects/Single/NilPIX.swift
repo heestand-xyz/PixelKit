@@ -22,4 +22,11 @@ public extension PIXOut {
         return nilPix
     }
     
+    func _nil() -> NilPIX {
+        let nilPix = NilPIX()
+        nilPix.name = ":nil:"
+        nilPix.inPix = self as? PIX & PIXOut
+        return nilPix
+    }
+    
 }

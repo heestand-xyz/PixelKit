@@ -52,7 +52,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
         let relRes: PIX.Res = ._4K
         let res: PIX.Res = resolution ?? relRes
         let relHeight = res.height.cg / relRes.height.cg
-        let relRadius = min(radius * relHeight, 1.0)
+        let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
         let mappedRadius = relRadius * maxRadius
         return mappedRadius //radius.uniform * 32 * 10
@@ -93,7 +93,7 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture
         } else {
-            return texture
+            return nil
         }
     }
     
@@ -104,6 +104,16 @@ public extension PIXOut {
     func _blur(_ radius: LiveFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
+        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.radius = radius
+        return blurPix
+    }
+    
+    func _zoomBlur(_ radius: LiveFloat) -> BlurPIX {
+        let blurPix = BlurPIX()
+        blurPix.name = ":zoom-blur:"
+        blurPix.style = .zoom
+        blurPix.quality = .epic
         blurPix.inPix = self as? PIX & PIXOut
         blurPix.radius = radius
         return blurPix

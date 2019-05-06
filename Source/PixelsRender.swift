@@ -23,13 +23,41 @@ extension Pixels {
     
     public enum RenderMode {
         case frameLoop
+        case frameLoopQueue
+        case instantQueue
+        case instantQueueSemaphore
         case direct
     }
     
     func renderPIXs() {
-        guard renderMode == .frameLoop else { return }
         loop: for pix in linkedPixs {
             if pix.needsRender {
+                
+                if [.frameLoopQueue, .instantQueue, .instantQueueSemaphore].contains(renderMode) {
+                    guard !pix.rendering else {
+                        self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
+                        return
+                    }
+                    if let pixIn = pix as? PIXInIO {
+                        for pixOut in pixIn.pixInList {
+                            guard pix.renderIndex + 1 == pixOut.renderIndex else {
+                                log(pix: pix, .detail, .render, "Queue In: \(pix.renderIndex) + 1 != \(pixOut.renderIndex)")
+                                continue
+                            }
+//                            log(pix: pix, .warning, .render, ">>> Queue In: \(pix.renderIndex) + 1 == \(pixOut.renderIndex)")
+                        }
+                    }
+                    if let pixOut = pix as? PIXOutIO {
+                        for pixOutPath in pixOut.pixOutPathList {
+                            guard pix.renderIndex == pixOutPath.pixIn.renderIndex else {
+                                log(pix: pix, .detail, .render, "Queue Out: \(pix.renderIndex) != \(pixOutPath.pixIn.renderIndex)")
+                                continue
+                            }
+//                            log(pix: pix, .warning, .render, ">>> Queue Out: \(pix.renderIndex) == \(pixOutPath.pixIn.renderIndex)")
+                        }
+                    }
+                }
+                
                 if let pixIn = pix as? PIX & PIXInIO {
                     let pixOuts = pixIn.pixInList
                     for (i, pixOut) in pixOuts.enumerated() {
@@ -40,70 +68,68 @@ extension Pixels {
                         }
                     }
                 }
-                if pix.view.superview != nil {
-                    #if os(iOS)
-                    pix.view.metalView.setNeedsDisplay()
-                    #elseif os(macOS)
-                    guard let size = pix.resolution?.size else {
-                        log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
-                        continue
-                    }
-                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    #endif
-                    log(pix: pix, .detail, .render, "View Render requested.", loop: true)
-                    guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
-                        self.log(pix: pix, .error, .render, "Current Drawable not found.")
-                        continue
-                    }
-                    pix.view.metalView.readyToRender = {
-                        pix.view.metalView.readyToRender = nil
-                        self.renderPIX(pix, with: currentDrawable)
-                    }
-                } else {
-                    renderPIX(pix)
+                
+                var semaphore: DispatchSemaphore?
+                if renderMode == .instantQueueSemaphore {
+                    semaphore = DispatchSemaphore(value: 0)
                 }
-//                if pix.view.superview != nil {
-//                    #if os(iOS)
-//                    pix.view.metalView.setNeedsDisplay()
-//                    #elseif os(macOS)
-//                    guard let size = pix.resolution?.size else {
-//                        log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
-//                        continue
-//                    }
-//                    pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//                    #endif
-//                    log(pix: pix, .detail, .render, "View Render requested.", loop: true)
+                
+//                DispatchQueue.main.async {
+                    if pix.view.superview != nil {
+                        #if os(iOS)
+                        pix.view.metalView.setNeedsDisplay()
+                        #elseif os(macOS)
+                        guard let size = pix.resolution?.size else {
+                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+                            return
+                        }
+                        pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
+                        #endif
+                        self.log(pix: pix, .detail, .render, "View Render requested.", loop: true)
+                        guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
+                            self.log(pix: pix, .error, .render, "Current Drawable not found.")
+                            return
+                        }
+                        pix.view.metalView.readyToRender = {
+                            pix.view.metalView.readyToRender = nil
+                            self.renderPIX(pix, with: currentDrawable, done: { success in
+                                if self.renderMode == .instantQueueSemaphore {
+                                    semaphore!.signal()
+                                }
+                            })
+                        }
+                    } else {
+                        self.renderPIX(pix, done: { success in
+                            if self.renderMode == .instantQueueSemaphore {
+                                semaphore!.signal()
+                            }
+                        })
+                    }
 //                }
-//                if let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable {
-//                    if pix.view.superview != nil {
-//                        pix.view.metalView.readyToRender = {
-//                            pix.view.metalView.readyToRender = nil
-//                            self.renderPIX(pix, with: currentDrawable)
-//                        }
-//                    } else {
-//                        renderPIX(pix, with: currentDrawable)
-//                    }
-//                } else {
-//                    log(pix: pix, .error, .render, "Current Drawable not found.")
-//                    renderPIX(pix)
-//                }
+                
+                if self.renderMode == .instantQueueSemaphore {
+                    _ = semaphore!.wait(timeout: .distantFuture)
+                }
+                
             }
         }
     }
     
-    func renderPIX(_ pix: PIX, with currentDrawable: CAMetalDrawable? = nil, force: Bool = false) {
-//        let queue = DispatchQueue(label: "pixels-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
-//        queue.async {
+    func renderPIX(_ pix: PIX, with currentDrawable: CAMetalDrawable? = nil, force: Bool = false, done: @escaping (Bool?) -> ()) {
         guard !pix.bypass else {
             self.log(pix: pix, .info, .render, "Render bypassed.", loop: true)
+            done(nil)
             return
         }
-            guard !pix.rendering else {
-                self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
-                return
-            }
+        guard !pix.rendering else {
+            self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
+            done(nil)
+            return
+        }
+        pix.needsRender = false
+//        let queue = DispatchQueue(label: "pixels-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
+//        queue.async {
 //            DispatchQueue.main.async {
-                pix.needsRender = false
 //            }
             let renderStartTime = Date()
 //        let renderStartFrame = frame
@@ -134,19 +160,23 @@ extension Pixels {
 //                }
 //                    DispatchQueue.main.async {
                         pix.didRender(texture: texture, force: force)
+                        done(true)
 //                    }
                 }, failed: { error in
                     var ioafMsg: String? = nil
                     let err = error.localizedDescription
                     if err.contains("IOAF code") {
                         if let iofaCode = Int(err[err.count - 2..<err.count - 1]) {
-//                            DispatchQueue.main.async {
+                            DispatchQueue.main.async {
                                 self.metalErrorCodeCallback?(.IOAF(iofaCode))
-//                            }
+                            }
                             ioafMsg = "IOAF code \(iofaCode). Sorry, this is an Metal GPU error, usually seen on older devices."
                         }
                     }
                     self.log(pix: pix, .error, .render, "Render of shader failed... \(force ? "Forced." : "") \(ioafMsg ?? "")", loop: true, e: error)
+//                    DispatchQueue.main.async {
+                        done(false)
+//                    }
                 })
             } catch {
                 self.log(pix: pix, .error, .render, "Render setup failed.\(force ? " Forced." : "")", loop: true, e: error)
@@ -190,22 +220,18 @@ extension Pixels {
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Input Texture
         
         let generator: Bool = pix is PIXGenerator
-        let (inputTexture, secondInputTexture) = try textures(from: pix, with: commandBuffer)
-        
-        // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
-        localRenderTime = Date()
+        var (inputTexture, secondInputTexture, customTexture) = try textures(from: pix, with: commandBuffer)
         
         
         // MARK: Drawable
@@ -216,6 +242,8 @@ extension Pixels {
         if currentDrawable != nil {
             viewDrawable = currentDrawable!
             drawableTexture = currentDrawable!.texture
+        } else if pix.texture != nil {
+            drawableTexture = pix.texture!
         } else {
             guard let res = pix.resolution else {
                 throw RenderError.drawable("PIX Resolution not set.")
@@ -223,7 +251,7 @@ extension Pixels {
             drawableTexture = try emptyTexture(size: res.size.cg)
         }
         
-        if logHighResWarnings {        
+        if logHighResWarnings {
             let drawRes = PIX.Res(texture: drawableTexture)
             if (drawRes >= ._16384) != false {
                 log(pix: pix, .detail, .render, "Epic res: \(drawRes)")
@@ -235,11 +263,64 @@ extension Pixels {
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
+            localRenderTime = Date()
+        }
         
+        
+        // MARK - Custom
+
+        let customRenderActive = pix.customRenderActive || pix.customMergerRenderActive
+        if customRenderActive, let customTexture = customTexture {
+            
+            inputTexture = customTexture
+
+//            if viewDrawable != nil {
+//                commandBuffer.present(viewDrawable!)
+//            }
+//
+//            pix.rendering = true
+//
+//            commandBuffer.addCompletedHandler({ _ in
+//
+//                pix.rendering = false
+//
+//                if let error = commandBuffer.error {
+//                    failed(error)
+//                    return
+//                }
+//
+//                // Render Time
+//                if self.logTime {
+//
+//                    renderTime = -globalRenderTime.timeIntervalSinceNow
+//                    renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//                    self.log(pix: pix, .debug, .metal, "Render Timer (custom): [\(renderTimeMs)ms] CPU + GPU ")
+//
+//                    self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
+//
+//                }
+//
+//                completed(customTexture)
+//
+//            })
+//
+//            commandBuffer.commit()
+//
+//            return
+        }
+        
+        // Render Time
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
+            localRenderTime = Date()
+        }
+
         
         // MARK: Command Encoder
         
@@ -253,10 +334,12 @@ extension Pixels {
         commandEncoder.setRenderPipelineState(pix.pipeline)
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Uniforms
@@ -283,10 +366,12 @@ extension Pixels {
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Uniform Arrays
@@ -346,10 +431,12 @@ extension Pixels {
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Fragment Texture
@@ -365,10 +452,12 @@ extension Pixels {
         commandEncoder.setFragmentSamplerState(pix.sampler, index: 0)
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Vertices
@@ -404,10 +493,12 @@ extension Pixels {
         }
 
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Vertex Uniforms
@@ -425,10 +516,12 @@ extension Pixels {
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Custom Vertex Texture
@@ -442,16 +535,18 @@ extension Pixels {
             
             commandEncoder.setVertexTexture(vtxPixInTexture, index: 0)
             
-            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge)
+            let sampler = try makeSampler(interpolate: .linear, extend: .clampToEdge, mipFilter: .linear)
             commandEncoder.setVertexSamplerState(sampler, index: 0)
             
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Draw
@@ -459,33 +554,38 @@ extension Pixels {
         commandEncoder.drawPrimitives(type: vertices.type, vertexStart: 0, vertexCount: vertices.vertexCount, instanceCount: 1)
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
+            localRenderTime = Date()
+        }
         
         
         // MARK: Encode
         
         commandEncoder.endEncoding()
         
-        pix.rendering = true
-        
         if viewDrawable != nil {
             commandBuffer.present(viewDrawable!)
         }
         
         // Render Time
-        renderTime = -localRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
-        localRenderTime = Date()
+        if logTime {
+            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
+            localRenderTime = Date()
+        }
         
         // Render Time
-        renderTime = -globalRenderTime.timeIntervalSinceNow
-        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-        log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
+        if logTime {
+            renderTime = -globalRenderTime.timeIntervalSinceNow
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
+        }
         
+        pix.rendering = true
         
         // MARK: Render
         
@@ -497,20 +597,23 @@ extension Pixels {
             }
             
             // Render Time
-            renderTime = -localRenderTime.timeIntervalSinceNow
-            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-            self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
-            
-            // Render Time
-            renderTime = -globalRenderTime.timeIntervalSinceNow
-            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-            self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
-            
-            self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
-            
-            DispatchQueue.main.async {
-                completed(drawableTexture)
+            if self.logTime {
+                
+                renderTime = -localRenderTime.timeIntervalSinceNow
+                renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+                self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
+                
+                renderTime = -globalRenderTime.timeIntervalSinceNow
+                renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+                self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
+                
+                self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
+                
             }
+            
+//            DispatchQueue.main.async {
+                completed(drawableTexture)
+//            }
         })
         
         commandBuffer.commit()

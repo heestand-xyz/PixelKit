@@ -67,7 +67,7 @@ public class SyphonInPIX: PIXResource {
         clinet = SyphonClient(serverDescription: server as? [AnyHashable : Any], context: context!.cglContextObj, options: nil, newFrameHandler: { client in
             guard let frameImage = self.clinet!.newFrameImage() else { return }
             let size = frameImage.textureSize
-            if size != self.resolution?.size {
+            if size != self.resolution?.size.cg {
                 self.glSetup(at: size)
             }
             let glTexture = frameImage.textureName
