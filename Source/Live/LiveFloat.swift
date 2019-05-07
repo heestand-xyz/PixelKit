@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreGraphics
+import simd
 
 extension CGFloat {
     init(_ liveFloat: LiveFloat) {
@@ -515,6 +516,12 @@ public func sqrt(_ live: LiveFloat) -> LiveFloat {
 }
 public func pow(_ live: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return pow(CGFloat(live), CGFloat(live2)) })
+}
+public func abs(_ live: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return abs(CGFloat(live)) })
+}
+public func sign(_ live: LiveFloat) -> LiveFloat {
+    return LiveFloat({ return CGFloat(sign(Double(live))) })
 }
 
 public func cos(_ live: LiveFloat) -> LiveFloat {
