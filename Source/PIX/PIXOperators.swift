@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+infix operator ++
 infix operator --
 infix operator **
 infix operator !**
@@ -58,10 +59,11 @@ public extension PIX {
             case .over: return "&"
             case .under: return "!&"
             case .add: return "+"
+            case .addWithAlpha: return "++"
             case .multiply: return "*"
             case .difference: return "%"
-            case .subtractWithAlpha: return "--"
             case .subtract: return "-"
+            case .subtractWithAlpha: return "--"
             case .maximum: return "><"
             case .minimum: return "<>"
             case .gamma: return "!**"
@@ -70,9 +72,7 @@ public extension PIX {
             case .average: return "~"
             case .cosine: return "°"
             case .inside: return "<->"
-//            case .insideDestination: return "<+>"
             case .outside: return ">-<"
-//            case .outsideDestination: return ">+<"
             case .exclusiveOr: return "+-+"
             }
         }
@@ -89,6 +89,18 @@ public extension PIX {
     static func +(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs + lhs }
     static func +(lhs: PIX, rhs: LiveColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
+    }
+    
+    static func ++(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .addWithAlpha)
+    }
+    static func ++(lhs: LiveFloat, rhs: PIX) -> BlendPIX { return rhs ++ lhs }
+    static func ++(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .addWithAlpha)
+    }
+    static func ++(lhs: LiveColor, rhs: PIX) -> BlendPIX { return rhs ++ lhs }
+    static func ++(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .addWithAlpha)
     }
     
     static func -(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {

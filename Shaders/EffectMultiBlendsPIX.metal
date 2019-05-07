@@ -60,7 +60,17 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = float4(c_rgb * (1.0 - ci.a) + ci_rgb, max(c.a, ci.a));
                 }
                 break;
-            case 2: // Add
+            case 2: // Add Color
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    float3 c_rgb = float3(c);
+                    float3 ci_rgb = float3(ci);
+                    c = float4(c_rgb + ci_rgb, max(c.a, ci.a));
+                }
+                break;
+            case 3: // Add
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -68,7 +78,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c += ci;
                 }
                 break;
-            case 3: // Mult
+            case 4: // Mult
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -76,7 +86,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c *= ci;
                 }
                 break;
-            case 4: // Diff
+            case 5: // Diff
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -84,14 +94,6 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     float3 c_rgb = float3(c);
                     float3 ci_rgb = float3(ci);
                     c = float4(abs(c_rgb - ci_rgb), max(c.a, ci.a));
-                }
-                break;
-            case 5: // Sub
-                ci = inTexs.sample(s, uv, i);
-                if (i == 0) {
-                    c = ci;
-                } else {
-                    c -= ci;
                 }
                 break;
             case 6: // Sub Color
@@ -104,7 +106,15 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = float4(c_rgb - ci_rgb, max(c.a, ci.a));
                 }
                 break;
-            case 7: // Max
+            case 7: // Sub
+                ci = inTexs.sample(s, uv, i);
+                if (i == 0) {
+                    c = ci;
+                } else {
+                    c -= ci;
+                }
+                break;
+            case 8: // Max
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -112,7 +122,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = max(c, ci);
                 }
                 break;
-            case 8: // Min
+            case 9: // Min
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -120,7 +130,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = min(c, ci);
                 }
                 break;
-            case 9: // Gamma
+            case 10: // Gamma
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -128,7 +138,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = pow(c, 1 / ci);
                 }
                 break;
-            case 10: // Power
+            case 11: // Power
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -136,7 +146,7 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c = pow(c, ci);
                 }
                 break;
-            case 11: // Divide
+            case 12: // Divide
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci;
@@ -144,20 +154,12 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                     c /= ci;
                 }
                 break;
-            case 12: // Average
+            case 13: // Average
                 ci = inTexs.sample(s, uv, i);
                 if (i == 0) {
                     c = ci / count;
                 } else {
                     c += ci / count;
-                }
-                break;
-            case 13: // Cosine
-                ci = inTexs.sample(s, uv, i);
-                if (i == 0) {
-                    c = ci;
-                } else {
-                    c = lerpColors(c, ci, cos(ci * pi + pi) / 2 + 0.5);
                 }
                 break;
         }

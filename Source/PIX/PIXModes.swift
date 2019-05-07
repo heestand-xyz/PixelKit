@@ -29,10 +29,11 @@ extension PIX {
         case over
         case under
         case add
+        case addWithAlpha
         case multiply
         case difference
-        case subtractWithAlpha
         case subtract
+        case subtractWithAlpha
         case maximum
         case minimum
         case gamma
@@ -41,31 +42,28 @@ extension PIX {
         case average
         case cosine
         case inside
-//        case insideDestination
         case outside
-//        case outsideDestination
         case exclusiveOr
         var index: Int {
             switch self {
             case .over: return 0
             case .under: return 1
             case .add: return 2
-            case .multiply: return 3
-            case .difference: return 4
-            case .subtractWithAlpha: return 5
+            case .addWithAlpha: return 3
+            case .multiply: return 4
+            case .difference: return 5
             case .subtract: return 6
-            case .maximum: return 7
-            case .minimum: return 8
-            case .gamma: return 9
-            case .power: return 10
-            case .divide: return 11
-            case .average: return 12
-            case .cosine: return 13
-            case .inside: return 14
-//            case .insideDestination: return 15
-            case .outside: return 15
-//            case .outsideDestination: return 17
-            case .exclusiveOr: return 16
+            case .subtractWithAlpha: return 7
+            case .maximum: return 8
+            case .minimum: return 9
+            case .gamma: return 10
+            case .power: return 11
+            case .divide: return 12
+            case .average: return 13
+            case .cosine: return 14
+            case .inside: return 15
+            case .outside: return 16
+            case .exclusiveOr: return 17
             }
         }
     }
