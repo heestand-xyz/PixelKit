@@ -373,6 +373,7 @@ open class PIX {
     public func destroy() {
         pixels.remove(pix: self)
         texture = nil
+        bypass = true
         destroyed = true
     }
     

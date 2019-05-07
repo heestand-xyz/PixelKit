@@ -22,4 +22,9 @@ open class PIXMultiEffect: PIXEffect, PIXInMulti, PIXAutoParent {
 ////        fatalError("init(from:) has not been implemented")
 //    }
     
+    public override func destroy() {
+        inPixs = []
+        super.destroy()
+    }
+    
 }

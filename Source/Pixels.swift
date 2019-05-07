@@ -52,14 +52,14 @@ public class Pixels {
     
     // MARK: Color
     
-    public var bits: LiveColor.Bits = ._10
-    public var colorSpace: LiveColor.Space = .displayP3
+    public var bits: LiveColor.Bits = ._8
+    public var colorSpace: LiveColor.Space = .sRGB
     
     // MARK: Linked PIXs
     
     public var finalPix: PIX?
     
-    var linkedPixs: [PIX] = []
+    public var linkedPixs: [PIX] = []
     
 //    struct RenderedPIX {
 //        let pix: PIX
@@ -235,7 +235,8 @@ public class Pixels {
         
     }
     
-    func listenToFramesWithId(callback: @escaping () -> (Bool)) {
+    
+    public func listenToFramesUntil(callback: @escaping () -> (Bool)) {
         let id = UUID()
         frameCallbacks.append((id: id, callback: {
             if callback() {
@@ -244,13 +245,19 @@ public class Pixels {
         }))
     }
     
-    func listenToFrames(callback: @escaping () -> ()) {
+    public func listenToFrames(id: UUID, callback: @escaping () -> ()) {
+        frameCallbacks.append((id: id, callback: {
+            callback()
+        }))
+    }
+    
+    public func listenToFrames(callback: @escaping () -> ()) {
         frameCallbacks.append((id: UUID(), callback: {
             callback()
         }))
     }
     
-    func unlistenToFrames(for id: UUID) {
+    public func unlistenToFrames(for id: UUID) {
         for (i, frameCallback) in self.frameCallbacks.enumerated() {
             if frameCallback.id == id {
                 frameCallbacks.remove(at: i)
@@ -259,9 +266,10 @@ public class Pixels {
         }
     }
     
+    
     public func delay(frames: Int, done: @escaping () -> ()) {
         let startFrameIndex = frame
-        listenToFramesWithId(callback: {
+        listenToFramesUntil(callback: {
             if self.frame >= startFrameIndex + frames {
                 done()
                 return true

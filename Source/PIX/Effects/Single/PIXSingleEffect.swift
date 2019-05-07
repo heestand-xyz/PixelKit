@@ -17,4 +17,9 @@ open class PIXSingleEffect: PIXEffect, PIXInSingle, PIXAutoParent {
         super.init()
     }
     
+    public override func destroy() {
+        inPix = nil
+        super.destroy()
+    }
+    
 }

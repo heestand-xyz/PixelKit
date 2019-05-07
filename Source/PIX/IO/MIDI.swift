@@ -36,9 +36,7 @@ public class MIDI {
             let intVal = value != nil ? Int(value!) : -1
             for listener in self.listeners {
                 if address == listener.address {
-                    if floatVal != self.list[address] {
-                        listener.callback(floatVal)
-                    }
+                    listener.callback(floatVal)
                 }
             }
             self.firstAny = floatVal

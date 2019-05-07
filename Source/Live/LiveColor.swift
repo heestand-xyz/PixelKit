@@ -101,7 +101,12 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         public var mtl: MTLPixelFormat {
             switch self {
             case ._8: return .bgra8Unorm
-            case ._10: return .bgra10_xr_srgb
+            case ._10:
+                #if os(iOS)
+                return .bgra10_xr_srgb
+                #else
+                return .bgra8Unorm
+                #endif
             case ._16: return .rgba16Float
             case ._32: return .rgba32Float
             }
@@ -157,8 +162,8 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         case .sRGB:
             return self
         case .displayP3:
+            #if os(iOS)
 //            return sRGB(p3: self)
-            
             let p3Color = UIColor(displayP3Red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
             let ciColor = CIColor(color: p3Color)
             let r = LiveFloat(ciColor.red)
@@ -166,6 +171,9 @@ public class LiveColor: LiveValue, CustomStringConvertible {
             let b = LiveFloat(ciColor.blue)
             let a = LiveFloat(ciColor.alpha)
             return LiveColor(r: r, g: g, b: b, a: a)
+            #else
+            return self
+            #endif
         }
     }
     

@@ -27,4 +27,9 @@ open class PIXOutput: PIX, PIXInIO, PIXInSingle {
 //        fatalError("PIXOutput Decoder Initializer is not supported.") // CHECK
 //    }
     
+    public override func destroy() {
+        inPix = nil
+        super.destroy()
+    }
+    
 }

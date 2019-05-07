@@ -21,4 +21,10 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger, PIXAutoParent {
         super.init()
     }
     
+    public override func destroy() {
+        inPixA = nil
+        inPixB = nil
+        super.destroy()
+    }
+    
 }
