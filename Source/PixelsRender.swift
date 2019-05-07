@@ -611,9 +611,9 @@ extension Pixels {
                 
             }
             
-//            DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 completed(drawableTexture)
-//            }
+            }
         })
         
         commandBuffer.commit()

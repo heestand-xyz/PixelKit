@@ -90,6 +90,8 @@ open class PIX {
         }
     }
     
+    open var additiveVertexBlending: Bool { return false }
+    
     public let view: PIXView
     
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
@@ -139,7 +141,7 @@ open class PIX {
         do {
             let frag = try pixels.makeFrag(shader, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
+            pipeline = try pixels.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
             sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
         } catch {
             pixels.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
