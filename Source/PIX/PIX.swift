@@ -35,7 +35,7 @@ open class PIX {
             } else if let liveBool = liveValue as? LiveBool {
                 vals.append(liveBool.uniform ? 1.0 : 0.0)
             } else if let liveColor = liveValue as? LiveColor {
-                vals.append(contentsOf: liveColor.uniformList)
+                vals.append(contentsOf: liveColor.colorCorrect.uniformList)
             } else if let livePoint = liveValue as? LivePoint {
                 vals.append(contentsOf: livePoint.uniformList)
             } else if let liveSize = liveValue as? LiveSize {

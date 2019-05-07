@@ -52,8 +52,8 @@ public class Pixels {
     
     // MARK: Color
     
-    public var bits: LiveColor.Bits = ._8
-    var colorSpace: LiveColor.Space = .sRGB // .displayP3
+    public var bits: LiveColor.Bits = ._10
+    public var colorSpace: LiveColor.Space = .displayP3
     
     // MARK: Linked PIXs
     
@@ -589,7 +589,7 @@ public class Pixels {
     func rawNormalized(texture: MTLTexture) -> [CGFloat]? {
         let raw: [CGFloat]
         switch bits {
-        case ._8:
+        case ._8, ._10:
             raw = raw8(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) / (pow(2, 8) - 1) })
         case ._16:
             raw = raw16(texture: texture)!.map({ chan -> CGFloat in return CGFloat(chan) }) // CHECK normalize

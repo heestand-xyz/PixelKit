@@ -95,27 +95,25 @@ public class LiveColor: LiveValue, CustomStringConvertible {
 
     public enum Bits: Int, Codable {
         case _8 = 8
+        case _10 = 10
         case _16 = 16
         case _32 = 32
         public var mtl: MTLPixelFormat {
             switch self {
-            case ._8: return .bgra8Unorm // rgba8Unorm
+            case ._8: return .bgra8Unorm
+            case ._10: return .bgra10_xr_srgb
             case ._16: return .rgba16Float
             case ._32: return .rgba32Float
             }
         }
         public var ci: CIFormat {
             switch self {
-            case ._8: return .RGBA8
-            case ._16, ._32: return .RGBA16 // FIXME: 32 bit
+            case ._8, ._10: return .RGBA8
+            case ._16, ._32: return .RGBA16
             }
         }
         var os: OSType {
             return kCVPixelFormatType_32BGRA
-//            switch self {
-//            case ._8: return kCVPixelFormatType_32BGRA
-//            case ._16, ._32: return kCVPixelFormatType_32ARGB
-//            }
         }
         var osARGB: OSType {
             return kCVPixelFormatType_32ARGB
@@ -127,30 +125,48 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: Space
     
-    /*public*/ enum Space: String, Codable {
+    public enum Space: String, Codable {
         case sRGB
         case displayP3
         public var cg: CGColorSpace {
             switch self {
             case .sRGB:
-                return CGColorSpace(name: CGColorSpace.sRGB)! // CHECK non linear extended 16 bit
+                return CGColorSpace(name: CGColorSpace.sRGB)!
             case .displayP3:
-                return CGColorSpace(name: CGColorSpace.displayP3)! // CHECK linear extended 16 bit
+                return CGColorSpace(name: CGColorSpace.displayP3)!
             }
         }
-//            init(_ cg: CGColorSpace) {
-//                switch cg.name {
-//                case CGColorSpace.sRGB: self = .sRGB
-//                case CGColorSpace.extendedSRGB: self = .sRGB
-//                case CGColorSpace.linearSRGB: self = .sRGB
-//                case CGColorSpace.extendedLinearSRGB: self = .sRGB
-//                default: self = .displayP3
-//                }
-//            }
     }
-
-    var space: Space {
-        return Pixels.main.colorSpace
+    
+    static let linearP3ToLinearSRGBMatrix: matrix_float3x3 = {
+        let col1 = float3([ 1.2249, -0.2247,  0])
+        let col2 = float3([-0.0420,  1.0419,  0])
+        let col3 = float3([-0.0197, -0.0786,  1.0979])
+        return matrix_float3x3([col1, col2, col3])
+    }()
+    
+    func sRGB(p3 c: LiveColor) -> LiveColor {
+        let p3 = float3(x: Float(c.r.cg), y: Float(c.g.cg), z: Float(c.b.cg))
+        let linearSrgb = p3.gammaDecoded * LiveColor.linearP3ToLinearSRGBMatrix
+        let srgb = linearSrgb.gammaEncoded
+        return LiveColor(r: LiveFloat(srgb.x), g: LiveFloat(srgb.y), b: LiveFloat(srgb.z), a: a)
+    }
+    
+    var colorCorrect: LiveColor {
+        switch Pixels.main.colorSpace {
+        case .sRGB:
+            return self
+        case .displayP3:
+//            return sRGB(p3: self)
+            
+            let p3Color = UIColor(displayP3Red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
+            let ciColor = CIColor(color: p3Color)
+            let r = LiveFloat(ciColor.red)
+            let g = LiveFloat(ciColor.green)
+            let b = LiveFloat(ciColor.blue)
+            let a = LiveFloat(ciColor.alpha)
+            return LiveColor(r: r, g: g, b: b, a: a)
+        }
     }
     
     // MARK: Touch
@@ -192,31 +208,29 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     #if os(iOS)
     public var uiColor: UIColor {
-        return UIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a))
-//            switch space {
-//            case .sRGB:
-//                return UIColor(red: r, green: g, blue: b, alpha: a)
-//            case .displayP3:
-//                return UIColor(displayP3Red: r, green: g, blue: b, alpha: a)
-//            }
+        switch Pixels.main.colorSpace {
+        case .sRGB:
+            return UIColor(red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
+        case .displayP3:
+            return UIColor(displayP3Red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
+        }
     }
     #elseif os(macOS)
     public var nsColor: NSColor {
-        return NSColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a))
-//            switch space {
-//            case .sRGB:
-//                return NSColor(red: r.value, green: g.value, blue: b.value, alpha: a.value)
-//            case .displayP3:
-//                return NSColor(displayP3Red: r.value, green: g.value, blue: b.value, alpha: a.value)
-//            }
+        switch Pixels.main.colorSpace {
+        case .sRGB:
+            return NSColor(red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
+        case .displayP3:
+            return NSColor(displayP3Red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
+        }
     }
     #endif
     
     public var ciColor: CIColor {
-        return CIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a), colorSpace: space.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        return CIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a), colorSpace: Pixels.main.colorSpace.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     public var cgColor: CGColor {
-        return CGColor(colorSpace: space.cg, components: list) ?? _Color.clear.cgColor
+        return CGColor(colorSpace: Pixels.main.colorSpace.cg, components: list) ?? _Color.clear.cgColor
     }
     
     public var list: [CGFloat] {
@@ -231,20 +245,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         return LiveColor(r: lum, g: lum, b: lum, a: a/*, space: space*/)
     }
     
-//    // MARK: - Future
-//
-//    public init(_ liveValue: @escaping () -> (LiveColor)) {
-//        r = liveValue().r
-//        g = liveValue.g
-//        b = liveValue.b
-//        a = liveValue.a
-//    }
-//
-//    required public init(floatLiteral value: FloatLiteralType) {
-////        liveValue = { return CGFloat(value) }
-//    }
     
     // MARK: - Life Cycle
+
+    // MARK: - Future
     
     public init(_ liveValue: @escaping () -> (_Color)) {
         let liveColor = LiveColor(liveValue())
@@ -256,46 +260,42 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: - RGB
     
-    public init(r: LiveFloat, g: LiveFloat, b: LiveFloat, a: LiveFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
-//        self.space = space
+    public init(r: LiveFloat, g: LiveFloat, b: LiveFloat, a: LiveFloat = 1) {
         self.r = r
         self.g = g
         self.b = b
         self.a = a
     }
     
-    public init(r255: Int, g255: Int, b255: Int, a255: Int = 255/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(r255: Int, g255: Int, b255: Int, a255: Int = 255) {
         self.r = LiveFloat(CGFloat(r255) / 255)
         self.g = LiveFloat(CGFloat(g255) / 255)
         self.b = LiveFloat(CGFloat(b255) / 255)
         self.a = LiveFloat(CGFloat(a255) / 255)
-//        self.space = space
     }
     
     // MARK: - UI
     
     #if os(iOS)
-    public init(_ uiColor: UIColor/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(_ uiColor: UIColor) {
         let ciColor = CIColor(color: uiColor)
         r = LiveFloat(ciColor.red)
         g = LiveFloat(ciColor.green)
         b = LiveFloat(ciColor.blue)
         a = LiveFloat(ciColor.alpha)
-//        self.space = space
     }
     #endif
 
     // MARK: - NS
     
     #if os(macOS)
-    public init(_ nsColor: NSColor/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(_ nsColor: NSColor) {
         let ciColor = CIColor(color: nsColor)
         // FIXME: Optional LiveFloat
         r = LiveFloat(ciColor?.red ?? 0.0)
         g = LiveFloat(ciColor?.green ?? 0.0)
         b = LiveFloat(ciColor?.blue ?? 0.0)
         a = LiveFloat(ciColor?.alpha ?? 0.0)
-//        self.space = space
     }
     #endif
     
@@ -359,12 +359,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         return (h: h, s: s, v: v)
     }
     
-    public init(h: LiveFloat, s: LiveFloat = 1.0, v: LiveFloat = 1.0, a: LiveFloat = 1.0/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(h: LiveFloat, s: LiveFloat = 1.0, v: LiveFloat = 1.0, a: LiveFloat = 1.0) {
         r = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).r })
         g = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).g })
         b = LiveFloat({ return LiveColor.rgb(h: CGFloat(h), s: CGFloat(s), v: CGFloat(v)).b })
         self.a = a
-//        self.space = space
     }
     static func rgb(h: CGFloat, s: CGFloat, v: CGFloat) -> (r: CGFloat, g: CGFloat, b: CGFloat) {
         let r: CGFloat
@@ -425,7 +424,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         return String(format:"#%06x", hexInt)
     }
     
-    public init(hex: String, a: CGFloat = 1/*, space: Space = Pixels.main.colorSpace*/) {
+    public init(hex: String, a: CGFloat = 1) {
         var hex = hex
         if hex[0..<1] == "#" {
             if hex.count == 4 {
@@ -447,13 +446,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         self.g = LiveFloat(CGFloat((hexInt & 0xff00) >> 8) / 255.0)
         self.b = LiveFloat(CGFloat((hexInt & 0xff) >> 0) / 255.0)
         self.a = LiveFloat(a)
-//        self.space = space
     }
     
     // MARK: - Pixel
     
-    init(_ pixel: [CGFloat]/*, space: Space = Pixels.main.colorSpace*/) {
-//        self.space = space
+    init(_ pixel: [CGFloat]) {
         guard pixel.count == 4 else {
             Pixels.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
             r = 0
@@ -463,7 +460,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
             return
         }
         switch Pixels.main.bits {
-        case ._8:
+        case ._8, ._10:
             // FIXME: BGRA Temp Fix
             b = LiveFloat(pixel[0])
             g = LiveFloat(pixel[1])
@@ -736,5 +733,32 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         return LiveColor(lum: LiveFloat.midi(address))
     }
     #endif
+    
+}
+
+extension float3 {
+    
+    var gammaDecoded: float3 {
+        let f = {
+            (c: Float) -> Float in
+            if abs(c) <= 0.04045 {
+                return c / 12.92
+            }
+            return sign(c) * powf((abs(c) + 0.055) / 1.055, 2.4)
+        }
+        return float3(f(x), f(y), f(z))
+        
+    }
+    
+    var gammaEncoded: float3 {
+        let f = {
+            (c: Float) -> Float in
+            if abs(c) <= 0.0031308 {
+                return c * 12.92
+            }
+            return sign(c) * (powf(abs(c), 1/2.4) * 1.055 - 0.055)
+        }
+        return float3(f(x), f(y), f(z))
+    }
     
 }
