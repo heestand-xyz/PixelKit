@@ -133,6 +133,7 @@ extension Pixels {
     }
     
     func mipmap(texture: MTLTexture, with commandBuffer: MTLCommandBuffer) throws {
+        guard texture.mipmapLevelCount > 1 else { return }
         guard let commandEncoder: MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder() else {
             throw TextureError.mipmap
         }

@@ -69,6 +69,11 @@ public class ReorderPIX: PIXMergerEffect, PIXAuto {
         return vals
     }
     
+    public required init() {
+        super.init()
+        premultiply = false
+    }
+    
 }
 
 public extension PIXOut {

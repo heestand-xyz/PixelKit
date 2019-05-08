@@ -86,10 +86,26 @@ fragment float4 effectMergerReorderPIX(VertexOut out [[stage_in]],
     float lum_b = (cb.r + cb.g + cb.b) / 3;
     
     float4 c = float4(
-        chan_r < 4 ? (in.red_input == 0 ? ca[chan_r] : cb[chan_r]) : chan_r == 4 ? 0.0 : chan_r == 5 ? 1.0 : (in.red_input == 0 ? lum_a : lum_b),
-        chan_g < 4 ? (in.green_input == 0 ? ca[chan_g] : cb[chan_g]) : chan_g == 4 ? 0.0 : chan_g == 5 ? 1.0 : (in.green_input == 0 ? lum_a : lum_b),
-        chan_b < 4 ? (in.blue_input == 0 ? ca[chan_b] : cb[chan_b]) : chan_b == 4 ? 0.0 : chan_b == 5 ? 1.0 : (in.blue_input == 0 ? lum_a : lum_b),
-        chan_a < 4 ? (in.alpha_input == 0 ? ca[chan_a] : cb[chan_a]) : chan_a == 4 ? 0.0 : chan_a == 5 ? 1.0 : (in.alpha_input == 0 ? lum_a : lum_b)
+        chan_r < 4 ?
+            (in.red_input == 0 ? ca[chan_r] : cb[chan_r]) :
+                (chan_r == 4 ? 0.0 :
+                    chan_r == 5 ? 1.0 :
+                        (in.red_input == 0 ? lum_a : lum_b)),
+        chan_g < 4 ?
+            (in.green_input == 0 ? ca[chan_g] : cb[chan_g]) :
+                (chan_g == 4 ? 0.0 :
+                    chan_g == 5 ? 1.0 :
+                        (in.green_input == 0 ? lum_a : lum_b)),
+        chan_b < 4 ?
+            (in.blue_input == 0 ? ca[chan_b] : cb[chan_b]) :
+                (chan_b == 4 ? 0.0 :
+                    chan_b == 5 ? 1.0 :
+                        (in.blue_input == 0 ? lum_a : lum_b)),
+        chan_a < 4 ?
+            (in.alpha_input == 0 ? ca[chan_a] : cb[chan_a]) :
+                (chan_a == 4 ? 0.0 :
+                    chan_a == 5 ? 1.0 :
+                        (in.alpha_input == 0 ? lum_a : lum_b))
     );
     
     if (in.premultiply) {
