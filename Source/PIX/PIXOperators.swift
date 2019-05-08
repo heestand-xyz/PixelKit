@@ -45,13 +45,23 @@ public extension PIX {
         func blend(_ pix: PIX, _ color: LiveColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
             let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
             colorPix.color = color
+            if [.addWithAlpha, .subtractWithAlpha].contains(blendingMode) {
+                colorPix.premultiply = false
+            }
             let blendPix = blend(pix, colorPix, blendingMode: blendingMode)
             blendPix.extend = .hold
             return blendPix
         }
         
         func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            return blend(pix, LiveColor(lum: val), blendingMode: blendingMode)
+            let color: LiveColor
+            switch blendingMode {
+            case .addWithAlpha, .subtractWithAlpha:
+                color = LiveColor(lum: val, a: val)
+            default:
+                color = LiveColor(lum: val)
+            }
+            return blend(pix, color, blendingMode: blendingMode)
         }
         
         func blend(_ pix: PIX, _ val: LivePoint, blendingMode: PIX.BlendingMode) -> BlendPIX {
@@ -125,6 +135,12 @@ public extension PIX {
     }
     
     static func --(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
+    }
+    static func --(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+        return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
+    }
+    static func --(lhs: PIX, rhs: LivePoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subtractWithAlpha)
     }
     static func --(lhs: PIX, rhs: LiveColor) -> BlendPIX {

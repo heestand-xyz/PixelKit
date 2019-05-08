@@ -74,7 +74,7 @@ Pod::Spec.new do |spec|
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
   
-  spec.swift_version = '4.2'
+  spec.swift_version = '5.0'
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -96,11 +96,13 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Source", "Source/**/*.swift"
 
   spec.ios.exclude_files = "Source/PIX/Content/Resource/ScreenCapturePIX.swift",
-  						   "Source/PIX/View/LiveMouseView.swift"
+                           "Source/PIX/Content/Resource/SyphonInPIX.swift",
+                           "Source/PIX/Output/SyphonOutPIX.swift",
+  						             "Source/PIX/View/LiveMouseView.swift"
 
   spec.osx.exclude_files = "Source/PIX/Content/Resource/StreamInPIX.swift",
-  						   "Source/PIX/Output/StreamOutPIX.swift",
-  						   "Source/PIX/Output/AirPlayPIX.swift",
+  						             "Source/PIX/Output/StreamOutPIX.swift",
+  						             "Source/PIX/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift"
   # spec.exclude_files = "Classes/Exclude"

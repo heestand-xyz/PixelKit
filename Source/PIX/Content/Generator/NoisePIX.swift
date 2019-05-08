@@ -19,11 +19,12 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     public var zoom: LiveFloat = 1.0
     public var colored: LiveBool = false
     public var random: LiveBool = false
+    public var includeAlpha: LiveBool = false
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [seed, octaves, position, zPosition, zoom, colored, random]
+        return [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
     }
     
 //    // MARK: - Life Cycle

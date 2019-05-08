@@ -18,14 +18,14 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
-		3A5B862A22770EAD0030F98E /* SyphonOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6E9D2F2254A946008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A6E9D302254A97F008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
-		3A8AC34B227729EC00A142AA /* SyphonInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AC3492277292C00A142AA /* SyphonInPIX.swift */; };
+		3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
+		3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
@@ -33,8 +33,6 @@
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
-		3AAB4FDB2277141200B73870 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAB4FDA2277141200B73870 /* Syphon.framework */; };
-		3AAB4FDC2277142500B73870 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AAB4FDA2277141200B73870 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
@@ -215,13 +213,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3A1A91772282F4A000B7876F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A84C6E02282F5A9000410DD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		746B50452275A171003F5C37 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3AAB4FDC2277142500B73870 /* Syphon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +263,6 @@
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
-		3AAB4FDA2277141200B73870 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = Resources/Frameworks/Syphon.framework; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
@@ -320,7 +336,6 @@
 		749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXGenerator.swift; sourceTree = "<group>"; };
 		749DC6CA2124E12600AE5F6A /* PIXResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResource.swift; sourceTree = "<group>"; };
 		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
-		74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelsShaders-macOS.metallib"; path = "../../../../Library/Developer/Xcode/DerivedData/3D_Lab-bcfyramynmzomkddcqbcmnoakxjh/Build/Products/Debug/PixelsShaders-macOS.metallib"; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
 		74A7B98121412BBF0078DDE3 /* RangePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePIX.swift; sourceTree = "<group>"; };
 		74A7B98321412BC80078DDE3 /* SharpenPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharpenPIX.swift; sourceTree = "<group>"; };
@@ -354,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */,
-				3AAB4FDB2277141200B73870 /* Syphon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +395,6 @@
 		7400B860212DD087002811DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3AAB4FDA2277141200B73870 /* Syphon.framework */,
 				74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */,
 				74E9F6B621937A5000F541DE /* PixelsShaders.metallib */,
 			);
@@ -628,7 +641,6 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39D921011E3A004E9AA0 /* Source */,
@@ -703,6 +715,7 @@
 				3AF28BC8219312900079FC7A /* Sources */,
 				3AF28BC9219312900079FC7A /* Frameworks */,
 				3AF28BCA219312900079FC7A /* Resources */,
+				3A84C6E02282F5A9000410DD /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -721,6 +734,7 @@
 				74BC39D321011E3A004E9AA0 /* Sources */,
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
 				74BC39D521011E3A004E9AA0 /* Resources */,
+				3A1A91772282F4A000B7876F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -833,7 +847,6 @@
 				3AF28C0B219312F50079FC7A /* DelayPIX.swift in Sources */,
 				7486537C21A897BF0073F758 /* LiveFloat.swift in Sources */,
 				3AF28C08219312F50079FC7A /* RangePIX.swift in Sources */,
-				3A5B862A22770EAD0030F98E /* SyphonOutPIX.swift in Sources */,
 				3AF28BFD219312F50079FC7A /* QuantizePIX.swift in Sources */,
 				7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */,
 				3AF28C1B219313090079FC7A /* CameraPIX.swift in Sources */,
@@ -898,7 +911,6 @@
 				3AF28BD7219312CA0079FC7A /* PixelsRender.swift in Sources */,
 				3AF28C0A219312F50079FC7A /* SlopePIX.swift in Sources */,
 				3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */,
-				3A8AC34B227729EC00A142AA /* SyphonInPIX.swift in Sources */,
 				3AF28C2B219337CD0079FC7A /* CheckerView.swift in Sources */,
 				3AF28BD6219312CA0079FC7A /* PixelsTexture.swift in Sources */,
 			);
@@ -1036,6 +1048,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
@@ -1074,6 +1087,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
@@ -1235,7 +1249,7 @@
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
 			};
@@ -1269,7 +1283,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
 			};
