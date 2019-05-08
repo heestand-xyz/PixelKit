@@ -11,7 +11,6 @@
 		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17FBC3225238EC00453079 /* ClampPIX.swift */; };
 		3A17FBC82252398900453079 /* ClampPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17FBC3225238EC00453079 /* ClampPIX.swift */; };
-		3A1A91792282F4A500B7876F /* PixelsShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A91782282F4A400B7876F /* PixelsShaders.metallib */; };
 		3A2924452249114F00A05B7A /* FlarePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924442249114F00A05B7A /* FlarePIX.swift */; };
 		3A2924462249114F00A05B7A /* FlarePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924442249114F00A05B7A /* FlarePIX.swift */; };
 		3A2C1DA9224906220040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
@@ -25,6 +24,8 @@
 		3A6E9D2F2254A946008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A6E9D302254A97F008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
+		3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
+		3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
@@ -218,7 +219,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A1A91792282F4A500B7876F /* PixelsShaders.metallib in CopyFiles */,
+				3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A84C6E02282F5A9000410DD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +247,6 @@
 /* Begin PBXFileReference section */
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
 		3A17FBC3225238EC00453079 /* ClampPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClampPIX.swift; sourceTree = "<group>"; };
-		3A1A91782282F4A400B7876F /* PixelsShaders.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = PixelsShaders.metallib; path = "../../../../Library/Developer/Xcode/DerivedData/Pixels_Test_iOS-buzwzfcphmvpwuevscbdbiexkouj/Build/Products/Debug-iphoneos/PixelsShaders.metallib"; sourceTree = "<group>"; };
 		3A2924442249114F00A05B7A /* FlarePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlarePIX.swift; sourceTree = "<group>"; };
 		3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SepiaPIX.swift; sourceTree = "<group>"; };
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
@@ -326,7 +336,6 @@
 		749DC6C82124E0DF00AE5F6A /* PIXGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXGenerator.swift; sourceTree = "<group>"; };
 		749DC6CA2124E12600AE5F6A /* PIXResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXResource.swift; sourceTree = "<group>"; };
 		749EB33E2119A5D900921BDF /* ImagePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePIX.swift; sourceTree = "<group>"; };
-		74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelsShaders-macOS.metallib"; path = "../../../../Library/Developer/Xcode/DerivedData/3D_Lab-bcfyramynmzomkddcqbcmnoakxjh/Build/Products/Debug/PixelsShaders-macOS.metallib"; sourceTree = "<group>"; };
 		74A40E1A210A11200085041D /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
 		74A7B98121412BBF0078DDE3 /* RangePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangePIX.swift; sourceTree = "<group>"; };
 		74A7B98321412BC80078DDE3 /* SharpenPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharpenPIX.swift; sourceTree = "<group>"; };
@@ -632,8 +641,6 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				3A1A91782282F4A400B7876F /* PixelsShaders.metallib */,
-				74A164F6227B1F63009DBA06 /* PixelsShaders-macOS.metallib */,
 				74D90B1B21331CF60028A69E /* README.md */,
 				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39D921011E3A004E9AA0 /* Source */,
@@ -708,6 +715,7 @@
 				3AF28BC8219312900079FC7A /* Sources */,
 				3AF28BC9219312900079FC7A /* Frameworks */,
 				3AF28BCA219312900079FC7A /* Resources */,
+				3A84C6E02282F5A9000410DD /* CopyFiles */,
 			);
 			buildRules = (
 			);
