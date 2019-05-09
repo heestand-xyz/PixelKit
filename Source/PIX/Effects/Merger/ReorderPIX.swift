@@ -100,4 +100,16 @@ public extension PIXOut {
         return reorderPix
     }
     
+    func _RGtoBA(with pix: PIX & PIXOut) -> ReorderPIX {
+        let reorderPix = ReorderPIX()
+        reorderPix.name = "BAtoRG:reorder"
+        reorderPix.inPixA = self as? PIX & PIXOut
+        reorderPix.inPixB = pix
+        reorderPix.blueInput = .b
+        reorderPix.alphaInput = .b
+        reorderPix.blueChannel = .red
+        reorderPix.alphaChannel = .green
+        return reorderPix
+    }
+    
 }
