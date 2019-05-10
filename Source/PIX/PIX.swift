@@ -1,6 +1,6 @@
 //
 //  PIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-20.
 //  Open Source - MIT License
@@ -17,7 +17,7 @@ open class PIX {
     
     public weak var delegate: PIXDelegate?
     
-    let pixels = Pixels.main
+    let pixelKit = PixelKit.main
     
     open var shader: String { return "" }
     
@@ -106,11 +106,11 @@ open class PIX {
     }
     
     public var customRenderActive: Bool = false
-    public var customRenderDelegate: PixelsCustomRenderDelegate?
+    public var customRenderDelegate: PixelCustomRenderDelegate?
     public var customMergerRenderActive: Bool = false
-    public var customMergerRenderDelegate: PixelsCustomMergerRenderDelegate?
+    public var customMergerRenderDelegate: PixelCustomMergerRenderDelegate?
     public var customGeometryActive: Bool = false
-    public var customGeometryDelegate: PixelsCustomGeometryDelegate?
+    public var customGeometryDelegate: PixelCustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
     open var customVertexShaderName: String? { return nil }
     open var customVertexTextureActive: Bool { return false }
@@ -122,8 +122,8 @@ open class PIX {
     var needsRender = false {
         didSet {
             guard needsRender else { return }
-            guard pixels.renderMode == .direct else { return }
-            pixels.renderPIX(self, done: { _ in })
+            guard pixelKit.renderMode == .direct else { return }
+            pixelKit.renderPIX(self, done: { _ in })
         }
     }
     var renderIndex: Int = 0
@@ -135,21 +135,21 @@ open class PIX {
         view = PIXView()
         
         guard shader != "" else {
-            pixels.log(pix: self, .fatal, nil, "Shader not defined.")
+            pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
         }
         do {
-            let frag = try pixels.makeFrag(shader, with: customMetalLibrary, from: self)
-            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixels.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            let frag = try pixelKit.makeFrag(shader, with: customMetalLibrary, from: self)
+            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+            pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
+            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
         } catch {
-            pixels.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
+            pixelKit.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
         }
             
-        pixels.add(pix: self)
+        pixelKit.add(pix: self)
         
-        pixels.log(pix: self, .detail, nil, "Linked with Pixels.", clean: true)
+        pixelKit.log(pix: self, .detail, nil, "Linked with PixelKit.", clean: true)
     
     }
     
@@ -157,11 +157,11 @@ open class PIX {
     
     func updateSampler() {
         do {
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
-            pixels.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
+            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            pixelKit.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
             setNeedsRender()
         } catch {
-            pixels.log(pix: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
+            pixelKit.log(pix: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
         }
     }
     
@@ -173,16 +173,16 @@ open class PIX {
             return
         }
         guard !needsRender else {
-//            pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
+//            pixelKit.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
         guard resolution != nil else {
-//            pixels.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
+//            pixelKit.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
             return
         }
         guard view.metalView.res != nil else {
-            pixels.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
-            pixels.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
+            pixelKit.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
+            pixelKit.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
             applyRes {
                 self.setNeedsRender()
             }
@@ -190,11 +190,11 @@ open class PIX {
         }
         if let pixResource = self as? PIXResource {
             guard pixResource.pixelBuffer != nil else {
-                pixels.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
+                pixelKit.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
                 return
             }
         }
-        pixels.log(pix: self, .detail, .render, "Requested.", loop: true)
+        pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)
 //        delegate?.pixWillRender(self)
         needsRender = true
     }
@@ -218,7 +218,7 @@ open class PIX {
                 let pix = pixOutPath.pixIn
                 guard !pix.destroyed else { continue }
                 guard pix != self else {
-                    pixels.log(.error, .render, "Connected to self.")
+                    pixelKit.log(.error, .render, "Connected to self.")
                     continue
                 }
                 pix.setNeedsRender()
@@ -227,7 +227,7 @@ open class PIX {
     }
     
     func renderCustomVertexTexture() {
-        for pix in pixels.linkedPixs {
+        for pix in pixelKit.linkedPixs {
             if pix.customVertexTextureActive {
                 if let inPix = pix.customVertexPixIn {
                     if inPix == self {
@@ -254,7 +254,7 @@ open class PIX {
     }
     
     func setNeedsConnectSingle(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
             for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
@@ -264,23 +264,23 @@ open class PIX {
                 }
             }
             pixInIO.pixInList = []
-            pixels.log(pix: self, .info, .connection, "Disonnected Single: \(pixOut)")
+            pixelKit.log(pix: self, .info, .connection, "Disonnected Single: \(pixOut)")
         }
         if let newPixOut = newInPix {
             guard newPixOut != self else {
-                pixels.log(.error, .connection, "Can't connect to self.")
+                pixelKit.log(.error, .connection, "Can't connect to self.")
                 return
             }
             var pixOut = newPixOut as! (PIX & PIXOutIO)
             pixInIO.pixInList = [pixOut]
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
             applyRes { self.setNeedsRender() }
-            pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
+            pixelKit.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
         }
     }
     
     func setNeedsConnectMerger(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?, second: Bool) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         guard let pixInMerger = self as? PIXInMerger else { return }
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
@@ -291,7 +291,7 @@ open class PIX {
                 }
             }
             pixInIO.pixInList = []
-            pixels.log(pix: self, .info, .connection, "Disonnected Merger: \(pixOut)")
+            pixelKit.log(pix: self, .info, .connection, "Disonnected Merger: \(pixOut)")
         }
         if let newPixOut = newInPix {
             if var pixOutA = (!second ? newPixOut : pixInMerger.inPixA) as? (PIX & PIXOutIO),
@@ -300,19 +300,19 @@ open class PIX {
                 pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
                 pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
                 applyRes { self.setNeedsRender() }
-                pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+                pixelKit.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
             }
         }
     }
     
     func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = pixOuts
         for (i, pixOut) in pixOuts.enumerated() {
             var pixOut = pixOut
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
-        pixels.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
+        pixelKit.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
     }
     
@@ -371,7 +371,7 @@ open class PIX {
     
     var destroyed = false
     public func destroy() {
-        pixels.remove(pix: self)
+        pixelKit.remove(pix: self)
         texture = nil
         bypass = true
         destroyed = true
@@ -379,7 +379,7 @@ open class PIX {
     
     deinit {
         // CHECK retain count...
-        pixels.remove(pix: self)
+        pixelKit.remove(pix: self)
         // Disconnect...
     }
     

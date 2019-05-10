@@ -1,6 +1,6 @@
 //
 //  LivePoint.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2018-11-27.
 //  Open Source - MIT License
@@ -50,7 +50,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     #if os(iOS)
     public static var touchXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 return pix.view.liveTouchView.touchPointMain
             }
@@ -61,7 +61,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
 //        var points: [LivePoint] = []
 //        for i in 0..<10 {
 //            let point = LivePoint({ () -> (CGPoint) in
-//                for pix in Pixels.main.linkedPixs {
+//                for pix in PixelKit.main.linkedPixs {
 //                    guard pix.view.superview != nil else { continue }
 //                    let touchPoints = pix.view.liveTouchView.touchPoints
 //                    guard touchPoints.count > i else { continue }
@@ -81,7 +81,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     }
     public static var mouseXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 if let mousePoint = pix.view.liveMouseView.mousePoint {
                     return mousePoint

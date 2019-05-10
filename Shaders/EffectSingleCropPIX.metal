@@ -1,6 +1,6 @@
 //
 //  EffectSingleCropPIX.metal
-//  PixelsShaders
+//  PixelKitShaders
 //
 //  Created by Hexagons on 2017-11-30.
 //  Copyright © 2017 Hexagons. All rights reserved.

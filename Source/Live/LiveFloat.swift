@@ -1,6 +1,6 @@
 //
 //  LiveFloat.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-11-23.
 //  Open Source - MIT License
@@ -87,7 +87,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     //    public var second: LiveFloat!
     public static var seconds: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
-            return Pixels.main.seconds
+            return PixelKit.main.seconds
         })
     }
     public static var secondsSince1970: LiveFloat {
@@ -101,14 +101,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         var value: CGFloat = 0.0
         var lastFrame: Int = -1
         return LiveFloat({ () -> (CGFloat) in
-            guard lastFrame != Pixels.main.frame else {
-                lastFrame = Pixels.main.frame
+            guard lastFrame != PixelKit.main.frame else {
+                lastFrame = PixelKit.main.frame
                 return value
             }
             if !self.live.isFrozen {
-                value += 1.0 / CGFloat(Pixels.main.fps)
+                value += 1.0 / CGFloat(PixelKit.main.fps)
             }
-            lastFrame = Pixels.main.frame
+            lastFrame = PixelKit.main.frame
             return value
         })
     }
@@ -116,14 +116,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         var value: CGFloat = 0.0
         var lastFrame: Int = -1
         return LiveFloat({ () -> (CGFloat) in
-            guard lastFrame != Pixels.main.finalFrame else {
-                lastFrame = Pixels.main.finalFrame
+            guard lastFrame != PixelKit.main.finalFrame else {
+                lastFrame = PixelKit.main.finalFrame
                 return value
             }
             if !self.live.isFrozen {
-                value += 1.0 / CGFloat(Pixels.main.finalFps ?? Pixels.main.fpsMax)
+                value += 1.0 / CGFloat(PixelKit.main.finalFps ?? PixelKit.main.fpsMax)
             }
-            lastFrame = Pixels.main.finalFrame
+            lastFrame = PixelKit.main.finalFrame
             return value
         })
     }
@@ -146,7 +146,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     public static var touchForce: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 return pix.view.liveTouchView.force
             }
@@ -366,7 +366,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     /// filter over frames.
     public func filter(frames: LiveInt, bypassLower: Bool = false, bypassHigher: Bool = false) -> LiveFloat {
         var cache: [CGFloat] = []
-        Pixels.main.listenToFrames(callback: {
+        PixelKit.main.listenToFrames(callback: {
             cache.append(CGFloat(self))
             while cache.count > Int(frames) {
                 cache.remove(at: 0)

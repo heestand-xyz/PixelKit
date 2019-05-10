@@ -1,6 +1,6 @@
 //
 //  EffectSingleClampPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2019-04-01.
 //  Copyright © 2019 Hexagons. All rights reserved.

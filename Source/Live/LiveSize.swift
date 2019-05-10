@@ -1,6 +1,6 @@
 //
 //  LiveSize.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2018-11-27.
 //  Open Source - MIT License

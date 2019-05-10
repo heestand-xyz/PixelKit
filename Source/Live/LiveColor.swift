@@ -1,6 +1,6 @@
 //
 //  PIXColor.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-08.
 //  Open Source - MIT License
@@ -158,7 +158,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     
     var colorCorrect: LiveColor {
-        switch Pixels.main.colorSpace {
+        switch PixelKit.main.colorSpace {
         case .sRGB:
             return self
         case .displayP3:
@@ -216,7 +216,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     #if os(iOS)
     public var uiColor: UIColor {
-        switch Pixels.main.colorSpace {
+        switch PixelKit.main.colorSpace {
         case .sRGB:
             return UIColor(red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
         case .displayP3:
@@ -225,7 +225,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     #elseif os(macOS)
     public var nsColor: NSColor {
-        switch Pixels.main.colorSpace {
+        switch PixelKit.main.colorSpace {
         case .sRGB:
             return NSColor(red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
         case .displayP3:
@@ -235,10 +235,10 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     #endif
     
     public var ciColor: CIColor {
-        return CIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a), colorSpace: Pixels.main.colorSpace.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        return CIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: CGFloat(a), colorSpace: PixelKit.main.colorSpace.cg) ?? CIColor(red: 0, green: 0, blue: 0, alpha: 0)
     }
     public var cgColor: CGColor {
-        return CGColor(colorSpace: Pixels.main.colorSpace.cg, components: list) ?? _Color.clear.cgColor
+        return CGColor(colorSpace: PixelKit.main.colorSpace.cg, components: list) ?? _Color.clear.cgColor
     }
     
     public var list: [CGFloat] {
@@ -310,7 +310,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     // MARK: - Grayscale
     
     public init(lum: LiveFloat, a: LiveFloat = 1.0) {
-//        self.space = Pixels.main.colorSpace
+//        self.space = PixelKit.main.colorSpace
         self.r = lum
         self.g = lum
         self.b = lum
@@ -460,14 +460,14 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     init(_ pixel: [CGFloat]) {
         guard pixel.count == 4 else {
-            Pixels.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
+            PixelKit.main.log(.error, nil, "Color: Bad Channel Count: \(pixel.count)")
             r = 0
             g = 0
             b = 0
             a = 1
             return
         }
-        switch Pixels.main.bits {
+        switch PixelKit.main.bits {
         case ._8, ._10:
             // FIXME: BGRA Temp Fix
             b = LiveFloat(pixel[0])
@@ -533,7 +533,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         case .alpha:
             a = 1
         }
-//        space = Pixels.main.colorSpace
+//        space = PixelKit.main.colorSpace
     }
     
     // MARK: - Functions

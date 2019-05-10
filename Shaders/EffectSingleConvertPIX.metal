@@ -1,6 +1,6 @@
 //
 //  EffectSingleConvertPIX.metal
-//  PixelsShaders
+//  PixelKitShaders
 //
 //  Created by Hexagons on 2019-04-25.
 //  Copyright © 2019 Hexagons. All rights reserved.

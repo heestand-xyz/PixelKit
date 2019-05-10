@@ -1,6 +1,6 @@
 //
 //  LiveMouseView.swift
-//  Pixels-macOS
+//  PixelKit-macOS
 //
 //  Created by Anton Heestand on 2019-03-15.
 //  Copyright © 2019 Hexagons. All rights reserved.

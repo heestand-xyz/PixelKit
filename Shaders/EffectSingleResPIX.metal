@@ -1,6 +1,6 @@
 //
 //  EffectSingleResPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2018-01-15.
 //  Open Source - MIT License
