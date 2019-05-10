@@ -4,7 +4,7 @@
 a Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
-<b>ContentPIXs</b>:
+<b>Content:</b>
 [Camera](DOCS.md#camerapix) -
 [Image](DOCS.md#imagepix) -
 [Video](DOCS.md#videopix) -
@@ -17,7 +17,7 @@ powered by Metal - inspired by TouchDesigner
 [Noise](DOCS.md#noisepix) - 
 [Text](DOCS.md#textpix)
 <br>
-<b>Effects</b>:
+<b>Effects:</b>
 [Levels](DOCS.md#pix) -
 [Blur](DOCS.md#blurpix) -
 [Edge](DOCS.md#edgepix) -
@@ -63,11 +63,11 @@ Under development.
 ## Install
 
 To get up and running, follow these steps:
-1. Download the framework and the metallib: [PixelKit Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/PixelKit_Beta_v0.4.5_b777.zip)
+1. Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
 2. Add the framework files in from the zip to the root of your Xcode project.
-3. In your project settings under *General* and *Embedded Binaries* add **PixelKit.framework**.
-4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelKitShaders.metallib**.
-5. Now you can `import PixelKit`.
+3. In your project settings under *General* and *Embedded Binaries* add **Pixels.framework**.
+4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
+5. Now you can `import Pixels`.
 
 Note that PixelKit dose not have simulator support. Metal for iOS can only run on a physical device.
 
