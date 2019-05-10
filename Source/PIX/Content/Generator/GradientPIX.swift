@@ -1,6 +1,6 @@
 //
 //  GradientPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-09.
 //  Open Source - MIT License
@@ -94,7 +94,7 @@ public extension PIXOut {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inPixA = self as? PIX & PIXOut
-        let res: PIX.Res = Pixels.main.bits == ._8 ? ._256 : ._8192
+        let res: PIX.Res = PixelKit.main.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
         gradientPix.colorSteps = [ColorStep(0.0, firstColor), ColorStep(1.0, lastColor)]

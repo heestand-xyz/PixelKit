@@ -1,6 +1,6 @@
 //
 //  DelayPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2018-09-23.
 //  Open Source - MIT License
@@ -8,7 +8,7 @@
 
 import Metal
 
-public class DelayPIX: PIXSingleEffect, PixelsCustomRenderDelegate {
+public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     override open var shader: String { return "nilPIX" }
     

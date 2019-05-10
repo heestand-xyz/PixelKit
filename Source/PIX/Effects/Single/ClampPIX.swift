@@ -1,6 +1,6 @@
 //
 //  ClampPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-04-01.
 //  Copyright © 2019 Hexagons. All rights reserved.

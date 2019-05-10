@@ -1,6 +1,6 @@
 //
-//  PixelsTexture.swift
-//  Pixels
+//  PixelKitTexture.swift
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-23.
 //  Open Source - MIT License
@@ -9,7 +9,7 @@
 import MetalKit
 import VideoToolbox
 
-extension Pixels {
+extension PixelKit {
     
     enum TextureError: Error {
         case pixelBuffer(Int)
@@ -288,7 +288,7 @@ extension Pixels {
         var customTexture: MTLTexture?
         if !generator && pix.customRenderActive {
             guard let customRenderDelegate = pix.customRenderDelegate else {
-                throw RenderError.custom("PixelsCustomRenderDelegate not implemented.")
+                throw RenderError.custom("PixelCustomRenderDelegate not implemented.")
             }
             if let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) {
                 inputTexture = nil
@@ -299,7 +299,7 @@ extension Pixels {
         if pix is PIXInMerger {
             if !generator && pix.customMergerRenderActive {
                 guard let customMergerRenderDelegate = pix.customMergerRenderDelegate else {
-                    throw RenderError.custom("PixelsCustomMergerRenderDelegate not implemented.")
+                    throw RenderError.custom("PixelCustomMergerRenderDelegate not implemented.")
                 }
                 let customRenderedTextures = customMergerRenderDelegate.customRender(a: inputTexture!, b: secondInputTexture!, with: commandBuffer)
                 if let customRenderedTexture = customRenderedTextures {                

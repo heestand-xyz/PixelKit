@@ -1,6 +1,6 @@
 //
 //  StreamOutPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-02-27.
 //  Copyright © 2019 Hexagons. All rights reserved.
@@ -68,10 +68,10 @@ public class StreamOutPIX: PIXOutput {
                 peer.sendImg(img: image!, quality: quality)
                 
             } else {
-                pixels.log(.warning, .resource, "Stream Image Convert B.")
+                pixelKit.log(.warning, .resource, "Stream Image Convert B.")
             }
         } else {
-            pixels.log(.warning, .resource, "Stream Image Convert A.")
+            pixelKit.log(.warning, .resource, "Stream Image Convert A.")
         }
     }
     

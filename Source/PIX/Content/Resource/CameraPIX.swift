@@ -1,6 +1,6 @@
 //
 //  CameraPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-26.
 //  Open Source - MIT License
@@ -246,7 +246,7 @@ public class CameraPIX: PIXResource {
                 if accessGranted {
                     gotAccess()
                 } else {
-                    self.pixels.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+                    self.pixelKit.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
                 }
                 self.access = accessGranted
             }
@@ -274,7 +274,7 @@ public class CameraPIX: PIXResource {
         let extCam = camera == .external
         #endif
         helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, useExternalCamera: extCam, setup: { _, orientation in
-            self.pixels.log(pix: self, .info, .resource, "Camera setup.")
+            self.pixelKit.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
             #if os(iOS)
@@ -282,7 +282,7 @@ public class CameraPIX: PIXResource {
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
         }, captured: { pixelBuffer in
-            self.pixels.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
+            self.pixelKit.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {
                 self.applyRes { self.setNeedsRender() }
@@ -299,13 +299,13 @@ public class CameraPIX: PIXResource {
     
     func camAttatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixels.log(pix: self, .info, .resource, "Camera Attatched.")
+        self.pixelKit.log(pix: self, .info, .resource, "Camera Attatched.")
         setupCamera()
     }
     
     func camDeattatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixels.log(pix: self, .info, .resource, "Camera Deattatched.")
+        self.pixelKit.log(pix: self, .info, .resource, "Camera Deattatched.")
         setupCamera()
     }
     
@@ -315,7 +315,7 @@ public class CameraPIX: PIXResource {
 
 class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
     
-    let pixels = Pixels.main
+    let pixelKit = PixelKit.main
     
     var device: AVCaptureDevice?
     
@@ -392,7 +392,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
         
         if device != nil {
             do {
@@ -401,20 +401,20 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                     captureSession.addInput(input)
                     if captureSession.canAddOutput(videoOutput){
                         captureSession.addOutput(videoOutput)
-                        let queue = DispatchQueue(label: "se.hexagons.pixels.pix.camera.queue")
+                        let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.queue")
                         videoOutput.setSampleBufferDelegate(self, queue: queue)
                         start()
                     } else {
-                        pixels.log(.error, .resource, "Camera can't add output.")
+                        pixelKit.log(.error, .resource, "Camera can't add output.")
                     }
                 } else {
-                    pixels.log(.error, .resource, "Camera can't add input.")
+                    pixelKit.log(.error, .resource, "Camera can't add input.")
                 }
             } catch {
-                pixels.log(.error, .resource, "Camera input failed to load.", e: error)
+                pixelKit.log(.error, .resource, "Camera input failed to load.", e: error)
             }
         } else {
-            pixels.log(.error, .resource, "Camera not found.")
+            pixelKit.log(.error, .resource, "Camera not found.")
         }
     
         #if os(iOS)
@@ -437,9 +437,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     #if os(iOS)
     func forceDetectUIOrientation(new: @escaping () -> ()) {
-        let forceCount = pixels.fpsMax * 2
+        let forceCount = pixelKit.fpsMax * 2
         var forceIndex = 0
-        let forceTimer = Timer(timeInterval: 1 / Double(pixels.fpsMax), repeats: true, block: { timer in
+        let forceTimer = Timer(timeInterval: 1 / Double(pixelKit.fpsMax), repeats: true, block: { timer in
             if self.lastUIOrientation != UIApplication.shared.statusBarOrientation {
                 new()
                 timer.invalidate()
@@ -457,7 +457,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            pixels.log(.error, .resource, "Camera buffer conversion failed.")
+            pixelKit.log(.error, .resource, "Camera buffer conversion failed.")
             return
         }
         
@@ -497,7 +497,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             resolution = CGSize(width: width, height: height)
         default:
             resolution = CGSize(width: width, height: height)
-            pixels.log(.warning, .resource, "Camera orientation unknown.")
+            pixelKit.log(.warning, .resource, "Camera orientation unknown.")
         }
         #elseif os(macOS)
         resolution = CGSize(width: width, height: height)
@@ -526,7 +526,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             try device?.lockForConfiguration()
             device?.exposureMode = active ? .custom : .continuousAutoExposure
         } catch {
-            pixels.log(.error, .resource, "Camera custom setting (exposureMode) failed.", e: error)
+            pixelKit.log(.error, .resource, "Camera custom setting (exposureMode) failed.", e: error)
         }
     }
     
@@ -536,7 +536,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             try device?.lockForConfiguration()
             device?.focusMode = active ? .locked : .continuousAutoFocus
         } catch {
-            pixels.log(.error, .resource, "Camera custom setting (focusMode) failed.", e: error)
+            pixelKit.log(.error, .resource, "Camera custom setting (focusMode) failed.", e: error)
         }
     }
     
@@ -545,7 +545,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             try device?.lockForConfiguration()
             device?.whiteBalanceMode = active ? .locked : .continuousAutoWhiteBalance
         } catch {
-            pixels.log(.error, .resource, "Camera custom setting (whiteBalanceMode) failed.", e: error)
+            pixelKit.log(.error, .resource, "Camera custom setting (whiteBalanceMode) failed.", e: error)
         }
     }
     
@@ -607,7 +607,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //
 //    func capture() {
 //        guard photoSupport else {
-//            pixels.log(.warning, .resource, "Photo Capture not enabled.")
+//            pixelKit.log(.warning, .resource, "Photo Capture not enabled.")
 //            return
 //        }
 //        guard let availableRawFormat = photoOutput!.availableRawPhotoPixelFormatTypes.first else { return }

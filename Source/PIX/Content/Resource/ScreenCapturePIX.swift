@@ -1,6 +1,6 @@
 //
 //  ScreenCapturePIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-26.
 //  Open Source - MIT License
@@ -36,9 +36,9 @@ public class ScreenCapturePIX: PIXResource {
     func setupScreenCapture() {
         helper?.stop()
         helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { _ in
-            self.pixels.log(pix: self, .info, .resource, "Screen Capture setup.")
+            self.pixelKit.log(pix: self, .info, .resource, "Screen Capture setup.")
         }, captured: { pixelBuffer in
-            self.pixels.log(pix: self, .info, .resource, "Screen Capture frame captured.", loop: true)
+            self.pixelKit.log(pix: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {
                 self.applyRes { self.setNeedsRender() }
@@ -52,7 +52,7 @@ public class ScreenCapturePIX: PIXResource {
 
 class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
     
-    let pixels = Pixels.main
+    let pixelKit = PixelKit.main
     
     var screenInput: AVCaptureScreenInput?
     
@@ -81,24 +81,24 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixels.bits.os]
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
         
         if screenInput != nil {
             if captureSession.canAddInput(screenInput!) {
                 captureSession.addInput(screenInput!)
                 if captureSession.canAddOutput(videoOutput){
                     captureSession.addOutput(videoOutput)
-                    let queue = DispatchQueue(label: "se.hexagons.pixels.pix.screen.capture.queue")
+                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
                     videoOutput.setSampleBufferDelegate(self, queue: queue)
                     start()
                 } else {
-                    pixels.log(.error, .resource, "Screen can't add output.")
+                    pixelKit.log(.error, .resource, "Screen can't add output.")
                 }
             } else {
-                pixels.log(.error, .resource, "Screen can't add input.")
+                pixelKit.log(.error, .resource, "Screen can't add input.")
             }
         } else {
-            pixels.log(.error, .resource, "Screen not found.")
+            pixelKit.log(.error, .resource, "Screen not found.")
         }
         
     }
@@ -106,7 +106,7 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            pixels.log(.error, .resource, "Camera buffer conversion failed.")
+            pixelKit.log(.error, .resource, "Camera buffer conversion failed.")
             return
         }
         

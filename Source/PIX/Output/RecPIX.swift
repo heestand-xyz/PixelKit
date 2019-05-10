@@ -1,6 +1,6 @@
 //
 //  RecPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2017-12-15.
 //  Open Source - MIT License
@@ -96,7 +96,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     // MARK: Export
     
     func realtimeListen() {
-        pixels.listenToFrames(callback: {
+        pixelKit.listenToFrames(callback: {
             self.frameLoop()
         })
     }
@@ -173,17 +173,17 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         let dateStr = dateFormatter.string(from: date)
         
         let documents_url = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
-        let pixels_url = documents_url.appendingPathComponent("pixels")
-        let renders_url = pixels_url.appendingPathComponent("renders")
+        let pixelKit_url = documents_url.appendingPathComponent("pixelKit")
+        let renders_url = pixelKit_url.appendingPathComponent("renders")
         let id_url = renders_url.appendingPathComponent(id.uuidString)
         do {
             try FileManager.default.createDirectory(at: id_url, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            pixels.log(pix: self, .error, nil, "Creating exports folder.", e: error)
+            pixelKit.log(pix: self, .error, nil, "Creating exports folder.", e: error)
             return
         }
         
-        let name = customName ?? "Pixels Export \(dateStr)"
+        let name = customName ?? "PixelKit Export \(dateStr)"
         exportUrl = id_url.appendingPathComponent("\(name).mov") // CHECK CLEAN
 
         writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
@@ -198,7 +198,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         
         
         let sourceBufferAttributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: Int(pixels.bits.osARGB),
+            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.bits.osARGB),
             kCVPixelBufferWidthKey as String: res.w,
             kCVPixelBufferHeightKey as String: res.h
         ]
@@ -218,7 +218,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                     }
                     let success = input.append(sampleBuffer)
                     if !success {
-                        Pixels.main.log(.error, nil, "Audio Rec sample faied to write.")
+                        PixelKit.main.log(.error, nil, "Audio Rec sample faied to write.")
                     }
                 }
             }
@@ -253,14 +253,14 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                     }
                     
                     if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
-                        self.pixels.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                        self.pixelKit.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
                     }
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
                     
                 } else {
-                    self.pixels.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
+                    self.pixelKit.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
                 }
                 
                 self.currentImage = nil
@@ -270,7 +270,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         })
 //
 //        } catch {
-//            self.pixels.log(pix: self, .error, nil, "Creating new asset writer.", e: error)
+//            self.pixelKit.log(pix: self, .error, nil, "Creating new asset writer.", e: error)
 //        }
         
     }
@@ -292,14 +292,14 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                     currentImage = cg_image!
                 
                 } else {
-                    self.pixels.log(pix: self, .error, nil, "cg_image is nil.")
+                    self.pixelKit.log(pix: self, .error, nil, "cg_image is nil.")
                 }
             } else {
-                self.pixels.log(pix: self, .error, nil, "ci_image is nil.")
+                self.pixelKit.log(pix: self, .error, nil, "ci_image is nil.")
             }
             
         } else {
-            self.pixels.log(pix: self, .error, nil, "Some writer is nil.")
+            self.pixelKit.log(pix: self, .error, nil, "Some writer is nil.")
         }
         
     }
@@ -318,12 +318,12 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                         done()
                     }
                 } else if writer.error == nil {
-                    self.pixels.log(pix: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
+                    self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
                 } else {
-                    self.pixels.log(pix: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                    self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
                 }
             } else {
-                self.pixels.log(pix: self, .error, nil, "Writer not found")
+                self.pixelKit.log(pix: self, .error, nil, "Writer not found")
             }
             self.writerVideoInput = nil
             self.writer = nil
@@ -364,13 +364,13 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
 //                    pixel_buffer_pointer.deinitialize()
                     
                 } else {
-                    self.pixels.log(pix: self, .error, nil, "Allocating pixel buffer from pool.")
+                    self.pixelKit.log(pix: self, .error, nil, "Allocating pixel buffer from pool.")
                 }
                 
 //                pixel_buffer_pointer.deallocate(capacity: 1)
                 
             } else {
-                self.pixels.log(pix: self, .error, nil, "pixel_buffer_adoptor.pixelBufferPool is nil")
+                self.pixelKit.log(pix: self, .error, nil, "pixel_buffer_adoptor.pixelBufferPool is nil")
             }
             
         }
@@ -397,7 +397,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
             )
         
         guard let c = context else {
-            Pixels.main.log(.error, nil, "Record context failed.")
+            PixelKit.main.log(.error, nil, "Record context failed.")
             return
         }
         
@@ -456,7 +456,7 @@ class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
             captureSession!.commitConfiguration()
             
         } catch {
-            Pixels.main.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
+            PixelKit.main.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
         }
         
     }

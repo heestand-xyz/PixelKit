@@ -1,6 +1,6 @@
 //
 //  BlurPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-02.
 //  Open Source - MIT License
@@ -9,7 +9,7 @@
 import MetalKit
 import MetalPerformanceShaders
 
-public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
+public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
     override open var shader: String { return "effectSingleBlurPIX" }
     
@@ -82,13 +82,13 @@ public class BlurPIX: PIXSingleEffect, PixelsCustomRenderDelegate, PIXAuto {
     
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixels.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
+            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
             descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-            guard let blurTexture = pixels.metalDevice.makeTexture(descriptor: descriptor) else {
-                pixels.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            guard let blurTexture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
+                pixelKit.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
-            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixels.metalDevice, sigma: Float(relRadius))
+            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture

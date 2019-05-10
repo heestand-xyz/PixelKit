@@ -1,6 +1,6 @@
 //
 //  PIXMetalView.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-07.
 //  Open Source - MIT License
@@ -10,7 +10,7 @@ import MetalKit
 
 class PIXMetalView: MTKView {
     
-    let pixels = Pixels.main
+    let pixelKit = PixelKit.main
     
     var res: PIX.Res? {
         didSet {
@@ -35,9 +35,9 @@ class PIXMetalView: MTKView {
         
         let onePixelFrame = CGRect(x: 0, y: 0, width: 1, height: 1) // CHECK
         
-        super.init(frame: onePixelFrame, device: pixels.metalDevice)
+        super.init(frame: onePixelFrame, device: pixelKit.metalDevice)
         
-        colorPixelFormat = pixels.bits.mtl
+        colorPixelFormat = pixelKit.bits.mtl
         #if os(iOS)
         isOpaque = false
         #elseif os(macOS)
@@ -56,13 +56,13 @@ class PIXMetalView: MTKView {
         autoreleasepool { // CHECK
             if rect.width > 0 && rect.height > 0 {
                 if res != nil {
-                    pixels.log(.detail, .view, "Ready to Render.", loop: true)
+                    pixelKit.log(.detail, .view, "Ready to Render.", loop: true)
                     readyToRender?()
                 } else {
-                    pixels.log(.warning, .view, "Draw: Resolution not set.", loop: true)
+                    pixelKit.log(.warning, .view, "Draw: Resolution not set.", loop: true)
                 }
             } else {
-                pixels.log(.error, .view, "Draw: Rect is zero.", loop: true)
+                pixelKit.log(.error, .view, "Draw: Rect is zero.", loop: true)
             }
         }
     }

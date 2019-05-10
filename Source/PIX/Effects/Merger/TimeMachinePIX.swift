@@ -1,6 +1,6 @@
 //
 //  TimeMachinePIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2019-03-16.
 //  Copyright © 2019 Hexagons. All rights reserved.
@@ -36,7 +36,7 @@ public class TimeMachinePIX: PIXMergerEffect {
         super.init()
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
-        Pixels.main.listenToFrames {
+        PixelKit.main.listenToFrames {
             self.frameLoop()
             self.setNeedsRender()
         }
@@ -47,7 +47,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     func frameLoop() {
         
         if let firstCachedTexture = textureCache.first {
-            if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(Pixels.main.fps)) {
+            if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(PixelKit.main.fps)) {
                 let newCachedTexture = CachedTexture(texture: firstCachedTexture.texture, date: Date())
                 textureCache.insert(newCachedTexture, at: 0)
             }

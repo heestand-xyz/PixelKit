@@ -1,6 +1,6 @@
 //
 //  ImagePIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-07.
 //  Open Source - MIT License
@@ -32,22 +32,22 @@ public class ImagePIX: PIXResource {
     
     func setNeedsBuffer() {
         guard let image = image else {
-            pixels.log(pix: self, .debug, .resource, "Nil not supported yet.")
+            pixelKit.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        if pixels.frame == 0 {
-            pixels.log(pix: self, .debug, .resource, "One frame delay.")
-            pixels.delay(frames: 1, done: {
+        if pixelKit.frame == 0 {
+            pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
+            pixelKit.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        guard let buffer = pixels.buffer(from: image) else {
-            pixels.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+        guard let buffer = pixelKit.buffer(from: image) else {
+            pixelKit.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        pixels.log(pix: self, .info, .resource, "Image Loaded.")
+        pixelKit.log(pix: self, .info, .resource, "Image Loaded.")
         applyRes { self.setNeedsRender() }
     }
     

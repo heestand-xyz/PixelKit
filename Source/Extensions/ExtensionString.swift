@@ -1,6 +1,6 @@
 //
 //  Helpers.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-11-26.
 //  Open Source - MIT License

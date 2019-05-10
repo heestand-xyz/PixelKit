@@ -1,13 +1,13 @@
 //
 //  PIXAuto.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-04-03.
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
 //
-//  cd ~/Documents/hexagons/all-of-pixels/pixels/Source/PIX
+//  cd ~/Documents/hexagons/all-of-pixelKit/pixelKit/Source/PIX
 //  sourcery --sources .. --output . --templates . --watch
 //
 

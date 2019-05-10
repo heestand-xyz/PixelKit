@@ -1,6 +1,6 @@
 //
 //  PIXOperators.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-04.
 //  Open Source - MIT License

@@ -1,6 +1,6 @@
 //
-//  PixelsRender.swift
-//  Pixels
+//  PixelKitRender.swift
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-22.
 //  Open Source - MIT License
@@ -9,7 +9,7 @@
 import CoreGraphics
 import MetalKit
 
-extension Pixels {
+extension PixelKit {
     
     public enum MetalErrorCode {
         case IOAF(Int)
@@ -127,7 +127,7 @@ extension Pixels {
             return
         }
         pix.needsRender = false
-//        let queue = DispatchQueue(label: "pixels-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
+//        let queue = DispatchQueue(label: "pixelKit-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
 //        queue.async {
 //            DispatchQueue.main.async {
 //            }
@@ -200,7 +200,7 @@ extension Pixels {
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice)
-//            myCaptureScope.label = "Pixels GPU Capture Scope"
+//            myCaptureScope.label = "PixelKit GPU Capture Scope"
 //            sharedCaptureManager.defaultCaptureScope = myCaptureScope
 //            myCaptureScope.begin()
 //        }

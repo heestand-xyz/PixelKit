@@ -1,6 +1,6 @@
 //
 //  LiveInt.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2018-11-26.
 //  Open Source - MIT License
@@ -72,7 +72,7 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
 //    public var second: LiveInt!
     public static var seconds: LiveInt {
         return LiveInt({ () -> (Int) in
-            return Int(Pixels.main.seconds)
+            return Int(PixelKit.main.seconds)
         })
     }
     public static var secondsSince1970: LiveInt {

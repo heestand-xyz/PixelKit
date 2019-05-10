@@ -1,6 +1,6 @@
 //
 //  MetalGeneratorPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-07.
 //  Open Source - MIT License
@@ -38,9 +38,9 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         if isRawCode { return code }
         console = nil
         do {
-          return try pixels.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+          return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
-            pixels.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
+            pixelKit.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
@@ -69,27 +69,27 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     func bakeFrag() {
         do {
-            let frag = try pixels.makeMetalFrag(shader, from: self)
+            let frag = try pixelKit.makeMetalFrag(shader, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
-            case Pixels.ShaderError.metalError(let codeError, let errorFrag):
-                pixels.log(pix: self, .fatal, nil, "Metal code failed.", e: codeError)
+            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+                pixelKit.log(pix: self, .fatal, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
-                    pixels.log(pix: self, .fatal, nil, "Metal fail failed.", e: error)
+                    pixelKit.log(pix: self, .fatal, nil, "Metal fail failed.", e: error)
                 }
             default:
-                pixels.log(pix: self, .fatal, nil, "Metal bake failed.", e: error)
+                pixelKit.log(pix: self, .fatal, nil, "Metal bake failed.", e: error)
             }
         }
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
         setNeedsRender()
     }
     

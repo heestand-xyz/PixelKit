@@ -1,6 +1,6 @@
 //
 //  CornerPinPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-27.
 //  Open Source - MIT License
@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAuto {
+public class CornerPinPIX: PIXSingleEffect, PixelCustomGeometryDelegate, PIXAuto {
     
     override open var shader: String { return "nilPIX" }
     
@@ -39,7 +39,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
     
     // MAKR: - Corenr Pin
     
-    public func customVertices() -> Pixels.Vertices? {
+    public func customVertices() -> PixelKit.Vertices? {
         
         let verticesRaw = cornerPin()
         let verticesMapped = mapVertices(verticesRaw)
@@ -49,11 +49,11 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
         }
         
         let vertexBuffersSize = vertexBuffers.count * MemoryLayout<Float>.size
-        let verticesBuffer = Pixels.main.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
+        let verticesBuffer = PixelKit.main.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
 
 //        let instanceCount = ((divisions + 1) * (divisions + 1)) / 3
         
-        return Pixels.Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count)
+        return PixelKit.Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count)
         
     }
     
@@ -65,7 +65,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
         return CGPoint(x: pointA.x + pointB.x, y: pointA.y + pointB.y)
     }
     
-    func cornerPin() -> [[Pixels.Vertex]] {
+    func cornerPin() -> [[PixelKit.Vertex]] {
         
         let cx = [corners.bottomLeft.x, corners.bottomRight.x, corners.topRight.x, corners.topLeft.x]
         let cy = [corners.bottomLeft.y, corners.bottomRight.y, corners.topRight.y, corners.topLeft.y]
@@ -108,10 +108,10 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
 
         }
         
-        var verts: [[Pixels.Vertex]] = []
+        var verts: [[PixelKit.Vertex]] = []
         
         for x in 0...subdivisions {
-            var col_verts: [Pixels.Vertex] = []
+            var col_verts: [PixelKit.Vertex] = []
             for y in 0...subdivisions {
                 let u = CGFloat(x) / CGFloat(subdivisions)
                 let v = CGFloat(y) / CGFloat(subdivisions)
@@ -123,7 +123,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
                     let top = add(scale(corners.topLeft, by: 1.0 - u), scale(corners.topRight, by: u))
                     pos = add(scale(bottom, by: 1.0 - v), scale(top, by: v))
                 }
-                let vert = Pixels.Vertex(x: LiveFloat(pos.x * 2 - 1), y: LiveFloat(pos.y * 2 - 1), s: LiveFloat(u), t: LiveFloat(1.0 - v))
+                let vert = PixelKit.Vertex(x: LiveFloat(pos.x * 2 - 1), y: LiveFloat(pos.y * 2 - 1), s: LiveFloat(u), t: LiveFloat(1.0 - v))
                 col_verts.append(vert)
             }
             verts.append(col_verts)
@@ -133,8 +133,8 @@ public class CornerPinPIX: PIXSingleEffect, PixelsCustomGeometryDelegate, PIXAut
         
     }
     
-    func mapVertices(_ vertices: [[Pixels.Vertex]]) -> [Pixels.Vertex] {
-        var verticesMap: [Pixels.Vertex] = []
+    func mapVertices(_ vertices: [[PixelKit.Vertex]]) -> [PixelKit.Vertex] {
+        var verticesMap: [PixelKit.Vertex] = []
         for x in 0..<subdivisions {
             for y in 0..<subdivisions {
                 let vertexBottomLeft = vertices[x][y]

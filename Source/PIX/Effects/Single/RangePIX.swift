@@ -1,6 +1,6 @@
 //
 //  RangePIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-06.
 //  Open Source - MIT License

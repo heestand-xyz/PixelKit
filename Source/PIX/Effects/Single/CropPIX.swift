@@ -1,6 +1,6 @@
 //
 //  CropPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-05.
 //  Open Source - MIT License

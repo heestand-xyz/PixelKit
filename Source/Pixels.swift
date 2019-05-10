@@ -1,6 +1,6 @@
 //
-//  Pixels.swift
-//  Pixels
+//  PixelKit.swift
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-20.
 //  Open Source - MIT License
@@ -9,20 +9,20 @@
 import Metal
 import MetalKit
 
-public class Pixels {
+public class PixelKit {
     
-    public static let main = Pixels()
+    public static let main = PixelKit()
     
-    public weak var delegate: PixelsDelegate?
+    public weak var delegate: PixelDelegate?
     
     // MARK: Signature
     
     #if os(iOS)
-    let kBundleId = "se.hexagons.pixels"
-    let kMetalLibName = "PixelsShaders"
+    let kBundleId = "se.hexagons.pixelkit"
+    let kMetalLibName = "PixelKitShaders"
     #elseif os(macOS)
-    let kBundleId = "se.hexagons.pixels.macos"
-    let kMetalLibName = "PixelsShaders-macOS"
+    let kBundleId = "se.hexagons.pixelkit.macos"
+    let kMetalLibName = "PixelKitShaders-macOS"
     #endif
     
     public var renderMode: RenderMode = .frameLoop
@@ -141,13 +141,13 @@ public class Pixels {
         
         metalDevice = MTLCreateSystemDefaultDevice()
         guard metalDevice != nil else {
-            log(.fatal, .pixels, "Metal Device not found.")
+            log(.fatal, .pixelKit, "Metal Device not found.")
             return
         }
         
         commandQueue = metalDevice.makeCommandQueue()
         guard commandQueue != nil else {
-            log(.fatal, .pixels, "Command Queue failed to make.")
+            log(.fatal, .pixelKit, "Command Queue failed to make.")
             return
         }
         
@@ -157,7 +157,7 @@ public class Pixels {
             quadVertecis = try makeQuadVertecis()
             quadVertexShader = try loadQuadVertexShader()
         } catch {
-            log(.fatal, .pixels, "Initialization failed.", e: error)
+            log(.fatal, .pixelKit, "Initialization failed.", e: error)
         }
         
         #if os(iOS)
@@ -171,14 +171,14 @@ public class Pixels {
                                                                         flagsIn: CVOptionFlags,
                                                                         flagsOut: UnsafeMutablePointer<CVOptionFlags>,
                                                                         displayLinkContext: UnsafeMutableRawPointer?) -> CVReturn in
-            Pixels.main.frameLoop()
+            PixelKit.main.frameLoop()
             return kCVReturnSuccess
         }
         CVDisplayLinkSetOutputCallback(displayLink!, displayLinkOutputCallback, UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque()))
         CVDisplayLinkStart(displayLink!)
         #endif
         
-        log(.info, .pixels, "ready to render.", clean: true)
+        log(.info, .pixelKit, "ready to render.", clean: true)
         
     }
 
@@ -187,7 +187,7 @@ public class Pixels {
     
     @objc func frameLoop() {
         DispatchQueue.main.async {
-            self.delegate?.pixelsFrameLoop()
+            self.delegate?.pixelKitFrameLoop()
             for frameCallback in self.frameCallbacks {
                 frameCallback.callback()
             }
@@ -205,7 +205,7 @@ public class Pixels {
                 }
             }
         }
-//        DispatchQueue(label: "pixels-frame-loop").async {}
+//        DispatchQueue(label: "pixelKit-frame-loop").async {}
         calcFPS()
     }
     
@@ -304,7 +304,7 @@ public class Pixels {
 //            self.toPixRenderState = toPixRenderState
 //            self.callback = callback
 //        }
-//        public static func == (lhs: Pixels.FlowTime, rhs: Pixels.FlowTime) -> Bool {
+//        public static func == (lhs: PixelKit.FlowTime, rhs: PixelKit.FlowTime) -> Bool {
 //            return lhs.id == rhs.id
 //        }
 //    }
@@ -360,7 +360,7 @@ public class Pixels {
             log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
         }
         guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
-            throw MetalLibraryError.runtimeERROR("Pixels Shaders: Metal Library not found.")
+            throw MetalLibraryError.runtimeERROR("PixelKit Shaders: Metal Library not found.")
         }
         do {
             return try metalDevice.makeLibrary(filepath: libraryFile)
@@ -559,7 +559,7 @@ public class Pixels {
     // MARK: - Raw
     
     func raw8(texture: MTLTexture) -> [UInt8]? {
-        guard bits == ._8 else { log(.error, .pixels, "Raw 8 - To access this data, change: \"pixels.bits = ._8\"."); return nil }
+        guard bits == ._8 else { log(.error, .pixelKit, "Raw 8 - To access this data, change: \"pixelKit.bits = ._8\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<UInt8>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -571,7 +571,7 @@ public class Pixels {
     
     // CHECK needs testing
     func raw16(texture: MTLTexture) -> [Float]? {
-        guard bits == ._16 else { log(.error, .pixels, "Raw 16 - To access this data, change: \"pixels.bits = ._16\"."); return nil }
+        guard bits == ._16 else { log(.error, .pixelKit, "Raw 16 - To access this data, change: \"pixelKit.bits = ._16\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<Float>(repeating: 0, count: texture.width * texture.height * 4)
         raw.withUnsafeMutableBytes {
@@ -583,7 +583,7 @@ public class Pixels {
     
     // CHECK needs testing
     func raw32(texture: MTLTexture) -> [float4]? {
-        guard bits != ._32 else { log(.error, .pixels, "Raw 32 - To access this data, change: \"pixels.bits = ._32\"."); return nil }
+        guard bits != ._32 else { log(.error, .pixelKit, "Raw 32 - To access this data, change: \"pixelKit.bits = ._32\"."); return nil }
         let region = MTLRegionMake2D(0, 0, texture.width, texture.height)
         var raw = Array<float4>(repeating: float4(0), count: texture.width * texture.height)
         raw.withUnsafeMutableBytes {
@@ -632,7 +632,7 @@ public class Pixels {
             var metalCode = try String(contentsOf: metalFile)
             let uniformsCode = try dynamicUniforms(uniforms: uniforms)
             metalCode = try insert(uniformsCode, in: metalCode, at: "uniforms")
-            let comment = "/// Pixels Dynamic Shader Code"
+            let comment = "/// PixelKit Dynamic Shader Code"
             metalCode = try insert("\(comment)\n\n\n\(code)\n", in: metalCode, at: "code")
             #if DEBUG
             if logDynamicShaderCode {

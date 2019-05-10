@@ -212,6 +212,23 @@
 		74ECBBD221026CC500A42570 /* PixelsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelsProtocols.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3AEFFE7B228592E90075FBDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7473A66A210F4FD0003CF329;
+			remoteInfo = PixelKitShaders;
+		};
+		3AEFFE7D228592E90075FBDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 74E9F6C72193813800F541DE;
+			remoteInfo = "PixelKitShaders-macOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3A1A91772282F4A000B7876F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -267,6 +284,7 @@
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
+		3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74013305224D298000826395 /* PIXLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXLayout.swift; sourceTree = "<group>"; };
 		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
@@ -276,7 +294,6 @@
 		74076D04211A27D2000E56E0 /* PIXRes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXRes.swift; sourceTree = "<group>"; };
 		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
 		740EC539213EFC3E006E2996 /* PIXOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXOperators.swift; sourceTree = "<group>"; };
-		740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelsShaders.xcodeproj; path = Pixels.xcodeproj/PixelsShaders.xcodeproj; sourceTree = "<group>"; };
 		7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMachinePIX.swift; sourceTree = "<group>"; };
 		7413742E2119C9980001890B /* PIXMetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXMetalView.swift; sourceTree = "<group>"; };
 		741510DB212F300B00B251E7 /* ColorPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPIX.swift; sourceTree = "<group>"; };
@@ -392,6 +409,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		3AEFFE77228592E90075FBDA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3AEFFE7C228592E90075FBDA /* PixelKitShaders.metallib */,
+				3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7400B860212DD087002811DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,11 +425,6 @@
 				74E9F6B621937A5000F541DE /* PixelsShaders.metallib */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		740EE328212DD4C00065F49B /* Products */ = {
-			isa = PBXGroup;
-			name = Products;
 			sourceTree = "<group>";
 		};
 		741D2CFA21AC9CD5007259E3 /* Extensions */ = {
@@ -647,7 +668,7 @@
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
 				7400B860212DD087002811DC /* Frameworks */,
-				740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */,
+				3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -776,8 +797,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 740EE328212DD4C00065F49B /* Products */;
-					ProjectRef = 740EE327212DD4C00065F49B /* PixelsShaders.xcodeproj */;
+					ProductGroup = 3AEFFE77228592E90075FBDA /* Products */;
+					ProjectRef = 3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -787,6 +808,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3AEFFE7C228592E90075FBDA /* PixelKitShaders.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = PixelKitShaders.metallib;
+			remoteRef = 3AEFFE7B228592E90075FBDA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = "PixelKitShaders-macOS.metallib";
+			remoteRef = 3AEFFE7D228592E90075FBDA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3AF28BCA219312900079FC7A /* Resources */ = {
@@ -1052,7 +1090,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels.macos;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1091,7 +1129,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels.macos;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1243,7 +1281,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.kit.pixel;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
@@ -1278,7 +1316,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.kit.pixel;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;

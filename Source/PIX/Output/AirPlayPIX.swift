@@ -1,6 +1,6 @@
 //
 //  AirPlayPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2017-12-09.
 //  Open Source - MIT License
@@ -46,7 +46,7 @@ public class AirPlayPIX: PIXOutput {
         } else {
             message = "Not enabled (mirroring)."
         }
-        pixels.log(pix: self, .info, nil, slug + " " + message)
+        pixelKit.log(pix: self, .info, nil, slug + " " + message)
     }
     
     func addAirPlayView(bounds: CGRect) {

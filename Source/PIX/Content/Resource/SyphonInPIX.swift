@@ -1,6 +1,6 @@
 //
 //  SyphonInPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-04-29.
 //  Copyright © 2019 Hexagons. All rights reserved.
@@ -74,7 +74,7 @@ public class SyphonInPIX: PIXResource {
             self.render(glTexture: glTexture, at: size)
         })
         if clinet == nil {
-            pixels.log(.error, .connection, "Syphon client init failed.")
+            pixelKit.log(.error, .connection, "Syphon client init failed.")
         }
     }
     
@@ -110,7 +110,7 @@ public class SyphonInPIX: PIXResource {
 //        let status: GLenum = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
 //        if status != GL_FRAMEBUFFER_COMPLETE {
 //            // Deal with this error - you won't be able to draw into the FBO
-//            pixels.log(.error, .connection, "Syphon In FBO failed.")
+//            pixelKit.log(.error, .connection, "Syphon In FBO failed.")
 //        }
 //
 //        // Restore state we're done with thus-far
@@ -128,7 +128,7 @@ public class SyphonInPIX: PIXResource {
 //        glBufferData(GLenum(GL_PIXEL_PACK_BUFFER), Int(size.width) * Int(size.height) * 4, nil, GLenum(GL_DYNAMIC_READ))
 //        if glGetError() != GL_NO_ERROR {
 //            // Storage for the PBO couldn't be allocated, deal with it here
-//            pixels.log(.error, .connection, "Syphon In PBO failed.")
+//            pixelKit.log(.error, .connection, "Syphon In PBO failed.")
 //        }
 //
 //        // Restore state
@@ -290,11 +290,11 @@ public class SyphonInPIX: PIXResource {
 //        glCopyTexImage2D(GLenum(GL_TEXTURE_2D), 0, GLenum(GL_RGBA), 0, 0, GLsizei(size.width), GLsizei(size.height), 0)
 //        let length = Int(size.width * size.height * 3)
 //        glGetTexImage(0, 1, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), &cvPixelBuffer)
-//        var pixels: [UInt8] = Array<UInt8>(repeating: 0, count: size) //GLubyte(exactly: Int(size.width * size.height * 4))!
+//        var pixelKit: [UInt8] = Array<UInt8>(repeating: 0, count: size) //GLubyte(exactly: Int(size.width * size.height * 4))!
 //        glPixelStorei(GLenum(GL_PACK_ALIGNMENT), 1)
-//        glGetTexImage(GLenum(GL_TEXTURE_2D), 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), &pixels)
+//        glGetTexImage(GLenum(GL_TEXTURE_2D), 0, GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), &pixelKit)
         
-//        print("pixel data:", pixels.first)
+//        print("pixel data:", pixelKit.first)
         
         
         
@@ -329,7 +329,7 @@ public class SyphonInPIX: PIXResource {
 //            print("NOT Complete")
 //        }
 //
-//        // allocate array and read pixels into it.
+//        // allocate array and read pixelKit into it.
 //        var buffer: GLubyte? = GLubyte(exactly: length)
 //        var buffer2: GLubyte? = GLubyte(exactly: length)
 //
@@ -337,8 +337,8 @@ public class SyphonInPIX: PIXResource {
 //        //Get Texture to Buffer
 //        glGetTexImage(GLenum(GL_TEXTURE_RECTANGLE), GLint(glTexture), GLenum(GL_RGB), GLenum(GL_INT), &buffer)
 //
-//        //Read Pixels frome Frame Buffer
-//        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), &buffer2)
+//        //Read PixelKit frome Frame Buffer
+//        glReadPixelKit(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGB), GLenum(GL_UNSIGNED_BYTE), &buffer2)
 //
 //        //NSLog(@ "Width %f  Height: %f", imageSize.width, imageSize.height);
 //
@@ -359,7 +359,7 @@ public class SyphonInPIX: PIXResource {
         
         
         
-//        glReadPixels(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
+//        glReadPixelKit(0, 0, GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_INT_8_8_8_8_REV), baseAddress)
         
 //        return raw_frame;
         
@@ -383,15 +383,15 @@ public class SyphonInPIX: PIXResource {
 //        let x: Int = 0
 //        let y: Int = 0
 //        let dataLength: Int = Int(size.width) * Int(size.height) * 4
-//        let pixels: UnsafeMutableRawPointer? = malloc(dataLength * MemoryLayout<GLubyte>.size)
+//        let pixelKit: UnsafeMutableRawPointer? = malloc(dataLength * MemoryLayout<GLubyte>.size)
 //        glPixelStorei(GLenum(GL_PACK_ALIGNMENT), 4)
-//        glReadPixels(GLint(x), GLint(y), GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), pixels)
-//        let pixelData: UnsafePointer = (UnsafeRawPointer(pixels)?.assumingMemoryBound(to: UInt8.self))!
+//        glReadPixelKit(GLint(x), GLint(y), GLsizei(size.width), GLsizei(size.height), GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), pixelKit)
+//        let pixelData: UnsafePointer = (UnsafeRawPointer(pixelKit)?.assumingMemoryBound(to: UInt8.self))!
 //        let cfdata: CFData = CFDataCreate(kCFAllocatorDefault, pixelData, dataLength * MemoryLayout<GLubyte>.size)
 //
 //        let provider: CGDataProvider! = CGDataProvider(data: cfdata)
 //
-//        let iref: CGImage? = CGImage(width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: Int(size.width)*4, space: Pixels.main.colorSpace.cg, bitmapInfo: CGBitmapInfo.byteOrder32Big, provider: provider, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
+//        let iref: CGImage? = CGImage(width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: Int(size.width)*4, space: PixelKit.main.colorSpace.cg, bitmapInfo: CGBitmapInfo.byteOrder32Big, provider: provider, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
 //        UIGraphicsBeginImageContext(size)
 //        let cgcontext: CGContext? = UIGraphicsGetCurrentContext()
 //        cgcontext!.setBlendMode(CGBlendMode.copy)

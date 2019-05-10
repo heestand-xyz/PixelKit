@@ -1,6 +1,6 @@
 //
-//  PixelsLog.swift
-//  Pixels
+//  PixelKitLog.swift
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-16.
 //  Open Source - MIT License
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Pixels {
+extension PixelKit {
     
     public struct Log {
         public let prefix: String
@@ -31,7 +31,7 @@ extension Pixels {
             id = pix.id
             name = pix.name
             type = String(String(describing: pix).split(separator: ".").last ?? "")
-            linkIndex = Pixels.main.linkIndex(of: pix)
+            linkIndex = PixelKit.main.linkIndex(of: pix)
         }
     }
     
@@ -61,7 +61,7 @@ extension Pixels {
     }
     
     public enum LogCategory: String {
-        case pixels = "Pixels"
+        case pixelKit = "PixelKit"
         case render = "Render"
         case texture = "Texture"
         case resource = "Resource"
@@ -75,14 +75,14 @@ extension Pixels {
     }
     
     public func logAll() {
-        Pixels.main.logLevel = .debug
-        Pixels.main.logLoopLimitActive = false
-        Pixels.main.logTime = true
-        Pixels.main.logPadding = true
-        Pixels.main.logSource = true
+        PixelKit.main.logLevel = .debug
+        PixelKit.main.logLoopLimitActive = false
+        PixelKit.main.logTime = true
+        PixelKit.main.logPadding = true
+        PixelKit.main.logSource = true
     }
     
-    public func log(prefix: String = "Pixels", pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public func log(prefix: String = "PixelKit", pix: PIX? = nil, _ level: LogLevel, _ category: LogCategory?, _ message: String, loop: Bool = false, clean: Bool = false, e error: Error? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         
         let time = Date()
         let pixRef = pix != nil ? PIXRef(for: pix!) : nil
@@ -101,7 +101,7 @@ extension Pixels {
         
         if loop && logLoopLimitActive && frame > logLoopLimitFrameCount {
             if !logLoopLimitIndicated {
-                print("Pixels running...")
+                print("PixelKit running...")
                 logLoopLimitIndicated = true
             }
             return

@@ -1,6 +1,6 @@
 //
 //  SyphonOutPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2019-04-28.
 //  Copyright © 2019 Hexagons. All rights reserved.
@@ -22,8 +22,8 @@ public class SyphonOutPIX: PIXOutput {
     override public init() {
         super.init()
         setup()
-        if pixels.bits != ._8 {
-            pixels.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
+        if pixelKit.bits != ._8 {
+            pixelKit.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
         }
     }
     
@@ -45,9 +45,9 @@ public class SyphonOutPIX: PIXOutput {
         ]
         let format = NSOpenGLPixelFormat(attributes: glPFAttributes)!
         context = NSOpenGLContext(format: format, share: nil)
-        server = SyphonServer(name: "Pixels", context: context.cglContextObj, options: nil)
+        server = SyphonServer(name: "PixelKit", context: context.cglContextObj, options: nil)
         if server == nil {
-            pixels.log(.error, .connection, "Syphon server init failed.")
+            pixelKit.log(.error, .connection, "Syphon server init failed.")
         }
     }
     

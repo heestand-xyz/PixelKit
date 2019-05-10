@@ -1,6 +1,6 @@
 //
 //  NilPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-15.
 //  Open Source - MIT License

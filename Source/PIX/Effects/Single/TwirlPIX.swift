@@ -1,6 +1,6 @@
 //
 //  TwirlPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-11.
 //  Open Source - MIT License

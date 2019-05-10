@@ -1,6 +1,6 @@
 //
 //  ConvertPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-04-25.
 //  Copyright © 2019 Hexagons. All rights reserved.

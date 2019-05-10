@@ -1,6 +1,6 @@
 //
 //  LiveBool.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2018-11-26.
 //  Open Source - MIT License
@@ -62,7 +62,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     #if os(iOS)
     public static var touch: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 if pix.view.liveTouchView.touch {
                     return true
@@ -74,7 +74,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     #elseif os(macOS)
     public static var mouseLeft: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 if pix.view.liveMouseView.mouseLeft {
                     return true
@@ -85,7 +85,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     public static var mouseRight: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 if pix.view.liveMouseView.mouseRight {
                     return true
@@ -96,7 +96,7 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     }
     public static var mouseInView: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in Pixels.main.linkedPixs {
+            for pix in PixelKit.main.linkedPixs {
                 guard pix.view.superview != nil else { continue }
                 if pix.view.liveMouseView.mouseInView {
                     return true

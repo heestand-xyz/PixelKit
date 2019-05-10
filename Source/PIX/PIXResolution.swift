@@ -1,6 +1,6 @@
 //
 //  PIXResolution.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-13.
 //  Open Source - MIT License
@@ -55,21 +55,21 @@ extension PIX {
             callback(res)
             return
         }
-        Pixels.main.delay(frames: 1, done: {
+        PixelKit.main.delay(frames: 1, done: {
             self.nextResolution(callback: callback)
         })
     }
     
     public func applyRes(applied: @escaping () -> ()) {
         guard let res = resolution else {
-            if pixels.frame == 0 {
-                pixels.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
-                pixels.delay(frames: 1, done: {
+            if pixelKit.frame == 0 {
+                pixelKit.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
+                pixelKit.delay(frames: 1, done: {
                     self.applyRes(applied: applied)
                 })
                 return
             }
-            pixels.log(pix: self, .error, .res, "Unknown.")
+            pixelKit.log(pix: self, .error, .res, "Unknown.")
             return
         }
         guard view.res == nil || view.res! != res else {
@@ -77,7 +77,7 @@ extension PIX {
             return
         }
         view.setRes(res)
-        pixels.log(pix: self, .info, .res, "Applied: \(res)")
+        pixelKit.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
         delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

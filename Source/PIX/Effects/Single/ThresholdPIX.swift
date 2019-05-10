@@ -1,6 +1,6 @@
 //
 //  ThresholdPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-17.
 //  Open Source - MIT License
@@ -25,7 +25,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
         get {
             return LiveFloat({ () -> (CGFloat) in
                 guard self.smooth.value else { return 0.0 }
-                return max(self._smoothness, 1.0 / pow(2.0, CGFloat(Pixels.main.bits.rawValue)))
+                return max(self._smoothness, 1.0 / pow(2.0, CGFloat(PixelKit.main.bits.rawValue)))
             })
         }
     }

@@ -56,7 +56,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         let mcBrowser = MCBrowserViewController(serviceType: "pxn-stream", session: mcSession)
         mcBrowser.delegate = self
         guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
-            Pixels.main.log(.warning, .connection, "Can't join stream session. No View Controller found.")
+            PixelKit.main.log(.warning, .connection, "Can't join stream session. No View Controller found.")
             return
         }
         vc.present(mcBrowser, animated: true)
@@ -72,7 +72,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
                         try self.mcSession.send(imageData, toPeers: self.mcSession.connectedPeers, with: .reliable)
                         self.imgOutIndex += 1
                     } catch let error as NSError {
-                        Pixels.main.log(.error, .connection, "StreamPeer: Send Img.", e: error)
+                        PixelKit.main.log(.error, .connection, "StreamPeer: Send Img.", e: error)
                     }
                 }
             }
@@ -85,7 +85,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
             do {
                 try mcSession.send("check:\(index)".data(using: .utf8)!, toPeers: mcSession.connectedPeers, with: .reliable)
             } catch let error as NSError {
-                Pixels.main.log(.error, .connection, "StreamPeer: Send Check.", e: error)
+                PixelKit.main.log(.error, .connection, "StreamPeer: Send Check.", e: error)
             }
         }
     }
@@ -95,7 +95,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
             do {
                 try mcSession.send("checked".data(using: .utf8)!, toPeers: mcSession.connectedPeers, with: .reliable)
             } catch let error as NSError {
-                Pixels.main.log(.error, .connection, "StreamPeer: Send Checked.", e: error)
+                PixelKit.main.log(.error, .connection, "StreamPeer: Send Checked.", e: error)
             }
         }
     }
@@ -104,7 +104,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         do {
             try mcSession.send("disconnect".data(using: .utf8)!, toPeers: mcSession.connectedPeers, with: .reliable)
         } catch let error as NSError {
-            Pixels.main.log(.error, .connection, "StreamPeer: Send dissconnect.", e: error)
+            PixelKit.main.log(.error, .connection, "StreamPeer: Send dissconnect.", e: error)
         }
         imgOutIndex = 0
     }
@@ -152,7 +152,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
         if index == imgInIndex {
             sendChecked()
         } else {
-            Pixels.main.log(.warning, .connection, "StreamPeer: Waiting.")
+            PixelKit.main.log(.warning, .connection, "StreamPeer: Waiting.")
         }
     }
     

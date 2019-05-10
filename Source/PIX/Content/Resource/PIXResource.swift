@@ -1,6 +1,6 @@
 //
 //  PIXResource.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-16.
 //  Open Source - MIT License

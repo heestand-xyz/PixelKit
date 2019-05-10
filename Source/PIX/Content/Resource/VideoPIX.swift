@@ -1,6 +1,6 @@
 //
 //  VideoPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-24.
 //  Open Source - MIT License
@@ -48,14 +48,14 @@ public class VideoPIX: PIXResource {
     
     public func load(data: Data) {
         // CHECK format
-        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixels_temp_video.mov")
+        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixelKit_temp_video.mov")
         FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         self.url = url
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
         guard let url = Bundle.main.url(forResource: named, withExtension: ext) else {
-            Pixels.main.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
+            PixelKit.main.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
             return nil
         }
         return url
@@ -65,7 +65,7 @@ public class VideoPIX: PIXResource {
     
     public func play() {
         guard let p = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't play. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't play. Video not loaded.")
             return
         }
         p.play()
@@ -73,7 +73,7 @@ public class VideoPIX: PIXResource {
     
     public func pause() {
         guard let player = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't pause. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't pause. Video not loaded.")
             return
         }
         player.pause()
@@ -81,7 +81,7 @@ public class VideoPIX: PIXResource {
     
     public func seek(toTime time: CMTime) {
         guard let player = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
         }
         player.seek(to: time)
@@ -89,11 +89,11 @@ public class VideoPIX: PIXResource {
     
     public func seek(toFraction fraction: CGFloat) {
         guard let player = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
         }
         guard let item = player.currentItem else {
-            pixels.log(pix: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
             return
         }
         let seconds = item.duration.seconds * Double(fraction)
@@ -104,7 +104,7 @@ public class VideoPIX: PIXResource {
 
     public func restart() {
         guard let player = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't restart. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't restart. Video not loaded.")
             return
         }
         player.seek(to: .zero)
@@ -113,7 +113,7 @@ public class VideoPIX: PIXResource {
     
     public func reset() {
         guard let player = helper.player else {
-            pixels.log(pix: self, .warning, .resource, "Can't reset. Video not loaded.")
+            pixelKit.log(pix: self, .warning, .resource, "Can't reset. Video not loaded.")
             return
         }
         player.seek(to: .zero)
@@ -150,7 +150,7 @@ class VideoHelper: NSObject {
         
         super.init()
         
-        Pixels.main.listenToFrames(callback: {  
+        PixelKit.main.listenToFrames(callback: {  
             if self.loaded {
                 self.readBuffer()
             }
@@ -184,10 +184,10 @@ class VideoHelper: NSObject {
     
     func load(data: Data) {
         
-        let tempVideoURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(Pixels.main.kBundleId).pix.video.temp.\(UUID().uuidString).mov") // CHECK format
+        let tempVideoURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(PixelKit.main.kBundleId).pix.video.temp.\(UUID().uuidString).mov") // CHECK format
         
         guard FileManager.default.createFile(atPath: tempVideoURL.path, contents: data, attributes: nil) else {
-            Pixels.main.log(.error, .resource, "Video data load: File creation failed.")
+            PixelKit.main.log(.error, .resource, "Video data load: File creation failed.")
             return
         }
         
@@ -202,7 +202,7 @@ class VideoHelper: NSObject {
         guard loadDate != nil else { return }
         
         var currentTime: CMTime = .invalid
-        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(Pixels.main.fps))
+        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(PixelKit.main.fps))
         currentTime = playerItemVideoOutput.itemTime(forHostTime: nextVSync)
         
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime), let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
@@ -217,7 +217,7 @@ class VideoHelper: NSObject {
         // CHECK wrong observeValue
         if keyPath == "currentItem.presentationSize" {
             guard let size = player?.currentItem?.tracks[0].assetTrack?.naturalSize else {
-                Pixels.main.log(.error, .resource, "Video size not found.")
+                PixelKit.main.log(.error, .resource, "Video size not found.")
                 return
             } // player?.currentItem?.presentationSize
             let res = PIX.Res(size: size)

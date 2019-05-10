@@ -1,6 +1,6 @@
 //
 //  MetalMergerEffectPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-07.
 //  Open Source - MIT License
@@ -37,9 +37,9 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     var metalEmbedCode: String
     var metalCode: String? {
         do {
-            return try pixels.embedMetalCode(uniforms: metalUniforms, code: metalEmbedCode, fileName: metalFileName)
+            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: metalEmbedCode, fileName: metalFileName)
         } catch {
-            pixels.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
+            pixelKit.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }

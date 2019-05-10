@@ -1,6 +1,6 @@
 //
-//  PixelsTypes.swift
-//  Pixels
+//  PixelKitTypes.swift
+//  PixelKit
 //
 //  Created by Hexagons on 2018-09-28.
 //  Open Source - MIT License
@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public extension Pixels {
+public extension PixelKit {
     
     public struct Pixel {
         public let x: Int

@@ -1,6 +1,6 @@
 //
 //  FlarePIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-03-25.
 //  Copyright © 2019 Hexagons. All rights reserved.

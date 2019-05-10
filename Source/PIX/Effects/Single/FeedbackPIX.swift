@@ -1,6 +1,6 @@
 //
 //  FeedbackPIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-08-21.
 //  Open Source - MIT License
@@ -28,7 +28,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     public override required init() {
         super.init()
-//        pixels.delay(frames: 10, done: {
+//        pixelKit.delay(frames: 10, done: {
 //            self.setNeedsRender()
 //        })
     }
@@ -40,10 +40,10 @@ public class FeedbackPIX: PIXSingleEffect {
             feedReset = false
         }
         readyToFeed = true
-//        RunLoop.current.add(Timer(timeInterval: 2.0 / Double(pixels._fps), repeats: false, block: { t in
+//        RunLoop.current.add(Timer(timeInterval: 2.0 / Double(pixelKit._fps), repeats: false, block: { t in
             self.setNeedsRender()
 //        }), forMode: .common)
-//        switch pixels.renderMode {
+//        switch pixelKit.renderMode {
 //        case .frameLoop:
 //            setNeedsRender()
 //        case .direct:
@@ -53,7 +53,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     public func resetFeed() {
         guard feedActive else {
-            pixels.log(pix: self, .info, .effect, "Feedback reset; feed not active.")
+            pixelKit.log(pix: self, .info, .effect, "Feedback reset; feed not active.")
             return
         }
         feedActive = false
