@@ -23,9 +23,11 @@
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6E9D2F2254A946008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A6E9D302254A97F008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
+		3A70A64222859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
+		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
+		3A70A64422859F0400C71B44 /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEFFE7C228592E90075FBDA /* PixelKitShaders.metallib */; };
+		3A70A64522859F0800C71B44 /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
-		3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
-		3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
@@ -100,7 +102,6 @@
 		3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
 		3AF28C15219313050079FC7A /* RectanglePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748859E0212F371800E04F17 /* RectanglePIX.swift */; };
 		3AF28C16219313050079FC7A /* PolygonPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AE242521284F0900E80B96 /* PolygonPIX.swift */; };
-		3AF28C17219313050079FC7A /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
 		3AF28C18219313050079FC7A /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
 		3AF28C19219313050079FC7A /* MetalPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747CBA962142882600CB2616 /* MetalPIX.swift */; };
 		3AF28C1A219313090079FC7A /* PIXResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749DC6CA2124E12600AE5F6A /* PIXResource.swift */; };
@@ -132,7 +133,6 @@
 		741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
 		741D2CF921AC9CC0007259E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* String.swift */; };
 		741D2CFB21ACA05E007259E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* String.swift */; };
-		741F3B852229912100D188DF /* PixelsShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E9F6B621937A5000F541DE /* PixelsShaders.metallib */; };
 		7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
 		7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
@@ -196,7 +196,6 @@
 		74B57C3F21473BD100CBBD58 /* ContentGeneratorMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C3E21473BD100CBBD58 /* ContentGeneratorMetalPIX.metal.txt */; };
 		74B57C422147404200CBBD58 /* EffectSingleMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C412147404200CBBD58 /* EffectSingleMetalPIX.metal.txt */; };
 		74B57C482147405800CBBD58 /* EffectMergerMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */; };
-		74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6232211CE7AB005F5FBC /* GradientPIX.swift */; };
 		74BF327E224165A500F039F1 /* ScreenCapturePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */; };
 		74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */; };
 		74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */; };
@@ -208,7 +207,6 @@
 		74E642512135396600D7B57F /* PIXSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E642502135396600D7B57F /* PIXSprite.swift */; };
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
-		74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */; };
 		74ECBBD221026CC500A42570 /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 /* End PBXBuildFile section */
 
@@ -236,7 +234,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A84C6E32282F5BE000410DD /* PixelsShaders.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +243,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A84C6E42282F5C0000410DD /* PixelsShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +269,7 @@
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXAuto.generated.swift; sourceTree = "<group>"; };
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
+		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
 		3A8AC3482277282C00A142AA /* Pixels.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pixels.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
@@ -362,7 +359,6 @@
 		74B57C3E21473BD100CBBD58 /* ContentGeneratorMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ContentGeneratorMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74B57C412147404200CBBD58 /* EffectSingleMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectSingleMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMergerMetalPIX.metal.txt; sourceTree = "<group>"; };
-		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/Generator/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
 		74BC39D721011E3A004E9AA0 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCapturePIX.swift; sourceTree = "<group>"; };
 		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
@@ -375,8 +371,6 @@
 		74E642502135396600D7B57F /* PIXSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSprite.swift; sourceTree = "<group>"; };
 		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
-		74E9F6B621937A5000F541DE /* PixelsShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = PixelsShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
-		74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = "PixelsShaders-macOS.metallib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ECBBD121026CC500A42570 /* PixelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -385,7 +379,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74E9F6F92193817D00F541DE /* PixelsShaders-macOS.metallib in Frameworks */,
+				3A70A64522859F0800C71B44 /* PixelKitShaders-macOS.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				741F3B852229912100D188DF /* PixelsShaders.metallib in Frameworks */,
+				3A70A64422859F0400C71B44 /* PixelKitShaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,15 +452,6 @@
 				3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7400B860212DD087002811DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				74E9F6F82193817D00F541DE /* PixelsShaders-macOS.metallib */,
-				74E9F6B621937A5000F541DE /* PixelsShaders.metallib */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		741D2CFA21AC9CD5007259E3 /* PixelKit Extensions */ = {
@@ -655,7 +640,7 @@
 				3AA4AC25224D077400E894B2 /* LinePIX.swift */,
 				748859E0212F371800E04F17 /* RectanglePIX.swift */,
 				74AE242521284F0900E80B96 /* PolygonPIX.swift */,
-				74BA6232211CE7AB005F5FBC /* GradientPIX.swift */,
+				3A70A63F22859EDC00C71B44 /* GradientPIX.swift */,
 				7439E9E7212378E2003B0190 /* NoisePIX.swift */,
 				747CBA962142882600CB2616 /* MetalPIX.swift */,
 				74B57C3D21473BD100CBBD58 /* Metal */,
@@ -703,7 +688,6 @@
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
-				7400B860212DD087002811DC /* Frameworks */,
 				3AEFFE76228592E90075FBDA /* PixelKitShaders.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -901,7 +885,6 @@
 				3AF28BDD219312CF0079FC7A /* PIXProtocols.swift in Sources */,
 				3AF28BE0219312CF0079FC7A /* Rendered.swift in Sources */,
 				741D2CF721AC7E42007259E3 /* LiveValue.swift in Sources */,
-				3AF28C17219313050079FC7A /* GradientPIX.swift in Sources */,
 				3AF28C1C219313090079FC7A /* ImagePIX.swift in Sources */,
 				3AF28C16219313050079FC7A /* PolygonPIX.swift in Sources */,
 				3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */,
@@ -964,6 +947,7 @@
 				3AF28C00219312F50079FC7A /* TwirlPIX.swift in Sources */,
 				3AF28BEC219312EB0079FC7A /* PIXMergerEffect.swift in Sources */,
 				3AF28BF1219312EB0079FC7A /* DisplacePIX.swift in Sources */,
+				3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */,
 				3AF28C02219312F50079FC7A /* ChannelMixPIX.swift in Sources */,
 				3AF28BE9219312E10079FC7A /* BlendsPIX.swift in Sources */,
 				3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */,
@@ -1036,6 +1020,7 @@
 				7424A1AF212F4A0100401654 /* Texture.swift in Sources */,
 				743F375F215BB2C3002BC5BA /* RecPIX.swift in Sources */,
 				7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */,
+				3A70A64222859EDC00C71B44 /* GradientPIX.swift in Sources */,
 				3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */,
 				74E642512135396600D7B57F /* PIXSprite.swift in Sources */,
 				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,
@@ -1044,7 +1029,6 @@
 				7445508821349DCC006E01D8 /* CornerPinPIX.swift in Sources */,
 				742321A121027C70003697C3 /* PIX.swift in Sources */,
 				7418E60122205D9600075769 /* LiveTouchView.swift in Sources */,
-				74BA6233211CE7AB005F5FBC /* GradientPIX.swift in Sources */,
 				3A2924452249114F00A05B7A /* FlarePIX.swift in Sources */,
 				7486537B21A896680073F758 /* LiveFloat.swift in Sources */,
 				3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */,
@@ -1126,7 +1110,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Source/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1165,7 +1149,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Source/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
