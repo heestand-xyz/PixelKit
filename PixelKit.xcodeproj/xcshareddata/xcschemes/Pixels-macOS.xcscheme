@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "74BC39D621011E3A004E9AA0"
-               BuildableName = "Pixels.framework"
-               BlueprintName = "Pixels"
-               ReferencedContainer = "container:Pixels.xcodeproj">
+               BlueprintIdentifier = "3AF28BCB219312900079FC7A"
+               BuildableName = "PixelKit_macOS.framework"
+               BlueprintName = "PixelKit-macOS"
+               ReferencedContainer = "container:PixelKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74BC39D621011E3A004E9AA0"
-            BuildableName = "Pixels.framework"
-            BlueprintName = "Pixels"
-            ReferencedContainer = "container:Pixels.xcodeproj">
+            BlueprintIdentifier = "3AF28BCB219312900079FC7A"
+            BuildableName = "PixelKit_macOS.framework"
+            BlueprintName = "PixelKit-macOS"
+            ReferencedContainer = "container:PixelKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -63,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74BC39D621011E3A004E9AA0"
-            BuildableName = "Pixels.framework"
-            BlueprintName = "Pixels"
-            ReferencedContainer = "container:Pixels.xcodeproj">
+            BlueprintIdentifier = "3AF28BCB219312900079FC7A"
+            BuildableName = "PixelKit_macOS.framework"
+            BlueprintName = "PixelKit-macOS"
+            ReferencedContainer = "container:PixelKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

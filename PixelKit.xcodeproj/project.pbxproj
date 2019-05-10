@@ -267,7 +267,7 @@
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
-		3AF28BCC219312900079FC7A /* Pixels_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74013305224D298000826395 /* PIXLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXLayout.swift; sourceTree = "<group>"; };
 		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 		74B57C412147404200CBBD58 /* EffectSingleMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectSingleMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMergerMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74BA6232211CE7AB005F5FBC /* GradientPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GradientPIX.swift; path = Source/PIX/Content/Generator/GradientPIX.swift; sourceTree = SOURCE_ROOT; };
-		74BC39D721011E3A004E9AA0 /* Pixels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pixels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74BC39D721011E3A004E9AA0 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCapturePIX.swift; sourceTree = "<group>"; };
 		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
 		74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapPIX.swift; sourceTree = "<group>"; };
@@ -654,8 +654,8 @@
 		74BC39D821011E3A004E9AA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				74BC39D721011E3A004E9AA0 /* Pixels.framework */,
-				3AF28BCC219312900079FC7A /* Pixels_macOS.framework */,
+				74BC39D721011E3A004E9AA0 /* PixelKit.framework */,
+				3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -706,9 +706,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3AF28BCB219312900079FC7A /* Pixels-macOS */ = {
+		3AF28BCB219312900079FC7A /* PixelKit-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "Pixels-macOS" */;
+			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "PixelKit-macOS" */;
 			buildPhases = (
 				746B50452275A171003F5C37 /* CopyFiles */,
 				3AF28BC7219312900079FC7A /* Headers */,
@@ -721,14 +721,14 @@
 			);
 			dependencies = (
 			);
-			name = "Pixels-macOS";
+			name = "PixelKit-macOS";
 			productName = "Pixels-macOS";
-			productReference = 3AF28BCC219312900079FC7A /* Pixels_macOS.framework */;
+			productReference = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		74BC39D621011E3A004E9AA0 /* Pixels */ = {
+		74BC39D621011E3A004E9AA0 /* PixelKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "Pixels" */;
+			buildConfigurationList = 74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "PixelKit" */;
 			buildPhases = (
 				74BC39D221011E3A004E9AA0 /* Headers */,
 				74BC39D321011E3A004E9AA0 /* Sources */,
@@ -740,9 +740,9 @@
 			);
 			dependencies = (
 			);
-			name = Pixels;
+			name = PixelKit;
 			productName = Pixels;
-			productReference = 74BC39D721011E3A004E9AA0 /* Pixels.framework */;
+			productReference = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -764,7 +764,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "Pixels" */;
+			buildConfigurationList = 74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "PixelKit" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -782,8 +782,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				74BC39D621011E3A004E9AA0 /* Pixels */,
-				3AF28BCB219312900079FC7A /* Pixels-macOS */,
+				74BC39D621011E3A004E9AA0 /* PixelKit */,
+				3AF28BCB219312900079FC7A /* PixelKit-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1243,7 +1243,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.kit.pixel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
@@ -1278,7 +1278,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixels;
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.kit.pixel;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
@@ -1292,7 +1292,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "Pixels-macOS" */ = {
+		3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "PixelKit-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3AF28BD1219312900079FC7A /* Debug */,
@@ -1301,7 +1301,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "Pixels" */ = {
+		74BC39D121011E3A004E9AA0 /* Build configuration list for PBXProject "PixelKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				74BC39E921011E3A004E9AA0 /* Debug */,
@@ -1310,7 +1310,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "Pixels" */ = {
+		74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "PixelKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				74BC39EC21011E3A004E9AA0 /* Debug */,
