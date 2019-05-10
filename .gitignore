@@ -3,3 +3,5 @@
 xcuserdata/
 
 Package.swift
+
+build/

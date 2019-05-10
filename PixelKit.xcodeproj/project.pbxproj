@@ -26,10 +26,6 @@
 		3A70A64222859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
-		3A7C23072285B4780096F53C /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C22642285B4500096F53C /* PixelKitShaders.metallib */; };
-		3A7C23082285B47C0096F53C /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C22662285B4500096F53C /* PixelKitShaders-macOS.metallib */; };
-		3A7C23092285B4860096F53C /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A7C22662285B4500096F53C /* PixelKitShaders-macOS.metallib */; };
-		3A7C230A2285B48A0096F53C /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A7C22642285B4500096F53C /* PixelKitShaders.metallib */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
@@ -212,23 +208,6 @@
 		74ECBBD221026CC500A42570 /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3A7C22632285B4500096F53C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A7C225E2285B44F0096F53C /* PixelKitShaders.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7473A66A210F4FD0003CF329;
-			remoteInfo = PixelKitShaders;
-		};
-		3A7C22652285B4500096F53C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A7C225E2285B44F0096F53C /* PixelKitShaders.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 74E9F6C72193813800F541DE;
-			remoteInfo = "PixelKitShaders-macOS";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		3A1A91772282F4A000B7876F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -236,7 +215,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A7C230A2285B48A0096F53C /* PixelKitShaders.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +224,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A7C23092285B4860096F53C /* PixelKitShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,7 +252,6 @@
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
-		3A7C225E2285B44F0096F53C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A8AC3482277282C00A142AA /* Pixels.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pixels.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
@@ -383,7 +359,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7C23082285B47C0096F53C /* PixelKitShaders-macOS.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,22 +366,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7C23072285B4780096F53C /* PixelKitShaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A7C225F2285B44F0096F53C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3A7C22642285B4500096F53C /* PixelKitShaders.metallib */,
-				3A7C22662285B4500096F53C /* PixelKitShaders-macOS.metallib */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		3A8E24B922859465007AA99B /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,7 +657,6 @@
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
-				3A7C225E2285B44F0096F53C /* PixelKitShaders.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -815,12 +779,6 @@
 			mainGroup = 74BC39CD21011E3A004E9AA0;
 			productRefGroup = 74BC39D821011E3A004E9AA0 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 3A7C225F2285B44F0096F53C /* Products */;
-					ProjectRef = 3A7C225E2285B44F0096F53C /* PixelKitShaders.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				74BC39D621011E3A004E9AA0 /* PixelKit */,
@@ -828,23 +786,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3A7C22642285B4500096F53C /* PixelKitShaders.metallib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "archive.metal-library";
-			path = PixelKitShaders.metallib;
-			remoteRef = 3A7C22632285B4500096F53C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3A7C22662285B4500096F53C /* PixelKitShaders-macOS.metallib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "archive.metal-library";
-			path = "PixelKitShaders-macOS.metallib";
-			remoteRef = 3A7C22652285B4500096F53C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3AF28BCA219312900079FC7A /* Resources */ = {
