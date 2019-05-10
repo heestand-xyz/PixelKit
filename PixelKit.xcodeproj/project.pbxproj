@@ -27,6 +27,8 @@
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A70A64422859F0400C71B44 /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEFFE7C228592E90075FBDA /* PixelKitShaders.metallib */; };
 		3A70A64522859F0800C71B44 /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */; };
+		3A70A6462285A01B00C71B44 /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AEFFE7C228592E90075FBDA /* PixelKitShaders.metallib */; };
+		3A70A6472285A02000C71B44 /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AEFFE7E228592E90075FBDA /* PixelKitShaders-macOS.metallib */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
@@ -234,6 +236,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				3A70A6462285A01B00C71B44 /* PixelKitShaders.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +246,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				3A70A6472285A02000C71B44 /* PixelKitShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
