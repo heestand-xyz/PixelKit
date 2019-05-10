@@ -1,6 +1,6 @@
 //
 //  EffectSingleTwirlPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2018-08-11.
 //  Open Source - MIT License

@@ -1,6 +1,6 @@
 //
 //  ContentResourceBGRPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2018-07-31.
 //  Open Source - MIT License
