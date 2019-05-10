@@ -74,7 +74,7 @@ extension Pixels {
                     semaphore = DispatchSemaphore(value: 0)
                 }
                 
-//                DispatchQueue.main.async {
+                DispatchQueue.main.async {
                     if pix.view.superview != nil {
                         #if os(iOS)
                         pix.view.metalView.setNeedsDisplay()
@@ -105,7 +105,7 @@ extension Pixels {
                             }
                         })
                     }
-//                }
+                }
                 
                 if self.renderMode == .instantQueueSemaphore {
                     _ = semaphore!.wait(timeout: .distantFuture)
