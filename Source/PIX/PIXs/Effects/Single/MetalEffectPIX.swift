@@ -71,3 +71,20 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     }
     
 }
+
+
+public extension PIXOut {
+    
+    func _lumaToAlpha() -> MetalEffectPIX {
+        let metalEffectPix = MetalEffectPIX(code:
+            """
+            float luma = (inPix.r + inPix.g + inPix.b) / 3;
+            pix = float4(inPix.r, inPix.r, inPix.r, luma);
+            """
+        )
+        metalEffectPix.name = "lumaToAlpha:metalEffectPix"
+        metalEffectPix.inPix = self as? PIX & PIXOut
+        return metalEffectPix
+    }
+    
+}
