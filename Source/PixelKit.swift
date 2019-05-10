@@ -187,7 +187,7 @@ public class PixelKit {
     
     @objc func frameLoop() {
         DispatchQueue.main.async {
-            self.delegate?.pixelKitFrameLoop()
+            self.delegate?.pixelFrameLoop()
             for frameCallback in self.frameCallbacks {
                 frameCallback.callback()
             }
