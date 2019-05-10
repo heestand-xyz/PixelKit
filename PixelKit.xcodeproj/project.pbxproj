@@ -18,6 +18,10 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
+		3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
+		3A4A712F2285BB8300B7193C /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
+		3A4A71302285BB8700B7193C /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
+		3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
@@ -208,6 +212,23 @@
 		74ECBBD221026CC500A42570 /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3A4A71292285BB7800B7193C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7473A66A210F4FD0003CF329;
+			remoteInfo = PixelKitShaders;
+		};
+		3A4A712B2285BB7800B7193C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 74E9F6C72193813800F541DE;
+			remoteInfo = "PixelKitShaders-macOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3A1A91772282F4A000B7876F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -215,6 +236,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				3A4A71302285BB8700B7193C /* PixelKitShaders.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +246,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +269,7 @@
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
+		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyphonOutPIX.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXAuto.generated.swift; sourceTree = "<group>"; };
@@ -359,6 +383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,12 +391,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4A712F2285BB8300B7193C /* PixelKitShaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A4A71252285BB7700B7193C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */,
+				3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A4A712D2285BB8000B7193C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3A8E24B922859465007AA99B /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +699,8 @@
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
+				3A4A712D2285BB8000B7193C /* Frameworks */,
+				3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -779,6 +823,12 @@
 			mainGroup = 74BC39CD21011E3A004E9AA0;
 			productRefGroup = 74BC39D821011E3A004E9AA0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3A4A71252285BB7700B7193C /* Products */;
+					ProjectRef = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				74BC39D621011E3A004E9AA0 /* PixelKit */,
@@ -786,6 +836,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = PixelKitShaders.metallib;
+			remoteRef = 3A4A71292285BB7800B7193C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = "PixelKitShaders-macOS.metallib";
+			remoteRef = 3A4A712B2285BB7800B7193C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3AF28BCA219312900079FC7A /* Resources */ = {

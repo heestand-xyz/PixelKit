@@ -159,7 +159,7 @@ public extension PIX {
         }
     }
     
-    var renderedPixelKit: PixelPack? {
+    var renderedPixels: PixelPack? {
         guard let res = resolution else { return nil }
         guard let rawPixelKit = renderedRawNormalized else { return nil }
         var pixelKit: [[PixelKit.Pixel]] = []
