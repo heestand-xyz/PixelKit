@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "Pixels"
-  spec.version      = "0.5.0"
+  spec.version      = "0.5.1"
   spec.summary      = "a Live Graphics for iOS & macOS."
 
   # This description is used to generate tags and improve search results.
@@ -82,7 +82,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "feature/live", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "feature/proxy", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -148,6 +148,6 @@ Pod::Spec.new do |spec|
   # spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # spec.dependency "JSONKit", "~> 1.4"
+  spec.ios.dependency "MetalPerformanceShadersProxy", "~> 0.3"
 
 end
