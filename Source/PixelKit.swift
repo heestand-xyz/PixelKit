@@ -32,8 +32,6 @@ public class PixelKit {
     
     public var renderMode: RenderMode = .frameLoop
     
-    let overrideWithMetalLibFromApp: Bool = true
-
     // MARK: Log
     
     public var logActive: Bool = true
@@ -143,7 +141,6 @@ public class PixelKit {
     // MARK: - Life Cycle
     
     init() {
-        print("BUNDLES:", Bundle.allBundles.map({$0.bundleIdentifier}))
         
         metalDevice = MTLCreateSystemDefaultDevice()
         guard metalDevice != nil else {
@@ -360,12 +357,7 @@ public class PixelKit {
     }
     
     func loadMetalShaderLibrary() throws -> MTLLibrary {
-        let bundle = overrideWithMetalLibFromApp ? Bundle.main : Bundle(identifier: kBundleId)!
-        if overrideWithMetalLibFromApp {
-            let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
-            log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
-        }
-        guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
+        guard let libraryFile = Bundle(for: type(of: self)).path(forResource: kMetalLibName, ofType: "metallib") else {
             throw MetalLibraryError.runtimeERROR("PixelKit Shaders: Metal Library not found.")
         }
         do {
