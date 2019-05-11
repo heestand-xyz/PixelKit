@@ -32,12 +32,7 @@ public class PixelKit {
     
     public var renderMode: RenderMode = .frameLoop
     
-    let overrideWithMetalLibFromApp: Bool = false
-    #if os(iOS)
-    let hiddenMetalLib: Bool = true
-    #elseif os(macOS)
-    let hiddenMetalLib: Bool = false
-    #endif
+    let overrideWithMetalLibFromApp: Bool = true
 
     // MARK: Log
     
@@ -148,6 +143,7 @@ public class PixelKit {
     // MARK: - Life Cycle
     
     init() {
+        print("BUNDLES:", Bundle.allBundles.map({$0.bundleIdentifier}))
         
         metalDevice = MTLCreateSystemDefaultDevice()
         guard metalDevice != nil else {
@@ -369,7 +365,7 @@ public class PixelKit {
             let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
             log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
         }
-        guard let libraryFile = bundle.path(forResource: hiddenMetalLib ? "\(kMetalLibName).metallib" : kMetalLibName, ofType: hiddenMetalLib ? "hidden" : "metallib") else {
+        guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
             throw MetalLibraryError.runtimeERROR("PixelKit Shaders: Metal Library not found.")
         }
         do {
