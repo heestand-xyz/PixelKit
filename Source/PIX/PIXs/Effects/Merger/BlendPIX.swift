@@ -7,9 +7,9 @@
 //
 
 import CoreGraphics
-#if os(iOS)
+#if os(iOS) && targetEnvironment(simulator)
 import MetalPerformanceShadersProxy
-#elseif os(macOS)
+#else
 import MetalPerformanceShaders
 #endif
 

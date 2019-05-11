@@ -208,6 +208,7 @@
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74ECBBD221026CC500A42570 /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
+		74FF1712228703FE0065ECCA /* PixelKitShaders.metallib.hidden in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74FF1711228703FB0065ECCA /* PixelKitShaders.metallib.hidden */; };
 		F4F1EFE90C5882B9B30ABCA5 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */; };
 		F5DDB7F33BD1FBFBCAD3CED1 /* Pods_PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */; };
 /* End PBXBuildFile section */
@@ -236,6 +237,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				74FF1712228703FE0065ECCA /* PixelKitShaders.metallib.hidden in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +379,7 @@
 		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* PixelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelProtocols.swift; sourceTree = "<group>"; };
+		74FF1711228703FB0065ECCA /* PixelKitShaders.metallib.hidden */ = {isa = PBXFileReference; lastKnownFileType = file; path = PixelKitShaders.metallib.hidden; sourceTree = "<group>"; };
 		B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -469,6 +472,7 @@
 			children = (
 				7479F6B12275C04D009B4B65 /* Info.plist */,
 				3A8AC3482277282C00A142AA /* Pixels.entitlements */,
+				74FF1711228703FB0065ECCA /* PixelKitShaders.metallib.hidden */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

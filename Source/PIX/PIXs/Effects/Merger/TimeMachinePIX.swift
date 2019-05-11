@@ -6,9 +6,9 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) && targetEnvironment(simulator)
 import MetalPerformanceShadersProxy
-#elseif os(macOS)
+#else
 import Metal
 #endif
 

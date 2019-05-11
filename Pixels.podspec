@@ -95,14 +95,14 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "Source", "Source/**/*.swift"
 
-  spec.ios.exclude_files = "Source/PIX/Content/Resource/ScreenCapturePIX.swift",
-                           "Source/PIX/Content/Resource/SyphonInPIX.swift",
-                           "Source/PIX/Output/SyphonOutPIX.swift",
+  spec.ios.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
+                           "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
+                           "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
   						             "Source/PIX/View/LiveMouseView.swift"
 
-  spec.osx.exclude_files = "Source/PIX/Content/Resource/StreamInPIX.swift",
-  						             "Source/PIX/Output/StreamOutPIX.swift",
-  						             "Source/PIX/Output/AirPlayPIX.swift",
+  spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
+  						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
+  						             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift"
   # spec.exclude_files = "Classes/Exclude"

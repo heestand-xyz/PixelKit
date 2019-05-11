@@ -6,9 +6,10 @@
 //  Open Source - MIT License
 //
 
-#if os(iOS)
+import CoreGraphics
+#if os(iOS) && targetEnvironment(simulator)
 import MetalPerformanceShadersProxy
-#elseif os(macOS)
+#else
 import Metal
 #endif
 import simd

@@ -7,9 +7,9 @@
 //
 
 import CoreGraphics
-#if os(iOS)
+#if os(iOS) && targetEnvironment(simulator)
 import MetalPerformanceShadersProxy
-#elseif os(macOS)
+#else
 import MetalKit
 #endif
 import simd
@@ -33,7 +33,12 @@ public class PixelKit {
     public var renderMode: RenderMode = .frameLoop
     
     let overrideWithMetalLibFromApp: Bool = false
-    
+    #if os(iOS)
+    let hiddenMetalLib: Bool = true
+    #elseif os(macOS)
+    let hiddenMetalLib: Bool = false
+    #endif
+
     // MARK: Log
     
     public var logActive: Bool = true
@@ -364,7 +369,7 @@ public class PixelKit {
             let bundleId = bundle.bundleIdentifier ?? "unknown-bundle-id"
             log(.info, .metal, "Metal Lib from Bundle: \(bundleId) [OVERRIDE]")
         }
-        guard let libraryFile = bundle.path(forResource: kMetalLibName, ofType: "metallib") else {
+        guard let libraryFile = bundle.path(forResource: hiddenMetalLib ? "\(kMetalLibName).metallib" : kMetalLibName, ofType: hiddenMetalLib ? "hidden" : "metallib") else {
             throw MetalLibraryError.runtimeERROR("PixelKit Shaders: Metal Library not found.")
         }
         do {
