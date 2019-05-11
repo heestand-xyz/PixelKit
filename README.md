@@ -56,18 +56,13 @@ Info:
 [High Bit Mode](#high-bit-mode) -
 [Apps](#apps)
 
-Under development.
-
 --- 
 
 ## Install
 
-To get up and running, follow these steps:
-1. Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
-2. Add the framework files in from the zip to the root of your Xcode project.
-3. In your project settings under *General* and *Embedded Binaries* add **Pixels.framework**.
-4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
-5. Now you can `import Pixels`.
+`pod 'PixelKit'`
+
+`import PixelKit`
 
 Note that PixelKit dose not have simulator support. Metal for iOS can only run on a physical device.
 
