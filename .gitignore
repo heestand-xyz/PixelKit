@@ -7,4 +7,3 @@ Package.swift
 build/
 
 *.framework
-*.metallib
