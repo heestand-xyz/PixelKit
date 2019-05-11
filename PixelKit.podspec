@@ -82,7 +82,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "feature/proxy", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/hexagons/pixels.git", :branch => "master", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
