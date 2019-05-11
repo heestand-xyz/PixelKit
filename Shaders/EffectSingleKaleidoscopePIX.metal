@@ -1,6 +1,6 @@
 //
 //  EffectSingleKaleidoscopePIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-11-28.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -37,7 +37,7 @@ fragment float4 effectSingleKaleidoscopePIX(VertexOut out [[stage_in]],
     uint h = inTex.get_height();
     float aspect = float(w) / float(h);
     
-    float rot = in.rotation / 360;
+    float rot = in.rotation;
     float div = in.divisions;
     
     float ang = atan2(v - 0.5 + in.ty, (u - 0.5) * aspect - in.tx) / (pi * 2);

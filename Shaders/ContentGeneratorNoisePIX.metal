@@ -1,6 +1,6 @@
 //
 //  ContentGeneratorNoisePIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-11-24.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -26,6 +26,7 @@ struct Uniforms{
     float zoom;
     float color;
     float random;
+    float includeAlpha;
     float premultiply;
     float aspect;
 };
@@ -44,7 +45,7 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
     
 
     float n;
-    if (in.random > 0.5) {
+    if (in.random > 0.0) {
         Loki loki_rnd = Loki(in.seed, u * max_res, v * max_res);
         n = loki_rnd.rand();
     } else {
@@ -54,8 +55,8 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
     
     float ng;
     float nb;
-    if (in.color > 0.5) {
-        if (in.random > 0.5) {
+    if (in.color > 0.0) {
+        if (in.random > 0.0) {
             Loki loki_rnd_g = Loki(in.seed + 100, u * max_res, v * max_res);
             ng = loki_rnd_g.rand();
             Loki loki_rnd_b = Loki(in.seed + 200, u * max_res, v * max_res);
@@ -68,9 +69,21 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
         }
     }
     
-    float r = n;
-    float g = in.color > 0.5 ? ng : n;
-    float b = in.color > 0.5 ? nb : n;
+    float na;
+    if (in.includeAlpha > 0.0) {
+        if (in.random > 0.0) {
+            Loki loki_rnd_g = Loki(in.seed + 300, u * max_res, v * max_res);
+            na = loki_rnd_g.rand();
+        } else {
+            na = octave_noise_3d(in.octaves, 0.5, 1.0, ux, vy, in.z + 30 + in.seed);
+            na = na / 2 + 0.5;
+        }
+    }
     
-    return float4(r, g, b, 1.0);
+    float r = n;
+    float g = in.color > 0.0 ? ng : n;
+    float b = in.color > 0.0 ? nb : n;
+    float a = in.includeAlpha > 0.0 ? na : 1.0;
+
+    return float4(r, g, b, a);
 }

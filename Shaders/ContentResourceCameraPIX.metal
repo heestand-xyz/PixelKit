@@ -1,6 +1,6 @@
 //
 //  ContentResourceCameraPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-12-06.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -18,6 +18,7 @@ struct VertexOut{
 struct Uniforms {
     float orientation;
     float mirror;
+    float flipFlop;
 };
 
 fragment float4 contentResourceCameraPIX(VertexOut out [[stage_in]],
@@ -28,6 +29,11 @@ fragment float4 contentResourceCameraPIX(VertexOut out [[stage_in]],
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     v = 1 - v; // Content Flip Fix
+    
+    if (in.flipFlop) {
+        u = 1 - u;
+        v = 1 - v;
+    }
     
     if (in.mirror) {
         if (int(in.orientation) == 1 || int(in.orientation) == 2) {

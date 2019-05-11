@@ -1,6 +1,6 @@
 //
 //  EffectSingleLevelsPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-11-07.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -42,7 +42,7 @@ fragment float4 effectSingleLevelsPIX(VertexOut out [[stage_in]],
     c *= in.brightness;
     
     c -= 0.5;
-    c *= 1.0 - in.contrast;
+    c *= 1.0 + in.contrast;
     c += 0.5;
     
     c = pow(c, 1 / max(0.001, in.gamma));

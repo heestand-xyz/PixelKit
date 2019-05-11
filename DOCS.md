@@ -12,7 +12,7 @@ var <b>seconds</b>: CGFloat { get }<br>
 var <b>logLevel</b>: LogLevel = .debug<br>
 var <b>logLoopLimitActive</b> = true<br>
 var <b>logLoopLimitFrameCount</b> = 10<br>
-var <b>colorBits</b>: PIX.Color.Bits = ._8<br>
+var <b>bits</b>: PIX.Color.Bits = ._8<br>
 var <b>colorSpace</b>: PIX.Color.Space = .sRGB
 
 ## PixelsDelegate
@@ -52,6 +52,8 @@ func <b>seek(toTime: CMTime)</b><br>
 func <b>seek(toFraction: CGFloat)</b><br>
 func <b>restart()</b><br>
 func <b>reset()</b>
+### ScreenCapturePIX
+var <b>screenIndex</b>: Int = 0
 ### VectorPIX <i>(coming soon)</i>
 ### TextPIX <i>(coming soon)</i>
 ### PaintPIX <i>(coming soon)</i>
@@ -120,7 +122,7 @@ var <b>inPix</b>: (PIX & PIXOut)?
 var <b>res</b>: Res<br>
 var <b>resMultiplier</b>: CGFloat = 1.0<br>
 var <b>inheritInRes</b>: Bool = false<br>
-var <b>fillMode</b>: FillMode = .aspectFit<br>
+var <b>placement</b>: Placement = .aspectFit<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
 func <b>reRes(to: PIX.Res)</b> -> ResPIX<br>
@@ -212,13 +214,13 @@ func <b>chromaKey(\_: UIColor)</b> -> ChromaKeyPIX
 var <b>corners</b>: Corners<br>
 var <b>perspective</b>: Bool = false<br>
 var <b>divisions</b>: Int = 16
-### HueSaturationPIX
+### HueSatPIX
 var <b>hue</b>: CGFloat = 0.0<br>
 var <b>saturation</b>: CGFloat = 1.0<br>
 <br>
 <b>PIXOut</b> convenience funcs:<br>
-func <b>hue(\_: CGFloat)</b> -> HueSaturationPIX<br>
-func <b>saturation(\_: CGFloat)</b> -> HueSaturationPIX
+func <b>hue(\_: CGFloat)</b> -> HueSatPIX<br>
+func <b>saturation(\_: CGFloat)</b> -> HueSatPIX
 ### CropPIX
 var <b>cropFrame</b>: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)<br>
 <br>
@@ -264,7 +266,7 @@ var <b>metalUniforms</b>: [MetalUniform] = []
 ## PIXMergerEffect</b>: PIXEffect
 var <b>inPixA</b>: (PIX & PIXOut)?<br>
 var <b>inPixB</b>: (PIX & PIXOut)?<br>
-var <b>fillMode</b>: FillMode = .aspectFit
+var <b>placement</b>: Placement = .aspectFit
 
 ### CrossPIX
 var <b>lerp</b>: CGFloat = 0.5

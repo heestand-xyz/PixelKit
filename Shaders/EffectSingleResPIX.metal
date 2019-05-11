@@ -1,9 +1,9 @@
 //
 //  EffectSingleResPIX.metal
-//  Pixels Shaders
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2018-01-15.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 #include <metal_stdlib>

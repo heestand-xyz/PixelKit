@@ -1,6 +1,6 @@
 //
 //  CheckerView.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2017-12-18.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -40,27 +40,34 @@ class CheckerView: _View {
     typealias _Image = NSImage
     #endif
     func checkerImage() -> _Image {
+        let scale: CGFloat = 20
+        let dark: CGFloat = 1 / 3
+        let light: CGFloat = 2 / 3
         #if os(iOS)
-        // FIXME: Test
-        return UIGraphicsImageRenderer(size: CGSize(width: 64, height: 64)).image { ctx in
-            ctx.cgContext.setFillColor(PIX.Color.darkGray.cgColor)
-            ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: 32, height: 32))
-            ctx.cgContext.addRect(CGRect(x: 32, y: 32, width: 32, height: 32))
-            ctx.cgContext.setFillColor(PIX.Color.lightGray.cgColor)
-            ctx.cgContext.addRect(CGRect(x: 0, y: 32, width: 32, height: 32))
-            ctx.cgContext.addRect(CGRect(x: 32, y: 0, width: 32, height: 32))
+        let darkColor = UIColor(white: dark, alpha: 1.0).cgColor
+        let lightColor = UIColor(white: light, alpha: 1.0).cgColor
+        return UIGraphicsImageRenderer(size: CGSize(width: scale * 2, height: scale * 2)).image { ctx in
+            ctx.cgContext.setFillColor(darkColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: 0, width: scale, height: scale))
+            ctx.cgContext.addRect(CGRect(x: scale, y: scale, width: scale, height: scale))
+            ctx.cgContext.drawPath(using: .fill)
+            ctx.cgContext.setFillColor(lightColor)
+            ctx.cgContext.addRect(CGRect(x: 0, y: scale, width: scale, height: scale))
+            ctx.cgContext.addRect(CGRect(x: scale, y: 0, width: scale, height: scale))
             ctx.cgContext.drawPath(using: .fill)
         }
         #elseif os(macOS)
-        let img = NSImage(size: CGSize(width: 64, height: 64))
+        let darkColor = CGColor(gray: dark, alpha: 1.0)
+        let lightColor = CGColor(gray: light, alpha: 1.0)
+        let img = NSImage(size: CGSize(width: scale * 2, height: scale * 2))
         img.lockFocus()
         let ctx = NSGraphicsContext.current!.cgContext
-        ctx.setFillColor(PIX.Color.darkGray.cgColor)
-        ctx.fill(CGRect(x: 0, y: 0, width: 32, height: 32))
-        ctx.fill(CGRect(x: 32, y: 32, width: 32, height: 32))
-        ctx.setFillColor(PIX.Color.lightGray.cgColor)
-        ctx.fill(CGRect(x: 0, y: 32, width: 32, height: 32))
-        ctx.fill(CGRect(x: 32, y: 0, width: 32, height: 32))
+        ctx.setFillColor(darkColor)
+        ctx.fill(CGRect(x: 0, y: 0, width: scale, height: scale))
+        ctx.fill(CGRect(x: scale, y: scale, width: scale, height: scale))
+        ctx.setFillColor(lightColor)
+        ctx.fill(CGRect(x: 0, y: scale, width: scale, height: scale))
+        ctx.fill(CGRect(x: scale, y: 0, width: scale, height: scale))
         img.unlockFocus()
         return img
         #endif

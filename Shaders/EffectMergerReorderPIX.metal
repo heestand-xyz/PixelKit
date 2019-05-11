@@ -1,6 +1,6 @@
 //
 //  EffectMergerReorderPIX.metal
-//  PixelsShaders
+//  PixelKitShaders
 //
 //  Created by Hexagons on 2017-12-03.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -25,8 +25,6 @@ struct Uniforms {
     float alpha_channel;
     float premultiply;
     float place;
-    float placeY;
-    float placeX;
 };
 
 fragment float4 effectMergerReorderPIX(VertexOut out [[stage_in]],
@@ -73,32 +71,8 @@ fragment float4 effectMergerReorderPIX(VertexOut out [[stage_in]],
             }
             break;
         case 3: // Center
-            bu = 0.5 + (u - 0.5) * (float(aw) / float(bw));
-            bv = 0.5 + (v - 0.5) * (float(ah) / float(bh));
-            break;
-        case 4: // Place
-            switch (int(in.placeX)) {
-                case 0: // Left
-                    bu = u * (float(aw) / float(bw));
-                    break;
-                case 1: // Center
-                    bu = 0.5 + (u - 0.5) * (float(aw) / float(bw));
-                    break;
-                case 2: // Right
-                    bu = 1.0 + (u - 1.0) * (float(aw) / float(bw));
-                    break;
-            }
-            switch (int(in.placeY)) {
-                case 0: // Bottom
-                    bv = v * (float(ah) / float(bh));
-                    break;
-                case 1: // Center
-                    bv = 0.5 + (v - 0.5) * (float(ah) / float(bh));
-                    break;
-                case 2: // Top
-                    bv = 1.0 + (v - 1.0) * (float(ah) / float(bh));
-                    break;
-            }
+            bu = 0.5 + ((u - 0.5) * aw) / bw;
+            bv = 0.5 + ((v - 0.5) * ah) / bh;
             break;
     }
     float4 cb = inTexB.sample(s, float2(bu, bv));
@@ -112,10 +86,26 @@ fragment float4 effectMergerReorderPIX(VertexOut out [[stage_in]],
     float lum_b = (cb.r + cb.g + cb.b) / 3;
     
     float4 c = float4(
-        chan_r < 4 ? (in.red_input == 0 ? ca[chan_r] : cb[chan_r]) : chan_r == 4 ? 0.0 : chan_r == 5 ? 1.0 : (in.red_input == 0 ? lum_a : lum_b),
-        chan_g < 4 ? (in.green_input == 0 ? ca[chan_g] : cb[chan_g]) : chan_g == 4 ? 0.0 : chan_g == 5 ? 1.0 : (in.green_input == 0 ? lum_a : lum_b),
-        chan_b < 4 ? (in.blue_input == 0 ? ca[chan_b] : cb[chan_b]) : chan_b == 4 ? 0.0 : chan_b == 5 ? 1.0 : (in.blue_input == 0 ? lum_a : lum_b),
-        chan_a < 4 ? (in.alpha_input == 0 ? ca[chan_a] : cb[chan_a]) : chan_a == 4 ? 0.0 : chan_a == 5 ? 1.0 : (in.alpha_input == 0 ? lum_a : lum_b)
+        chan_r < 4 ?
+            (in.red_input == 0 ? ca[chan_r] : cb[chan_r]) :
+                (chan_r == 4 ? 0.0 :
+                    chan_r == 5 ? 1.0 :
+                        (in.red_input == 0 ? lum_a : lum_b)),
+        chan_g < 4 ?
+            (in.green_input == 0 ? ca[chan_g] : cb[chan_g]) :
+                (chan_g == 4 ? 0.0 :
+                    chan_g == 5 ? 1.0 :
+                        (in.green_input == 0 ? lum_a : lum_b)),
+        chan_b < 4 ?
+            (in.blue_input == 0 ? ca[chan_b] : cb[chan_b]) :
+                (chan_b == 4 ? 0.0 :
+                    chan_b == 5 ? 1.0 :
+                        (in.blue_input == 0 ? lum_a : lum_b)),
+        chan_a < 4 ?
+            (in.alpha_input == 0 ? ca[chan_a] : cb[chan_a]) :
+                (chan_a == 4 ? 0.0 :
+                    chan_a == 5 ? 1.0 :
+                        (in.alpha_input == 0 ? lum_a : lum_b))
     );
     
     if (in.premultiply) {

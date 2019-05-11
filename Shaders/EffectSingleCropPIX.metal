@@ -1,6 +1,6 @@
 //
 //  EffectSingleCropPIX.metal
-//  PixelsShaders
+//  PixelKitShaders
 //
 //  Created by Hexagons on 2017-11-30.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -28,12 +28,14 @@ fragment float4 effectSingleCropPIX(VertexOut out [[stage_in]],
                                      sampler s [[ sampler(0) ]]) {
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    v = 1 - v; // Content Flip Fix A
     
     u *= in.right - in.left;
     u += in.left;
     v *= in.top - in.bottom;
     v += in.bottom;
     
+    v = 1 - v; // Content Flip Fix B
     float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);

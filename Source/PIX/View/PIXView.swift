@@ -1,9 +1,9 @@
 //
 //  PIXView.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-26.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 import MetalKit
@@ -21,14 +21,14 @@ public class PIXView: _View {
 
     var boundsReady: Bool { return bounds.width > 0 }
 
-    public enum FillMode {
+    public enum Placement {
         case aspectFit
         case aspectFill
         case pixelPerfect
         case fill
     }
     /// Defaults to `.aspectFit`.
-    public var fillMode: FillMode = .aspectFit { didSet { layoutFillMode() } }
+    public var placement: Placement = .aspectFit { didSet { layoutPlacement() } }
     
     var widthLayoutConstraint: NSLayoutConstraint!
     var heightLayoutConstraint: NSLayoutConstraint!
@@ -38,8 +38,14 @@ public class PIXView: _View {
     public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
     let checkerView: CheckerView
     
+    #if os(iOS)
+    let liveTouchView: LiveTouchView
+    #elseif os(macOS)
+    let liveMouseView: LiveMouseView
+    #endif
+    
     #if os(macOS)
-    public override var frame: NSRect { didSet { _ = layoutFillMode() } }
+    public override var frame: NSRect { didSet { _ = layoutPlacement() } }
     #endif
     
     init() {
@@ -47,6 +53,12 @@ public class PIXView: _View {
         checkerView = CheckerView()
 
         metalView = PIXMetalView()
+        
+        #if os(iOS)
+        liveTouchView = LiveTouchView()
+        #elseif os(macOS)
+        liveMouseView = LiveMouseView()
+        #endif
         
         super.init(frame: .zero)
         
@@ -57,6 +69,12 @@ public class PIXView: _View {
         addSubview(checkerView)
         
         addSubview(metalView)
+        
+        #if os(iOS)
+        addSubview(liveTouchView)
+        #elseif os(macOS)
+        addSubview(liveMouseView)
+        #endif
         
         autoLayout()
         
@@ -78,21 +96,35 @@ public class PIXView: _View {
         widthLayoutConstraint.isActive = true
         heightLayoutConstraint.isActive = true
         
+        #if os(iOS)
+        liveTouchView.translatesAutoresizingMaskIntoConstraints = false
+        liveTouchView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        liveTouchView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        liveTouchView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
+        liveTouchView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
+        #elseif os(macOS)
+        liveMouseView.translatesAutoresizingMaskIntoConstraints = false
+        liveMouseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        liveMouseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        liveMouseView.widthAnchor.constraint(equalTo: metalView.widthAnchor).isActive = true
+        liveMouseView.heightAnchor.constraint(equalTo: metalView.heightAnchor).isActive = true
+        #endif
+        
     }
     
-    func layoutFillMode() {
+    func layoutPlacement() {
         
         guard boundsReady else { return }
         guard let res = res else { return }
         
-        let resolutionAspect = res.width / res.height
+        let resolutionAspect = res.width.cg / res.height.cg
         let viewAspect = bounds.width / bounds.height
         let combinedAspect = resolutionAspect / viewAspect
         let dynamicAspect = resolutionAspect > viewAspect ? combinedAspect : 1 / combinedAspect
         
         let width: CGFloat
         let height: CGFloat
-        switch fillMode {
+        switch placement {
         case .aspectFit:
             width = resolutionAspect >= viewAspect ? bounds.width : bounds.width / dynamicAspect
             height = resolutionAspect <= viewAspect ? bounds.height : bounds.height / dynamicAspect
@@ -100,13 +132,9 @@ public class PIXView: _View {
             width = resolutionAspect <= viewAspect ? bounds.width : bounds.width * dynamicAspect
             height = resolutionAspect >= viewAspect ? bounds.height : bounds.height * dynamicAspect
         case .pixelPerfect:
-            #if os(iOS)
-            let scale: CGFloat = UIScreen.main.nativeScale
-            #elseif os(macOS)
-            let scale: CGFloat = 1.0
-            #endif
-            width = res.width / scale
-            height = res.height / scale
+            let scale: CGFloat = PIX.Res.scale
+            width = res.width.cg / scale
+            height = res.height.cg / scale
         case .fill:
             width = bounds.width
             height = bounds.height
@@ -125,15 +153,13 @@ public class PIXView: _View {
 //        metalView.needsUpdateConstraints = true
         #endif
         
-        print("C>>>>>>>>>>>>>>", bounds.size, "+", res, ">", width, height)
-        
     }
     
     func setRes(_ newRes: PIX.Res) {
-        print("RES >>>>>>>", newRes)
+        
         res = newRes
         metalView.res = newRes
-        layoutFillMode()
+        layoutPlacement()
         // FIXME: Set by user..
 //        if !boundsReady {
 //            #if os(iOS)
@@ -146,14 +172,53 @@ public class PIXView: _View {
     }
     
     #if os(iOS)
+    
+    public func liveTouch(active: Bool) {
+        #if os(iOS)
+        liveTouchView.isUserInteractionEnabled = active
+        #elseif os(macOS)
+        liveMouseView.isUserInteractionEnabled = active
+        #endif
+    }
+    
+    public func touchEvent(_ callback: @escaping (Bool) -> ()) {
+        liveTouchView.touchEvent { touch in
+            callback(touch)
+        }
+    }
+    
+    public func touchPointEvent(_ callback: @escaping (CGPoint) -> ()) {
+        liveTouchView.touchPointEvent { point in
+            callback(point)
+        }
+    }
+    
+    public func touchUVEvent(_ callback: @escaping (CGPoint) -> ()) {
+        liveTouchView.touchPointEvent { point in
+            guard self.boundsReady else { return }
+            let aspect = self.bounds.width / self.bounds.height
+            let uv = CGPoint(x: (point.x + aspect / 2) / aspect, y: point.y + 0.5)
+            callback(uv)
+        }
+    }
+    
+    #elseif os(macOS)
+    
+    public func liveMouse(active: Bool) {
+        liveMouseView.isHidden = !active
+    }
+    
+    #endif
+    
+    #if os(iOS)
     public override func layoutSubviews() {
         super.layoutSubviews()
-        _ = layoutFillMode()
+        _ = layoutPlacement()
     }
     #elseif os(macOS)
     public override func layout() {
         super.layout()
-        _ = layoutFillMode()
+        _ = layoutPlacement()
     }
     #endif
     

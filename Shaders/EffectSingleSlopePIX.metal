@@ -1,6 +1,6 @@
 //
 //  EffectSingleSlopePIX.metal
-//  PixelsShaders
+//  PixelKitShaders
 //
 //  Created by Hexagons on 2017-11-17.
 //  Copyright © 2017 Hexagons. All rights reserved.
@@ -25,19 +25,28 @@ fragment float4 effectSingleSlopePIX(VertexOut out [[stage_in]],
                                       sampler s [[ sampler(0) ]]) {
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-    
     uint w = inTex.get_width();
     uint h = inTex.get_height();
+    float2 uv = float2(u, v);
+    float2 uvu = float2(u + (1.0 / float(w)), v);
+    float2 uvv = float2(u, v + (1.0 / float(h)));
     
-    float4 c = inTex.sample(s, float2(u, v));
-    float4 cu = inTex.sample(s, float2(u + (1.0 / float(w)), v));
-    float4 cv = inTex.sample(s, float2(u, v + (1.0 / float(h))));
+    if (uvu.x > 1.0) {
+        return 0.5;
+    }
+    if (uvv.y > 1.0) {
+        return 0.5;
+    }
+    
+    float4 c = inTex.sample(s, uv);
+    float4 cu = inTex.sample(s, uvu);
+    float4 cv = inTex.sample(s, uvv);
     float c_avg = (c.r + c.g + c.b) / 3.0;
     float cu_avg = (cu.r + cu.g + cu.b) / 3.0;
     float cv_avg = (cv.r + cv.g + cv.b) / 3.0;
     
     float slope_u = 0.5 + (c_avg - cu_avg) * in.amp * 0.5;
-    float slope_v = 0.5 + (c_avg - cv_avg) * in.amp * 0.5;
+    float slope_v = 0.5 - (c_avg - cv_avg) * in.amp * 0.5;
     
     return float4(slope_u, slope_v, 0.5, 1.0);
 }

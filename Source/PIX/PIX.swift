@@ -1,30 +1,69 @@
 //
 //  PIX.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-20.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 import Metal
 import MetalKit
 import MetalPerformanceShaders
 
-open class PIX: Codable {
+open class PIX {
     
     public var id = UUID()
     public var name: String?
     
     public weak var delegate: PIXDelegate?
     
-    let pixels = Pixels.main
+    let pixelKit = PixelKit.main
     
     open var shader: String { return "" }
-    open var uniforms: [CGFloat] { return [] }
+    
+    open var liveValues: [LiveValue] { return [] }
+    open var preUniforms: [CGFloat] { return [] }
+    open var postUniforms: [CGFloat] { return [] }
+    open var uniforms: [CGFloat] {
+        var vals: [CGFloat] = []
+        vals.append(contentsOf: preUniforms)
+        for liveValue in liveValues {
+            if let liveFloat = liveValue as? LiveFloat {
+                vals.append(liveFloat.uniform)
+            } else if let liveInt = liveValue as? LiveInt {
+                vals.append(CGFloat(liveInt.uniform))
+            } else if let liveBool = liveValue as? LiveBool {
+                vals.append(liveBool.uniform ? 1.0 : 0.0)
+            } else if let liveColor = liveValue as? LiveColor {
+                vals.append(contentsOf: liveColor.colorCorrect.uniformList)
+            } else if let livePoint = liveValue as? LivePoint {
+                vals.append(contentsOf: livePoint.uniformList)
+            } else if let liveSize = liveValue as? LiveSize {
+                vals.append(contentsOf: liveSize.uniformList)
+            }
+        }
+        vals.append(contentsOf: postUniforms)
+        return vals
+    }
+    
+    var liveArray: [[LiveFloat]] { return [] }
+    open var uniformArray: [[CGFloat]] {
+        return liveArray.map({ liveFloats -> [CGFloat] in
+            return liveFloats.map({ liveFloat -> CGFloat in
+                return liveFloat.uniform
+            })
+        })
+    }
+
     open var vertexUniforms: [CGFloat] { return [] }
     var shaderNeedsAspect: Bool { return false }
     
-    public var bypass: Bool = false
+    public var bypass: Bool = false {
+        didSet {
+            guard !bypass else { return }
+            setNeedsRender()
+        }
+    }
 
     var _texture: MTLTexture?
     var texture: MTLTexture? {
@@ -37,16 +76,27 @@ open class PIX: Codable {
         }
         set {
             _texture = newValue
+            nextTextureAvalibleCallback?()
         }
     }
     public var didRenderTexture: Bool {
         return _texture != nil
     }
+    var nextTextureAvalibleCallback: (() -> ())?
+    public func nextTextureAvalible(_ callback: @escaping () -> ()) {
+        nextTextureAvalibleCallback = {
+            callback()
+            self.nextTextureAvalibleCallback = nil
+        }
+    }
+    
+    open var additiveVertexBlending: Bool { return false }
     
     public let view: PIXView
     
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
+    public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
     var compare: MTLCompareFunction = .never
     
     var pipeline: MTLRenderPipelineState!
@@ -56,23 +106,27 @@ open class PIX: Codable {
     }
     
     public var customRenderActive: Bool = false
-    public var customRenderDelegate: PixelsCustomRenderDelegate?
+    public var customRenderDelegate: PixelCustomRenderDelegate?
+    public var customMergerRenderActive: Bool = false
+    public var customMergerRenderDelegate: PixelCustomMergerRenderDelegate?
     public var customGeometryActive: Bool = false
-    public var customGeometryDelegate: PixelsCustomGeometryDelegate?
+    public var customGeometryDelegate: PixelCustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
     open var customVertexShaderName: String? { return nil }
     open var customVertexTextureActive: Bool { return false }
     open var customVertexPixIn: (PIX & PIXOut)? { return nil }
+    open var customMatrices: [matrix_float4x4] { return [] }
     public var customLinkedPixs: [PIX] = []
 
     var rendering = false
     var needsRender = false {
         didSet {
             guard needsRender else { return }
-            guard pixels.renderMode == .direct else { return }
-            pixels.renderPIX(self)
+            guard pixelKit.renderMode == .direct else { return }
+            pixelKit.renderPIX(self, done: { _ in })
         }
     }
+    var renderIndex: Int = 0
     
     // MARK: - Life Cycle
     
@@ -81,41 +135,33 @@ open class PIX: Codable {
         view = PIXView()
         
         guard shader != "" else {
-            pixels.log(pix: self, .fatal, nil, "Shader not defined.")
+            pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
         }
         do {
-            let frag = try pixels.makeFrag(shader, with: customMetalLibrary, from: self)
-            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixels.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixels.makeShaderPipeline(frag, with: vtx)
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
+            let frag = try pixelKit.makeFrag(shader, with: customMetalLibrary, from: self)
+            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+            pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
+            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
         } catch {
-            pixels.log(pix: self, .fatal, nil, "Initialization faled.", e: error)
+            pixelKit.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
         }
             
-        pixels.add(pix: self)
+        pixelKit.add(pix: self)
         
-        pixels.log(pix: self, .info, nil, "Linked with Pixels.", clean: true)
+        pixelKit.log(pix: self, .detail, nil, "Linked with PixelKit.", clean: true)
     
     }
-    
-    // MARK: - JSON
-
-    public required init(from decoder: Decoder) throws {
-        fatalError("PIX Decoder Initializer is not supported.") // CHECK
-    }
-    
-    public func encode(to encoder: Encoder) throws {}
     
     // MARK: Sampler
     
     func updateSampler() {
         do {
-            sampler = try pixels.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl)
-            pixels.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
+            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            pixelKit.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
             setNeedsRender()
         } catch {
-            pixels.log(pix: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
+            pixelKit.log(pix: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
         }
     }
     
@@ -127,16 +173,16 @@ open class PIX: Codable {
             return
         }
         guard !needsRender else {
-            pixels.log(pix: self, .warning, .render, "Already requested.", loop: true)
+//            pixelKit.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
         guard resolution != nil else {
-            pixels.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
+//            pixelKit.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
             return
         }
         guard view.metalView.res != nil else {
-            pixels.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
-            pixels.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
+            pixelKit.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
+            pixelKit.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
             applyRes {
                 self.setNeedsRender()
             }
@@ -144,23 +190,25 @@ open class PIX: Codable {
         }
         if let pixResource = self as? PIXResource {
             guard pixResource.pixelBuffer != nil else {
-                pixels.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
+                pixelKit.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
                 return
             }
         }
-        pixels.log(pix: self, .info, .render, "Requested.", loop: true)
+        pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)
 //        delegate?.pixWillRender(self)
         needsRender = true
     }
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
+        renderIndex += 1
         delegate?.pixDidRender(self)
         for customLinkedPix in customLinkedPixs {
             customLinkedPix.setNeedsRender()
         }
         if !force { // CHECK the force!
             renderOuts()
+            renderCustomVertexTexture()
         }
     }
     
@@ -169,7 +217,23 @@ open class PIX: Codable {
             for pixOutPath in pixOut.pixOutPathList {
                 let pix = pixOutPath.pixIn
                 guard !pix.destroyed else { continue }
+                guard pix != self else {
+                    pixelKit.log(.error, .render, "Connected to self.")
+                    continue
+                }
                 pix.setNeedsRender()
+            }
+        }
+    }
+    
+    func renderCustomVertexTexture() {
+        for pix in pixelKit.linkedPixs {
+            if pix.customVertexTextureActive {
+                if let inPix = pix.customVertexPixIn {
+                    if inPix == self {
+                        pix.setNeedsRender()
+                    }
+                }
             }
         }
     }
@@ -183,68 +247,73 @@ open class PIX: Codable {
     
     func setNeedsConnect() {
         if self is PIXIn {
-            if var pixInSingle = self as? PIXInSingle {
-                if pixInSingle.inPix != nil {
-                    connectSingle(pixInSingle.inPix! as! PIX & PIXOutIO)
-                } else {
-                    disconnectSingle()
-                }
-            } else if let pixInMerger = self as? PIXInMerger {
-                if pixInMerger.inPixA != nil && pixInMerger.inPixB != nil {
-                    connectMerger(pixInMerger.inPixA! as! PIX & PIXOutIO, pixInMerger.inPixB! as! PIX & PIXOutIO)
-                } else {
-                    // CHECK DISCONNECT
-                }
-            } else if let pixInMulti = self as? PIXInMulti {
+            if let pixInMulti = self as? PIXInMulti {
                 connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
             }
         }
     }
     
-    func connectSingle(_ pixOut: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = [pixOut]
-        var pixOut = pixOut
-        pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        pixels.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
-        applyRes { self.setNeedsRender() }
+    func setNeedsConnectSingle(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?) {
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        if let oldPixOut = oldInPix {
+            var pixOut = oldPixOut as! (PIX & PIXOutIO)
+            for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
+                if pixOutPath.pixIn == pixInIO {
+                    pixOut.pixOutPathList.remove(at: i)
+                    break
+                }
+            }
+            pixInIO.pixInList = []
+            pixelKit.log(pix: self, .info, .connection, "Disonnected Single: \(pixOut)")
+        }
+        if let newPixOut = newInPix {
+            guard newPixOut != self else {
+                pixelKit.log(.error, .connection, "Can't connect to self.")
+                return
+            }
+            var pixOut = newPixOut as! (PIX & PIXOutIO)
+            pixInIO.pixInList = [pixOut]
+            pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+            applyRes { self.setNeedsRender() }
+            pixelKit.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
+        }
     }
     
-    func connectMerger(_ pixOutA: PIX & PIXOutIO, _ pixOutB: PIX & PIXOutIO) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = [pixOutA, pixOutB]
-        var pixOutA = pixOutA
-        var pixOutB = pixOutB
-        pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
-        pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
-        pixels.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
-        applyRes { self.setNeedsRender() }
+    func setNeedsConnectMerger(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?, second: Bool) {
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard let pixInMerger = self as? PIXInMerger else { return }
+        if let oldPixOut = oldInPix {
+            var pixOut = oldPixOut as! (PIX & PIXOutIO)
+            for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
+                if pixOutPath.pixIn == pixInIO {
+                    pixOut.pixOutPathList.remove(at: i)
+                    break
+                }
+            }
+            pixInIO.pixInList = []
+            pixelKit.log(pix: self, .info, .connection, "Disonnected Merger: \(pixOut)")
+        }
+        if let newPixOut = newInPix {
+            if var pixOutA = (!second ? newPixOut : pixInMerger.inPixA) as? (PIX & PIXOutIO),
+                var pixOutB = (second ? newPixOut : pixInMerger.inPixB) as? (PIX & PIXOutIO) {
+                pixInIO.pixInList = [pixOutA, pixOutB]
+                pixOutA.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
+                pixOutB.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 1))
+                applyRes { self.setNeedsRender() }
+                pixelKit.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+            }
+        }
     }
     
     func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
+        guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         pixInIO.pixInList = pixOuts
         for (i, pixOut) in pixOuts.enumerated() {
             var pixOut = pixOut
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
-        pixels.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
+        pixelKit.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
-    }
-    
-    // MARK: Diconnect
-    
-    func disconnectSingle() {
-        guard var pixInIO = self as? PIX & PIXInIO else { pixels.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        var pixOut = pixInIO.pixInList.first! as! PIXOutIO
-        for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-            if pixOutPath.pixIn == pixInIO {
-                pixOut.pixOutPathList.remove(at: i)
-                break
-            }
-        }
-        pixInIO.pixInList = []
-//        view.setResolution(nil)
     }
     
     // MARK: - Other
@@ -279,18 +348,38 @@ open class PIX: Codable {
         return lhs.id != rhs.id
     }
     
+    // MARK: Live
+    
+    func checkLive() {
+        for liveValue in liveValues {
+            if liveValue.uniformIsNew {
+                setNeedsRender()
+                break
+            }
+        }
+        for liveValues in liveArray {
+            for liveValue in liveValues {
+                if liveValue.uniformIsNew {
+                    setNeedsRender()
+                    break
+                }
+            }
+        }
+    }
+    
     // MARK: Clean
     
     var destroyed = false
     public func destroy() {
-        pixels.remove(pix: self)
+        pixelKit.remove(pix: self)
         texture = nil
+        bypass = true
         destroyed = true
     }
     
     deinit {
         // CHECK retain count...
-        pixels.remove(pix: self)
+        pixelKit.remove(pix: self)
         // Disconnect...
     }
     

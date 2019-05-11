@@ -1,21 +1,16 @@
 //
 //  PIXProtocols.swift
-//  Pixels
+//  PixelKit
 //
 //  Created by Hexagons on 2018-07-26.
-//  Copyright © 2018 Hexagons. All rights reserved.
+//  Open Source - MIT License
 //
 
 import CoreGraphics
 
 public protocol PIXDelegate: class {
-//    func pixWillRender(_ pix: PIX)
     func pixResChanged(_ pix: PIX, to res: PIX.Res)
     func pixDidRender(_ pix: PIX)
-}
-
-protocol PIXofaKind {
-    var kind: PIX.Kind { get }
 }
 
 public protocol PIXIn {}
@@ -41,14 +36,6 @@ protocol PIXOutIO: PIXOut {
     var connectedOut: Bool { get }
 }
 
-public class MetalUniform: Codable {
-    public let name: String
-    public var value: CGFloat
-    public init(name: String, value: CGFloat = 0.0) {
-        self.name = name
-        self.value = value
-    }
-}
 protocol PIXMetal {
     var metalFileName: String { get }
     var metalCode: String? { get }

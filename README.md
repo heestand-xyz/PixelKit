@@ -1,55 +1,53 @@
 <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Logo/pixels_logo_1k_bg.png" width="128"/>
 
-# Pixels
-a Live Graphics Framework for iOS and macOS (beta)<br>
-powered by Metal
+# PixelKit
+a Live Graphics Framework for iOS and macOS<br>
+powered by Metal - inspired by TouchDesigner
 
-<b>ContentPIXs</b>:
-[CameraPIX](DOCS.md#camerapix) -
-[ImagePIX](DOCS.md#imagepix) -
-[VideoPIX](DOCS.md#videopix) -
-[ColorPIX](DOCS.md#colorpix) -
-[CirclePIX](DOCS.md#circlepix) -
-[RectanglePIX](DOCS.md#rectanglepix) -
-[PolygonPIX](DOCS.md#polygonpix) -
-[GradientPIX](DOCS.md#gradientpix) -
-[NoisePIX](DOCS.md#noisepix) - 
-[TextPIX](DOCS.md#textpix)
+<b>Content:</b>
+[Camera](DOCS.md#camerapix) -
+[Image](DOCS.md#imagepix) -
+[Video](DOCS.md#videopix) -
+[Screen Capture](DOCS.md#screencapturepix)-
+[Color](DOCS.md#colorpix) -
+[Circle](DOCS.md#circlepix) -
+[Rectangle](DOCS.md#rectanglepix) -
+[Polygon](DOCS.md#polygonpix) -
+[Gradient](DOCS.md#gradientpix) -
+[Noise](DOCS.md#noisepix) - 
+[Text](DOCS.md#textpix)
 <br>
-<b>EffectPIXs</b>:
-[LevelsPIX](DOCS.md#pix) -
-[BlurPIX](DOCS.md#blurpix) -
-[EdgePIX](DOCS.md#edgepix) -
-[ThresholdPIX](DOCS.md#thresholdpix) -
-[QuantizePIX](DOCS.md#quantizepix) -
-[TransformPIX](DOCS.md#transformpix) -
-[KaleidoscopePIX](DOCS.md#kaleidoscopepix) -
-[TwirlPIX](DOCS.md#twirlpix) -
-[FeedbackPIX](DOCS.md#feedbackpix) -
-[ChannelMixPIX](DOCS.md#channelMixpix) -
-[ChromaKeyPIX](DOCS.md#chromaKeypix) -
-[CornerPinPIX](DOCS.md#cornerPinpix) -
-[HueSaturationPIX](DOCS.md#huesaturationpix) -
-[CropPIX](DOCS.md#croppix) -
-[FlipFlopPIX](DOCS.md#flipfloppix) -
-[RangePIX](DOCS.md#rangepix) -
-[SharpenPIX](DOCS.md#sharpenpix) -
-[SlopePIX](DOCS.md#slopepix) -
-[CrossPIX](DOCS.md#crosspix) -
-[BlendPIX](DOCS.md#blendpix) -
-[LookupPIX](DOCS.md#lookuppix) -
-[DisplacePIX](DOCS.md#displacepix) -
-[RemapPIX](DOCS.md#remappix) -
-[ReorderPIX](DOCS.md#reorderpix) -
-[BlendsPIX](DOCS.md#blendspix)
+<b>Effects:</b>
+[Levels](DOCS.md#pix) -
+[Blur](DOCS.md#blurpix) -
+[Edge](DOCS.md#edgepix) -
+[Threshold](DOCS.md#thresholdpix) -
+[Quantize](DOCS.md#quantizepix) -
+[Transform](DOCS.md#transformpix) -
+[Kaleidoscope](DOCS.md#kaleidoscopepix) -
+[Twirl](DOCS.md#twirlpix) -
+[Feedback](DOCS.md#feedbackpix) -
+[Channel Mix](DOCS.md#channelMixpix) -
+[Chroma Key](DOCS.md#chromaKeypix) -
+[Corner Pin](DOCS.md#cornerPinpix) -
+[HueSat](DOCS.md#huesaturationpix) -
+[Crop](DOCS.md#croppix) -
+[Flip Flop](DOCS.md#flipfloppix) -
+[Range](DOCS.md#rangepix) -
+[Sharpen](DOCS.md#sharpenpix) -
+[Slope](DOCS.md#slopepix) -
+[Cross](DOCS.md#crosspix) -
+[Blend](DOCS.md#blendpix) -
+[Lookup](DOCS.md#lookuppix) -
+[Displace](DOCS.md#displacepix) -
+[Remap](DOCS.md#remappix) -
+[Reorder](DOCS.md#reorderpix) -
+[Blends](DOCS.md#blendspix)
 
-<!--
-[Docs](#docs) -
-[Tutorial](#tutorial) -
--->
 Examples:
 [Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen)<br>
+[Green Screen](#example-green-screen)
+<br>
 Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
@@ -62,25 +60,27 @@ Under development.
 
 --- 
 
-Note that Pixels dose not have simulator support. Metal for iOS can only run on a physical device.
+## Install
 
-## Docs
-Classes, Delegates and Properties of:<br>
-[Pixels](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
-[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
-[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
-[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
+To get up and running, follow these steps:
+1. Download the framework and the metallib: [Pixels Beta v0.4.5 b777](https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip)
+2. Add the framework files in from the zip to the root of your Xcode project.
+3. In your project settings under *General* and *Embedded Binaries* add **Pixels.framework**.
+4. Then under *Build Phases* and *Copy Bundle Resources* add **PixelsShaders.metallib**.
+5. Now you can `import Pixels`.
 
-## Installing
+Note that PixelKit dose not have simulator support. Metal for iOS can only run on a physical device.
 
-Pod coming soon!
+To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
-To contribute or test, follow these three steps:
-1. Drag `Pixels.xcodeproj` in to your Xcode project.
-2. Drag `Pixels.framework` under Products to your projects embedded binaries section of the general tab of your app target.
-3. Drag `PixelsShaders.metallib` under Products (from the nested `PixelsShaders.xcodeproj`) to your projects copy bundle resources under build phases of your app target.
+## Example
 
-## Tutorial
+[Hello PixelKit](https://github.com/hexagons/Hello-PixelKit)
+
+## Tutorials
+
+[Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
+[Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
 
 [High Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov) (1,5 GB) -
 [Mid Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_compressed.mov) (0,5 GB) -
@@ -88,9 +88,16 @@ To contribute or test, follow these three steps:
 [Screen Lapse x4](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_screen_lapse_x4.mov) (100 MB)<br>
 Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
 
+## Docs
+Classes, Delegates and Properties of:<br>
+[PixelKit](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
+[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
+[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
+[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
+
 ## Example: Camera Effects
 
-`import Pixels`
+`import PixelKit`
 
 ~~~~swift
 let camera = CameraPIX()
@@ -100,7 +107,7 @@ levels.inPix = camera
 levels.gamma = 2.0
 levels.inverted = true
 
-let hueSaturation = HueSaturationPIX()
+let hueSaturation = HueSatPIX()
 hueSaturation.inPix = levels
 hueSaturation.hue = 0.5
 hueSaturation.saturation = 0.5
@@ -118,13 +125,13 @@ This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs)
 ```swift
 let pix = CameraPIX()._gamma(2.0)._invert()._hue(0.5)._saturation(0.5)._blur(0.25)
 ```
-Tho it is not as efficiant as two LevelsPIXs and  HueSaturationPIXs will be created.
+Tho it is not as efficiant as two LevelsPIXs and  HueSatPIXs will be created.
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
 ## Example: Green Screen
 
-`import Pixels`
+`import PixelKit`
 
 ~~~~swift
 let cityImage = ImagePIX()
@@ -159,8 +166,10 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ## Coordinate Space
 
-Pixels coordinate space is normailzed to the vertical axis with the origin in the center.<br>
-Note that compared to native UIKit views the vertical axis is flipped.
+PixelKit coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
+Note that compared to native UIKit views the vertical axis is flipped and origin is moved, this is more convinent when working with graphics is PixelKit.
+A full rotation is defined by 1.0 
+<!-- converter methods -->
 
 <b>Center:</b> CGPoint(x: 0, y: 0)<br>
 <b>Bottom Left:</b> CGPoint(x: -0.5 * aspectRatio, y: -0.5)<br>
@@ -174,16 +183,25 @@ Note that compared to native UIKit views the vertical axis is flipped.
 A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
-| `&` | `!&` | `+` | `-` | `*` | `**` | `***` | `%` | `<>` | `><` | `--` |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha |
+| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `<>` | `><` | `--` | `~` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha | .average |
 
 ```swift
 let blendPix = (CameraPIX() *** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ```
 
+Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
+
+```swift
+let a: LiveFloat = 1.0
+let b: LiveFloat = 2.0
+let isOdd: LiveBool = .seconds % 2.0 < 1.0
+let ab: LiveFloat = isOdd <?> a <=> b
+```
+
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
-`PIX.blendOperators.globalFillMode = .aspectFill`
+`PIX.blendOperators.globalPlacement = .aspectFill`
 
 ## Effect Convenience Funcs
 
@@ -206,8 +224,8 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 - pix.<b>_twirl(0.5)</b> -> TwirlPIX
 - pix.<b>_swap(.red, .blue)</b> -> ChannelMixPIX
 - pix.<b>_key(.green)</b> -> ChromaKeyPIX
-- pix.<b>_hue(0.5)</b> -> HueSaturationPIX
-- pix.<b>_saturation(0.5)</b> -> HueSaturationPIX
+- pix.<b>_hue(0.5)</b> -> HueSatPIX
+- pix.<b>_saturation(0.5)</b> -> HueSatPIX
 - pix.<b>_crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
 - pix.<b>_flipX()</b> -> FlipFlopPIX
 - pix.<b>_flipY()</b> -> FlipFlopPIX
@@ -225,31 +243,48 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.
 
+<!--
 ## File IO
 
-You can find example files [here](https://github.com/anton-hexagons/Pixels/tree/master/Assets/Examples).
+You can find example files [here](https://github.com/anton-hexagons/PixelKit/tree/master/Assets/Examples).
 
-`import Pixels`
+`import PixelKit`
 
 ~~~~swift
 let url = Bundle.main.url(forResource: "test", withExtension: "json")!
 let json = try! String(contentsOf: url)
-let project = try! Pixels.main.import(json: json)
+let project = try! PixelKit.main.import(json: json)
     
 let finalPix: PIX = project.pixs.last!
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
-To export just run `Pixels.main.export()` once you've created your PIXs.
+To export just run `PixelKit.main.export()` once you've created your PIXs.
 
 Note that exporting resourses like image and video are not yet supported.
+
+-->
+
+## MIDI
+
+Here's an example of live midi values in range 0.0 to 1.0.
+
+```
+let circle = CirclePIX(res: ._1024)
+circle.radius = .midi("#13")
+circle.color = .midi("#17")
+```
+
+You can find the addresses by enabeling logging like this:
+
+`MIDI.main.log = true`
 
 ## High Bit Mode
 
 Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>
 The default is 8 bits. Change it like this:
-`Pixels.main.colorBits = ._16`
+`PixelKit.main.bits = ._16`
 
 Enable high bit mode before you create any PIXs.
 
@@ -322,7 +357,14 @@ lumUniform.value = 0.5
 ### [Pixel Nodes](http://pixelnodes.net/)
 
 a Live Graphics Node Editor for iPad<br>
-powered by Pixels<br>
+powered by PixelKit<br>
+
+<img src="http://hexagons.se/layercam/assets/Layer-Cam.png" width="64"/>
+
+### [Layer Cam](http://hexagons.se/layercam/)
+
+a camera app lets you live layer filters of your choice.<br>
+combine effects to create new cool styles.
 
 ---
 
