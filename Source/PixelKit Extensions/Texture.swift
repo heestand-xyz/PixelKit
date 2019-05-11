@@ -130,10 +130,14 @@ extension PixelKit {
     }
 
     func makeTexture(from image: CGImage, with commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
+        #if !targetEnvironment(simulator)
         let textureLoader = MTKTextureLoader(device: metalDevice)
         let texture: MTLTexture = try textureLoader.newTexture(cgImage: image, options: nil)
         try mipmap(texture: texture, with: commandBuffer)
         return texture
+        #else
+        return try emptyTexture(size: CGSize(width: 1, height: 1))
+        #endif
     }
     
     func mipmap(texture: MTLTexture, with commandBuffer: MTLCommandBuffer) throws {

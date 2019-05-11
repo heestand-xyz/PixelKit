@@ -61,6 +61,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
                 pixelKit.log(pix: self, .error, .generator, "Blend Kernel: Make texture faild.")
                 return nil
             }
+            #if !targetEnvironment(simulator)
             switch blendMode {
             case .add:
                 let kernel = MPSImageAdd(device: pixelKit.metalDevice)
@@ -74,6 +75,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
             default:
                 return nil
             }
+            #endif
             return texture
         } else {
             return nil

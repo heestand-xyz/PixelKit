@@ -12,6 +12,7 @@ import MetalPerformanceShadersProxy
 #elseif os(macOS)
 import MetalKit
 #endif
+import simd
 
 public class PixelKit {
     

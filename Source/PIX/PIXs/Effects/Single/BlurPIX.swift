@@ -91,10 +91,14 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
                 pixelKit.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
+            #if !targetEnvironment(simulator)
             let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture
+            #else
+            return nil
+            #endif
         } else {
             return nil
         }
