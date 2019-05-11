@@ -122,6 +122,7 @@
 		74032AFC212C478000E77766 /* CrossPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74032AFB212C478000E77766 /* CrossPIX.swift */; };
 		74076D05211A27D2000E56E0 /* Res.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D04211A27D2000E56E0 /* Res.swift */; };
 		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
+		740C685D228706C5001FC5BA /* EffectMultiMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
 		740EC53A213EFC3E006E2996 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EC539213EFC3E006E2996 /* Operators.swift */; };
 		7410E6CC223D1DD700DF64AC /* TimeMachinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */; };
 		7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */; };
@@ -179,7 +180,6 @@
 		74879D642118E8C200BF17DE /* EdgePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74879D632118E8C200BF17DE /* EdgePIX.swift */; };
 		748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748859E0212F371800E04F17 /* RectanglePIX.swift */; };
 		748ADFB42120C1E3007462F8 /* Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748ADFB32120C1E3007462F8 /* Rendered.swift */; };
-		74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
 		74982CAC21107E06009A4264 /* PIXSingleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAB21107E06009A4264 /* PIXSingleEffect.swift */; };
 		74982CAE21107E14009A4264 /* PIXMergerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAD21107E14009A4264 /* PIXMergerEffect.swift */; };
 		74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74982CAF21107E2C009A4264 /* PIXMultiEffect.swift */; };
@@ -899,6 +899,7 @@
 				74B57C3F21473BD100CBBD58 /* ContentGeneratorMetalPIX.metal.txt in Resources */,
 				74B57C422147404200CBBD58 /* EffectSingleMetalPIX.metal.txt in Resources */,
 				74B57C482147405800CBBD58 /* EffectMergerMetalPIX.metal.txt in Resources */,
+				740C685D228706C5001FC5BA /* EffectMultiMetalPIX.metal.txt in Resources */,
 				74D90B1D21331CF60028A69E /* README.md in Resources */,
 				74D90B1E21331CF60028A69E /* DOCS.md in Resources */,
 			);
@@ -1136,7 +1137,6 @@
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,
 				3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */,
 				748ADFB42120C1E3007462F8 /* Rendered.swift in Sources */,
-				74981DF721474B3400F9E030 /* EffectMultiMetalPIX.metal.txt in Sources */,
 				74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
