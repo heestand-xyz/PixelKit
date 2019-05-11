@@ -8,6 +8,11 @@
 
 import Foundation
 import CoreGraphics
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import Cocoa
+#endif
 
 //infix operator *%* { precedence 50 }
 //infix operator %*% { precedence 60 }

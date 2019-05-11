@@ -6,7 +6,11 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import Metal
+#endif
 
 public class TimeMachinePIX: PIXMergerEffect {
    

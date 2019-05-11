@@ -6,9 +6,12 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import Metal
-import MetalKit
-import MetalPerformanceShaders
+#endif
+import simd
 
 open class PIX {
     

@@ -6,8 +6,11 @@
 //  Open Source - MIT License
 //
 
-import MetalKit
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import MetalPerformanceShaders
+#endif
 
 public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     

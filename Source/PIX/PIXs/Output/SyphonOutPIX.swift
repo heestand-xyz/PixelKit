@@ -7,7 +7,11 @@
 //
 
 import AppKit
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import Metal
+#endif
 
 public class SyphonOutPIX: PIXOutput {
 

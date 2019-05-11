@@ -6,7 +6,11 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import MetalKit
+#endif
 
 public extension PIX {
     

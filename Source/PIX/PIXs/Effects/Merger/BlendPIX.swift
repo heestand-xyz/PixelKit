@@ -7,7 +7,11 @@
 //
 
 import CoreGraphics
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import MetalPerformanceShaders
+#endif
 
 public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRenderDelegate {
     

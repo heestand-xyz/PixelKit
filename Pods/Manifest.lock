@@ -1,0 +1,18 @@
+PODS:
+  - MetalPerformanceShadersProxy (0.3.0):
+    - MetalPerformanceShadersProxy/Proxy (= 0.3.0)
+  - MetalPerformanceShadersProxy/Proxy (0.3.0)
+
+DEPENDENCIES:
+  - MetalPerformanceShadersProxy (~> 0.3)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MetalPerformanceShadersProxy
+
+SPEC CHECKSUMS:
+  MetalPerformanceShadersProxy: a279966a6a22449d3e32a8cd5ca246d625aa7d43
+
+PODFILE CHECKSUM: f80b53642623882519e9ac5772142dce1d90ac99
+
+COCOAPODS: 1.5.3

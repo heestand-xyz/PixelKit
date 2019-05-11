@@ -7,7 +7,11 @@
 //
 
 import CoreGraphics
+#if os(iOS)
+import MetalPerformanceShadersProxy
+#elseif os(macOS)
 import MetalKit
+#endif
 
 extension PixelKit {
     
