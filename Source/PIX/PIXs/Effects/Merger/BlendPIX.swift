@@ -36,7 +36,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
         return [CGFloat(blendMode.index), !bypassTransform.uniform ? 1 : 0, position.x.uniform, position.y.uniform, rotation.uniform, scale.uniform, size.width.uniform, size.height.uniform]
     }
     
-    required init() {
+    public required init() {
         super.init()
         customMergerRenderActive = true
         customMergerRenderDelegate = self
