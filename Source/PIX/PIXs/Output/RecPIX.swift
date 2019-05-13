@@ -37,13 +37,14 @@ public class RecPIX: PIXOutput {
     var audioRecHelper: AudioRecHelper?
     var audioStartTime: CMTime?
     var pausedDate: Date?
-    var pausedTime: Double = 0
+    var pausedDuration: Double = 0.0
 
     // MARK: - Public Properties
     
     public var fps: Int = 30
-    public var timeSync: Bool = false
+    public var timeSync: Bool = true
     public var realtime: Bool = false
+    public var directMode: Bool = true
     
     // MARK: - Property Helpers
     
@@ -111,18 +112,22 @@ public class RecPIX: PIXOutput {
     }
     
     func frameLoop() {
-        if recording && realtime && connectedIn {
+        if !directMode && recording && realtime && connectedIn {
             if lastFrameDate == nil || -lastFrameDate!.timeIntervalSinceNow >= 1.0 / Double(fps) {
                 if let texture = inPix?.texture {
-                    recordFrame(texture: texture)
+                    DispatchQueue.global(qos: .background).async {
+                        self.recordFrame(texture: texture)
+                    }
                 }
             }
         }
     }
     
     override public func didRender(texture: MTLTexture, force: Bool) {
-        if recording && !realtime {
-            recordFrame(texture: texture)
+        if !directMode && recording && !realtime {
+            DispatchQueue.global(qos: .background).async {
+                self.recordFrame(texture: texture)
+            }
         }
         super.didRender(texture: texture)
     }
@@ -152,10 +157,12 @@ public class RecPIX: PIXOutput {
     
     func pauseRecord() {
         paused = true
+        pausedDate = Date()
     }
     
     func resumeRecord() {
         paused = false
+        pausedDuration += -pausedDate!.timeIntervalSinceNow
         pausedDate = nil
     }
     
@@ -250,14 +257,11 @@ public class RecPIX: PIXOutput {
         
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
             
-            guard self.recording else { return }
+            guard self.recording && !self.paused else { return }
             
-            if self.paused {
-                if self.pausedDate != nil {
-                    self.pausedTime += -self.pausedDate!.timeIntervalSinceNow
-                }
-                self.pausedDate = Date()
-                return
+            if self.directMode {
+                guard let texture = self.texture else { return }
+                self.recordFrame(texture: texture)
             }
             
             if self.currentImage != nil {
@@ -269,11 +273,10 @@ public class RecPIX: PIXOutput {
                         let duration = -self.startDate!.timeIntervalSinceNow
                         if self.recordAudio {
                             guard let startTime = self.audioStartTime else { return }
-                            let pausedCMTime =  CMTimeGetSeconds(CMTime(seconds: self.pausedTime, preferredTimescale: Int32(self.fps)))
-                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset) - pausedCMTime
-                            time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
+                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset) - self.pausedDuration
+                            time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(NSEC_PER_SEC))
                         } else {
-                            time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
+                            time = CMTime(seconds: duration - self.pausedDuration, preferredTimescale: Int32(NSEC_PER_SEC))
                         }
                     } else {
                         time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
@@ -309,10 +312,10 @@ public class RecPIX: PIXOutput {
                 EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: pixelKit.bits.ci, colorSpace: pixelKit.colorSpace.cg)
                 if cg_image != nil {
                     
-                    currentImage = cg_image!
+                    currentImage = flip(cg_image!)
                 
                 } else {
                     self.pixelKit.log(pix: self, .error, nil, "cg_image is nil.")
@@ -325,6 +328,16 @@ public class RecPIX: PIXOutput {
             self.pixelKit.log(pix: self, .error, nil, "Some writer is nil.")
         }
         
+    }
+    
+    func flip(_ cgImage: CGImage) -> CGImage? {
+        guard let size = resolution?.size else { return nil }
+        guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        context.scaleBy(x: 1, y: -1)
+        context.translateBy(x: 0, y: -size.height.cg)
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
+        guard let image = context.makeImage() else { return nil }
+        return image
     }
     
     func stopRecord(done: @escaping () -> ()) {
@@ -362,7 +375,8 @@ public class RecPIX: PIXOutput {
         recording = false
         paused = false
         startDate = nil
-        pausedTime = 0
+        pausedDuration = 0
+        pausedDate = nil
         
     }
     
