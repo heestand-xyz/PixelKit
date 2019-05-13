@@ -22,6 +22,8 @@ public class VideoPIX: PIXResource {
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
     var _progress: CGFloat = 0
     public var progress: LiveFloat { return LiveFloat({ return self._progress }) }
+    var _playing: Bool = false
+    public var playing: LiveBool { return LiveBool({ return self._playing }) }
     
     // MARK: - Life Cycle
     
@@ -72,6 +74,7 @@ public class VideoPIX: PIXResource {
             return
         }
         p.play()
+        _playing = true
     }
     
     public func pause() {
@@ -80,6 +83,7 @@ public class VideoPIX: PIXResource {
             return
         }
         player.pause()
+        _playing = false
     }
     
     public func seekTime(to time: CMTime) {
@@ -111,6 +115,7 @@ public class VideoPIX: PIXResource {
         }
         player.seek(to: .zero)
         player.play()
+        _playing = true
     }
     
     public func reset() {
@@ -120,6 +125,7 @@ public class VideoPIX: PIXResource {
         }
         player.seek(to: .zero)
         player.pause()
+        _playing = false
     }
     
 }
