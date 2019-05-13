@@ -20,18 +20,21 @@ public class VideoPIX: PIXResource {
     
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
+    var _progress: CGFloat = 0
+    public var progress: LiveFloat { return LiveFloat({ return self._progress }) }
     
     // MARK: - Life Cycle
     
     public override init() {
         super.init()
-        helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer in
+        helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer, fraction in
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {
                 self.applyRes { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
             }
+            self._progress = fraction
         })
     }
     
@@ -139,11 +142,11 @@ class VideoHelper: NSObject {
     var loadDate: Date?
     
     var setup: (PIX.Res) -> ()
-    var update: (CVPixelBuffer) -> ()
+    var update: (CVPixelBuffer, CGFloat) -> ()
 
     // MARK: Life Cycle
     
-    init(loaded: @escaping (PIX.Res) -> (), updated: @escaping (CVPixelBuffer) -> ()) {
+    init(loaded: @escaping (PIX.Res) -> (), updated: @escaping (CVPixelBuffer, CGFloat) -> ()) {
         
         setup = loaded
         update = updated
@@ -204,9 +207,10 @@ class VideoHelper: NSObject {
         var currentTime: CMTime = .invalid
         let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(PixelKit.main.fps))
         currentTime = playerItemVideoOutput.itemTime(forHostTime: nextVSync)
+        let fraction = currentTime.seconds / player!.currentItem!.duration.seconds
         
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime), let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
-            update(pixelBuffer)
+            update(pixelBuffer, CGFloat(fraction))
         }
         
     }
