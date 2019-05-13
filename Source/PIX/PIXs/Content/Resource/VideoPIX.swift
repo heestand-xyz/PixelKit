@@ -82,7 +82,7 @@ public class VideoPIX: PIXResource {
         player.pause()
     }
     
-    public func seek(toTime time: CMTime) {
+    public func seekTime(to time: CMTime) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
@@ -90,7 +90,7 @@ public class VideoPIX: PIXResource {
         player.seek(to: time)
     }
     
-    public func seek(toFraction fraction: CGFloat) {
+    public func seekFraction(to fraction: CGFloat) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
@@ -100,8 +100,7 @@ public class VideoPIX: PIXResource {
             return
         }
         let seconds = item.duration.seconds * Double(fraction)
-        let timescale = item.asset.tracks[0].naturalTimeScale
-        let time = CMTime(seconds: seconds, preferredTimescale: timescale)
+        let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
 
@@ -202,18 +201,9 @@ class VideoHelper: NSObject {
         
         guard loadDate != nil else { return }
         
-//        var currentTime: CMTime = .invalid
-//        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(PixelKit.main.fps))
-//        let cfTimeInterval = CFTimeInterval(exactly: nextVSync)!
-//        currentTime = playerItemVideoOutput.itemTime(forHostTime: cfTimeInterval)
-//
-//        print(fraction, currentTime.seconds, , nextVSync, cfTimeInterval)
-        
-        let time = -loadDate!.timeIntervalSinceNow
+        let currentTime = player!.currentItem!.currentTime()
         let duration = player!.currentItem!.duration.seconds
-        let timeLoop = time.truncatingRemainder(dividingBy: duration)
-        let currentTime = CMTime(seconds: timeLoop, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        let fraction = timeLoop / duration
+        let fraction = currentTime.seconds / duration
         
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime) {
             if let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
