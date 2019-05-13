@@ -223,7 +223,9 @@ public class RecPIX: PIXOutput {
         let sourceBufferAttributes: [String: Any] = [
             kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.bits.osARGB),
             kCVPixelBufferWidthKey as String: res.w,
-            kCVPixelBufferHeightKey as String: res.h
+            kCVPixelBufferHeightKey as String: res.h,
+            kCVPixelBufferMetalCompatibilityKey as String: true,
+            kCVPixelBufferCGImageCompatibilityKey as String: true
         ]
         
         writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
@@ -305,7 +307,10 @@ public class RecPIX: PIXOutput {
         
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
         
-            let ci_image = CIImage(mtlTexture: texture, options: nil)
+            let options: [CIImageOption : Any] = [
+                CIImageOption.colorSpace: pixelKit.colorSpace.cg
+            ]
+            let ci_image = CIImage(mtlTexture: texture, options: options)
             if ci_image != nil {
                 #if os(iOS)
                 // FIXME: Debug
@@ -332,7 +337,14 @@ public class RecPIX: PIXOutput {
     
     func flip(_ cgImage: CGImage) -> CGImage? {
         guard let size = resolution?.size else { return nil }
-        guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        guard let context = CGContext(data: nil,
+                                      width: Int(size.width.cg),
+                                      height: Int(size.height.cg),
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: 4 * Int(size.width.cg),
+                                      space: pixelKit.colorSpace.cg,
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+                                      ) else { return nil }
         context.scaleBy(x: 1, y: -1)
         context.translateBy(x: 0, y: -size.height.cg)
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
