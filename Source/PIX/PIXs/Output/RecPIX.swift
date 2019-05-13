@@ -6,14 +6,14 @@
 //  Open Source - MIT License
 //
 
-//import UIKit
 import AVKit
 
-public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
+public class RecPIX: PIXOutput {
     
     // MARK: - Private Properties
     
     var recording: Bool
+    var paused: Bool
     var frameIndex: Int
     var startDate: Date?
     var lastFrameDate: Date?
@@ -36,28 +36,29 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     }
     var audioRecHelper: AudioRecHelper?
     var audioStartTime: CMTime?
-//    var recordingSession: AVAudioSession?
-//    var audioRecorder: AVAudioRecorder?
-    
+    var pausedDate: Date?
+    var pausedTime: Double = 0
+
     // MARK: - Public Properties
     
     public var fps: Int = 30
-    public var timeSync: Bool = true
+    public var timeSync: Bool = false
     public var realtime: Bool = false
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case fps; case realtime
-//    }
-    
     var customName: String?
+    
+    enum RecError: Error {
+        case setup(String)
+    }
     
     // MARK: - Life Cycle
     
     override public init() {
         
         recording = false
+        paused = false
         realtime = true
         fps = 30
         frameIndex = 0
@@ -77,21 +78,29 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     // MARK: - Record
     
     public func startRec(name: String? = nil) throws {
+        pixelKit.log(.info, nil, "Rec start.")
         customName = name
         try startRecord()
     }
     
+    public func pauseRec() {
+        pixelKit.log(.info, nil, "Rec pause.")
+        pauseRecord()
+    }
+    
+    public func resumeRec() {
+        pixelKit.log(.info, nil, "Rec resume.")
+        resumeRecord()
+    }
+    
     public func stopRec(_ exported: @escaping (URL) -> ()) {
-        guard recording else { return }
+        pixelKit.log(.info, nil, "Rec stop.")
+//        guard recording else { return }
         stopRecord(done: {
             guard let url = self.exportUrl else { return }
             exported(url)
         })
     }
-    
-//    public func export() -> URL {
-//
-//    }
     
     // MARK: Export
     
@@ -121,7 +130,6 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
     enum RecordError: Error {
         case noInPix
         case noRes
-//        case stopFailed
     }
     
     func startRecord() throws {
@@ -135,12 +143,20 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
             throw RecordError.noRes
         }
         
-//        if recordAudio { try setupAudio() }
         try setup(res: res)
     
         frameIndex = 0
         recording = true
         
+    }
+    
+    func pauseRecord() {
+        paused = true
+    }
+    
+    func resumeRecord() {
+        paused = false
+        pausedDate = nil
     }
     
 //    func setupAudio() throws {
@@ -180,7 +196,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
             try FileManager.default.createDirectory(at: id_url, withIntermediateDirectories: true, attributes: nil)
         } catch {
             pixelKit.log(pix: self, .error, nil, "Creating exports folder.", e: error)
-            return
+            throw RecError.setup("Creating exports folder.")
         }
         
         let name = customName ?? "PixelKit Export \(dateStr)"
@@ -188,7 +204,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
 
         writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
         let videoSettings: [String: Any] = [
-            AVVideoCodecKey: AVVideoCodecH264,
+            AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: res.w,
             AVVideoHeightKey: res.h
         ]
@@ -205,7 +221,7 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         
         writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
         
-//            let x = AVAssetWriterInputMetadataAdaptor
+        writer!.startWriting()
         
         if recordAudio {
             if let input = audioRecHelper?.writerAudioInput {
@@ -214,25 +230,35 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                 audioRecHelper!.sampleCallback = { sampleBuffer in
                     if self.audioStartTime == nil {
                         self.audioStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+                        guard self.writer!.status != .unknown else {
+                            PixelKit.main.log(.error, nil, "Audio Rec: Writer status is unknown.")
+                            return
+                        }
                         self.writer!.startSession(atSourceTime: self.audioStartTime!)
                     }
                     let success = input.append(sampleBuffer)
                     if !success {
-                        PixelKit.main.log(.error, nil, "Audio Rec sample faied to write.")
+                        PixelKit.main.log(.error, nil, "Audio Rec: Sample faied to write.")
                     }
                 }
             }
         } else {
             writer!.startSession(atSourceTime: .zero)
         }
-
-        writer!.startWriting()
         
         let media_queue = DispatchQueue(label: "mediaInputQueue")
         
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
             
             guard self.recording else { return }
+            
+            if self.paused {
+                if self.pausedDate != nil {
+                    self.pausedTime += -self.pausedDate!.timeIntervalSinceNow
+                }
+                self.pausedDate = Date()
+                return
+            }
             
             if self.currentImage != nil {
                 
@@ -243,7 +269,8 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
                         let duration = -self.startDate!.timeIntervalSinceNow
                         if self.recordAudio {
                             guard let startTime = self.audioStartTime else { return }
-                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset)
+                            let pausedCMTime =  CMTimeGetSeconds(CMTime(seconds: self.pausedTime, preferredTimescale: Int32(self.fps)))
+                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset) - pausedCMTime
                             time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(self.fps))
                         } else {
                             time = CMTime(seconds: duration, preferredTimescale: Int32(self.fps))
@@ -268,16 +295,12 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
             }
             
         })
-//
-//        } catch {
-//            self.pixelKit.log(pix: self, .error, nil, "Creating new asset writer.", e: error)
-//        }
         
     }
     
     func recordFrame(texture: MTLTexture) {
         
-        if writer != nil && writerVideoInput != nil && writerAdoptor != nil {
+        if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
         
             let ci_image = CIImage(mtlTexture: texture, options: nil)
             if ci_image != nil {
@@ -337,7 +360,9 @@ public class RecPIX: PIXOutput { //AVAudioRecorderDelegate {
         audioStartTime = nil
         frameIndex = 0
         recording = false
+        paused = false
         startDate = nil
+        pausedTime = 0
         
     }
     
@@ -434,7 +459,6 @@ class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVNumberOfChannelsKey: 2,
             AVSampleRateKey: 44_100,
-//            AVEncoderBitRateKey: 128_000
         ]
         writerAudioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
         writerAudioInput!.expectsMediaDataInRealTime = true
