@@ -181,8 +181,6 @@ class VideoHelper: NSObject {
         loaded = true
         loadDate = Date()
         
-        player?.play()
-        
     }
     
     func load(data: Data) {
@@ -204,13 +202,23 @@ class VideoHelper: NSObject {
         
         guard loadDate != nil else { return }
         
-        var currentTime: CMTime = .invalid
-        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(PixelKit.main.fps))
-        currentTime = playerItemVideoOutput.itemTime(forHostTime: nextVSync)
-        let fraction = currentTime.seconds / player!.currentItem!.duration.seconds
+//        var currentTime: CMTime = .invalid
+//        let nextVSync = -loadDate!.timeIntervalSinceNow + (1.0 / Double(PixelKit.main.fps))
+//        let cfTimeInterval = CFTimeInterval(exactly: nextVSync)!
+//        currentTime = playerItemVideoOutput.itemTime(forHostTime: cfTimeInterval)
+//
+//        print(fraction, currentTime.seconds, , nextVSync, cfTimeInterval)
         
-        if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime), let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
-            update(pixelBuffer, CGFloat(fraction))
+        let time = -loadDate!.timeIntervalSinceNow
+        let duration = player!.currentItem!.duration.seconds
+        let timeLoop = time.truncatingRemainder(dividingBy: duration)
+        let currentTime = CMTime(seconds: timeLoop, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        let fraction = timeLoop / duration
+        
+        if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime) {
+            if let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
+                update(pixelBuffer, CGFloat(fraction))
+            }
         }
         
     }
@@ -252,7 +260,7 @@ class VideoHelper: NSObject {
     // MARK: Loop
     
     @objc func playerItemDidReachEnd() {
-        player?.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(1.0)))
+        player!.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
     }
     
 }
