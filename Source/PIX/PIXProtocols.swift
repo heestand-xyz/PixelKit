@@ -9,7 +9,7 @@
 import CoreGraphics
 
 public protocol PIXDelegate: class {
-    func pixResChanged(_ pix: PIX, to res: PIX.Res)
+//    func pixResChanged(_ pix: PIX, to res: PIX.Res)
     func pixDidRender(_ pix: PIX)
 }
 

@@ -86,11 +86,12 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
-    public func seekTime(to time: CMTime) {
+    public func seekSeconds(to seconds: CGFloat) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
         }
+        let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         player.seek(to: time)
     }
     

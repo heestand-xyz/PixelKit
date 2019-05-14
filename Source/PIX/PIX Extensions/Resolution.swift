@@ -79,7 +79,7 @@ extension PIX {
         view.setRes(res)
         pixelKit.log(pix: self, .info, .res, "Applied: \(res)")
         applied()
-        delegate?.pixResChanged(self, to: res)
+//        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..
         if let pixOut = self as? PIXOutIO {
             for pathList in pixOut.pixOutPathList {
