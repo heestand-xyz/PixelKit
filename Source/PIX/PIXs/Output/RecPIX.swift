@@ -139,19 +139,18 @@ public class RecPIX: PIXOutput {
     
     func startRecord() throws {
         
-        startDate = Date()
-        
         guard connectedIn else {
             throw RecordError.noInPix
         }
         guard let res = resolution else {
             throw RecordError.noRes
         }
-        
-        try setup(res: res)
+
+        try self.setup(res: res)
     
-        frameIndex = 0
-        recording = true
+        self.startDate = Date()
+        self.frameIndex = 0
+        self.recording = true
         
     }
     

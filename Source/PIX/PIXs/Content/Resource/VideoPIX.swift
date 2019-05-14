@@ -257,7 +257,9 @@ class VideoHelper: NSObject {
     // MARK: Loop
     
     @objc func playerItemDidReachEnd() {
+//        player!.pause()
         player!.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+//        player!.play()
     }
     
 }
