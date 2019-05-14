@@ -237,11 +237,15 @@ public class PixelKit {
         
     }
     
+    public enum ListenState {
+        case `continue`
+        case done
+    }
     
-    public func listenToFramesUntil(callback: @escaping () -> (Bool)) {
+    public func listenToFramesUntil(callback: @escaping () -> (ListenState)) {
         let id = UUID()
         frameCallbacks.append((id: id, callback: {
-            if callback() {
+            if callback() == .done {
                 self.unlistenToFrames(for: id)
             }
         }))
@@ -274,9 +278,9 @@ public class PixelKit {
         listenToFramesUntil(callback: {
             if self.frame >= startFrameIndex + frames {
                 done()
-                return true
+                return .done
             } else {
-                return false
+                return .continue
             }
         })
     }

@@ -92,7 +92,7 @@ public class VideoPIX: PIXResource {
             return
         }
         let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        player.seek(to: time)
+        player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
     
     public func seekFraction(to fraction: CGFloat) {
@@ -107,6 +107,27 @@ public class VideoPIX: PIXResource {
         let seconds = item.duration.seconds * Double(fraction)
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+    }
+    
+    public func setRate(to speed: CGFloat) {
+        guard let player = helper.player else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
+            return
+        }
+        guard let item = player.currentItem else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
+            return
+        }
+        pixelKit.listenToFramesUntil { () -> (PixelKit.ListenState) in
+            let ready = player.status == .readyToPlay
+            if ready {            
+                let currentTime = item.currentTime()
+                let masterClock = CMClockGetTime(CMClockGetHostTimeClock());
+                player.automaticallyWaitsToMinimizeStalling = false
+                player.setRate(Float(speed), time: currentTime, atHostTime: masterClock)
+            }
+            return ready ? .done : .continue
+        }
     }
 
     public func restart() {
