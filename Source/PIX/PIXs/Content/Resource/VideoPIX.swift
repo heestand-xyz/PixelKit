@@ -22,6 +22,8 @@ public class VideoPIX: PIXResource {
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
     var _progress: CGFloat = 0
     public var progress: LiveFloat { return LiveFloat({ return self._progress }) }
+    var _rate: CGFloat = 1.0
+    public var rate: LiveFloat { return LiveFloat({ return self._rate }) }
     var _playing: Bool = false
     public var playing: LiveBool { return LiveBool({ return self._playing }) }
     
@@ -69,11 +71,11 @@ public class VideoPIX: PIXResource {
     // MARK - Playback
     
     public func play() {
-        guard let p = helper.player else {
+        guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't play. Video not loaded.")
             return
         }
-        p.play()
+        player.playImmediately(atRate: Float(_rate))
         _playing = true
     }
     
@@ -109,7 +111,7 @@ public class VideoPIX: PIXResource {
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
     
-    public func setRate(to speed: CGFloat) {
+    public func setRate(to rate: CGFloat) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
@@ -124,10 +126,11 @@ public class VideoPIX: PIXResource {
                 let currentTime = item.currentTime()
                 let masterClock = CMClockGetTime(CMClockGetHostTimeClock());
                 player.automaticallyWaitsToMinimizeStalling = false
-                player.setRate(Float(speed), time: currentTime, atHostTime: masterClock)
+                player.setRate(Float(rate), time: currentTime, atHostTime: masterClock)
             }
             return ready ? .done : .continue
         }
+        _rate = rate
     }
 
     public func restart() {
@@ -136,7 +139,7 @@ public class VideoPIX: PIXResource {
             return
         }
         player.seek(to: .zero)
-        player.play()
+        player.playImmediately(atRate: Float(_rate))
         _playing = true
     }
     
