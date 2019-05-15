@@ -10,6 +10,8 @@ import AVKit
 
 public class RecPIX: PIXOutput {
     
+    public override var shader: String { return "contentResourceBGRPIX" }
+    
     // MARK: - Private Properties
     
     var recording: Bool
@@ -319,7 +321,7 @@ public class RecPIX: PIXOutput {
                 let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: pixelKit.bits.ci, colorSpace: pixelKit.colorSpace.cg)
                 if cg_image != nil {
                     
-                    currentImage = flip(cg_image!)
+                    currentImage = cg_image!
                 
                 } else {
                     self.pixelKit.log(pix: self, .error, nil, "cg_image is nil.")
@@ -332,23 +334,6 @@ public class RecPIX: PIXOutput {
             self.pixelKit.log(pix: self, .error, nil, "Some writer is nil.")
         }
         
-    }
-    
-    func flip(_ cgImage: CGImage) -> CGImage? {
-        guard let size = resolution?.size else { return nil }
-        guard let context = CGContext(data: nil,
-                                      width: Int(size.width.cg),
-                                      height: Int(size.height.cg),
-                                      bitsPerComponent: 8,
-                                      bytesPerRow: 4 * Int(size.width.cg),
-                                      space: pixelKit.colorSpace.cg,
-                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-                                      ) else { return nil }
-        context.scaleBy(x: 1, y: -1)
-        context.translateBy(x: 0, y: -size.height.cg)
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
-        guard let image = context.makeImage() else { return nil }
-        return image
     }
     
     func stopRecord(done: @escaping () -> ()) {
@@ -392,77 +377,9 @@ public class RecPIX: PIXOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) -> Bool {
-        
-        var append_succeeded = false
-        
-        autoreleasepool {
-            
-            if let pixel_buffer_pool = pixel_buffer_adoptor.pixelBufferPool {
-                
-                let pixel_buffer_pointer = UnsafeMutablePointer<CVPixelBuffer?>.allocate(capacity: 1)
-                
-                let status: CVReturn = CVPixelBufferPoolCreatePixelBuffer(
-                    kCFAllocatorDefault,
-                    pixel_buffer_pool,
-                    pixel_buffer_pointer
-                )
-                
-                if let pixel_buffer = pixel_buffer_pointer.pointee, status == 0 {
-                    
-                    fillPixelBufferFromImage(pixel_buffer, cg_image: cg_image)
-                    append_succeeded = pixel_buffer_adoptor.append(pixel_buffer, withPresentationTime: presentation_time)
-//                    pixel_buffer_pointer.deinitialize()
-                    
-                } else {
-                    self.pixelKit.log(pix: self, .error, nil, "Allocating pixel buffer from pool.")
-                }
-                
-//                pixel_buffer_pointer.deallocate(capacity: 1)
-                
-            } else {
-                self.pixelKit.log(pix: self, .error, nil, "pixel_buffer_adoptor.pixelBufferPool is nil")
-            }
-            
-        }
-        
-        return append_succeeded
-        
+        guard let pixelBuffer = pixelKit.buffer(from: cg_image, at: resolution?.size.cg ?? PIX.Res._128.size.cg) else { return false }
+        return pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time)
     }
-    
-    func fillPixelBufferFromImage(_ pixel_buffer: CVPixelBuffer, cg_image: CGImage) {
-        
-        CVPixelBufferLockBaseAddress(pixel_buffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-        
-        let pixel_data = CVPixelBufferGetBaseAddress(pixel_buffer)
-        let rgb_color_space = CGColorSpaceCreateDeviceRGB()
-        
-        let context = CGContext(
-            data: pixel_data,
-            width: Int(cg_image.width),
-            height: Int(cg_image.height),
-            bitsPerComponent: 8,
-            bytesPerRow: CVPixelBufferGetBytesPerRow(pixel_buffer),
-            space: rgb_color_space,
-            bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue
-            )
-        
-        guard let c = context else {
-            PixelKit.main.log(.error, nil, "Record context failed.")
-            return
-        }
-        
-        let draw_cg_rect = CGRect(x: 0, y: 0, width: cg_image.width, height: cg_image.height)
-        c.draw(cg_image, in: draw_cg_rect)
-        
-        CVPixelBufferUnlockBaseAddress(pixel_buffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-        
-    }
-    
-//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        if !flag {
-//
-//        }
-//    }
     
 }
 
