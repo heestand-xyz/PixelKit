@@ -138,8 +138,6 @@ open class PIX {
     
         view = PIXView()
         
-        pixelKit.log(pix: self, .info, nil, "🔆")
-        
         guard shader != "" else {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
@@ -260,7 +258,6 @@ open class PIX {
     }
     
     func disconnected() {
-        print("♻️")
         removeRes()
     }
     
@@ -393,10 +390,6 @@ open class PIX {
         texture = nil
         bypass = true
         destroyed = true
-    }
-    
-    deinit {
-        pixelKit.log(pix: self, .info, nil, "🌀")
     }
     
 }
