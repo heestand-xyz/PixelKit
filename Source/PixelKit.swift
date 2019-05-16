@@ -61,8 +61,48 @@ public class PixelKit {
     
     public var finalPix: PIX?
     
-    public var linkedPixs: [PIX] = []
-    
+    public class PIXLink {
+        weak var pix: PIX?
+        init(pix: PIX) {
+            self.pix = pix
+        }
+    }
+    public struct PIXLinks: Collection {
+        private var links: [PIXLink] = []
+        init(_ pixs: [PIX]) {
+            links = pixs.map { PIXLink(pix: $0) }
+        }
+        public var startIndex: Int { return links.startIndex }
+        public var endIndex: Int { return links.endIndex }
+        public subscript(_ index: Int) -> PIX? {
+            return links[index].pix
+        }
+        public func index(after idx: Int) -> Int {
+            return links.index(after: idx)
+        }
+        public mutating func append(_ pix: PIX) {
+            links.append(PIXLink(pix: pix))
+        }
+        public mutating func remove(_ pix: PIX) {
+            for (i, link) in links.enumerated() {
+                if link.pix != nil && link.pix! == pix {
+                    links.remove(at: i)
+                    break
+                }
+            }
+        }
+    }
+    public var pixLinks: PIXLinks = PIXLinks([])
+    public var linkedPixs: [PIX] {
+        return pixLinks.reduce([], { arr, pix -> [PIX] in
+            var arr = arr
+            if pix != nil {
+                arr.append(pix!)
+            }
+            return arr
+        })
+    }
+
 //    struct RenderedPIX {
 //        let pix: PIX
 //        let rendered: Bool
@@ -86,8 +126,9 @@ public class PixelKit {
 //    }
 
     func linkIndex(of pix: PIX) -> Int? {
-        for (i, linkedPix) in linkedPixs.enumerated() {
-            if linkedPix == pix {
+        for (i, linkedPix) in pixLinks.enumerated() {
+            guard linkedPix != nil else { continue }
+            if linkedPix! == pix {
                 return i
             }
         }
@@ -213,8 +254,8 @@ public class PixelKit {
     }
     
     func checkAllLive() {
-        for pix in linkedPixs {
-            pix.checkLive()
+        for linkedPix in linkedPixs {
+            linkedPix.checkLive()
         }
     }
     
@@ -339,16 +380,11 @@ public class PixelKit {
     // MARK: - PIX Linking
     
     func add(pix: PIX) {
-        linkedPixs.append(pix)
+        pixLinks.append(pix)
     }
     
     func remove(pix: PIX) {
-        for (i, iPix) in linkedPixs.enumerated() {
-            if iPix == pix {
-                linkedPixs.remove(at: i)
-                break
-            }
-        }
+        pixLinks.remove(pix)
     }
     
     

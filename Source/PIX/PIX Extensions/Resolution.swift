@@ -88,4 +88,8 @@ extension PIX {
         }
     }
     
+    func removeRes() {
+        view.setRes(nil)
+    }
+    
 }

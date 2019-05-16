@@ -41,7 +41,7 @@
 		3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
 		3AEE46982289826900F68686 /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
-		3AEE46992289826F00F68686 /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
+		3AEE46992289826F00F68686 /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
 		3AF28BD4219312B90079FC7A /* PixelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* PixelKit.swift */; };
 		3AF28BD5219312CA0079FC7A /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 		3AF28BD6219312CA0079FC7A /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* Texture.swift */; };
@@ -230,14 +230,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3A1A91772282F4A000B7876F /* CopyFiles */ = {
+		3A1A91772282F4A000B7876F /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3AEE46992289826F00F68686 /* PixelKitShaders.metallib in CopyFiles */,
+				3AEE46992289826F00F68686 /* PixelKitShaders.metallib in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3A84C6E02282F5A9000410DD /* CopyFiles */ = {
@@ -803,7 +804,7 @@
 				74BC39D321011E3A004E9AA0 /* Sources */,
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
 				74BC39D521011E3A004E9AA0 /* Resources */,
-				3A1A91772282F4A000B7876F /* CopyFiles */,
+				3A1A91772282F4A000B7876F /* Copy Files */,
 			);
 			buildRules = (
 			);

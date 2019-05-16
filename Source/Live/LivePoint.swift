@@ -81,9 +81,9 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     }
     public static var mouseXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
-            for pix in PixelKit.main.linkedPixs {
-                guard pix.view.superview != nil else { continue }
-                if let mousePoint = pix.view.liveMouseView.mousePoint {
+            for linkedPix in PixelKit.main.linkedPixs {
+                guard linkedPix.view.superview != nil else { continue }
+                if let mousePoint = linkedPix.view.liveMouseView.mousePoint {
                     return mousePoint
                 }
             }

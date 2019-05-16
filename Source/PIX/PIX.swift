@@ -120,7 +120,7 @@ open class PIX {
     open var customVertexTextureActive: Bool { return false }
     open var customVertexPixIn: (PIX & PIXOut)? { return nil }
     open var customMatrices: [matrix_float4x4] { return [] }
-    public var customLinkedPixs: [PIX] = []
+    public var customlinkedPixs: [PIX] = []
 
     var rendering = false
     var needsRender = false {
@@ -137,6 +137,8 @@ open class PIX {
     init() {
     
         view = PIXView()
+        
+        pixelKit.log(pix: self, .info, nil, "🔆")
         
         guard shader != "" else {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
@@ -207,7 +209,7 @@ open class PIX {
         self.texture = texture
         renderIndex += 1
         delegate?.pixDidRender(self)
-        for customLinkedPix in customLinkedPixs {
+        for customLinkedPix in customlinkedPixs {
             customLinkedPix.setNeedsRender()
         }
         if !force { // CHECK the force!
@@ -257,6 +259,11 @@ open class PIX {
         }
     }
     
+    func disconnected() {
+        print("♻️")
+        removeRes()
+    }
+    
     func setNeedsConnectSingle(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?) {
         guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
         if let oldPixOut = oldInPix {
@@ -280,6 +287,8 @@ open class PIX {
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: 0))
             applyRes { self.setNeedsRender() }
             pixelKit.log(pix: self, .info, .connection, "Connected Single: \(pixOut)")
+        } else {
+            disconnected()
         }
     }
     
@@ -306,6 +315,8 @@ open class PIX {
                 applyRes { self.setNeedsRender() }
                 pixelKit.log(pix: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
             }
+        } else {
+            disconnected()
         }
     }
     
@@ -316,6 +327,9 @@ open class PIX {
             var pixOut = pixOut
             pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
         }
+        if pixOuts.isEmpty {
+            disconnected()
+        }
         pixelKit.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
         applyRes { self.setNeedsRender() }
     }
@@ -325,18 +339,18 @@ open class PIX {
     // MARL: Custom Linking
     
     public func customLink(to pix: PIX) {
-        for customLinkedPix in customLinkedPixs {
+        for customLinkedPix in customlinkedPixs {
             if customLinkedPix == pix {
                 return
             }
         }
-        customLinkedPixs.append(pix)
+        customlinkedPixs.append(pix)
     }
     
     public func customDelink(from pix: PIX) {
-        for (i, customLinkedPix) in customLinkedPixs.enumerated() {
+        for (i, customLinkedPix) in customlinkedPixs.enumerated() {
             if customLinkedPix == pix {
-                customLinkedPixs.remove(at: i)
+                customlinkedPixs.remove(at: i)
                 return
             }
         }
@@ -382,9 +396,7 @@ open class PIX {
     }
     
     deinit {
-        // CHECK retain count...
-        pixelKit.remove(pix: self)
-        // Disconnect...
+        pixelKit.log(pix: self, .info, nil, "🌀")
     }
     
 }

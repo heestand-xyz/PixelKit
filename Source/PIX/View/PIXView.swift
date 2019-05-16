@@ -159,11 +159,21 @@ public class PIXView: _View {
         
     }
     
-    func setRes(_ newRes: PIX.Res) {
+    func setRes(_ newRes: PIX.Res?) {
         
-        res = newRes
-        metalView.res = newRes
-        layoutPlacement()
+        if let newRes = newRes {
+            res = newRes
+            metalView.res = newRes
+            layoutPlacement()
+        } else {
+            widthLayoutConstraint.constant = 0
+            heightLayoutConstraint.constant = 0
+            #if os(iOS)
+            checkerView.setNeedsDisplay()
+            #endif
+            metalView.res = nil
+        }
+        
         // FIXME: Set by user..
 //        if !boundsReady {
 //            #if os(iOS)
