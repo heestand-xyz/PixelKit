@@ -1264,11 +1264,11 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .thresholdpix:
 			return [
-				AutoLiveBoolProperty(name: "smooth", getCallback: {
-					return (pix as! ThresholdPIX).smooth
-				}, setCallback: { value in
-					(pix as! ThresholdPIX).smooth = value
-				}),
+//                AutoLiveBoolProperty(name: "smooth", getCallback: {
+//                    return (pix as! ThresholdPIX).smooth
+//                }, setCallback: { value in
+//                    (pix as! ThresholdPIX).smooth = value
+//                }),
 			]
 		case .transformpix:
 			return [

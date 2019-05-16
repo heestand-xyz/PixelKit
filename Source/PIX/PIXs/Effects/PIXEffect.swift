@@ -10,14 +10,12 @@
 open class PIXEffect: PIX, PIXInIO, PIXOutIO {
     
     var pixInList: [PIX & PIXOut] = []
-    var pixOutPathList: [PIX.OutPath] = []
+    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
     var connectedIn: Bool { return !pixInList.isEmpty }
     var connectedOut: Bool { return !pixOutPathList.isEmpty }
         
     override init() {
         super.init()
-        pixInList = []
-        pixOutPathList = []
     }
     
 //    required public init(from decoder: Decoder) throws {

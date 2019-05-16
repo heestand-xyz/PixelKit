@@ -138,6 +138,8 @@ open class PIX {
     
         view = PIXView()
         
+        pixelKit.log(pix: self, .info, nil, "🔆")
+        
         guard shader != "" else {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
@@ -155,6 +157,10 @@ open class PIX {
         
         pixelKit.log(pix: self, .detail, nil, "Linked with PixelKit.", clean: true)
     
+    }
+    
+    deinit {
+        pixelKit.log(pix: self, .info, nil, "🌀")
     }
     
     // MARK: Sampler
@@ -219,7 +225,7 @@ open class PIX {
     func renderOuts() {
         if let pixOut = self as? PIXOutIO {
             for pixOutPath in pixOut.pixOutPathList {
-                let pix = pixOutPath.pixIn
+                guard let pix = pixOutPath?.pixIn else { continue }
                 guard !pix.destroyed else { continue }
                 guard pix != self else {
                     pixelKit.log(.error, .render, "Connected to self.")
@@ -242,13 +248,54 @@ open class PIX {
         }
     }
     
-    // MARK: - Connect
+    // MARK: - Out Path
+
     
-    struct OutPath {
-        let pixIn: PIX & PIXIn
+    class OutPath {
+        var pixIn: PIX & PIXIn
         let inIndex: Int
+        init(pixIn: PIX & PIXIn, inIndex: Int) {
+            self.pixIn = pixIn
+            self.inIndex = inIndex
+        }
+    }
+    class WeakOutPath {
+        weak var outPath: OutPath?
+        init(_ outPath: OutPath) {
+            self.outPath = outPath
+        }
+    }
+    struct WeakOutPaths: Collection {
+        private var weakOutPaths: [WeakOutPath] = []
+        init(_ outPaths: [OutPath]) {
+            weakOutPaths = outPaths.map { WeakOutPath($0) }
+        }
+        var startIndex: Int { return weakOutPaths.startIndex }
+        var endIndex: Int { return weakOutPaths.endIndex }
+        subscript(_ index: Int) -> OutPath? {
+            return weakOutPaths[index].outPath
+        }
+        func index(after idx: Int) -> Int {
+            return weakOutPaths.index(after: idx)
+        }
+        mutating func append(_ outPath: OutPath) {
+            weakOutPaths.append(WeakOutPath(outPath))
+        }
+        mutating func remove(_ outPath: OutPath) {
+            for (i, weakOutPath) in weakOutPaths.enumerated() {
+                if weakOutPath.outPath != nil && weakOutPath.outPath!.pixIn == outPath.pixIn {
+                    weakOutPaths.remove(at: i)
+                    break
+                }
+            }
+        }
+        mutating func remove(at index: Int) {
+            weakOutPaths.remove(at: index)
+        }
     }
     
+    // MARK: - Connect
+
     func setNeedsConnect() {
         if self is PIXIn {
             if let pixInMulti = self as? PIXInMulti {
@@ -266,7 +313,7 @@ open class PIX {
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
             for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-                if pixOutPath.pixIn == pixInIO {
+                if pixOutPath?.pixIn == pixInIO {
                     pixOut.pixOutPathList.remove(at: i)
                     break
                 }
@@ -295,7 +342,7 @@ open class PIX {
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
             for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-                if pixOutPath.pixIn == pixInIO {
+                if pixOutPath?.pixIn == pixInIO {
                     pixOut.pixOutPathList.remove(at: i)
                     break
                 }
@@ -361,6 +408,26 @@ open class PIX {
     
     public static func !=(lhs: PIX, rhs: PIX) -> Bool {
         return lhs.id != rhs.id
+    }
+    
+    public static func ==(lhs: PIX?, rhs: PIX) -> Bool {
+        guard lhs != nil else { return false }
+        return lhs!.id == rhs.id
+    }
+    
+    public static func !=(lhs: PIX?, rhs: PIX) -> Bool {
+        guard lhs != nil else { return false }
+        return lhs!.id != rhs.id
+    }
+    
+    public static func ==(lhs: PIX, rhs: PIX?) -> Bool {
+        guard rhs != nil else { return false }
+        return lhs.id == rhs!.id
+    }
+    
+    public static func !=(lhs: PIX, rhs: PIX?) -> Bool {
+        guard rhs != nil else { return false }
+        return lhs.id != rhs!.id
     }
     
     // MARK: Live

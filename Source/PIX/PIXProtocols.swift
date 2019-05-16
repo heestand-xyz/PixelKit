@@ -32,7 +32,7 @@ protocol PIXInIO: PIXIn {
     var connectedIn: Bool { get }
 }
 protocol PIXOutIO: PIXOut {
-    var pixOutPathList: [PIX.OutPath] { get set }
+    var pixOutPathList: PIX.WeakOutPaths { get set }
     var connectedOut: Bool { get }
 }
 

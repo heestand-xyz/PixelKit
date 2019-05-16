@@ -15,25 +15,25 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
     
     public var threshold: LiveFloat = 0.5
-    public var smooth: LiveBool = false
-    var _smoothness: CGFloat = 0
-    public var smoothness: LiveFloat {
-        set {
-            _smoothness = newValue.value
-            setNeedsRender()
-        }
-        get {
-            return LiveFloat({ () -> (CGFloat) in
-                guard self.smooth.value else { return 0.0 }
-                return max(self._smoothness, 1.0 / pow(2.0, CGFloat(PixelKit.main.bits.rawValue)))
-            })
-        }
-    }
+//    public var smooth: LiveBool = false
+//    var _smoothness: CGFloat = 0
+//    public var smoothness: LiveFloat {
+//        set {
+//            _smoothness = newValue.value
+////            setNeedsRender()
+//        }
+//        get {
+//            return LiveFloat({ () -> (CGFloat) in
+//                guard self.smooth.uniform else { return 0.0 }
+//                return max(self._smoothness, 1.0 / pow(2.0, CGFloat(PixelKit.main.bits.rawValue)))
+//            })
+//        }
+//    }
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [threshold, smoothness]
+        return [threshold, LiveFloat(0)/*smoothness*/]
     }
     
 }
@@ -45,7 +45,7 @@ public extension PIXOut {
         thresholdPix.name = ":threshold:"
         thresholdPix.inPix = self as? PIX & PIXOut
         thresholdPix.threshold = threshold
-        thresholdPix.smooth = true
+//        thresholdPix.smooth = true
         return thresholdPix
     }
     

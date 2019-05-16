@@ -53,8 +53,8 @@ extension PixelKit {
                     }
                     if let pixOut = pix as? PIXOutIO {
                         for pixOutPath in pixOut.pixOutPathList {
-                            guard pix.renderIndex == pixOutPath.pixIn.renderIndex else {
-                                log(pix: pix, .detail, .render, "Queue Out: \(pix.renderIndex) != \(pixOutPath.pixIn.renderIndex)")
+                            guard pix.renderIndex == pixOutPath?.pixIn.renderIndex else {
+                                log(pix: pix, .detail, .render, "Queue Out: \(pix.renderIndex) != \(pixOutPath!.pixIn.renderIndex)")
                                 continue
                             }
 //                            log(pix: pix, .warning, .render, ">>> Queue Out: \(pix.renderIndex) == \(pixOutPath.pixIn.renderIndex)")
