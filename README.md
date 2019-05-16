@@ -1,6 +1,12 @@
 <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Logo/pixels_logo_1k_bg.png" width="128"/>
 
 # PixelKit
+
+[![License](https://img.shields.io/cocoapods/l/PixelKit.svg)](https://github.com/hexagons/PixelKit/blob/master/LICENSE)
+[![Cocoapods](https://img.shields.io/cocoapods/v/PixelKit.svg)](http://cocoapods.org/pods/PixelKit)
+[![Platform](https://img.shields.io/cocoapods/p/PixelKit.svg)](http://cocoapods.org/pods/PixelKit)
+<img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
+
 a Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
