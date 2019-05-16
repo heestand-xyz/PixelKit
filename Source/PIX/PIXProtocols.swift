@@ -17,14 +17,14 @@ public protocol PIXIn {}
 public protocol PIXOut {}
 
 public protocol PIXInSingle: PIXIn {
-    var inPix: (PIX & PIXOut)? { get set } // weak?
+    var inPix: (PIX & PIXOut)? { get set }
 }
 public protocol PIXInMerger: PIXIn {
-    var inPixA: (PIX & PIXOut)? { get set } // weak?
-    var inPixB: (PIX & PIXOut)? { get set } // weak?
+    var inPixA: (PIX & PIXOut)? { get set }
+    var inPixB: (PIX & PIXOut)? { get set }
 }
 public protocol PIXInMulti: PIXIn {
-    var inPixs: [PIX & PIXOut] { get set } // weak?
+    var inPixs: [PIX & PIXOut] { get set }
 }
 
 protocol PIXInIO: PIXIn {
@@ -32,7 +32,8 @@ protocol PIXInIO: PIXIn {
     var connectedIn: Bool { get }
 }
 protocol PIXOutIO: PIXOut {
-    var pixOutPathList: PIX.WeakOutPaths { get set }
+//    var pixOutPathList: PIX.WeakOutPaths { get set }
+    var pixOutPathList: [PIX.OutPath] { get set }
     var connectedOut: Bool { get }
 }
 

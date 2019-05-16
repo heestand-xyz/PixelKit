@@ -24,6 +24,11 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
         return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "rectangle"
+    }
+    
     // MARK: Layout
     
     public var frame: LiveRect {

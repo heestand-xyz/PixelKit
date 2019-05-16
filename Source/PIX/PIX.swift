@@ -225,7 +225,8 @@ open class PIX {
     func renderOuts() {
         if let pixOut = self as? PIXOutIO {
             for pixOutPath in pixOut.pixOutPathList {
-                guard let pix = pixOutPath?.pixIn else { continue }
+//                guard let pix = pixOutPath?.pixIn else { continue }
+                let pix = pixOutPath.pixIn
                 guard !pix.destroyed else { continue }
                 guard pix != self else {
                     pixelKit.log(.error, .render, "Connected to self.")
@@ -251,48 +252,48 @@ open class PIX {
     // MARK: - Out Path
 
     
-    class OutPath {
+    struct OutPath {
         var pixIn: PIX & PIXIn
         let inIndex: Int
-        init(pixIn: PIX & PIXIn, inIndex: Int) {
-            self.pixIn = pixIn
-            self.inIndex = inIndex
-        }
+//        init(pixIn: PIX & PIXIn, inIndex: Int) {
+//            self.pixIn = pixIn
+//            self.inIndex = inIndex
+//        }
     }
-    class WeakOutPath {
-        weak var outPath: OutPath?
-        init(_ outPath: OutPath) {
-            self.outPath = outPath
-        }
-    }
-    struct WeakOutPaths: Collection {
-        private var weakOutPaths: [WeakOutPath] = []
-        init(_ outPaths: [OutPath]) {
-            weakOutPaths = outPaths.map { WeakOutPath($0) }
-        }
-        var startIndex: Int { return weakOutPaths.startIndex }
-        var endIndex: Int { return weakOutPaths.endIndex }
-        subscript(_ index: Int) -> OutPath? {
-            return weakOutPaths[index].outPath
-        }
-        func index(after idx: Int) -> Int {
-            return weakOutPaths.index(after: idx)
-        }
-        mutating func append(_ outPath: OutPath) {
-            weakOutPaths.append(WeakOutPath(outPath))
-        }
-        mutating func remove(_ outPath: OutPath) {
-            for (i, weakOutPath) in weakOutPaths.enumerated() {
-                if weakOutPath.outPath != nil && weakOutPath.outPath!.pixIn == outPath.pixIn {
-                    weakOutPaths.remove(at: i)
-                    break
-                }
-            }
-        }
-        mutating func remove(at index: Int) {
-            weakOutPaths.remove(at: index)
-        }
-    }
+//    class WeakOutPath {
+//        weak var outPath: OutPath?
+//        init(_ outPath: OutPath) {
+//            self.outPath = outPath
+//        }
+//    }
+//    struct WeakOutPaths: Collection {
+//        private var weakOutPaths: [WeakOutPath] = []
+//        init(_ outPaths: [OutPath]) {
+//            weakOutPaths = outPaths.map { WeakOutPath($0) }
+//        }
+//        var startIndex: Int { return weakOutPaths.startIndex }
+//        var endIndex: Int { return weakOutPaths.endIndex }
+//        subscript(_ index: Int) -> OutPath? {
+//            return weakOutPaths[index].outPath
+//        }
+//        func index(after idx: Int) -> Int {
+//            return weakOutPaths.index(after: idx)
+//        }
+//        mutating func append(_ outPath: OutPath) {
+//            weakOutPaths.append(WeakOutPath(outPath))
+//        }
+//        mutating func remove(_ outPath: OutPath) {
+//            for (i, weakOutPath) in weakOutPaths.enumerated() {
+//                if weakOutPath.outPath != nil && weakOutPath.outPath!.pixIn == outPath.pixIn {
+//                    weakOutPaths.remove(at: i)
+//                    break
+//                }
+//            }
+//        }
+//        mutating func remove(at index: Int) {
+//            weakOutPaths.remove(at: index)
+//        }
+//    }
     
     // MARK: - Connect
 
@@ -313,7 +314,7 @@ open class PIX {
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
             for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-                if pixOutPath?.pixIn == pixInIO {
+                if pixOutPath.pixIn == pixInIO {
                     pixOut.pixOutPathList.remove(at: i)
                     break
                 }
@@ -342,7 +343,7 @@ open class PIX {
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & PIXOutIO)
             for (i, pixOutPath) in pixOut.pixOutPathList.enumerated() {
-                if pixOutPath?.pixIn == pixInIO {
+                if pixOutPath.pixIn == pixInIO {
                     pixOut.pixOutPathList.remove(at: i)
                     break
                 }

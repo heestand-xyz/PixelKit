@@ -70,6 +70,7 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
         super.init()
         extend = .hold
         customRenderDelegate = self
+        name = "blur"
     }
     
     // MARK: Guassian

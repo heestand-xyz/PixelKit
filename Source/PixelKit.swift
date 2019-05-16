@@ -61,38 +61,7 @@ public class PixelKit {
     
     public var finalPix: PIX?
     
-    public class PIXLink {
-        weak var pix: PIX?
-        init(pix: PIX) {
-            self.pix = pix
-        }
-    }
-    public struct PIXLinks: Collection {
-        private var links: [PIXLink] = []
-        init(_ pixs: [PIX]) {
-            links = pixs.map { PIXLink(pix: $0) }
-        }
-        public var startIndex: Int { return links.startIndex }
-        public var endIndex: Int { return links.endIndex }
-        public subscript(_ index: Int) -> PIX? {
-            return links[index].pix
-        }
-        public func index(after idx: Int) -> Int {
-            return links.index(after: idx)
-        }
-        public mutating func append(_ pix: PIX) {
-            links.append(PIXLink(pix: pix))
-        }
-        public mutating func remove(_ pix: PIX) {
-            for (i, link) in links.enumerated() {
-                if link.pix != nil && link.pix! == pix {
-                    links.remove(at: i)
-                    break
-                }
-            }
-        }
-    }
-    public var pixLinks: PIXLinks = PIXLinks([])
+    public var pixLinks: PIX.Links = PIX.Links([])
     public var linkedPixs: [PIX] {
         return pixLinks.reduce([], { arr, pix -> [PIX] in
             var arr = arr

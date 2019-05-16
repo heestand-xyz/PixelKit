@@ -83,7 +83,7 @@ extension PIX {
         // FIXME: Check if this is extra work..
         if let pixOut = self as? PIXOutIO {
             for pathList in pixOut.pixOutPathList {
-                pathList?.pixIn.applyRes(applied: {})
+                pathList.pixIn.applyRes(applied: {})
             }
         }
     }

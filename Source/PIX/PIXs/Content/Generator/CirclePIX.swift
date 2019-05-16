@@ -22,6 +22,11 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     override public var liveValues: [LiveValue] {
         return [radius, position, edgeRadius, super.color, edgeColor, super.bgColor]
     }
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "circle"
+    }
 
     // MARK: Layout
     

@@ -10,6 +10,10 @@ public class NilPIX: PIXSingleEffect {
     
     override open var shader: String { return "nilPIX" }
     
+    public required init() {
+        super.init()
+        name = "nil"
+    }
 }
 
 public extension PIXOut {

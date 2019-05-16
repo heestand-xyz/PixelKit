@@ -35,6 +35,8 @@
 		3AA8019421AC2218009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019521AC23EA009430C8 /* LiveInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019321AC2218009430C8 /* LiveInt.swift */; };
 		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
+		3AA8D604228D8E0800ADDCB8 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8D603228D8E0800ADDCB8 /* Links.swift */; };
+		3AA8D607228D8ECB00ADDCB8 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8D603228D8E0800ADDCB8 /* Links.swift */; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
@@ -284,6 +286,7 @@
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
 		3AA8019321AC2218009430C8 /* LiveInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveInt.swift; sourceTree = "<group>"; };
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
+		3AA8D603228D8E0800ADDCB8 /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
@@ -441,6 +444,7 @@
 				7424A1B4212F5C9300401654 /* Modes.swift */,
 				74013305224D298000826395 /* Layout.swift */,
 				74076D04211A27D2000E56E0 /* Res.swift */,
+				3AA8D603228D8E0800ADDCB8 /* Links.swift */,
 			);
 			path = "PIX Extensions";
 			sourceTree = "<group>";
@@ -942,6 +946,7 @@
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
 				3AA4AC27224D077500E894B2 /* LinePIX.swift in Sources */,
 				3AF28C2A219337850079FC7A /* PIXView.swift in Sources */,
+				3AA8D607228D8ECB00ADDCB8 /* Links.swift in Sources */,
 				3AF28C2621931DE10079FC7A /* LiveColor.swift in Sources */,
 				3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */,
 				3AF28BF7219312F50079FC7A /* NilPIX.swift in Sources */,
@@ -1015,6 +1020,7 @@
 				74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */,
 				74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */,
 				745A8F95212DC9AD006DA59D /* Render.swift in Sources */,
+				3AA8D604228D8E0800ADDCB8 /* Links.swift in Sources */,
 				74013309224D2A7500826395 /* LiveRect.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				747CBA85214286EC00CB2616 /* MetalMultiEffectPIX.swift in Sources */,
