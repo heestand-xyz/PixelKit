@@ -183,7 +183,7 @@ These are the supported `PIX.BlendingMode` operators:
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha | .average |
 
 ```swift
-let blendPix = (CameraPIX() *** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ```
 
 Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
@@ -197,6 +197,37 @@ let ab: LiveFloat = isOdd <?> a <=> b
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalPlacement = .aspectFill`
+
+## Live Values
+
+Live values can be a constant (`let`) and still have changin values.
+Live values are ease to animate with the `.live` or `.seconds` static properites.
+
+### The Live Values:
+- `CGFloat` --> `LiveFloat`
+- `Int` --> `LiveInt`
+- `Bool` --> `LiveBool`
+- `CGPoint` --> `LivePoint`
+- `CGSize` --> `LiveSize`
+- `CGRect` --> `LiveRect`
+
+### Static properites:
+- `LiveFloat.live`
+- `LiveFloat.seconds`
+- `LiveFloat.secondsSince1970`
+- `LiveFloat.touch` / `LiveFloat.mouseLeft`
+- `LiveFloat.touchX` / `LiveFloat.mouseX`
+- `LiveFloat.touchY` / `LiveFloat.mouseY`
+- `LivePoint.touchXY` / `LiveFloat.mouseXY`
+
+### Functions:
+- `liveFloat.delay(seconds: 1.0)`
+- `liveFloat.filter(seconds: 1.0)`
+- `liveFloat.filter(frames: 60)`
+
+### Static functions:
+- `LiveFloat.noise(range: -1.0...1.0, for: 1.0)`
+- `LiveFloat.wave(range: -1.0...1.0, for: 1.0)`
 
 ## Effect Convenience Funcs
 
