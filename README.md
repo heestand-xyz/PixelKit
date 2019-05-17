@@ -171,7 +171,7 @@ A full rotation is defined by 1.0
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
 <b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
-`let aspectRatio: CGFloat = PIX.Res._1080p.aspect`
+`let aspectRatio: LiveFloat = PIX.Res._1080p.aspect`
 
 ## Blend Operators
 
