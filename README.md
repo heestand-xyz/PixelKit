@@ -83,12 +83,6 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 [Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
 [Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
 
-[High Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov) (1,5 GB) -
-[Mid Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_compressed.mov) (0,5 GB) -
-[Low Quality](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov) (200 MB) -
-[Screen Lapse x4](http://hexagons.se/pixels/tutorials/pixels_tutorial_1_screen_lapse_x4.mov) (100 MB)<br>
-Video used: [warm neon birth](https://vimeo.com/104094320) by [BEEPLE](https://www.beeple-crap.com).
-
 ## Docs
 Classes, Delegates and Properties of:<br>
 [PixelKit](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
@@ -177,7 +171,7 @@ A full rotation is defined by 1.0
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
 <b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
-`let aspectRatio: CGFloat = PIX.Res._1080p.aspect`
+`let aspectRatio: LiveFloat = PIX.Res._1080p.aspect`
 
 ## Blend Operators
 
@@ -189,7 +183,7 @@ These are the supported `PIX.BlendingMode` operators:
 | .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha | .average |
 
 ```swift
-let blendPix = (CameraPIX() *** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
 ```
 
 Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
@@ -203,6 +197,37 @@ let ab: LiveFloat = isOdd <?> a <=> b
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalPlacement = .aspectFill`
+
+## Live Values
+
+Live values can be a constant (`let`) and still have changin values.
+Live values are ease to animate with the `.live` or `.seconds` static properites.
+
+### The Live Values:
+- `CGFloat` --> `LiveFloat`
+- `Int` --> `LiveInt`
+- `Bool` --> `LiveBool`
+- `CGPoint` --> `LivePoint`
+- `CGSize` --> `LiveSize`
+- `CGRect` --> `LiveRect`
+
+### Static properites:
+- `LiveFloat.live`
+- `LiveFloat.seconds`
+- `LiveFloat.secondsSince1970`
+- `LiveFloat.touch` / `LiveFloat.mouseLeft`
+- `LiveFloat.touchX` / `LiveFloat.mouseX`
+- `LiveFloat.touchY` / `LiveFloat.mouseY`
+- `LivePoint.touchXY` / `LiveFloat.mouseXY`
+
+### Functions:
+- `liveFloat.delay(seconds: 1.0)`
+- `liveFloat.filter(seconds: 1.0)`
+- `liveFloat.filter(frames: 60)`
+
+### Static functions:
+- `LiveFloat.noise(range: -1.0...1.0, for: 1.0)`
+- `LiveFloat.wave(range: -1.0...1.0, for: 1.0)`
 
 ## Effect Convenience Funcs
 
