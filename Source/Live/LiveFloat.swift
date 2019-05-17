@@ -439,7 +439,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat.liveRandom(in: range).filter(seconds: seconds, smooth: true)
     }
     
-    public static func liveWave(range: ClosedRange<CGFloat> = 0...1.0, for seconds: LiveFloat = 1.0) -> LiveFloat {
+    public static func wave(range: ClosedRange<CGFloat> = 0...1.0, for seconds: LiveFloat = 1.0) -> LiveFloat {
         return (cos((self.seconds / seconds) * .pi * 2) / -2 + 0.5).lerp(from: LiveFloat(range.lowerBound), to: LiveFloat(range.upperBound))
     }
 

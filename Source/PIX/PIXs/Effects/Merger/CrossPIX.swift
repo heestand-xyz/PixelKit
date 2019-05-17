@@ -30,6 +30,19 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
     
 }
 
+public extension PIXOut {
+    
+    func _cross(with pix: PIX & PIXOut, fraction: LiveFloat) -> CrossPIX {
+        let crossPix = CrossPIX()
+        crossPix.name = ":cross:"
+        crossPix.inPixA = self as? PIX & PIXOut
+        crossPix.inPixB = pix
+        crossPix.fraction = fraction
+        return crossPix
+    }
+    
+}
+
 public func cross(_ pixA: PIX & PIXOut, _ pixB: PIX & PIXOut, at fraction: LiveFloat) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
