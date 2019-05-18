@@ -300,7 +300,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat({ return pow(CGFloat(lhs), CGFloat(rhs)) })
     }
     
-    public static func !** (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
+    public static func ^ (lhs: LiveFloat, rhs: LiveFloat) -> LiveFloat {
         return LiveFloat({ return pow(CGFloat(lhs), 1.0 / CGFloat(rhs)) })
     }
     
