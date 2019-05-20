@@ -73,7 +73,7 @@ public extension PIXOut {
         gradientPix.offset = 0.5
         gradientPix.scale = 0.5
         gradientPix.extendRamp = .mirror
-        return pix._lumaBlur(with: gradientPix ^ gamma, radius: radius)
+        return pix._lumaBlur(with: gradientPix !** gamma, radius: radius)
     }
     
 }

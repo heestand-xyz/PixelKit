@@ -9,7 +9,7 @@
 infix operator ++
 infix operator --
 infix operator **
-infix operator ^
+infix operator !**
 infix operator !&
 infix operator <>
 infix operator ><
@@ -80,7 +80,7 @@ public extension PIX {
             case .subtractWithAlpha: return "--"
             case .maximum: return "><"
             case .minimum: return "<>"
-            case .gamma: return "^"
+            case .gamma: return "!**"
             case .power: return "**"
             case .divide: return "/"
             case .average: return "~"
@@ -176,16 +176,16 @@ public extension PIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .power)
     }
     
-    static func ^(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
+    static func !**(lhs: PIX, rhs: PIX & PIXOut) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
-    static func ^(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
+    static func !**(lhs: PIX, rhs: LiveFloat) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
-    static func ^(lhs: PIX, rhs: LivePoint) -> BlendPIX {
+    static func !**(lhs: PIX, rhs: LivePoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
-    static func ^(lhs: PIX, rhs: LiveColor) -> BlendPIX {
+    static func !**(lhs: PIX, rhs: LiveColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gamma)
     }
     
