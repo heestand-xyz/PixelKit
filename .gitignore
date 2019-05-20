@@ -7,3 +7,6 @@ Package.swift
 build/
 
 *.framework
+
+Pods/*
+

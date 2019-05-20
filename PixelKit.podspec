@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
   					a collection of live graphics tools for realtime editing.
                    DESC
 
-  spec.homepage     = "http://pixels.software"
+  spec.homepage     = "http://pixelkit.dev"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
