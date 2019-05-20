@@ -3550,34 +3550,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX Extensions/Links.swift",
-      "line": 13,
-      "symbol": "PIX.Link",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX Extensions/Links.swift",
-      "line": 20,
-      "symbol": "PIX.Links",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX Extensions/Links.swift",
-      "line": 33,
-      "symbol": "PIX.Links.append(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX Extensions/Links.swift",
-      "line": 36,
-      "symbol": "PIX.Links.remove(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX Extensions/Modes.swift",
       "line": 13,
       "symbol": "PIX.Placement",
@@ -5430,13 +5402,6 @@
       "line": 63,
       "symbol": "PIX.applyRes(applied:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/hexagons/Documents/hexagons/All-of-PixelKit/PixelKit/Source/PIX/PIX.swift",
-      "line": null,
-      "symbol": "PIX",
-      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
