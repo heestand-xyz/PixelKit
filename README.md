@@ -11,44 +11,44 @@ a Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
 <b>Content:</b>
-[Camera](DOCS.md#camerapix) -
-[Image](DOCS.md#imagepix) -
-[Video](DOCS.md#videopix) -
-[Screen Capture](DOCS.md#screencapturepix)-
-[Color](DOCS.md#colorpix) -
-[Circle](DOCS.md#circlepix) -
-[Rectangle](DOCS.md#rectanglepix) -
-[Polygon](DOCS.md#polygonpix) -
-[Gradient](DOCS.md#gradientpix) -
-[Noise](DOCS.md#noisepix) - 
-[Text](DOCS.md#textpix)
+[Camera](http://pixelkit.dev/PixelKit/docs/Classes/CameraPIX.html) -
+[Image](http://pixelkit.dev/PixelKit/docs/Classes/ImagePIX.html) -
+[Video](http://pixelkit.dev/PixelKit/docs/Classes/VideoPIX.html) -
+[Screen Capture](http://pixelkit.dev/PixelKit/docs/Classes/ScreenCapturePIX.html)-
+[Color](http://pixelkit.dev/PixelKit/docs/Classes/ColorPIX.html) -
+[Circle](http://pixelkit.dev/PixelKit/docs/Classes/CirclePIX.html) -
+[Rectangle](http://pixelkit.dev/PixelKit/docs/Classes/RectanglePIX.html) -
+[Polygon](http://pixelkit.dev/PixelKit/docs/Classes/PolygonPIX.html) -
+[Gradient](http://pixelkit.dev/PixelKit/docs/Classes/GradientPIX.html) -
+[Noise](http://pixelkit.dev/PixelKit/docs/Classes/NoisePIX.html) - 
+[Text](http://pixelkit.dev/PixelKit/docs/Classes/TextPIX.html)
 <br>
 <b>Effects:</b>
-[Levels](DOCS.md#pix) -
-[Blur](DOCS.md#blurpix) -
-[Edge](DOCS.md#edgepix) -
-[Threshold](DOCS.md#thresholdpix) -
-[Quantize](DOCS.md#quantizepix) -
-[Transform](DOCS.md#transformpix) -
-[Kaleidoscope](DOCS.md#kaleidoscopepix) -
-[Twirl](DOCS.md#twirlpix) -
-[Feedback](DOCS.md#feedbackpix) -
-[Channel Mix](DOCS.md#channelMixpix) -
-[Chroma Key](DOCS.md#chromaKeypix) -
-[Corner Pin](DOCS.md#cornerPinpix) -
-[HueSat](DOCS.md#huesaturationpix) -
-[Crop](DOCS.md#croppix) -
-[Flip Flop](DOCS.md#flipfloppix) -
-[Range](DOCS.md#rangepix) -
-[Sharpen](DOCS.md#sharpenpix) -
-[Slope](DOCS.md#slopepix) -
-[Cross](DOCS.md#crosspix) -
-[Blend](DOCS.md#blendpix) -
-[Lookup](DOCS.md#lookuppix) -
-[Displace](DOCS.md#displacepix) -
-[Remap](DOCS.md#remappix) -
-[Reorder](DOCS.md#reorderpix) -
-[Blends](DOCS.md#blendspix)
+[Levels](http://pixelkit.dev/PixelKit/docs/Classes/LevelsPIX.html) -
+[Blur](http://pixelkit.dev/PixelKit/docs/Classes/BlurPIX.html) -
+[Edge](http://pixelkit.dev/PixelKit/docs/Classes/EdgePIX.html) -
+[Threshold](http://pixelkit.dev/PixelKit/docs/Classes/ThresholdPIX.html) -
+[Quantize](http://pixelkit.dev/PixelKit/docs/Classes/QuantizePIX.html) -
+[Transform](http://pixelkit.dev/PixelKit/docs/Classes/TransformPIX.html) -
+[Kaleidoscope](http://pixelkit.dev/PixelKit/docs/Classes/KaleidoscopePIX.html) -
+[Twirl](http://pixelkit.dev/PixelKit/docs/Classes/TwirlPIX.html) -
+[Feedback](http://pixelkit.dev/PixelKit/docs/Classes/FeedbackPIX.html) -
+[Channel Mix](http://pixelkit.dev/PixelKit/docs/Classes/ChannelMixPIX.html) -
+[Chroma Key](http://pixelkit.dev/PixelKit/docs/Classes/ChromaKeyPIX.html) -
+[Corner Pin](http://pixelkit.dev/PixelKit/docs/Classes/CornerPinPIX.html) -
+[HueSat](http://pixelkit.dev/PixelKit/docs/Classes/HueSatPIX.html) -
+[Crop](http://pixelkit.dev/PixelKit/docs/Classes/CropPIX.html) -
+[Flip Flop](http://pixelkit.dev/PixelKit/docs/Classes/FlipFlopPIX.html) -
+[Range](http://pixelkit.dev/PixelKit/docs/Classes/RangePIX.html) -
+[Sharpen](http://pixelkit.dev/PixelKit/docs/Classes/SharpenPIX.html) -
+[Slope](http://pixelkit.dev/PixelKit/docs/Classes/SlopePIX.html) -
+[Cross](http://pixelkit.dev/PixelKit/docs/Classes/CrossPIX.html) -
+[Blend](http://pixelkit.dev/PixelKit/docs/Classes/BlendPIX.html) -
+[Lookup](http://pixelkit.dev/PixelKit/docs/Classes/LookupPIX.html) -
+[Displace](http://pixelkit.dev/PixelKit/docs/Classes/DisplacePIX.html) -
+[Remap](http://pixelkit.dev/PixelKit/docs/Classes/RemapPIX.html) -
+[Reorder](http://pixelkit.dev/PixelKit/docs/Classes/ReorderPIX.html) -
+[Blends](http://pixelkit.dev/PixelKit/docs/Classes/BlendsPIX.html)
 
 Examples:
 [Camera Effects](#example-camera-effects) -
@@ -82,13 +82,6 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 [Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
 [Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
-
-## Docs
-Classes, Delegates and Properties of:<br>
-[PixelKit](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixels) -
-[PIX](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pix) - 
-[PIXContent](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixcontent-pix-pixout) - 
-[PIXEffect](https://github.com/anton-hexagons/pixels/blob/master/DOCS.md#pixeffect-pix-pixin-pixout)
 
 ## Example: Camera Effects
 
