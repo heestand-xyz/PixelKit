@@ -18,7 +18,7 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Public Properties
     
-    public var loops: Bool = true { didSet { helper.player?.loops = loops } }
+    public var loops: Bool = true { didSet { helper.loops = loops } }
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
     var _progress: CGFloat = 0
