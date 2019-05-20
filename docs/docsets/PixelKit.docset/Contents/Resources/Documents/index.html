@@ -13,7 +13,7 @@
     <a title="PixelKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">PixelKit Docs</a> (1% documented)</p>
+        <p><a href="index.html">PixelKit Docs</a> (2% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -231,6 +231,12 @@
                 <a href="Classes/PIX.html">PIX</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/PIX.html#/s:8PixelKit3PIXC4LinkC">– Link</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PIX/Links.html">– Links</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/PIX/Placement.html">– Placement</a>
               </li>
               <li class="nav-group-task">
@@ -289,6 +295,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PixelKit.html">PixelKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PixelKit/ListenState.html">– ListenState</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PixelKit/Vertex.html">– Vertex</a>
@@ -574,6 +583,11 @@
             <p><img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Logo/pixels_logo_1k_bg.png" width="128"/></p>
 <h1 id='pixelkit' class='heading'>PixelKit</h1>
 
+<p><a href="https://github.com/hexagons/PixelKit/blob/master/LICENSE"><img src="https://img.shields.io/cocoapods/l/PixelKit.svg" alt="License"></a>
+<a href="http://cocoapods.org/pods/PixelKit"><img src="https://img.shields.io/cocoapods/v/PixelKit.svg" alt="Cocoapods"></a>
+<a href="http://cocoapods.org/pods/PixelKit"><img src="https://img.shields.io/cocoapods/p/PixelKit.svg" alt="Platform"></a>
+<img src="https://img.shields.io/badge/in-swift5.0-orange.svg"></p>
+
 <p>a Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner</p>
 
@@ -629,20 +643,12 @@ Info:
 <a href="#high-bit-mode">High Bit Mode</a> -
 <a href="#apps">Apps</a></p>
 
-<p>Under development.</p>
-
 <hr>
 <h2 id='install' class='heading'>Install</h2>
 
-<p>To get up and running, follow these steps:</p>
+<p><code>pod &#39;PixelKit&#39;</code></p>
 
-<ol>
-<li>Download the framework and the metallib: <a href="https://github.com/hexagons/pixels/releases/download/0.4.5/Pixels_Beta_v0.4.5_b777.zip">Pixels Beta v0.4.5 b777</a></li>
-<li>Add the framework files in from the zip to the root of your Xcode project.</li>
-<li>In your project settings under <em>General</em> and <em>Embedded Binaries</em> add <strong>Pixels.framework</strong>.</li>
-<li>Then under <em>Build Phases</em> and <em>Copy Bundle Resources</em> add <strong>PixelsShaders.metallib</strong>.</li>
-<li>Now you can <code>import Pixels</code>.</li>
-</ol>
+<p><code>import PixelKit</code></p>
 
 <p>Note that PixelKit dose not have simulator support. Metal for iOS can only run on a physical device.</p>
 
@@ -654,12 +660,6 @@ Info:
 
 <p><a href="http://blog.hexagons.se/uncategorized/getting-started-with-pixels/">Getting started with PixelKit in Swift</a><br>
 <a href="http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/">Getting started with Metal in PixelKit</a></p>
-
-<p><a href="http://hexagons.se/pixels/tutorials/pixels_tutorial_1.mov">High Quality</a> (1,5 GB) -
-<a href="http://hexagons.se/pixels/tutorials/pixels_tutorial_1_compressed.mov">Mid Quality</a> (0,5 GB) -
-<a href="http://hexagons.se/pixels/tutorials/pixels_tutorial_1_very_compressed.mov">Low Quality</a> (200 MB) -
-<a href="http://hexagons.se/pixels/tutorials/pixels_tutorial_1_screen_lapse_x4.mov">Screen Lapse x4</a> (100 MB)<br>
-Video used: <a href="https://vimeo.com/104094320">warm neon birth</a> by <a href="https://www.beeple-crap.com">BEEPLE</a>.</p>
 <h2 id='docs' class='heading'>Docs</h2>
 
 <p>Classes, Delegates and Properties of:<br>
@@ -749,7 +749,7 @@ A full rotation is defined by 1.0 </p>
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br></p>
 
 <p><b>Tip:</b> <code><a href="Classes/PIX/Res.html">PIX.Res</a></code> has an <code>.aspect</code> property:<br>
-<code>let aspectRatio: CGFloat = PIX.Res._1080p.aspect</code></p>
+<code>let aspectRatio: LiveFloat = PIX.Res._1080p.aspect</code></p>
 <h2 id='blend-operators' class='heading'>Blend Operators</h2>
 
 <p>A quick and convenient way to blend PIXs<br>
@@ -798,6 +798,44 @@ These are the supported <code><a href="Classes/PIX/BlendingMode.html">PIX.Blendi
 
 <p>The default global blend operator fill mode is <code>.aspectFit</code>, change it like this:<br>
 <code>PIX.blendOperators.globalPlacement = .aspectFill</code></p>
+<h2 id='live-values' class='heading'>Live Values</h2>
+
+<p>Live values can be a constant (<code>let</code>) and still have changin values.
+Live values are ease to animate with the <code>.live</code> or <code>.seconds</code> static properites.</p>
+<h3 id='the-live-values' class='heading'>The Live Values:</h3>
+
+<ul>
+<li><code>CGFloat</code> &ndash;&gt; <code><a href="Classes/LiveFloat.html">LiveFloat</a></code></li>
+<li><code>Int</code> &ndash;&gt; <code><a href="Classes/LiveInt.html">LiveInt</a></code></li>
+<li><code>Bool</code> &ndash;&gt; <code><a href="Classes/LiveBool.html">LiveBool</a></code></li>
+<li><code>CGPoint</code> &ndash;&gt; <code><a href="Classes/LivePoint.html">LivePoint</a></code></li>
+<li><code>CGSize</code> &ndash;&gt; <code><a href="Classes/LiveSize.html">LiveSize</a></code></li>
+<li><code>CGRect</code> &ndash;&gt; <code><a href="Classes/LiveRect.html">LiveRect</a></code></li>
+</ul>
+<h3 id='static-properites' class='heading'>Static properites:</h3>
+
+<ul>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC4liveACvpZ">LiveFloat.live</a></code></li>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC7secondsACvpZ">LiveFloat.seconds</a></code></li>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC16secondsSince1970ACvpZ">LiveFloat.secondsSince1970</a></code></li>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC5touchACvpZ">LiveFloat.touch</a></code> / <code><a href="Classes/LiveFloat.html#/mouseLeft">LiveFloat.mouseLeft</a></code></li>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC6touchXACvpZ">LiveFloat.touchX</a></code> / <code><a href="Classes/LiveFloat.html#/mouseX">LiveFloat.mouseX</a></code></li>
+<li><code><a href="Classes/LiveFloat.html#/s:8PixelKit9LiveFloatC6touchYACvpZ">LiveFloat.touchY</a></code> / <code><a href="Classes/LiveFloat.html#/mouseY">LiveFloat.mouseY</a></code></li>
+<li><code><a href="Classes/LivePoint.html#/s:8PixelKit9LivePointC7touchXYACvpZ">LivePoint.touchXY</a></code> / <code>LiveFloat.mouseXY</code></li>
+</ul>
+<h3 id='functions' class='heading'>Functions:</h3>
+
+<ul>
+<li><code>liveFloat.delay(seconds: 1.0)</code></li>
+<li><code>liveFloat.filter(seconds: 1.0)</code></li>
+<li><code>liveFloat.filter(frames: 60)</code></li>
+</ul>
+<h3 id='static-functions' class='heading'>Static functions:</h3>
+
+<ul>
+<li><code>LiveFloat.noise(range: -1.0...1.0, for: 1.0)</code></li>
+<li><code>LiveFloat.wave(range: -1.0...1.0, for: 1.0)</code></li>
+</ul>
 <h2 id='effect-convenience-funcs' class='heading'>Effect Convenience Funcs</h2>
 
 <ul>
@@ -951,7 +989,7 @@ combine effects to create new cool styles.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="http://pixels.software" target="_blank" rel="external">Hexagons</a>. All rights reserved. (Last updated: 2019-05-10)</p>
+          <p>&copy; 2019 <a class="link" href="http://pixelkit.dev" target="_blank" rel="external">Hexagons</a>. All rights reserved. (Last updated: 2019-05-20)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
