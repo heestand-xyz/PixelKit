@@ -28,6 +28,8 @@
 		3A70A64222859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
+		3A8558A62292C55E002B0983 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8558A32292C55E002B0983 /* Links.swift */; };
+		3A8558A72292C55E002B0983 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8558A32292C55E002B0983 /* Links.swift */; };
 		3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
@@ -276,6 +278,7 @@
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
+		3A8558A32292C55E002B0983 /* Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Links.swift; path = "Source/PIX/PIX Extensions/Links.swift"; sourceTree = SOURCE_ROOT; };
 		3A8AC3482277282C00A142AA /* Pixels.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pixels.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
@@ -645,6 +648,7 @@
 				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
 				74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */,
 				3A8AC3492277292C00A142AA /* SyphonInPIX.swift */,
+				3A8558A32292C55E002B0983 /* Links.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -990,6 +994,7 @@
 				3AF28C14219313050079FC7A /* CirclePIX.swift in Sources */,
 				3AA4AC27224D077500E894B2 /* LinePIX.swift in Sources */,
 				3AF28C2A219337850079FC7A /* PIXView.swift in Sources */,
+				3A8558A72292C55E002B0983 /* Links.swift in Sources */,
 				3AF28C2621931DE10079FC7A /* LiveColor.swift in Sources */,
 				3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */,
 				3AF28BF7219312F50079FC7A /* NilPIX.swift in Sources */,
@@ -1063,6 +1068,7 @@
 				74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */,
 				74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */,
 				745A8F95212DC9AD006DA59D /* Render.swift in Sources */,
+				3A8558A62292C55E002B0983 /* Links.swift in Sources */,
 				74013309224D2A7500826395 /* LiveRect.swift in Sources */,
 				7452F4CF210A33F8001AA523 /* PIXProtocols.swift in Sources */,
 				747CBA85214286EC00CB2616 /* MetalMultiEffectPIX.swift in Sources */,

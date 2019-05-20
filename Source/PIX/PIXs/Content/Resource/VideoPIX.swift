@@ -18,6 +18,7 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Public Properties
     
+    public var loops: Bool = true { didSet { helper.loops = loops } }
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
     var _progress: CGFloat = 0
@@ -173,6 +174,8 @@ class VideoHelper: NSObject {
     
     var setup: (PIX.Res) -> ()
     var update: (CVPixelBuffer, CGFloat) -> ()
+    
+    var loops: Bool = true
 
     // MARK: Life Cycle
     
@@ -281,6 +284,7 @@ class VideoHelper: NSObject {
     // MARK: Loop
     
     @objc func playerItemDidReachEnd() {
+        guard loops else { return }
 //        player!.pause()
         player!.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
 //        player!.play()
