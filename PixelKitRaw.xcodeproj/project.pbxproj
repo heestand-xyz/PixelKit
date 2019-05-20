@@ -18,8 +18,6 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
-		3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
-		3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
@@ -42,8 +40,6 @@
 		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
-		3AEE46982289826900F68686 /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
-		3AEE46992289826F00F68686 /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
 		3AF28BD4219312B90079FC7A /* PixelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* PixelKit.swift */; };
 		3AF28BD5219312CA0079FC7A /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 		3AF28BD6219312CA0079FC7A /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* Texture.swift */; };
@@ -140,6 +136,10 @@
 		741D2CFB21ACA05E007259E3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* String.swift */; };
 		7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
 		7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7421ED3E2231782E00E60A0E /* FreezePIX.swift */; };
+		742216D42291A2AE000798A1 /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 742216D22291A2A7000798A1 /* PixelKitShaders-macOS.metallib */; };
+		742216D52291A2B1000798A1 /* PixelKitShaders.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 742216D02291A2A7000798A1 /* PixelKitShaders.metallib */; };
+		742216D62291A2B4000798A1 /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 742216D02291A2A7000798A1 /* PixelKitShaders.metallib */; };
+		742216D72291A2B6000798A1 /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 742216D22291A2A7000798A1 /* PixelKitShaders-macOS.metallib */; };
 		742321A121027C70003697C3 /* PIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742321A021027C70003697C3 /* PIX.swift */; };
 		7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */; };
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
@@ -215,16 +215,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3A4A71292285BB7800B7193C /* PBXContainerItemProxy */ = {
+		742216CF2291A2A7000798A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+			containerPortal = 742216CA2291A2A7000798A1 /* PixelKitShaders.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 7473A66A210F4FD0003CF329;
 			remoteInfo = PixelKitShaders;
 		};
-		3A4A712B2285BB7800B7193C /* PBXContainerItemProxy */ = {
+		742216D12291A2A7000798A1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+			containerPortal = 742216CA2291A2A7000798A1 /* PixelKitShaders.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 74E9F6C72193813800F541DE;
 			remoteInfo = "PixelKitShaders-macOS";
@@ -238,7 +238,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3AEE46992289826F00F68686 /* PixelKitShaders.metallib in Copy Files */,
+				742216D62291A2B4000798A1 /* PixelKitShaders.metallib in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,7 +249,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */,
+				742216D72291A2B6000798A1 /* PixelKitShaders-macOS.metallib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +265,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
 		3A17FBC3225238EC00453079 /* ClampPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClampPIX.swift; sourceTree = "<group>"; };
 		3A2924442249114F00A05B7A /* FlarePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlarePIX.swift; sourceTree = "<group>"; };
@@ -273,14 +272,13 @@
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
-		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyphonOutPIX.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXAuto.generated.swift; sourceTree = "<group>"; };
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
-		3A8AC3482277282C00A142AA /* Pixels.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pixels.entitlements; sourceTree = "<group>"; };
+		3A8AC3482277282C00A142AA /* PixelKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKit.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50719DC959EFE20971040FE1 /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
@@ -308,6 +305,7 @@
 		7418E60022205D9600075769 /* LiveTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTouchView.swift; sourceTree = "<group>"; };
 		741D2CF821AC9CC0007259E3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		7421ED3E2231782E00E60A0E /* FreezePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreezePIX.swift; sourceTree = "<group>"; };
+		742216CA2291A2A7000798A1 /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		742321A021027C70003697C3 /* PIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIX.swift; sourceTree = "<group>"; };
 		7424A1A4212F3BDA00401654 /* ChannelMixPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMixPIX.swift; sourceTree = "<group>"; };
 		7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyPIX.swift; sourceTree = "<group>"; };
@@ -382,10 +380,6 @@
 		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* PixelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelProtocols.swift; sourceTree = "<group>"; };
-		B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
-		DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,7 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
+				742216D42291A2AE000798A1 /* PixelKitShaders-macOS.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,31 +395,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AEE46982289826900F68686 /* PixelKitShaders.metallib in Frameworks */,
+				742216D52291A2B1000798A1 /* PixelKitShaders.metallib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A4A71252285BB7700B7193C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */,
-				3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		3A4A712D2285BB8000B7193C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */,
-				DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3A8E24B922859465007AA99B /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,7 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				7479F6B12275C04D009B4B65 /* Info.plist */,
-				3A8AC3482277282C00A142AA /* Pixels.entitlements */,
+				3A8AC3482277282C00A142AA /* PixelKit.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -487,6 +463,22 @@
 				74DB402D2125BD9800FA6034 /* Log.swift */,
 			);
 			path = "PixelKit Extensions";
+			sourceTree = "<group>";
+		};
+		742216CB2291A2A7000798A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				742216D02291A2A7000798A1 /* PixelKitShaders.metallib */,
+				742216D22291A2A7000798A1 /* PixelKitShaders-macOS.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		742216D32291A2AE000798A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7452F4C6210A3362001AA523 /* PIX */ = {
@@ -712,9 +704,8 @@
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
-				3A4A712D2285BB8000B7193C /* Frameworks */,
-				CFBD82F0930D4AC54D052504 /* Pods */,
-				3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */,
+				742216CA2291A2A7000798A1 /* PixelKitShaders.xcodeproj */,
+				742216D32291A2AE000798A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -747,17 +738,6 @@
 				74E6425221353C2D00D7B57F /* TextPIX.swift */,
 			);
 			path = Sprite;
-			sourceTree = "<group>";
-		};
-		CFBD82F0930D4AC54D052504 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				50719DC959EFE20971040FE1 /* Pods-PixelKit.debug.xcconfig */,
-				D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */,
-				B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */,
-				CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -850,8 +830,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3A4A71252285BB7700B7193C /* Products */;
-					ProjectRef = 3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */;
+					ProductGroup = 742216CB2291A2A7000798A1 /* Products */;
+					ProjectRef = 742216CA2291A2A7000798A1 /* PixelKitShaders.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -863,18 +843,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */ = {
+		742216D02291A2A7000798A1 /* PixelKitShaders.metallib */ = {
 			isa = PBXReferenceProxy;
 			fileType = "archive.metal-library";
 			path = PixelKitShaders.metallib;
-			remoteRef = 3A4A71292285BB7800B7193C /* PBXContainerItemProxy */;
+			remoteRef = 742216CF2291A2A7000798A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */ = {
+		742216D22291A2A7000798A1 /* PixelKitShaders-macOS.metallib */ = {
 			isa = PBXReferenceProxy;
 			fileType = "archive.metal-library";
 			path = "PixelKitShaders-macOS.metallib";
-			remoteRef = 3A4A712B2285BB7800B7193C /* PBXContainerItemProxy */;
+			remoteRef = 742216D12291A2A7000798A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1120,7 +1100,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_ENTITLEMENTS = Resources/Pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1159,7 +1139,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_ENTITLEMENTS = Resources/Pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1317,6 +1297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1352,6 +1333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
