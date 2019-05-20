@@ -103,7 +103,6 @@ Pod::Spec.new do |spec|
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
   						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
-                           "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
   						             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift"
@@ -137,8 +136,10 @@ Pod::Spec.new do |spec|
   #  the lib prefix of their name.
   #
 
-  # spec.framework  = "SomeFramework"
-  # spec.frameworks = "UIKit" #, "AnotherFramework"
+  # spec.xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => 'Source/Other/BridgingHeader.h' }
+  # spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '/Resources/Frameworks' }
+  # spec.osx.vendored_frameworks = "Resources/Frameworks/Syphon.framework"
+  # spec.osx.frameworks = "Syphon"
 
   # spec.library   = "PixelsShaders.metallib"
   # spec.libraries = "iconv", "xml2"

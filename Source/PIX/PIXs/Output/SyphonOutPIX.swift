@@ -7,11 +7,7 @@
 //
 
 import AppKit
-#if os(iOS) && targetEnvironment(simulator)
-import MetalPerformanceShadersProxy
-#else
 import Metal
-#endif
 
 public class SyphonOutPIX: PIXOutput {
 

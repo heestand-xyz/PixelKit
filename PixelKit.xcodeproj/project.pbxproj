@@ -204,7 +204,6 @@
 		74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */; };
 		74D90B1A213317250028A69E /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
 		74D90B1D21331CF60028A69E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1B21331CF60028A69E /* README.md */; };
-		74D90B1E21331CF60028A69E /* DOCS.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1C21331CF60028A69E /* DOCS.md */; };
 		74DA3D2321026A5900430261 /* PixelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* PixelKit.swift */; };
 		74DB402E2125BD9800FA6034 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB402D2125BD9800FA6034 /* Log.swift */; };
 		74E642512135396600D7B57F /* PIXSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E642502135396600D7B57F /* PIXSprite.swift */; };
@@ -279,7 +278,7 @@
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
 		3A8558A32292C55E002B0983 /* Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Links.swift; path = "Source/PIX/PIX Extensions/Links.swift"; sourceTree = SOURCE_ROOT; };
-		3A8AC3482277282C00A142AA /* Pixels.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pixels.entitlements; sourceTree = "<group>"; };
+		3A8AC3482277282C00A142AA /* PixelKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKit.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
@@ -323,6 +322,7 @@
 		7441339F212F859D00326015 /* VideoPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPIX.swift; sourceTree = "<group>"; };
 		7445508721349DCC006E01D8 /* CornerPinPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerPinPIX.swift; sourceTree = "<group>"; };
 		7449A18B2142797100FAA8CC /* ReorderPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderPIX.swift; sourceTree = "<group>"; };
+		744A9DAA22932D9200A01CA1 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		7452F4C0210A321F001AA523 /* PIXContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXContent.swift; sourceTree = "<group>"; };
 		7452F4C2210A332B001AA523 /* PIXEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXEffect.swift; sourceTree = "<group>"; };
 		7452F4C4210A3337001AA523 /* PIXOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXOutput.swift; sourceTree = "<group>"; };
@@ -373,7 +373,6 @@
 		74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapPIX.swift; sourceTree = "<group>"; };
 		74D90B18213317250028A69E /* CheckerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckerView.swift; sourceTree = "<group>"; };
 		74D90B1B21331CF60028A69E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		74D90B1C21331CF60028A69E /* DOCS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DOCS.md; sourceTree = "<group>"; };
 		74DA3D2221026A5900430261 /* PixelKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelKit.swift; sourceTree = "<group>"; };
 		74DB402D2125BD9800FA6034 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		74E642502135396600D7B57F /* PIXSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSprite.swift; sourceTree = "<group>"; };
@@ -470,8 +469,9 @@
 		3AAB4FD92277137100B73870 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				744A9DA922932D9200A01CA1 /* Frameworks */,
 				7479F6B12275C04D009B4B65 /* Info.plist */,
-				3A8AC3482277282C00A142AA /* Pixels.entitlements */,
+				3A8AC3482277282C00A142AA /* PixelKit.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -485,6 +485,14 @@
 				74DB402D2125BD9800FA6034 /* Log.swift */,
 			);
 			path = "PixelKit Extensions";
+			sourceTree = "<group>";
+		};
+		744A9DA922932D9200A01CA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				744A9DAA22932D9200A01CA1 /* Syphon.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		7452F4C6210A3362001AA523 /* PIX */ = {
@@ -707,7 +715,6 @@
 			isa = PBXGroup;
 			children = (
 				74D90B1B21331CF60028A69E /* README.md */,
-				74D90B1C21331CF60028A69E /* DOCS.md */,
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
@@ -901,7 +908,6 @@
 				74B57C482147405800CBBD58 /* EffectMergerMetalPIX.metal.txt in Resources */,
 				740C685D228706C5001FC5BA /* EffectMultiMetalPIX.metal.txt in Resources */,
 				74D90B1D21331CF60028A69E /* README.md in Resources */,
-				74D90B1E21331CF60028A69E /* DOCS.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,7 +1175,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_ENTITLEMENTS = Resources/Pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1190,7 +1196,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
-					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
@@ -1209,7 +1214,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				CODE_SIGN_ENTITLEMENTS = Resources/Pixels.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1230,7 +1235,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
-					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
