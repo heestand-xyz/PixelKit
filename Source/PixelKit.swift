@@ -639,7 +639,7 @@ public class PixelKit {
     }
     
     func embedMetalCode(uniforms: [MetalUniform], code: String, fileName: String) throws -> String {
-        guard let metalFile = Bundle(identifier: kBundleId)!.url(forResource: fileName, withExtension: "txt") else {
+        guard let metalFile = Bundle(for: type(of: self)).url(forResource: fileName, withExtension: "txt") else {
             throw MetalError.fileNotFound(fileName)
         }
         do {

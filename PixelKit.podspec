@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PixelKit"
-  spec.version      = "0.5.8"
+  spec.version      = "0.5.9"
   spec.summary      = "a Live Graphics for iOS & macOS."
 
   # This description is used to generate tags and improve search results.
@@ -123,6 +123,10 @@ Pod::Spec.new do |spec|
   # spec.resource  = "icon.png"
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders.metallib"
   spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
+  spec.resources = "Source/PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
+                   "Source/PIX/PIXs/Effects/Single/Metal/EffectSingleMetalPIX.metal.txt",
+                   "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
+                   "Source/PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt"
 
   # spec.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
