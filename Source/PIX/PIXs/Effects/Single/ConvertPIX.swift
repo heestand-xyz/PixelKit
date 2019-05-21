@@ -45,10 +45,17 @@ public class ConvertPIX: PIXSingleEffect {
     }
     public var mode: ConvertMode = .squareToCircle
     
+    public var xRotation: LiveFloat = 0.0
+    public var yRotation: LiveFloat = 0.0
+    
     // MARK: - Property Helpers
     
+    public override var liveValues: [LiveValue] {
+        return [xRotation, yRotation]
+    }
+    
     public override var uniforms: [CGFloat] {
-        return [CGFloat(mode.index)]
+        return [CGFloat(mode.index), xRotation.uniform, yRotation.uniform]
     }
     
 }

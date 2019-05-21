@@ -16,6 +16,8 @@ struct VertexOut{
 
 struct Uniforms{
     float mode;
+    float rx;
+    float ry;
 };
 
 float2 domeToEqui(float2 uv) {
@@ -25,14 +27,22 @@ float2 domeToEqui(float2 uv) {
     return float2(0.5 + cos(ang) * rad, 0.5 - sin(ang) * rad);
 }
 
-float2 equiToDome(float2 uv) {
+float2 equiToDome(float2 uv, float rx, float ry) {
     float pi = 3.14159265359;
-    float rad = sqrt(pow(uv.x - 0.5, 2) + pow(uv.y - 0.5, 2)) / 2 + 0.25;
-    float ang = 1.0 - (atan2(uv.y - 0.5, uv.x - 0.5) / (pi * 2) + 0.25);
-    if (ang > 1) {
-        ang -= 1;
-    }
-    return float2(ang, rad);
+    float theta = uv.x * pi * 2;
+    float phi = ((1.0 - uv.y) * pi) + pi / 2;
+    float x = cos(phi) * sin(theta);
+    float y = sin(phi);
+    float z = cos(phi) * cos(theta);
+    float u = atan2(x, z) / (2 * pi) + 0.5;
+    float v = y * 0.5 + 0.5;
+//    u += rx * pi;
+//    v += ry * pi;
+//    float r = atan2(sqrt(x*x+y*y),z) / pi;
+//    float phi2 = atan2(y,x);
+//    float u = r * cos(phi2) + 0.5;
+//    float v = r * sin(phi2) + 0.5;
+    return float2(u, v);
 }
 
 // https://stackoverflow.com/a/32391780
@@ -352,7 +362,7 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
             uv = domeToEqui(uv);
             break;
         case 1: // equiToDome
-            uv = equiToDome(uv);
+            uv = equiToDome(uv, in.rx, in.ry);
             break;
         case 2: // cubeToEqui
             uv = cubeToEqui(uv);
