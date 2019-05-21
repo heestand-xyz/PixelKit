@@ -92,11 +92,11 @@ let camera = CameraPIX()
 
 let levels = LevelsPIX()
 levels.inPix = camera
-brightness = 1.5
+levels.brightness = 1.5
 levels.gamma = 0.5
 
 let hueSat = HueSatPIX()
-hueSat = levels
+hueSat.inPix = levels
 hueSat.sat = 0.5
 
 let blur = BlurPIX()
