@@ -122,6 +122,10 @@ public class CameraPIX: PIXResource {
     #endif
     
     #if os(iOS)
+    /*public*/ var depth: Bool = false { didSet { setupCamera() } }
+    #endif
+    
+    #if os(iOS)
     
     public var manualExposure: Bool = false {
         didSet {
@@ -273,7 +277,7 @@ public class CameraPIX: PIXResource {
         #elseif os(macOS)
         let extCam = camera == .external
         #endif
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, useExternalCamera: extCam, setup: { _, orientation in
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, depth: depth, useExternalCamera: extCam, setup: { _, orientation in
             self.pixelKit.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -313,7 +317,7 @@ public class CameraPIX: PIXResource {
     
 }
 
-class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
+class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureDepthDataOutputDelegate/*, AVCapturePhotoCaptureDelegate*/ {
     
     let pixelKit = PixelKit.main
     
@@ -323,8 +327,14 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //    let photoSupport: Bool
     
     let captureSession: AVCaptureSession
-    let videoOutput: AVCaptureVideoDataOutput
+    var videoOutput: AVCaptureVideoDataOutput?
+    
+    var depthOutput: AVCaptureDepthDataOutput?
+//    var depthConnection: AVCaptureConnection!
+//    var depthSynchronizer: AVCaptureDataOutputSynchronizer!
+    
 //    let photoOutput: AVCapturePhotoOutput?
+    
 
     var lastUIOrientation: _Orientation
 
@@ -334,7 +344,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, depth: Bool = false, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         #if os(iOS)
         device = AVCaptureDevice.default(tele ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
@@ -376,45 +386,96 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         #endif
         
         captureSession = AVCaptureSession()
-        videoOutput = AVCaptureVideoDataOutput()
+
+        if depth {
+            depthOutput = AVCaptureDepthDataOutput()
+        } else {
+            videoOutput = AVCaptureVideoDataOutput()
+        }
 //        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
         
         
         super.init()
         
         
-        let preset: AVCaptureSession.Preset = camRes.sessionPreset
-        
-        if captureSession.canSetSessionPreset(preset) {
-            captureSession.sessionPreset = preset
-        } else {
-            captureSession.sessionPreset = .high
+        guard device != nil else {
+            pixelKit.log(.error, nil, "Camera device not found.")
+            return
         }
         
-        videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
-        
-        if device != nil {
-            do {
-                let input = try AVCaptureDeviceInput(device: device!)
-                if captureSession.canAddInput(input) {
-                    captureSession.addInput(input)
-                    if captureSession.canAddOutput(videoOutput){
-                        captureSession.addOutput(videoOutput)
-                        let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.queue")
-                        videoOutput.setSampleBufferDelegate(self, queue: queue)
-                        start()
-                    } else {
-                        pixelKit.log(.error, .resource, "Camera can't add output.")
-                    }
-                } else {
-                    pixelKit.log(.error, .resource, "Camera can't add input.")
-                }
-            } catch {
-                pixelKit.log(.error, .resource, "Camera input failed to load.", e: error)
-            }
+        if depth {
+            
+            depthOutput!.isFilteringEnabled = false
+//            depthConnection = depthOutput!.connection(with: .depthData)
+//            guard depthConnection != nil else {
+//                pixelKit.log(.error, nil, "Camera depth connection failed.")
+//                return
+//            }
+//            depthConnection!.isEnabled = true
+            
+//            let depthFormats = device!.activeFormat.supportedDepthDataFormats
+//            let filtered = depthFormats.filter({
+//                CMFormatDescriptionGetMediaSubType($0.formatDescription) == kCVPixelFormatType_DepthFloat16
+//            })
+//            let selectedFormat = filtered.max(by: {
+//                first, second in CMVideoFormatDescriptionGetDimensions(first.formatDescription).width < CMVideoFormatDescriptionGetDimensions(second.formatDescription).width
+//            })
+//
+//            do {
+//                try device!.lockForConfiguration()
+//                device!.activeDepthDataFormat = selectedFormat
+//                device!.unlockForConfiguration()
+//            } catch {
+//                pixelKit.log(.error, nil, "Could not lock device for depth configuration.", e: error)
+//                return
+//            }
+            
+//            let depthQueue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.depth.queue")
+//
+//            depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [depthOutput!])
+//            depthSynchronizer.setDelegate(self, queue: depthQueue)
+    
         } else {
-            pixelKit.log(.error, .resource, "Camera not found.")
+            
+            let preset: AVCaptureSession.Preset = camRes.sessionPreset
+            if captureSession.canSetSessionPreset(preset) {
+                captureSession.sessionPreset = preset
+            } else {
+                captureSession.sessionPreset = .high
+            }
+            
+            videoOutput!.alwaysDiscardsLateVideoFrames = true
+            videoOutput!.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
+            
+        }
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: device!)
+            if captureSession.canAddInput(input) {
+                captureSession.addInput(input)
+                let output: AVCaptureOutput
+                if depth {
+                    output = depthOutput!
+                } else {
+                    output = videoOutput!
+                }
+                if captureSession.canAddOutput(output){
+                    captureSession.addOutput(output)
+                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.queue")
+                    if depth {
+                        depthOutput!.setDelegate(self, callbackQueue: queue)
+                    } else {
+                        videoOutput!.setSampleBufferDelegate(self, queue: queue)
+                    }
+                    start()
+                } else {
+                    pixelKit.log(.error, .resource, "Camera can't add output.")
+                }
+            } else {
+                pixelKit.log(.error, .resource, "Camera can't add input.")
+            }
+        } catch {
+            pixelKit.log(.error, .resource, "Camera input failed to load.", e: error)
         }
     
         #if os(iOS)
@@ -473,6 +534,26 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             
             self.capturedCallback(pixelBuffer)
             
+        }
+        
+    }
+    
+    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
+                         didOutput depthData: AVDepthData,
+                         timestamp: CMTime,
+                         connection: AVCaptureConnection) {
+        
+        var convertedDepth: AVDepthData
+        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
+            convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
+        } else {
+            convertedDepth = depthData
+        }
+        print("DEPTH")
+        let pixelBuffer = convertedDepth.depthDataMap
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.capturedCallback(pixelBuffer)
         }
         
     }
