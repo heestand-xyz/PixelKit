@@ -833,7 +833,7 @@
 		74BC39CE21011E3A004E9AA0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Hexagons;
 				TargetAttributes = {
@@ -852,6 +852,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 74BC39CD21011E3A004E9AA0;
 			productRefGroup = 74BC39D821011E3A004E9AA0 /* Products */;
