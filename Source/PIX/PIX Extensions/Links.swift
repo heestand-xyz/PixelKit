@@ -11,7 +11,7 @@ import Foundation
 public extension PIX {
     
     public class Link {
-        weak var pix: PIX?
+        /*weak*/ var pix: PIX?
         init(pix: PIX) {
             self.pix = pix
         }
