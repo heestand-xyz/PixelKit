@@ -9,6 +9,8 @@ build/
 *.framework
 
 Pods/*
+*.xcworkspace
+Podfile.lock
 
 docs/*
 
