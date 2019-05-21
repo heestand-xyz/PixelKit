@@ -92,28 +92,34 @@ let camera = CameraPIX()
 
 let levels = LevelsPIX()
 levels.inPix = camera
-levels.gamma = 2.0
-levels.inverted = true
+brightness = 1.5
+levels.gamma = 0.5
 
-let hueSaturation = HueSatPIX()
-hueSaturation.inPix = levels
-hueSaturation.hue = 0.5
-hueSaturation.saturation = 0.5
+let hueSat = HueSatPIX()
+hueSat = levels
+hueSat.sat = 0.5
 
 let blur = BlurPIX()
-blur.inPix = hueSaturation
+blur.inPix = hueSat
 blur.radius = 0.25
 
-let finalPix: PIX = blur
+let res: PIX.Res = .custom(w: 1500, h: 1000)
+let circle = CirclePIX(res: res)
+circle.radius = 0.45
+circle.bgColor = .clear
+
+let finalPix: PIX = blur & (camera * circle)
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = CameraPIX()._gamma(2.0)._invert()._hue(0.5)._saturation(0.5)._blur(0.25)
+let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 ```
-Tho it is not as efficiant as two LevelsPIXs and  HueSatPIXs will be created.
+
+| <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
+| --- | --- | --- | --- | --- |
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
