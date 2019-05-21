@@ -398,7 +398,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //        if depth {
 //            depthOutput = AVCaptureDepthDataOutput()
 //        } else {
-//            videoOutput = AVCaptureVideoDataOutput()
+        videoOutput = AVCaptureVideoDataOutput()
 //        }
 //        #endif
         
