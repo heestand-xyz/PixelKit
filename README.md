@@ -11,44 +11,44 @@ a Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
 <b>Content:</b>
-[Camera](http://pixelkit.dev/PixelKit/docs/Classes/CameraPIX.html) -
-[Image](http://pixelkit.dev/PixelKit/docs/Classes/ImagePIX.html) -
-[Video](http://pixelkit.dev/PixelKit/docs/Classes/VideoPIX.html) -
-[Screen Capture](http://pixelkit.dev/PixelKit/docs/Classes/ScreenCapturePIX.html)-
-[Color](http://pixelkit.dev/PixelKit/docs/Classes/ColorPIX.html) -
-[Circle](http://pixelkit.dev/PixelKit/docs/Classes/CirclePIX.html) -
-[Rectangle](http://pixelkit.dev/PixelKit/docs/Classes/RectanglePIX.html) -
-[Polygon](http://pixelkit.dev/PixelKit/docs/Classes/PolygonPIX.html) -
-[Gradient](http://pixelkit.dev/PixelKit/docs/Classes/GradientPIX.html) -
-[Noise](http://pixelkit.dev/PixelKit/docs/Classes/NoisePIX.html) - 
-[Text](http://pixelkit.dev/PixelKit/docs/Classes/TextPIX.html)
+[Camera](http://pixelkit.net/docs/Classes/CameraPIX.html) -
+[Image](http://pixelkit.net/docs/Classes/ImagePIX.html) -
+[Video](http://pixelkit.net/docs/Classes/VideoPIX.html) -
+[Screen Capture](http://pixelkit.net/docs/Classes/ScreenCapturePIX.html)-
+[Color](http://pixelkit.net/docs/Classes/ColorPIX.html) -
+[Circle](http://pixelkit.net/docs/Classes/CirclePIX.html) -
+[Rectangle](http://pixelkit.net/docs/Classes/RectanglePIX.html) -
+[Polygon](http://pixelkit.net/docs/Classes/PolygonPIX.html) -
+[Gradient](http://pixelkit.net/docs/Classes/GradientPIX.html) -
+[Noise](http://pixelkit.net/docs/Classes/NoisePIX.html) - 
+[Text](http://pixelkit.net/docs/Classes/TextPIX.html)
 <br>
 <b>Effects:</b>
-[Levels](http://pixelkit.dev/PixelKit/docs/Classes/LevelsPIX.html) -
-[Blur](http://pixelkit.dev/PixelKit/docs/Classes/BlurPIX.html) -
-[Edge](http://pixelkit.dev/PixelKit/docs/Classes/EdgePIX.html) -
-[Threshold](http://pixelkit.dev/PixelKit/docs/Classes/ThresholdPIX.html) -
-[Quantize](http://pixelkit.dev/PixelKit/docs/Classes/QuantizePIX.html) -
-[Transform](http://pixelkit.dev/PixelKit/docs/Classes/TransformPIX.html) -
-[Kaleidoscope](http://pixelkit.dev/PixelKit/docs/Classes/KaleidoscopePIX.html) -
-[Twirl](http://pixelkit.dev/PixelKit/docs/Classes/TwirlPIX.html) -
-[Feedback](http://pixelkit.dev/PixelKit/docs/Classes/FeedbackPIX.html) -
-[Channel Mix](http://pixelkit.dev/PixelKit/docs/Classes/ChannelMixPIX.html) -
-[Chroma Key](http://pixelkit.dev/PixelKit/docs/Classes/ChromaKeyPIX.html) -
-[Corner Pin](http://pixelkit.dev/PixelKit/docs/Classes/CornerPinPIX.html) -
-[HueSat](http://pixelkit.dev/PixelKit/docs/Classes/HueSatPIX.html) -
-[Crop](http://pixelkit.dev/PixelKit/docs/Classes/CropPIX.html) -
-[Flip Flop](http://pixelkit.dev/PixelKit/docs/Classes/FlipFlopPIX.html) -
-[Range](http://pixelkit.dev/PixelKit/docs/Classes/RangePIX.html) -
-[Sharpen](http://pixelkit.dev/PixelKit/docs/Classes/SharpenPIX.html) -
-[Slope](http://pixelkit.dev/PixelKit/docs/Classes/SlopePIX.html) -
-[Cross](http://pixelkit.dev/PixelKit/docs/Classes/CrossPIX.html) -
-[Blend](http://pixelkit.dev/PixelKit/docs/Classes/BlendPIX.html) -
-[Lookup](http://pixelkit.dev/PixelKit/docs/Classes/LookupPIX.html) -
-[Displace](http://pixelkit.dev/PixelKit/docs/Classes/DisplacePIX.html) -
-[Remap](http://pixelkit.dev/PixelKit/docs/Classes/RemapPIX.html) -
-[Reorder](http://pixelkit.dev/PixelKit/docs/Classes/ReorderPIX.html) -
-[Blends](http://pixelkit.dev/PixelKit/docs/Classes/BlendsPIX.html)
+[Levels](http://pixelkit.net/docs/Classes/LevelsPIX.html) -
+[Blur](http://pixelkit.net/docs/Classes/BlurPIX.html) -
+[Edge](http://pixelkit.net/docs/Classes/EdgePIX.html) -
+[Threshold](http://pixelkit.net/docs/Classes/ThresholdPIX.html) -
+[Quantize](http://pixelkit.net/docs/Classes/QuantizePIX.html) -
+[Transform](http://pixelkit.net/docs/Classes/TransformPIX.html) -
+[Kaleidoscope](http://pixelkit.net/docs/Classes/KaleidoscopePIX.html) -
+[Twirl](http://pixelkit.net/docs/Classes/TwirlPIX.html) -
+[Feedback](http://pixelkit.net/docs/Classes/FeedbackPIX.html) -
+[Channel Mix](http://pixelkit.net/docs/Classes/ChannelMixPIX.html) -
+[Chroma Key](http://pixelkit.net/docs/Classes/ChromaKeyPIX.html) -
+[Corner Pin](http://pixelkit.net/docs/Classes/CornerPinPIX.html) -
+[HueSat](http://pixelkit.net/docs/Classes/HueSatPIX.html) -
+[Crop](http://pixelkit.net/docs/Classes/CropPIX.html) -
+[Flip Flop](http://pixelkit.net/docs/Classes/FlipFlopPIX.html) -
+[Range](http://pixelkit.net/docs/Classes/RangePIX.html) -
+[Sharpen](http://pixelkit.net/docs/Classes/SharpenPIX.html) -
+[Slope](http://pixelkit.net/docs/Classes/SlopePIX.html) -
+[Cross](http://pixelkit.net/docs/Classes/CrossPIX.html) -
+[Blend](http://pixelkit.net/docs/Classes/BlendPIX.html) -
+[Lookup](http://pixelkit.net/docs/Classes/LookupPIX.html) -
+[Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) -
+[Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) -
+[Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) -
+[Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html)
 
 Examples:
 [Camera Effects](#example-camera-effects) -
