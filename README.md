@@ -297,8 +297,8 @@ Here's an example of live midi values in range 0.0 to 1.0.
 
 ```
 let circle = CirclePIX(res: ._1024)
-circle.radius = .midi("#13")
-circle.color = .midi("#17")
+circle.radius = .midi("13")
+circle.color = .midi("17")
 ```
 
 You can find the addresses by enabeling logging like this:
@@ -318,7 +318,7 @@ There is currently there is some gamma offset with resources.
 
 ## MetalPIXs
 
-<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/uv_1080p.png" width="90"/>
+<img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/uv_1080p.png" width="150"/>
 
 ~~~~swift
 let metalPix = MetalPIX(res: ._1080p, code:
@@ -390,6 +390,13 @@ powered by PixelKit<br>
 
 a camera app lets you live layer filters of your choice.<br>
 combine effects to create new cool styles.
+
+<img src="http://pixelkit.net/resources/VJLive.png" width="64"/>
+
+### [VJLive](https://itunes.apple.com/us/app/vjlive/id1464372525?mt=8&ign-mpt=uo%3D2)
+
+VJLive is a dual deck asset playback system with effects.<br>
+Assets can be loaded from Photos. Live camera support. AirPlay support.
 
 ---
 
