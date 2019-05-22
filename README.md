@@ -74,6 +74,10 @@ Note that PixelKit dose not have simulator support. Metal for iOS can only run o
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
+## Docs
+
+[Jazzy Docs](http://pixelkit.net/docs/)
+
 ## Example
 
 [Hello PixelKit](https://github.com/hexagons/Hello-PixelKit)
