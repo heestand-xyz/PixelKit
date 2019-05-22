@@ -85,11 +85,13 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 [Green Screen in Swift & PixelKit](http://blog.hexagons.se/blog/green-screen-in-swift-pixelkit/)<br>
 [Particles in VertexKit & PixelKit](http://blog.hexagons.se/blog/particles-in-vertexkit-pixelkit/)
 
-## Example App
+## Examples
 
-[Hello Pixels](https://github.com/hexagons/Hello-Pixels) (iOS & macOS)
+[Hello Pixels](https://github.com/hexagons/Hello-Pixels) App (iOS & macOS)<br>
+[Code Examples of all PIXs](http://pixelkit.net/examples/)
 
-## Example: Camera Effects
+
+### Example: Camera Effects
 
 `import PixelKit`
 
@@ -129,7 +131,7 @@ let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
-## Example: Green Screen
+### Example: Green Screen
 
 `import PixelKit`
 
