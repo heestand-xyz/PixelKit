@@ -52,6 +52,7 @@ fragment float4 effectSingleChromaKeyPIX(VertexOut out [[stage_in]],
     }
     
     ck = max(ck, 1.0 - c_hsv[1]);
+    ck = max(ck, 1.0 - c_hsv[2]);
 
     float edge_sat = 1 - in.edge_desat;
     if (edge_sat < 0) { edge_sat = 0; }

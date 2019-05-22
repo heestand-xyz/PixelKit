@@ -76,7 +76,6 @@
 		3A48920322941972002A0E66 /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916722941972002A0E66 /* TextPIX.swift */; };
 		3A48920422941972002A0E66 /* PIXResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916922941972002A0E66 /* PIXResource.swift */; };
 		3A48920522941972002A0E66 /* PIXResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916922941972002A0E66 /* PIXResource.swift */; };
-		3A48920622941972002A0E66 /* ScreenCapturePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916A22941972002A0E66 /* ScreenCapturePIX.swift */; };
 		3A48920722941972002A0E66 /* ScreenCapturePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916A22941972002A0E66 /* ScreenCapturePIX.swift */; };
 		3A48920A22941972002A0E66 /* VideoPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916C22941972002A0E66 /* VideoPIX.swift */; };
 		3A48920B22941972002A0E66 /* VideoPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48916C22941972002A0E66 /* VideoPIX.swift */; };
@@ -186,7 +185,6 @@
 		3A48927422941972002A0E66 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891A922941972002A0E66 /* Peer.swift */; };
 		3A48927622941972002A0E66 /* PIXProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AB22941972002A0E66 /* PIXProtocols.swift */; };
 		3A48927722941972002A0E66 /* PIXProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AB22941972002A0E66 /* PIXProtocols.swift */; };
-		3A48927822941972002A0E66 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AD22941972002A0E66 /* LiveMouseView.swift */; };
 		3A48927922941972002A0E66 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AD22941972002A0E66 /* LiveMouseView.swift */; };
 		3A48927A22941972002A0E66 /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AE22941972002A0E66 /* PIXView.swift */; };
 		3A48927B22941972002A0E66 /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891AE22941972002A0E66 /* PIXView.swift */; };
@@ -220,7 +218,6 @@
 		3A48929822941972002A0E66 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891BF22941972002A0E66 /* Types.swift */; };
 		3A48929922941972002A0E66 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891BF22941972002A0E66 /* Types.swift */; };
 		3A48929A229419DB002A0E66 /* AirPlayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48915422941972002A0E66 /* AirPlayPIX.swift */; };
-		74D90B1D21331CF60028A69E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 74D90B1B21331CF60028A69E /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -388,7 +385,6 @@
 		744A9DAA22932D9200A01CA1 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		7479F6B12275C04D009B4B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		74D90B1B21331CF60028A69E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -749,7 +745,6 @@
 		74BC39CD21011E3A004E9AA0 = {
 			isa = PBXGroup;
 			children = (
-				74D90B1B21331CF60028A69E /* README.md */,
 				3A48913B22941972002A0E66 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
@@ -907,7 +902,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A48921622941972002A0E66 /* EffectMultiMetalPIX.metal.txt in Resources */,
-				74D90B1D21331CF60028A69E /* README.md in Resources */,
 				3A48922222941972002A0E66 /* EffectSingleMetalPIX.metal.txt in Resources */,
 				3A4891D822941972002A0E66 /* PIXAuto.stencil in Resources */,
 				3A48925C22941972002A0E66 /* EffectMergerMetalPIX.metal.txt in Resources */,
@@ -1036,7 +1030,6 @@
 				3A4891FE22941972002A0E66 /* LinePIX.swift in Sources */,
 				3A48922A22941972002A0E66 /* LevelsPIX.swift in Sources */,
 				3A48920422941972002A0E66 /* PIXResource.swift in Sources */,
-				3A48927822941972002A0E66 /* LiveMouseView.swift in Sources */,
 				3A48924822941972002A0E66 /* DelayPIX.swift in Sources */,
 				3A4891C622941972002A0E66 /* String.swift in Sources */,
 				3A48924422941972002A0E66 /* PIXSingleEffect.swift in Sources */,
@@ -1061,7 +1054,6 @@
 				3A48926A22941972002A0E66 /* MetalMergerEffectPIX.swift in Sources */,
 				3A48927A22941972002A0E66 /* PIXView.swift in Sources */,
 				3A4891D422941972002A0E66 /* Resolution.swift in Sources */,
-				3A48920622941972002A0E66 /* ScreenCapturePIX.swift in Sources */,
 				3A48923822941972002A0E66 /* FlarePIX.swift in Sources */,
 				3A4891F622941972002A0E66 /* CirclePIX.swift in Sources */,
 				3A48921A22941972002A0E66 /* BlendsPIX.swift in Sources */,
@@ -1343,7 +1335,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1378,7 +1370,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
