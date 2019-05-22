@@ -441,6 +441,7 @@
 				740EC539213EFC3E006E2996 /* Operators.swift */,
 				7424A1B4212F5C9300401654 /* Modes.swift */,
 				74013305224D298000826395 /* Layout.swift */,
+				3A8558A32292C55E002B0983 /* Links.swift */,
 				74076D04211A27D2000E56E0 /* Res.swift */,
 			);
 			path = "PIX Extensions";
@@ -656,7 +657,6 @@
 				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
 				74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */,
 				3A8AC3492277292C00A142AA /* SyphonInPIX.swift */,
-				3A8558A32292C55E002B0983 /* Links.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
