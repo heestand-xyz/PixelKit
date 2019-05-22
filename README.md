@@ -52,7 +52,9 @@ powered by Metal - inspired by TouchDesigner
 
 Examples:
 [Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen)
+[Green Screen](#example-green-screen) - 
+[Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
+[Code Examples](http://pixelkit.net/examples/)
 <br>
 Info:
 [Coordinate Space](#coordinate-space) -
