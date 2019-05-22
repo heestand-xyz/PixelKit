@@ -162,7 +162,11 @@ extension PixelKit {
         guard let texture = pix.texture else {
             throw TextureError.copy("PIX Texture is nil.")
         }
-        let textureCopy = try emptyTexture(size: CGSize(width: pix.texture!.width, height: pix.texture!.height))
+        return try copy(texture: texture)
+    }
+    
+    func copy(texture: MTLTexture) throws -> MTLTexture {
+        let textureCopy = try emptyTexture(size: CGSize(width: texture.width, height: texture.height))
         guard let commandBuffer = commandQueue.makeCommandBuffer() else {
             throw TextureError.copy("Command Buffer make failed.")
         }
@@ -170,7 +174,7 @@ extension PixelKit {
             throw TextureError.copy("Blit Command Encoder make failed.")
         }
         blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: textureCopy, destinationSlice: 0, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
-//        blitEncoder.generateMipmaps(for: textureCopy)
+        //        blitEncoder.generateMipmaps(for: textureCopy)
         blitEncoder.endEncoding()
         commandBuffer.commit()
         return textureCopy

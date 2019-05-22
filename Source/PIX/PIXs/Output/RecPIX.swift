@@ -307,7 +307,7 @@ public class RecPIX: PIXOutput {
     func recordFrame(texture: MTLTexture) {
         
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
-        
+            
             let options: [CIImageOption : Any] = [
                 CIImageOption.colorSpace: pixelKit.colorSpace.cg
             ]
@@ -318,7 +318,7 @@ public class RecPIX: PIXOutput {
                 EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: pixelKit.bits.ci, colorSpace: pixelKit.colorSpace.cg)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: LiveColor.Bits._8.ci, colorSpace: pixelKit.colorSpace.cg)
                 if cg_image != nil {
                     
                     currentImage = cg_image!
