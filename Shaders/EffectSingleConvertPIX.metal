@@ -30,15 +30,20 @@ float2 domeToEqui(float2 uv) {
 float2 equiToDome(float2 uv, float rx, float ry) {
     float pi = 3.14159265359;
     float theta = uv.x * pi * 2;
+//    theta *= 0.25;
     float phi = ((1.0 - uv.y) * pi) + pi / 2;
+//    phi *= 0.25;
     float x = cos(phi) * sin(theta);
     float y = sin(phi);
     float z = cos(phi) * cos(theta);
+//    float x = sin(theta) * cos(phi);
+//    float y = sin(theta) * sin(phi);
+//    float z = cos(theta);
     float u = atan2(x, z) / (2 * pi) + 0.5;
     float v = y * 0.5 + 0.5;
 //    u += rx * pi;
 //    v += ry * pi;
-//    float r = atan2(sqrt(x*x+y*y),z) / pi;
+//    float r = atan2(sqrt(x*x+y*y),z) / (pi * rx * 4);
 //    float phi2 = atan2(y,x);
 //    float u = r * cos(phi2) + 0.5;
 //    float v = r * sin(phi2) + 0.5;
@@ -388,7 +393,7 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
             break;
         case 1: // equiToDome
             if (sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) > 0.5) {
-                c = 0;
+                c = c + float4(1,0,0,0);
             }
             break;
 //        case 3: // equiToCube

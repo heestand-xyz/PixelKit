@@ -52,7 +52,9 @@ powered by Metal - inspired by TouchDesigner
 
 Examples:
 [Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen)
+[Green Screen](#example-green-screen) - 
+[Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
+[Code Examples](http://pixelkit.net/examples/)
 <br>
 Info:
 [Coordinate Space](#coordinate-space) -
@@ -74,16 +76,24 @@ Note that PixelKit dose not have simulator support. Metal for iOS can only run o
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
-## Example
+## Docs
 
-[Hello PixelKit](https://github.com/hexagons/Hello-PixelKit)
+[Jazzy Docs](http://pixelkit.net/docs/)
 
 ## Tutorials
 
 [Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
-[Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
+[Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)<br>
+[Green Screen in Swift & PixelKit](http://blog.hexagons.se/blog/green-screen-in-swift-pixelkit/)<br>
+[Particles in VertexKit & PixelKit](http://blog.hexagons.se/blog/particles-in-vertexkit-pixelkit/)
 
-## Example: Camera Effects
+## Examples
+
+[Hello Pixels](https://github.com/hexagons/Hello-Pixels) App (iOS & macOS)<br>
+[Code Examples of all PIXs](http://pixelkit.net/examples/)
+
+
+### Example: Camera Effects
 
 `import PixelKit`
 
@@ -123,7 +133,7 @@ let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
-## Example: Green Screen
+### Example: Green Screen
 
 `import PixelKit`
 
