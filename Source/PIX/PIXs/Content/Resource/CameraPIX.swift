@@ -100,7 +100,7 @@ public class CameraPIX: PIXResource {
             #if os(iOS)
             return false
             #elseif os(macOS)
-            return true
+            return false
             #endif
         }
         var isTele: Bool {

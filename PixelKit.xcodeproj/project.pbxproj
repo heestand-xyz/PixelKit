@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F07239DFC40516FDF398532 /* Pods_PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */; };
 		3A13063821AD760300C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A13063921AD778900C2F2CF /* LiveSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13063721AD760300C2F2CF /* LiveSize.swift */; };
 		3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17FBC3225238EC00453079 /* ClampPIX.swift */; };
@@ -42,7 +43,6 @@
 		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
-		3AEE46942289825000F68686 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */; };
 		3AF28BD4219312B90079FC7A /* PixelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DA3D2221026A5900430261 /* PixelKit.swift */; };
 		3AF28BD5219312CA0079FC7A /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
 		3AF28BD6219312CA0079FC7A /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AE212F4A0100401654 /* Texture.swift */; };
@@ -210,7 +210,7 @@
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
 		74ECBBD221026CC500A42570 /* PixelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECBBD121026CC500A42570 /* PixelProtocols.swift */; };
-		F5DDB7F33BD1FBFBCAD3CED1 /* Pods_PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */; };
+		F0A54AAE188537EBBC325060 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,7 +262,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		3A13063721AD760300C2F2CF /* LiveSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSize.swift; sourceTree = "<group>"; };
 		3A17FBC3225238EC00453079 /* ClampPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClampPIX.swift; sourceTree = "<group>"; };
 		3A2924442249114F00A05B7A /* FlarePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlarePIX.swift; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50719DC959EFE20971040FE1 /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
+		4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResPIX.swift; sourceTree = "<group>"; };
@@ -379,10 +379,10 @@
 		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
 		74ECBBD121026CC500A42570 /* PixelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelProtocols.swift; sourceTree = "<group>"; };
-		B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
-		DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
+		B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,7 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
-				F5DDB7F33BD1FBFBCAD3CED1 /* Pods_PixelKit_macOS.framework in Frameworks */,
+				0F07239DFC40516FDF398532 /* Pods_PixelKit_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,13 +399,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AEE46942289825000F68686 /* Pods_PixelKit.framework in Frameworks */,
+				F0A54AAE188537EBBC325060 /* Pods_PixelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1739624EC5FAE956BE665B4F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */,
+				F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3A4A71252285BB7700B7193C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,15 +422,6 @@
 				3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		3A4A712D2285BB8000B7193C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				29991EE44A8C59CE076EEF58 /* Pods_PixelKit.framework */,
-				DE3CB1AF4B6699B334B5DC37 /* Pods_PixelKit_macOS.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3A8E24B922859465007AA99B /* Other */ = {
@@ -718,9 +718,9 @@
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				74BC39D821011E3A004E9AA0 /* Products */,
-				3A4A712D2285BB8000B7193C /* Frameworks */,
-				CFBD82F0930D4AC54D052504 /* Pods */,
 				3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */,
+				C5542F82A4B442192136EE3B /* Pods */,
+				1739624EC5FAE956BE665B4F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -755,15 +755,15 @@
 			path = Sprite;
 			sourceTree = "<group>";
 		};
-		CFBD82F0930D4AC54D052504 /* Pods */ = {
+		C5542F82A4B442192136EE3B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				50719DC959EFE20971040FE1 /* Pods-PixelKit.debug.xcconfig */,
-				D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */,
-				B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */,
-				CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */,
+				4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */,
+				AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */,
+				F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */,
+				16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -790,7 +790,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "PixelKit-macOS" */;
 			buildPhases = (
-				93A94C5EA342F4BDE85346B6 /* [CP] Check Pods Manifest.lock */,
+				C5FC44CEC5995E606FF2CF27 /* [CP] Check Pods Manifest.lock */,
 				746B50452275A171003F5C37 /* CopyFiles */,
 				3AF28BC7219312900079FC7A /* Headers */,
 				3AF28BC8219312900079FC7A /* Sources */,
@@ -811,7 +811,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "PixelKit" */;
 			buildPhases = (
-				65F2B9277A6ABC5FB98B2AAF /* [CP] Check Pods Manifest.lock */,
+				CA0AE9C3BB1E511AF25DCDC4 /* [CP] Check Pods Manifest.lock */,
 				74BC39D221011E3A004E9AA0 /* Headers */,
 				74BC39D321011E3A004E9AA0 /* Sources */,
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
@@ -915,29 +915,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		65F2B9277A6ABC5FB98B2AAF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PixelKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		93A94C5EA342F4BDE85346B6 /* [CP] Check Pods Manifest.lock */ = {
+		C5FC44CEC5995E606FF2CF27 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -953,6 +931,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-PixelKit-macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA0AE9C3BB1E511AF25DCDC4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PixelKit-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1172,7 +1172,7 @@
 /* Begin XCBuildConfiguration section */
 		3AF28BD1219312900079FC7A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0043A5D6FA08E825C113A21 /* Pods-PixelKit-macOS.debug.xcconfig */;
+			baseConfigurationReference = F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -1211,7 +1211,7 @@
 		};
 		3AF28BD2219312900079FC7A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE1710A8F8AE6D56149C5E9A /* Pods-PixelKit-macOS.release.xcconfig */;
+			baseConfigurationReference = 16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -1370,7 +1370,7 @@
 		};
 		74BC39EC21011E3A004E9AA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50719DC959EFE20971040FE1 /* Pods-PixelKit.debug.xcconfig */;
+			baseConfigurationReference = 4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1406,7 +1406,7 @@
 		};
 		74BC39ED21011E3A004E9AA0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5ED210F200DB813186DF93B /* Pods-PixelKit.release.xcconfig */;
+			baseConfigurationReference = AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
