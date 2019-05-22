@@ -86,6 +86,8 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 [Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
 [Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)
+[Green Screen in Swift & PixelKit](http://blog.hexagons.se/blog/green-screen-in-swift-pixelkit/)
+[Particles in VertexKit & PixelKit](http://blog.hexagons.se/blog/particles-in-vertexkit-pixelkit/)
 
 ## Example: Camera Effects
 
