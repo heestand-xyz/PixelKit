@@ -80,7 +80,7 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 ## Example
 
-[Hello PixelKit](https://github.com/hexagons/Hello-PixelKit)
+[Hello Pixels](https://github.com/hexagons/Hello-Pixels)
 
 ## Tutorials
 
