@@ -272,12 +272,12 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - pix.<b>_range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
 - pix.<b>_sharpen()</b> -> SharpenPIX
 - pix.<b>_slope()</b> - > SlopePIX
-- pixA.<b>_lookup(pix: pixB, axis: .x)</b> -> LookupPIX
-- pixA.<b>_lumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
-- pixA.<b>_lumaLevels(pix: pixB, brightness: 2.0)</b> -> LumaLevelsPIX
-- pixA.<b>_vignetting(pix: pixB, inset: 0.25, gamma: 0.5)</b> -> LumaLevelsPIX
-- pixA.<b>_displace(radius: 0.5, distance: 0.5)</b> -> DisplacePIX
-- pixA.<b>_remap(pix: pixB)</b> -> RemapPIX
+- pixA.<b>_lookup(with: pixB, axis: .x)</b> -> LookupPIX
+- pixA.<b>_lumaBlur(with: pixB, radius: 0.5)</b> -> LumaBlurPIX
+- pixA.<b>_lumaLevels(with: pixB, brightness: 2.0)</b> -> LumaLevelsPIX
+- pixA.<b>_vignetting(with: pixB, inset: 0.25, gamma: 0.5)</b> -> LumaLevelsPIX
+- pixA.<b>_displace(with: pixB, distance: 0.5)</b> -> DisplacePIX
+- pixA.<b>_remap(with: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory if in a loop.
