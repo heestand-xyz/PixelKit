@@ -154,6 +154,38 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
+    public func thumbnail(fraction: CGFloat) -> UIImage? {
+        guard let player = helper.player else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
+            return nil
+        }
+        guard let item = player.currentItem else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video item not found.")
+            return nil
+        }
+        let seconds = item.duration.seconds * Double(fraction)
+        return thumbnail(seconds: seconds)
+    }
+    
+    public func thumbnail(seconds: Double) -> UIImage? {
+        guard let player = helper.player else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
+            return nil
+        }
+        guard let asset = player.currentItem?.asset else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Asset not found.")
+            return nil
+        }
+        let imgGenerator = AVAssetImageGenerator(asset: asset)
+        let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        guard let cgImage = try? imgGenerator.copyCGImage(at: time, actualTime: nil) else {
+            pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Image fail.")
+            return nil
+        }
+        let uiImage = UIImage(cgImage: cgImage)
+        return uiImage
+    }
+    
 }
 
 // MARK: - Helper
