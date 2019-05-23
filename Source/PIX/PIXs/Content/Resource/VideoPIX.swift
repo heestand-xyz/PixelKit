@@ -163,6 +163,7 @@ public class VideoPIX: PIXResource {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video item not found.")
             return nil
         }
+        // FIXME: item.duration.seconds is NaN
         let seconds = item.duration.seconds * Double(fraction)
         return thumbnail(seconds: seconds, at: size, placement: placement)
     }

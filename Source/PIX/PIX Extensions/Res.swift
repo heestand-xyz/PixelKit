@@ -195,11 +195,11 @@ public extension PIX {
             }
         }
         
-        public static var scale: CGFloat {
+        public static var scale: LiveFloat {
             #if os(iOS)
-            return UIScreen.main.nativeScale
+            return LiveFloat(UIScreen.main.nativeScale)
             #elseif os(macOS)
-            return NSScreen.main?.backingScaleFactor ?? 1.0
+            return LiveFloat(NSScreen.main?.backingScaleFactor ?? 1.0)
             #endif
         }
         
@@ -303,7 +303,7 @@ public extension PIX {
         }
         public func aspectBounds(to aspectPlacement: AspectPlacement, in res: Res) -> CGRect {
             let aRes = aspectRes(to: aspectPlacement, in: res)
-            return CGRect(x: 0, y: 0, width: aRes.width.cg / Res.scale, height: aRes.height.cg / Res.scale)
+            return CGRect(x: 0, y: 0, width: aRes.width.cg / Res.scale.cg, height: aRes.height.cg / Res.scale.cg)
         }
         
         // MARK: - Life Cycle
@@ -344,7 +344,7 @@ public extension PIX {
         }
         
         public init(autoScaleSize: CGSize) {
-            self.init(size: CGSize(width: autoScaleSize.width * Res.scale, height: autoScaleSize.height * Res.scale))
+            self.init(size: CGSize(width: autoScaleSize.width * Res.scale.cg, height: autoScaleSize.height * Res.scale.cg))
         }
         
         public init(_ raw: Raw) {
