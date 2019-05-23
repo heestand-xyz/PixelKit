@@ -280,7 +280,7 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - pixA.<b>_remap(with: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
-Be careful of overloading GPU memory if in a loop.
+Be careful of overloading GPU memory, some funcs create several PIXs.
 
 <!--
 ## File IO
