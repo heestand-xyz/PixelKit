@@ -138,8 +138,6 @@ open class PIX {
     
         view = PIXView()
         
-        pixelKit.log(pix: self, .info, nil, "🔆")
-        
         guard shader != "" else {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
@@ -157,10 +155,6 @@ open class PIX {
         
         pixelKit.log(pix: self, .detail, nil, "Linked with PixelKit.", clean: true)
     
-    }
-    
-    deinit {
-        pixelKit.log(pix: self, .info, nil, "🌀")
     }
     
     // MARK: Sampler
