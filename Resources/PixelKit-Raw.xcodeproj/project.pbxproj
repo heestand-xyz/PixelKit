@@ -218,6 +218,8 @@
 		3A48929822941972002A0E66 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891BF22941972002A0E66 /* Types.swift */; };
 		3A48929922941972002A0E66 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4891BF22941972002A0E66 /* Types.swift */; };
 		3A48929A229419DB002A0E66 /* AirPlayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48915422941972002A0E66 /* AirPlayPIX.swift */; };
+		3A6A1D8E2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */; };
+		3A6A1D8F2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,6 +382,7 @@
 		3A4891BD22941972002A0E66 /* Render.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		3A4891BE22941972002A0E66 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
 		3A4891BF22941972002A0E66 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LumaLevelsPIX.swift; sourceTree = "<group>"; };
 		3A8AC3482277282C00A142AA /* PixelKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKit.entitlements; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		744A9DAA22932D9200A01CA1 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
@@ -646,6 +649,7 @@
 		3A48919922941972002A0E66 /* Merger */ = {
 			isa = PBXGroup;
 			children = (
+				3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */,
 				3A48919A22941972002A0E66 /* LumaBlurPIX.swift */,
 				3A48919B22941972002A0E66 /* Metal */,
 				3A48919D22941972002A0E66 /* LookupPIX.swift */,
@@ -940,6 +944,7 @@
 				3A4891CF22941972002A0E66 /* Operators.swift in Sources */,
 				3A48923722941972002A0E66 /* FeedbackPIX.swift in Sources */,
 				3A48928B22941972002A0E66 /* LiveColor.swift in Sources */,
+				3A6A1D8F2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */,
 				3A48928D22941972002A0E66 /* LiveValue.swift in Sources */,
 				3A48923D22941972002A0E66 /* HueSatPIX.swift in Sources */,
 				3A48927122941972002A0E66 /* MIDI.swift in Sources */,
@@ -1108,6 +1113,7 @@
 				3A48927622941972002A0E66 /* PIXProtocols.swift in Sources */,
 				3A4891EE22941972002A0E66 /* PIXGenerator.swift in Sources */,
 				3A4891EA22941972002A0E66 /* NoisePIX.swift in Sources */,
+				3A6A1D8E2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */,
 				3A4891C222941972002A0E66 /* PixelKit.swift in Sources */,
 				3A48923E22941972002A0E66 /* KaleidoscopePIX.swift in Sources */,
 				3A4891E822941972002A0E66 /* PIXContent.swift in Sources */,

@@ -105,6 +105,7 @@ extension PixelKit {
         case fit
     }
     
+    #if os(iOS)
     public static func resize(_ image: UIImage, to size: CGSize, placement: ImagePlacement = .fill) -> UIImage {
         
         let frame: CGRect
@@ -140,6 +141,7 @@ extension PixelKit {
         
         return resized_image!
     }
+    #endif
     
     func makeTexture(from pixelBuffer: CVPixelBuffer, with commandBuffer: MTLCommandBuffer, force8bit: Bool = false) throws -> MTLTexture {
 //        let width = CVPixelBufferGetWidth(pixelBuffer)

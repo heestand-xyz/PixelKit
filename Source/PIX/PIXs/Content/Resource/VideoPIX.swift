@@ -154,6 +154,7 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
+    #if os(iOS)
     public func thumbnail(fraction: CGFloat, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
@@ -186,6 +187,7 @@ public class VideoPIX: PIXResource {
         let uiImage = UIImage(cgImage: cgImage)
         return PixelKit.resize(uiImage, to: size, placement: placement)
     }
+    #endif
     
 }
 
