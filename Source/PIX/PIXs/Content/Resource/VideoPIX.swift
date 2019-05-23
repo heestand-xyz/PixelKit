@@ -154,7 +154,7 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
-    public func thumbnail(fraction: CGFloat) -> UIImage? {
+    public func thumbnail(fraction: CGFloat, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
@@ -164,10 +164,10 @@ public class VideoPIX: PIXResource {
             return nil
         }
         let seconds = item.duration.seconds * Double(fraction)
-        return thumbnail(seconds: seconds)
+        return thumbnail(seconds: seconds, at: size, placement: placement)
     }
     
-    public func thumbnail(seconds: Double) -> UIImage? {
+    public func thumbnail(seconds: Double, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
@@ -183,7 +183,7 @@ public class VideoPIX: PIXResource {
             return nil
         }
         let uiImage = UIImage(cgImage: cgImage)
-        return uiImage
+        return PixelKit.resize(uiImage, to: size, placement: placement)
     }
     
 }

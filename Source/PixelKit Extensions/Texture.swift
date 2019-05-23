@@ -100,6 +100,47 @@ extension PixelKit {
         return pixelBuffer
     }
     
+    public enum ImagePlacement {
+        case fill
+        case fit
+    }
+    
+    public static func resize(_ image: UIImage, to size: CGSize, placement: ImagePlacement = .fill) -> UIImage {
+        
+        let frame: CGRect
+        switch placement {
+        case .fit:
+            frame = CGRect(
+                x: image.size.width / size.width > image.size.height / size.height ?
+                    0 : (size.width - image.size.width * (size.height / image.size.height)) / 2,
+                y: image.size.width / size.width < image.size.height / size.height ?
+                    0 : (size.height - image.size.height * (size.width / image.size.width)) / 2,
+                width: image.size.width / size.width > image.size.height / size.height ?
+                    size.width : image.size.width * (size.height / image.size.height),
+                height: image.size.width / size.width < image.size.height / size.height ?
+                    size.height : image.size.height * (size.width / image.size.width)
+            )
+        case .fill:
+            frame = CGRect(
+                x: image.size.width / size.width < image.size.height / size.height ?
+                    0 : (size.width - image.size.width * (size.height / image.size.height)) / 2,
+                y: image.size.width / size.width > image.size.height / size.height ?
+                    0 : (size.height - image.size.height * (size.width / image.size.width)) / 2,
+                width: image.size.width / size.width < image.size.height / size.height ?
+                    size.width : image.size.width * (size.height / image.size.height),
+                height: image.size.width / size.width > image.size.height / size.height ?
+                    size.height : image.size.height * (size.width / image.size.width)
+            )
+        }
+        
+        UIGraphicsBeginImageContext(size)
+        image.draw(in: frame)
+        let resized_image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resized_image!
+    }
+    
     func makeTexture(from pixelBuffer: CVPixelBuffer, with commandBuffer: MTLCommandBuffer, force8bit: Bool = false) throws -> MTLTexture {
 //        let width = CVPixelBufferGetWidth(pixelBuffer)
 //        let height = CVPixelBufferGetHeight(pixelBuffer)
