@@ -70,9 +70,19 @@ Info:
 
 ## Install
 
-`pod 'PixelKit'`
+### CocoaPods:
 
-`import PixelKit`
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `PixelKit` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+pod 'PixelKit'
+```
+
+And import:
+
+```swift
+import PixelKit
+```
 
 Note that PixelKit dose not have simulator support. Metal for iOS can only run on a physical device.
 
