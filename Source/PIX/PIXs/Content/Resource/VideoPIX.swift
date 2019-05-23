@@ -5,7 +5,8 @@
 //  Created by Hexagons on 2018-08-24.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
+import UIKit
 import AVFoundation
 
 public class VideoPIX: PIXResource {
