@@ -393,7 +393,7 @@ fragment float4 effectSingleConvertPIX(VertexOut out [[stage_in]],
             break;
         case 1: // equiToDome
             if (sqrt(pow(u - 0.5, 2) + pow(v - 0.5, 2)) > 0.5) {
-                c = c + float4(1,0,0,0);
+                c = 0;
             }
             break;
 //        case 3: // equiToCube
