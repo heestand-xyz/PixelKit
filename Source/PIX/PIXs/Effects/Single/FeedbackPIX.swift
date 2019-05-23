@@ -30,11 +30,16 @@ public class FeedbackPIX: PIXSingleEffect {
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
     public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }
     
-    public override required init() {
+    public required init() {
         super.init()
-//        pixelKit.delay(frames: 10, done: {
-//            self.setNeedsRender()
-//        })
+        pixelKit.listenToFramesUntil { () -> (PixelKit.ListenState) in
+            if self.inPix?.texture != nil && self.feedTexture != nil {
+                self.setNeedsRender()
+                return .done
+            } else {
+                return .continue
+            }
+        }
     }
     
     override public func didRender(texture: MTLTexture, force: Bool) {
@@ -44,15 +49,7 @@ public class FeedbackPIX: PIXSingleEffect {
             feedReset = false
         }
         readyToFeed = true
-//        RunLoop.current.add(Timer(timeInterval: 2.0 / Double(pixelKit._fps), repeats: false, block: { t in
-            self.setNeedsRender()
-//        }), forMode: .common)
-//        switch pixelKit.renderMode {
-//        case .frameLoop:
-//            setNeedsRender()
-//        case .direct:
-        
-//        }
+        setNeedsRender()
     }
     
     public func resetFeed() {
