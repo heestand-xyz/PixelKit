@@ -263,7 +263,7 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - pix.<b>_key(.green)</b> -> ChromaKeyPIX
 - pix.<b>_hue(0.5)</b> -> HueSatPIX
 - pix.<b>_saturation(0.5)</b> -> HueSatPIX
-- pix.<b>_crop(CGRect(x: 0.5, y 0.5, width: 0.5, height: 0.5))</b> -> CropPIX
+- pix.<b>_crop(CGRect(x: 0.25, y 0.25, width: 0.5, height: 0.5))</b> -> CropPIX
 - pix.<b>_flipX()</b> -> FlipFlopPIX
 - pix.<b>_flipY()</b> -> FlipFlopPIX
 - pix.<b>_flopLeft()</b> -> FlipFlopPIX
@@ -274,7 +274,9 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - pix.<b>_slope()</b> - > SlopePIX
 - pixA.<b>_lookup(pix: pixB, axis: .x)</b> -> LookupPIX
 - pixA.<b>_lumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
-- pixA.<b>_displace(pix: pixB, distance: 0.5)</b> -> DisplacePIX
+- pixA.<b>_lumaLevels(pix: pixB, brightness: 2.0)</b> -> LumaLevelsPIX
+- pixA.<b>_vignetting(pix: pixB, inset: 0.25, gamma: 0.5)</b> -> LumaLevelsPIX
+- pixA.<b>_displace(radius: 0.5, distance: 0.5)</b> -> DisplacePIX
 - pixA.<b>_remap(pix: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
