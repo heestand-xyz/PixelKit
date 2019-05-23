@@ -48,7 +48,9 @@ powered by Metal - inspired by TouchDesigner
 [Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) -
 [Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) -
 [Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) -
-[Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html)
+[Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html) -
+[Luma Levels](http://pixelkit.net/docs/Classes/LumaLevelsPIX.html) -
+[Luma Blur](http://pixelkit.net/docs/Classes/LumaBlurPIX.html)
 
 Examples:
 [Camera Effects](#example-camera-effects) -
