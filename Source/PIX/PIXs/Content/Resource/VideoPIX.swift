@@ -6,7 +6,11 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS)
 import UIKit
+#else
+import CoreGraphics
+#endif
 import AVFoundation
 
 public class VideoPIX: PIXResource {
