@@ -7,7 +7,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/PixelKit.svg)](http://cocoapods.org/pods/PixelKit)
 <img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
 
-a Live Graphics Framework for iOS and macOS<br>
+Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
 <b>Content:</b>
@@ -60,6 +60,7 @@ Examples:
 [Code Demos](http://pixelkit.net/demos/)
 <br>
 Info:
+[Website](http://pixelkit.net/) -
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
