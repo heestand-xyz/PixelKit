@@ -45,7 +45,7 @@ public class PIXView: _View {
     #if os(iOS)
     let liveTouchView: LiveTouchView
     #elseif os(macOS)
-    let liveMouseView: LiveMouseView
+    public let liveMouseView: LiveMouseView
     #endif
     
     #if os(macOS)
