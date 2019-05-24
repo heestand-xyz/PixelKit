@@ -184,7 +184,6 @@ public class VideoPIX: PIXResource {
             return nil
         }
         let imgGenerator = AVAssetImageGenerator(asset: asset)
-        print(">>>>>>>>>>>>>")
         imgGenerator.requestedTimeToleranceBefore = .zero
         imgGenerator.requestedTimeToleranceAfter = .zero
         let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
