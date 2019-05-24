@@ -8,7 +8,7 @@
 
 import AppKit
 
-class LiveMouseView: NSView {
+public class LiveMouseView: NSView {
     
     var mousePoint: CGPoint?
     var mouseLeft: Bool = false
@@ -17,7 +17,25 @@ class LiveMouseView: NSView {
 
     var trackingArea : NSTrackingArea?
     
-    override func updateTrackingAreas() {
+    var mousePointCallbacks: [(CGPoint) -> ()] = []
+    var mouseLeftCallbacks: [(Bool) -> ()] = []
+    var mouseRightCallbacks: [(Bool) -> ()] = []
+    var mouseInViewCallbacks: [(Bool) -> ()] = []
+    
+    public func listenToMousePoint(_ callback: @escaping (CGPoint) -> ()) {
+        mousePointCallbacks.append(callback)
+    }
+    public func listenToMouseLeft(_ callback: @escaping (Bool) -> ()) {
+        mouseLeftCallbacks.append(callback)
+    }
+    public func listenToMouseRight(_ callback: @escaping (Bool) -> ()) {
+        mouseRightCallbacks.append(callback)
+    }
+    public func listenToMouseInView(_ callback: @escaping (Bool) -> ()) {
+        mouseInViewCallbacks.append(callback)
+    }
+    
+    override public func updateTrackingAreas() {
         if trackingArea != nil {
             self.removeTrackingArea(trackingArea!)
         }
@@ -31,15 +49,15 @@ class LiveMouseView: NSView {
         self.addTrackingArea(trackingArea!)
     }
     
-    override func mouseMoved(with event: NSEvent) {
+    override public func mouseMoved(with event: NSEvent) {
         moved(with: event)
     }
     
-    override func mouseDragged(with event: NSEvent) {
+    override public func mouseDragged(with event: NSEvent) {
         moved(with: event)
     }
     
-    override func rightMouseDragged(with event: NSEvent) {
+    override public func rightMouseDragged(with event: NSEvent) {
         moved(with: event)
     }
     
@@ -47,30 +65,51 @@ class LiveMouseView: NSView {
         let point = convert(event.locationInWindow, to: self)
         let coord = getCoord(from: point)
         mousePoint = coord
+        for mousePointCallback in mousePointCallbacks {
+            mousePointCallback(coord)
+        }
     }
     
-    override func mouseDown(with event: NSEvent) {
+    override public func mouseDown(with event: NSEvent) {
         mouseLeft = true
+        for mouseLeftCallback in mouseLeftCallbacks {
+            mouseLeftCallback(true)
+        }
     }
     
-    override func mouseUp(with event: NSEvent) {
+    override public func mouseUp(with event: NSEvent) {
         mouseLeft = false
+        for mouseLeftCallback in mouseLeftCallbacks {
+            mouseLeftCallback(false)
+        }
     }
     
-    override func rightMouseDown(with event: NSEvent) {
+    override public func rightMouseDown(with event: NSEvent) {
         mouseRight = true
+        for mouseRightCallback in mouseRightCallbacks {
+            mouseRightCallback(true)
+        }
     }
     
-    override func rightMouseUp(with event: NSEvent) {
+    override public func rightMouseUp(with event: NSEvent) {
         mouseRight = false
+        for mouseRightCallback in mouseRightCallbacks {
+            mouseRightCallback(false)
+        }
     }
     
-    override func mouseEntered(with event: NSEvent) {
+    override public func mouseEntered(with event: NSEvent) {
         mouseInView = true
+        for mouseInViewCallback in mouseInViewCallbacks {
+            mouseInViewCallback(true)
+        }
     }
     
-    override func mouseExited(with event: NSEvent) {
+    override public func mouseExited(with event: NSEvent) {
         mouseInView = false
+        for mouseInViewCallback in mouseInViewCallbacks {
+            mouseInViewCallback(false)
+        }
     }
     
     func getCoord(from localPoint: CGPoint) -> CGPoint {
