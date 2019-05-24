@@ -13,12 +13,17 @@ extension PIX {
     public var resolution: Res? {
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
-                guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
-                var bufferRes = Res(pixelBuffer: pixelBuffer)
-                if pixResource.flop {
-                    bufferRes = Res(bufferRes.raw.flopped)
+                if let imagePix = pixResource as? ImagePIX {
+                    guard let size = imagePix.image?.size else { return nil }
+                    return Res.cgSize(size) * Res.scale
+                } else {
+                    guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
+                    var bufferRes = Res(pixelBuffer: pixelBuffer)
+                    if pixResource.flop {
+                        bufferRes = Res(bufferRes.raw.flopped)
+                    }
+                    return bufferRes
                 }
-                return bufferRes
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.res
             } else if let pixSprite = pixContent as? PIXSprite {

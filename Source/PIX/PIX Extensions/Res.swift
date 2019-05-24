@@ -430,9 +430,75 @@ public extension PIX {
             return rhs + lhs
         }
         public static func -(lhs: CGFloat, rhs: Res) -> Res {
-            return (rhs - lhs) * -1
+            return (rhs - lhs) * CGFloat(-1.0)
         }
         public static func *(lhs: CGFloat, rhs: Res) -> Res {
+            return rhs * lhs
+        }
+        
+        public static func +(lhs: Res, rhs: Int) -> Res {
+            return Res(Raw(w: lhs.w + Int(rhs), h: lhs.h + Int(rhs)))
+        }
+        public static func -(lhs: Res, rhs: Int) -> Res {
+            return Res(Raw(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs)))
+        }
+        public static func *(lhs: Res, rhs: Int) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg * CGFloat(rhs))), h: Int(round(lhs.height.cg * CGFloat(rhs)))))
+        }
+        public static func /(lhs: Res, rhs: Int) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg / CGFloat(rhs))), h: Int(round(lhs.height.cg / CGFloat(rhs)))))
+        }
+        public static func +(lhs: Int, rhs: Res) -> Res {
+            return rhs + lhs
+        }
+        public static func -(lhs: Int, rhs: Res) -> Res {
+            return (rhs - lhs) * Int(-1)
+        }
+        public static func *(lhs: Int, rhs: Res) -> Res {
+            return rhs * lhs
+        }
+        
+        public static func +(lhs: Res, rhs: Double) -> Res {
+            return Res(Raw(w: lhs.w + Int(rhs), h: lhs.h + Int(rhs)))
+        }
+        public static func -(lhs: Res, rhs: Double) -> Res {
+            return Res(Raw(w: lhs.w - Int(rhs), h: lhs.h - Int(rhs)))
+        }
+        public static func *(lhs: Res, rhs: Double) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg * CGFloat(rhs))), h: Int(round(lhs.height.cg * CGFloat(rhs)))))
+        }
+        public static func /(lhs: Res, rhs: Double) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg / CGFloat(rhs))), h: Int(round(lhs.height.cg / CGFloat(rhs)))))
+        }
+        public static func +(lhs: Double, rhs: Res) -> Res {
+            return rhs + lhs
+        }
+        public static func -(lhs: Double, rhs: Res) -> Res {
+            return (rhs - lhs) * Double(-1.0)
+        }
+        public static func *(lhs: Double, rhs: Res) -> Res {
+            return rhs * lhs
+        }
+        
+        public static func +(lhs: Res, rhs: LiveFloat) -> Res {
+            return Res(Raw(w: lhs.w + Int(rhs.cg), h: lhs.h + Int(rhs.cg)))
+        }
+        public static func -(lhs: Res, rhs: LiveFloat) -> Res {
+            return Res(Raw(w: lhs.w - Int(rhs.cg), h: lhs.h - Int(rhs.cg)))
+        }
+        public static func *(lhs: Res, rhs: LiveFloat) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg * rhs.cg)), h: Int(round(lhs.height.cg * rhs.cg))))
+        }
+        public static func /(lhs: Res, rhs: LiveFloat) -> Res {
+            return Res(Raw(w: Int(round(lhs.width.cg / rhs.cg)), h: Int(round(lhs.height.cg / rhs.cg))))
+        }
+        public static func +(lhs: LiveFloat, rhs: Res) -> Res {
+            return rhs + lhs
+        }
+        public static func -(lhs: LiveFloat, rhs: Res) -> Res {
+            return (rhs - lhs) * LiveFloat(-1.0)
+        }
+        public static func *(lhs: LiveFloat, rhs: Res) -> Res {
             return rhs * lhs
         }
         
