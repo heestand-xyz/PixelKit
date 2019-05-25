@@ -7,7 +7,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/PixelKit.svg)](http://cocoapods.org/pods/PixelKit)
 <img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
 
-a Live Graphics Framework for iOS and macOS<br>
+Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
 <b>Content:</b>
@@ -56,10 +56,11 @@ Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen) - 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
-[Code Examples](http://pixelkit.net/examples/) -
+[Code Reference](http://pixelkit.net/reference/) -
 [Code Demos](http://pixelkit.net/demos/)
 <br>
 Info:
+[Website](http://pixelkit.net/) -
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
@@ -103,7 +104,7 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 ## Examples
 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels)<br>
-[Code Examples](http://pixelkit.net/examples/)<br>
+[Code Reference](http://pixelkit.net/reference/)<br>
 [Code Demos](http://pixelkit.net/demos/)
 
 ### Example: Camera Effects

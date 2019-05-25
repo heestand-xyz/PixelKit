@@ -184,6 +184,8 @@ public class VideoPIX: PIXResource {
             return nil
         }
         let imgGenerator = AVAssetImageGenerator(asset: asset)
+        imgGenerator.requestedTimeToleranceBefore = .zero
+        imgGenerator.requestedTimeToleranceAfter = .zero
         let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         guard let cgImage = try? imgGenerator.copyCGImage(at: time, actualTime: nil) else {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Image fail.")
