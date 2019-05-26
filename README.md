@@ -10,6 +10,21 @@
 Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
+Examples:
+[Camera Effects](#example-camera-effects) -
+[Green Screen](#example-green-screen) - 
+[Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
+[Code Reference](http://pixelkit.net/reference/) -
+[Code Demos](http://pixelkit.net/demos/)
+<br>
+Info:
+[Website](http://pixelkit.net/) -
+[Coordinate Space](#coordinate-space) -
+[Blend Operators](#blend-operators) -
+[Effect Convenience Funcs](#effect-convenience-funcs) -
+[High Bit Mode](#high-bit-mode) -
+[Apps](#apps)
+
 | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_camera.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_image.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_video.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_screenCapture.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- |
 | [Camera](http://pixelkit.net/docs/Classes/CameraPIX.html) | [Image](http://pixelkit.net/docs/Classes/ImagePIX.html) | [Video](http://pixelkit.net/docs/Classes/VideoPIX.html) | [Screen Capture]() | [Stream In](http://pixelkit.net/docs/Classes/StreamInPIX.html) |
@@ -33,22 +48,6 @@ powered by Metal - inspired by TouchDesigner
 <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_levels.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lumaBlur.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_delay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_array.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_airplay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_rec.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | [Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html) | [Luma Levels](http://pixelkit.net/docs/Classes/LumaLevelsPIX.html) | [Luma Blur](http://pixelkit.net/docs/Classes/LumaBlurPIX.html) | [Time Machine](http://pixelkit.net/docs/Classes/TimeMachinePIX.html) | [Array](http://pixelkit.net/docs/Classes/ArrayPIX.html) | [AirPlay](http://pixelkit.net/docs/Classes/AirPlayPIX.html) | [Rec](http://pixelkit.net/docs/Classes/RecPIX.html) | [Stream Out](http://pixelkit.net/docs/Classes/StreamOutPIX.html) |
-
-Examples:
-[Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen) - 
-[Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
-[Code Reference](http://pixelkit.net/reference/) -
-[Code Demos](http://pixelkit.net/demos/)
-<br>
-Info:
-[Website](http://pixelkit.net/) -
-[Coordinate Space](#coordinate-space) -
-[Blend Operators](#blend-operators) -
-[Effect Convenience Funcs](#effect-convenience-funcs) -
-[File IO](#file-io) -
-[High Bit Mode](#high-bit-mode) -
-[Apps](#apps)
 
 --- 
 
