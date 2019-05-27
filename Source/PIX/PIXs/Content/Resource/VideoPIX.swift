@@ -25,7 +25,7 @@ public class VideoPIX: PIXResource {
     
     public var loops: Bool = true { didSet { helper.loops = loops } }
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
-    public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
+    public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
     var _progress: CGFloat = 0
     public var progress: LiveFloat { return LiveFloat({ return self._progress }) }
     var _rate: CGFloat = 1.0
@@ -218,6 +218,11 @@ class VideoHelper: NSObject {
     var update: (CVPixelBuffer, CGFloat) -> ()
     
     var loops: Bool = true
+    var volume: Float = 1.0 {
+        didSet {
+            player?.volume = volume
+        }
+    }
 
     // MARK: Life Cycle
     
@@ -247,6 +252,7 @@ class VideoHelper: NSObject {
         let item = AVPlayerItem(asset: asset)
         item.add(playerItemVideoOutput)
         player = AVPlayer(playerItem: item)
+        player!.volume = volume
         player!.actionAtItemEnd = .none // CHECK fix smooth loop
         
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
