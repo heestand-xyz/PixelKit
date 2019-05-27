@@ -26,8 +26,10 @@ public class VideoPIX: PIXResource {
     public var loops: Bool = true { didSet { helper.loops = loops } }
     public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.player?.volume = Float(volume) } }
-    var _progress: CGFloat = 0
-    public var progress: LiveFloat { return LiveFloat({ return self._progress }) }
+    var _progressFraction: CGFloat = 0
+    public var progressFraction: LiveFloat { return LiveFloat({ return self._progressFraction }) }
+    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * self.duration.uniform }) }
+    public var duration: LiveFloat { return LiveFloat({ return CGFloat(self.helper.player?.currentItem?.duration.seconds ?? 0.0) }) }
     var _rate: CGFloat = 1.0
     public var rate: LiveFloat { return LiveFloat({ return self._rate }) }
     var _playing: Bool = false
@@ -44,7 +46,7 @@ public class VideoPIX: PIXResource {
             } else {
                 self.setNeedsRender()
             }
-            self._progress = fraction
+            self._progressFraction = fraction
         })
     }
     
