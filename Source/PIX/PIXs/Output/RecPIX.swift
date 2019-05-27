@@ -54,6 +54,7 @@ public class RecPIX: PIXOutput {
     
     enum RecError: Error {
         case setup(String)
+        case render(String)
     }
     
     // MARK: - Life Cycle
@@ -96,12 +97,14 @@ public class RecPIX: PIXOutput {
         resumeRecord()
     }
     
-    public func stopRec(_ exported: @escaping (URL) -> ()) {
+    public func stopRec(_ exported: @escaping (URL) -> (), didError: ((Error) -> ())?) {
         pixelKit.log(.info, nil, "Rec stop.")
 //        guard recording else { return }
         stopRecord(done: {
             guard let url = self.exportUrl else { return }
             exported(url)
+        }, didError: { error in
+            didError?(error)
         })
     }
     
@@ -336,7 +339,7 @@ public class RecPIX: PIXOutput {
         
     }
     
-    func stopRecord(done: @escaping () -> ()) {
+    func stopRecord(done: @escaping () -> (), didError: @escaping (Error) -> ()) {
         
 //        audioRecorder?.stop()
         audioRecHelper?.captureSession?.stopRunning()
@@ -351,11 +354,14 @@ public class RecPIX: PIXOutput {
                     }
                 } else if writer.error == nil {
                     self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
+                    didError(RecError.render("Rec Stop. Cancelled."))
                 } else {
                     self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                    didError(RecError.render("Rec Stop. Writer Error."))
                 }
             } else {
-                self.pixelKit.log(pix: self, .error, nil, "Writer not found")
+                self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Writer not found.")
+                didError(RecError.render("Rec Stop. Writer not found."))
             }
             self.writerVideoInput = nil
             self.writer = nil

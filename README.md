@@ -10,48 +10,6 @@
 Live Graphics Framework for iOS and macOS<br>
 powered by Metal - inspired by TouchDesigner
 
-<b>Content:</b>
-[Camera](http://pixelkit.net/docs/Classes/CameraPIX.html) -
-[Image](http://pixelkit.net/docs/Classes/ImagePIX.html) -
-[Video](http://pixelkit.net/docs/Classes/VideoPIX.html) -
-[Screen Capture](http://pixelkit.net/docs/Classes/ScreenCapturePIX.html)-
-[Color](http://pixelkit.net/docs/Classes/ColorPIX.html) -
-[Circle](http://pixelkit.net/docs/Classes/CirclePIX.html) -
-[Rectangle](http://pixelkit.net/docs/Classes/RectanglePIX.html) -
-[Polygon](http://pixelkit.net/docs/Classes/PolygonPIX.html) -
-[Gradient](http://pixelkit.net/docs/Classes/GradientPIX.html) -
-[Noise](http://pixelkit.net/docs/Classes/NoisePIX.html) - 
-[Text](http://pixelkit.net/docs/Classes/TextPIX.html)
-<br>
-<b>Effects:</b>
-[Levels](http://pixelkit.net/docs/Classes/LevelsPIX.html) -
-[Blur](http://pixelkit.net/docs/Classes/BlurPIX.html) -
-[Edge](http://pixelkit.net/docs/Classes/EdgePIX.html) -
-[Threshold](http://pixelkit.net/docs/Classes/ThresholdPIX.html) -
-[Quantize](http://pixelkit.net/docs/Classes/QuantizePIX.html) -
-[Transform](http://pixelkit.net/docs/Classes/TransformPIX.html) -
-[Kaleidoscope](http://pixelkit.net/docs/Classes/KaleidoscopePIX.html) -
-[Twirl](http://pixelkit.net/docs/Classes/TwirlPIX.html) -
-[Feedback](http://pixelkit.net/docs/Classes/FeedbackPIX.html) -
-[Channel Mix](http://pixelkit.net/docs/Classes/ChannelMixPIX.html) -
-[Chroma Key](http://pixelkit.net/docs/Classes/ChromaKeyPIX.html) -
-[Corner Pin](http://pixelkit.net/docs/Classes/CornerPinPIX.html) -
-[HueSat](http://pixelkit.net/docs/Classes/HueSatPIX.html) -
-[Crop](http://pixelkit.net/docs/Classes/CropPIX.html) -
-[Flip Flop](http://pixelkit.net/docs/Classes/FlipFlopPIX.html) -
-[Range](http://pixelkit.net/docs/Classes/RangePIX.html) -
-[Sharpen](http://pixelkit.net/docs/Classes/SharpenPIX.html) -
-[Slope](http://pixelkit.net/docs/Classes/SlopePIX.html) -
-[Cross](http://pixelkit.net/docs/Classes/CrossPIX.html) -
-[Blend](http://pixelkit.net/docs/Classes/BlendPIX.html) -
-[Lookup](http://pixelkit.net/docs/Classes/LookupPIX.html) -
-[Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) -
-[Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) -
-[Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) -
-[Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html) -
-[Luma Levels](http://pixelkit.net/docs/Classes/LumaLevelsPIX.html) -
-[Luma Blur](http://pixelkit.net/docs/Classes/LumaBlurPIX.html)
-
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen) - 
@@ -64,9 +22,32 @@ Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
-[File IO](#file-io) -
 [High Bit Mode](#high-bit-mode) -
 [Apps](#apps)
+
+| <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_camera.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_image.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_video.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_screenCapture.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- |
+| [Camera](http://pixelkit.net/docs/Classes/CameraPIX.html) | [Image](http://pixelkit.net/docs/Classes/ImagePIX.html) | [Video](http://pixelkit.net/docs/Classes/VideoPIX.html) | [Screen Capture]() | [Stream In](http://pixelkit.net/docs/Classes/StreamInPIX.html) |
+
+| <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_color.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_circle.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_rectangle.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_polygon.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_arc.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_line.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_gradient.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/%20thumb_noise.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_text.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_metal.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [Color](http://pixelkit.net/docs/Classes/ColorPIX.html) | [Circle](http://pixelkit.net/docs/Classes/CirclePIX.html) | [Rectangle](http://pixelkit.net/docs/Classes/RectanglePIX.html) | [Polygon](http://pixelkit.net/docs/Classes/PolygonPIX.html) | [Arc](http://pixelkit.net/docs/Classes/ArcPIX.html) | [Line](http://pixelkit.net/docs/Classes/LinePIX.html) | [Gradient](http://pixelkit.net/docs/Classes/GradientPIX.html) | [Noise](http://pixelkit.net/docs/Classes/NoisePIX.html) | [Text](http://pixelkit.net/docs/Classes/TextPIX.html) | [Metal](http://pixelkit.net/docs/Classes/MetalPIX.html) |
+
+| <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_levels.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blur.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_edge.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_threshold.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_quantize.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_transform.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_kaleidoscope.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_twirl.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_feedback.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_delay.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [Levels](http://pixelkit.net/docs/Classes/LevelsPIX.html) | [Blur](http://pixelkit.net/docs/Classes/BlurPIX.html) | [Edge](http://pixelkit.net/docs/Classes/EdgePIX.html) | [Threshold](http://pixelkit.net/docs/Classes/ThresholdPIX.html) | [Quantize](http://pixelkit.net/docs/Classes/QuantizePIX.html) | [Transform](http://pixelkit.net/docs/Classes/TransformPIX.html) | [Kaleidoscope](http://pixelkit.net/docs/Classes/KaleidoscopePIX.html) | [Twirl](http://pixelkit.net/docs/Classes/TwirlPIX.html) | [Feedback](http://pixelkit.net/docs/Classes/FeedbackPIX.html) | [Delay](http://pixelkit.net/docs/Classes/DelayPIX.html) |
+
+| <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_channelMix.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_chromaKey.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_cornerPin.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_hueSat.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_crop.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_flipFlop.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_range.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_sharpen.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_slope.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [Channel Mix](http://pixelkit.net/docs/Classes/ChannelMixPIX.html) | [Chroma Key](http://pixelkit.net/docs/Classes/ChromaKeyPIX.html) | [Corner Pin](http://pixelkit.net/docs/Classes/CornerPinPIX.html) | [HueSat](http://pixelkit.net/docs/Classes/HueSatPIX.html) | [Crop](http://pixelkit.net/docs/Classes/CropPIX.html) | [Flip Flop](http://pixelkit.net/docs/Classes/FlipFlopPIX.html) | [Range](http://pixelkit.net/docs/Classes/RangePIX.html) | [Sharpen](http://pixelkit.net/docs/Classes/SharpenPIX.html) | [Slope](http://pixelkit.net/docs/Classes/SlopePIX.html) | [Sepia](http://pixelkit.net/docs/Classes/SepiaPIX.html) | 
+
+| <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_cross.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lookup.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_displace.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_remap.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_reorder.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_res.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_convert.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_clamp.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_freeze.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_flare.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [Blend](http://pixelkit.net/docs/Classes/BlendPIX.html) | [Cross](http://pixelkit.net/docs/Classes/CrossPIX.html) | [Lookup](http://pixelkit.net/docs/Classes/LookupPIX.html) | [Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) | [Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) | [Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) | [Res](http://pixelkit.net/docs/Classes/ResPIX.html) | [Convert](http://pixelkit.net/docs/Classes/ConvertPIX.html) | [Clamp](http://pixelkit.net/docs/Classes/ClampPIX.html) | [Freeze](http://pixelkit.net/docs/Classes/FreezePIX.html) | [Flare](http://pixelkit.net/docs/Classes/FlarePIX.html) |
+
+<img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_levels.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lumaBlur.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_delay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_array.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_airplay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_rec.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html) | [Luma Levels](http://pixelkit.net/docs/Classes/LumaLevelsPIX.html) | [Luma Blur](http://pixelkit.net/docs/Classes/LumaBlurPIX.html) | [Time Machine](http://pixelkit.net/docs/Classes/TimeMachinePIX.html) | [Array](http://pixelkit.net/docs/Classes/ArrayPIX.html) | [AirPlay](http://pixelkit.net/docs/Classes/AirPlayPIX.html) | [Rec](http://pixelkit.net/docs/Classes/RecPIX.html) | [Stream Out](http://pixelkit.net/docs/Classes/StreamOutPIX.html) |
 
 --- 
 
