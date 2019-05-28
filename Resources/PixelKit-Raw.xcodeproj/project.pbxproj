@@ -220,6 +220,7 @@
 		3A48929A229419DB002A0E66 /* AirPlayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48915422941972002A0E66 /* AirPlayPIX.swift */; };
 		3A6A1D8E2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */; };
 		3A6A1D8F2296BCD4001BB134 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */; };
+		3AF91619229D8285003D5DAB /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF91616229D8285003D5DAB /* Motion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +386,7 @@
 		3A6A1D8B2296BCD4001BB134 /* LumaLevelsPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LumaLevelsPIX.swift; sourceTree = "<group>"; };
 		3A8AC3482277282C00A142AA /* PixelKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKit.entitlements; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF91616229D8285003D5DAB /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		744A9DAA22932D9200A01CA1 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		7479F6B12275C04D009B4B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -445,6 +447,7 @@
 			children = (
 				3A48913F22941972002A0E66 /* BridgingHeader.h */,
 				3A48914022941972002A0E66 /* String.swift */,
+				3AF91616229D8285003D5DAB /* Motion.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				3A4891D622941972002A0E66 /* PIX.swift in Sources */,
 				3A48920C22941972002A0E66 /* StreamInPIX.swift in Sources */,
 				3A48922622941972002A0E66 /* EdgePIX.swift in Sources */,
+				3AF91619229D8285003D5DAB /* Motion.swift in Sources */,
 				3A4891DA22941972002A0E66 /* PIXAuto.swift in Sources */,
 				3A48925422941972002A0E66 /* MetalEffectPIX.swift in Sources */,
 				3A48929222941972002A0E66 /* Log.swift in Sources */,

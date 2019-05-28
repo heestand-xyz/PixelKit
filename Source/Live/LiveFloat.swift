@@ -128,6 +128,87 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    public static var motionGyroX: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.gyroX
+        })
+    }
+    public static var motionGyroY: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.gyroY
+        })
+    }
+    public static var motionGyroZ: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.gyroZ
+        })
+    }
+    public static var motionAccelerationX: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.accelerationX
+        })
+    }
+    public static var motionAccelerationY: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.accelerationY
+        })
+    }
+    public static var motionAccelerationZ: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.accelerationZ
+        })
+    }
+    public static var motionMagneticFieldX: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.magneticFieldX
+        })
+    }
+    public static var motionMagneticFieldY: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.magneticFieldY
+        })
+    }
+    public static var motionMagneticFieldZ: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.magneticFieldZ
+        })
+    }
+    public static var motionDeviceAttitudeX: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceAttitudeX
+        })
+    }
+    public static var motionDeviceAttitudeY: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceAttitudeY
+        })
+    }
+    public static var motionDeviceAttitudeZ: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceAttitudeZ
+        })
+    }
+    public static var motionDeviceGravityX: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceGravityX
+        })
+    }
+    public static var motionDeviceGravityY: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceGravityY
+        })
+    }
+    public static var motionDeviceGravityZ: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceGravityZ
+        })
+    }
+    public static var motionDeviceHeading: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return PixelMotion.main.deviceHeading
+        })
+    }
+    
     #if os(iOS)
     
     public static var touch: LiveFloat {
@@ -493,6 +574,14 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
 
 
 // MARK: Global Funcs
+
+public func relative(_ live: LiveFloat) -> LiveFloat {
+    var value: CGFloat = 0.0
+    return LiveFloat({
+        value += CGFloat(live)
+        return value
+    })
+}
 
 public func min(_ live1: LiveFloat, _ live2: LiveFloat) -> LiveFloat {
     return LiveFloat({ return min(CGFloat(live1), CGFloat(live2)) })

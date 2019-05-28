@@ -116,6 +116,7 @@
 		3AF28C29219337270079FC7A /* PIXMetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7413742E2119C9980001890B /* PIXMetalView.swift */; };
 		3AF28C2A219337850079FC7A /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A40E1A210A11200085041D /* PIXView.swift */; };
 		3AF28C2B219337CD0079FC7A /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
+		3AF91614229D8269003D5DAB /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF91611229D8269003D5DAB /* Motion.swift */; };
 		74013306224D298000826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
 		74013307224D29E800826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
 		74013309224D2A7500826395 /* LiveRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013308224D2A7500826395 /* LiveRect.swift */; };
@@ -289,6 +290,7 @@
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF91611229D8269003D5DAB /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		74013308224D2A7500826395 /* LiveRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRect.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			children = (
 				7425CF5A22759CE300757CD2 /* BridgingHeader.h */,
 				741D2CF821AC9CC0007259E3 /* String.swift */,
+				3AF91611229D8269003D5DAB /* Motion.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1147,6 +1150,7 @@
 				3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */,
 				748ADFB42120C1E3007462F8 /* Rendered.swift in Sources */,
 				74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */,
+				3AF91614229D8269003D5DAB /* Motion.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
 				74A7B98621412BD70078DDE3 /* SlopePIX.swift in Sources */,
