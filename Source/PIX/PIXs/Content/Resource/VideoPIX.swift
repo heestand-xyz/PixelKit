@@ -161,6 +161,10 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
+    public func listenToDone(_ callback: @escaping () -> ()) {
+        helper.doneCallback = callback
+    }
+    
     #if os(iOS)
     public func thumbnail(fraction: CGFloat, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
@@ -225,6 +229,8 @@ class VideoHelper: NSObject {
             player?.volume = volume
         }
     }
+    
+    var doneCallback: (() -> ())?
 
     // MARK: Life Cycle
     
@@ -334,6 +340,7 @@ class VideoHelper: NSObject {
     // MARK: Loop
     
     @objc func playerItemDidReachEnd() {
+        doneCallback?()
         guard loops else { return }
 //        player!.pause()
         player!.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))

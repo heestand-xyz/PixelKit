@@ -161,8 +161,8 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     public static func noise(xRange: ClosedRange<CGFloat> = -0.5...0.5,
                              yRange: ClosedRange<CGFloat> = -0.5...0.5,
                              seconds: LiveFloat = 1.0) -> LivePoint {
-        return LivePoint(x: LiveFloat.noise(range: xRange, for: seconds),
-                         y: LiveFloat.noise(range: yRange, for: seconds))
+        return LivePoint(x: LiveFloat.noise(range: xRange, seconds: seconds),
+                         y: LiveFloat.noise(range: yRange, seconds: seconds))
     }
     
     // MARK: Helpers
