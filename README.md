@@ -391,12 +391,22 @@ lumUniform.value = 0.5
 a Live Graphics Node Editor for iPad<br>
 powered by PixelKit<br>
 
+
 <img src="http://hexagons.se/layercam/assets/Layer-Cam.png" width="64"/>
 
 ### [Layer Cam](http://hexagons.se/layercam/)
 
 a camera app lets you live layer filters of your choice.<br>
 combine effects to create new cool styles.
+
+
+<img src="http://pixelkit.net/resources/pixel_cam.png" width="64"/>
+
+### [Pixel Cam](https://itunes.apple.com/se/app/the-pixel-cam/id1465959201)
+
+Live camera filters.<br>
+Load photos from library.
+
 
 <img src="http://pixelkit.net/resources/VJLive.png" width="64"/>
 
