@@ -128,6 +128,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    #if os(iOS)
     public static var motionGyroX: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             return PixelMotion.main.gyroX
@@ -208,6 +209,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return PixelMotion.main.deviceHeading
         })
     }
+    #endif
     
     #if os(iOS)
     
