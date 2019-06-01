@@ -230,6 +230,22 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - `LiveFloat.touchX` / `LiveFloat.mouseX`
 - `LiveFloat.touchY` / `LiveFloat.mouseY`
 - `LivePoint.touchXY` / `LiveFloat.mouseXY`
+- `LiveFloat.gyroX`
+- `LiveFloat.gyroY`
+- `LiveFloat.gyroZ`
+- `LiveFloat.accelerationX`
+- `LiveFloat.accelerationY`
+- `LiveFloat.accelerationZ`
+- `LiveFloat.magneticFieldX`
+- `LiveFloat.magneticFieldY`
+- `LiveFloat.magneticFieldZ`
+- `LiveFloat.deviceAttitudeX`
+- `LiveFloat.deviceAttitudeY`
+- `LiveFloat.deviceAttitudeZ`
+- `LiveFloat.deviceGravityX`
+- `LiveFloat.deviceGravityY`
+- `LiveFloat.deviceGravityZ`
+- `LiveFloat.deviceHeading`
 
 ### Functions:
 - `liveFloat.delay(seconds: 1.0)`
