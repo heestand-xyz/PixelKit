@@ -1,5 +1,5 @@
 //
-//  RecPIX.swift
+//  RecordPIX.swift
 //  PixelKit
 //
 //  Created by Hexagons on 2017-12-15.
@@ -8,7 +8,7 @@
 
 import AVKit
 
-public class RecPIX: PIXOutput {
+public class RecordPIX: PIXOutput {
     
     public override var shader: String { return "contentResourceBGRPIX" }
     

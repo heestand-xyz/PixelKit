@@ -1145,7 +1145,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .edgepix: return "EdgePIX"
 		case .flarepix: return "FlarePIX"
 		case .flipfloppix: return "FlipFlopPIX"
-		case .huesatpix: return "HueSatPIX"
+		case .huesatpix: return "HueSaturationPIX"
 		case .kaleidoscopepix: return "KaleidoscopePIX"
 		case .levelspix: return "LevelsPIX"
 		case .quantizepix: return "QuantizePIX"
@@ -1170,7 +1170,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .edgepix: return EdgePIX.self
 		case .flarepix: return FlarePIX.self
 		case .flipfloppix: return FlipFlopPIX.self
-		case .huesatpix: return HueSatPIX.self
+		case .huesatpix: return HueSaturationPIX.self
 		case .kaleidoscopepix: return KaleidoscopePIX.self
 		case .levelspix: return LevelsPIX.self
 		case .quantizepix: return QuantizePIX.self
@@ -1479,14 +1479,14 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .huesatpix:
 			return [
 				AutoLiveFloatProperty(name: "hue", getCallback: {
-					return (pix as! HueSatPIX).hue
+					return (pix as! HueSaturationPIX).hue
 				}, setCallback: { value in
-					(pix as! HueSatPIX).hue = value
+					(pix as! HueSaturationPIX).hue = value
 				}),
-				AutoLiveFloatProperty(name: "sat", getCallback: {
-					return (pix as! HueSatPIX).sat
+				AutoLiveFloatProperty(name: "saturation", getCallback: {
+					return (pix as! HueSaturationPIX).saturation
 				}, setCallback: { value in
-					(pix as! HueSatPIX).sat = value
+					(pix as! HueSaturationPIX).saturation = value
 				}),
 			]
 		case .kaleidoscopepix:
