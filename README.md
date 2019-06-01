@@ -14,7 +14,8 @@ Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen) - 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
-[Code Reference](http://pixelkit.net/reference/) -
+[Code Reference](http://pixelkit.net/reference/) - 
+[Code Examples](http://pixelkit.net/examples/) -
 [Code Demos](http://pixelkit.net/demos/)
 <br>
 Info:
@@ -86,6 +87,7 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels)<br>
 [Code Reference](http://pixelkit.net/reference/)<br>
+[Code Examples](http://pixelkit.net/examples/)<br>
 [Code Demos](http://pixelkit.net/demos/)
 
 ### Example: Camera Effects
@@ -182,9 +184,14 @@ A full rotation is defined by 1.0
 A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
-| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `<>` | `><` | `--` | `~` |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha | .average |
+| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `~` | `°` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .average | cosine |
+
+
+| `<>` | `><` | `++` | `--` | `<->` | `>-<` | `+-+` |
+| --- | --- | --- | --- | --- | --- | --- |
+| .minimum | .maximum | .addWithAlpha | .subtractWithAlpha | inside | outside | exclusiveOr |
 
 ```swift
 let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
