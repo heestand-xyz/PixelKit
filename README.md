@@ -184,9 +184,14 @@ A full rotation is defined by 1.0
 A quick and convenient way to blend PIXs<br>
 These are the supported `PIX.BlendingMode` operators:
 
-| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `<>` | `><` | `--` | `~` |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .minimum | .maximum | .subtractWithAlpha | .average |
+| `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `~` | `°` |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| .over | .under | .add | .subtract | .multiply | .power | .gamma | .difference | .average | cosine |
+
+
+| `<>` | `><` | `++` | `--` | `<->` | `>-<` | `+-+` |
+| --- | --- | --- | --- | --- | --- | --- |
+| .minimum | .maximum | .addWithAlpha | .subtractWithAlpha | inside | outside | exclusiveOr |
 
 ```swift
 let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
