@@ -14,7 +14,8 @@ Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen) - 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
-[Code Reference](http://pixelkit.net/reference/) -
+[Code Reference](http://pixelkit.net/reference/) - 
+[Code Examples](http://pixelkit.net/examples/) -
 [Code Demos](http://pixelkit.net/demos/)
 <br>
 Info:
@@ -86,6 +87,7 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 [Hello Pixels App](https://github.com/hexagons/Hello-Pixels)<br>
 [Code Reference](http://pixelkit.net/reference/)<br>
+[Code Examples](http://pixelkit.net/examples/)<br>
 [Code Demos](http://pixelkit.net/demos/)
 
 ### Example: Camera Effects
