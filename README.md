@@ -233,18 +233,10 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - `LiveFloat.gyroX`
 - `LiveFloat.gyroY`
 - `LiveFloat.gyroZ`
-- `LiveFloat.accelerationX`
-- `LiveFloat.accelerationY`
-- `LiveFloat.accelerationZ`
-- `LiveFloat.magneticFieldX`
-- `LiveFloat.magneticFieldY`
-- `LiveFloat.magneticFieldZ`
-- `LiveFloat.deviceAttitudeX`
-- `LiveFloat.deviceAttitudeY`
-- `LiveFloat.deviceAttitudeZ`
-- `LiveFloat.deviceGravityX`
-- `LiveFloat.deviceGravityY`
-- `LiveFloat.deviceGravityZ`
+- `LiveFloat.accelerationX/Y/X`
+- `LiveFloat.magneticFieldX/Y/X`
+- `LiveFloat.deviceAttitudeX/Y/X`
+- `LiveFloat.deviceGravityX/Y/X`
 - `LiveFloat.deviceHeading`
 
 ### Functions:

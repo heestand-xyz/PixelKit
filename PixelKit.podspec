@@ -106,7 +106,8 @@ Pod::Spec.new do |spec|
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
   						             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
-                           "Source/PIX/IO/Peer.swift"
+                           "Source/PIX/IO/Peer.swift",
+                           "Source/Other/Motion.swift"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
