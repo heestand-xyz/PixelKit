@@ -257,16 +257,17 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     #endif
     
-    #if os(macOS)
-    
     public static var midiAny: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             return MIDI.main.firstAny ?? 0.0
         })
     }
     
-    #endif
-    
+    public static var oscAny: LiveFloat {
+        return LiveFloat({ () -> (CGFloat) in
+            return OSC.main.firstAny ?? 0.0
+        })
+    }
     
     public init(_ liveValue: @escaping () -> (CGFloat)) {
         self.liveValue = liveValue
@@ -557,13 +558,16 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public static func liveRandom(in range: ClosedRange<CGFloat>) -> LiveFloat {
         return LiveFloat({ return CGFloat.random(in: range) })
     }
-
-    #if os(macOS)
+    
     /// find addresses with `MIDI.main.log = true`
     public static func midi(_ address: String) -> LiveFloat {
-        return LiveFloat({ return (MIDI.main.list[address] ?? 0.0) ?? 0.0 })
+        return LiveFloat({ return MIDI.main.list[address] ?? 0.0 })
     }
-    #endif
+    
+    /// find addresses with `OSC.main.log = true`
+    public static func osc(_ address: String) -> LiveFloat {
+        return LiveFloat({ return OSC.main.list[address] ?? 0.0 })
+    }
     
     public func log(_ message: String? = nil) -> LiveFloat {
         return LiveFloat({ () -> (CGFloat) in

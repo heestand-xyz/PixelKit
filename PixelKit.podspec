@@ -103,6 +103,7 @@ Pod::Spec.new do |spec|
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
   						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
+                           "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
   						             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
@@ -158,5 +159,6 @@ Pod::Spec.new do |spec|
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   spec.ios.dependency "MetalPerformanceShadersProxy", "~> 0.3"
   spec.dependency 'SwiftSVG', '~> 2.0'
+  spec.dependency 'OSCKit'
 
 end
