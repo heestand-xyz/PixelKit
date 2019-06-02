@@ -201,6 +201,8 @@
 		74B57C422147404200CBBD58 /* EffectSingleMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C412147404200CBBD58 /* EffectSingleMetalPIX.metal.txt */; };
 		74B57C482147405800CBBD58 /* EffectMergerMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */; };
 		74BF327E224165A500F039F1 /* ScreenCapturePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */; };
+		74BF5E9022A43978009CB791 /* VectorPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF5E8F22A43978009CB791 /* VectorPIX.swift */; };
+		74BF5E9322A43AAD009CB791 /* VectorPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BF5E8F22A43978009CB791 /* VectorPIX.swift */; };
 		74CE2FCF21358B0B00B2BD2C /* TransformPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */; };
 		74D2BCEC21426CFE0099B6B4 /* RemapPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */; };
 		74D90B1A213317250028A69E /* CheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D90B18213317250028A69E /* CheckerView.swift */; };
@@ -371,6 +373,7 @@
 		74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EffectMergerMetalPIX.metal.txt; sourceTree = "<group>"; };
 		74BC39D721011E3A004E9AA0 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCapturePIX.swift; sourceTree = "<group>"; };
+		74BF5E8F22A43978009CB791 /* VectorPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorPIX.swift; sourceTree = "<group>"; };
 		74CE2FCE21358B0B00B2BD2C /* TransformPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPIX.swift; sourceTree = "<group>"; };
 		74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapPIX.swift; sourceTree = "<group>"; };
 		74D90B18213317250028A69E /* CheckerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckerView.swift; sourceTree = "<group>"; };
@@ -660,6 +663,7 @@
 				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
 				74BF327D224165A500F039F1 /* ScreenCapturePIX.swift */,
 				3A8AC3492277292C00A142AA /* SyphonInPIX.swift */,
+				74BF5E8F22A43978009CB791 /* VectorPIX.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1015,6 +1019,7 @@
 				3AF28BD4219312B90079FC7A /* PixelKit.swift in Sources */,
 				3AF28BFE219312F50079FC7A /* TransformPIX.swift in Sources */,
 				3AF28BEA219312E10079FC7A /* MetalMultiEffectPIX.swift in Sources */,
+				74BF5E9322A43AAD009CB791 /* VectorPIX.swift in Sources */,
 				747E232B223E79B30072A4AD /* MIDI.swift in Sources */,
 				3AF28BF6219312F50079FC7A /* PIXSingleEffect.swift in Sources */,
 				3AF28BDA219312CA0079FC7A /* Log.swift in Sources */,
@@ -1099,6 +1104,7 @@
 				7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */,
 				3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
+				74BF5E9022A43978009CB791 /* VectorPIX.swift in Sources */,
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
 				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */,
@@ -1387,6 +1393,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MetalPerformanceShadersProxy/MetalPerformanceShadersProxy.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftSVG-iOS/SwiftSVG.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

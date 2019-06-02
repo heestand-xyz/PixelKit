@@ -181,7 +181,7 @@ public extension PIX {
                 #if os(iOS)
                 let size = UIScreen.main.nativeBounds.size
                 if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return LiveSize(size) }
-                else { return LiveSize(size) }
+                else { return LiveSize(size).flopped }
                 #elseif os(macOS)
                 let size = NSScreen.main?.frame.size ?? Res._128.size.cg
                 let scale = NSScreen.main?.backingScaleFactor ?? 1.0
