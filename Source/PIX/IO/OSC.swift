@@ -12,13 +12,13 @@ public class OSC: NSObject, OSCServerDelegate {
     
     public static let main = OSC()
     
-    public var port: Int = 10_000
-    
-    var server: OSCServer {
+    public var port: Int = 10_000 {
         didSet {
             server.listen(port)
         }
     }
+    
+    let server: OSCServer
     
     public var firstAny: CGFloat?
     public var list: [String: CGFloat] = [:]
