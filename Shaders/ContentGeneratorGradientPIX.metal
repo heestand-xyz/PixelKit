@@ -11,7 +11,7 @@ using namespace metal;
 
 // Hardcoded at 128
 // Defined as uniformArrayMaxLimit in source
-__constant int ARRMAX = 128;
+constant int ARRMAX = 128;
 
 struct VertexOut {
     float4 position [[position]];
