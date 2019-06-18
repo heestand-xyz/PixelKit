@@ -49,4 +49,16 @@ public extension PIXOut {
         return thresholdPix
     }
     
+    func _mask(low: LiveFloat, high: LiveFloat) -> BlendPIX {
+        let thresholdLowPix = ThresholdPIX()
+        thresholdLowPix.name = "mask:threshold:low"
+        thresholdLowPix.inPix = self as? PIX & PIXOut
+        thresholdLowPix.threshold = low
+        let thresholdHighPix = ThresholdPIX()
+        thresholdHighPix.name = "mask:threshold:high"
+        thresholdHighPix.inPix = self as? PIX & PIXOut
+        thresholdHighPix.threshold = high
+        return thresholdLowPix - thresholdHighPix
+    }
+    
 }
