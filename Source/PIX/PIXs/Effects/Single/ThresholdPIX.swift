@@ -33,7 +33,11 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [threshold, LiveFloat(0)/*smoothness*/]
+        return [threshold]
+    }
+    
+    public override var uniforms: [CGFloat] {
+        return [threshold.uniform, 0.0]
     }
     
 }
