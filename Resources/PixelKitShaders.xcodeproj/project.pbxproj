@@ -172,7 +172,7 @@
 		3A7C22992285B4650096F53C /* ContentResourceFlipPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentResourceFlipPIX.metal; sourceTree = "<group>"; };
 		3A7C229A2285B4650096F53C /* ContentGeneratorRectanglePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ContentGeneratorRectanglePIX.metal; sourceTree = "<group>"; };
 		3A7C229B2285B4660096F53C /* EffectSingleChromaKeyPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleChromaKeyPIX.metal; sourceTree = "<group>"; };
-		7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = PixelKitShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = PixelKitShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E9F6C72193813800F541DE /* PixelKitShaders-macOS.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = "PixelKitShaders-macOS.metallib"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -480,9 +480,9 @@
 				SDKROOT = iphoneos;
 				STRIP_STYLE = debugging;
 				STRIP_SWIFT_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = arm64;
+				VALID_ARCHS = "arm64 i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -497,9 +497,9 @@
 				SDKROOT = iphoneos;
 				STRIP_STYLE = debugging;
 				STRIP_SWIFT_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = arm64;
+				VALID_ARCHS = "arm64 i386 x86_64";
 			};
 			name = Release;
 		};

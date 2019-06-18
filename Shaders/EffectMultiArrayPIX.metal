@@ -11,7 +11,7 @@ using namespace metal;
 
 // Hardcoded at 128
 // Defined as uniformArrayMaxLimit in source
-__constant int ARRMAX = 128;
+constant int ARRMAX = 128;
 
 float4 lerpColorsB(float4 fraction, float4 from, float4 to) {
     return from * (1.0 - fraction) + to * fraction;
