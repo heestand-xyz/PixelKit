@@ -143,4 +143,3 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     }
 
 }
-
