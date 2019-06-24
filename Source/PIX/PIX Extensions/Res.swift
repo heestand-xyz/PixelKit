@@ -14,7 +14,7 @@ import AppKit
 
 public extension PIX {
 
-    enum Res {
+    enum Res: Equatable {
         
         case _720p
         case _1080p
@@ -101,6 +101,7 @@ public extension PIX {
                 case ._720p: return "720p"
                 case ._1080p: return "1080p"
                 case ._4K: return "4K"
+                case ._8K: return "8K"
                 case .fullHD(let ori): return "Full HD" + ori.postfix
                 case .ultraHD(let ori): return "Ultra HD" + ori.postfix
                 case .iPhone(let ori): return "iPhone" + ori.postfix
@@ -116,83 +117,110 @@ public extension PIX {
                 default: return "\(raw.w)x\(raw.h)"
             }
         }
+        
+        // MARK: Raw
+        
+        public struct Raw {
+            public let w: Int
+            public let h: Int
+            public var flopped: Raw { return Raw(w: h, h: w) }
+            public static func ==(lhs: Raw, rhs: Raw) -> Bool {
+                return lhs.w == rhs.w && lhs.h == rhs.h
+            }
+        }
+        
+        public var raw: Raw {
+            switch self {
+            case ._720p: return Raw(w: 1280, h: 720)
+            case ._1080p: return Raw(w: 1920, h: 1080)
+            case ._4K: return Raw(w: 3840, h: 2160)
+            case ._8K: return Raw(w: 7680, h: 4320)
+            case .fullHD(let ori):
+                let raw = Raw(w: 1920, h: 1080)
+                if ori == .landscape { return raw }
+                else { return raw.flopped }
+            case .ultraHD(let ori):
+                let raw = Raw(w: 3840, h: 2160)
+                if ori == .landscape { return raw }
+                else { return raw.flopped }
+            case ._128: return Raw(w: 128, h: 128)
+            case ._256: return Raw(w: 256, h: 256)
+            case ._512: return Raw(w: 512, h: 512)
+            case ._1024: return Raw(w: 1024, h: 1024)
+            case ._2048: return Raw(w: 2048, h: 2048)
+            case ._4096: return Raw(w: 4096, h: 4096)
+            case ._8192: return Raw(w: 8192, h: 8192)
+            case ._16384: return Raw(w: 16384, h: 16384)
+            case .iPhone(let ori):
+                let raw = Raw(w: 750, h: 1334)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhonePlus(let ori):
+                let raw = Raw(w: 1080, h: 1920)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhoneX(let ori):
+                let raw = Raw(w: 1125, h: 2436)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhoneXSMax(let ori):
+                let raw = Raw(w: 1242, h: 2688)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhoneXR(let ori):
+                let raw = Raw(w: 828, h: 1792)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPad(let ori):
+                let raw = Raw(w: 1536, h: 2048)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPadPro_10_5(let ori):
+                let raw = Raw(w: 1668, h: 2224)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPadPro_11(let ori):
+                let raw = Raw(w: 1668, h: 2388)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPadPro_12_9(let ori):
+                let raw = Raw(w: 2048, h: 2732)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .fullscreen:
+                #if os(iOS)
+                let size = UIScreen.main.nativeBounds.size
+                let raw = Raw(w: Int(size.width), h: Int(size.height))
+                if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return raw }
+                else { return raw.flopped }
+                #elseif os(macOS)
+                let size = NSScreen.main?.frame.size ?? Res._128.size.cg
+                let scale = NSScreen.main?.backingScaleFactor ?? 1.0
+                return Raw(w: Int(size.width * scale), h: Int(size.height * scale))
+                #endif
+            case .cgSize(let size): return Raw(w: Int(size.width), h: Int(size.height))
+            case .size(let size): return Raw(w: Int(size.w.cg), h: Int(size.h.cg))
+            case .custom(let w, let h): return Raw(w: w, h: h)
+            case .square(let val): return Raw(w: val, h: val)
+            case .raw(let raw): return raw
+            }
+        }
+        
+        public var w: Int {
+            return raw.w
+        }
+        public var h: Int {
+            return raw.h
+        }
+        
+        public var count: Int {
+            return raw.w * raw.h
+        }
 
         // MARK: Size
 
         public var size: LiveSize {
-            switch self {
-            case ._720p: return LiveSize(w: 1280, h: 720)
-            case ._1080p: return LiveSize(w: 1920, h: 1080)
-            case ._4K: return LiveSize(w: 3840, h: 2160)
-            case ._8K: return LiveSize(w: 7680, h: 4320)
-            case .fullHD(let ori):
-                let size = LiveSize(w: 1920, h: 1080)
-                if ori == .landscape { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .ultraHD(let ori):
-                let size = LiveSize(w: 3840, h: 2160)
-                if ori == .landscape { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case ._128: return LiveSize(w: 128, h: 128)
-            case ._256: return LiveSize(w: 256, h: 256)
-            case ._512: return LiveSize(w: 512, h: 512)
-            case ._1024: return LiveSize(w: 1024, h: 1024)
-            case ._2048: return LiveSize(w: 2048, h: 2048)
-            case ._4096: return LiveSize(w: 4096, h: 4096)
-            case ._8192: return LiveSize(w: 8192, h: 8192)
-            case ._16384: return LiveSize(w: 16384, h: 16384)
-            case .iPhone(let ori):
-                let size = LiveSize(w: 750, h: 1334)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPhonePlus(let ori):
-                let size = LiveSize(w: 1080, h: 1920)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPhoneX(let ori):
-                let size = LiveSize(w: 1125, h: 2436)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPhoneXSMax(let ori):
-                let size = LiveSize(w: 1242, h: 2688)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPhoneXR(let ori):
-                let size = LiveSize(w: 828, h: 1792)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPad(let ori):
-                let size = LiveSize(w: 1536, h: 2048)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPadPro_10_5(let ori):
-                let size = LiveSize(w: 1668, h: 2224)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPadPro_11(let ori):
-                let size = LiveSize(w: 1668, h: 2388)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .iPadPro_12_9(let ori):
-                let size = LiveSize(w: 2048, h: 2732)
-                if ori == .portrait { return size }
-                else { return LiveSize(w: size.height, h: size.width) }
-            case .fullscreen:
-                #if os(iOS)
-                let size = UIScreen.main.nativeBounds.size
-                if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return LiveSize(size) }
-                else { return LiveSize(size).flopped }
-                #elseif os(macOS)
-                let size = NSScreen.main?.frame.size ?? Res._128.size.cg
-                let scale = NSScreen.main?.backingScaleFactor ?? 1.0
-                return LiveSize(size) * LiveFloat(scale)
-                #endif
-            case .cgSize(let size): return LiveSize(size)
-            case .size(let size): return size
-            case .custom(let w, let h): return LiveSize(w: LiveFloat(w), h: LiveFloat(h))
-            case .square(let val): return LiveSize(w: LiveFloat(val), h: LiveFloat(val))
-            case .raw(let raw): return LiveSize(w: LiveFloat(raw.w), h: LiveFloat(raw.h))
-            }
+            return LiveSize(w: LiveFloat(w), h: LiveFloat(h))
         }
         
         public static var scale: LiveFloat {
@@ -245,32 +273,6 @@ public extension PIX {
             return Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
                 Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
                 Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait)
-        }
-        
-        // MARK: Raw
-        
-        public struct Raw/*: Codable*/ {
-            public let w: Int
-            public let h: Int
-            public var flopped: Raw { return Raw(w: h, h: w) }
-            public static func ==(lhs: Raw, rhs: Raw) -> Bool {
-                return lhs.w == rhs.w && lhs.h == rhs.h
-            }
-        }
-        
-        public var raw: Raw {
-            return Raw(w: Int(size.width.cg), h: Int(size.height.cg))
-        }
-        
-        public var w: Int {
-            return raw.w
-        }
-        public var h: Int {
-            return raw.h
-        }
-        
-        public var count: Int {
-            return raw.w * raw.h
         }
         
         // MARK: - Aspect
@@ -372,6 +374,32 @@ public extension PIX {
         public init(texture: MTLTexture) {
             let textureSize = CGSize(width: CGFloat(texture.width), height: CGFloat(texture.height))
             self.init(size: textureSize)
+        }
+        
+        // MARK: - Re Res
+        
+        public enum ImagePlacement {
+            case fill
+            case fit
+        }
+        
+        public func reRes(in inRes: Res, _ placement: ImagePlacement = .fit) -> Res {
+            switch placement {
+            case .fit:
+                return Res.raw(Raw(
+                    w: Int((width / inRes.width > height / inRes.height <?>
+                        inRes.width <=> width * (inRes.height / height)).cg),
+                    h: Int((width / inRes.width < height / inRes.height <?>
+                        inRes.height <=> height * (inRes.width / width)).cg)
+                ))
+            case .fill:
+                return Res.raw(Raw(
+                    w: Int((width / inRes.width < height / inRes.height <?>
+                        inRes.width <=> width * (inRes.height / height)).cg),
+                    h: Int((width / inRes.width > height / inRes.height <?>
+                        inRes.height <=> height * (inRes.width / width)).cg)
+                ))
+            }
         }
         
         // MARK: - Operator Overloads
