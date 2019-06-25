@@ -11,6 +11,11 @@ import CoreGraphics
 extension PIX {
     
     public var resolution: Res? {
+        guard !bypass else {
+            if let pixIn = self as? PIXInIO {
+                return pixIn.pixInList.first?.resolution
+            } else { return nil }
+        }
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 if let imagePix = pixResource as? ImagePIX {
