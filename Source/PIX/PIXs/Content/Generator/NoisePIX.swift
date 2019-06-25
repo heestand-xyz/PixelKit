@@ -12,7 +12,7 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var seed: LiveInt = 0
+    public var seed: LiveInt = 1
     public var octaves: LiveInt = 10
     public var position: LivePoint = .zero
     public var zPosition: LiveFloat = 0.0
