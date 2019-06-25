@@ -49,6 +49,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         }
     }
     public var console: String?
+    public var consoleCallback: ((String) -> ())?
     
     // MARK: - Property Helpers
     
@@ -72,14 +73,16 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     }
     
     func bakeFrag() {
+        console = nil
         do {
             let frag = try pixelKit.makeMetalFrag(shader, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
             case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
-                pixelKit.log(pix: self, .fatal, nil, "Metal code failed.", e: codeError)
+                pixelKit.log(pix: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
+                consoleCallback?(console!)
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
