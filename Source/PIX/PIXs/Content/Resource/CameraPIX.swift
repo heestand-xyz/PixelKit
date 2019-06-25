@@ -36,6 +36,7 @@ public class CameraPIX: PIXResource {
     
     public enum CamRes: String, Codable, CaseIterable {
         case vga = "VGA"
+        case sd = "SD"
         case _720p = "720p"
         #if os(iOS) && !targetEnvironment(UIKitForMac)
         case _1080p = "1080p"
@@ -45,6 +46,8 @@ public class CameraPIX: PIXResource {
             switch self {
             case .vga:
                 return .vga640x480
+            case .sd:
+                return .iFrame960x540
             case ._720p:
                 return .hd1280x720
             #if os(iOS) && !targetEnvironment(UIKitForMac)
@@ -58,6 +61,7 @@ public class CameraPIX: PIXResource {
         public var res: Res {
             switch self {
             case .vga: return .custom(w: 640, h: 480)
+            case .sd: return .custom(w: 960, h: 540)
             case ._720p: return ._720p
             #if os(iOS) && !targetEnvironment(UIKitForMac)
             case ._1080p: return ._1080p
