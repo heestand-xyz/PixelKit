@@ -36,7 +36,7 @@ open class PIXSprite: PIXContent, PIXRes {
     func setup() {
         let size = (res / PIX.Res.scale).size.cg
         scene = SKScene(size: size)
-        scene.backgroundColor = .blue //bgColor._color
+        scene.backgroundColor = bgColor._color
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)
