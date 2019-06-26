@@ -8,13 +8,13 @@
 import CoreGraphics//x
 import SpriteKit
 
-open class PIXSprite: PIXContent {
+open class PIXSprite: PIXContent, PIXRes {
     
     override open var shader: String { return "spritePIX" }
     
     // MARK: - Public Properties
     
-    public var res: Res { didSet { setup(); applyRes { self.setNeedsRender() } } }
+    public var res: Res { didSet { reSize(); applyRes { self.setNeedsRender() } } }
     
     public var bgColor: LiveColor = .black {
         didSet {
@@ -26,7 +26,7 @@ open class PIXSprite: PIXContent {
     var scene: SKScene!
     var sceneView: SKView!
     
-    init(res: Res) {
+    required public init(res: Res) {
         self.res = res
         super.init()
         setup()
@@ -34,15 +34,18 @@ open class PIXSprite: PIXContent {
     }
     
     func setup() {
-        scene = SKScene(size: res.size.cg)
-        scene.backgroundColor = bgColor._color
-        sceneView = SKView(frame: CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg))
+        let size = (res / PIX.Res.scale).size.cg
+        scene = SKScene(size: size)
+        scene.backgroundColor = .blue //bgColor._color
+        sceneView = SKView(frame: CGRect(origin: .zero, size: size))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)
     }
     
-//    required public init(from decoder: Decoder) throws {
-//        fatalError("init(from:) has not been implemented")
-//    }
+    func reSize() {
+        let size = (res / PIX.Res.scale).size.cg
+        scene.size = size
+        sceneView.frame = CGRect(origin: .zero, size: size)
+    }
     
 }

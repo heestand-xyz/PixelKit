@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-open class PIXGenerator: PIXContent, PIXAutoParent {
+open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
     
     var _res: Res
     public var res: Res {

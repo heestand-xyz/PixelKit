@@ -42,3 +42,8 @@ protocol PIXMetal {
     var metalCode: String? { get }
     var metalUniforms: [MetalUniform] { get }
 }
+
+protocol PIXRes {
+    var res: PIX.Res { get set }
+    init(res: PIX.Res)
+}

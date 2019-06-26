@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class ResPIX: PIXSingleEffect {
+public class ResPIX: PIXSingleEffect, PIXRes {
 
     override open var shader: String { return "effectSingleResPIX" }
     override open var shaderNeedsAspect: Bool { return true }
@@ -28,7 +28,7 @@ public class ResPIX: PIXSingleEffect {
     
     // MARK: - Life Cycle
     
-    public init(res: Res) {
+    required public init(res: Res) {
         self.res = res
         super.init()
     }
