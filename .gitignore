@@ -14,3 +14,7 @@ Podfile.lock
 
 docs/*
 
+PixelKitShaders-10.14.metallib
+PixelKitShaders-10.15.metallib
+PixelKitShaders-14.metallib
+PixelKitShaders-15.metallib
