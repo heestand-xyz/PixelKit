@@ -12,7 +12,9 @@ public class AirPlayPIX: PIXOutput {
     
     // MARK: - Private Properties
     
-    var isConnected: Bool
+    public var isConnected: Bool
+    public var connectionCallback: ((Bool) -> ())?
+    
     var window: UIWindow?
     var queueConnect: Bool
     
@@ -64,6 +66,7 @@ public class AirPlayPIX: PIXOutput {
         window?.isHidden = false
         
         isConnected = true
+        connectionCallback?(true)
         
     }
     
@@ -75,6 +78,7 @@ public class AirPlayPIX: PIXOutput {
         window = nil
         
         isConnected = false
+        connectionCallback?(false)
         
     }
     
