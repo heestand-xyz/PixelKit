@@ -14,7 +14,6 @@ public class RecordPIX: PIXOutput {
     
     // MARK: - Private Properties
     
-    var recording: Bool
     var paused: Bool
     var frameIndex: Int
     var startDate: Date?
@@ -24,6 +23,19 @@ public class RecordPIX: PIXOutput {
     var writerAdoptor: AVAssetWriterInputPixelBufferAdaptor?
     var currentImage: CGImage?
     var exportUrl: URL?
+    
+    var audioRecHelper: AudioRecHelper?
+    var audioStartTime: CMTime?
+    var pausedDate: Date?
+    var pausedDuration: Double = 0.0
+
+    // MARK: - Public Properties
+    
+    public var recording: Bool
+    public var fps: Int = 30
+    public var timeSync: Bool = true
+    public var realtime: Bool = false
+    public var directMode: Bool = true
     
     public var audioOffset: CMTime = .zero
     
@@ -36,17 +48,6 @@ public class RecordPIX: PIXOutput {
             }
         }
     }
-    var audioRecHelper: AudioRecHelper?
-    var audioStartTime: CMTime?
-    var pausedDate: Date?
-    var pausedDuration: Double = 0.0
-
-    // MARK: - Public Properties
-    
-    public var fps: Int = 30
-    public var timeSync: Bool = true
-    public var realtime: Bool = false
-    public var directMode: Bool = true
     
     // MARK: - Property Helpers
     
