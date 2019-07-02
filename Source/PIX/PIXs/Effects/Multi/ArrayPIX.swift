@@ -110,7 +110,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
                 let isOdd = abs(y) % 2 == 1
                 let position = LivePoint(x: LiveFloat(x) * LiveFloat(xScale) * scaleMultiplier + LiveFloat(isOdd ? xScale / 2 : 0) * scaleMultiplier,
                                          y: LiveFloat(y) * LiveFloat(yScale) * scaleMultiplier)
-                let coordinate = Coordinate(position, scale: LiveFloat(scale) * scaleMultiplier)
+                let coordinate = Coordinate(position, scale: LiveFloat(scale) * sqrt(0.75) * scaleMultiplier)
                 coordinates.append(coordinate)
             }
         }
