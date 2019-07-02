@@ -22,6 +22,13 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
         return [low, high, clampAlpha]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "clamp"
+    }
+    
 }
 
 public extension PIXOut {

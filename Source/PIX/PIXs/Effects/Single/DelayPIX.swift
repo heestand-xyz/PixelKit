@@ -37,6 +37,7 @@ public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
         super.init()
         customRenderActive = true
         customRenderDelegate = self
+        name = "delay"
     }
     
     // MARK: Delay

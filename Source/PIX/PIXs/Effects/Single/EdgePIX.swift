@@ -21,6 +21,13 @@ public class EdgePIX: PIXSingleEffect, PIXAuto {
         return [strength, distance]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "edge"
+    }
+    
 }
 
 public extension PIXOut {

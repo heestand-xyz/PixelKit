@@ -22,4 +22,11 @@ public class SepiaPIX: PIXSingleEffect, PIXAuto {
         return [color]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "sepia"
+    }
+    
 }

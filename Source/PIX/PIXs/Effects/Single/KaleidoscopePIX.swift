@@ -26,6 +26,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     public override required init() {
         super.init()
         extend = .mirror
+        name = "kaleidoscope"
     }
     
 }

@@ -28,6 +28,13 @@ public class ImagePIX: PIXResource {
     public var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
     
+    // MARK: - Life Cycle
+    
+    public override init() {
+        super.init()
+        name = "image"
+    }
+    
     // MARK: Buffer
     
     func setNeedsBuffer() {

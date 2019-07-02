@@ -224,7 +224,11 @@ public class CameraPIX: PIXResource {
     // MARK: - Life Cycle
     
     public override init() {
+        
         super.init()
+        
+        name = "camera"
+        
         setupCamera()
         
         #if os(macOS)

@@ -29,8 +29,9 @@ public class RangePIX: PIXSingleEffect, PIXAuto {
         return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     
-    public override required init() {
+    public required init() {
         super.init()
+        name = "range"
     }
     
 }

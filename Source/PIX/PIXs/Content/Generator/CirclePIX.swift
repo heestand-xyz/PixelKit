@@ -23,6 +23,8 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
         return [radius, position, edgeRadius, super.color, edgeColor, super.bgColor]
     }
     
+    // MARK: - Life Cycle
+    
     public required init(res: Res) {
         super.init(res: res)
         name = "circle"

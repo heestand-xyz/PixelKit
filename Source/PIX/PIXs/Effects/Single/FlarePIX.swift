@@ -31,6 +31,13 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
         return [scale, count, angle, threshold, brightness, gamma, color, rayRes]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "flare"
+    }
+    
 }
 
 public extension PIXOut {

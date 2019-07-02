@@ -30,6 +30,13 @@ public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
         return uniforms
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "channelMix"
+    }
+    
 }
 
 public extension PIXOut {

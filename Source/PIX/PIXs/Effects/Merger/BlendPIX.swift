@@ -38,6 +38,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
     
     public required init() {
         super.init()
+        name = "blend"
         customMergerRenderActive = true
         customMergerRenderDelegate = self
     }

@@ -64,6 +64,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
         metalUniforms = uniforms
         metalEmbedCode = code
         super.init()
+        name = "metalMergerEffect"
     }
     
     required override init() {

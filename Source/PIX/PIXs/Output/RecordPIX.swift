@@ -78,6 +78,8 @@ public class RecordPIX: PIXOutput {
 
         realtimeListen()
         
+        name = "record"
+        
     }
     
     // MARK: - Record

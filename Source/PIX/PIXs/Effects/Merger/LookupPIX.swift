@@ -30,12 +30,15 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Property Helpers
     
-//    enum CodingKeys: String, CodingKey {
-//        case axis; case holdEdge
-//    }
-    
     open override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
+    }
+    
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "lookup"
     }
     
 }

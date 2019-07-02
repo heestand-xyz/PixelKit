@@ -34,6 +34,8 @@ public class AirPlayPIX: PIXOutput {
         
         log()
         
+        name = "airPlay"
+        
     }
     
     // MARK:  Methods

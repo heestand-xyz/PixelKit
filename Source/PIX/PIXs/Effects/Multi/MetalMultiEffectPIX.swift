@@ -64,6 +64,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
         metalUniforms = uniforms
         metalEmbedCode = code
         super.init()
+        name = "metalMultiEffect"
     }
     
     required override init() {

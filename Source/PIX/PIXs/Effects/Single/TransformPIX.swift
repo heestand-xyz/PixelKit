@@ -23,6 +23,13 @@ public class TransformPIX: PIXSingleEffect, PIXAuto {
     override public var liveValues: [LiveValue] {
         return [position, rotation, scale, size]
     }
+    
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "transform"
+    }
       
 }
 

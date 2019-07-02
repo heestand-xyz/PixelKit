@@ -58,4 +58,11 @@ public class ConvertPIX: PIXSingleEffect {
         return [CGFloat(mode.index), xRotation.uniform, yRotation.uniform]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "convert"
+    }
+    
 }

@@ -36,6 +36,8 @@ public class StreamInPIX: PIXResource {
         
         super.init()
         
+        name = "streamIn"
+        
         peer = Peer(gotImg: { img in
             self.image = img
             self.connected = .connected

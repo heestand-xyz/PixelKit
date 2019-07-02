@@ -26,6 +26,13 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
         return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.bgColor]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "arc"
+    }
+    
     // MARK: Layout
     
     public var frame: LiveRect {

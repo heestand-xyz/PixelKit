@@ -30,6 +30,7 @@ public class FreezePIX: PIXSingleEffect {
     
     public required init() {
         super.init()
+        name = "freeze"
     }
     
     // MARK: Freeze

@@ -33,6 +33,8 @@ public class StreamOutPIX: PIXOutput {
         
         super.init()
         
+        name = "streamOut"
+        
         peer = Peer(peer: { connect_state, device_name in
             if connect_state == .connected {
                 self.connected = .connected

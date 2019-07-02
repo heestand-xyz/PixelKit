@@ -20,6 +20,13 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
         return [amplitude]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "slope"
+    }
+    
 }
 
 public extension PIXOut {

@@ -40,6 +40,13 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
         return [threshold.uniform, 0.0]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "threshold"
+    }
+    
 }
 
 public extension PIXOut {

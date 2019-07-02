@@ -25,6 +25,15 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
     open override var uniforms: [CGFloat] {
         return [CGFloat(blendMode.index)]
     }
+    
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "blends"
+    }
+    
+    // MARK: - Loop
 
     public static func loop(_ count: Int, blendMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
         let blendsPix = BlendsPIX()

@@ -25,6 +25,13 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
         return [brightness, darkness, contrast, gamma, inverted, opacity]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "levels"
+    }
+    
 }
 
 public extension PIXOut {

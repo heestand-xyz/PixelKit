@@ -25,6 +25,7 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     public required init() {
         super.init()
         extend = .mirror
+        name = "twirl"
     }
     
 }

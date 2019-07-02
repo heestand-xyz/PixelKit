@@ -39,6 +39,7 @@ public class VideoPIX: PIXResource {
     
     public override init() {
         super.init()
+        name = "video"
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer, fraction in
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution! {

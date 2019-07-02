@@ -81,6 +81,16 @@ public class GradientPIX: PIXGenerator, PIXAuto {
         }
         return colorSteps
     }
+    
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "gradient"
+    }
+    
+    // MARK: - Rainbow
+    
     public func rainbow() {
         colorSteps = GradientPIX.rainbowColorSteps
     }

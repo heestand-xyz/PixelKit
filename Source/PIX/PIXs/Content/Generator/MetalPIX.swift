@@ -63,6 +63,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
         metalUniforms = uniforms
         self.code = code
         super.init(res: res)
+        name = "metal"
 //        bakeFrag()
     }
     

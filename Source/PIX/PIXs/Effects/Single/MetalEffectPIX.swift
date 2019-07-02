@@ -48,20 +48,11 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
         return metalUniforms.map({ uniform -> LiveFloat in return uniform.value })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case metalUniforms
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return metalUniforms.map({ metalUniform -> CGFloat in
-//            return metalUniform.value
-//        })
-//    }
-    
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         metalEmbedCode = code
         super.init()
+        name = "metalEffect"
     }
     
     required init() {

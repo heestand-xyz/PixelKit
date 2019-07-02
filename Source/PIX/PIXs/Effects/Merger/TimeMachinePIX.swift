@@ -38,6 +38,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     public required init() {
         super.init()
+        name = "timeMachine"
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
         PixelKit.main.listenToFrames {

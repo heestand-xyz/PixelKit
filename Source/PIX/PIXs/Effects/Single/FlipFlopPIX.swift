@@ -51,6 +51,13 @@ public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
         return [CGFloat(flip.index), CGFloat(flop.index)]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "flipFlop"
+    }
+    
 }
 
 public extension PIXOut {

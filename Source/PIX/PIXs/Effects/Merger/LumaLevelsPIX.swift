@@ -26,6 +26,13 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
         return [brightness, darkness, contrast, gamma, opacity]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "lumaLevels"
+    }
+    
 }
 
 public extension PIXOut {

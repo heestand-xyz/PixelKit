@@ -49,6 +49,8 @@ public class TextPIX: PIXSprite {
         
         super.init(res: res)
         
+        name = "text"
+        
         label.verticalAlignmentMode = .center
         if #available(iOS 11, *) {
             if #available(OSX 10.13, *) {

@@ -69,6 +69,8 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         
         super.init()
         
+        name = "array"
+        
         buildGrid(xCount: 5, yCount: 5)
         
     }

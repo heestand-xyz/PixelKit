@@ -50,6 +50,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     public required init() {
         super.init()
         extend = .hold
+        name = "lumaBlur"
     }
     
 }

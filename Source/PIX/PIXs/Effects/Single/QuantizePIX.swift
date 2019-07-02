@@ -20,6 +20,13 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
         return [fraction]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "quantize"
+    }
+    
 }
 
 public extension PIXOut {

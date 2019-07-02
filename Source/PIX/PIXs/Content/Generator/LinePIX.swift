@@ -22,6 +22,13 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
         return [positionFrom, positionTo, scale, super.color, super.bgColor]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "line"
+    }
+    
     // MARK: Layout
     
     public var frame: LiveRect {

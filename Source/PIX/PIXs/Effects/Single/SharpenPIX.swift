@@ -20,8 +20,11 @@ public class SharpenPIX: PIXSingleEffect, PIXAuto {
         return [contrast]
     }
     
-    public override required init() {
+    // MARK: - Life Cycle
+    
+    public required init() {
         super.init()
+        name = "sharpen"
     }
     
 }

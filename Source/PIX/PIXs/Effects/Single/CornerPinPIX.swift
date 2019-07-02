@@ -35,6 +35,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelCustomGeometryDelegate, PIXAuto
         super.init()
         customGeometryActive = true
         customGeometryDelegate = self
+        name = "cornerPin"
     }
     
     // MAKR: - Corenr Pin

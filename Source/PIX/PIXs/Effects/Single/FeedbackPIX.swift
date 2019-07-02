@@ -32,6 +32,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     public required init() {
         super.init()
+        name = "feedback"
         pixelKit.listenToFramesUntil { () -> (PixelKit.ListenState) in
             if self.inPix?.texture != nil && self.feedTexture != nil {
                 self.setNeedsRender()

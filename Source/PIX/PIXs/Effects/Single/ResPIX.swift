@@ -31,6 +31,7 @@ public class ResPIX: PIXSingleEffect, PIXRes {
     required public init(res: Res) {
         self.res = res
         super.init()
+        name = "res"
     }
     
     required init() {

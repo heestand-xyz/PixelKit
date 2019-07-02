@@ -24,6 +24,13 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
         return [radius, position, rotation, vertexCount, super.color, super.bgColor, cornerRadius]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "polygon"
+    }
+    
     // MARK: Layout
     
     public var frame: LiveRect {

@@ -24,6 +24,13 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
         return [keyColor, range, softness, edgeDesaturation, premultiply]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "chromaKey"
+    }
+    
 }
 
 public extension PIXOut {

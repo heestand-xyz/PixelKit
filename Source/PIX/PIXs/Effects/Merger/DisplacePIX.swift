@@ -26,6 +26,7 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
     public required init() {
         super.init()
         extend = .hold
+        name = "displace"
     }
     
 }

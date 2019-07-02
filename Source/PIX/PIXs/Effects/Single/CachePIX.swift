@@ -44,6 +44,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         super.init()
         customRenderActive = true
         customRenderDelegate = self
+        name = "cache"
     }
     
     // MARK: - Cache

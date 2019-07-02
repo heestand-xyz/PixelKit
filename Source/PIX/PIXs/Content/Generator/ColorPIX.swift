@@ -16,4 +16,11 @@ public class ColorPIX: PIXGenerator, PIXAuto {
         return [super.color]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "color"
+    }
+    
 }

@@ -21,6 +21,13 @@ public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
         return [hue, saturation]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "hueSaturation"
+    }
+    
 }
 
 public extension PIXOut {

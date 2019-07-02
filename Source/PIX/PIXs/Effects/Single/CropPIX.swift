@@ -40,6 +40,13 @@ public class CropPIX: PIXSingleEffect {
         return [cropFrame.minX, cropFrame.maxX, cropFrame.minY, cropFrame.maxY]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "crop"
+    }
+    
 }
 
 public extension PIXOut {

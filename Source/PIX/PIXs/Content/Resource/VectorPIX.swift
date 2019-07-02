@@ -30,6 +30,7 @@ public class VectorPIX: PIXResource {
     public init(res: Res) {
         self.res = res
         super.init()
+        name = "vector"
     }
     
     // MARK: - Load

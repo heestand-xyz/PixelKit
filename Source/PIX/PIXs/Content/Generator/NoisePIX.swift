@@ -27,6 +27,13 @@ public class NoisePIX: PIXGenerator, PIXAuto {
         return [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
     }
     
+    // MARK: - Life Cycle
+    
+    public required init(res: Res) {
+        super.init(res: res)
+        name = "noise"
+    }
+    
 //    // MARK: - Life Cycle
 //
 //    public init(res: Res, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {

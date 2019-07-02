@@ -20,13 +20,12 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
         return [fraction]
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case fraction
-//    }
+    // MARK: - Life Cycle
     
-//    open override var uniforms: [CGFloat] {
-//        return [fraction]
-//    }
+    public required init() {
+        super.init()
+        name = "cross"
+    }
     
 }
 

@@ -72,6 +72,7 @@ public class ReorderPIX: PIXMergerEffect, PIXAuto {
     public required init() {
         super.init()
         premultiply = false
+        name = "reorder"
     }
     
 }

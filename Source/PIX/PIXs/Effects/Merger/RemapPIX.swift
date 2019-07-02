@@ -10,6 +10,13 @@ public class RemapPIX: PIXMergerEffect, PIXAuto {
     
     override open var shader: String { return "effectMergerRemapPIX" }
     
+    // MARK: - Life Cycle
+    
+    public required init() {
+        super.init()
+        name = "remap"
+    }
+    
 }
 
 public extension PIXOut {
