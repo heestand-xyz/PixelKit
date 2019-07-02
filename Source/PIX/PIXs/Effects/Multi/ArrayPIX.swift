@@ -81,13 +81,14 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         coordinates = []
         for x in 0..<xCount {
             for y in 0..<yCount {
+                let i = x * xCount + y
                 let xFraction = LiveFloat(x) / LiveFloat(xCount - 1);
                 let yFraction = LiveFloat(y) / LiveFloat(yCount - 1);
                 let xBounds = LiveFloat(xRange.upperBound - xRange.lowerBound)
                 let yBounds = LiveFloat(yRange.upperBound - yRange.lowerBound)
                 let position = LivePoint(x: LiveFloat(xRange.lowerBound) + xBounds * xFraction,
                                        y: LiveFloat(yRange.lowerBound) + yBounds * yFraction)
-                let coordinate = Coordinate(position, scale: (yBounds / LiveFloat(yCount)) * scaleMultiplier)
+                let coordinate = Coordinate(position, scale: (yBounds / LiveFloat(yCount)) * scaleMultiplier, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
                 coordinates.append(coordinate)
             }
         }
@@ -105,13 +106,15 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         yEdge = round(yEdge * 1_000_000) / 1_000_000
         let xEdgeCount = Int(ceil(xEdge))
         let yEdgeCount = Int(ceil(yEdge))
+        var i = 0
         for x in (-xEdgeCount - 1)...xEdgeCount {
             for y in -yEdgeCount...yEdgeCount {
                 let isOdd = abs(y) % 2 == 1
                 let position = LivePoint(x: LiveFloat(x) * LiveFloat(xScale) * scaleMultiplier + LiveFloat(isOdd ? xScale / 2 : 0) * scaleMultiplier,
                                          y: LiveFloat(y) * LiveFloat(yScale) * scaleMultiplier)
-                let coordinate = Coordinate(position, scale: LiveFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier)
+                let coordinate = Coordinate(position, scale: LiveFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
                 coordinates.append(coordinate)
+                i += 1
             }
         }
     }
@@ -122,7 +125,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
             let fraction = LiveFloat(i) / LiveFloat(count);
             let position = LivePoint(x: cos(fraction * .pi * 2) * scale,
                                    y: sin(fraction * .pi * 2) * scale)
-            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25)
+            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
             coordinates.append(coordinate)
         }
     }
@@ -136,7 +139,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
             let position = LivePoint(x: fromPoint.x + vector.x * fraction,
                                    y: fromPoint.y + vector.y * fraction)
             let rotation: LiveFloat = atan2(vector.y, vector.x) / (.pi * 2) + 0.25
-            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * scaleMultiplier, rotation: rotation)
+            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * scaleMultiplier, rotation: rotation, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
             coordinates.append(coordinate)
         }
     }
