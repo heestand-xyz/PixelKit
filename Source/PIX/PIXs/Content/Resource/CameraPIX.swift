@@ -40,7 +40,7 @@ public class CameraPIX: PIXResource {
         case _720p = "720p"
         #if os(iOS) && !targetEnvironment(UIKitForMac)
         case _1080p = "1080p"
-        case _4K = "4K"
+//        case _4K = "4K"
         #endif
         public var sessionPreset: AVCaptureSession.Preset {
             switch self {
@@ -53,8 +53,8 @@ public class CameraPIX: PIXResource {
             #if os(iOS) && !targetEnvironment(UIKitForMac)
             case ._1080p:
                 return .hd1920x1080
-            case ._4K:
-                return .hd4K3840x2160
+//            case ._4K:
+//                return .hd4K3840x2160
             #endif
             }
         }
@@ -65,7 +65,7 @@ public class CameraPIX: PIXResource {
             case ._720p: return ._720p
             #if os(iOS) && !targetEnvironment(UIKitForMac)
             case ._1080p: return ._1080p
-            case ._4K: return ._4K
+//            case ._4K: return ._4K
             #endif
             }
         }
