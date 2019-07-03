@@ -32,17 +32,22 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     public override var shaderNeedsAspect: Bool { return true }
     
-    var metalUniforms: [MetalUniform]
+    public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
     
-    var metalEmbedCode: String
+    public var code: String { didSet { bakeFrag() } }
+    public var isRawCode: Bool = false
     var metalCode: String? {
+        if isRawCode { return code }
+        console = nil
         do {
-            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: metalEmbedCode, fileName: metalFileName)
+            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixelKit.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
+    public var console: String?
+    public var consoleCallback: ((String) -> ())?
     
     // MARK: - Property Helpers
     
@@ -62,14 +67,14 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
-        metalEmbedCode = code
+        self.code = code
         super.init()
         name = "metalMergerEffect"
     }
     
-    required override init() {
+    required init() {
         metalUniforms = []
-        metalEmbedCode = ""
+        code = ""
         super.init()
     }
     
@@ -86,5 +91,33 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
 //        var container = encoder.container(keyedBy: CodingKeys.self)
 //        try container.encode(metalUniforms, forKey: .metalUniforms)
 //    }
+    
+    func bakeFrag() {
+        console = nil
+        do {
+            let frag = try pixelKit.makeMetalFrag(shader, from: self)
+            try makePipeline(with: frag)
+        } catch {
+            switch error {
+            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+                pixelKit.log(pix: self, .error, nil, "Metal code failed.", e: codeError)
+                console = codeError.localizedDescription
+                consoleCallback?(console!)
+                do {
+                    try makePipeline(with: errorFrag)
+                } catch {
+                    pixelKit.log(pix: self, .fatal, nil, "Metal fail failed.", e: error)
+                }
+            default:
+                pixelKit.log(pix: self, .fatal, nil, "Metal bake failed.", e: error)
+            }
+        }
+    }
+    
+    func makePipeline(with frag: MTLFunction) throws {
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
+        setNeedsRender()
+    }
     
 }
