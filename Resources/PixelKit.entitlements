@@ -6,5 +6,9 @@
 	<array>
 		<string>info.v002.Syphon</string>
 	</array>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+    <key>com.apple.security.network.client</key>
+    <true/>
 </dict>
 </plist>

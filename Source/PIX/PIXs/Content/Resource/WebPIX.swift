@@ -15,7 +15,7 @@ import WebKit
 
 public class WebPIX: PIXResource, PIXRes {
     
-    override open var shader: String { return "contentResourcePIX" }
+    override open var shader: String { return "contentResourceBGRPIX" }
     
     // MARK: - Private Properties
     
