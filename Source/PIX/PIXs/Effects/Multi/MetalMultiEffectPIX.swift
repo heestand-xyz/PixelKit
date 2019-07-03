@@ -6,6 +6,12 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS) && targetEnvironment(simulator)
+import MetalPerformanceShadersProxy
+#else
+import Metal
+#endif
+
 /// Metal Shader (Multi Effect)
 ///
 /// vars: pi, u, v, uv, pixCount

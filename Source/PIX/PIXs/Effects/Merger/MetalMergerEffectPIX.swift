@@ -6,6 +6,12 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS) && targetEnvironment(simulator)
+import MetalPerformanceShadersProxy
+#else
+import Metal
+#endif
+
 /// Metal Shader (Merger Effect)
 ///
 /// vars: pi, u, v, uv, wA, hA, wuA, hvA, inPixA, wB, hB, wuB, hvB, inPixB
