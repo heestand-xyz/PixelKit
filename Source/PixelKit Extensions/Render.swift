@@ -39,8 +39,8 @@ extension PixelKit {
                 
                 if [.frameLoopQueue, .instantQueue, .instantQueueSemaphore].contains(renderMode) {
                     guard !pix.rendering else {
-                        self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
-                        return
+                        self.log(pix: pix, .warning, .render, "Render in progress.", loop: true)
+                        continue
                     }
                     if let pixIn = pix as? PIXInIO {
                         for pixOut in pixIn.pixInList {
@@ -154,7 +154,7 @@ extension PixelKit {
                     let renderTime = -renderStartTime.timeIntervalSinceNow
                     let renderTimeMs = CGFloat(Int(round(renderTime * 10_000))) / 10
 //                let renderFrames = self.frame - renderStartFrame
-                    self.log(pix: pix, .info, .render, "Rendered \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
+                    self.log(pix: pix, .info, .render, "Rendered! \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
 //                for flowTime in self.flowTimes {
 //                    if flowTime.fromPixRenderState.requested {
 //                        if !flowTime.fromPixRenderState.rendered {
