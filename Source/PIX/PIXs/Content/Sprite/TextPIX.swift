@@ -43,7 +43,7 @@ public class TextPIX: PIXSprite {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res) {
+    public required init(res: Res = .auto) {
         
         label = SKLabelNode()
         

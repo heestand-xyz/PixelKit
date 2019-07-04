@@ -137,3 +137,10 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
     
 }
 
+public func blend(_ mode: PIX.BlendingMode, _ pixA: PIX & PIXOut, _ pixB: PIX & PIXOut) -> BlendPIX {
+    let blendPix = BlendPIX()
+    blendPix.inPixA = pixA
+    blendPix.inPixB = pixB
+    blendPix.blendMode = mode
+    return blendPix
+}

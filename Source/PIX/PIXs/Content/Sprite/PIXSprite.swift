@@ -26,7 +26,7 @@ open class PIXSprite: PIXContent, PIXRes {
     var scene: SKScene!
     var sceneView: SKView!
     
-    required public init(res: Res) {
+    required public init(res: Res = .auto) {
         self.res = res
         super.init()
         setup()
