@@ -49,7 +49,7 @@ public class PIXView: _View {
     #endif
     
     #if os(macOS)
-    public override var frame: NSRect { didSet { _ = layoutPlacement() } }
+    public override var frame: NSRect { didSet { _ = layoutPlacement(); checkAutoRes() } }
     #endif
     
     init() {
@@ -228,13 +228,27 @@ public class PIXView: _View {
     public override func layoutSubviews() {
         super.layoutSubviews()
         _ = layoutPlacement()
+        checkAutoRes()
     }
     #elseif os(macOS)
     public override func layout() {
         super.layout()
         _ = layoutPlacement()
+        checkAutoRes()
     }
     #endif
+    
+    func checkAutoRes() {
+        for pix in PixelKit.main.linkedPixs {
+            if let pixRes = pix as? PIXRes {
+                if pixRes.res == .auto {
+                    pix.applyRes {
+                        pix.setNeedsRender()
+                    }
+                }
+            }
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

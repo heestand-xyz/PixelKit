@@ -24,7 +24,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
         return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     
-    public required init(res: Res) {
+    public required init(res: Res = .auto) {
         super.init(res: res)
         name = "rectangle"
     }

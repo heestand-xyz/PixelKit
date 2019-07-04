@@ -30,7 +30,7 @@ public class WebPIX: PIXResource, PIXRes {
     
     // MARK: - Life Cycle
     
-    public required init(res: PIX.Res) {
+    public required init(res: PIX.Res = .auto) {
         
         self.res = res
         

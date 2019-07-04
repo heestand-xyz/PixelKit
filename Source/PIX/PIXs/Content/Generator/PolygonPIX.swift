@@ -26,7 +26,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res) {
+    public required init(res: Res = .auto) {
         super.init(res: res)
         name = "polygon"
     }

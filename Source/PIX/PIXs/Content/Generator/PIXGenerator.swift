@@ -24,7 +24,7 @@ open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
     public var bgColor: LiveColor = .black
     public var color: LiveColor = .white
 
-    public required init(res: Res) {
+    public required init(res: Res = .auto) {
         _res = res
         super.init()
         applyRes { self.setNeedsRender() }

@@ -16,6 +16,8 @@ public extension PIX {
 
     enum Res: Equatable {
         
+        case auto
+        
         case _720p
         case _1080p
         case _4K
@@ -98,6 +100,7 @@ public extension PIX {
         
         public var name: String {
             switch self {
+                case .auto: return "Auto"
                 case ._720p: return "720p"
                 case ._1080p: return "1080p"
                 case ._4K: return "4K"
@@ -131,6 +134,14 @@ public extension PIX {
         
         public var raw: Raw {
             switch self {
+            case .auto:
+                let scale = PIX.Res.scale.cg
+                for pix in PixelKit.main.linkedPixs {
+                    guard let superview = pix.view.superview else { continue }
+                    let size = superview.frame.size
+                    return Raw(w: Int(size.width * scale), h: Int(size.height * scale))
+                }
+                return Raw(w: 128, h: 128)
             case ._720p: return Raw(w: 1280, h: 720)
             case ._1080p: return Raw(w: 1920, h: 1080)
             case ._4K: return Raw(w: 3840, h: 2160)

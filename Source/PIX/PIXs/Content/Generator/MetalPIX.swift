@@ -59,7 +59,7 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     // MARK: - Life Cycle
     
-    public init(res: Res, uniforms: [MetalUniform] = [], code: String) {
+    public init(res: Res = .auto, uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
         super.init(res: res)
