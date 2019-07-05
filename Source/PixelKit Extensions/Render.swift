@@ -26,11 +26,102 @@ extension PixelKit {
     }
     
     public enum RenderMode {
+        case frameTree
         case frameLoop
         case frameLoopQueue
         case instantQueue
         case instantQueueSemaphore
         case direct
+    }
+    
+    func renderPIXsTree() {
+        let pixsNeedsRender: [PIX] = linkedPixs.filter { pix -> Bool in
+            return pix.needsRender
+        }
+        guard !pixsNeedsRender.isEmpty else { return }
+        self.frameTreeRendering = true
+        DispatchQueue.global(qos: .background).async {
+            self.log(.debug, .render, "-=-=-=-> Tree Started <-=-=-=-")
+            var renderedPixs: [PIX] = []
+            func render(_ pix: PIX) {
+                self.log(.debug, .render, "-=-=-=-> Tree Render PIX: \"\(pix.name ?? "#")\"")
+                let semaphore = DispatchSemaphore(value: 0)
+                DispatchQueue.main.async {                
+                    if pix.view.superview != nil {
+                        #if os(iOS)
+                        pix.view.metalView.setNeedsDisplay()
+                        #elseif os(macOS)
+                        guard let size = pix.resolution?.size else {
+                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+                            return
+                        }
+                        pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
+                        #endif
+                        self.log(pix: pix, .detail, .render, "View Render requested.", loop: true)
+                        guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
+                            self.log(pix: pix, .error, .render, "Current Drawable not found.")
+                            return
+                        }
+                        pix.view.metalView.readyToRender = {
+                            pix.view.metalView.readyToRender = nil
+                            self.renderPIX(pix, with: currentDrawable, done: { success in
+                                self.log(.debug, .render, "-=-=-=-> View Tree Did Render PIX: \"\(pix.name ?? "#")\"")
+                                semaphore.signal()
+                            })
+                        }
+                    } else {
+                        self.renderPIX(pix, done: { success in
+                            self.log(.debug, .render, "-=-=-=-> Tree Did Render PIX: \"\(pix.name ?? "#")\"")
+                            semaphore.signal()
+                        })
+                    }
+                }
+                _ = semaphore.wait(timeout: .distantFuture)
+                renderedPixs.append(pix)
+            }
+            func reverse(_ inPix: PIX & PIXInIO) {
+                self.log(.debug, .render, "-=-=-=-> Tree Reverse PIX: \"\(inPix.name ?? "#")\"")
+                for subPix in inPix.pixInList {
+                    if !renderedPixs.contains(subPix) {
+                        if let subInPix = subPix as? PIX & PIXInIO {
+                            reverse(subInPix)
+                        }
+                        render(subPix)
+                    }
+                }
+            }
+            func traverse(_ pix: PIX) {
+                self.log(.debug, .render, "-=-=-=-> Tree Traverse PIX: \"\(pix.name ?? "#")\"")
+                if let outPix = pix as? PIXOutIO {
+                    for inPixPath in outPix.pixOutPathList {
+                        let inPix = inPixPath.pixIn as! PIX & PIXInIO
+                        self.log(.debug, .render, "-=-=-=-> Tree Traverse Sub PIX: \"\(inPix.name ?? "#")\"")
+                        var allInsRendered = true
+                        for subPix in inPix.pixInList {
+                            if !renderedPixs.contains(subPix) {
+                                allInsRendered = false
+                                break
+                            }
+                        }
+                        if !allInsRendered {
+                            reverse(inPix)
+                        }
+                        if !renderedPixs.contains(inPix) {
+                            render(inPix)
+                            traverse(inPix)
+                        }
+                    }
+                }
+            }
+            for pix in pixsNeedsRender {
+                if !renderedPixs.contains(pix) {
+                    render(pix)
+                    traverse(pix)
+                }
+            }
+            self.log(.debug, .render, "-=-=-=-> Tree Ended <-=-=-=-")
+            self.frameTreeRendering = false
+        }
     }
     
     func renderPIXs() {
@@ -126,7 +217,7 @@ extension PixelKit {
             return
         }
         guard !pix.rendering else {
-            self.log(pix: pix, .warning, .render, "Render in progress...", loop: true)
+            self.log(pix: pix, .debug, .render, "Render in progress...", loop: true)
             done(nil)
             return
         }
@@ -614,7 +705,7 @@ extension PixelKit {
                 self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
                 
             }
-            
+
             DispatchQueue.main.async {
                 completed(drawableTexture)
             }

@@ -33,19 +33,20 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
         name = "blends"
     }
     
-    // MARK: - Loop
+}
 
-    public static func loop(_ count: Int, blendMode: BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
-        let blendsPix = BlendsPIX()
-        blendsPix.name = "loop:blends"
-        blendsPix.blendMode = blendMode
-        blendsPix.extend = extend
-        for i in 0..<count {
-            let fraction = LiveFloat(i) / LiveFloat(count)
-            let pix = loop(LiveInt(i), fraction)
-            blendsPix.inPixs.append(pix)
-        }
-        return blendsPix
+// MARK: - Loop
+
+public func loop(_ count: Int, blendMode: PIX.BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+    let blendsPix = BlendsPIX()
+    blendsPix.name = "loop:blends"
+    blendsPix.blendMode = blendMode
+    blendsPix.extend = extend
+    for i in 0..<count {
+        let fraction = LiveFloat(i) / LiveFloat(count)
+        let pix = loop(LiveInt(i), fraction)
+        pix.name = pix.name != nil ? "\(pix.name!):\(i)" : "\(i)"
+        blendsPix.inPixs.append(pix)
     }
-    
+    return blendsPix
 }

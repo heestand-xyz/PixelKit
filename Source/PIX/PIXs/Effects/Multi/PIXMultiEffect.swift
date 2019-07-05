@@ -9,7 +9,7 @@
 
 open class PIXMultiEffect: PIXEffect, PIXInMulti, PIXAutoParent {
     
-    public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnect() } }
+    public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnectMulti(new: inPixs, old: oldValue) } }
     
     // MARK: - Life Cycle
     

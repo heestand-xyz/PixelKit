@@ -71,6 +71,8 @@ public class PixelKit {
             return arr
         })
     }
+    
+    var frameTreeRendering: Bool = false
 
 //    struct RenderedPIX {
 //        let pix: PIX
@@ -205,7 +207,11 @@ public class PixelKit {
                 frameCallback.callback()
             }
             self.checkAllLive()
-            if [.frameLoop, .frameLoopQueue].contains(self.renderMode) {
+            if self.renderMode == .frameTree {
+                if !self.frameTreeRendering {
+                    self.renderPIXsTree()
+                }
+            } else if [.frameLoop, .frameLoopQueue].contains(self.renderMode) {
                 self.renderPIXs()
             } else if [.instantQueue, .instantQueueSemaphore].contains(self.renderMode) {
                 if !self.instantQueueActivated {

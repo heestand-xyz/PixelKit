@@ -14,7 +14,7 @@ import Metal
 #endif
 import simd
 
-open class PIX {
+open class PIX: Equatable {
     
     public var id = UUID()
     public var name: String?
@@ -207,12 +207,14 @@ open class PIX {
         self.texture = texture
         renderIndex += 1
         delegate?.pixDidRender(self)
-        for customLinkedPix in customlinkedPixs {
-            customLinkedPix.setNeedsRender()
-        }
-        if !force { // CHECK the force!
-            renderOuts()
-            renderCustomVertexTexture()
+        if pixelKit.renderMode != .frameTree {
+            for customLinkedPix in customlinkedPixs {
+                customLinkedPix.setNeedsRender()
+            }
+            if !force { // CHECK the force!
+                renderOuts()
+                renderCustomVertexTexture()
+            }
         }
     }
     
@@ -290,18 +292,6 @@ open class PIX {
 //    }
     
     // MARK: - Connect
-
-    func setNeedsConnect() {
-        if self is PIXIn {
-            if let pixInMulti = self as? PIXInMulti {
-                connectMulti(pixInMulti.inPixs as! [PIX & PIXOutIO])
-            }
-        }
-    }
-    
-    func disconnected() {
-        removeRes()
-    }
     
     func setNeedsConnectSingle(new newInPix: (PIX & PIXOut)?, old oldInPix: (PIX & PIXOut)?) {
         guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
@@ -359,18 +349,33 @@ open class PIX {
         }
     }
     
-    func connectMulti(_ pixOuts: [PIX & PIXOutIO]) {
+    func setNeedsConnectMulti(new newInPixs: [PIX & PIXOut], old oldInPixs: [PIX & PIXOut]) {
         guard var pixInIO = self as? PIX & PIXInIO else { pixelKit.log(pix: self, .error, .connection, "PIXIn's Only"); return }
-        pixInIO.pixInList = pixOuts
-        for (i, pixOut) in pixOuts.enumerated() {
-            var pixOut = pixOut
-            pixOut.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i)) // CHECK override
+        pixInIO.pixInList = newInPixs
+        for oldInPix in oldInPixs {
+            if var inPix = oldInPix as? (PIX & PIXOutIO) {
+                for (j, pixOutPath) in inPix.pixOutPathList.enumerated() {
+                    if pixOutPath.pixIn == pixInIO {
+                        inPix.pixOutPathList.remove(at: j)
+                        break
+                    }
+                }
+            }
         }
-        if pixOuts.isEmpty {
+        for (i, newInPix) in newInPixs.enumerated() {
+            if var inPix = newInPix as? (PIX & PIXOutIO) {
+                inPix.pixOutPathList.append(OutPath(pixIn: pixInIO, inIndex: i))
+            }
+        }
+        if newInPixs.isEmpty {
             disconnected()
         }
-        pixelKit.log(pix: self, .info, .connection, "Connected Multi: \(pixOuts)")
+        pixelKit.log(pix: self, .info, .connection, "Connected Multi: \(newInPixs)")
         applyRes { self.setNeedsRender() }
+    }
+    
+    func disconnected() {
+        removeRes()
     }
     
     // MARK: - Other
