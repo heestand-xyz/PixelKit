@@ -240,18 +240,18 @@ extension PixelKit {
         
         // MARK: Drawable
         
-        // MARK: Sim...
+        guard let res = pix.resolution else {
+            throw RenderError.drawable("PIX Resolution not set.")
+        }
+        
         var viewDrawable: CAMetalDrawable? = nil
         let drawableTexture: MTLTexture
         if currentDrawable != nil {
             viewDrawable = currentDrawable!
             drawableTexture = currentDrawable!.texture
-        } else if pix.texture != nil {
+        } else if pix.texture != nil && res == PIX.Res.custom(w: pix.texture!.width, h: pix.texture!.height) {
             drawableTexture = pix.texture!
         } else {
-            guard let res = pix.resolution else {
-                throw RenderError.drawable("PIX Resolution not set.")
-            }
             drawableTexture = try emptyTexture(size: res.size.cg)
         }
         
@@ -356,7 +356,7 @@ extension PixelKit {
             unifroms.append(Float(mergerEffectPix.placement.index))
         }
         if pix.shaderNeedsAspect {
-            unifroms.append(Float(drawableTexture.width) / Float(drawableTexture.height))
+            unifroms.append(Float(res.width.cg) / Float(res.height.cg))
         }
         if !unifroms.isEmpty {
             let size = MemoryLayout<Float>.size * unifroms.count
