@@ -22,10 +22,10 @@ public class TextPIX: PIXSprite {
     
     #if os(iOS)
     typealias _Font = UIFont
-    public var font: UIFont = _Font.systemFont(ofSize: 100, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
+    public var font: UIFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
     #elseif os(macOS)
     typealias _Font = NSFont
-    public var font: NSFont = _Font.systemFont(ofSize: 100, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
+    public var font: NSFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
     #endif
     
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
@@ -72,18 +72,14 @@ public class TextPIX: PIXSprite {
     override func reSize() {
         super.reSize()
         
+        setNeedsText()
+        setNeedsTextColor()
+        setNeedsFont()
+        setNeedsPosition()
+        
+        setNeedsRender()
         
     }
-    
-//    // MARK: - Render
-//
-//    override public func setNeedsRender() {
-//        setNeedsText()
-//        setNeedsTextColor()
-//        setNeedsFont()
-//        setNeedsPosition()
-//        super.setNeedsRender()
-//    }
     
     // MARK: - Methods
     
@@ -92,29 +88,22 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = color//._color
+        label.fontColor = color
     }
     
     func setNeedsFont() {
-        
-        label.fontName = font.fontName // CHECK family
-        
-//        #if os(iOS)
-//        let fontSize = font.pointSize * UIScreen.main.nativeScale // CHECK weight
-//        #elseif os(macOS)
-//        let fontSize = font.pointSize
-//        #endif
-        label.fontSize = font.pointSize
-        
-        // setPosition...
-        
+        let size = (res / PIX.Res.scale).size.cg
+        label.fontName = font.fontName
+        let x = font.pointSize * size.height
+        label.fontSize = x
     }
     
     func setNeedsPosition() {
-        let pos = CGPoint(x: position.x * scene.size.height,
-                          y: position.y * scene.size.height)
-        label.position = CGPoint(x: scene.size.width / 2 + pos.x,
-                                 y: scene.size.height / 2 + pos.y)
+        let size = (res / PIX.Res.scale).size.cg
+        let pos = CGPoint(x: position.x * size.height,
+                          y: position.y * size.height)
+        label.position = CGPoint(x: size.width / 2 + pos.x,
+                                 y: size.height / 2 + pos.y)
     }
     
 }
