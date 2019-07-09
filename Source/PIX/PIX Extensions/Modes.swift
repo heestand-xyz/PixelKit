@@ -68,7 +68,7 @@ extension PIX {
         }
     }
     
-    public enum InterpolateMode: String, Codable {
+    public enum InterpolateMode: String, Codable, CaseIterable {
         case nearest
         case linear
         var mtl: MTLSamplerMinMagFilter {
