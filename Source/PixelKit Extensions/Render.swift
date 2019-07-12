@@ -226,7 +226,7 @@ extension PixelKit {
 //        queue.async {
 //            DispatchQueue.main.async {
 //            }
-            let renderStartTime = Date()
+            let renderStartTime = CFAbsoluteTimeGetCurrent()
 //        let renderStartFrame = frame
             self.log(pix: pix, .detail, .render, "Starting render.\(force ? " Forced." : "")", loop: true)
 //        for flowTime in flowTimes {
@@ -242,7 +242,7 @@ extension PixelKit {
 //        }
             do {
                 try self.render(pix, with: currentDrawable, force: force, completed: { texture in
-                    let renderTime = -renderStartTime.timeIntervalSinceNow
+                    let renderTime = CFAbsoluteTimeGetCurrent() - renderStartTime
                     let renderTimeMs = CGFloat(Int(round(renderTime * 10_000))) / 10
 //                let renderFrames = self.frame - renderStartFrame
                     self.log(pix: pix, .info, .render, "Rendered! \(force ? "Forced. " : "")[\(renderTimeMs)ms]", loop: true)
@@ -291,18 +291,10 @@ extension PixelKit {
     }
     
     func render(_ pix: PIX, with currentDrawable: CAMetalDrawable?, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
-        
-//        if #available(iOS 11.0, *) {
-//            let sharedCaptureManager = MTLCaptureManager.shared()
-//            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice)
-//            myCaptureScope.label = "PixelKit GPU Capture Scope"
-//            sharedCaptureManager.defaultCaptureScope = myCaptureScope
-//            myCaptureScope.begin()
-//        }
 
         // Render Time
-        let globalRenderTime = Date()
-        var localRenderTime = Date()
+        let globalRenderTime = CFAbsoluteTimeGetCurrent()
+        var localRenderTime = CFAbsoluteTimeGetCurrent()
         var renderTime: Double = -1
         var renderTimeMs: Double = -1
         log(pix: pix, .debug, .metal, "Render Timer: Started")
@@ -316,10 +308,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Buffer ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -359,10 +351,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Drawable ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -370,50 +362,15 @@ extension PixelKit {
 
         let customRenderActive = pix.customRenderActive || pix.customMergerRenderActive
         if customRenderActive, let customTexture = customTexture {
-            
             inputTexture = customTexture
-
-//            if viewDrawable != nil {
-//                commandBuffer.present(viewDrawable!)
-//            }
-//
-//            pix.rendering = true
-//
-//            commandBuffer.addCompletedHandler({ _ in
-//
-//                pix.rendering = false
-//
-//                if let error = commandBuffer.error {
-//                    failed(error)
-//                    return
-//                }
-//
-//                // Render Time
-//                if self.logTime {
-//
-//                    renderTime = -globalRenderTime.timeIntervalSinceNow
-//                    renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-//                    self.log(pix: pix, .debug, .metal, "Render Timer (custom): [\(renderTimeMs)ms] CPU + GPU ")
-//
-//                    self.log(pix: pix, .debug, .metal, "Render Timer: Ended")
-//
-//                }
-//
-//                completed(customTexture)
-//
-//            })
-//
-//            commandBuffer.commit()
-//
-//            return
         }
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
-            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Input Texture ")
-            localRenderTime = Date()
+            log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom ")
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
 
         
@@ -430,10 +387,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Command Encoder ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -462,10 +419,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniforms ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -527,10 +484,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Uniform Arrays ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -548,10 +505,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Fragment Texture ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -589,10 +546,10 @@ extension PixelKit {
 
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertices ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -612,10 +569,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Vertex Uniforms ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -637,10 +594,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Custom Vertex Texture ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -650,10 +607,10 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Draw ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         
@@ -667,22 +624,31 @@ extension PixelKit {
         
         // Render Time
         if logTime {
-            renderTime = -localRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] Encode ")
-            localRenderTime = Date()
+            localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
         // Render Time
         if logTime {
-            renderTime = -globalRenderTime.timeIntervalSinceNow
+            renderTime = CFAbsoluteTimeGetCurrent() - globalRenderTime
             renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
             log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU ")
         }
         
-        pix.rendering = true
         
         // MARK: Render
+        
+        pix.rendering = true
+        
+//        if #available(iOS 11.0, *) {
+//            let sharedCaptureManager = MTLCaptureManager.shared()
+//            let myCaptureScope = sharedCaptureManager.makeCaptureScope(device: metalDevice)
+//            myCaptureScope.label = "PixelKit GPU Capture Scope"
+//            sharedCaptureManager.defaultCaptureScope = myCaptureScope
+//            myCaptureScope.begin()
+//        }
         
         commandBuffer.addCompletedHandler({ _ in
             pix.rendering = false
@@ -694,11 +660,11 @@ extension PixelKit {
             // Render Time
             if self.logTime {
                 
-                renderTime = -localRenderTime.timeIntervalSinceNow
+                renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
                 renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
                 self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] GPU ")
                 
-                renderTime = -globalRenderTime.timeIntervalSinceNow
+                renderTime = CFAbsoluteTimeGetCurrent() - globalRenderTime
                 renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
                 self.log(pix: pix, .debug, .metal, "Render Timer: [\(renderTimeMs)ms] CPU + GPU ")
                 
@@ -712,8 +678,7 @@ extension PixelKit {
         })
         
         commandBuffer.commit()
-        
-        
+    
 //        if #available(iOS 11.0, *) {
 //            let sharedCaptureManager = MTLCaptureManager.shared()
 //            guard !sharedCaptureManager.isCapturing else { fatalError() }
