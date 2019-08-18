@@ -74,7 +74,8 @@ public class WebPIX: PIXResource, PIXRes {
         let config = WKSnapshotConfiguration()
         if #available(OSX 10.15, *) {
             if #available(iOS 13.0, *) {
-                config.afterScreenUpdates = false
+                // CHECK
+//                config.afterScreenUpdates = false
             }
         }
         config.rect = CGRect(origin: .zero, size: res.size.cg)
