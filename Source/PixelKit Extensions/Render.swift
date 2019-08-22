@@ -404,7 +404,7 @@ extension PixelKit {
             unifroms.append(Float(mergerEffectPix.placement.index))
         }
         if pix.shaderNeedsAspect {
-            unifroms.append(Float(res.width.cg) / Float(res.height.cg))
+            unifroms.append(Float(res.aspect.cg))
         }
         if !unifroms.isEmpty {
             let size = MemoryLayout<Float>.size * unifroms.count
