@@ -35,6 +35,8 @@ extension PIX {
                 return pixGenerator.res
             } else if let pixSprite = pixContent as? PIXSprite {
                 return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128))
+            } else if let pixCustom = pixContent as? PIXCustom {
+                return pixCustom.res
             } else { return nil }
         } else if let resPix = self as? ResPIX {
             let resRes: Res

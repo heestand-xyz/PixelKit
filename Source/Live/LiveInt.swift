@@ -81,6 +81,14 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         })
     }
     
+    public static var frameIndex: LiveInt {
+        var index: Int = 0
+        return LiveInt({ () -> (Int) in
+            index += 1
+            return index
+        })
+    }
+    
     
     public init(_ liveValue: @escaping () -> (Int)) {
         self.liveValue = liveValue

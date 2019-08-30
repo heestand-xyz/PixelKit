@@ -288,6 +288,7 @@ extension PixelKit {
         case uniformsBuffer
         case vertices
         case vertexTexture
+        case nilCustomTexture
     }
     
     func render(_ pix: PIX, with currentDrawable: CAMetalDrawable?, force: Bool, completed: @escaping (MTLTexture) -> (), failed: @escaping (Error) -> ()) throws {
@@ -319,7 +320,6 @@ extension PixelKit {
         
         let generator: Bool = pix is PIXGenerator
         var (inputTexture, secondInputTexture, customTexture) = try textures(from: pix, with: commandBuffer)
-        
         
         // MARK: Drawable
         
@@ -357,9 +357,15 @@ extension PixelKit {
             localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
+        // Custom
         
-        // MARK - Custom
-
+        if let pixCustom = pix as? PIXCustom, pix.customRenderActive {
+            guard let customRenderedTexture = pixCustom.customRender(drawableTexture, with: commandBuffer) else {
+                throw RenderError.nilCustomTexture
+            }
+            customTexture = customRenderedTexture
+        }
+        
         let customRenderActive = pix.customRenderActive || pix.customMergerRenderActive
         if customRenderActive, let customTexture = customTexture {
             inputTexture = customTexture
