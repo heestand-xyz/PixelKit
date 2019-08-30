@@ -269,6 +269,7 @@ extension PixelKit {
     func textures(from pix: PIX, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
 
         var generator: Bool = false
+        var custom: Bool = false
         var inputTexture: MTLTexture? = nil
         var secondInputTexture: MTLTexture? = nil
         if let pixContent = pix as? PIXContent {
@@ -288,6 +289,8 @@ extension PixelKit {
                     throw RenderError.texture("Sprite Buffer fail.")
                 }
                 inputTexture = try makeTexture(from: spriteBuffer, with: commandBuffer)
+            } else if pixContent is PIXCustom {
+                custom = true
             }
         } else if let pixIn = pix as? PIX & PIXInIO {
             if let pixInMulti = pixIn as? PIXInMulti {
@@ -330,8 +333,12 @@ extension PixelKit {
             }
         }
         
-        guard generator || inputTexture != nil else {
+        guard generator || custom || inputTexture != nil else {
             throw RenderError.texture("Input Texture missing.")
+        }
+        
+        if custom {
+            return (nil, nil, nil)
         }
         
         // Mipmap
