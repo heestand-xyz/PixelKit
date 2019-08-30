@@ -21,9 +21,13 @@ public class ScenePIX: PIXCustom {
     public var sceneView: SCNView? {
         didSet {
             sceneView?.isPlaying = true
+            guard !customDelegateRender else { return }
             sceneView?.delegate = sceneHelper
         }
     }
+    
+    /// if true the scene view delegate will no be highjacked. please call render().
+    public var customDelegateRender: Bool = false
     
     // MARK: - Property Helpers
     
@@ -41,8 +45,15 @@ public class ScenePIX: PIXCustom {
         
     }
     
+    public func render() {
+        guard customDelegateRender else {
+            pixelKit.log(pix: self, .warning, nil, "customDelegateRender not enabled.")
+            return
+        }
+        self.setNeedsRender()
+    }
+    
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        print("CUSTOM RENDER")
         guard let scene = scene else {
             pixelKit.log(pix: self, .warning, nil, "Scene not found.")
             return nil
@@ -52,24 +63,18 @@ public class ScenePIX: PIXCustom {
             return  nil
         }
         
-        //rendering to a MTLTexture, so the viewport is the size of this texture
         let viewport = CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg)
         
-        //write to offscreenTexture, clear the texture before rendering using green, store the result
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = texture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r.cg), Double(bgColor.g.cg), Double(bgColor.b.cg), Double(bgColor.a.cg))
         renderPassDescriptor.colorAttachments[0].storeAction = .store
 
-//        let commandBuffer = commandQueue.makeCommandBuffer()!
-        
-        // reuse scene1 and the current point of view
         renderer.scene = scene
         renderer.pointOfView = sceneView.pointOfView
         renderer.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
 
-//        commandBuffer.commit()
         return texture
     }
     
