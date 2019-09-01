@@ -123,7 +123,8 @@ Pod::Spec.new do |spec|
   #
 
   # spec.resource  = "icon.png"
-  spec.ios.resources = "Resources/Metal Libs/PixelKitShaders.metallib"
+  spec.ios.resources = "Resources/Metal Libs/PixelKitShaders.metallib",
+                       "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
   spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
   spec.resources = "Source/PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Single/Metal/EffectSingleMetalPIX.metal.txt",

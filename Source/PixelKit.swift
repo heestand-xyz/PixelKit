@@ -22,12 +22,12 @@ public class PixelKit {
     
     // MARK: Signature
     
-    #if os(iOS)
-    let kBundleId = "se.hexagons.pixelkit"
-    let kMetalLibName = "PixelKitShaders"
-    #elseif os(macOS)
+    #if os(macOS) || targetEnvironment(macCatalyst)
     let kBundleId = "se.hexagons.pixelkit.macos"
     let kMetalLibName = "PixelKitShaders-macOS"
+    #elseif os(iOS)
+    let kBundleId = "se.hexagons.pixelkit"
+    let kMetalLibName = "PixelKitShaders"
     #endif
     
     public var renderMode: RenderMode = .frameLoop
