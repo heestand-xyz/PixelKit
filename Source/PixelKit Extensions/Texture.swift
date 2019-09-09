@@ -250,16 +250,24 @@ extension PixelKit {
         }
         
         for (i, texture) in textures.enumerated() {
-//            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
-            for j in 0..<texture.mipmapLevelCount {
-                let rawWidth = texture.width
-                let rawHeight = texture.height
-                let width = Int(CGFloat(rawWidth) / pow(2, CGFloat(j)))
-                let height = Int(CGFloat(rawHeight) / pow(2, CGFloat(j)))
-                guard width != 0 else { continue }
-                guard height != 0 else { continue }
-                blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: j, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: width, height: height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: j, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
-            }
+            blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0), sourceSize: MTLSize(width: texture.width, height: texture.height, depth: 1), to: multiTexture, destinationSlice: in3D ? 0 : i, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+//            for j in 0..<texture.mipmapLevelCount {
+//                let rawWidth = texture.width
+//                let rawHeight = texture.height
+//                let width = Int(CGFloat(rawWidth) / pow(2, CGFloat(j)))
+//                let height = Int(CGFloat(rawHeight) / pow(2, CGFloat(j)))
+//                guard width != 0 else { continue }
+//                guard height != 0 else { continue }
+//                blitEncoder.copy(from: texture,
+//                                 sourceSlice: 0,
+//                                 sourceLevel: j,
+//                                 sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
+//                                 sourceSize: MTLSize(width: width, height: height, depth: 1),
+//                                 to: multiTexture,
+//                                 destinationSlice: in3D ? 0 : i,
+//                                 destinationLevel: j,
+//                                 destinationOrigin: MTLOrigin(x: 0, y: 0, z: in3D ? i : 0))
+//            }
         }
         blitEncoder.endEncoding()
         
