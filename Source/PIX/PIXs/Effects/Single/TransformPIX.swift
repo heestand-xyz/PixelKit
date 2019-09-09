@@ -71,7 +71,7 @@ public extension PIXOut {
         return transformPix
     }
     
-    func _scale(by size: LiveSize) -> TransformPIX {
+    func _scale(size: LiveSize) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
         transformPix.inPix = self as? PIX & PIXOut
@@ -80,7 +80,7 @@ public extension PIXOut {
     }
     
     func _scale(x: LiveFloat = 1.0, y: LiveFloat = 1.0) -> TransformPIX {
-        return _scale(by: LiveSize(w: x, h: y))
+        return _scale(size: LiveSize(w: x, h: y))
     }
     
 }
