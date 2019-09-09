@@ -255,6 +255,10 @@ public class LivePoint: LiveValue, CustomStringConvertible {
         let _lhs = lhs; lhs = LivePoint(x: _lhs.x / rhs, y: _lhs.y / rhs)
     }
     
+    public prefix static func - (operand: LivePoint) -> LivePoint {
+        return LivePoint(x: -operand.x, y: -operand.y)
+    }
+    
     
     public func flipX() -> LivePoint {
         return LivePoint(x: -x, y: y)
