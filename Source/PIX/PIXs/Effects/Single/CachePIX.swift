@@ -33,6 +33,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             setNeedsRender()
         }
     }
+    public var lastCacheId: UUID?
     
     // MARK: - Life Cycle
     
@@ -55,7 +56,9 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if cacheActive {
-            cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
+            let id = UUID()
+            cachedTextures.append(CachedTexture(id: id, date: Date(), texture: texture))
+            lastCacheId = id
         }
         guard let cacheId = cacheId else { return nil }
         for iCachedTexture in cachedTextures {
