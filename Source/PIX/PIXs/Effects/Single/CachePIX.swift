@@ -11,31 +11,27 @@ import MetalPerformanceShadersProxy
 #else
 import Metal
 #endif
+import CoreGraphics
 
 public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     override open var shader: String { return "nilPIX" }
     
-    // MARK: - Private Properties
-    
-    struct CachedTexture {
-        let date: Date
-        let texture: MTLTexture
-    }
-    
-    var cachedTextures: [CachedTexture] = []
-    
     // MARK: - Public Properties
     
-    public var cache: Bool = false { didSet { setNeedsRender() } }
-    public var index: Int? = nil {
+    public struct CachedTexture {
+        public let id: UUID
+        public let date: Date
+        public let texture: MTLTexture
+    }
+    
+    public var cachedTextures: [CachedTexture] = []
+    public var cacheActive: Bool = false { didSet { setNeedsRender() } }
+    public var cacheId: UUID? = nil {
         didSet {
-            guard index != nil else { return }
+            guard cacheId != nil else { return }
             setNeedsRender()
         }
-    }
-    public var count: Int {
-        return cachedTextures.count
     }
     
     // MARK: - Life Cycle
@@ -54,39 +50,62 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             pixelKit.log(.warning, nil, "Cache failed. No texture avalible.")
             return
         }
-        cachedTextures.append(CachedTexture(date: Date(), texture: texture))
+        cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        if cache {
-            cachedTextures.append(CachedTexture(date: Date(), texture: texture))
+        if cacheActive {
+            cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
         }
-        return index != nil && index! < cachedTextures.count ? cachedTextures[index!].texture : nil
+        guard let cacheId = cacheId else { return nil }
+        for iCachedTexture in cachedTextures {
+            if cacheId == iCachedTexture.id {
+                return iCachedTexture.texture
+            }
+        }
+        pixelKit.log(pix: self, .warning, nil, "Custom Render - Cache Id not found.")
+        return nil
     }
     
     // MARK: - Seek
     
-    func seek(to i: Int) {
-        index = nil
-        guard !cachedTextures.isEmpty else { return }
-        guard i < cachedTextures.count else { return }
-        index = i
+    public func seek(to index: Int) {
+        guard !cachedTextures.isEmpty else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            return
+        }
+        guard index >= 0 && index < cachedTextures.count else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - Index out of bounds.")
+            return
+        }
+        cacheId = cachedTextures[index].id
     }
     
-    func seek(to fraction: CGFloat) {
-        index = nil
-        guard !cachedTextures.isEmpty else { return }
-        index = Int(round(fraction * CGFloat(cachedTextures.count - 1)))
+    public func seek(to fraction: CGFloat) {
+        guard !cachedTextures.isEmpty else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            return
+        }
+        guard fraction >= 0.0 && fraction <= 1.0 else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - Fraction out of bounds.")
+            return
+        }
+        let index = Int(round(fraction * CGFloat(cachedTextures.count - 1)))
+        cacheId = cachedTextures[index].id
     }
     
-    func seek(to date: Date) {
-        index = nil
-        guard !cachedTextures.isEmpty else { return }
+    public func seek(to date: Date) {
+        guard !cachedTextures.isEmpty else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            return
+        }
+        var index: Int?
         for i in 0..<cachedTextures.count - 1 {
             let cachedTextureA = cachedTextures[i]
             let cachedTextureB = cachedTextures[i + 1]
             if -cachedTextureA.date.timeIntervalSinceNow <= -date.timeIntervalSinceNow && -cachedTextureB.date.timeIntervalSinceNow >= -date.timeIntervalSinceNow {
                 index = i
+                break
             }
         }
         if index == nil {
@@ -96,13 +115,30 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
                 index = cachedTextures.count - 1
             }
         }
+        guard index != nil else { return }
+        cacheId = cachedTextures[index!].id
+    }
+    
+    public func seek(to id: UUID) {
+        var exists = false
+        for cachedTexture in cachedTextures {
+            if cachedTexture.id == id {
+                exists = true
+                break
+            }
+        }
+        guard exists else {
+            pixelKit.log(pix: self, .warning, nil, "Seek - Id not found in cached textures.")
+            return
+        }
+        cacheId = id
     }
     
     // MARK: - Clear
     
     public func clear() {
         cachedTextures = []
-        index = nil
+        cacheId = nil
     }
     
 }
