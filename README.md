@@ -76,7 +76,7 @@ To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode p
 
 ### UIKit
 
-```
+~~~~swift
 import UIKit
 import PixelKit
 
@@ -98,11 +98,11 @@ class ViewController: UIViewController {
     }
     
 }
-```
+~~~~
 
 ### SwiftUI
 
-```
+~~~~swift
 import SwiftUI
 import PixelKit
 
@@ -135,7 +135,7 @@ struct PIXRepView: UIViewRepresentable {
     func updateUIView(_ pixView: PIXView, context: Context) {}
     
 }
-```
+~~~~
 
 ## Docs
 
