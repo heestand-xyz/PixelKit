@@ -18,15 +18,19 @@ import SwiftUI
 
 
 #if os(iOS)
-struct PIXRepView: UIViewRepresentable {
+public struct PIXRepView: UIViewRepresentable {
         
-    let pix: PIX
+    public let pix: PIX
     
-    func makeUIView(context: Context) -> PIXView {
+    public init(pix: PIX) {
+        self.pix = pix
+    }
+    
+    public func makeUIView(context: Context) -> PIXView {
         return pix.view
     }
     
-    func updateUIView(_ pixView: PIXView, context: Context) {}
+    public func updateUIView(_ pixView: PIXView, context: Context) {}
     
 }
 #endif
