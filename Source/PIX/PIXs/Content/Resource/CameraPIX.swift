@@ -491,9 +491,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 captureSession.addInput(input)
                 var output: AVCaptureOutput!
                 if depth {
-                    #if os(iOS)
-                    output = depthOutput!
-                    #endif
+//                    #if os(iOS)
+//                    output = depthOutput!
+//                    #endif
                 } else {
                     output = videoOutput!
                 }
@@ -501,9 +501,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                     captureSession.addOutput(output)
                     let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
                     if depth {
-                        #if os(iOS)
-                        depthOutput!.setDelegate(self, callbackQueue: queue)
-                        #endif
+//                        #if os(iOS)
+//                        depthOutput!.setDelegate(self, callbackQueue: queue)
+//                        #endif
                     } else {
                         videoOutput!.setSampleBufferDelegate(self, queue: queue)
                     }
