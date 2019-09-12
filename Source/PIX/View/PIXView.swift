@@ -13,6 +13,29 @@ import MetalKit
 #endif
 
 #if os(iOS)
+import SwiftUI
+#endif
+
+
+#if os(iOS)
+public struct PIXRepView: UIViewRepresentable {
+        
+    public let pix: PIX
+    
+    public init(pix: PIX) {
+        self.pix = pix
+    }
+    
+    public func makeUIView(context: Context) -> PIXView {
+        return pix.view
+    }
+    
+    public func updateUIView(_ pixView: PIXView, context: Context) {}
+    
+}
+#endif
+
+#if os(iOS)
 public typealias _View = UIView
 #elseif os(macOS)
 public typealias _View = NSView

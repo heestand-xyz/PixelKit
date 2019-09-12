@@ -72,6 +72,71 @@ Note that PixelKit only have simulator support in Xcode 11. Metal for iOS can on
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
+## Setup
+
+### UIKit
+
+~~~~swift
+import UIKit
+import PixelKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let circlePix = CirclePIX(res: .fullscreen)
+
+        let blurPix = BlurPIX()
+        blurPix.inPix = circlePix
+        blurPix.radius = 0.25
+
+        let finalPix: PIX = blurPix
+        finalPix.view.frame = view.bounds
+        view.addSubview(finalPix)
+        
+    }
+    
+}
+~~~~
+
+### SwiftUI
+
+~~~~swift
+import SwiftUI
+import PixelKit
+
+struct ContentView: View {
+    var body: some View {
+        PIXRepView(pix: {
+            
+            let circlePix = CirclePIX(res: .fullscreen)
+
+            let blurPix = BlurPIX()
+            blurPix.inPix = circlePix
+            blurPix.radius = 0.25
+            
+            let finalPix: PIX = blurPix
+            return finalPix
+            
+        }())
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct PIXRepView: UIViewRepresentable {
+        
+    let pix: PIX
+    
+    func makeUIView(context: Context) -> PIXView {
+        return pix.view
+    }
+    
+    func updateUIView(_ pixView: PIXView, context: Context) {}
+    
+}
+~~~~
+
 ## Docs
 
 [Jazzy Docs](http://pixelkit.net/docs/)

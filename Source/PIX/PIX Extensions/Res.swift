@@ -52,26 +52,34 @@ public extension PIX {
         case iPhoneX(Orientation)
         case iPhoneXSMax(Orientation)
         case iPhoneXR(Orientation)
-        public static var iPhoneCases: [Res] {
+        case iPhone11(Orientation)
+        case iPhone11Pro(Orientation)
+        case iPhone11ProMax(Orientation)
+        public static var iPhones: [Res] {
             return [
                 .iPhone(.portrait), .iPhone(.landscape),
                 .iPhonePlus(.portrait), .iPhonePlus(.landscape),
                 .iPhoneX(.portrait), .iPhoneX(.landscape),
                 .iPhoneXSMax(.portrait), .iPhoneXSMax(.landscape),
-                .iPhoneXR(.portrait), .iPhoneXR(.landscape)
+                .iPhoneXR(.portrait), .iPhoneXR(.landscape),
+                .iPhone11(.portrait), .iPhone11(.landscape),
+                .iPhone11Pro(.portrait), .iPhone11Pro(.landscape),
+                .iPhone11ProMax(.portrait), .iPhone11ProMax(.landscape)
             ]
         }
         
         case iPad(Orientation)
+        case iPad_10_2(Orientation)
         case iPadPro_10_5(Orientation)
         case iPadPro_11(Orientation)
         case iPadPro_12_9(Orientation)
-        public static var iPadCases: [Res] {
+        public static var iPads: [Res] {
             return [
-            .iPad(.portrait), .iPad(.landscape),
-            .iPadPro_10_5(.portrait), .iPadPro_10_5(.landscape),
-            .iPadPro_11(.portrait), .iPadPro_11(.landscape),
-            .iPadPro_12_9(.portrait), .iPadPro_12_9(.landscape)
+                .iPad(.portrait), .iPad(.landscape),
+                .iPad_10_2(.portrait), .iPad_10_2(.landscape),
+                .iPadPro_10_5(.portrait), .iPadPro_10_5(.landscape),
+                .iPadPro_11(.portrait), .iPadPro_11(.landscape),
+                .iPadPro_12_9(.portrait), .iPadPro_12_9(.landscape)
             ]
         }
         
@@ -100,24 +108,46 @@ public extension PIX {
         
         public var name: String {
             switch self {
-                case .auto: return "Auto"
-                case ._720p: return "720p"
-                case ._1080p: return "1080p"
-                case ._4K: return "4K"
-                case ._8K: return "8K"
-                case .fullHD(let ori): return "Full HD" + ori.postfix
-                case .ultraHD(let ori): return "Ultra HD" + ori.postfix
-                case .iPhone(let ori): return "iPhone" + ori.postfix
-                case .iPhonePlus(let ori): return "iPhone Plus" + ori.postfix
-                case .iPhoneX(let ori): return "iPhone X" + ori.postfix
-                case .iPhoneXSMax(let ori): return "iPhone XS Max" + ori.postfix
-                case .iPhoneXR(let ori): return "iPhone XR" + ori.postfix
-                case .iPad(let ori): return "iPad" + ori.postfix
-                case .iPadPro_10_5(let ori): return "iPad Pro 10.5‑inch" + ori.postfix
-                case .iPadPro_11(let ori): return "iPad Pro 11‑inch" + ori.postfix
-                case .iPadPro_12_9(let ori): return "iPad Pro 12.9‑inch" + ori.postfix
-                case .fullscreen: return "Full Screen"
-                default: return "\(raw.w)x\(raw.h)"
+            case .auto: return "Auto"
+            case ._720p: return "720p"
+            case ._1080p: return "1080p"
+            case ._4K: return "4K"
+            case ._8K: return "8K"
+            case .fullHD(let ori): return "Full HD" + ori.postfix
+            case .ultraHD(let ori): return "Ultra HD" + ori.postfix
+            case .iPhone(let ori): return "iPhone" + ori.postfix
+            case .iPhonePlus(let ori): return "iPhone Plus" + ori.postfix
+            case .iPhoneX(let ori): return "iPhone X" + ori.postfix
+            case .iPhoneXSMax(let ori): return "iPhone XS Max" + ori.postfix
+            case .iPhoneXR(let ori): return "iPhone XR" + ori.postfix
+            case .iPhone11(let ori): return "iPhone 11" + ori.postfix
+            case .iPhone11Pro(let ori): return "iPhone 11 Pro" + ori.postfix
+            case .iPhone11ProMax(let ori): return "iPhone 11 Pro Max" + ori.postfix
+            case .iPad(let ori): return "iPad" + ori.postfix
+            case .iPad_10_2(let ori): return "iPad 10.2‑inch" + ori.postfix
+            case .iPadPro_10_5(let ori): return "iPad Pro 10.5‑inch" + ori.postfix
+            case .iPadPro_11(let ori): return "iPad Pro 11‑inch" + ori.postfix
+            case .iPadPro_12_9(let ori): return "iPad Pro 12.9‑inch" + ori.postfix
+            case .fullscreen: return "Full Screen"
+            default: return "\(raw.w)x\(raw.h)"
+            }
+        }
+        
+        // MARK: Display Size in Inches
+        
+        public var inches: CGFloat? {
+            switch self {
+            case .iPhone: return 4.7
+            case .iPhonePlus: return 5.5
+            case .iPhoneX, .iPhone11: return 6.1
+            case .iPhoneXR, .iPhone11Pro: return 5.8
+            case .iPhoneXSMax, .iPhone11ProMax: return 6.5
+            case .iPad: return 9.7
+            case .iPad_10_2: return 10.2
+            case .iPadPro_10_5: return 10.5
+            case .iPadPro_11: return 11.0
+            case .iPadPro_12_9: return 12.9
+            default: return nil
             }
         }
         
@@ -182,8 +212,24 @@ public extension PIX {
                 let raw = Raw(w: 828, h: 1792)
                 if ori == .portrait { return raw }
                 else { return raw.flopped }
+            case .iPhone11(let ori):
+                let raw = Raw(w: 828, h: 1792)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhone11Pro(let ori):
+                let raw = Raw(w: 1125, h: 2436)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPhone11ProMax(let ori):
+                let raw = Raw(w: 1242, h: 2688)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
             case .iPad(let ori):
                 let raw = Raw(w: 1536, h: 2048)
+                if ori == .portrait { return raw }
+                else { return raw.flopped }
+            case .iPad_10_2(let ori):
+                let raw = Raw(w: 1620, h: 2160)
                 if ori == .portrait { return raw }
                 else { return raw.flopped }
             case .iPadPro_10_5(let ori):
@@ -244,10 +290,10 @@ public extension PIX {
         
         public var ppi: Int? {
             switch self {
-            case .iPhone, .iPhoneXR: return 326
+            case .iPad, .iPad_10_2, .iPadPro_10_5, .iPadPro_11, .iPadPro_12_9: return 264
+            case .iPhone, .iPhoneXR, .iPhone11: return 326
             case .iPhonePlus: return 401
-            case .iPhoneX, .iPhoneXSMax: return 458
-            case .iPad, .iPadPro_10_5, .iPadPro_11, .iPadPro_12_9: return 264
+            case .iPhoneX, .iPhoneXSMax, .iPhone11Pro, .iPhone11ProMax: return 458
             default: return nil
             }
         }
@@ -270,20 +316,32 @@ public extension PIX {
                 Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
                 Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
                 Res.fullscreen == .iPhoneXR(.landscape) || Res.fullscreen == .iPhoneXR(.portrait) ||
-                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait)
+                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait) ||
+                Res.fullscreen == .iPhone11(.landscape) || Res.fullscreen == .iPhone11(.portrait) ||
+                Res.fullscreen == .iPhone11Pro(.landscape) || Res.fullscreen == .iPhone11Pro(.portrait) ||
+                Res.fullscreen == .iPhone11ProMax(.landscape) || Res.fullscreen == .iPhone11ProMax(.portrait)
         }
         
         public static var isiPad: Bool {
             return Res.fullscreen == .iPad(.landscape) || Res.fullscreen == .iPad(.portrait) ||
+               Res.fullscreen == .iPad_10_2(.landscape) || Res.fullscreen == .iPad_10_2(.portrait) ||
                Res.fullscreen == .iPadPro_11(.landscape) || Res.fullscreen == .iPadPro_11(.portrait) ||
                Res.fullscreen == .iPadPro_10_5(.landscape) || Res.fullscreen == .iPadPro_10_5(.portrait) ||
                Res.fullscreen == .iPadPro_12_9(.landscape) || Res.fullscreen == .iPadPro_12_9(.portrait)
         }
         
-        public static var hasDualCamera: Bool {
+        public static var hasTeleCamera: Bool {
             return Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
                 Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
-                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait)
+                Res.fullscreen == .iPhoneXSMax(.landscape) || Res.fullscreen == .iPhoneXSMax(.portrait) ||
+                Res.fullscreen == .iPhone11Pro(.landscape) || Res.fullscreen == .iPhone11Pro(.portrait) ||
+                Res.fullscreen == .iPhone11ProMax(.landscape) || Res.fullscreen == .iPhone11ProMax(.portrait)
+        }
+        
+        public static var hasSuperWideCamera: Bool {
+            return Res.fullscreen == .iPhone11(.landscape) || Res.fullscreen == .iPhone11(.portrait) ||
+                Res.fullscreen == .iPhone11Pro(.landscape) || Res.fullscreen == .iPhone11Pro(.portrait) ||
+                Res.fullscreen == .iPhone11ProMax(.landscape) || Res.fullscreen == .iPhone11ProMax(.portrait)
         }
         
         // MARK: - Aspect
@@ -345,8 +403,18 @@ public extension PIX {
             case Res.iPhonePlus(.landscape).size.cg: self = .iPhonePlus(.landscape)
             case Res.iPhoneX(.portrait).size.cg: self = .iPhoneX(.portrait)
             case Res.iPhoneX(.landscape).size.cg: self = .iPhoneX(.landscape)
+            case Res.iPhoneXR(.portrait).size.cg: self = .iPhoneXR(.portrait)
+            case Res.iPhoneXR(.landscape).size.cg: self = .iPhoneXR(.landscape)
+            case Res.iPhone11(.portrait).size.cg: self = .iPhone11(.portrait)
+            case Res.iPhone11(.landscape).size.cg: self = .iPhone11(.landscape)
+            case Res.iPhone11Pro(.portrait).size.cg: self = .iPhone11Pro(.portrait)
+            case Res.iPhone11Pro(.landscape).size.cg: self = .iPhone11Pro(.landscape)
+            case Res.iPhone11ProMax(.portrait).size.cg: self = .iPhone11ProMax(.portrait)
+            case Res.iPhone11ProMax(.landscape).size.cg: self = .iPhone11ProMax(.landscape)
             case Res.iPad(.portrait).size.cg: self = .iPad(.portrait)
             case Res.iPad(.landscape).size.cg: self = .iPad(.landscape)
+            case Res.iPad_10_2(.portrait).size.cg: self = .iPad_10_2(.portrait)
+            case Res.iPad_10_2(.landscape).size.cg: self = .iPad_10_2(.landscape)
             case Res.iPadPro_10_5(.portrait).size.cg: self = .iPadPro_10_5(.portrait)
             case Res.iPadPro_10_5(.landscape).size.cg: self = .iPadPro_10_5(.landscape)
             case Res.iPadPro_12_9(.portrait).size.cg: self = .iPadPro_12_9(.portrait)

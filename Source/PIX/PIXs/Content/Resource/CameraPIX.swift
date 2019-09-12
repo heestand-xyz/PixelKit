@@ -332,7 +332,7 @@ public class CameraPIX: PIXResource {
 
 // MARK: - Camera Helper
 
-class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCaptureDepthDataOutputDelegate, AVCapturePhotoCaptureDelegate*/ {
+class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureDepthDataOutputDelegate/*, AVCapturePhotoCaptureDelegate*/ {
 
     let pixelKit = PixelKit.main
     
@@ -344,11 +344,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let captureSession: AVCaptureSession
     var videoOutput: AVCaptureVideoDataOutput?
     
-//    #if os(iOS)
-//    var depthOutput: AVCaptureDepthDataOutput?
-////    var depthConnection: AVCaptureConnection!
-////    var depthSynchronizer: AVCaptureDataOutputSynchronizer!
-//    #endif
+    #if os(iOS)
+    let depth: Bool
+    var depthOutput: AVCaptureDepthDataOutput?
+    var depthConnection: AVCaptureConnection!
+//    var depthSynchronizer: AVCaptureDataOutputSynchronizer!
+    #endif
     
 //    let photoOutput: AVCapturePhotoOutput?
     
@@ -364,7 +365,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, depth: Bool = false, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        device = AVCaptureDevice.default(tele ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
+        device = AVCaptureDevice.default(tele || depth ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
         if device == nil {
             device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
         }
@@ -391,6 +392,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         #endif
         
+        self.depth = depth
+        
         self.cameraPosition = cameraPosition
 //        self.photoSupport = photoSupport
         
@@ -405,13 +408,13 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         captureSession = AVCaptureSession()
 
-//        #if os(iOS)
-//        if depth {
-//            depthOutput = AVCaptureDepthDataOutput()
-//        } else {
-        videoOutput = AVCaptureVideoDataOutput()
-//        }
-//        #endif
+        #if os(iOS)
+        if depth {
+            depthOutput = AVCaptureDepthDataOutput()
+        } else {
+            videoOutput = AVCaptureVideoDataOutput()
+        }
+        #endif
         
 //        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
         
@@ -426,37 +429,44 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         if depth {
             
-//            #if os(iOS)
-//            depthOutput!.isFilteringEnabled = false
-////            depthConnection = depthOutput!.connection(with: .depthData)
-////            guard depthConnection != nil else {
-////                pixelKit.log(.error, nil, "Camera depth connection failed.")
-////                return
-////            }
-////            depthConnection!.isEnabled = true
+            #if os(iOS)
+//            let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.depth.queue")
+//            depthOutput!.setDelegate(self, callbackQueue: queue)
+            depthOutput!.isFilteringEnabled = false
+//            captureSession.addOutput(depthOutput!)
+            
+            depthConnection = depthOutput!.connection(with: .depthData)
+            depthConnection?.videoOrientation = .portrait
+            
+//            depthConnection = depthOutput!.connection(with: .depthData)
+//            guard depthConnection != nil else {
+//                pixelKit.log(.error, nil, "Camera depth connection failed.")
+//                return
+//            }
+//            depthConnection!.isEnabled = true
 //
-////            let depthFormats = device!.activeFormat.supportedDepthDataFormats
-////            let filtered = depthFormats.filter({
-////                CMFormatDescriptionGetMediaSubType($0.formatDescription) == kCVPixelFormatType_DepthFloat16
-////            })
-////            let selectedFormat = filtered.max(by: {
-////                first, second in CMVideoFormatDescriptionGetDimensions(first.formatDescription).width < CMVideoFormatDescriptionGetDimensions(second.formatDescription).width
-////            })
-////
-////            do {
-////                try device!.lockForConfiguration()
-////                device!.activeDepthDataFormat = selectedFormat
-////                device!.unlockForConfiguration()
-////            } catch {
-////                pixelKit.log(.error, nil, "Could not lock device for depth configuration.", e: error)
-////                return
-////            }
+//            let depthFormats = device!.activeFormat.supportedDepthDataFormats
+//            let filtered = depthFormats.filter({
+//                CMFormatDescriptionGetMediaSubType($0.formatDescription) == kCVPixelFormatType_DepthFloat16
+//            })
+//            let selectedFormat = filtered.max(by: {
+//                first, second in CMVideoFormatDescriptionGetDimensions(first.formatDescription).width < CMVideoFormatDescriptionGetDimensions(second.formatDescription).width
+//            })
 //
-////            let depthQueue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.depth.queue")
-////
-////            depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [depthOutput!])
-////            depthSynchronizer.setDelegate(self, queue: depthQueue)
-//            #endif
+//            do {
+//                try device!.lockForConfiguration()
+//                device!.activeDepthDataFormat = selectedFormat
+//                device!.unlockForConfiguration()
+//            } catch {
+//                pixelKit.log(.error, nil, "Could not lock device for depth configuration.", e: error)
+//                return
+//            }
+//
+//            let depthQueue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.depth.queue")
+//
+//            depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [depthOutput!])
+//            depthSynchronizer.setDelegate(self, queue: depthQueue)
+            #endif
     
         } else {
             
@@ -469,6 +479,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             
             videoOutput!.alwaysDiscardsLateVideoFrames = true
             videoOutput!.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
+
             
         }
         
@@ -478,19 +489,19 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 captureSession.addInput(input)
                 var output: AVCaptureOutput!
                 if depth {
-//                    #if os(iOS)
-//                    output = depthOutput!
-//                    #endif
+                    #if os(iOS)
+                    output = depthOutput!
+                    #endif
                 } else {
                     output = videoOutput!
                 }
                 if captureSession.canAddOutput(output){
                     captureSession.addOutput(output)
-                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.camera.queue")
+                    let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
                     if depth {
-//                        #if os(iOS)
-//                        depthOutput!.setDelegate(self, callbackQueue: queue)
-//                        #endif
+                        #if os(iOS)
+                        depthOutput!.setDelegate(self, callbackQueue: queue)
+                        #endif
                     } else {
                         videoOutput!.setSampleBufferDelegate(self, queue: queue)
                     }
@@ -504,6 +515,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         } catch {
             pixelKit.log(.error, .resource, "Camera input failed to load.", e: error)
         }
+        
     
         #if os(iOS) && !targetEnvironment(macCatalyst)
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
@@ -565,27 +577,28 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
     }
     
-//    #if os(iOS)
-//    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
-//                         didOutput depthData: AVDepthData,
-//                         timestamp: CMTime,
-//                         connection: AVCaptureConnection) {
-//        
-//        var convertedDepth: AVDepthData
-//        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
-//            convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
-//        } else {
-//            convertedDepth = depthData
-//        }
-//        print("DEPTH")
-//        let pixelBuffer = convertedDepth.depthDataMap
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            self?.capturedCallback(pixelBuffer)
-//        }
-//        
-//    }
-//    #endif
+    #if os(iOS)
+    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
+                         didOutput depthData: AVDepthData,
+                         timestamp: CMTime,
+                         connection: AVCaptureConnection) {
+        print("DEPTH")
+        guard depth else { return }
+        var convertedDepth: AVDepthData
+        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
+            convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
+        } else {
+            convertedDepth = depthData
+        }
+        let pixelBuffer = convertedDepth.depthDataMap
+//        pixelBuffer.clamp()
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.capturedCallback(pixelBuffer)
+        }
+        
+    }
+    #endif
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
