@@ -1447,7 +1447,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.7;
+				MARKETING_VERSION = 0.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1484,7 +1484,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.6.7;
+				MARKETING_VERSION = 0.6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

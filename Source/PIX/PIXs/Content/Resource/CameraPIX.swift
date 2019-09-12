@@ -332,7 +332,7 @@ public class CameraPIX: PIXResource {
 
 // MARK: - Camera Helper
 
-class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureDepthDataOutputDelegate/*, AVCapturePhotoCaptureDelegate*/ {
+class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCaptureDepthDataOutputDelegate, AVCapturePhotoCaptureDelegate*/ {
 
     let pixelKit = PixelKit.main
     
@@ -392,7 +392,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         }
         #endif
         
+        #if os(iOS)
         self.depth = depth
+        #endif
         
         self.cameraPosition = cameraPosition
 //        self.photoSupport = photoSupport
@@ -577,28 +579,28 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         
     }
     
-    #if os(iOS)
-    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
-                         didOutput depthData: AVDepthData,
-                         timestamp: CMTime,
-                         connection: AVCaptureConnection) {
-        print("DEPTH")
-        guard depth else { return }
-        var convertedDepth: AVDepthData
-        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
-            convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
-        } else {
-            convertedDepth = depthData
-        }
-        let pixelBuffer = convertedDepth.depthDataMap
-//        pixelBuffer.clamp()
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.capturedCallback(pixelBuffer)
-        }
-        
-    }
-    #endif
+//    #if os(iOS)
+//    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
+//                         didOutput depthData: AVDepthData,
+//                         timestamp: CMTime,
+//                         connection: AVCaptureConnection) {
+//        print("DEPTH")
+//        guard depth else { return }
+//        var convertedDepth: AVDepthData
+//        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
+//            convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
+//        } else {
+//            convertedDepth = depthData
+//        }
+//        let pixelBuffer = convertedDepth.depthDataMap
+////        pixelBuffer.clamp()
+//
+//        DispatchQueue.main.async { [weak self] in
+//            self?.capturedCallback(pixelBuffer)
+//        }
+//
+//    }
+//    #endif
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
