@@ -323,9 +323,10 @@ extension PixelKit {
         
         // MARK: Drawable
         
-        guard let res = pix.resolution else {
-            throw RenderError.drawable("PIX Resolution not set.")
-        }
+        let res = pix.resolution
+//        guard let res = pix.resolution else {
+//            throw RenderError.drawable("PIX Resolution not set.")
+//        }
         
         var viewDrawable: CAMetalDrawable? = nil
         let drawableTexture: MTLTexture

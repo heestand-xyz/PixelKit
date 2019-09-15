@@ -96,7 +96,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: LiveFloat = 1.0) {
         coordinates = []
-        let aspect = resolution?.aspect.cg ?? 1.0
+        let aspect = resolution.aspect.cg
         let hexScale: CGFloat = sqrt(0.75)
         let xScale = hexScale * scale
         let yScale = (3 / 4) * scale
@@ -148,7 +148,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         coordinates = []
         let pixCount = inPixs.isEmpty ? 1 : inPixs.count
         for _ in 0..<count {
-            let aspect = resolution?.aspect.cg ?? 1.0
+            let aspect = resolution.aspect.cg
             let position = LivePoint(x: LiveFloat.random(in: (-aspect / 2)...(aspect / 2)),
                                    y: LiveFloat.random(in: -0.5...0.5))
             let rotation = LiveFloat.random(in: 0.0...1.0)

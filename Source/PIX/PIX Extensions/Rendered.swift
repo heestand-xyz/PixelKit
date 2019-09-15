@@ -63,7 +63,7 @@ public extension PIX {
     }
     
     var renderedPixelBuffer: CVPixelBuffer? {
-        guard let res = resolution else { pixelKit.log(.error, nil, "renderedPixelBuffer: no res."); return nil }
+        let res = resolution
         guard let cgImage = renderedCGImage else { pixelKit.log(.error, nil, "renderedPixelBuffer: no cgImage."); return nil }
         var maybePixelBuffer: CVPixelBuffer?
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
@@ -165,7 +165,7 @@ public extension PIX {
     }
     
     var renderedPixels: PixelPack? {
-        guard let res = resolution else { return nil }
+        guard let res = realResolution else { return nil }
         guard let rawPixelKit = renderedRawNormalized else { return nil }
         var pixelKit: [[PixelKit.Pixel]] = []
         let w = Int(res.width.cg)

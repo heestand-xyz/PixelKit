@@ -20,8 +20,7 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     }
     
     var holdEdgeFraction: CGFloat {
-        guard let res = resolution else { return 0 }
-        let axisRes = axis == .x ? res.width.cg : res.height.cg
+        let axisRes = axis == .x ? resolution.width.cg : resolution.height.cg
         return 1 / axisRes
     }
     

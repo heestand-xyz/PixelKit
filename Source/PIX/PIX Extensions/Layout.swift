@@ -80,7 +80,7 @@ class Layout {
     }
     
     static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
-        let aspect = LiveFloat({ return layoutablePix.resolution?.aspect.cg ?? 1.0 })
+        let aspect = LiveFloat({ return layoutablePix.resolution.aspect.cg })
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .left:

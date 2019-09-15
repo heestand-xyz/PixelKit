@@ -150,7 +150,7 @@ public class RecordPIX: PIXOutput {
         guard connectedIn else {
             throw RecordError.noInPix
         }
-        guard let res = resolution else {
+        guard let res = realResolution else {
             throw RecordError.noRes
         }
 
@@ -386,7 +386,7 @@ public class RecordPIX: PIXOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) -> Bool {
-        guard let pixelBuffer = pixelKit.buffer(from: cg_image, at: resolution?.size.cg ?? PIX.Res._128.size.cg) else { return false }
+        guard let pixelBuffer = pixelKit.buffer(from: cg_image, at: resolution.size.cg) else { return false }
         return pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time)
     }
     

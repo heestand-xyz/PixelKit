@@ -42,7 +42,7 @@ public class VideoPIX: PIXResource {
         name = "video"
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer, fraction in
             self.pixelBuffer = pixelBuffer
-            guard let res = self.resolution else { return }
+            let res = self.resolution
             if self.view.res == nil || self.view.res! != res {
                 self.applyRes { self.setNeedsRender() }
             } else {

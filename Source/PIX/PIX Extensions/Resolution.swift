@@ -10,7 +10,11 @@ import CoreGraphics
 
 extension PIX {
     
-    public var resolution: Res? {
+    public var resolution: Res {
+        realResolution ?? .auto
+    }
+    
+    public var realResolution: Res? {
         guard !bypass else {
             if let pixIn = self as? PIXInIO {
                 return pixIn.pixInList.first?.resolution
@@ -64,28 +68,29 @@ extension PIX {
         } else { return nil }
     }
     
-    public func nextResolution(callback: @escaping (Res) -> ()) {
-        if let res = resolution {
+    public func nextRealResolution(callback: @escaping (Res) -> ()) {
+        if let res = realResolution {
             callback(res)
             return
         }
         PixelKit.main.delay(frames: 1, done: {
-            self.nextResolution(callback: callback)
+            self.nextRealResolution(callback: callback)
         })
     }
     
     public func applyRes(applied: @escaping () -> ()) {
-        guard let res = resolution else {
-            if pixelKit.frame == 0 {
-                pixelKit.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
-                pixelKit.delay(frames: 1, done: {
-                    self.applyRes(applied: applied)
-                })
-                return
-            }
-            pixelKit.log(pix: self, .error, .res, "Unknown.")
-            return
-        }
+        let res = resolution
+//        guard let res = resolution else {
+//            if pixelKit.frame == 0 {
+//                pixelKit.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
+//                pixelKit.delay(frames: 1, done: {
+//                    self.applyRes(applied: applied)
+//                })
+//                return
+//            }
+//            pixelKit.log(pix: self, .error, .res, "Unknown.")
+//            return
+//        }
         guard view.res == nil || view.res! != res else {
             applied()
             return

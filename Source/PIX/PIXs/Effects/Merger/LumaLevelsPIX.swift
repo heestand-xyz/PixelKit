@@ -52,11 +52,11 @@ public extension PIXOut {
     
     func _vignetting(radius: LiveFloat = 0.5, inset: LiveFloat = 0.25, gamma: LiveFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & PIXOut
-        let rectangle = RectanglePIX(res: pix.resolution ?? ._1024)
+        let rectangle = RectanglePIX(res: pix.resolution)
         rectangle.bgColor = .white
         rectangle.color = .black
         rectangle.name = "vignetting:rectangle"
-        rectangle.size = LiveSize(w: (pix.resolution?.aspect ?? 1.0) - inset, h: 1.0 - inset)
+        rectangle.size = LiveSize(w: pix.resolution.aspect - inset, h: 1.0 - inset)
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = "vignetting:lumaLevels"
         lumaLevelsPix.inPixA = pix
