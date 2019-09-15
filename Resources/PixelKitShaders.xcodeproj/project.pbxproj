@@ -115,6 +115,8 @@
 		3A7C23032285B4660096F53C /* ContentGeneratorRectanglePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C229A2285B4650096F53C /* ContentGeneratorRectanglePIX.metal */; };
 		3A7C23042285B4660096F53C /* EffectSingleChromaKeyPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C229B2285B4660096F53C /* EffectSingleChromaKeyPIX.metal */; };
 		3A7C23052285B4660096F53C /* EffectSingleChromaKeyPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C229B2285B4660096F53C /* EffectSingleChromaKeyPIX.metal */; };
+		74F39A93232E700400E3565C /* TemplatePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74F39A92232E700400E3565C /* TemplatePIX.metal */; };
+		74F39A94232E700400E3565C /* TemplatePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74F39A92232E700400E3565C /* TemplatePIX.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +176,7 @@
 		3A7C229B2285B4660096F53C /* EffectSingleChromaKeyPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleChromaKeyPIX.metal; sourceTree = "<group>"; };
 		7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = PixelKitShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E9F6C72193813800F541DE /* PixelKitShaders-macOS.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = "PixelKitShaders-macOS.metallib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74F39A92232E700400E3565C /* TemplatePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TemplatePIX.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -234,6 +237,7 @@
 				3A7C22842285B4640096F53C /* random_header.metal */,
 				3A7C22862285B4650096F53C /* random.metal */,
 				3A7C22892285B4650096F53C /* SpritePIX.metal */,
+				74F39A92232E700400E3565C /* TemplatePIX.metal */,
 			);
 			name = Shaders;
 			path = ../Shaders;
@@ -356,6 +360,7 @@
 				3A7C22B82285B4660096F53C /* EffectMultiArrayPIX.metal in Sources */,
 				3A7C22D02285B4660096F53C /* EffectSingleHueSaturationPIX.metal in Sources */,
 				3A7C22FC2285B4660096F53C /* EffectMergerBlendPIX.metal in Sources */,
+				74F39A93232E700400E3565C /* TemplatePIX.metal in Sources */,
 				3A7C22E22285B4660096F53C /* hsv.metal in Sources */,
 				3A6A1D912296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal in Sources */,
 				3A7C22EC2285B4660096F53C /* EffectMergerCrossPIX.metal in Sources */,
@@ -417,6 +422,7 @@
 				3A7C22B92285B4660096F53C /* EffectMultiArrayPIX.metal in Sources */,
 				3A7C22D12285B4660096F53C /* EffectSingleHueSaturationPIX.metal in Sources */,
 				3A7C22FD2285B4660096F53C /* EffectMergerBlendPIX.metal in Sources */,
+				74F39A94232E700400E3565C /* TemplatePIX.metal in Sources */,
 				3A7C22E32285B4660096F53C /* hsv.metal in Sources */,
 				3A6A1D922296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal in Sources */,
 				3A7C22ED2285B4660096F53C /* EffectMergerCrossPIX.metal in Sources */,
