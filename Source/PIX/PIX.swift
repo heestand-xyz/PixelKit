@@ -132,7 +132,8 @@ open class PIX: Equatable {
     }
     var renderIndex: Int = 0
     var contentLoaded: Bool?
-    
+    var inputTextureAvalible: Bool?
+
     // MARK: - Life Cycle
     
     init() {
@@ -152,7 +153,7 @@ open class PIX: Equatable {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
         }
-        let shaderName = contentLoaded == false ? "templatePIX" : shader
+        let shaderName = contentLoaded == false || inputTextureAvalible == false ? "templatePIX" : shader
         do {
             let frag = try pixelKit.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
@@ -214,6 +215,22 @@ open class PIX: Equatable {
                 }
                 contentLoaded = false
                 pixelKit.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
+            }
+        }
+        if let inPix = self as? PIXInIO {
+            if inPix.pixInList.first?.texture != nil {
+                let wasBad = inputTextureAvalible == false
+                if inputTextureAvalible != true {
+                    inputTextureAvalible = true
+                    if wasBad {
+                        setupShader()
+                    }
+                }
+            } else {
+                if inputTextureAvalible != false {
+                    inputTextureAvalible = false
+                    setupShader()
+                }
             }
         }
         pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)

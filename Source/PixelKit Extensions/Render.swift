@@ -153,16 +153,16 @@ extension PixelKit {
                     }
                 }
                 
-                if let pixIn = pix as? PIX & PIXInIO {
-                    let pixOuts = pixIn.pixInList
-                    for (i, pixOut) in pixOuts.enumerated() {
-                        if pixOut.texture == nil {
-                            log(pix: pix, .warning, .render, "PIX Ins \(i) not rendered.", loop: true)
-                            pix.needsRender = false // CHECK
-                            continue loop
-                        }
-                    }
-                }
+//                if let pixIn = pix as? PIX & PIXInIO {
+//                    let pixOuts = pixIn.pixInList
+//                    for (i, pixOut) in pixOuts.enumerated() {
+//                        if pixOut.texture == nil {
+//                            log(pix: pix, .warning, .render, "PIX Ins \(i) not rendered.", loop: true)
+//                            pix.needsRender = false // CHECK
+//                            continue loop
+//                        }
+//                    }
+//                }
                 
                 var semaphore: DispatchSemaphore?
                 if renderMode == .instantQueueSemaphore {
@@ -315,15 +315,22 @@ extension PixelKit {
             localRenderTime = CFAbsoluteTimeGetCurrent()
         }
         
+        // MARK: Template
+        
+        let needsInTexture = pix is PIXInIO
+        let hasInTexture = needsInTexture && (pix as! PIXInIO).pixInList.first?.texture != nil
+        let needsContent = pix.contentLoaded != nil
+        let hasContent = pix.contentLoaded == true
+        let template = (needsInTexture && !hasInTexture) || (needsContent && !hasContent)
+        
         
         // MARK: Input Texture
         
         let generator: Bool = pix is PIXGenerator
         var (inputTexture, secondInputTexture, customTexture): (MTLTexture?, MTLTexture?, MTLTexture?)
-        if pix.contentLoaded != false {
+        if !template {
             (inputTexture, secondInputTexture, customTexture) = try textures(from: pix, with: commandBuffer)
         }
-         
         
         // MARK: Drawable
         
@@ -408,7 +415,7 @@ extension PixelKit {
         // MARK: Uniforms
         
         var unifroms: [Float] = []
-        if pix.contentLoaded != false {
+        if !template {
             unifroms = pix.uniforms.map { uniform -> Float in return Float(uniform) }
         }
         if let genPix = pix as? PIXGenerator {
@@ -417,11 +424,11 @@ extension PixelKit {
         if let mergerEffectPix = pix as? PIXMergerEffect {
             unifroms.append(Float(mergerEffectPix.placement.index))
         }
-        if pix.contentLoaded == false {
+        if template {
             unifroms.append(Float(res.width.cg))
             unifroms.append(Float(res.height.cg))
         }
-        if pix.shaderNeedsAspect || pix.contentLoaded == false {
+        if pix.shaderNeedsAspect || template {
             unifroms.append(Float(res.aspect.cg))
         }
         if !unifroms.isEmpty {
@@ -454,7 +461,7 @@ extension PixelKit {
             return uniformValues.map({ uniform -> Float in return Float(uniform) })
         }
         
-        if !uniformArray.isEmpty && pix.contentLoaded != false {
+        if !uniformArray.isEmpty && !template {
             
             var uniformArrayActive: [Bool] = uniformArray.map { _ -> Bool in return true }
             
@@ -511,7 +518,7 @@ extension PixelKit {
         
         // MARK: Fragment Texture
         
-        if !generator && pix.contentLoaded != false {
+        if !generator && !template {
             commandEncoder.setFragmentTexture(inputTexture!, index: 0)
         }
         
