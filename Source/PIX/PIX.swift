@@ -131,6 +131,7 @@ open class PIX: Equatable {
         }
     }
     var renderIndex: Int = 0
+    var contentLoaded: Bool?
     
     // MARK: - Life Cycle
     
@@ -138,23 +139,28 @@ open class PIX: Equatable {
     
         view = PIXView()
         
-        guard shader != "" else {
-            pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
-            return
-        }
-        do {
-            let frag = try pixelKit.makeFrag(shader, with: customMetalLibrary, from: self)
-            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
-            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
-        } catch {
-            pixelKit.log(pix: self, .fatal, nil, "Initialization failed.", e: error)
-        }
+        setupShader()
             
         pixelKit.add(pix: self)
         
         pixelKit.log(pix: self, .detail, nil, "Linked with PixelKit.", clean: true)
     
+    }
+    
+    func setupShader() {
+        guard shader != "" else {
+            pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
+            return
+        }
+        let shaderName = contentLoaded == false ? "templatePIX" : shader
+        do {
+            let frag = try pixelKit.makeFrag(shaderName, with: customMetalLibrary, from: self)
+            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+            pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
+            sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+        } catch {
+            pixelKit.log(pix: self, .fatal, nil, "Setup failed.", e: error)
+        }
     }
     
     // MARK: Sampler
@@ -180,10 +186,10 @@ open class PIX: Equatable {
 //            pixelKit.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
         }
-        guard resolution != nil else {
+//        guard resolution != nil else {
 //            pixelKit.log(pix: self, .warning, .render, "Resolution unknown.", loop: true)
-            return
-        }
+//            return
+//        }
         guard view.metalView.res != nil else {
             pixelKit.log(pix: self, .warning, .render, "Metal View res not set.", loop: true)
             pixelKit.log(pix: self, .debug, .render, "Auto applying Res...", loop: true)
@@ -193,9 +199,21 @@ open class PIX: Equatable {
             return
         }
         if let pixResource = self as? PIXResource {
-            guard pixResource.pixelBuffer != nil else {
+            if pixResource.pixelBuffer != nil {
+                if contentLoaded != true {
+                    let wasBad = contentLoaded == false
+                    contentLoaded = true
+                    if wasBad {
+                        setupShader()
+                    }
+                }
+            } else {
+                if contentLoaded != false {
+                    contentLoaded = false
+                    setupShader()
+                }
+                contentLoaded = false
                 pixelKit.log(pix: self, .warning, .render, "Content not loaded.", loop: true)
-                return
             }
         }
         pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)

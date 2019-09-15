@@ -50,6 +50,21 @@ public class VideoPIX: PIXResource {
             }
             self._progressFraction = fraction
         })
+        self.applyRes {
+            self.setNeedsRender()
+        }
+//        pixelKit.listenToFramesUntil {
+//            if self.realResolution != nil {
+//                return .done
+//            }
+//            if self.resolution != ._128 {
+//                self.applyRes {
+//                    self.setNeedsRender()
+//                }
+//                return .done
+//            }
+//            return .continue
+//        }
     }
     
     // MARK: - Load

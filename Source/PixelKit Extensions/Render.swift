@@ -319,7 +319,11 @@ extension PixelKit {
         // MARK: Input Texture
         
         let generator: Bool = pix is PIXGenerator
-        var (inputTexture, secondInputTexture, customTexture) = try textures(from: pix, with: commandBuffer)
+        var (inputTexture, secondInputTexture, customTexture): (MTLTexture?, MTLTexture?, MTLTexture?)
+        if pix.contentLoaded != false {
+            (inputTexture, secondInputTexture, customTexture) = try textures(from: pix, with: commandBuffer)
+        }
+         
         
         // MARK: Drawable
         
@@ -403,14 +407,21 @@ extension PixelKit {
         
         // MARK: Uniforms
         
-        var unifroms: [Float] = pix.uniforms.map { uniform -> Float in return Float(uniform) }
+        var unifroms: [Float] = []
+        if pix.contentLoaded != false {
+            unifroms = pix.uniforms.map { uniform -> Float in return Float(uniform) }
+        }
         if let genPix = pix as? PIXGenerator {
             unifroms.append(genPix.premultiply ? 1 : 0)
         }
         if let mergerEffectPix = pix as? PIXMergerEffect {
             unifroms.append(Float(mergerEffectPix.placement.index))
         }
-        if pix.shaderNeedsAspect {
+        if pix.contentLoaded == false {
+            unifroms.append(Float(res.width.cg))
+            unifroms.append(Float(res.height.cg))
+        }
+        if pix.shaderNeedsAspect || pix.contentLoaded == false {
             unifroms.append(Float(res.aspect.cg))
         }
         if !unifroms.isEmpty {
@@ -443,7 +454,7 @@ extension PixelKit {
             return uniformValues.map({ uniform -> Float in return Float(uniform) })
         }
         
-        if !uniformArray.isEmpty {
+        if !uniformArray.isEmpty && pix.contentLoaded != false {
             
             var uniformArrayActive: [Bool] = uniformArray.map { _ -> Bool in return true }
             
@@ -500,7 +511,7 @@ extension PixelKit {
         
         // MARK: Fragment Texture
         
-        if !generator {
+        if !generator && pix.contentLoaded != false {
             commandEncoder.setFragmentTexture(inputTexture!, index: 0)
         }
         
