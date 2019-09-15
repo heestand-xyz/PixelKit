@@ -12,12 +12,12 @@ import MetalPerformanceShadersProxy
 import MetalKit
 #endif
 
-#if os(iOS)
+#if canImport(SwiftUI) && os(iOS)
 import SwiftUI
 #endif
 
 
-#if os(iOS)
+#if canImport(SwiftUI) && os(iOS)
 public struct PIXRepView: UIViewRepresentable {
         
     public let pix: PIX
