@@ -171,7 +171,12 @@ extension PixelKit {
                 }
                 
                 DispatchQueue.main.async {
-                    if pix.view.superview != nil {
+//                    #if targetEnvironment(simulator)
+//                    let isSimulator = true
+//                    #else
+//                    let isSimulator = false
+//                    #endif
+                    if pix.view.superview != nil/* && !isSimulator*/ {
                         #if os(iOS)
                         pix.view.metalView.setNeedsDisplay()
                         #elseif os(macOS)
@@ -182,9 +187,9 @@ extension PixelKit {
                         pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
                         #endif
                         self.log(pix: pix, .detail, .render, "View Render requested.", loop: true)
-                        guard let currentDrawable: CAMetalDrawable = pix.view.metalView.currentDrawable else {
+                        let currentDrawable: CAMetalDrawable? = pix.view.metalView.currentDrawable
+                        if currentDrawable == nil {
                             self.log(pix: pix, .error, .render, "Current Drawable not found.")
-                            return
                         }
                         pix.view.metalView.readyToRender = {
                             pix.view.metalView.readyToRender = nil
