@@ -6,11 +6,12 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-#if os(iOS) && targetEnvironment(simulator)
-import MetalPerformanceShadersProxy
-#else
+//#if os(iOS) && targetEnvironment(simulator)
+//import MetalPerformanceShadersProxy
+//#else
+//import Metal
+//#endif
 import Metal
-#endif
 
 public class TimeMachinePIX: PIXMergerEffect {
    

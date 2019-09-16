@@ -158,7 +158,7 @@ Pod::Spec.new do |spec|
   # spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  spec.ios.dependency "MetalPerformanceShadersProxy", "~> 0.3"
+  #spec.ios.dependency "MetalPerformanceShadersProxy", "~> 0.3"
   spec.dependency 'SwiftSVG', '~> 2.0'
   spec.dependency 'OSCKit'
 

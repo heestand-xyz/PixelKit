@@ -1,6 +1,6 @@
 //
 //  Motion.swift
-//  MetalPerformanceShadersProxy
+//  PixelKit
 //
 //  Created by Anton Heestand on 2019-05-28.
 //

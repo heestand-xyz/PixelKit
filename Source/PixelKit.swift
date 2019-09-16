@@ -7,11 +7,12 @@
 //
 
 import CoreGraphics
-#if os(iOS) && targetEnvironment(simulator)
-import MetalPerformanceShadersProxy
-#else
+//#if os(iOS) && targetEnvironment(simulator)
+//import MetalPerformanceShadersProxy
+//#else
+//import MetalKit
+//#endif
 import MetalKit
-#endif
 import simd
 
 public class PixelKit {

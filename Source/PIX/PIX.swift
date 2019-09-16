@@ -7,11 +7,12 @@
 //
 
 import CoreGraphics
-#if os(iOS) && targetEnvironment(simulator)
-import MetalPerformanceShadersProxy
-#else
+//#if os(iOS) && targetEnvironment(simulator)
+//import MetalPerformanceShadersProxy
+//#else
+//import Metal
+//#endif
 import Metal
-#endif
 import simd
 
 open class PIX: Equatable {

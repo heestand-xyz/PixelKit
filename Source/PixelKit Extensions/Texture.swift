@@ -6,11 +6,12 @@
 //  Open Source - MIT License
 //
 
-#if os(iOS) && targetEnvironment(simulator)
-import MetalPerformanceShadersProxy
-#else
+//#if os(iOS) && targetEnvironment(simulator)
+//import MetalPerformanceShadersProxy
+//#else
+//import MetalKit
+//#endif
 import MetalKit
-#endif
 import VideoToolbox
 
 extension PixelKit {
