@@ -217,7 +217,7 @@ extension PixelKit {
     }
     
     func renderPIX(_ pix: PIX, with currentDrawable: CAMetalDrawable? = nil, force: Bool = false, done: @escaping (Bool?) -> ()) {
-        guard !pix.bypass else {
+        guard !pix.bypass || pix is PIXGenerator else {
             self.log(pix: pix, .info, .render, "Render bypassed.", loop: true)
             done(nil)
             return
@@ -327,7 +327,9 @@ extension PixelKit {
         let hasInTexture = needsInTexture && (pix as! PIXInIO).pixInList.first?.texture != nil
         let needsContent = pix.contentLoaded != nil
         let hasContent = pix.contentLoaded == true
-        let template = (needsInTexture && !hasInTexture) || (needsContent && !hasContent)
+        let needsGenerated = pix is PIXGenerator
+        let hasGenerated = !pix.bypass
+        let template = (needsInTexture && !hasInTexture) || (needsContent && !hasContent) || (needsGenerated && !hasGenerated)
         
         
         // MARK: Input Texture
@@ -424,7 +426,7 @@ extension PixelKit {
         if !template {
             unifroms = pix.uniforms.map { uniform -> Float in return Float(uniform) }
         }
-        if let genPix = pix as? PIXGenerator {
+        if let genPix = pix as? PIXGenerator, !template {
             unifroms.append(genPix.premultiply ? 1 : 0)
         }
         if let mergerEffectPix = pix as? PIXMergerEffect {

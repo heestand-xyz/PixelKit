@@ -37,30 +37,31 @@ fragment float4 templatePIX(VertexOut out [[stage_in]],
     
     float c = 0;
     float d = 32;
-    float ry = 1.0 / in.resy;
-    float r = ry * d;
+    float rx = (1.0 / in.resx) * d;
+    float ry = (1.0 / in.resy) * d;
+    float ra = (rx + ry) / 2;
     
-    if (u < r || u > 1.0 - r) {
+    if (u < rx || u > 1.0 - rx) {
         c = 1.0;
     }
-    if (v < r || v > 1.0 - r) {
+    if (v < ry || v > 1.0 - ry) {
         c = 1.0;
     }
     
     float dist = sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2));
-    if (dist > 0.5 - r && dist < 0.5) {
+    if (dist > 0.5 - ra / 2 && dist < 0.5) {
         c = 1.0;
     }
-    if (dist > in.aspect / 2 - r && dist < in.aspect / 2) {
+    if (dist > in.aspect / 2 - ra / 2 && dist < in.aspect / 2) {
         c = 1.0;
     }
-    
+
     float line1 = distToLine(float2(0.0, 0.0), float2(1.0, 1.0), uv);
-    if (line1 < r / 2) {
+    if (line1 < ra / 2) {
         c = 1.0;
     }
     float line2 = distToLine(float2(0.0, 1.0), float2(1.0, 0.0), uv);
-    if (line2 < r / 2) {
+    if (line2 < ra / 2) {
         c = 1.0;
     }
     

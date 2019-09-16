@@ -65,7 +65,7 @@ open class PIX: Equatable {
     
     public var bypass: Bool = false {
         didSet {
-            guard !bypass else { return }
+            guard !bypass || self is PIXGenerator else { return }
             setNeedsRender()
         }
     }
@@ -134,6 +134,7 @@ open class PIX: Equatable {
     var renderIndex: Int = 0
     var contentLoaded: Bool?
     var inputTextureAvalible: Bool?
+    var generatorNotBypassed: Bool?
 
     // MARK: - Life Cycle
     
@@ -154,7 +155,8 @@ open class PIX: Equatable {
             pixelKit.log(pix: self, .fatal, nil, "Shader not defined.")
             return
         }
-        let shaderName = contentLoaded == false || inputTextureAvalible == false ? "templatePIX" : shader
+        let template = contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false
+        let shaderName = template ? "templatePIX" : shader
         do {
             let frag = try pixelKit.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
@@ -180,10 +182,11 @@ open class PIX: Equatable {
     // MARK: - Render
     
     public func setNeedsRender() {
-        guard !bypass else {
+        guard !bypass || self is PIXGenerator else {
             renderOuts()
             return
         }
+        checkSetup()
         guard !needsRender else {
 //            pixelKit.log(pix: self, .warning, .render, "Already requested.", loop: true)
             return
@@ -200,6 +203,12 @@ open class PIX: Equatable {
             }
             return
         }
+        pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)
+//        delegate?.pixWillRender(self)
+        needsRender = true
+    }
+    
+    func checkSetup() {
         if let pixResource = self as? PIXResource {
             if pixResource.pixelBuffer != nil {
                 if contentLoaded != true {
@@ -234,9 +243,22 @@ open class PIX: Equatable {
                 }
             }
         }
-        pixelKit.log(pix: self, .detail, .render, "Requested.", loop: true)
-//        delegate?.pixWillRender(self)
-        needsRender = true
+        if self is PIXGenerator {
+            if !bypass {
+                let wasBad = generatorNotBypassed == false
+                if generatorNotBypassed != true {
+                    generatorNotBypassed = true
+                    if wasBad {
+                        setupShader()
+                    }
+                }
+            } else {
+                if generatorNotBypassed != false {
+                    generatorNotBypassed = false
+                    setupShader()
+                }
+            }
+        }
     }
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
