@@ -29,7 +29,7 @@ public extension PIX {
         #if os(iOS)
         return cgImage
         #elseif os(macOS)
-        guard let size = resolution?.size else { return nil }
+        let size = resolution.size
         guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: pixelKit.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
         context.scaleBy(x: 1, y: -1)
         context.translateBy(x: 0, y: -size.height.cg)
@@ -49,7 +49,7 @@ public extension PIX {
         #if os(iOS)
         return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         #elseif os(macOS)
-        guard let size = resolution?.size else { return nil }
+        let size = resolution.size
         return NSImage(cgImage: cgImage, size: size.cg)
         #endif
     }

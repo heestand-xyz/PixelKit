@@ -52,10 +52,10 @@ extension PixelKit {
                         #if os(iOS)
                         pix.view.metalView.setNeedsDisplay()
                         #elseif os(macOS)
-                        guard let size = pix.resolution?.size else {
-                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
-                            return
-                        }
+                        let size = pix.resolution.size
+//                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+//                            return
+//                        }
                         pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
                         #endif
                         self.log(pix: pix, .detail, .render, "View Render requested.", loop: true)
@@ -180,10 +180,10 @@ extension PixelKit {
                         #if os(iOS)
                         pix.view.metalView.setNeedsDisplay()
                         #elseif os(macOS)
-                        guard let size = pix.resolution?.size else {
-                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
-                            return
-                        }
+                        let size = pix.resolution.size
+//                            self.log(pix: pix, .warning, .render, "PIX Resolutuon unknown. Can't render in view.", loop: true)
+//                            return
+//                        }
                         pix.view.metalView.setNeedsDisplay(CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
                         #endif
                         self.log(pix: pix, .detail, .render, "View Render requested.", loop: true)

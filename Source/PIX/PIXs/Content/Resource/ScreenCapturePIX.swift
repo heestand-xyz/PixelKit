@@ -40,7 +40,7 @@ public class ScreenCapturePIX: PIXResource {
         }, captured: { pixelBuffer in
             self.pixelKit.log(pix: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
-            if self.view.res == nil || self.view.res! != self.resolution! {
+            if self.view.res == nil || self.view.res! != self.resolution {
                 self.applyRes { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
