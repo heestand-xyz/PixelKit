@@ -312,6 +312,9 @@ public extension PIX {
         // MARK: Checks
         
         public static var isiPhone: Bool {
+            #if os(macOS) || targetEnvironment(macCatalyst)
+            return false
+            #else
             return Res.fullscreen == .iPhone(.landscape) || Res.fullscreen == .iPhone(.portrait) ||
                 Res.fullscreen == .iPhonePlus(.landscape) || Res.fullscreen == .iPhonePlus(.portrait) ||
                 Res.fullscreen == .iPhoneX(.landscape) || Res.fullscreen == .iPhoneX(.portrait) ||
@@ -320,14 +323,19 @@ public extension PIX {
                 Res.fullscreen == .iPhone11(.landscape) || Res.fullscreen == .iPhone11(.portrait) ||
                 Res.fullscreen == .iPhone11Pro(.landscape) || Res.fullscreen == .iPhone11Pro(.portrait) ||
                 Res.fullscreen == .iPhone11ProMax(.landscape) || Res.fullscreen == .iPhone11ProMax(.portrait)
+            #endif
         }
         
         public static var isiPad: Bool {
+            #if os(macOS) || targetEnvironment(macCatalyst)
+            return false
+            #else
             return Res.fullscreen == .iPad(.landscape) || Res.fullscreen == .iPad(.portrait) ||
                Res.fullscreen == .iPad_10_2(.landscape) || Res.fullscreen == .iPad_10_2(.portrait) ||
                Res.fullscreen == .iPadPro_11(.landscape) || Res.fullscreen == .iPadPro_11(.portrait) ||
                Res.fullscreen == .iPadPro_10_5(.landscape) || Res.fullscreen == .iPadPro_10_5(.portrait) ||
                Res.fullscreen == .iPadPro_12_9(.landscape) || Res.fullscreen == .iPadPro_12_9(.portrait)
+            #endif
         }
         
         public static var hasTeleCamera: Bool {
