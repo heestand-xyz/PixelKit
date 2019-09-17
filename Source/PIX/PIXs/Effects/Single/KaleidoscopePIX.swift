@@ -12,9 +12,9 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var divisions: LiveInt = 12
+    public var divisions: LiveInt = LiveInt(12, min: 1, max: 24)
     public var mirror: LiveBool = true
-    public var rotation: LiveFloat = 0
+    public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var position: LivePoint = .zero
     
     // MARK: - Property Helpers
@@ -23,7 +23,7 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
         return [divisions, mirror, rotation, position]
     }
     
-    public override required init() {
+    public required init() {
         super.init()
         extend = .mirror
         name = "kaleidoscope"

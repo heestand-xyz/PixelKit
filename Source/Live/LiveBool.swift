@@ -120,6 +120,8 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     
     #endif
     
+    // MARK: - Life Cycle
+    
     public init(_ liveValue: @escaping () -> (Bool)) {
         self.liveValue = liveValue
     }

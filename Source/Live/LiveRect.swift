@@ -62,7 +62,7 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
         return CGRect(x: x.cg, y: y.cg, width: w.cg, height: h.cg)
     }
     
-    // MARK: Life Cycle
+    // MARK: - Life Cycle
     
     public init(_ liveValue: @escaping () -> (CGRect)) {
         x = LiveFloat({ return liveValue().minX })

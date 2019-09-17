@@ -12,7 +12,7 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var fraction: LiveFloat = 0.125
+    public var fraction: LiveFloat = LiveFloat(0.125, limit: true)
     
     // MARK: - Property Helpers
     

@@ -269,6 +269,8 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         })
     }
     
+    // MARK: - Life Cycle
+    
     public init(_ liveValue: @escaping () -> (CGFloat)) {
         self.liveValue = liveValue
     }
@@ -277,11 +279,11 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         liveValue = { return CGFloat(Int(liveInt)) }
     }
     
-    public init(_ value: CGFloat, min: CGFloat? = nil, max: CGFloat? = nil) {
+    public init(_ value: CGFloat, min: CGFloat? = nil, max: CGFloat? = nil, limit: Bool = false) {
         liveValue = { return value }
-        limit = min != nil || max != nil
         self.min = min ?? 0.0
         self.max = max ?? 1.0
+        self.limit = limit
     }
     public init(_ value: Float) {
         liveValue = { return CGFloat(value) }

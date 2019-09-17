@@ -92,7 +92,7 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     }
     #endif
     
-    // MARK: Life Cycle
+    // MARK: - Life Cycle
     
     public init(_ liveValue: @escaping () -> (CGPoint)) {
         x = LiveFloat({ return liveValue().x })

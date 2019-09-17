@@ -12,12 +12,12 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var brightness: LiveFloat = 1.0
+    public var brightness: LiveFloat = LiveFloat(1.0, max: 2.0)
     public var darkness: LiveFloat = 0.0
     public var contrast: LiveFloat = 0.0
     public var gamma: LiveFloat = 1.0
     public var inverted: LiveBool = false
-    public var opacity: LiveFloat = 1.0
+    public var opacity: LiveFloat = LiveFloat(1.0, limit: true)
     
     // MARK: - Property Helpers
     

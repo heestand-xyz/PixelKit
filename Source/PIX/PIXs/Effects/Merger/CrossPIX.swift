@@ -12,7 +12,7 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var fraction: LiveFloat = 0.5
+    public var fraction: LiveFloat = LiveFloat(0.5, limit: true)
     
     // MARK: - Property Helpers
     

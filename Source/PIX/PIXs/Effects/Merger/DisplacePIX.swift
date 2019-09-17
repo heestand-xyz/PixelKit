@@ -12,7 +12,7 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var distance: LiveFloat = 1.0
+    public var distance: LiveFloat = LiveFloat(1.0, max: 2.0)
     public var origin: LiveFloat = 0.5
     
     // MARK: - Property Helpers

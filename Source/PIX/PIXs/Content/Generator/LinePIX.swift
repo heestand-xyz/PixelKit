@@ -14,7 +14,7 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     
     public var positionFrom: LivePoint = LivePoint(x: -0.25, y: -0.25)
     public var positionTo: LivePoint = LivePoint(x: 0.25, y: 0.25)
-    public var scale: LiveFloat = 0.01
+    public var scale: LiveFloat = LiveFloat(0.01, max: 0.1)
     
     // MARK: - Property Helpers
     

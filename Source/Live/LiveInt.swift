@@ -89,6 +89,7 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         })
     }
     
+    // MARK: - Life Cycle
     
     public init(_ liveValue: @escaping () -> (Int)) {
         self.liveValue = liveValue
@@ -102,11 +103,11 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         liveValue = { return Int(value) }
     }
     
-    public init(_ value: Int, min: Int? = nil, max: Int? = nil) {
+    public init(_ value: Int, min: Int? = nil, max: Int? = nil, limit: Bool = false) {
         liveValue = { return value }
-        limit = min != nil || max != nil
         self.min = min ?? 0
         self.max = max ?? 1
+        self.limit = limit
     }
     required public init(integerLiteral value: IntegerLiteralType) {
         liveValue = { return Int(value) }

@@ -13,10 +13,10 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Public Properties
     
     public var position: LivePoint = .zero
-    public var radius: LiveFloat = 0.25
-    public var rotation: LiveFloat = 0.0
-    public var vertexCount: LiveInt = 6
-    public var cornerRadius: LiveFloat = 0
+    public var radius: LiveFloat = LiveFloat(0.25, max: 0.5)
+    public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
+    public var vertexCount: LiveInt = LiveInt(6, min: 3, max: 12)
+    public var cornerRadius: LiveFloat = LiveFloat(0.0, max: 0.25)
    
     // MARK: - Property Helpers
     

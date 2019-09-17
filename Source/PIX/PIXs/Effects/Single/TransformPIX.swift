@@ -14,8 +14,8 @@ public class TransformPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
     
     public var position: LivePoint = .zero
-    public var rotation: LiveFloat = 0.0
-    public var scale: LiveFloat = 1.0
+    public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
+    public var scale: LiveFloat = LiveFloat(1.0, max: 2.0)
     public var size: LiveSize = LiveSize(w: 1.0, h: 1.0)
     
     // MARK: - Property Helpers

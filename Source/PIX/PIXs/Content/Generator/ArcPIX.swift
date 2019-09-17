@@ -14,10 +14,10 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     public var position: LivePoint = .zero
     public var radius: LiveFloat = sqrt(0.75) / 4
-    public var angleFrom: LiveFloat = -0.125
-    public var angleTo: LiveFloat = 0.125
-    public var angleOffset: LiveFloat = 0.0
-    public var edgeRadius: LiveFloat = 0.05
+    public var angleFrom: LiveFloat = LiveFloat(-0.125, min: -0.5, max: 0.5)
+    public var angleTo: LiveFloat = LiveFloat(0.125, min: -0.5, max: 0.5)
+    public var angleOffset: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
+    public var edgeRadius: LiveFloat = LiveFloat(0.05, max: 0.5)
     public var fillColor: LiveColor = .clear
     
     // MARK: - Property Helpers

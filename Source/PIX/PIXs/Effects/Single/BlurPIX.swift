@@ -40,9 +40,9 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    public var radius: LiveFloat = 0.5
+    public var radius: LiveFloat = LiveFloat(0.5, limit: true)
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = 0.0
+    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var position: LivePoint = .zero
     
     // MARK: - Property Helpers

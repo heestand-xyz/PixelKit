@@ -32,7 +32,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
     public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = 0.0
+    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var position: LivePoint = .zero
     
     // MARK: - Property Helpers

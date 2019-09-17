@@ -12,7 +12,7 @@ public class SharpenPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var contrast: LiveFloat = 1.0
+    public var contrast: LiveFloat = LiveFloat(1.0, min: 0.0, max: 2.0)
     
     // MARK: - Property Helpers
     
