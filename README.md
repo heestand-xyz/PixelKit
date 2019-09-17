@@ -123,18 +123,6 @@ struct ContentView: View {
             .edgesIgnoringSafeArea(.all)
     }
 }
-
-struct PIXRepView: UIViewRepresentable {
-        
-    let pix: PIX
-    
-    func makeUIView(context: Context) -> PIXView {
-        return pix.view
-    }
-    
-    func updateUIView(_ pixView: PIXView, context: Context) {}
-    
-}
 ~~~~
 
 ## Docs
