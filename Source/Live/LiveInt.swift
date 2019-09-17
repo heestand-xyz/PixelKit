@@ -29,9 +29,12 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
         return Swift.max(Swift.min(liveValue(), max), min)
     }
     
-    var limit: Bool = false
-    var min: Int = 0
-    var max: Int = 1
+    public var limit: Bool = false
+    public var min: Int = 0
+    public var max: Int = 1
+    public var range: Range<Int> {
+        min..<max
+    }
     
     public var uniform: Int {
         uniformCache = value

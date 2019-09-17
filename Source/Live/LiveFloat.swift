@@ -55,9 +55,12 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return Swift.max(Swift.min(liveValue(), max), min)
     }
     
-    var limit: Bool = false
-    var min: CGFloat = 0.0
-    var max: CGFloat = 1.0
+    public var limit: Bool = false
+    public var min: CGFloat = 0.0
+    public var max: CGFloat = 1.0
+    public var range: ClosedRange<CGFloat> {
+        min...max
+    }
     
     public var cg: CGFloat {
         return value
