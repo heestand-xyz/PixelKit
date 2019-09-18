@@ -30,6 +30,10 @@ public class PixelKit {
     
     public var renderMode: RenderMode = .frameLoop
     
+    // MARK: Manual Render
+    
+    public var manualRenderDelegate: PixelManualRenderDelegate?
+    
     var manualRenderInProgress: Bool = false
     var manualRenderCallback: (() -> ())?
     
@@ -247,7 +251,6 @@ public class PixelKit {
     }
     
     func checkManualRender() {
-        guard manualRenderInProgress else { return }
         
         var somePixsNeedsRender: Bool = false
         for pix in linkedPixs {
@@ -255,6 +258,13 @@ public class PixelKit {
                 somePixsNeedsRender = true
                 break
             }
+        }
+        
+        guard manualRenderInProgress else {
+            if somePixsNeedsRender {
+                manualRenderDelegate?.pixelNeedsManualRender()
+            }
+            return
         }
         
         if somePixsNeedsRender {

@@ -15,6 +15,10 @@ import AppKit
 #endif
 import CoreGraphics
 
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
 #if os(iOS)
 public typealias _Color = UIColor
 #elseif os(macOS)
@@ -207,6 +211,11 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: Properties
     
+    #if canImport(SwiftUI)
+    public var color: Color {
+        Color(_color)
+    }
+    #endif
     var _color: _Color {
         #if os(iOS)
         return uiColor

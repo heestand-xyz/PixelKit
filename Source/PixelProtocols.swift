@@ -13,6 +13,10 @@ public protocol PixelDelegate: class {
     func pixelFrameLoop()
 }
 
+public protocol PixelManualRenderDelegate {
+    func pixelNeedsManualRender()
+}
+
 public protocol PixelCustomRenderDelegate {
     func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture?
 }
