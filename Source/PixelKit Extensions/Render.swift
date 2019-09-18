@@ -229,6 +229,7 @@ extension PixelKit {
             return
         }
         pix.needsRender = false
+        pix.inRender = true
 //        let queue = DispatchQueue(label: "pixelKit-render", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .never, target: nil)
 //        queue.async {
 //            DispatchQueue.main.async {
@@ -261,6 +262,7 @@ extension PixelKit {
 //                    }
 //                }
 //                    DispatchQueue.main.async {
+                        pix.inRender = false
                         pix.didRender(texture: texture, force: force)
                         done(true)
 //                    }
@@ -277,6 +279,7 @@ extension PixelKit {
                     }
                     self.log(pix: pix, .error, .render, "Render of shader failed... \(force ? "Forced." : "") \(ioafMsg ?? "")", loop: true, e: error)
 //                    DispatchQueue.main.async {
+                        pix.inRender = false
                         done(false)
 //                    }
                 })

@@ -123,6 +123,7 @@ open class PIX: Equatable {
     open var customMatrices: [matrix_float4x4] { return [] }
     public var customlinkedPixs: [PIX] = []
 
+    var inRender = false
     var rendering = false
     var needsRender = false {
         didSet {

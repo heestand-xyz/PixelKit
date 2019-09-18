@@ -268,10 +268,22 @@ public class PixelKit {
             
         } else {
         
-            log(.info, .render, "Manual Render Done.")
-            manualRenderCallback!()
-            manualRenderCallback = nil
-            manualRenderInProgress = false
+            var somePixsAreInRender: Bool = false
+            for pix in linkedPixs {
+                if pix.inRender {
+                    somePixsAreInRender = true
+                    break
+                }
+            }
+            
+            if !somePixsAreInRender {
+
+                log(.info, .render, "Manual Render Done.")
+                manualRenderCallback!()
+                manualRenderCallback = nil
+                manualRenderInProgress = false
+                
+            }
             
         }
         
