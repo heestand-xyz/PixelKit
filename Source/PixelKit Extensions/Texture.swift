@@ -6,11 +6,6 @@
 //  Open Source - MIT License
 //
 
-//#if os(iOS) && targetEnvironment(simulator)
-//import MetalPerformanceShadersProxy
-//#else
-//import MetalKit
-//#endif
 import MetalKit
 import VideoToolbox
 

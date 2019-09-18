@@ -6,11 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-//#if os(iOS) && targetEnvironment(simulator)
-//import MetalPerformanceShadersProxy
-//#else
-//import Metal
-//#endif
+
 import Metal
 
 open class PIXCustom: PIXContent, PIXRes, PixelCustomRenderDelegate {

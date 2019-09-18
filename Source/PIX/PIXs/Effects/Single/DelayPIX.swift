@@ -6,11 +6,7 @@
 //  Open Source - MIT License
 //
 
-//#if os(iOS) && targetEnvironment(simulator)
-//import MetalPerformanceShadersProxy
-//#else
-//import Metal
-//#endif
+
 import Metal
 
 public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {

@@ -6,19 +6,7 @@
 //  Open Source - MIT License
 //
 
-//#if os(iOS) && targetEnvironment(simulator)
-//import MetalPerformanceShadersProxy
-//#else
-//import MetalKit
-//#endif
 import MetalKit
-
-#if targetEnvironment(simulator)
-import UIKit
-class MTKView: UIView {
-    var currentDrawable: CAMetalDrawable!
-}
-#endif
 
 class PIXMetalView: MTKView {
     
@@ -27,19 +15,9 @@ class PIXMetalView: MTKView {
     var res: PIX.Res? {
         didSet {
             guard let res = res else { return }
-            #if !targetEnvironment(simulator)
             drawableSize = res.size.cg
-            #endif
         }
     }
-    
-//    override var frame: CGRect {
-//        didSet {
-//            #if os(macOS)
-//            setNeedsDisplay(frame)
-//            #endif
-//        }
-//    }
     
     var readyToRender: (() -> ())?
    
@@ -49,13 +27,8 @@ class PIXMetalView: MTKView {
         
         let onePixelFrame = CGRect(x: 0, y: 0, width: 1, height: 1) // CHECK
         
-        #if !targetEnvironment(simulator)
         super.init(frame: onePixelFrame, device: pixelKit.metalDevice)
-        #else
-        super.init(frame: .zero)
-        #endif
         
-        #if !targetEnvironment(simulator)
         colorPixelFormat = pixelKit.bits.mtl
         #if os(iOS)
         isOpaque = false
@@ -66,7 +39,6 @@ class PIXMetalView: MTKView {
         autoResizeDrawable = false
         enableSetNeedsDisplay = true
         isPaused = true
-        #endif
         
     }
     

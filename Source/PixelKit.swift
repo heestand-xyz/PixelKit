@@ -7,11 +7,6 @@
 //
 
 import CoreGraphics
-//#if os(iOS) && targetEnvironment(simulator)
-//import MetalPerformanceShadersProxy
-//#else
-//import MetalKit
-//#endif
 import MetalKit
 import simd
 
