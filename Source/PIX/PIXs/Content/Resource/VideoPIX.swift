@@ -118,7 +118,15 @@ public class VideoPIX: PIXResource {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
         }
+        guard progressSeconds.cg != seconds else {
+            pixelKit.log(pix: self, .warning, .resource, "Time already at seek.")
+            return
+        }
         let time = CMTime(seconds: Double(seconds), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        guard player.currentTime() != time else {
+            pixelKit.log(pix: self, .warning, .resource, "Time already at time.")
+            return
+        }
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
     
@@ -131,8 +139,16 @@ public class VideoPIX: PIXResource {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
             return
         }
+        guard progressFraction.cg != fraction else {
+            pixelKit.log(pix: self, .warning, .resource, "Fraction already at seek.")
+            return
+        }
         let seconds = item.duration.seconds * Double(fraction)
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        guard player.currentTime() != time else {
+            pixelKit.log(pix: self, .warning, .resource, "Time already at time.")
+            return
+        }
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
     

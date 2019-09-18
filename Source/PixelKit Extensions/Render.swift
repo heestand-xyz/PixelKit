@@ -27,6 +27,7 @@ extension PixelKit {
     }
     
     public enum RenderMode {
+        case manual
         case frameTree
         case frameLoop
         case frameLoopQueue

@@ -31,7 +31,12 @@ public class PixelKit {
     let kMetalLibName = "PixelKitShaders"
     #endif
     
+    // MARK: Render
+    
     public var renderMode: RenderMode = .frameLoop
+    
+    var manualRenderInProgress: Bool = false
+    var manualRenderCallback: (() -> ())?
     
     // MARK: Log
     
@@ -223,11 +228,56 @@ public class PixelKit {
                     }
                     self.instantQueueActivated = true
                 }
+            } else if self.renderMode == .manual {
+                self.checkManualRender()
             }
         }
 //        DispatchQueue(label: "pixelKit-frame-loop").async {}
         calcFPS()
     }
+    
+    // MARK: - Maual Render
+    
+    enum ManualRenderError: Error {
+        case renderInProgress
+    }
+    
+    public func manuallyRender(_ done: @escaping () -> ()) throws {
+        guard !manualRenderInProgress else {
+            throw ManualRenderError.renderInProgress
+        }
+        log(.info, .render, "Manual Render Started.")
+        manualRenderInProgress = true
+        manualRenderCallback = done
+    }
+    
+    func checkManualRender() {
+        guard manualRenderInProgress else { return }
+        
+        var somePixsNeedsRender: Bool = false
+        for pix in linkedPixs {
+            if pix.needsRender {
+                somePixsNeedsRender = true
+                break
+            }
+        }
+        
+        if somePixsNeedsRender {
+            
+            self.renderPIXs()
+            
+        } else {
+        
+            log(.info, .render, "Manual Render Done.")
+            manualRenderCallback!()
+            manualRenderCallback = nil
+            manualRenderInProgress = false
+            
+        }
+        
+    }
+    
+    // MARK: - Live
     
     func checkAllLive() {
         for linkedPix in linkedPixs {
