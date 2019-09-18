@@ -20,6 +20,7 @@ public class VideoPIX: PIXResource {
     // MARK: - Private Properties
     
     var helper: VideoHelper!
+    var seekCallback: (() -> ())?
     
     // MARK: - Public Properties
     
@@ -49,6 +50,8 @@ public class VideoPIX: PIXResource {
                 self.setNeedsRender()
             }
             self._progressFraction = fraction
+            self.seekCallback?()
+            self.seekCallback = nil
         })
         self.applyRes {
             self.setNeedsRender()
@@ -113,7 +116,7 @@ public class VideoPIX: PIXResource {
         _playing = false
     }
     
-    public func seekSeconds(to seconds: CGFloat) {
+    public func seekSeconds(to seconds: CGFloat, done: (() -> ())? = nil) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
@@ -128,9 +131,10 @@ public class VideoPIX: PIXResource {
             return
         }
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        seekCallback = done
     }
     
-    public func seekFraction(to fraction: CGFloat) {
+    public func seekFraction(to fraction: CGFloat, done: (() -> ())? = nil) {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
@@ -150,6 +154,7 @@ public class VideoPIX: PIXResource {
             return
         }
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        seekCallback = done
     }
     
     public func setRate(to rate: CGFloat) {
