@@ -68,7 +68,7 @@ And import:
 import PixelKit
 ```
 
-Note that PixelKit only have simulator support in Xcode 11. Metal for iOS can only run on a physical device in Xcode 10 or below.
+Note that PixelKit only have simulator support in Xcode 11 for iOS 13 on macOS Catalina. Metal for iOS can only run on a physical device in Xcode 10 or below.
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
