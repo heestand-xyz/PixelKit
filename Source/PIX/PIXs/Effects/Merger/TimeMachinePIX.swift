@@ -68,7 +68,9 @@ public class TimeMachinePIX: PIXMergerEffect {
     // MARK: - Custom Render
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> [MTLTexture] {
-        textureCache.insert(CachedTexture(texture: texture, date: Date()), at: 0)
+        if let textureCopy = try? pixelKit.copy(texture: texture) {
+            textureCache.insert(CachedTexture(texture: textureCopy, date: Date()), at: 0)
+        }
         return textureCache.map({$0.texture})
     }
     

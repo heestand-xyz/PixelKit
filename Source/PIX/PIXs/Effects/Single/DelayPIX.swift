@@ -43,11 +43,13 @@ public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
         if cachedTextures.count > 0 {
             cachedTextures.remove(at: 0)
         }
-        while delayFrames != cachedTextures.count {
-            if cachedTextures.count < delayFrames {
-                cachedTextures.append(texture)
-            } else {
-                cachedTextures.remove(at: 0)
+        if let textureCopy = try? pixelKit.copy(texture: texture) {
+            while delayFrames != cachedTextures.count {
+                if cachedTextures.count < delayFrames {
+                    cachedTextures.append(textureCopy)
+                } else {
+                    cachedTextures.remove(at: 0)
+                }
             }
         }
         return cachedTextures.first ?? texture

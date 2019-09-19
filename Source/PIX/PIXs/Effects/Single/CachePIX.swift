@@ -53,11 +53,13 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if cacheActive {
-            let id = UUID()
-            cachedTextures.append(CachedTexture(id: id, date: Date(), texture: texture))
-            lastCacheId = id
+            if let textureCopy = try? pixelKit.copy(texture: texture) {
+                let cacheId = UUID()
+                cachedTextures.append(CachedTexture(id: cacheId, date: Date(), texture: textureCopy))
+                lastCacheId = cacheId
+            }
         }
-        guard let cacheId = cacheId else { return nil }
+        guard let cacheId = self.cacheId else { return nil }
         for iCachedTexture in cachedTextures {
             if cacheId == iCachedTexture.id {
                 return iCachedTexture.texture
