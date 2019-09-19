@@ -16,13 +16,8 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     // MARK: - Public Properties
     
-    public struct CachedTexture {
-        public let id: UUID
-        public let date: Date
-        public let texture: MTLTexture
-    }
-    
-    public var cachedTextures: [CachedTexture] = []
+    public var cachedInfo: [(id: UUID, date: Date)] = []
+    public var cachedTextures: [UUID: MTLTexture] = [:]
     public var cacheActive: Bool = false { didSet { setNeedsRender() } }
     public var cacheId: UUID? = nil {
         didSet {
@@ -31,6 +26,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         }
     }
     public var lastCacheId: UUID?
+    public var diskCache: Bool = false
     
     // MARK: - Life Cycle
     
@@ -43,48 +39,101 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     // MARK: - Cache
     
-    func cacheTexture() {
-        guard let texture = texture else {
-            pixelKit.log(.warning, nil, "Cache failed. No texture avalible.")
-            return
-        }
-        cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
-    }
+//    func cacheTexture() {
+//        guard let texture = texture else {
+//            pixelKit.log(.warning, nil, "Cache failed. No texture avalible.")
+//            return
+//        }
+//        cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
+//    }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if cacheActive {
             if let textureCopy = try? pixelKit.copy(texture: texture) {
                 let cacheId = UUID()
-                cachedTextures.append(CachedTexture(id: cacheId, date: Date(), texture: textureCopy))
+                if diskCache {
+                    saveToDisk(texture: textureCopy, with: cacheId)
+                } else {
+                    cachedTextures[cacheId] = textureCopy
+                }
+                cachedInfo.append((id: cacheId, date: Date()))
                 lastCacheId = cacheId
             }
         }
         guard let cacheId = self.cacheId else { return nil }
-        for iCachedTexture in cachedTextures {
-            if cacheId == iCachedTexture.id {
-                return iCachedTexture.texture
-            }
+        guard let texture = getTexture(for: cacheId) else {
+            pixelKit.log(pix: self, .warning, nil, "Custom Render - Texture not found.")
+            return nil
         }
-        pixelKit.log(pix: self, .warning, nil, "Custom Render - Cache Id not found.")
-        return nil
+        return texture
+    }
+    
+    func getTexture(for id: UUID) -> MTLTexture? {
+        if diskCache {
+            return loadFromDisk(id: id)
+        }
+        guard let texture = cachedTextures[id] else { return nil }
+        return texture
+    }
+    
+    func saveToDisk(texture: MTLTexture, with id: UUID) {
+        let url = mtlTextureUrl(for: id)
+        guard let image = pixelKit.image(from: texture) else {
+            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - Texture to Image conversion failed.")
+            return
+        }
+        guard let data = image.pngData() else {
+            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - PNG Data not found.")
+            return
+        }
+        do {
+            try data.write(to: url)
+        } catch {
+            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - Data save failed.")
+        }
+    }
+    
+    func loadFromDisk(id: UUID) -> MTLTexture? {
+        let url = mtlTextureUrl(for: id)
+        do {
+            let data = try Data(contentsOf: url)
+            guard let image = UIImage(data: data) else {
+                pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Image not found.")
+                return nil
+            }
+            guard let texture = pixelKit.texture(from: image) else {
+                pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Texture conversion failed.")
+                return nil
+            }
+            return texture
+        } catch {
+            pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Data not found.")
+            return nil
+        }
+    }
+    
+    func mtlTextureUrl(for id: UUID) -> URL {
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let url = docs.appendingPathComponent("\(id.uuidString).mtltexture")
+        return url
     }
     
     // MARK: - Seek
     
     public func seek(to index: Int) {
-        guard !cachedTextures.isEmpty else {
+        guard !cachedInfo.isEmpty else {
             pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
             return
         }
-        guard index >= 0 && index < cachedTextures.count else {
+        guard index >= 0 && index < cachedInfo.count else {
             pixelKit.log(pix: self, .warning, nil, "Seek - Index out of bounds.")
             return
         }
-        cacheId = cachedTextures[index].id
+        cacheId = cachedInfo[index].id
     }
     
     public func seek(to fraction: CGFloat) {
-        guard !cachedTextures.isEmpty else {
+        guard !cachedInfo.isEmpty else {
             pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
             return
         }
@@ -92,39 +141,40 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             pixelKit.log(pix: self, .warning, nil, "Seek - Fraction out of bounds.")
             return
         }
-        let index = Int(round(fraction * CGFloat(cachedTextures.count - 1)))
-        cacheId = cachedTextures[index].id
+        let index = Int(round(fraction * CGFloat(cachedInfo.count - 1)))
+        cacheId = cachedInfo[index].id
     }
     
     public func seek(to date: Date) {
-        guard !cachedTextures.isEmpty else {
+        guard !cachedInfo.isEmpty else {
             pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
             return
         }
         var index: Int?
-        for i in 0..<cachedTextures.count - 1 {
-            let cachedTextureA = cachedTextures[i]
-            let cachedTextureB = cachedTextures[i + 1]
-            if -cachedTextureA.date.timeIntervalSinceNow <= -date.timeIntervalSinceNow && -cachedTextureB.date.timeIntervalSinceNow >= -date.timeIntervalSinceNow {
+        for i in 0..<cachedInfo.count - 1 {
+            let infoA = cachedInfo[i]
+            let infoB = cachedInfo[i + 1]
+            if -infoA.date.timeIntervalSinceNow <= -date.timeIntervalSinceNow &&
+               -infoB.date.timeIntervalSinceNow >= -date.timeIntervalSinceNow {
                 index = i
                 break
             }
         }
         if index == nil {
-            if -date.timeIntervalSinceNow < -cachedTextures.first!.date.timeIntervalSinceNow {
+            if -date.timeIntervalSinceNow < -cachedInfo.first!.date.timeIntervalSinceNow {
                 index = 0
-            } else if -date.timeIntervalSinceNow > -cachedTextures.last!.date.timeIntervalSinceNow {
-                index = cachedTextures.count - 1
+            } else if -date.timeIntervalSinceNow > -cachedInfo.last!.date.timeIntervalSinceNow {
+                index = cachedInfo.count - 1
             }
         }
         guard index != nil else { return }
-        cacheId = cachedTextures[index!].id
+        cacheId = cachedInfo[index!].id
     }
     
     public func seek(to id: UUID) {
         var exists = false
-        for cachedTexture in cachedTextures {
-            if cachedTexture.id == id {
+        for info in cachedInfo {
+            if info.id == id {
                 exists = true
                 break
             }
@@ -139,7 +189,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     // MARK: - Clear
     
     public func clear() {
-        cachedTextures = []
+        cachedInfo = []
         cacheId = nil
     }
     

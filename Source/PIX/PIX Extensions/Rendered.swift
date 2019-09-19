@@ -15,23 +15,12 @@ public extension PIX {
     
     var renderedCIImage: CIImage? {
         guard let texture = renderedTexture else { return nil }
-        return CIImage(mtlTexture: texture, options: [.colorSpace: PixelKit.main.colorSpace.cg])
+        return pixelKit.ciImage(from: texture)
     }
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
-        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: pixelKit.bits.ci, colorSpace: pixelKit.colorSpace.cg) else { return nil }
-        #if os(iOS)
-        return cgImage
-        #elseif os(macOS)
-        let size = resolution.size
-        guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: pixelKit.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
-        context.scaleBy(x: 1, y: -1)
-        context.translateBy(x: 0, y: -size.height.cg)
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
-        guard let image = context.makeImage() else { return nil }
-        return image
-        #endif
+        return pixelKit.cgImage(from: ciImage)
     }
     
     #if os(iOS)
@@ -41,12 +30,7 @@ public extension PIX {
     #endif
     var renderedImage: _Image? {
         guard let cgImage = renderedCGImage else { return nil }
-        #if os(iOS)
-        return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
-        #elseif os(macOS)
-        let size = resolution.size
-        return NSImage(cgImage: cgImage, size: size.cg)
-        #endif
+        return pixelKit.image(from: cgImage)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {

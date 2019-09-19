@@ -390,4 +390,46 @@ extension PixelKit {
         
     }
     
+    // MARK: - Conversions
+    
+    func ciImage(from texture: MTLTexture) -> CIImage? {
+        CIImage(mtlTexture: texture, options: [.colorSpace: PixelKit.main.colorSpace.cg])
+    }
+    
+    func cgImage(from ciImage: CIImage) -> CGImage? {
+        guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: bits.ci, colorSpace: colorSpace.cg) else { return nil }
+        #if os(iOS)
+        return cgImage
+        #elseif os(macOS)
+        let size = resolution.size
+        guard let context = CGContext(data: nil, width: Int(size.width.cg), height: Int(size.height.cg), bitsPerComponent: 8, bytesPerRow: 4 * Int(size.width.cg), space: colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        context.scaleBy(x: 1, y: -1)
+        context.translateBy(x: 0, y: -size.height.cg)
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width.cg, height: size.height.cg))
+        guard let image = context.makeImage() else { return nil }
+        return image
+        #endif
+    }
+
+    func image(from cgImage: CGImage) -> _Image {
+        #if os(iOS)
+        return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
+        #elseif os(macOS)
+        let size = resolution.size
+        return NSImage(cgImage: cgImage, size: size.cg)
+        #endif
+    }
+
+    func image(from texture: MTLTexture) -> _Image? {
+        guard let ciImage = ciImage(from: texture) else { return nil }
+        guard let cgImage = cgImage(from: ciImage) else { return nil }
+        return image(from: cgImage)
+    }
+    
+    func texture(from image: UIImage) -> MTLTexture? {
+        guard let cgImage = image.cgImage else { return nil }
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return nil }
+        return try? makeTexture(from: cgImage, with: commandBuffer)
+    }
+    
 }
