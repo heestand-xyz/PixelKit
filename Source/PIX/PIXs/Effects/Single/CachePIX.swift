@@ -112,10 +112,15 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         }
     }
     
+    public func mtlTexturesURl() -> URL {
+        let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pixelKitUrl = documentUrl.appendingPathComponent("pixelkit")
+        let texturesUrl = pixelKitUrl.appendingPathComponent("cachepix")
+        return texturesUrl
+    }
+    
     func mtlTextureUrl(for id: UUID) -> URL {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let url = docs.appendingPathComponent("\(id.uuidString).mtltexture")
-        return url
+        mtlTexturesURl().appendingPathComponent("\(id.uuidString).png")
     }
     
     // MARK: - Seek
