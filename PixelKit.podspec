@@ -114,7 +114,7 @@ Pod::Spec.new do |spec|
   spec.tvos.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                             "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                             "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
-                            "Source/PIX/View/LiveMouseView.swift"
+                            "Source/PIX/View/LiveMouseView.swift",
                             "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
                             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                             "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
@@ -173,7 +173,9 @@ Pod::Spec.new do |spec|
   # spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  spec.dependency 'SwiftSVG', '~> 2.0'
-  spec.dependency 'OSCKit'
+  spec.ios.dependency 'SwiftSVG', '~> 2.0'
+  spec.osx.dependency 'SwiftSVG', '~> 2.0'
+  spec.ios.dependency 'OSCKit'
+  spec.osx.dependency 'OSCKit'
 
 end
