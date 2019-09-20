@@ -8,12 +8,12 @@
 
 import MetalKit
 
-#if canImport(SwiftUI) && os(iOS)
+#if canImport(SwiftUI)
 import SwiftUI
 #endif
 
 
-#if canImport(SwiftUI) && os(iOS)
+#if canImport(SwiftUI)
 public struct PIXRepView: UIViewRepresentable {
         
     public let pix: PIX

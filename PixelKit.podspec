@@ -121,7 +121,13 @@ Pod::Spec.new do |spec|
                             "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                             "Source/PIX/View/LiveTouchView.swift",
-                            "Source/Other/Motion.swift"
+                            "Source/Other/Motion.swift",
+                            "Source/PIX/IO/MIDI.swift",
+                            "Source/PIX/IO/MIDIAssistant.swift",
+                            "Source/PIX/IO/OSC.swift",
+                            "Source/PIX/PIXs/Content/Resource/WebPIX.swift",
+                            "Source/PIX/PIXs/Output/RecordPIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/CameraPIX.swift"
 
   # spec.exclude_files = "Classes/Exclude"
 

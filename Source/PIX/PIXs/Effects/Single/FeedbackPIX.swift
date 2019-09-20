@@ -21,7 +21,9 @@ public class FeedbackPIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     var feedTexture: MTLTexture? {
-        return feedPix?.texture
+        guard let texture = feedPix?.texture else { return nil }
+        return texture
+//        return try? pixelKit.copy(texture: texture)
     }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
