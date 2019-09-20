@@ -285,8 +285,10 @@ public extension PIX {
         }
         
         public static var scale: LiveFloat {
-            #if os(iOS) || os(tvOS)
+            #if os(iOS)
             return LiveFloat(UIScreen.main.nativeScale)
+            #elseif os(tvOS)
+            return 1.0
             #elseif os(macOS)
             return LiveFloat(NSScreen.main?.backingScaleFactor ?? 1.0)
             #endif
