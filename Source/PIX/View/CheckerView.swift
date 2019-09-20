@@ -6,7 +6,7 @@
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -16,7 +16,7 @@ class CheckerView: _View {
     
     override var frame: CGRect {
         didSet {
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             setNeedsDisplay()
             #elseif os(macOS)
             setNeedsDisplay(frame)
@@ -28,13 +28,13 @@ class CheckerView: _View {
         
         super.init(frame: frame)
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         isUserInteractionEnabled = false
         #endif
         
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     typealias _Image = UIImage
     #elseif os(macOS)
     typealias _Image = NSImage
@@ -43,7 +43,7 @@ class CheckerView: _View {
         let scale: CGFloat = 20
         let dark: CGFloat = 1 / 3
         let light: CGFloat = 2 / 3
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         let darkColor = UIColor(white: dark, alpha: 1.0).cgColor
         let lightColor = UIColor(white: light, alpha: 1.0).cgColor
         return UIGraphicsImageRenderer(size: CGSize(width: scale * 2, height: scale * 2)).image { ctx in
@@ -75,7 +75,7 @@ class CheckerView: _View {
     
     override func draw(_ rect: CGRect) {
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         guard let context = UIGraphicsGetCurrentContext() else { return }
         #elseif os(macOS)
         guard let context = NSGraphicsContext.current?.cgContext else { return }
@@ -88,7 +88,7 @@ class CheckerView: _View {
         
         let checker = checkerImage()
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         let color = UIColor(patternImage: checker).cgColor
         #elseif os(macOS)
         let color = NSColor(patternImage: checker).cgColor

@@ -8,7 +8,7 @@
 
 
 import Metal
-import CoreGraphics
+import UIKit
 
 public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     

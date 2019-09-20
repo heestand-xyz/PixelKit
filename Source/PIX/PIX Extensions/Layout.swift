@@ -7,7 +7,7 @@
 //
 
 import CoreGraphics
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #endif
 
@@ -53,7 +53,7 @@ public extension PIX {
         return LivePoint(point(of: livePoint.cg))
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     func point(of touch: UITouch) -> LivePoint {
         let location = touch.location(in: view.metalView)
         return LivePoint(point(of: location))

@@ -20,7 +20,7 @@ public class TextPIX: PIXSprite {
     public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); setNeedsRender() } }
     public var color: _Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     typealias _Font = UIFont
     public var font: UIFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
     #elseif os(macOS)

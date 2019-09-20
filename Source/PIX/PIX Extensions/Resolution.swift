@@ -25,9 +25,12 @@ extension PIX {
                 if let imagePix = pixResource as? ImagePIX {
                     guard let size = imagePix.image?.size else { return nil }
                     return Res.cgSize(size) * Res.scale
-                } else if let webPix = pixResource as? WebPIX {
-                    return webPix.res
                 } else {
+                    #if !os(tvOS)
+                    if let webPix = pixResource as? WebPIX {
+                        return webPix.res
+                    }
+                    #endif
                     guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
                     var bufferRes = Res(pixelBuffer: pixelBuffer)
                     if pixResource.flop {

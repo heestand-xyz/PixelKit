@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -15,7 +15,7 @@ import SwiftSVG
 
 public class VectorPIX: PIXResource {
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     override open var shader: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override open var shader: String { return "contentResourceBGRPIX" }

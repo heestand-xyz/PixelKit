@@ -7,6 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A01568C2334FB390002B2D9 /* ContentGeneratorArcPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22802285B4640096F53C /* ContentGeneratorArcPIX.metal */; };
+		3A01568D2334FB390002B2D9 /* ContentGeneratorCirclePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22952285B4650096F53C /* ContentGeneratorCirclePIX.metal */; };
+		3A01568E2334FB390002B2D9 /* ContentGeneratorColorPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22762285B4640096F53C /* ContentGeneratorColorPIX.metal */; };
+		3A01568F2334FB390002B2D9 /* ContentGeneratorGradientPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226F2285B4640096F53C /* ContentGeneratorGradientPIX.metal */; };
+		3A0156902334FB390002B2D9 /* ContentGeneratorLinePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22792285B4640096F53C /* ContentGeneratorLinePIX.metal */; };
+		3A0156912334FB390002B2D9 /* ContentGeneratorNoisePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22932285B4650096F53C /* ContentGeneratorNoisePIX.metal */; };
+		3A0156922334FB390002B2D9 /* ContentGeneratorPolygonPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22742285B4640096F53C /* ContentGeneratorPolygonPIX.metal */; };
+		3A0156932334FB390002B2D9 /* ContentGeneratorRectanglePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C229A2285B4650096F53C /* ContentGeneratorRectanglePIX.metal */; };
+		3A0156942334FB390002B2D9 /* ContentResourceBGRPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227C2285B4640096F53C /* ContentResourceBGRPIX.metal */; };
+		3A0156952334FB390002B2D9 /* ContentResourceCameraPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22722285B4640096F53C /* ContentResourceCameraPIX.metal */; };
+		3A0156962334FB390002B2D9 /* ContentResourceFlipPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22992285B4650096F53C /* ContentResourceFlipPIX.metal */; };
+		3A0156972334FB390002B2D9 /* ContentResourcePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22732285B4640096F53C /* ContentResourcePIX.metal */; };
+		3A0156982334FB390002B2D9 /* EffectMergerBlendPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22972285B4650096F53C /* EffectMergerBlendPIX.metal */; };
+		3A0156992334FB390002B2D9 /* EffectMergerCrossPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228F2285B4650096F53C /* EffectMergerCrossPIX.metal */; };
+		3A01569A2334FB390002B2D9 /* EffectMergerDisplacePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22852285B4640096F53C /* EffectMergerDisplacePIX.metal */; };
+		3A01569B2334FB390002B2D9 /* EffectMergerLookupPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22962285B4650096F53C /* EffectMergerLookupPIX.metal */; };
+		3A01569C2334FB390002B2D9 /* EffectMergerLumaBlurPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226D2285B4640096F53C /* EffectMergerLumaBlurPIX.metal */; };
+		3A01569D2334FB390002B2D9 /* EffectMergerLumaLevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D902296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal */; };
+		3A01569E2334FB390002B2D9 /* EffectMergerRemapPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22872285B4650096F53C /* EffectMergerRemapPIX.metal */; };
+		3A01569F2334FB390002B2D9 /* EffectMergerReorderPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227E2285B4640096F53C /* EffectMergerReorderPIX.metal */; };
+		3A0156A02334FB390002B2D9 /* EffectMergerTimeMachinePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226E2285B4640096F53C /* EffectMergerTimeMachinePIX.metal */; };
+		3A0156A12334FB390002B2D9 /* EffectMultiArrayPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22752285B4640096F53C /* EffectMultiArrayPIX.metal */; };
+		3A0156A22334FB390002B2D9 /* EffectMultiBlendsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22882285B4650096F53C /* EffectMultiBlendsPIX.metal */; };
+		3A0156A32334FB390002B2D9 /* EffectSingleBlurPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22942285B4650096F53C /* EffectSingleBlurPIX.metal */; };
+		3A0156A42334FB390002B2D9 /* EffectSingleChannelMixPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226A2285B4640096F53C /* EffectSingleChannelMixPIX.metal */; };
+		3A0156A52334FB390002B2D9 /* EffectSingleChromaKeyPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C229B2285B4660096F53C /* EffectSingleChromaKeyPIX.metal */; };
+		3A0156A62334FB390002B2D9 /* EffectSingleClampPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228E2285B4650096F53C /* EffectSingleClampPIX.metal */; };
+		3A0156A72334FB390002B2D9 /* EffectSingleConvertPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22712285B4640096F53C /* EffectSingleConvertPIX.metal */; };
+		3A0156A82334FB390002B2D9 /* EffectSingleCropPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22832285B4640096F53C /* EffectSingleCropPIX.metal */; };
+		3A0156A92334FB390002B2D9 /* EffectSingleEdgePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228D2285B4650096F53C /* EffectSingleEdgePIX.metal */; };
+		3A0156AA2334FB390002B2D9 /* EffectSingleFlarePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227D2285B4640096F53C /* EffectSingleFlarePIX.metal */; };
+		3A0156AB2334FB390002B2D9 /* EffectSingleFlipFlopPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22922285B4650096F53C /* EffectSingleFlipFlopPIX.metal */; };
+		3A0156AC2334FB390002B2D9 /* EffectSingleHueSaturationPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22812285B4640096F53C /* EffectSingleHueSaturationPIX.metal */; };
+		3A0156AD2334FB390002B2D9 /* EffectSingleKaleidoscopePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227B2285B4640096F53C /* EffectSingleKaleidoscopePIX.metal */; };
+		3A0156AE2334FB390002B2D9 /* EffectSingleLevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227F2285B4640096F53C /* EffectSingleLevelsPIX.metal */; };
+		3A0156AF2334FB390002B2D9 /* EffectSingleQuantizePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22702285B4640096F53C /* EffectSingleQuantizePIX.metal */; };
+		3A0156B02334FB390002B2D9 /* EffectSingleRangePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22672285B4640096F53C /* EffectSingleRangePIX.metal */; };
+		3A0156B12334FB390002B2D9 /* EffectSingleResPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228C2285B4650096F53C /* EffectSingleResPIX.metal */; };
+		3A0156B22334FB390002B2D9 /* EffectSingleSepiaPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22982285B4650096F53C /* EffectSingleSepiaPIX.metal */; };
+		3A0156B32334FB390002B2D9 /* EffectSingleSharpenPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226B2285B4640096F53C /* EffectSingleSharpenPIX.metal */; };
+		3A0156B42334FB390002B2D9 /* EffectSingleSlopePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C227A2285B4640096F53C /* EffectSingleSlopePIX.metal */; };
+		3A0156B52334FB390002B2D9 /* EffectSingleThresholdPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228B2285B4650096F53C /* EffectSingleThresholdPIX.metal */; };
+		3A0156B62334FB390002B2D9 /* EffectSingleTransformPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22772285B4640096F53C /* EffectSingleTransformPIX.metal */; };
+		3A0156B72334FB390002B2D9 /* EffectSingleTwirlPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22782285B4640096F53C /* EffectSingleTwirlPIX.metal */; };
+		3A0156B82334FB390002B2D9 /* error.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22682285B4640096F53C /* error.metal */; };
+		3A0156B92334FB390002B2D9 /* hsv_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C226C2285B4640096F53C /* hsv_header.metal */; };
+		3A0156BA2334FB390002B2D9 /* hsv.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C228A2285B4650096F53C /* hsv.metal */; };
+		3A0156BB2334FB390002B2D9 /* NilPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22912285B4650096F53C /* NilPIX.metal */; };
+		3A0156BC2334FB390002B2D9 /* noise_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22902285B4650096F53C /* noise_header.metal */; };
+		3A0156BD2334FB390002B2D9 /* noise.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22692285B4640096F53C /* noise.metal */; };
+		3A0156BE2334FB390002B2D9 /* QuadVTX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22822285B4640096F53C /* QuadVTX.metal */; };
+		3A0156BF2334FB390002B2D9 /* random_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22842285B4640096F53C /* random_header.metal */; };
+		3A0156C02334FB390002B2D9 /* random.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22862285B4650096F53C /* random.metal */; };
+		3A0156C12334FB390002B2D9 /* SpritePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22892285B4650096F53C /* SpritePIX.metal */; };
+		3A0156C22334FB390002B2D9 /* TemplatePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74F39A92232E700400E3565C /* TemplatePIX.metal */; };
 		3A6A1D912296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D902296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal */; };
 		3A6A1D922296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A1D902296BDF6001BB134 /* EffectMergerLumaLevelsPIX.metal */; };
 		3A7C229C2285B4660096F53C /* EffectSingleRangePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3A7C22672285B4640096F53C /* EffectSingleRangePIX.metal */; };
@@ -263,6 +318,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3A3756442334FAE200D90172 /* PixelKitShaders-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A37564A2334FAE200D90172 /* Build configuration list for PBXNativeTarget "PixelKitShaders-tvOS" */;
+			buildPhases = (
+				3A3756432334FAE200D90172 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PixelKitShaders-tvOS";
+			productName = "PixelKitShaders-tvOS";
+			productType = "com.apple.product-type.metal-library";
+		};
 		7473A669210F4FD0003CF329 /* PixelKitShaders */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7473A671210F4FD0003CF329 /* Build configuration list for PBXNativeTarget "PixelKitShaders" */;
@@ -302,6 +371,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Hexagons;
 				TargetAttributes = {
+					3A3756442334FAE200D90172 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					7473A669210F4FD0003CF329 = {
 						CreatedOnToolsVersion = 10.0;
 					};
@@ -324,11 +396,74 @@
 			targets = (
 				7473A669210F4FD0003CF329 /* PixelKitShaders */,
 				74E9F6C62193813800F541DE /* PixelKitShaders-macOS */,
+				3A3756442334FAE200D90172 /* PixelKitShaders-tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3A3756432334FAE200D90172 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A0156A52334FB390002B2D9 /* EffectSingleChromaKeyPIX.metal in Sources */,
+				3A0156BC2334FB390002B2D9 /* noise_header.metal in Sources */,
+				3A0156B82334FB390002B2D9 /* error.metal in Sources */,
+				3A0156B12334FB390002B2D9 /* EffectSingleResPIX.metal in Sources */,
+				3A0156C12334FB390002B2D9 /* SpritePIX.metal in Sources */,
+				3A0156952334FB390002B2D9 /* ContentResourceCameraPIX.metal in Sources */,
+				3A0156902334FB390002B2D9 /* ContentGeneratorLinePIX.metal in Sources */,
+				3A0156B52334FB390002B2D9 /* EffectSingleThresholdPIX.metal in Sources */,
+				3A0156962334FB390002B2D9 /* ContentResourceFlipPIX.metal in Sources */,
+				3A01568E2334FB390002B2D9 /* ContentGeneratorColorPIX.metal in Sources */,
+				3A01569F2334FB390002B2D9 /* EffectMergerReorderPIX.metal in Sources */,
+				3A0156A72334FB390002B2D9 /* EffectSingleConvertPIX.metal in Sources */,
+				3A0156B02334FB390002B2D9 /* EffectSingleRangePIX.metal in Sources */,
+				3A0156AF2334FB390002B2D9 /* EffectSingleQuantizePIX.metal in Sources */,
+				3A0156B92334FB390002B2D9 /* hsv_header.metal in Sources */,
+				3A0156AD2334FB390002B2D9 /* EffectSingleKaleidoscopePIX.metal in Sources */,
+				3A01568F2334FB390002B2D9 /* ContentGeneratorGradientPIX.metal in Sources */,
+				3A0156982334FB390002B2D9 /* EffectMergerBlendPIX.metal in Sources */,
+				3A0156AC2334FB390002B2D9 /* EffectSingleHueSaturationPIX.metal in Sources */,
+				3A0156BB2334FB390002B2D9 /* NilPIX.metal in Sources */,
+				3A0156A62334FB390002B2D9 /* EffectSingleClampPIX.metal in Sources */,
+				3A01569B2334FB390002B2D9 /* EffectMergerLookupPIX.metal in Sources */,
+				3A0156BF2334FB390002B2D9 /* random_header.metal in Sources */,
+				3A0156A42334FB390002B2D9 /* EffectSingleChannelMixPIX.metal in Sources */,
+				3A0156A02334FB390002B2D9 /* EffectMergerTimeMachinePIX.metal in Sources */,
+				3A0156922334FB390002B2D9 /* ContentGeneratorPolygonPIX.metal in Sources */,
+				3A0156BD2334FB390002B2D9 /* noise.metal in Sources */,
+				3A0156C22334FB390002B2D9 /* TemplatePIX.metal in Sources */,
+				3A0156A12334FB390002B2D9 /* EffectMultiArrayPIX.metal in Sources */,
+				3A0156AA2334FB390002B2D9 /* EffectSingleFlarePIX.metal in Sources */,
+				3A0156942334FB390002B2D9 /* ContentResourceBGRPIX.metal in Sources */,
+				3A0156A82334FB390002B2D9 /* EffectSingleCropPIX.metal in Sources */,
+				3A01569A2334FB390002B2D9 /* EffectMergerDisplacePIX.metal in Sources */,
+				3A01569D2334FB390002B2D9 /* EffectMergerLumaLevelsPIX.metal in Sources */,
+				3A01568C2334FB390002B2D9 /* ContentGeneratorArcPIX.metal in Sources */,
+				3A0156992334FB390002B2D9 /* EffectMergerCrossPIX.metal in Sources */,
+				3A0156AE2334FB390002B2D9 /* EffectSingleLevelsPIX.metal in Sources */,
+				3A0156A22334FB390002B2D9 /* EffectMultiBlendsPIX.metal in Sources */,
+				3A01569E2334FB390002B2D9 /* EffectMergerRemapPIX.metal in Sources */,
+				3A0156B62334FB390002B2D9 /* EffectSingleTransformPIX.metal in Sources */,
+				3A0156A92334FB390002B2D9 /* EffectSingleEdgePIX.metal in Sources */,
+				3A0156C02334FB390002B2D9 /* random.metal in Sources */,
+				3A0156912334FB390002B2D9 /* ContentGeneratorNoisePIX.metal in Sources */,
+				3A0156AB2334FB390002B2D9 /* EffectSingleFlipFlopPIX.metal in Sources */,
+				3A0156972334FB390002B2D9 /* ContentResourcePIX.metal in Sources */,
+				3A0156BA2334FB390002B2D9 /* hsv.metal in Sources */,
+				3A0156B22334FB390002B2D9 /* EffectSingleSepiaPIX.metal in Sources */,
+				3A0156B72334FB390002B2D9 /* EffectSingleTwirlPIX.metal in Sources */,
+				3A01568D2334FB390002B2D9 /* ContentGeneratorCirclePIX.metal in Sources */,
+				3A0156932334FB390002B2D9 /* ContentGeneratorRectanglePIX.metal in Sources */,
+				3A01569C2334FB390002B2D9 /* EffectMergerLumaBlurPIX.metal in Sources */,
+				3A0156B32334FB390002B2D9 /* EffectSingleSharpenPIX.metal in Sources */,
+				3A0156BE2334FB390002B2D9 /* QuadVTX.metal in Sources */,
+				3A0156B42334FB390002B2D9 /* EffectSingleSlopePIX.metal in Sources */,
+				3A0156A32334FB390002B2D9 /* EffectSingleBlurPIX.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7473A668210F4FD0003CF329 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -456,6 +591,32 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		3A3756482334FAE200D90172 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+			};
+			name = Debug;
+		};
+		3A3756492334FAE200D90172 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+			};
+			name = Release;
+		};
 		7473A66F210F4FD0003CF329 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -540,6 +701,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3A37564A2334FAE200D90172 /* Build configuration list for PBXNativeTarget "PixelKitShaders-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A3756482334FAE200D90172 /* Debug */,
+				3A3756492334FAE200D90172 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7473A667210F4FD0003CF329 /* Build configuration list for PBXProject "PixelKitShaders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

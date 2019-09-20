@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -245,11 +245,15 @@ public extension PIX {
                 if ori == .portrait { return raw }
                 else { return raw.flopped }
             case .fullscreen:
-                #if os(iOS)
+                #if os(iOS) || os(tvOS)
                 let size = UIScreen.main.nativeBounds.size
                 let raw = Raw(w: Int(size.width), h: Int(size.height))
+                #if os(iOS)
                 if [.portrait, .portraitUpsideDown].contains(UIApplication.shared.statusBarOrientation) { return raw }
                 else { return raw.flopped }
+                #else
+                return raw
+                #endif
                 #elseif os(macOS)
                 let size = NSScreen.main?.frame.size ?? Res._128.size.cg
                 let scale = NSScreen.main?.backingScaleFactor ?? 1.0
@@ -281,7 +285,7 @@ public extension PIX {
         }
         
         public static var scale: LiveFloat {
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             return LiveFloat(UIScreen.main.nativeScale)
             #elseif os(macOS)
             return LiveFloat(NSScreen.main?.backingScaleFactor ?? 1.0)
@@ -441,7 +445,7 @@ public extension PIX {
             self.init(size: rawSize)
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         public init(image: UIImage) {
             let nativeSize = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
             self.init(size: nativeSize)

@@ -71,6 +71,7 @@ Pod::Spec.new do |spec|
   #  When using multiple platforms
   spec.ios.deployment_target = "11.0"
   spec.osx.deployment_target = "10.13"
+  spec.tvos.deployment_target = "11.0"
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
   
@@ -98,17 +99,30 @@ Pod::Spec.new do |spec|
   spec.ios.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
-  						             "Source/PIX/View/LiveMouseView.swift"
+                           "Source/PIX/View/LiveMouseView.swift"
 
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
-  						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
+  						   "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
-  						             "Source/PIX/PIXs/Output/AirPlayPIX.swift",
+                          "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift",
                            "Source/Other/Motion.swift"
+
+  spec.tvos.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
+                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
+                            "Source/PIX/View/LiveMouseView.swift"
+                            "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
+                            "Source/PIX/PIXs/Output/StreamOutPIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
+                            "Source/PIX/PIXs/Output/AirPlayPIX.swift",
+                            "Source/PIX/View/LiveTouchView.swift",
+                            "Source/Other/Motion.swift"
+
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
@@ -126,6 +140,7 @@ Pod::Spec.new do |spec|
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders.metallib",
                        "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
   spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
+  spec.tvos.resources = "Resources/Metal Libs/PixelKitShaders-tvOS.metallib"
   spec.resources = "Source/PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Single/Metal/EffectSingleMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",

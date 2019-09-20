@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #else
 import CoreGraphics
@@ -203,7 +203,7 @@ public class VideoPIX: PIXResource {
         helper.doneCallback = callback
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public func thumbnail(fraction: CGFloat, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.log(pix: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")

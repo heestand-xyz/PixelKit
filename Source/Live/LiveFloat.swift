@@ -260,6 +260,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     #endif
     
+    #if !os(tvOS)
     public static var midiAny: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
             return MIDI.main.firstAny ?? 0.0
@@ -271,6 +272,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
             return OSC.main.firstAny ?? 0.0
         })
     }
+    #endif
     
     // MARK: - Life Cycle
     
@@ -564,6 +566,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
         return LiveFloat({ return CGFloat.random(in: range) })
     }
     
+    #if !os(tvOS)
     /// find addresses with `MIDI.main.log = true`
     public static func midi(_ address: String) -> LiveFloat {
         return LiveFloat({ return MIDI.main.list[address] ?? 0.0 })
@@ -573,6 +576,7 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     public static func osc(_ address: String) -> LiveFloat {
         return LiveFloat({ return OSC.main.list[address] ?? 0.0 })
     }
+    #endif
     
     public func log(_ message: String? = nil) -> LiveFloat {
         return LiveFloat({ () -> (CGFloat) in

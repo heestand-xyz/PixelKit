@@ -8,7 +8,7 @@
 
 import AVKit
 
-#if os(iOS) && !targetEnvironment(macCatalyst)
+#if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
 typealias _Orientation = UIInterfaceOrientation
 #elseif os(macOS) || targetEnvironment(macCatalyst)
 typealias _Orientation = Void
@@ -38,7 +38,7 @@ public class CameraPIX: PIXResource {
         case vga = "VGA"
         case sd = "SD"
         case _720p = "720p"
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         case _1080p = "1080p"
 //        case _4K = "4K"
         #endif
@@ -50,7 +50,7 @@ public class CameraPIX: PIXResource {
                 return .iFrame960x540
             case ._720p:
                 return .hd1280x720
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             case ._1080p:
                 return .hd1920x1080
 //            case ._4K:
@@ -63,14 +63,14 @@ public class CameraPIX: PIXResource {
             case .vga: return .custom(w: 640, h: 480)
             case .sd: return .custom(w: 960, h: 540)
             case ._720p: return ._720p
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             case ._1080p: return ._1080p
 //            case ._4K: return ._4K
             #endif
             }
         }
     }
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     public var camRes: CamRes = ._1080p { didSet { setupCamera() } }
     #elseif os(macOS) || targetEnvironment(macCatalyst)
     public var camRes: CamRes = ._720p { didSet { setupCamera() } }
@@ -78,7 +78,7 @@ public class CameraPIX: PIXResource {
     
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         case back = "Wide Camera"
         case tele = "Tele Camera"
         #elseif os(macOS) || targetEnvironment(macCatalyst)
@@ -88,7 +88,7 @@ public class CameraPIX: PIXResource {
             switch self {
             case .front:
                 return .front
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             case .back, .tele:
                 return .back
             #elseif os(macOS) || targetEnvironment(macCatalyst)
@@ -101,21 +101,21 @@ public class CameraPIX: PIXResource {
             return self == .front
         }
         var flipFlop: Bool {
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             return false
             #elseif os(macOS) || targetEnvironment(macCatalyst)
             return false
             #endif
         }
         var isTele: Bool {
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             return self == .tele
             #elseif os(macOS) || targetEnvironment(macCatalyst)
             return false
             #endif
         }
     }
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     public var camera: Camera = .back { didSet { setupCamera() } }
     #elseif os(macOS) || targetEnvironment(macCatalyst)
     public var camera: Camera = .front { didSet { setupCamera() } }
@@ -125,11 +125,11 @@ public class CameraPIX: PIXResource {
     public var autoDetect: Bool = true
     #endif
     
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     /*public*/ var depth: Bool = false { didSet { setupCamera() } }
     #endif
     
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     
     public var manualExposure: Bool = false {
         didSet {
@@ -214,7 +214,7 @@ public class CameraPIX: PIXResource {
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         return [4, camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
@@ -240,7 +240,7 @@ public class CameraPIX: PIXResource {
         }
         #endif
         
-//        #if os(iOS)
+//        #if os(iOS) || os(tvOS)
 //        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceSubjectAreaDidChange, object: nil, queue: nil) { (notif) -> Void in }
 //        #endif
         
@@ -280,12 +280,12 @@ public class CameraPIX: PIXResource {
             }
         }
         helper?.stop()
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         let extCam = false
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let extCam = camera == .external
         #endif
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         let depth = self.depth
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let depth = false
@@ -294,7 +294,7 @@ public class CameraPIX: PIXResource {
             self.pixelKit.log(pix: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
-            #if os(iOS) && !targetEnvironment(macCatalyst)
+            #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
@@ -344,7 +344,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let captureSession: AVCaptureSession
     var videoOutput: AVCaptureVideoDataOutput?
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     let depth: Bool
     var depthOutput: AVCaptureDepthDataOutput?
     var depthConnection: AVCaptureConnection!
@@ -364,7 +364,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, depth: Bool = false, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> ()) {
         
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         device = AVCaptureDevice.default(tele || depth ? .builtInTelephotoCamera : .builtInWideAngleCamera, for: .video, position: cameraPosition)
         if device == nil {
             device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
@@ -392,7 +392,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         #endif
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         self.depth = depth
         #endif
         
@@ -402,7 +402,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         setupCallback = setup
         capturedCallback = captured
         
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         lastUIOrientation = UIApplication.shared.statusBarOrientation
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         lastUIOrientation = ()
@@ -410,7 +410,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         captureSession = AVCaptureSession()
 
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         if depth {
             depthOutput = AVCaptureDepthDataOutput()
         } else {
@@ -431,7 +431,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         if depth {
             
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
 //            let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.depth.queue")
 //            depthOutput!.setDelegate(self, callbackQueue: queue)
             depthOutput!.isFilteringEnabled = false
@@ -491,7 +491,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 captureSession.addInput(input)
                 var output: AVCaptureOutput!
                 if depth {
-//                    #if os(iOS)
+//                    #if os(iOS) || os(tvOS)
 //                    output = depthOutput!
 //                    #endif
                 } else {
@@ -501,7 +501,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                     captureSession.addOutput(output)
                     let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
                     if depth {
-//                        #if os(iOS)
+//                        #if os(iOS) || os(tvOS)
 //                        depthOutput!.setDelegate(self, callbackQueue: queue)
 //                        #endif
                     } else {
@@ -519,13 +519,13 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         
     
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         #endif
         
     }
     
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     @objc func deviceRotated() {
         if lastUIOrientation != UIApplication.shared.statusBarOrientation {
             orientationUpdated = true
@@ -537,7 +537,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     }
     #endif
     
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     func forceDetectUIOrientation(new: @escaping () -> ()) {
         let forceCount = pixelKit.fpsMax * 2
         var forceIndex = 0
@@ -579,7 +579,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
     }
     
-//    #if os(iOS)
+//    #if os(iOS) || os(tvOS)
 //    func depthDataOutput(_ output: AVCaptureDepthDataOutput,
 //                         didOutput depthData: AVDepthData,
 //                         timestamp: CMTime,
@@ -604,7 +604,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         let _orientation = UIApplication.shared.statusBarOrientation
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let _orientation: Void = ()
@@ -614,7 +614,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         let height = CVPixelBufferGetHeight(pixelBuffer)
 
         let resolution: CGSize
-        #if os(iOS) && !targetEnvironment(macCatalyst)
+        #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
         switch _orientation {
         case .portrait, .portraitUpsideDown:
             resolution = CGSize(width: height, height: width)
@@ -644,7 +644,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     // MARK: Manual
     
-    #if os(iOS) && !targetEnvironment(macCatalyst)
+    #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
     
     func manualExposure(_ active: Bool) {
         do {

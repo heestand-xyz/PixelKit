@@ -319,7 +319,7 @@ public class RecordPIX: PIXOutput {
             ]
             let ci_image = CIImage(mtlTexture: texture, options: options)
             if ci_image != nil {
-                #if os(iOS) && !targetEnvironment(macCatalyst)
+                #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
                 // FIXME: Debug
                 EAGLContext.setCurrent(nil)
                 #endif

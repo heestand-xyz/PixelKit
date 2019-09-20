@@ -20,7 +20,7 @@ extension PixelKit {
     }
     
     func buffer(from image: CGImage, at size: CGSize?) -> CVPixelBuffer? {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return buffer(from: UIImage(cgImage: image))
         #elseif os(macOS)
         guard size != nil else { return nil }
@@ -28,14 +28,14 @@ extension PixelKit {
         #endif
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     typealias _Image = UIImage
     #elseif os(macOS)
     typealias _Image = NSImage
     #endif
     func buffer(from image: _Image) -> CVPixelBuffer? {
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         let scale: CGFloat = image.scale
         #elseif os(macOS)
         let scale: CGFloat = 1.0
@@ -79,7 +79,7 @@ extension PixelKit {
             return nil
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         UIGraphicsPushContext(context)
         image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
         UIGraphicsPopContext()
@@ -101,7 +101,7 @@ extension PixelKit {
         case fit
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public static func resize(_ image: UIImage, to size: CGSize, placement: ImagePlacement = .fill) -> UIImage {
         
         let frame: CGRect
@@ -281,7 +281,13 @@ extension PixelKit {
                 guard let pixelBuffer = pixResource.pixelBuffer else {
                     throw RenderError.texture("Pixel Buffer is nil.")
                 }
-                inputTexture = try makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: (pix as? CameraPIX) != nil)
+                let force8bit: Bool
+                #if os(tvOS)
+                force8bit = false
+                #else
+                force8bit = (pix as? CameraPIX) != nil
+                #endif
+                inputTexture = try makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: force8bit)
             } else if pixContent is PIXGenerator {
                 generator = true
             } else if let pixSprite = pixContent as? PIXSprite {
@@ -398,7 +404,7 @@ extension PixelKit {
     
     func cgImage(from ciImage: CIImage) -> CGImage? {
         guard let cgImage = CIContext(options: nil).createCGImage(ciImage, from: ciImage.extent, format: bits.ci, colorSpace: colorSpace.cg) else { return nil }
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return cgImage
         #elseif os(macOS)
         let size = resolution.size
@@ -412,7 +418,7 @@ extension PixelKit {
     }
 
     func image(from cgImage: CGImage) -> _Image {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return UIImage(cgImage: cgImage, scale: 1, orientation: .downMirrored)
         #elseif os(macOS)
         let size = resolution.size

@@ -23,7 +23,7 @@ public extension PIX {
         return pixelKit.cgImage(from: ciImage)
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     typealias _Image = UIImage
     #elseif os(macOS)
     typealias _Image = NSImage

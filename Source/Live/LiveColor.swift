@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -19,7 +19,7 @@ import CoreGraphics
 import SwiftUI
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 public typealias _Color = UIColor
 #elseif os(macOS)
 public typealias _Color = NSColor
@@ -106,7 +106,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
             switch self {
             case ._8: return .bgra8Unorm
             case ._10:
-                #if os(iOS) && !targetEnvironment(macCatalyst)
+                #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
                 return .bgra10_xr_srgb
                 #else
                 return .bgra8Unorm
@@ -166,7 +166,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
         case .sRGB:
             return self
         case .displayP3:
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
 //            return sRGB(p3: self)
             let p3Color = UIColor(displayP3Red: r.cg, green: g.cg, blue: b.cg, alpha: a.cg)
             let ciColor = CIColor(color: p3Color)
@@ -213,18 +213,19 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     #if canImport(SwiftUI)
     @available(iOS 13.0, *)
+    @available(tvOS 13.0, *)
     public var color: Color {
         Color(_color)
     }
     #endif
     var _color: _Color {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return uiColor
         #elseif os(macOS)
         return nsColor
         #endif
     }
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public var uiColor: UIColor {
         switch PixelKit.main.colorSpace {
         case .sRGB:
@@ -294,7 +295,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     // MARK: - UI
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public init(_ uiColor: UIColor) {
         let ciColor = CIColor(color: uiColor)
         r = LiveFloat(ciColor.red)

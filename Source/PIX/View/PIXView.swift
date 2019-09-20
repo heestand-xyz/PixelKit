@@ -31,7 +31,7 @@ public struct PIXRepView: UIViewRepresentable {
 }
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 public typealias _View = UIView
 #elseif os(macOS)
 public typealias _View = NSView
@@ -85,7 +85,7 @@ public class PIXView: _View {
         
         super.init(frame: .zero)
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         clipsToBounds = true
         #endif
         
@@ -166,7 +166,7 @@ public class PIXView: _View {
         widthLayoutConstraint.constant = width
         heightLayoutConstraint.constant = height
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         checkerView.setNeedsDisplay()
         #elseif os(macOS)
 //        metalView.setNeedsDisplay(frame)
@@ -187,7 +187,7 @@ public class PIXView: _View {
         } else {
             widthLayoutConstraint.constant = 0
             heightLayoutConstraint.constant = 0
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
             checkerView.setNeedsDisplay()
             #endif
             metalView.res = nil
@@ -195,7 +195,7 @@ public class PIXView: _View {
         
         // FIXME: Set by user..
 //        if !boundsReady {
-//            #if os(iOS)
+//            #if os(iOS) || os(tvOS)
 //            let scale: CGFloat = UIScreen.main.nativeScale
 //            #elseif os(macOS)
 //            let scale: CGFloat = 1.0
@@ -204,8 +204,7 @@ public class PIXView: _View {
 //        }
     }
     
-    #if os(iOS)
-    
+    #if !os(tvOS)
     public func liveTouch(active: Bool) {
         #if os(iOS)
         liveTouchView.isUserInteractionEnabled = active
@@ -213,6 +212,9 @@ public class PIXView: _View {
         liveMouseView.isUserInteractionEnabled = active
         #endif
     }
+    #endif
+    
+    #if os(iOS)
     
     public func touchEvent(_ callback: @escaping (Bool) -> ()) {
         liveTouchView.touchEvent { touch in
@@ -243,7 +245,7 @@ public class PIXView: _View {
     
     #endif
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public override func layoutSubviews() {
         super.layoutSubviews()
         _ = layoutPlacement()

@@ -45,7 +45,7 @@ extension PixelKit {
                 let semaphore = DispatchSemaphore(value: 0)
                 DispatchQueue.main.async {                
                     if pix.view.superview != nil {
-                        #if os(iOS)
+                        #if os(iOS) || os(tvOS)
                         pix.view.metalView.setNeedsDisplay()
                         #elseif os(macOS)
                         let size = pix.resolution.size
@@ -173,7 +173,7 @@ extension PixelKit {
 //                    let isSimulator = false
 //                    #endif
                     if pix.view.superview != nil/* && !isSimulator*/ {
-                        #if os(iOS)
+                        #if os(iOS) || os(tvOS)
                         pix.view.metalView.setNeedsDisplay()
                         #elseif os(macOS)
                         let size = pix.resolution.size

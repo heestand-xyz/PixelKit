@@ -24,6 +24,9 @@ public class PixelKit {
     #elseif os(iOS)
     let kBundleId = "se.hexagons.pixelkit"
     let kMetalLibName = "PixelKitShaders"
+    #elseif os(tvOS)
+    let kBundleId = "se.hexagons.pixelkit.tvos"
+    let kMetalLibName = "PixelKitShaders-tvOS"
     #endif
     
     // MARK: Render
@@ -113,7 +116,7 @@ public class PixelKit {
     
     // MARK: Frames
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     typealias _DisplayLink = CADisplayLink
     #elseif os(macOS)
     typealias _DisplayLink = CVDisplayLink
@@ -136,7 +139,7 @@ public class PixelKit {
     var _finalFps: Int = -1
     public var finalFps: Int? { return finalPix != nil && _finalFps != -1 ? min(_finalFps, fpsMax) : nil }
     public var fpsMax: Int { if #available(iOS 10.3, *) {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         return UIScreen.main.maximumFramesPerSecond
         #elseif os(macOS)
         return 60
@@ -180,7 +183,7 @@ public class PixelKit {
             log(.fatal, .pixelKit, "Initialization failed.", e: error)
         }
         
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
         displayLink = CADisplayLink(target: self, selector: #selector(self.frameLoop))
         displayLink!.add(to: RunLoop.main, forMode: .common)
         #elseif os(macOS)
@@ -486,7 +489,7 @@ public class PixelKit {
     }
     
     func makeQuadVertexBuffer() throws -> MTLBuffer {
-//        #if os(iOS)
+//        #if os(iOS) || os(tvOS)
         let vUp: CGFloat = 0.0
         let vDown: CGFloat = 1.0
 //        #elseif os(macOS)

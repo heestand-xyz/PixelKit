@@ -24,7 +24,7 @@ public class StreamInPIX: PIXResource {
     var streamSize: CGSize?
     var peer: Peer?
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     var image: UIImage? { didSet { setNeedsBuffer() } }
     #elseif os(macOS)
 //    var image: NSImage? { didSet { setNeedsBuffer() } }

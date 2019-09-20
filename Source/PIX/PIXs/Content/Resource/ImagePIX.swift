@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -14,7 +14,7 @@ import AppKit
 
 public class ImagePIX: PIXResource {
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     override open var shader: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override open var shader: String { return "contentResourceBGRPIX" }
@@ -22,7 +22,7 @@ public class ImagePIX: PIXResource {
     
     // MARK: - Public Properties
     
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     public var image: UIImage? { didSet { setNeedsBuffer() } }
     #elseif os(macOS)
     public var image: NSImage? { didSet { setNeedsBuffer() } }
