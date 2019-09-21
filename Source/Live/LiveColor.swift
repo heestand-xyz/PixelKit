@@ -106,7 +106,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
             switch self {
             case ._8: return .bgra8Unorm
             case ._10:
-                #if os(iOS) || os(tvOS) && !targetEnvironment(macCatalyst)
+                #if (os(iOS) && !targetEnvironment(macCatalyst)) || os(tvOS)
                 return .bgra10_xr_srgb
                 #else
                 return .bgra8Unorm
