@@ -6,28 +6,28 @@
 //  Open Source - MIT License
 //
 
-#if canImport(SwiftUI)
-import SwiftUI
-#endif
-
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-public struct CircleUIPIX: View, UIPIX {
-    public let pix: PIX
-    let circlePix: CirclePIX
-    public var body: some View {
-        PIXRepView(pix: pix)
-    }
-    public init() {
-        circlePix = CirclePIX()
-        pix = circlePix
-    }
-    public func radius(_ bind: Binding<CGFloat>) -> CircleUIPIX {
-        circlePix.radius = LiveFloat({ bind.wrappedValue })
-        return self
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//import SwiftUI
+//#endif
+//
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//public struct CircleUIPIX: View, UIPIX {
+//    public let pix: PIX
+//    let circlePix: CirclePIX
+//    public var body: some View {
+//        PIXRepView(pix: pix)
+//    }
+//    public init() {
+//        circlePix = CirclePIX()
+//        pix = circlePix
+//    }
+//    public func radius(_ bind: Binding<CGFloat>) -> CircleUIPIX {
+//        circlePix.radius = LiveFloat({ bind.wrappedValue })
+//        return self
+//    }
+//}
+//#endif
 
 public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     

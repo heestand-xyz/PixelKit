@@ -12,6 +12,8 @@ public class LiveSize: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     public var name: String?
     
+    public let type: Any.Type = CGSize.self
+    
     public var w: LiveFloat
     public var h: LiveFloat
     

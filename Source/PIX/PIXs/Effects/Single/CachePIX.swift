@@ -8,7 +8,11 @@
 
 
 import Metal
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
@@ -82,10 +86,17 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - Texture to Image conversion failed.")
             return
         }
+        #if os(iOS) || os(tvOS)
         guard let data = image.pngData() else {
             pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - PNG Data not found.")
             return
         }
+        #elseif os(macOS)
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
+        let newRep = NSBitmapImageRep(cgImage: cgImage)
+        newRep.size = image.size
+        guard let data = newRep.representation(using: .png, properties: [:]) else { return }
+        #endif
         do {
             try data.write(to: url)
         } catch {
@@ -97,7 +108,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         let url = mtlTextureUrl(for: id)
         do {
             let data = try Data(contentsOf: url)
-            guard let image = UIImage(data: data) else {
+            guard let image = _Image(data: data) else {
                 pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Image not found.")
                 return nil
             }

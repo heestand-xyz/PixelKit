@@ -12,6 +12,8 @@ public protocol LiveValue {
     
     var name: String? { get }
     
+    var type: Any.Type { get }
+    
     var uniformIsNew: Bool { get }
     
 }

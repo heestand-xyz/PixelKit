@@ -40,6 +40,8 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     
     public  var name: String?
     
+    public let type: Any.Type = _Color.self
+    
     public var r: LiveFloat
     public var g: LiveFloat
     public var b: LiveFloat
@@ -212,6 +214,7 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     // MARK: Properties
     
     #if canImport(SwiftUI)
+    @available(OSX 10.15, *)
     @available(iOS 13.0, *)
     @available(tvOS 13.0, *)
     public var color: Color {

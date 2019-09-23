@@ -13,7 +13,10 @@ import SwiftUI
 #endif
 
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !os(macOS) // CHECK macOS
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
 public struct PIXRepView: UIViewRepresentable {
         
     public let pix: PIX
@@ -209,7 +212,8 @@ public class PIXView: _View {
         #if os(iOS)
         liveTouchView.isUserInteractionEnabled = active
         #elseif os(macOS)
-        liveMouseView.isUserInteractionEnabled = active
+        // CHECK
+//        liveMouseView.isUserInteractionEnabled = active
         #endif
     }
     #endif

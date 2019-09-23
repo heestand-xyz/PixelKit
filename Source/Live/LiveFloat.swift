@@ -44,6 +44,8 @@ public class LiveFloat: LiveValue, /*Equatable, Comparable,*/ ExpressibleByFloat
     
     public var name: String?
     
+    public let type: Any.Type = CGFloat.self
+    
     public var description: String {
         let _value: CGFloat = round(CGFloat(self) * 1_000) / 1_000
         return "live\(name != nil ? "[\(name!)]" : "")(\("\(_value)".zfill(3)))"

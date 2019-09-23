@@ -19,6 +19,8 @@ public class LiveInt: LiveValue, /*Equatable, Comparable,*/ ExpressibleByInteger
     
     public var name: String?
     
+    public let type: Any.Type = Int.self
+    
     public var description: String {
         return "live\(name != nil ? "[\(name!)]" : "")(\(value))"
     }

@@ -15,6 +15,8 @@ public class LivePoint: LiveValue, CustomStringConvertible {
     
     public var name: String?
     
+    public let type: Any.Type = CGPoint.self
+    
     public var x: LiveFloat
     public var y: LiveFloat
     

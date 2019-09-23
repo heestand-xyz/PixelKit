@@ -52,32 +52,47 @@ protocol PIXRes {
 #if canImport(SwiftUI)
 
 @available(iOS 13.0.0, *)
-public protocol UIPIX {
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public protocol PIXUI {
     var pix: PIX { get }
 }
-public protocol UIPIXSingleEffect: UIPIX {
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public protocol PIXUISingleEffect: PIXUI {
     var inPix: PIX & PIXOut { get }
 }
-public protocol UIPIXMergerEffect: UIPIX {
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public protocol PIXUIMergerEffect: PIXUI {
     var inPixA: PIX & PIXOut { get }
     var inPixB: PIX & PIXOut { get }
 }
-public protocol UIPIXMultiEffect: UIPIX {
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public protocol PIXUIMultiEffect: PIXUI {
     var inPixs: [PIX & PIXOut] { get }
 }
 
 @available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
 @_functionBuilder
-public struct UIPIXMergerEffectBuilder {
-    public static func buildBlock(_ childA: UIPIX, _ childB: UIPIX) -> ((PIX & PIXOut)?, (PIX & PIXOut)?) {
+public struct PIXUIMergerEffectBuilder {
+    public static func buildBlock(_ childA: PIXUI, _ childB: PIXUI) -> ((PIX & PIXOut)?, (PIX & PIXOut)?) {
         return (childA.pix as? PIX & PIXOut, childB.pix as? PIX & PIXOut)
     }
 }
 
 @available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
 @_functionBuilder
-public struct UIPIXMultiEffectBuilder {
-    public static func buildBlock(_ children: UIPIX...) -> [PIX & PIXOut] {
+public struct PIXUIMultiEffectBuilder {
+    public static func buildBlock(_ children: PIXUI...) -> [PIX & PIXOut] {
         return children.compactMap { $0.pix as? PIX & PIXOut }
     }
 }

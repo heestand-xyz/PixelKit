@@ -42,6 +42,8 @@ public class LiveBool: LiveValue, ExpressibleByBooleanLiteral, CustomStringConve
     
     public var name: String?
     
+    public let type: Any.Type = Bool.self
+    
     public var description: String {
         return "live\(name != nil ? "[\(name!)]" : "")(\(Bool(self)))"
     }

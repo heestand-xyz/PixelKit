@@ -20,7 +20,7 @@ public extension PIX {
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
-        return pixelKit.cgImage(from: ciImage)
+        return pixelKit.cgImage(from: ciImage, at: resolution.size.cg)
     }
     
     #if os(iOS) || os(tvOS)
@@ -30,7 +30,7 @@ public extension PIX {
     #endif
     var renderedImage: _Image? {
         guard let cgImage = renderedCGImage else { return nil }
-        return pixelKit.image(from: cgImage)
+        return pixelKit.image(from: cgImage, at: resolution.size.cg)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {

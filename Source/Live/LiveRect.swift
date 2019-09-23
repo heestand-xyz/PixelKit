@@ -12,6 +12,8 @@ public class LiveRect: LiveValue, ExpressibleByFloatLiteral, ExpressibleByIntege
     
     public var name: String?
     
+    public let type: Any.Type = CGRect.self
+    
     public var x: LiveFloat
     public var y: LiveFloat
     public var w: LiveFloat

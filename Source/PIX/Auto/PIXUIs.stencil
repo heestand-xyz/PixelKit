@@ -1,0 +1,88 @@
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+{% for parentType in types.implementing.PIXAutoParent %}
+{% for inheritedType in parentType.inheritedTypes %}
+{% if inheritedType == "PIXAutoParent" %}
+
+// MARK - UI{{ parentType.name }}
+
+{% for type in types.implementing.PIXAuto %}
+{% for subType in type.inheritedTypes %}
+{% if subType == parentType.name %}
+
+// {{ type.name }}UI
+
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct {{type.name}}UI: View, PIXUI {
+
+    public let pix: PIX
+    let {{type.name|lowercase}}: {{type.name}}
+    
+    public var body: some View {
+        PIXRepView(pix: pix)
+    }
+
+    {% if parentType.name == "PIXMergerEffect" %}
+    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+        {{type.name|lowercase}} = {{type.name}}()
+        pix = {{type.name|lowercase}}
+        let uiPixAB = uiPixAB()
+        {{type.name|lowercase}}.inPixA = uiPixAB.0
+        {{type.name|lowercase}}.inPixB = uiPixAB.1
+    }
+    {% else %}
+    {% if parentType.name == "PIXMultiEffect" %}
+    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & PIXOut])) {
+        {{type.name|lowercase}} = {{type.name}}()
+        pix = {{type.name|lowercase}}
+        {{type.name|lowercase}}.inPixs = uiPixs()
+    }
+    {% else %}
+    public init() {
+        {{type.name|lowercase}} = {{type.name}}()
+        pix = {{type.name|lowercase}}
+    }
+    {% endif %}
+    {% endif %}
+    
+    {% for liveType in types.implementing.LiveValue %}
+
+    {% for var in type.storedVariables %}
+    {% if var.typeName.name == liveType.name %}
+    
+    public func {{ var.name }}(_ bind: Binding<
+    
+    {% for var in liveType.variables %}
+    {% if var.name == "type" %}
+    
+    {{ var.defaultValue|replace:".self","" }}
+    
+    {% endif %}
+    {% endfor %}
+    
+    >) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ bind.wrappedValue })
+        return self
+    }
+
+    {% endif %}
+    {% endfor %}
+    
+    {% endfor %}
+    
+}
+
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+#endif
