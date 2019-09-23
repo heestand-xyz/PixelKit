@@ -108,18 +108,10 @@ import PixelKit
 
 struct ContentView: View {
     var body: some View {
-        PIXRepView(pix: {
-            
-            let circlePix = CirclePIX(res: .fullscreen)
-
-            let blurPix = BlurPIX()
-            blurPix.inPix = circlePix
-            blurPix.radius = 0.25
-            
-            let finalPix: PIX = blurPix
-            return finalPix
-            
-        }())
+        BlurPIXUI {
+            CirclePIXUI()
+        }
+            .radius(0.25)
             .edgesIgnoringSafeArea(.all)
     }
 }

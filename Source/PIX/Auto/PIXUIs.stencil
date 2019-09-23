@@ -64,32 +64,51 @@ public struct {{type.name}}UI: View, PIXUI {
     {% endif %}
     {% endif %}
     
+    // Parent Property Funcs
+    
     {% for liveType in types.implementing.LiveValue %}
     {% for var in parentType.storedVariables %}
     {% if var.typeName.name == liveType.name %}
-    public func {{ var.name }}(_ binding: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
-        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ binding.wrappedValue })
+    public func {{ var.name }}(_ {{ var.name }}: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ {{ var.name }}.wrappedValue })
         return self
     }
-    public func {{ var.name }}(_ liveValue: {{ liveType.name }}) -> {{type.name}}UI {
-        {{type.name|lowercase}}.{{ var.name }} = liveValue
+    public func {{ var.name }}(_ {{ var.name }}: {{ liveType.name }}) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ var.name }}
         return self
     }
     {% endif %}
     {% endfor %}
     {% endfor %}
     
+    // General Property Funcs
+    
     {% for liveType in types.implementing.LiveValue %}
     {% for var in type.storedVariables %}
     {% if var.typeName.name == liveType.name %}
-    public func {{ var.name }}(_ binding: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
-        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ binding.wrappedValue })
+    public func {{ var.name }}(_ {{ var.name }}: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ {{ var.name }}.wrappedValue })
         return self
     }
-    public func {{ var.name }}(_ liveValue: {{ liveType.name }}) -> {{type.name}}UI {
-        {{type.name|lowercase}}.{{ var.name }} = liveValue
+    public func {{ var.name }}(_ {{ var.name }}: {{ liveType.name }}) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ var.name }}
         return self
     }
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    
+    // Enum Property Funcs
+    
+    {% for var in type.storedVariables %}
+    {% for enum in types.enums where enum.localName == var.typeName.name %}
+    {% if enum.rawTypeName.name == "String" %}
+    {% if var.typeName.name == enum.localName %}
+    public func {{ var.name }}(_ {{ var.name }}: {{ enum.name }}) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ var.name }}
+        return self
+    }
+    {% endif %}
     {% endif %}
     {% endfor %}
     {% endfor %}

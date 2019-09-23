@@ -26,78 +26,81 @@ public struct ArcPIXUI: View, PIXUI {
         arcpix = ArcPIX(res: res)
         pix = arcpix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> ArcPIXUI {
-        arcpix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> ArcPIXUI {
+        arcpix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> ArcPIXUI {
-        arcpix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> ArcPIXUI {
+        arcpix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> ArcPIXUI {
-        arcpix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> ArcPIXUI {
+        arcpix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> ArcPIXUI {
-        arcpix.color = liveValue
+    public func color(_ color: LiveColor) -> ArcPIXUI {
+        arcpix.color = color
         return self
     }
-    public func fillColor(_ binding: Binding<_Color>) -> ArcPIXUI {
-        arcpix.fillColor = LiveColor({ binding.wrappedValue })
+    // General Property Funcs
+    public func fillColor(_ fillColor: Binding<_Color>) -> ArcPIXUI {
+        arcpix.fillColor = LiveColor({ fillColor.wrappedValue })
         return self
     }
-    public func fillColor(_ liveValue: LiveColor) -> ArcPIXUI {
-        arcpix.fillColor = liveValue
+    public func fillColor(_ fillColor: LiveColor) -> ArcPIXUI {
+        arcpix.fillColor = fillColor
         return self
     }
-    public func radius(_ binding: Binding<CGFloat>) -> ArcPIXUI {
-        arcpix.radius = LiveFloat({ binding.wrappedValue })
+    public func radius(_ radius: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.radius = LiveFloat({ radius.wrappedValue })
         return self
     }
-    public func radius(_ liveValue: LiveFloat) -> ArcPIXUI {
-        arcpix.radius = liveValue
+    public func radius(_ radius: LiveFloat) -> ArcPIXUI {
+        arcpix.radius = radius
         return self
     }
-    public func angleFrom(_ binding: Binding<CGFloat>) -> ArcPIXUI {
-        arcpix.angleFrom = LiveFloat({ binding.wrappedValue })
+    public func angleFrom(_ angleFrom: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleFrom = LiveFloat({ angleFrom.wrappedValue })
         return self
     }
-    public func angleFrom(_ liveValue: LiveFloat) -> ArcPIXUI {
-        arcpix.angleFrom = liveValue
+    public func angleFrom(_ angleFrom: LiveFloat) -> ArcPIXUI {
+        arcpix.angleFrom = angleFrom
         return self
     }
-    public func angleTo(_ binding: Binding<CGFloat>) -> ArcPIXUI {
-        arcpix.angleTo = LiveFloat({ binding.wrappedValue })
+    public func angleTo(_ angleTo: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleTo = LiveFloat({ angleTo.wrappedValue })
         return self
     }
-    public func angleTo(_ liveValue: LiveFloat) -> ArcPIXUI {
-        arcpix.angleTo = liveValue
+    public func angleTo(_ angleTo: LiveFloat) -> ArcPIXUI {
+        arcpix.angleTo = angleTo
         return self
     }
-    public func angleOffset(_ binding: Binding<CGFloat>) -> ArcPIXUI {
-        arcpix.angleOffset = LiveFloat({ binding.wrappedValue })
+    public func angleOffset(_ angleOffset: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleOffset = LiveFloat({ angleOffset.wrappedValue })
         return self
     }
-    public func angleOffset(_ liveValue: LiveFloat) -> ArcPIXUI {
-        arcpix.angleOffset = liveValue
+    public func angleOffset(_ angleOffset: LiveFloat) -> ArcPIXUI {
+        arcpix.angleOffset = angleOffset
         return self
     }
-    public func edgeRadius(_ binding: Binding<CGFloat>) -> ArcPIXUI {
-        arcpix.edgeRadius = LiveFloat({ binding.wrappedValue })
+    public func edgeRadius(_ edgeRadius: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.edgeRadius = LiveFloat({ edgeRadius.wrappedValue })
         return self
     }
-    public func edgeRadius(_ liveValue: LiveFloat) -> ArcPIXUI {
-        arcpix.edgeRadius = liveValue
+    public func edgeRadius(_ edgeRadius: LiveFloat) -> ArcPIXUI {
+        arcpix.edgeRadius = edgeRadius
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> ArcPIXUI {
-        arcpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> ArcPIXUI {
+        arcpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> ArcPIXUI {
-        arcpix.position = liveValue
+    public func position(_ position: LivePoint) -> ArcPIXUI {
+        arcpix.position = position
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -118,54 +121,57 @@ public struct CirclePIXUI: View, PIXUI {
         circlepix = CirclePIX(res: res)
         pix = circlepix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> CirclePIXUI {
-        circlepix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> CirclePIXUI {
+        circlepix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> CirclePIXUI {
-        circlepix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> CirclePIXUI {
+        circlepix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> CirclePIXUI {
-        circlepix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> CirclePIXUI {
+        circlepix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> CirclePIXUI {
-        circlepix.color = liveValue
+    public func color(_ color: LiveColor) -> CirclePIXUI {
+        circlepix.color = color
         return self
     }
-    public func edgeColor(_ binding: Binding<_Color>) -> CirclePIXUI {
-        circlepix.edgeColor = LiveColor({ binding.wrappedValue })
+    // General Property Funcs
+    public func edgeColor(_ edgeColor: Binding<_Color>) -> CirclePIXUI {
+        circlepix.edgeColor = LiveColor({ edgeColor.wrappedValue })
         return self
     }
-    public func edgeColor(_ liveValue: LiveColor) -> CirclePIXUI {
-        circlepix.edgeColor = liveValue
+    public func edgeColor(_ edgeColor: LiveColor) -> CirclePIXUI {
+        circlepix.edgeColor = edgeColor
         return self
     }
-    public func radius(_ binding: Binding<CGFloat>) -> CirclePIXUI {
-        circlepix.radius = LiveFloat({ binding.wrappedValue })
+    public func radius(_ radius: Binding<CGFloat>) -> CirclePIXUI {
+        circlepix.radius = LiveFloat({ radius.wrappedValue })
         return self
     }
-    public func radius(_ liveValue: LiveFloat) -> CirclePIXUI {
-        circlepix.radius = liveValue
+    public func radius(_ radius: LiveFloat) -> CirclePIXUI {
+        circlepix.radius = radius
         return self
     }
-    public func edgeRadius(_ binding: Binding<CGFloat>) -> CirclePIXUI {
-        circlepix.edgeRadius = LiveFloat({ binding.wrappedValue })
+    public func edgeRadius(_ edgeRadius: Binding<CGFloat>) -> CirclePIXUI {
+        circlepix.edgeRadius = LiveFloat({ edgeRadius.wrappedValue })
         return self
     }
-    public func edgeRadius(_ liveValue: LiveFloat) -> CirclePIXUI {
-        circlepix.edgeRadius = liveValue
+    public func edgeRadius(_ edgeRadius: LiveFloat) -> CirclePIXUI {
+        circlepix.edgeRadius = edgeRadius
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> CirclePIXUI {
-        circlepix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> CirclePIXUI {
+        circlepix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> CirclePIXUI {
-        circlepix.position = liveValue
+    public func position(_ position: LivePoint) -> CirclePIXUI {
+        circlepix.position = position
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -186,22 +192,25 @@ public struct ColorPIXUI: View, PIXUI {
         colorpix = ColorPIX(res: res)
         pix = colorpix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> ColorPIXUI {
-        colorpix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> ColorPIXUI {
+        colorpix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> ColorPIXUI {
-        colorpix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> ColorPIXUI {
+        colorpix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> ColorPIXUI {
-        colorpix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> ColorPIXUI {
+        colorpix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> ColorPIXUI {
-        colorpix.color = liveValue
+    public func color(_ color: LiveColor) -> ColorPIXUI {
+        colorpix.color = color
         return self
     }
+    // General Property Funcs
+    // Enum Property Funcs
 }
 
 
@@ -222,44 +231,55 @@ public struct GradientPIXUI: View, PIXUI {
         gradientpix = GradientPIX(res: res)
         pix = gradientpix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> GradientPIXUI {
-        gradientpix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> GradientPIXUI {
+        gradientpix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> GradientPIXUI {
-        gradientpix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> GradientPIXUI {
+        gradientpix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> GradientPIXUI {
-        gradientpix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> GradientPIXUI {
+        gradientpix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> GradientPIXUI {
-        gradientpix.color = liveValue
+    public func color(_ color: LiveColor) -> GradientPIXUI {
+        gradientpix.color = color
         return self
     }
-    public func scale(_ binding: Binding<CGFloat>) -> GradientPIXUI {
-        gradientpix.scale = LiveFloat({ binding.wrappedValue })
+    // General Property Funcs
+    public func scale(_ scale: Binding<CGFloat>) -> GradientPIXUI {
+        gradientpix.scale = LiveFloat({ scale.wrappedValue })
         return self
     }
-    public func scale(_ liveValue: LiveFloat) -> GradientPIXUI {
-        gradientpix.scale = liveValue
+    public func scale(_ scale: LiveFloat) -> GradientPIXUI {
+        gradientpix.scale = scale
         return self
     }
-    public func offset(_ binding: Binding<CGFloat>) -> GradientPIXUI {
-        gradientpix.offset = LiveFloat({ binding.wrappedValue })
+    public func offset(_ offset: Binding<CGFloat>) -> GradientPIXUI {
+        gradientpix.offset = LiveFloat({ offset.wrappedValue })
         return self
     }
-    public func offset(_ liveValue: LiveFloat) -> GradientPIXUI {
-        gradientpix.offset = liveValue
+    public func offset(_ offset: LiveFloat) -> GradientPIXUI {
+        gradientpix.offset = offset
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> GradientPIXUI {
-        gradientpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> GradientPIXUI {
+        gradientpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> GradientPIXUI {
-        gradientpix.position = liveValue
+    public func position(_ position: LivePoint) -> GradientPIXUI {
+        gradientpix.position = position
+        return self
+    }
+    // Enum Property Funcs
+    public func direction(_ direction: GradientPIX.Direction) -> GradientPIXUI {
+        gradientpix.direction = direction
+        return self
+    }
+    public func extendRamp(_ extendRamp: PIX.ExtendMode) -> GradientPIXUI {
+        gradientpix.extendRamp = extendRamp
         return self
     }
 }
@@ -282,46 +302,49 @@ public struct LinePIXUI: View, PIXUI {
         linepix = LinePIX(res: res)
         pix = linepix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> LinePIXUI {
-        linepix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> LinePIXUI {
+        linepix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> LinePIXUI {
-        linepix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> LinePIXUI {
+        linepix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> LinePIXUI {
-        linepix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> LinePIXUI {
+        linepix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> LinePIXUI {
-        linepix.color = liveValue
+    public func color(_ color: LiveColor) -> LinePIXUI {
+        linepix.color = color
         return self
     }
-    public func scale(_ binding: Binding<CGFloat>) -> LinePIXUI {
-        linepix.scale = LiveFloat({ binding.wrappedValue })
+    // General Property Funcs
+    public func scale(_ scale: Binding<CGFloat>) -> LinePIXUI {
+        linepix.scale = LiveFloat({ scale.wrappedValue })
         return self
     }
-    public func scale(_ liveValue: LiveFloat) -> LinePIXUI {
-        linepix.scale = liveValue
+    public func scale(_ scale: LiveFloat) -> LinePIXUI {
+        linepix.scale = scale
         return self
     }
-    public func positionFrom(_ binding: Binding<CGPoint>) -> LinePIXUI {
-        linepix.positionFrom = LivePoint({ binding.wrappedValue })
+    public func positionFrom(_ positionFrom: Binding<CGPoint>) -> LinePIXUI {
+        linepix.positionFrom = LivePoint({ positionFrom.wrappedValue })
         return self
     }
-    public func positionFrom(_ liveValue: LivePoint) -> LinePIXUI {
-        linepix.positionFrom = liveValue
+    public func positionFrom(_ positionFrom: LivePoint) -> LinePIXUI {
+        linepix.positionFrom = positionFrom
         return self
     }
-    public func positionTo(_ binding: Binding<CGPoint>) -> LinePIXUI {
-        linepix.positionTo = LivePoint({ binding.wrappedValue })
+    public func positionTo(_ positionTo: Binding<CGPoint>) -> LinePIXUI {
+        linepix.positionTo = LivePoint({ positionTo.wrappedValue })
         return self
     }
-    public func positionTo(_ liveValue: LivePoint) -> LinePIXUI {
-        linepix.positionTo = liveValue
+    public func positionTo(_ positionTo: LivePoint) -> LinePIXUI {
+        linepix.positionTo = positionTo
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -342,86 +365,89 @@ public struct NoisePIXUI: View, PIXUI {
         noisepix = NoisePIX(res: res)
         pix = noisepix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> NoisePIXUI {
-        noisepix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> NoisePIXUI {
+        noisepix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> NoisePIXUI {
-        noisepix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> NoisePIXUI {
+        noisepix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> NoisePIXUI {
-        noisepix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> NoisePIXUI {
+        noisepix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> NoisePIXUI {
-        noisepix.color = liveValue
+    public func color(_ color: LiveColor) -> NoisePIXUI {
+        noisepix.color = color
         return self
     }
-    public func colored(_ binding: Binding<Bool>) -> NoisePIXUI {
-        noisepix.colored = LiveBool({ binding.wrappedValue })
+    // General Property Funcs
+    public func colored(_ colored: Binding<Bool>) -> NoisePIXUI {
+        noisepix.colored = LiveBool({ colored.wrappedValue })
         return self
     }
-    public func colored(_ liveValue: LiveBool) -> NoisePIXUI {
-        noisepix.colored = liveValue
+    public func colored(_ colored: LiveBool) -> NoisePIXUI {
+        noisepix.colored = colored
         return self
     }
-    public func random(_ binding: Binding<Bool>) -> NoisePIXUI {
-        noisepix.random = LiveBool({ binding.wrappedValue })
+    public func random(_ random: Binding<Bool>) -> NoisePIXUI {
+        noisepix.random = LiveBool({ random.wrappedValue })
         return self
     }
-    public func random(_ liveValue: LiveBool) -> NoisePIXUI {
-        noisepix.random = liveValue
+    public func random(_ random: LiveBool) -> NoisePIXUI {
+        noisepix.random = random
         return self
     }
-    public func includeAlpha(_ binding: Binding<Bool>) -> NoisePIXUI {
-        noisepix.includeAlpha = LiveBool({ binding.wrappedValue })
+    public func includeAlpha(_ includeAlpha: Binding<Bool>) -> NoisePIXUI {
+        noisepix.includeAlpha = LiveBool({ includeAlpha.wrappedValue })
         return self
     }
-    public func includeAlpha(_ liveValue: LiveBool) -> NoisePIXUI {
-        noisepix.includeAlpha = liveValue
+    public func includeAlpha(_ includeAlpha: LiveBool) -> NoisePIXUI {
+        noisepix.includeAlpha = includeAlpha
         return self
     }
-    public func zPosition(_ binding: Binding<CGFloat>) -> NoisePIXUI {
-        noisepix.zPosition = LiveFloat({ binding.wrappedValue })
+    public func zPosition(_ zPosition: Binding<CGFloat>) -> NoisePIXUI {
+        noisepix.zPosition = LiveFloat({ zPosition.wrappedValue })
         return self
     }
-    public func zPosition(_ liveValue: LiveFloat) -> NoisePIXUI {
-        noisepix.zPosition = liveValue
+    public func zPosition(_ zPosition: LiveFloat) -> NoisePIXUI {
+        noisepix.zPosition = zPosition
         return self
     }
-    public func zoom(_ binding: Binding<CGFloat>) -> NoisePIXUI {
-        noisepix.zoom = LiveFloat({ binding.wrappedValue })
+    public func zoom(_ zoom: Binding<CGFloat>) -> NoisePIXUI {
+        noisepix.zoom = LiveFloat({ zoom.wrappedValue })
         return self
     }
-    public func zoom(_ liveValue: LiveFloat) -> NoisePIXUI {
-        noisepix.zoom = liveValue
+    public func zoom(_ zoom: LiveFloat) -> NoisePIXUI {
+        noisepix.zoom = zoom
         return self
     }
-    public func seed(_ binding: Binding<Int>) -> NoisePIXUI {
-        noisepix.seed = LiveInt({ binding.wrappedValue })
+    public func seed(_ seed: Binding<Int>) -> NoisePIXUI {
+        noisepix.seed = LiveInt({ seed.wrappedValue })
         return self
     }
-    public func seed(_ liveValue: LiveInt) -> NoisePIXUI {
-        noisepix.seed = liveValue
+    public func seed(_ seed: LiveInt) -> NoisePIXUI {
+        noisepix.seed = seed
         return self
     }
-    public func octaves(_ binding: Binding<Int>) -> NoisePIXUI {
-        noisepix.octaves = LiveInt({ binding.wrappedValue })
+    public func octaves(_ octaves: Binding<Int>) -> NoisePIXUI {
+        noisepix.octaves = LiveInt({ octaves.wrappedValue })
         return self
     }
-    public func octaves(_ liveValue: LiveInt) -> NoisePIXUI {
-        noisepix.octaves = liveValue
+    public func octaves(_ octaves: LiveInt) -> NoisePIXUI {
+        noisepix.octaves = octaves
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> NoisePIXUI {
-        noisepix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> NoisePIXUI {
+        noisepix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> NoisePIXUI {
-        noisepix.position = liveValue
+    public func position(_ position: LivePoint) -> NoisePIXUI {
+        noisepix.position = position
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -442,62 +468,65 @@ public struct PolygonPIXUI: View, PIXUI {
         polygonpix = PolygonPIX(res: res)
         pix = polygonpix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> PolygonPIXUI {
-        polygonpix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> PolygonPIXUI {
+        polygonpix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> PolygonPIXUI {
-        polygonpix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> PolygonPIXUI {
+        polygonpix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> PolygonPIXUI {
-        polygonpix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> PolygonPIXUI {
+        polygonpix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> PolygonPIXUI {
-        polygonpix.color = liveValue
+    public func color(_ color: LiveColor) -> PolygonPIXUI {
+        polygonpix.color = color
         return self
     }
-    public func radius(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
-        polygonpix.radius = LiveFloat({ binding.wrappedValue })
+    // General Property Funcs
+    public func radius(_ radius: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.radius = LiveFloat({ radius.wrappedValue })
         return self
     }
-    public func radius(_ liveValue: LiveFloat) -> PolygonPIXUI {
-        polygonpix.radius = liveValue
+    public func radius(_ radius: LiveFloat) -> PolygonPIXUI {
+        polygonpix.radius = radius
         return self
     }
-    public func rotation(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
-        polygonpix.rotation = LiveFloat({ binding.wrappedValue })
+    public func rotation(_ rotation: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.rotation = LiveFloat({ rotation.wrappedValue })
         return self
     }
-    public func rotation(_ liveValue: LiveFloat) -> PolygonPIXUI {
-        polygonpix.rotation = liveValue
+    public func rotation(_ rotation: LiveFloat) -> PolygonPIXUI {
+        polygonpix.rotation = rotation
         return self
     }
-    public func cornerRadius(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
-        polygonpix.cornerRadius = LiveFloat({ binding.wrappedValue })
+    public func cornerRadius(_ cornerRadius: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.cornerRadius = LiveFloat({ cornerRadius.wrappedValue })
         return self
     }
-    public func cornerRadius(_ liveValue: LiveFloat) -> PolygonPIXUI {
-        polygonpix.cornerRadius = liveValue
+    public func cornerRadius(_ cornerRadius: LiveFloat) -> PolygonPIXUI {
+        polygonpix.cornerRadius = cornerRadius
         return self
     }
-    public func vertexCount(_ binding: Binding<Int>) -> PolygonPIXUI {
-        polygonpix.vertexCount = LiveInt({ binding.wrappedValue })
+    public func vertexCount(_ vertexCount: Binding<Int>) -> PolygonPIXUI {
+        polygonpix.vertexCount = LiveInt({ vertexCount.wrappedValue })
         return self
     }
-    public func vertexCount(_ liveValue: LiveInt) -> PolygonPIXUI {
-        polygonpix.vertexCount = liveValue
+    public func vertexCount(_ vertexCount: LiveInt) -> PolygonPIXUI {
+        polygonpix.vertexCount = vertexCount
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> PolygonPIXUI {
-        polygonpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> PolygonPIXUI {
+        polygonpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> PolygonPIXUI {
-        polygonpix.position = liveValue
+    public func position(_ position: LivePoint) -> PolygonPIXUI {
+        polygonpix.position = position
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -518,46 +547,49 @@ public struct RectanglePIXUI: View, PIXUI {
         rectanglepix = RectanglePIX(res: res)
         pix = rectanglepix
     }
-    public func bgColor(_ binding: Binding<_Color>) -> RectanglePIXUI {
-        rectanglepix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> RectanglePIXUI {
+        rectanglepix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> RectanglePIXUI {
-        rectanglepix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> RectanglePIXUI {
+        rectanglepix.bgColor = bgColor
         return self
     }
-    public func color(_ binding: Binding<_Color>) -> RectanglePIXUI {
-        rectanglepix.color = LiveColor({ binding.wrappedValue })
+    public func color(_ color: Binding<_Color>) -> RectanglePIXUI {
+        rectanglepix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> RectanglePIXUI {
-        rectanglepix.color = liveValue
+    public func color(_ color: LiveColor) -> RectanglePIXUI {
+        rectanglepix.color = color
         return self
     }
-    public func cornerRadius(_ binding: Binding<CGFloat>) -> RectanglePIXUI {
-        rectanglepix.cornerRadius = LiveFloat({ binding.wrappedValue })
+    // General Property Funcs
+    public func cornerRadius(_ cornerRadius: Binding<CGFloat>) -> RectanglePIXUI {
+        rectanglepix.cornerRadius = LiveFloat({ cornerRadius.wrappedValue })
         return self
     }
-    public func cornerRadius(_ liveValue: LiveFloat) -> RectanglePIXUI {
-        rectanglepix.cornerRadius = liveValue
+    public func cornerRadius(_ cornerRadius: LiveFloat) -> RectanglePIXUI {
+        rectanglepix.cornerRadius = cornerRadius
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> RectanglePIXUI {
-        rectanglepix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> RectanglePIXUI {
+        rectanglepix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> RectanglePIXUI {
-        rectanglepix.position = liveValue
+    public func position(_ position: LivePoint) -> RectanglePIXUI {
+        rectanglepix.position = position
         return self
     }
-    public func size(_ binding: Binding<CGSize>) -> RectanglePIXUI {
-        rectanglepix.size = LiveSize({ binding.wrappedValue })
+    public func size(_ size: Binding<CGSize>) -> RectanglePIXUI {
+        rectanglepix.size = LiveSize({ size.wrappedValue })
         return self
     }
-    public func size(_ liveValue: LiveSize) -> RectanglePIXUI {
-        rectanglepix.size = liveValue
+    public func size(_ size: LiveSize) -> RectanglePIXUI {
+        rectanglepix.size = size
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -586,44 +618,51 @@ public struct BlendPIXUI: View, PIXUI {
         blendpix.inPixA = uiPixAB.0
         blendpix.inPixB = uiPixAB.1
     }
-    public func bypassTransform(_ binding: Binding<Bool>) -> BlendPIXUI {
-        blendpix.bypassTransform = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func bypassTransform(_ bypassTransform: Binding<Bool>) -> BlendPIXUI {
+        blendpix.bypassTransform = LiveBool({ bypassTransform.wrappedValue })
         return self
     }
-    public func bypassTransform(_ liveValue: LiveBool) -> BlendPIXUI {
-        blendpix.bypassTransform = liveValue
+    public func bypassTransform(_ bypassTransform: LiveBool) -> BlendPIXUI {
+        blendpix.bypassTransform = bypassTransform
         return self
     }
-    public func rotation(_ binding: Binding<CGFloat>) -> BlendPIXUI {
-        blendpix.rotation = LiveFloat({ binding.wrappedValue })
+    public func rotation(_ rotation: Binding<CGFloat>) -> BlendPIXUI {
+        blendpix.rotation = LiveFloat({ rotation.wrappedValue })
         return self
     }
-    public func rotation(_ liveValue: LiveFloat) -> BlendPIXUI {
-        blendpix.rotation = liveValue
+    public func rotation(_ rotation: LiveFloat) -> BlendPIXUI {
+        blendpix.rotation = rotation
         return self
     }
-    public func scale(_ binding: Binding<CGFloat>) -> BlendPIXUI {
-        blendpix.scale = LiveFloat({ binding.wrappedValue })
+    public func scale(_ scale: Binding<CGFloat>) -> BlendPIXUI {
+        blendpix.scale = LiveFloat({ scale.wrappedValue })
         return self
     }
-    public func scale(_ liveValue: LiveFloat) -> BlendPIXUI {
-        blendpix.scale = liveValue
+    public func scale(_ scale: LiveFloat) -> BlendPIXUI {
+        blendpix.scale = scale
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> BlendPIXUI {
-        blendpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> BlendPIXUI {
+        blendpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> BlendPIXUI {
-        blendpix.position = liveValue
+    public func position(_ position: LivePoint) -> BlendPIXUI {
+        blendpix.position = position
         return self
     }
-    public func size(_ binding: Binding<CGSize>) -> BlendPIXUI {
-        blendpix.size = LiveSize({ binding.wrappedValue })
+    public func size(_ size: Binding<CGSize>) -> BlendPIXUI {
+        blendpix.size = LiveSize({ size.wrappedValue })
         return self
     }
-    public func size(_ liveValue: LiveSize) -> BlendPIXUI {
-        blendpix.size = liveValue
+    public func size(_ size: LiveSize) -> BlendPIXUI {
+        blendpix.size = size
+        return self
+    }
+    // Enum Property Funcs
+    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendPIXUI {
+        blendpix.blendMode = blendMode
         return self
     }
 }
@@ -649,14 +688,17 @@ public struct CrossPIXUI: View, PIXUI {
         crosspix.inPixA = uiPixAB.0
         crosspix.inPixB = uiPixAB.1
     }
-    public func fraction(_ binding: Binding<CGFloat>) -> CrossPIXUI {
-        crosspix.fraction = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func fraction(_ fraction: Binding<CGFloat>) -> CrossPIXUI {
+        crosspix.fraction = LiveFloat({ fraction.wrappedValue })
         return self
     }
-    public func fraction(_ liveValue: LiveFloat) -> CrossPIXUI {
-        crosspix.fraction = liveValue
+    public func fraction(_ fraction: LiveFloat) -> CrossPIXUI {
+        crosspix.fraction = fraction
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -680,22 +722,25 @@ public struct DisplacePIXUI: View, PIXUI {
         displacepix.inPixA = uiPixAB.0
         displacepix.inPixB = uiPixAB.1
     }
-    public func distance(_ binding: Binding<CGFloat>) -> DisplacePIXUI {
-        displacepix.distance = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func distance(_ distance: Binding<CGFloat>) -> DisplacePIXUI {
+        displacepix.distance = LiveFloat({ distance.wrappedValue })
         return self
     }
-    public func distance(_ liveValue: LiveFloat) -> DisplacePIXUI {
-        displacepix.distance = liveValue
+    public func distance(_ distance: LiveFloat) -> DisplacePIXUI {
+        displacepix.distance = distance
         return self
     }
-    public func origin(_ binding: Binding<CGFloat>) -> DisplacePIXUI {
-        displacepix.origin = LiveFloat({ binding.wrappedValue })
+    public func origin(_ origin: Binding<CGFloat>) -> DisplacePIXUI {
+        displacepix.origin = LiveFloat({ origin.wrappedValue })
         return self
     }
-    public func origin(_ liveValue: LiveFloat) -> DisplacePIXUI {
-        displacepix.origin = liveValue
+    public func origin(_ origin: LiveFloat) -> DisplacePIXUI {
+        displacepix.origin = origin
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -718,6 +763,13 @@ public struct LookupPIXUI: View, PIXUI {
         let uiPixAB = uiPixAB()
         lookuppix.inPixA = uiPixAB.0
         lookuppix.inPixB = uiPixAB.1
+    }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
+    public func axis(_ axis: LookupPIX.Axis) -> LookupPIXUI {
+        lookuppix.axis = axis
+        return self
     }
 }
 
@@ -742,28 +794,35 @@ public struct LumaBlurPIXUI: View, PIXUI {
         lumablurpix.inPixA = uiPixAB.0
         lumablurpix.inPixB = uiPixAB.1
     }
-    public func radius(_ binding: Binding<CGFloat>) -> LumaBlurPIXUI {
-        lumablurpix.radius = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func radius(_ radius: Binding<CGFloat>) -> LumaBlurPIXUI {
+        lumablurpix.radius = LiveFloat({ radius.wrappedValue })
         return self
     }
-    public func radius(_ liveValue: LiveFloat) -> LumaBlurPIXUI {
-        lumablurpix.radius = liveValue
+    public func radius(_ radius: LiveFloat) -> LumaBlurPIXUI {
+        lumablurpix.radius = radius
         return self
     }
-    public func angle(_ binding: Binding<CGFloat>) -> LumaBlurPIXUI {
-        lumablurpix.angle = LiveFloat({ binding.wrappedValue })
+    public func angle(_ angle: Binding<CGFloat>) -> LumaBlurPIXUI {
+        lumablurpix.angle = LiveFloat({ angle.wrappedValue })
         return self
     }
-    public func angle(_ liveValue: LiveFloat) -> LumaBlurPIXUI {
-        lumablurpix.angle = liveValue
+    public func angle(_ angle: LiveFloat) -> LumaBlurPIXUI {
+        lumablurpix.angle = angle
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> LumaBlurPIXUI {
-        lumablurpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> LumaBlurPIXUI {
+        lumablurpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> LumaBlurPIXUI {
-        lumablurpix.position = liveValue
+    public func position(_ position: LivePoint) -> LumaBlurPIXUI {
+        lumablurpix.position = position
+        return self
+    }
+    // Enum Property Funcs
+    public func style(_ style: LumaBlurPIX.LumaBlurStyle) -> LumaBlurPIXUI {
+        lumablurpix.style = style
         return self
     }
 }
@@ -789,46 +848,49 @@ public struct LumaLevelsPIXUI: View, PIXUI {
         lumalevelspix.inPixA = uiPixAB.0
         lumalevelspix.inPixB = uiPixAB.1
     }
-    public func brightness(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
-        lumalevelspix.brightness = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func brightness(_ brightness: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.brightness = LiveFloat({ brightness.wrappedValue })
         return self
     }
-    public func brightness(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
-        lumalevelspix.brightness = liveValue
+    public func brightness(_ brightness: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.brightness = brightness
         return self
     }
-    public func darkness(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
-        lumalevelspix.darkness = LiveFloat({ binding.wrappedValue })
+    public func darkness(_ darkness: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.darkness = LiveFloat({ darkness.wrappedValue })
         return self
     }
-    public func darkness(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
-        lumalevelspix.darkness = liveValue
+    public func darkness(_ darkness: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.darkness = darkness
         return self
     }
-    public func contrast(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
-        lumalevelspix.contrast = LiveFloat({ binding.wrappedValue })
+    public func contrast(_ contrast: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.contrast = LiveFloat({ contrast.wrappedValue })
         return self
     }
-    public func contrast(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
-        lumalevelspix.contrast = liveValue
+    public func contrast(_ contrast: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.contrast = contrast
         return self
     }
-    public func gamma(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
-        lumalevelspix.gamma = LiveFloat({ binding.wrappedValue })
+    public func gamma(_ gamma: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.gamma = LiveFloat({ gamma.wrappedValue })
         return self
     }
-    public func gamma(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
-        lumalevelspix.gamma = liveValue
+    public func gamma(_ gamma: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.gamma = gamma
         return self
     }
-    public func opacity(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
-        lumalevelspix.opacity = LiveFloat({ binding.wrappedValue })
+    public func opacity(_ opacity: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.opacity = LiveFloat({ opacity.wrappedValue })
         return self
     }
-    public func opacity(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
-        lumalevelspix.opacity = liveValue
+    public func opacity(_ opacity: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.opacity = opacity
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -852,6 +914,9 @@ public struct RemapPIXUI: View, PIXUI {
         remappix.inPixA = uiPixAB.0
         remappix.inPixB = uiPixAB.1
     }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
 }
 
 
@@ -874,6 +939,41 @@ public struct ReorderPIXUI: View, PIXUI {
         let uiPixAB = uiPixAB()
         reorderpix.inPixA = uiPixAB.0
         reorderpix.inPixB = uiPixAB.1
+    }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
+    public func redInput(_ redInput: ReorderPIX.Input) -> ReorderPIXUI {
+        reorderpix.redInput = redInput
+        return self
+    }
+    public func redChannel(_ redChannel: ReorderPIX.Channel) -> ReorderPIXUI {
+        reorderpix.redChannel = redChannel
+        return self
+    }
+    public func greenInput(_ greenInput: ReorderPIX.Input) -> ReorderPIXUI {
+        reorderpix.greenInput = greenInput
+        return self
+    }
+    public func greenChannel(_ greenChannel: ReorderPIX.Channel) -> ReorderPIXUI {
+        reorderpix.greenChannel = greenChannel
+        return self
+    }
+    public func blueInput(_ blueInput: ReorderPIX.Input) -> ReorderPIXUI {
+        reorderpix.blueInput = blueInput
+        return self
+    }
+    public func blueChannel(_ blueChannel: ReorderPIX.Channel) -> ReorderPIXUI {
+        reorderpix.blueChannel = blueChannel
+        return self
+    }
+    public func alphaInput(_ alphaInput: ReorderPIX.Input) -> ReorderPIXUI {
+        reorderpix.alphaInput = alphaInput
+        return self
+    }
+    public func alphaChannel(_ alphaChannel: ReorderPIX.Channel) -> ReorderPIXUI {
+        reorderpix.alphaChannel = alphaChannel
+        return self
     }
 }
 
@@ -901,12 +1001,19 @@ public struct ArrayPIXUI: View, PIXUI {
         pix = arraypix
         arraypix.inPixs = uiPixs()
     }
-    public func bgColor(_ binding: Binding<_Color>) -> ArrayPIXUI {
-        arraypix.bgColor = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func bgColor(_ bgColor: Binding<_Color>) -> ArrayPIXUI {
+        arraypix.bgColor = LiveColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ liveValue: LiveColor) -> ArrayPIXUI {
-        arraypix.bgColor = liveValue
+    public func bgColor(_ bgColor: LiveColor) -> ArrayPIXUI {
+        arraypix.bgColor = bgColor
+        return self
+    }
+    // Enum Property Funcs
+    public func blendMode(_ blendMode: PIX.BlendingMode) -> ArrayPIXUI {
+        arraypix.blendMode = blendMode
         return self
     }
 }
@@ -929,6 +1036,13 @@ public struct BlendsPIXUI: View, PIXUI {
         blendspix = BlendsPIX()
         pix = blendspix
         blendspix.inPixs = uiPixs()
+    }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
+    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendsPIXUI {
+        blendspix.blendMode = blendMode
+        return self
     }
 }
 
@@ -956,28 +1070,35 @@ public struct BlurPIXUI: View, PIXUI {
         blurpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = blurpix
     }
-    public func radius(_ binding: Binding<CGFloat>) -> BlurPIXUI {
-        blurpix.radius = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func radius(_ radius: Binding<CGFloat>) -> BlurPIXUI {
+        blurpix.radius = LiveFloat({ radius.wrappedValue })
         return self
     }
-    public func radius(_ liveValue: LiveFloat) -> BlurPIXUI {
-        blurpix.radius = liveValue
+    public func radius(_ radius: LiveFloat) -> BlurPIXUI {
+        blurpix.radius = radius
         return self
     }
-    public func angle(_ binding: Binding<CGFloat>) -> BlurPIXUI {
-        blurpix.angle = LiveFloat({ binding.wrappedValue })
+    public func angle(_ angle: Binding<CGFloat>) -> BlurPIXUI {
+        blurpix.angle = LiveFloat({ angle.wrappedValue })
         return self
     }
-    public func angle(_ liveValue: LiveFloat) -> BlurPIXUI {
-        blurpix.angle = liveValue
+    public func angle(_ angle: LiveFloat) -> BlurPIXUI {
+        blurpix.angle = angle
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> BlurPIXUI {
-        blurpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> BlurPIXUI {
+        blurpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> BlurPIXUI {
-        blurpix.position = liveValue
+    public func position(_ position: LivePoint) -> BlurPIXUI {
+        blurpix.position = position
+        return self
+    }
+    // Enum Property Funcs
+    public func style(_ style: BlurPIX.BlurStyle) -> BlurPIXUI {
+        blurpix.style = style
         return self
     }
 }
@@ -1001,6 +1122,9 @@ public struct ChannelMixPIXUI: View, PIXUI {
         channelmixpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = channelmixpix
     }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
 }
 
 
@@ -1022,46 +1146,49 @@ public struct ChromaKeyPIXUI: View, PIXUI {
         chromakeypix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = chromakeypix
     }
-    public func premultiply(_ binding: Binding<Bool>) -> ChromaKeyPIXUI {
-        chromakeypix.premultiply = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func premultiply(_ premultiply: Binding<Bool>) -> ChromaKeyPIXUI {
+        chromakeypix.premultiply = LiveBool({ premultiply.wrappedValue })
         return self
     }
-    public func premultiply(_ liveValue: LiveBool) -> ChromaKeyPIXUI {
-        chromakeypix.premultiply = liveValue
+    public func premultiply(_ premultiply: LiveBool) -> ChromaKeyPIXUI {
+        chromakeypix.premultiply = premultiply
         return self
     }
-    public func keyColor(_ binding: Binding<_Color>) -> ChromaKeyPIXUI {
-        chromakeypix.keyColor = LiveColor({ binding.wrappedValue })
+    public func keyColor(_ keyColor: Binding<_Color>) -> ChromaKeyPIXUI {
+        chromakeypix.keyColor = LiveColor({ keyColor.wrappedValue })
         return self
     }
-    public func keyColor(_ liveValue: LiveColor) -> ChromaKeyPIXUI {
-        chromakeypix.keyColor = liveValue
+    public func keyColor(_ keyColor: LiveColor) -> ChromaKeyPIXUI {
+        chromakeypix.keyColor = keyColor
         return self
     }
-    public func range(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
-        chromakeypix.range = LiveFloat({ binding.wrappedValue })
+    public func range(_ range: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.range = LiveFloat({ range.wrappedValue })
         return self
     }
-    public func range(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
-        chromakeypix.range = liveValue
+    public func range(_ range: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.range = range
         return self
     }
-    public func softness(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
-        chromakeypix.softness = LiveFloat({ binding.wrappedValue })
+    public func softness(_ softness: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.softness = LiveFloat({ softness.wrappedValue })
         return self
     }
-    public func softness(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
-        chromakeypix.softness = liveValue
+    public func softness(_ softness: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.softness = softness
         return self
     }
-    public func edgeDesaturation(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
-        chromakeypix.edgeDesaturation = LiveFloat({ binding.wrappedValue })
+    public func edgeDesaturation(_ edgeDesaturation: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.edgeDesaturation = LiveFloat({ edgeDesaturation.wrappedValue })
         return self
     }
-    public func edgeDesaturation(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
-        chromakeypix.edgeDesaturation = liveValue
+    public func edgeDesaturation(_ edgeDesaturation: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.edgeDesaturation = edgeDesaturation
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1083,30 +1210,33 @@ public struct ClampPIXUI: View, PIXUI {
         clamppix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = clamppix
     }
-    public func clampAlpha(_ binding: Binding<Bool>) -> ClampPIXUI {
-        clamppix.clampAlpha = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func clampAlpha(_ clampAlpha: Binding<Bool>) -> ClampPIXUI {
+        clamppix.clampAlpha = LiveBool({ clampAlpha.wrappedValue })
         return self
     }
-    public func clampAlpha(_ liveValue: LiveBool) -> ClampPIXUI {
-        clamppix.clampAlpha = liveValue
+    public func clampAlpha(_ clampAlpha: LiveBool) -> ClampPIXUI {
+        clamppix.clampAlpha = clampAlpha
         return self
     }
-    public func low(_ binding: Binding<CGFloat>) -> ClampPIXUI {
-        clamppix.low = LiveFloat({ binding.wrappedValue })
+    public func low(_ low: Binding<CGFloat>) -> ClampPIXUI {
+        clamppix.low = LiveFloat({ low.wrappedValue })
         return self
     }
-    public func low(_ liveValue: LiveFloat) -> ClampPIXUI {
-        clamppix.low = liveValue
+    public func low(_ low: LiveFloat) -> ClampPIXUI {
+        clamppix.low = low
         return self
     }
-    public func high(_ binding: Binding<CGFloat>) -> ClampPIXUI {
-        clamppix.high = LiveFloat({ binding.wrappedValue })
+    public func high(_ high: Binding<CGFloat>) -> ClampPIXUI {
+        clamppix.high = LiveFloat({ high.wrappedValue })
         return self
     }
-    public func high(_ liveValue: LiveFloat) -> ClampPIXUI {
-        clamppix.high = liveValue
+    public func high(_ high: LiveFloat) -> ClampPIXUI {
+        clamppix.high = high
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1128,6 +1258,9 @@ public struct CornerPinPIXUI: View, PIXUI {
         cornerpinpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = cornerpinpix
     }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
 }
 
 
@@ -1149,22 +1282,25 @@ public struct EdgePIXUI: View, PIXUI {
         edgepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = edgepix
     }
-    public func strength(_ binding: Binding<CGFloat>) -> EdgePIXUI {
-        edgepix.strength = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func strength(_ strength: Binding<CGFloat>) -> EdgePIXUI {
+        edgepix.strength = LiveFloat({ strength.wrappedValue })
         return self
     }
-    public func strength(_ liveValue: LiveFloat) -> EdgePIXUI {
-        edgepix.strength = liveValue
+    public func strength(_ strength: LiveFloat) -> EdgePIXUI {
+        edgepix.strength = strength
         return self
     }
-    public func distance(_ binding: Binding<CGFloat>) -> EdgePIXUI {
-        edgepix.distance = LiveFloat({ binding.wrappedValue })
+    public func distance(_ distance: Binding<CGFloat>) -> EdgePIXUI {
+        edgepix.distance = LiveFloat({ distance.wrappedValue })
         return self
     }
-    public func distance(_ liveValue: LiveFloat) -> EdgePIXUI {
-        edgepix.distance = liveValue
+    public func distance(_ distance: LiveFloat) -> EdgePIXUI {
+        edgepix.distance = distance
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1186,70 +1322,73 @@ public struct FlarePIXUI: View, PIXUI {
         flarepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = flarepix
     }
-    public func color(_ binding: Binding<_Color>) -> FlarePIXUI {
-        flarepix.color = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func color(_ color: Binding<_Color>) -> FlarePIXUI {
+        flarepix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> FlarePIXUI {
-        flarepix.color = liveValue
+    public func color(_ color: LiveColor) -> FlarePIXUI {
+        flarepix.color = color
         return self
     }
-    public func scale(_ binding: Binding<CGFloat>) -> FlarePIXUI {
-        flarepix.scale = LiveFloat({ binding.wrappedValue })
+    public func scale(_ scale: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.scale = LiveFloat({ scale.wrappedValue })
         return self
     }
-    public func scale(_ liveValue: LiveFloat) -> FlarePIXUI {
-        flarepix.scale = liveValue
+    public func scale(_ scale: LiveFloat) -> FlarePIXUI {
+        flarepix.scale = scale
         return self
     }
-    public func angle(_ binding: Binding<CGFloat>) -> FlarePIXUI {
-        flarepix.angle = LiveFloat({ binding.wrappedValue })
+    public func angle(_ angle: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.angle = LiveFloat({ angle.wrappedValue })
         return self
     }
-    public func angle(_ liveValue: LiveFloat) -> FlarePIXUI {
-        flarepix.angle = liveValue
+    public func angle(_ angle: LiveFloat) -> FlarePIXUI {
+        flarepix.angle = angle
         return self
     }
-    public func threshold(_ binding: Binding<CGFloat>) -> FlarePIXUI {
-        flarepix.threshold = LiveFloat({ binding.wrappedValue })
+    public func threshold(_ threshold: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.threshold = LiveFloat({ threshold.wrappedValue })
         return self
     }
-    public func threshold(_ liveValue: LiveFloat) -> FlarePIXUI {
-        flarepix.threshold = liveValue
+    public func threshold(_ threshold: LiveFloat) -> FlarePIXUI {
+        flarepix.threshold = threshold
         return self
     }
-    public func brightness(_ binding: Binding<CGFloat>) -> FlarePIXUI {
-        flarepix.brightness = LiveFloat({ binding.wrappedValue })
+    public func brightness(_ brightness: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.brightness = LiveFloat({ brightness.wrappedValue })
         return self
     }
-    public func brightness(_ liveValue: LiveFloat) -> FlarePIXUI {
-        flarepix.brightness = liveValue
+    public func brightness(_ brightness: LiveFloat) -> FlarePIXUI {
+        flarepix.brightness = brightness
         return self
     }
-    public func gamma(_ binding: Binding<CGFloat>) -> FlarePIXUI {
-        flarepix.gamma = LiveFloat({ binding.wrappedValue })
+    public func gamma(_ gamma: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.gamma = LiveFloat({ gamma.wrappedValue })
         return self
     }
-    public func gamma(_ liveValue: LiveFloat) -> FlarePIXUI {
-        flarepix.gamma = liveValue
+    public func gamma(_ gamma: LiveFloat) -> FlarePIXUI {
+        flarepix.gamma = gamma
         return self
     }
-    public func count(_ binding: Binding<Int>) -> FlarePIXUI {
-        flarepix.count = LiveInt({ binding.wrappedValue })
+    public func count(_ count: Binding<Int>) -> FlarePIXUI {
+        flarepix.count = LiveInt({ count.wrappedValue })
         return self
     }
-    public func count(_ liveValue: LiveInt) -> FlarePIXUI {
-        flarepix.count = liveValue
+    public func count(_ count: LiveInt) -> FlarePIXUI {
+        flarepix.count = count
         return self
     }
-    public func rayRes(_ binding: Binding<Int>) -> FlarePIXUI {
-        flarepix.rayRes = LiveInt({ binding.wrappedValue })
+    public func rayRes(_ rayRes: Binding<Int>) -> FlarePIXUI {
+        flarepix.rayRes = LiveInt({ rayRes.wrappedValue })
         return self
     }
-    public func rayRes(_ liveValue: LiveInt) -> FlarePIXUI {
-        flarepix.rayRes = liveValue
+    public func rayRes(_ rayRes: LiveInt) -> FlarePIXUI {
+        flarepix.rayRes = rayRes
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1270,6 +1409,17 @@ public struct FlipFlopPIXUI: View, PIXUI {
         flipfloppix = FlipFlopPIX()
         flipfloppix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = flipfloppix
+    }
+    // Parent Property Funcs
+    // General Property Funcs
+    // Enum Property Funcs
+    public func flip(_ flip: FlipFlopPIX.Flip) -> FlipFlopPIXUI {
+        flipfloppix.flip = flip
+        return self
+    }
+    public func flop(_ flop: FlipFlopPIX.Flop) -> FlipFlopPIXUI {
+        flipfloppix.flop = flop
+        return self
     }
 }
 
@@ -1292,22 +1442,25 @@ public struct HueSaturationPIXUI: View, PIXUI {
         huesaturationpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = huesaturationpix
     }
-    public func hue(_ binding: Binding<CGFloat>) -> HueSaturationPIXUI {
-        huesaturationpix.hue = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func hue(_ hue: Binding<CGFloat>) -> HueSaturationPIXUI {
+        huesaturationpix.hue = LiveFloat({ hue.wrappedValue })
         return self
     }
-    public func hue(_ liveValue: LiveFloat) -> HueSaturationPIXUI {
-        huesaturationpix.hue = liveValue
+    public func hue(_ hue: LiveFloat) -> HueSaturationPIXUI {
+        huesaturationpix.hue = hue
         return self
     }
-    public func saturation(_ binding: Binding<CGFloat>) -> HueSaturationPIXUI {
-        huesaturationpix.saturation = LiveFloat({ binding.wrappedValue })
+    public func saturation(_ saturation: Binding<CGFloat>) -> HueSaturationPIXUI {
+        huesaturationpix.saturation = LiveFloat({ saturation.wrappedValue })
         return self
     }
-    public func saturation(_ liveValue: LiveFloat) -> HueSaturationPIXUI {
-        huesaturationpix.saturation = liveValue
+    public func saturation(_ saturation: LiveFloat) -> HueSaturationPIXUI {
+        huesaturationpix.saturation = saturation
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1329,38 +1482,41 @@ public struct KaleidoscopePIXUI: View, PIXUI {
         kaleidoscopepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = kaleidoscopepix
     }
-    public func mirror(_ binding: Binding<Bool>) -> KaleidoscopePIXUI {
-        kaleidoscopepix.mirror = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func mirror(_ mirror: Binding<Bool>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.mirror = LiveBool({ mirror.wrappedValue })
         return self
     }
-    public func mirror(_ liveValue: LiveBool) -> KaleidoscopePIXUI {
-        kaleidoscopepix.mirror = liveValue
+    public func mirror(_ mirror: LiveBool) -> KaleidoscopePIXUI {
+        kaleidoscopepix.mirror = mirror
         return self
     }
-    public func rotation(_ binding: Binding<CGFloat>) -> KaleidoscopePIXUI {
-        kaleidoscopepix.rotation = LiveFloat({ binding.wrappedValue })
+    public func rotation(_ rotation: Binding<CGFloat>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.rotation = LiveFloat({ rotation.wrappedValue })
         return self
     }
-    public func rotation(_ liveValue: LiveFloat) -> KaleidoscopePIXUI {
-        kaleidoscopepix.rotation = liveValue
+    public func rotation(_ rotation: LiveFloat) -> KaleidoscopePIXUI {
+        kaleidoscopepix.rotation = rotation
         return self
     }
-    public func divisions(_ binding: Binding<Int>) -> KaleidoscopePIXUI {
-        kaleidoscopepix.divisions = LiveInt({ binding.wrappedValue })
+    public func divisions(_ divisions: Binding<Int>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.divisions = LiveInt({ divisions.wrappedValue })
         return self
     }
-    public func divisions(_ liveValue: LiveInt) -> KaleidoscopePIXUI {
-        kaleidoscopepix.divisions = liveValue
+    public func divisions(_ divisions: LiveInt) -> KaleidoscopePIXUI {
+        kaleidoscopepix.divisions = divisions
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> KaleidoscopePIXUI {
-        kaleidoscopepix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> KaleidoscopePIXUI {
-        kaleidoscopepix.position = liveValue
+    public func position(_ position: LivePoint) -> KaleidoscopePIXUI {
+        kaleidoscopepix.position = position
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1382,54 +1538,57 @@ public struct LevelsPIXUI: View, PIXUI {
         levelspix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = levelspix
     }
-    public func inverted(_ binding: Binding<Bool>) -> LevelsPIXUI {
-        levelspix.inverted = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func inverted(_ inverted: Binding<Bool>) -> LevelsPIXUI {
+        levelspix.inverted = LiveBool({ inverted.wrappedValue })
         return self
     }
-    public func inverted(_ liveValue: LiveBool) -> LevelsPIXUI {
-        levelspix.inverted = liveValue
+    public func inverted(_ inverted: LiveBool) -> LevelsPIXUI {
+        levelspix.inverted = inverted
         return self
     }
-    public func brightness(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
-        levelspix.brightness = LiveFloat({ binding.wrappedValue })
+    public func brightness(_ brightness: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.brightness = LiveFloat({ brightness.wrappedValue })
         return self
     }
-    public func brightness(_ liveValue: LiveFloat) -> LevelsPIXUI {
-        levelspix.brightness = liveValue
+    public func brightness(_ brightness: LiveFloat) -> LevelsPIXUI {
+        levelspix.brightness = brightness
         return self
     }
-    public func darkness(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
-        levelspix.darkness = LiveFloat({ binding.wrappedValue })
+    public func darkness(_ darkness: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.darkness = LiveFloat({ darkness.wrappedValue })
         return self
     }
-    public func darkness(_ liveValue: LiveFloat) -> LevelsPIXUI {
-        levelspix.darkness = liveValue
+    public func darkness(_ darkness: LiveFloat) -> LevelsPIXUI {
+        levelspix.darkness = darkness
         return self
     }
-    public func contrast(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
-        levelspix.contrast = LiveFloat({ binding.wrappedValue })
+    public func contrast(_ contrast: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.contrast = LiveFloat({ contrast.wrappedValue })
         return self
     }
-    public func contrast(_ liveValue: LiveFloat) -> LevelsPIXUI {
-        levelspix.contrast = liveValue
+    public func contrast(_ contrast: LiveFloat) -> LevelsPIXUI {
+        levelspix.contrast = contrast
         return self
     }
-    public func gamma(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
-        levelspix.gamma = LiveFloat({ binding.wrappedValue })
+    public func gamma(_ gamma: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.gamma = LiveFloat({ gamma.wrappedValue })
         return self
     }
-    public func gamma(_ liveValue: LiveFloat) -> LevelsPIXUI {
-        levelspix.gamma = liveValue
+    public func gamma(_ gamma: LiveFloat) -> LevelsPIXUI {
+        levelspix.gamma = gamma
         return self
     }
-    public func opacity(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
-        levelspix.opacity = LiveFloat({ binding.wrappedValue })
+    public func opacity(_ opacity: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.opacity = LiveFloat({ opacity.wrappedValue })
         return self
     }
-    public func opacity(_ liveValue: LiveFloat) -> LevelsPIXUI {
-        levelspix.opacity = liveValue
+    public func opacity(_ opacity: LiveFloat) -> LevelsPIXUI {
+        levelspix.opacity = opacity
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1451,14 +1610,17 @@ public struct QuantizePIXUI: View, PIXUI {
         quantizepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = quantizepix
     }
-    public func fraction(_ binding: Binding<CGFloat>) -> QuantizePIXUI {
-        quantizepix.fraction = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func fraction(_ fraction: Binding<CGFloat>) -> QuantizePIXUI {
+        quantizepix.fraction = LiveFloat({ fraction.wrappedValue })
         return self
     }
-    public func fraction(_ liveValue: LiveFloat) -> QuantizePIXUI {
-        quantizepix.fraction = liveValue
+    public func fraction(_ fraction: LiveFloat) -> QuantizePIXUI {
+        quantizepix.fraction = fraction
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1480,78 +1642,81 @@ public struct RangePIXUI: View, PIXUI {
         rangepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = rangepix
     }
-    public func ignoreAlpha(_ binding: Binding<Bool>) -> RangePIXUI {
-        rangepix.ignoreAlpha = LiveBool({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func ignoreAlpha(_ ignoreAlpha: Binding<Bool>) -> RangePIXUI {
+        rangepix.ignoreAlpha = LiveBool({ ignoreAlpha.wrappedValue })
         return self
     }
-    public func ignoreAlpha(_ liveValue: LiveBool) -> RangePIXUI {
-        rangepix.ignoreAlpha = liveValue
+    public func ignoreAlpha(_ ignoreAlpha: LiveBool) -> RangePIXUI {
+        rangepix.ignoreAlpha = ignoreAlpha
         return self
     }
-    public func inLowColor(_ binding: Binding<_Color>) -> RangePIXUI {
-        rangepix.inLowColor = LiveColor({ binding.wrappedValue })
+    public func inLowColor(_ inLowColor: Binding<_Color>) -> RangePIXUI {
+        rangepix.inLowColor = LiveColor({ inLowColor.wrappedValue })
         return self
     }
-    public func inLowColor(_ liveValue: LiveColor) -> RangePIXUI {
-        rangepix.inLowColor = liveValue
+    public func inLowColor(_ inLowColor: LiveColor) -> RangePIXUI {
+        rangepix.inLowColor = inLowColor
         return self
     }
-    public func inHighColor(_ binding: Binding<_Color>) -> RangePIXUI {
-        rangepix.inHighColor = LiveColor({ binding.wrappedValue })
+    public func inHighColor(_ inHighColor: Binding<_Color>) -> RangePIXUI {
+        rangepix.inHighColor = LiveColor({ inHighColor.wrappedValue })
         return self
     }
-    public func inHighColor(_ liveValue: LiveColor) -> RangePIXUI {
-        rangepix.inHighColor = liveValue
+    public func inHighColor(_ inHighColor: LiveColor) -> RangePIXUI {
+        rangepix.inHighColor = inHighColor
         return self
     }
-    public func outLowColor(_ binding: Binding<_Color>) -> RangePIXUI {
-        rangepix.outLowColor = LiveColor({ binding.wrappedValue })
+    public func outLowColor(_ outLowColor: Binding<_Color>) -> RangePIXUI {
+        rangepix.outLowColor = LiveColor({ outLowColor.wrappedValue })
         return self
     }
-    public func outLowColor(_ liveValue: LiveColor) -> RangePIXUI {
-        rangepix.outLowColor = liveValue
+    public func outLowColor(_ outLowColor: LiveColor) -> RangePIXUI {
+        rangepix.outLowColor = outLowColor
         return self
     }
-    public func outHighColor(_ binding: Binding<_Color>) -> RangePIXUI {
-        rangepix.outHighColor = LiveColor({ binding.wrappedValue })
+    public func outHighColor(_ outHighColor: Binding<_Color>) -> RangePIXUI {
+        rangepix.outHighColor = LiveColor({ outHighColor.wrappedValue })
         return self
     }
-    public func outHighColor(_ liveValue: LiveColor) -> RangePIXUI {
-        rangepix.outHighColor = liveValue
+    public func outHighColor(_ outHighColor: LiveColor) -> RangePIXUI {
+        rangepix.outHighColor = outHighColor
         return self
     }
-    public func inLow(_ binding: Binding<CGFloat>) -> RangePIXUI {
-        rangepix.inLow = LiveFloat({ binding.wrappedValue })
+    public func inLow(_ inLow: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.inLow = LiveFloat({ inLow.wrappedValue })
         return self
     }
-    public func inLow(_ liveValue: LiveFloat) -> RangePIXUI {
-        rangepix.inLow = liveValue
+    public func inLow(_ inLow: LiveFloat) -> RangePIXUI {
+        rangepix.inLow = inLow
         return self
     }
-    public func inHigh(_ binding: Binding<CGFloat>) -> RangePIXUI {
-        rangepix.inHigh = LiveFloat({ binding.wrappedValue })
+    public func inHigh(_ inHigh: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.inHigh = LiveFloat({ inHigh.wrappedValue })
         return self
     }
-    public func inHigh(_ liveValue: LiveFloat) -> RangePIXUI {
-        rangepix.inHigh = liveValue
+    public func inHigh(_ inHigh: LiveFloat) -> RangePIXUI {
+        rangepix.inHigh = inHigh
         return self
     }
-    public func outLow(_ binding: Binding<CGFloat>) -> RangePIXUI {
-        rangepix.outLow = LiveFloat({ binding.wrappedValue })
+    public func outLow(_ outLow: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.outLow = LiveFloat({ outLow.wrappedValue })
         return self
     }
-    public func outLow(_ liveValue: LiveFloat) -> RangePIXUI {
-        rangepix.outLow = liveValue
+    public func outLow(_ outLow: LiveFloat) -> RangePIXUI {
+        rangepix.outLow = outLow
         return self
     }
-    public func outHigh(_ binding: Binding<CGFloat>) -> RangePIXUI {
-        rangepix.outHigh = LiveFloat({ binding.wrappedValue })
+    public func outHigh(_ outHigh: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.outHigh = LiveFloat({ outHigh.wrappedValue })
         return self
     }
-    public func outHigh(_ liveValue: LiveFloat) -> RangePIXUI {
-        rangepix.outHigh = liveValue
+    public func outHigh(_ outHigh: LiveFloat) -> RangePIXUI {
+        rangepix.outHigh = outHigh
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1573,14 +1738,17 @@ public struct SepiaPIXUI: View, PIXUI {
         sepiapix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = sepiapix
     }
-    public func color(_ binding: Binding<_Color>) -> SepiaPIXUI {
-        sepiapix.color = LiveColor({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func color(_ color: Binding<_Color>) -> SepiaPIXUI {
+        sepiapix.color = LiveColor({ color.wrappedValue })
         return self
     }
-    public func color(_ liveValue: LiveColor) -> SepiaPIXUI {
-        sepiapix.color = liveValue
+    public func color(_ color: LiveColor) -> SepiaPIXUI {
+        sepiapix.color = color
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1602,14 +1770,17 @@ public struct SharpenPIXUI: View, PIXUI {
         sharpenpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = sharpenpix
     }
-    public func contrast(_ binding: Binding<CGFloat>) -> SharpenPIXUI {
-        sharpenpix.contrast = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func contrast(_ contrast: Binding<CGFloat>) -> SharpenPIXUI {
+        sharpenpix.contrast = LiveFloat({ contrast.wrappedValue })
         return self
     }
-    public func contrast(_ liveValue: LiveFloat) -> SharpenPIXUI {
-        sharpenpix.contrast = liveValue
+    public func contrast(_ contrast: LiveFloat) -> SharpenPIXUI {
+        sharpenpix.contrast = contrast
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1631,14 +1802,17 @@ public struct SlopePIXUI: View, PIXUI {
         slopepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = slopepix
     }
-    public func amplitude(_ binding: Binding<CGFloat>) -> SlopePIXUI {
-        slopepix.amplitude = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func amplitude(_ amplitude: Binding<CGFloat>) -> SlopePIXUI {
+        slopepix.amplitude = LiveFloat({ amplitude.wrappedValue })
         return self
     }
-    public func amplitude(_ liveValue: LiveFloat) -> SlopePIXUI {
-        slopepix.amplitude = liveValue
+    public func amplitude(_ amplitude: LiveFloat) -> SlopePIXUI {
+        slopepix.amplitude = amplitude
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1660,14 +1834,17 @@ public struct ThresholdPIXUI: View, PIXUI {
         thresholdpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = thresholdpix
     }
-    public func threshold(_ binding: Binding<CGFloat>) -> ThresholdPIXUI {
-        thresholdpix.threshold = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func threshold(_ threshold: Binding<CGFloat>) -> ThresholdPIXUI {
+        thresholdpix.threshold = LiveFloat({ threshold.wrappedValue })
         return self
     }
-    public func threshold(_ liveValue: LiveFloat) -> ThresholdPIXUI {
-        thresholdpix.threshold = liveValue
+    public func threshold(_ threshold: LiveFloat) -> ThresholdPIXUI {
+        thresholdpix.threshold = threshold
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1689,38 +1866,41 @@ public struct TransformPIXUI: View, PIXUI {
         transformpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = transformpix
     }
-    public func rotation(_ binding: Binding<CGFloat>) -> TransformPIXUI {
-        transformpix.rotation = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func rotation(_ rotation: Binding<CGFloat>) -> TransformPIXUI {
+        transformpix.rotation = LiveFloat({ rotation.wrappedValue })
         return self
     }
-    public func rotation(_ liveValue: LiveFloat) -> TransformPIXUI {
-        transformpix.rotation = liveValue
+    public func rotation(_ rotation: LiveFloat) -> TransformPIXUI {
+        transformpix.rotation = rotation
         return self
     }
-    public func scale(_ binding: Binding<CGFloat>) -> TransformPIXUI {
-        transformpix.scale = LiveFloat({ binding.wrappedValue })
+    public func scale(_ scale: Binding<CGFloat>) -> TransformPIXUI {
+        transformpix.scale = LiveFloat({ scale.wrappedValue })
         return self
     }
-    public func scale(_ liveValue: LiveFloat) -> TransformPIXUI {
-        transformpix.scale = liveValue
+    public func scale(_ scale: LiveFloat) -> TransformPIXUI {
+        transformpix.scale = scale
         return self
     }
-    public func position(_ binding: Binding<CGPoint>) -> TransformPIXUI {
-        transformpix.position = LivePoint({ binding.wrappedValue })
+    public func position(_ position: Binding<CGPoint>) -> TransformPIXUI {
+        transformpix.position = LivePoint({ position.wrappedValue })
         return self
     }
-    public func position(_ liveValue: LivePoint) -> TransformPIXUI {
-        transformpix.position = liveValue
+    public func position(_ position: LivePoint) -> TransformPIXUI {
+        transformpix.position = position
         return self
     }
-    public func size(_ binding: Binding<CGSize>) -> TransformPIXUI {
-        transformpix.size = LiveSize({ binding.wrappedValue })
+    public func size(_ size: Binding<CGSize>) -> TransformPIXUI {
+        transformpix.size = LiveSize({ size.wrappedValue })
         return self
     }
-    public func size(_ liveValue: LiveSize) -> TransformPIXUI {
-        transformpix.size = liveValue
+    public func size(_ size: LiveSize) -> TransformPIXUI {
+        transformpix.size = size
         return self
     }
+    // Enum Property Funcs
 }
 
 
@@ -1742,14 +1922,17 @@ public struct TwirlPIXUI: View, PIXUI {
         twirlpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = twirlpix
     }
-    public func strength(_ binding: Binding<CGFloat>) -> TwirlPIXUI {
-        twirlpix.strength = LiveFloat({ binding.wrappedValue })
+    // Parent Property Funcs
+    // General Property Funcs
+    public func strength(_ strength: Binding<CGFloat>) -> TwirlPIXUI {
+        twirlpix.strength = LiveFloat({ strength.wrappedValue })
         return self
     }
-    public func strength(_ liveValue: LiveFloat) -> TwirlPIXUI {
-        twirlpix.strength = liveValue
+    public func strength(_ strength: LiveFloat) -> TwirlPIXUI {
+        twirlpix.strength = strength
         return self
     }
+    // Enum Property Funcs
 }
 
 

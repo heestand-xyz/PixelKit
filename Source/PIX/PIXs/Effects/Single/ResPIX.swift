@@ -21,10 +21,11 @@ public struct ResPIXUI: View, PIXUI {
     public var body: some View {
         PIXRepView(pix: pix)
     }
-    public init(res: PIX.Res = .auto) {
+    public init(res: PIX.Res = .auto, _ uiPix: () -> (PIXUI)) {
         resPix = ResPIX(res: res)
-        resPix.res = res
         pix = resPix
+        resPix.res = res
+        resPix.inPix = uiPix().pix as? (PIX & PIXOut)
     }
 }
 #endif
