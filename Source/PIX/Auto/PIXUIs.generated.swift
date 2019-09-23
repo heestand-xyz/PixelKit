@@ -22,66 +22,66 @@ public struct ArcPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        arcpix = ArcPIX()
+    public init(res: PIX.Res = .auto) {
+        arcpix = ArcPIX(res: res)
         pix = arcpix
     }
-
-
-    public func fillColor(_ bind: Binding<
-    _Color
-    >) -> ArcPIXUI {
-        arcpix.fillColor = LiveColor({ bind.wrappedValue })
+    public func fillColor(_ binding: Binding<_Color>) -> ArcPIXUI {
+        arcpix.fillColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-    public func radius(_ bind: Binding<
-    CGFloat
-    >) -> ArcPIXUI {
-        arcpix.radius = LiveFloat({ bind.wrappedValue })
+    public func fillColor(_ liveValue: LiveColor) -> ArcPIXUI {
+        arcpix.fillColor = liveValue
         return self
     }
-
-    public func angleFrom(_ bind: Binding<
-    CGFloat
-    >) -> ArcPIXUI {
-        arcpix.angleFrom = LiveFloat({ bind.wrappedValue })
+    public func radius(_ binding: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.radius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func angleTo(_ bind: Binding<
-    CGFloat
-    >) -> ArcPIXUI {
-        arcpix.angleTo = LiveFloat({ bind.wrappedValue })
+    public func radius(_ liveValue: LiveFloat) -> ArcPIXUI {
+        arcpix.radius = liveValue
         return self
     }
-
-    public func angleOffset(_ bind: Binding<
-    CGFloat
-    >) -> ArcPIXUI {
-        arcpix.angleOffset = LiveFloat({ bind.wrappedValue })
+    public func angleFrom(_ binding: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleFrom = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func edgeRadius(_ bind: Binding<
-    CGFloat
-    >) -> ArcPIXUI {
-        arcpix.edgeRadius = LiveFloat({ bind.wrappedValue })
+    public func angleFrom(_ liveValue: LiveFloat) -> ArcPIXUI {
+        arcpix.angleFrom = liveValue
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> ArcPIXUI {
-        arcpix.position = LivePoint({ bind.wrappedValue })
+    public func angleTo(_ binding: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleTo = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func angleTo(_ liveValue: LiveFloat) -> ArcPIXUI {
+        arcpix.angleTo = liveValue
+        return self
+    }
+    public func angleOffset(_ binding: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.angleOffset = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func angleOffset(_ liveValue: LiveFloat) -> ArcPIXUI {
+        arcpix.angleOffset = liveValue
+        return self
+    }
+    public func edgeRadius(_ binding: Binding<CGFloat>) -> ArcPIXUI {
+        arcpix.edgeRadius = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func edgeRadius(_ liveValue: LiveFloat) -> ArcPIXUI {
+        arcpix.edgeRadius = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> ArcPIXUI {
+        arcpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> ArcPIXUI {
+        arcpix.position = liveValue
+        return self
+    }
 }
 
 
@@ -98,45 +98,42 @@ public struct CirclePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        circlepix = CirclePIX()
+    public init(res: PIX.Res = .auto) {
+        circlepix = CirclePIX(res: res)
         pix = circlepix
     }
-
-
-    public func edgeColor(_ bind: Binding<
-    _Color
-    >) -> CirclePIXUI {
-        circlepix.edgeColor = LiveColor({ bind.wrappedValue })
+    public func edgeColor(_ binding: Binding<_Color>) -> CirclePIXUI {
+        circlepix.edgeColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-    public func radius(_ bind: Binding<
-    CGFloat
-    >) -> CirclePIXUI {
-        circlepix.radius = LiveFloat({ bind.wrappedValue })
+    public func edgeColor(_ liveValue: LiveColor) -> CirclePIXUI {
+        circlepix.edgeColor = liveValue
         return self
     }
-
-    public func edgeRadius(_ bind: Binding<
-    CGFloat
-    >) -> CirclePIXUI {
-        circlepix.edgeRadius = LiveFloat({ bind.wrappedValue })
+    public func radius(_ binding: Binding<CGFloat>) -> CirclePIXUI {
+        circlepix.radius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> CirclePIXUI {
-        circlepix.position = LivePoint({ bind.wrappedValue })
+    public func radius(_ liveValue: LiveFloat) -> CirclePIXUI {
+        circlepix.radius = liveValue
         return self
     }
-
-
-
+    public func edgeRadius(_ binding: Binding<CGFloat>) -> CirclePIXUI {
+        circlepix.edgeRadius = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func edgeRadius(_ liveValue: LiveFloat) -> CirclePIXUI {
+        circlepix.edgeRadius = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> CirclePIXUI {
+        circlepix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> CirclePIXUI {
+        circlepix.position = liveValue
+        return self
+    }
 }
 
 
@@ -153,17 +150,10 @@ public struct ColorPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        colorpix = ColorPIX()
+    public init(res: PIX.Res = .auto) {
+        colorpix = ColorPIX(res: res)
         pix = colorpix
     }
-
-
-
-
-
-
-
 }
 
 
@@ -180,38 +170,34 @@ public struct GradientPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        gradientpix = GradientPIX()
+    public init(res: PIX.Res = .auto) {
+        gradientpix = GradientPIX(res: res)
         pix = gradientpix
     }
-
-
-
-    public func scale(_ bind: Binding<
-    CGFloat
-    >) -> GradientPIXUI {
-        gradientpix.scale = LiveFloat({ bind.wrappedValue })
+    public func scale(_ binding: Binding<CGFloat>) -> GradientPIXUI {
+        gradientpix.scale = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func offset(_ bind: Binding<
-    CGFloat
-    >) -> GradientPIXUI {
-        gradientpix.offset = LiveFloat({ bind.wrappedValue })
+    public func scale(_ liveValue: LiveFloat) -> GradientPIXUI {
+        gradientpix.scale = liveValue
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> GradientPIXUI {
-        gradientpix.position = LivePoint({ bind.wrappedValue })
+    public func offset(_ binding: Binding<CGFloat>) -> GradientPIXUI {
+        gradientpix.offset = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func offset(_ liveValue: LiveFloat) -> GradientPIXUI {
+        gradientpix.offset = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> GradientPIXUI {
+        gradientpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> GradientPIXUI {
+        gradientpix.position = liveValue
+        return self
+    }
 }
 
 
@@ -228,38 +214,34 @@ public struct LinePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        linepix = LinePIX()
+    public init(res: PIX.Res = .auto) {
+        linepix = LinePIX(res: res)
         pix = linepix
     }
-
-
-
-    public func scale(_ bind: Binding<
-    CGFloat
-    >) -> LinePIXUI {
-        linepix.scale = LiveFloat({ bind.wrappedValue })
+    public func scale(_ binding: Binding<CGFloat>) -> LinePIXUI {
+        linepix.scale = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func positionFrom(_ bind: Binding<
-    CGPoint
-    >) -> LinePIXUI {
-        linepix.positionFrom = LivePoint({ bind.wrappedValue })
+    public func scale(_ liveValue: LiveFloat) -> LinePIXUI {
+        linepix.scale = liveValue
         return self
     }
-
-    public func positionTo(_ bind: Binding<
-    CGPoint
-    >) -> LinePIXUI {
-        linepix.positionTo = LivePoint({ bind.wrappedValue })
+    public func positionFrom(_ binding: Binding<CGPoint>) -> LinePIXUI {
+        linepix.positionFrom = LivePoint({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func positionFrom(_ liveValue: LivePoint) -> LinePIXUI {
+        linepix.positionFrom = liveValue
+        return self
+    }
+    public func positionTo(_ binding: Binding<CGPoint>) -> LinePIXUI {
+        linepix.positionTo = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func positionTo(_ liveValue: LivePoint) -> LinePIXUI {
+        linepix.positionTo = liveValue
+        return self
+    }
 }
 
 
@@ -276,73 +258,74 @@ public struct NoisePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        noisepix = NoisePIX()
+    public init(res: PIX.Res = .auto) {
+        noisepix = NoisePIX(res: res)
         pix = noisepix
     }
-
-    public func colored(_ bind: Binding<
-    Bool
-    >) -> NoisePIXUI {
-        noisepix.colored = LiveBool({ bind.wrappedValue })
+    public func colored(_ binding: Binding<Bool>) -> NoisePIXUI {
+        noisepix.colored = LiveBool({ binding.wrappedValue })
         return self
     }
-
-    public func random(_ bind: Binding<
-    Bool
-    >) -> NoisePIXUI {
-        noisepix.random = LiveBool({ bind.wrappedValue })
+    public func colored(_ liveValue: LiveBool) -> NoisePIXUI {
+        noisepix.colored = liveValue
         return self
     }
-
-    public func includeAlpha(_ bind: Binding<
-    Bool
-    >) -> NoisePIXUI {
-        noisepix.includeAlpha = LiveBool({ bind.wrappedValue })
+    public func random(_ binding: Binding<Bool>) -> NoisePIXUI {
+        noisepix.random = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func zPosition(_ bind: Binding<
-    CGFloat
-    >) -> NoisePIXUI {
-        noisepix.zPosition = LiveFloat({ bind.wrappedValue })
+    public func random(_ liveValue: LiveBool) -> NoisePIXUI {
+        noisepix.random = liveValue
         return self
     }
-
-    public func zoom(_ bind: Binding<
-    CGFloat
-    >) -> NoisePIXUI {
-        noisepix.zoom = LiveFloat({ bind.wrappedValue })
+    public func includeAlpha(_ binding: Binding<Bool>) -> NoisePIXUI {
+        noisepix.includeAlpha = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-    public func seed(_ bind: Binding<
-    Int
-    >) -> NoisePIXUI {
-        noisepix.seed = LiveInt({ bind.wrappedValue })
+    public func includeAlpha(_ liveValue: LiveBool) -> NoisePIXUI {
+        noisepix.includeAlpha = liveValue
         return self
     }
-
-    public func octaves(_ bind: Binding<
-    Int
-    >) -> NoisePIXUI {
-        noisepix.octaves = LiveInt({ bind.wrappedValue })
+    public func zPosition(_ binding: Binding<CGFloat>) -> NoisePIXUI {
+        noisepix.zPosition = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> NoisePIXUI {
-        noisepix.position = LivePoint({ bind.wrappedValue })
+    public func zPosition(_ liveValue: LiveFloat) -> NoisePIXUI {
+        noisepix.zPosition = liveValue
         return self
     }
-
-
-
+    public func zoom(_ binding: Binding<CGFloat>) -> NoisePIXUI {
+        noisepix.zoom = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func zoom(_ liveValue: LiveFloat) -> NoisePIXUI {
+        noisepix.zoom = liveValue
+        return self
+    }
+    public func seed(_ binding: Binding<Int>) -> NoisePIXUI {
+        noisepix.seed = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func seed(_ liveValue: LiveInt) -> NoisePIXUI {
+        noisepix.seed = liveValue
+        return self
+    }
+    public func octaves(_ binding: Binding<Int>) -> NoisePIXUI {
+        noisepix.octaves = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func octaves(_ liveValue: LiveInt) -> NoisePIXUI {
+        noisepix.octaves = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> NoisePIXUI {
+        noisepix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> NoisePIXUI {
+        noisepix.position = liveValue
+        return self
+    }
 }
 
 
@@ -359,52 +342,50 @@ public struct PolygonPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        polygonpix = PolygonPIX()
+    public init(res: PIX.Res = .auto) {
+        polygonpix = PolygonPIX(res: res)
         pix = polygonpix
     }
-
-
-
-    public func radius(_ bind: Binding<
-    CGFloat
-    >) -> PolygonPIXUI {
-        polygonpix.radius = LiveFloat({ bind.wrappedValue })
+    public func radius(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.radius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func rotation(_ bind: Binding<
-    CGFloat
-    >) -> PolygonPIXUI {
-        polygonpix.rotation = LiveFloat({ bind.wrappedValue })
+    public func radius(_ liveValue: LiveFloat) -> PolygonPIXUI {
+        polygonpix.radius = liveValue
         return self
     }
-
-    public func cornerRadius(_ bind: Binding<
-    CGFloat
-    >) -> PolygonPIXUI {
-        polygonpix.cornerRadius = LiveFloat({ bind.wrappedValue })
+    public func rotation(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.rotation = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-    public func vertexCount(_ bind: Binding<
-    Int
-    >) -> PolygonPIXUI {
-        polygonpix.vertexCount = LiveInt({ bind.wrappedValue })
+    public func rotation(_ liveValue: LiveFloat) -> PolygonPIXUI {
+        polygonpix.rotation = liveValue
         return self
     }
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> PolygonPIXUI {
-        polygonpix.position = LivePoint({ bind.wrappedValue })
+    public func cornerRadius(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
+        polygonpix.cornerRadius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func cornerRadius(_ liveValue: LiveFloat) -> PolygonPIXUI {
+        polygonpix.cornerRadius = liveValue
+        return self
+    }
+    public func vertexCount(_ binding: Binding<Int>) -> PolygonPIXUI {
+        polygonpix.vertexCount = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func vertexCount(_ liveValue: LiveInt) -> PolygonPIXUI {
+        polygonpix.vertexCount = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> PolygonPIXUI {
+        polygonpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> PolygonPIXUI {
+        polygonpix.position = liveValue
+        return self
+    }
 }
 
 
@@ -421,38 +402,34 @@ public struct RectanglePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
-        rectanglepix = RectanglePIX()
+    public init(res: PIX.Res = .auto) {
+        rectanglepix = RectanglePIX(res: res)
         pix = rectanglepix
     }
-
-
-
-    public func cornerRadius(_ bind: Binding<
-    CGFloat
-    >) -> RectanglePIXUI {
-        rectanglepix.cornerRadius = LiveFloat({ bind.wrappedValue })
+    public func cornerRadius(_ binding: Binding<CGFloat>) -> RectanglePIXUI {
+        rectanglepix.cornerRadius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> RectanglePIXUI {
-        rectanglepix.position = LivePoint({ bind.wrappedValue })
+    public func cornerRadius(_ liveValue: LiveFloat) -> RectanglePIXUI {
+        rectanglepix.cornerRadius = liveValue
         return self
     }
-
-
-
-    public func size(_ bind: Binding<
-    CGSize
-    >) -> RectanglePIXUI {
-        rectanglepix.size = LiveSize({ bind.wrappedValue })
+    public func position(_ binding: Binding<CGPoint>) -> RectanglePIXUI {
+        rectanglepix.position = LivePoint({ binding.wrappedValue })
         return self
     }
-
+    public func position(_ liveValue: LivePoint) -> RectanglePIXUI {
+        rectanglepix.position = liveValue
+        return self
+    }
+    public func size(_ binding: Binding<CGSize>) -> RectanglePIXUI {
+        rectanglepix.size = LiveSize({ binding.wrappedValue })
+        return self
+    }
+    public func size(_ liveValue: LiveSize) -> RectanglePIXUI {
+        rectanglepix.size = liveValue
+        return self
+    }
 }
 
 
@@ -481,48 +458,46 @@ public struct BlendPIXUI: View, PIXUI {
         blendpix.inPixA = uiPixAB.0
         blendpix.inPixB = uiPixAB.1
     }
-
-    public func bypassTransform(_ bind: Binding<
-    Bool
-    >) -> BlendPIXUI {
-        blendpix.bypassTransform = LiveBool({ bind.wrappedValue })
+    public func bypassTransform(_ binding: Binding<Bool>) -> BlendPIXUI {
+        blendpix.bypassTransform = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func rotation(_ bind: Binding<
-    CGFloat
-    >) -> BlendPIXUI {
-        blendpix.rotation = LiveFloat({ bind.wrappedValue })
+    public func bypassTransform(_ liveValue: LiveBool) -> BlendPIXUI {
+        blendpix.bypassTransform = liveValue
         return self
     }
-
-    public func scale(_ bind: Binding<
-    CGFloat
-    >) -> BlendPIXUI {
-        blendpix.scale = LiveFloat({ bind.wrappedValue })
+    public func rotation(_ binding: Binding<CGFloat>) -> BlendPIXUI {
+        blendpix.rotation = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> BlendPIXUI {
-        blendpix.position = LivePoint({ bind.wrappedValue })
+    public func rotation(_ liveValue: LiveFloat) -> BlendPIXUI {
+        blendpix.rotation = liveValue
         return self
     }
-
-
-
-    public func size(_ bind: Binding<
-    CGSize
-    >) -> BlendPIXUI {
-        blendpix.size = LiveSize({ bind.wrappedValue })
+    public func scale(_ binding: Binding<CGFloat>) -> BlendPIXUI {
+        blendpix.scale = LiveFloat({ binding.wrappedValue })
         return self
     }
-
+    public func scale(_ liveValue: LiveFloat) -> BlendPIXUI {
+        blendpix.scale = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> BlendPIXUI {
+        blendpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> BlendPIXUI {
+        blendpix.position = liveValue
+        return self
+    }
+    public func size(_ binding: Binding<CGSize>) -> BlendPIXUI {
+        blendpix.size = LiveSize({ binding.wrappedValue })
+        return self
+    }
+    public func size(_ liveValue: LiveSize) -> BlendPIXUI {
+        blendpix.size = liveValue
+        return self
+    }
 }
 
 
@@ -546,20 +521,14 @@ public struct CrossPIXUI: View, PIXUI {
         crosspix.inPixA = uiPixAB.0
         crosspix.inPixB = uiPixAB.1
     }
-
-
-
-    public func fraction(_ bind: Binding<
-    CGFloat
-    >) -> CrossPIXUI {
-        crosspix.fraction = LiveFloat({ bind.wrappedValue })
+    public func fraction(_ binding: Binding<CGFloat>) -> CrossPIXUI {
+        crosspix.fraction = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func fraction(_ liveValue: LiveFloat) -> CrossPIXUI {
+        crosspix.fraction = liveValue
+        return self
+    }
 }
 
 
@@ -583,27 +552,22 @@ public struct DisplacePIXUI: View, PIXUI {
         displacepix.inPixA = uiPixAB.0
         displacepix.inPixB = uiPixAB.1
     }
-
-
-
-    public func distance(_ bind: Binding<
-    CGFloat
-    >) -> DisplacePIXUI {
-        displacepix.distance = LiveFloat({ bind.wrappedValue })
+    public func distance(_ binding: Binding<CGFloat>) -> DisplacePIXUI {
+        displacepix.distance = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func origin(_ bind: Binding<
-    CGFloat
-    >) -> DisplacePIXUI {
-        displacepix.origin = LiveFloat({ bind.wrappedValue })
+    public func distance(_ liveValue: LiveFloat) -> DisplacePIXUI {
+        displacepix.distance = liveValue
         return self
     }
-
-
-
-
-
+    public func origin(_ binding: Binding<CGFloat>) -> DisplacePIXUI {
+        displacepix.origin = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func origin(_ liveValue: LiveFloat) -> DisplacePIXUI {
+        displacepix.origin = liveValue
+        return self
+    }
 }
 
 
@@ -627,13 +591,6 @@ public struct LookupPIXUI: View, PIXUI {
         lookuppix.inPixA = uiPixAB.0
         lookuppix.inPixB = uiPixAB.1
     }
-
-
-
-
-
-
-
 }
 
 
@@ -657,34 +614,30 @@ public struct LumaBlurPIXUI: View, PIXUI {
         lumablurpix.inPixA = uiPixAB.0
         lumablurpix.inPixB = uiPixAB.1
     }
-
-
-
-    public func radius(_ bind: Binding<
-    CGFloat
-    >) -> LumaBlurPIXUI {
-        lumablurpix.radius = LiveFloat({ bind.wrappedValue })
+    public func radius(_ binding: Binding<CGFloat>) -> LumaBlurPIXUI {
+        lumablurpix.radius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func angle(_ bind: Binding<
-    CGFloat
-    >) -> LumaBlurPIXUI {
-        lumablurpix.angle = LiveFloat({ bind.wrappedValue })
+    public func radius(_ liveValue: LiveFloat) -> LumaBlurPIXUI {
+        lumablurpix.radius = liveValue
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> LumaBlurPIXUI {
-        lumablurpix.position = LivePoint({ bind.wrappedValue })
+    public func angle(_ binding: Binding<CGFloat>) -> LumaBlurPIXUI {
+        lumablurpix.angle = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func angle(_ liveValue: LiveFloat) -> LumaBlurPIXUI {
+        lumablurpix.angle = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> LumaBlurPIXUI {
+        lumablurpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> LumaBlurPIXUI {
+        lumablurpix.position = liveValue
+        return self
+    }
 }
 
 
@@ -708,48 +661,46 @@ public struct LumaLevelsPIXUI: View, PIXUI {
         lumalevelspix.inPixA = uiPixAB.0
         lumalevelspix.inPixB = uiPixAB.1
     }
-
-
-
-    public func brightness(_ bind: Binding<
-    CGFloat
-    >) -> LumaLevelsPIXUI {
-        lumalevelspix.brightness = LiveFloat({ bind.wrappedValue })
+    public func brightness(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.brightness = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func darkness(_ bind: Binding<
-    CGFloat
-    >) -> LumaLevelsPIXUI {
-        lumalevelspix.darkness = LiveFloat({ bind.wrappedValue })
+    public func brightness(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.brightness = liveValue
         return self
     }
-
-    public func contrast(_ bind: Binding<
-    CGFloat
-    >) -> LumaLevelsPIXUI {
-        lumalevelspix.contrast = LiveFloat({ bind.wrappedValue })
+    public func darkness(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.darkness = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func gamma(_ bind: Binding<
-    CGFloat
-    >) -> LumaLevelsPIXUI {
-        lumalevelspix.gamma = LiveFloat({ bind.wrappedValue })
+    public func darkness(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.darkness = liveValue
         return self
     }
-
-    public func opacity(_ bind: Binding<
-    CGFloat
-    >) -> LumaLevelsPIXUI {
-        lumalevelspix.opacity = LiveFloat({ bind.wrappedValue })
+    public func contrast(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.contrast = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func contrast(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.contrast = liveValue
+        return self
+    }
+    public func gamma(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.gamma = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func gamma(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.gamma = liveValue
+        return self
+    }
+    public func opacity(_ binding: Binding<CGFloat>) -> LumaLevelsPIXUI {
+        lumalevelspix.opacity = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func opacity(_ liveValue: LiveFloat) -> LumaLevelsPIXUI {
+        lumalevelspix.opacity = liveValue
+        return self
+    }
 }
 
 
@@ -773,13 +724,6 @@ public struct RemapPIXUI: View, PIXUI {
         remappix.inPixA = uiPixAB.0
         remappix.inPixB = uiPixAB.1
     }
-
-
-
-
-
-
-
 }
 
 
@@ -803,13 +747,6 @@ public struct ReorderPIXUI: View, PIXUI {
         reorderpix.inPixA = uiPixAB.0
         reorderpix.inPixB = uiPixAB.1
     }
-
-
-
-
-
-
-
 }
 
 
@@ -836,20 +773,14 @@ public struct ArrayPIXUI: View, PIXUI {
         pix = arraypix
         arraypix.inPixs = uiPixs()
     }
-
-
-    public func bgColor(_ bind: Binding<
-    _Color
-    >) -> ArrayPIXUI {
-        arraypix.bgColor = LiveColor({ bind.wrappedValue })
+    public func bgColor(_ binding: Binding<_Color>) -> ArrayPIXUI {
+        arraypix.bgColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
-
+    public func bgColor(_ liveValue: LiveColor) -> ArrayPIXUI {
+        arraypix.bgColor = liveValue
+        return self
+    }
 }
 
 
@@ -871,13 +802,6 @@ public struct BlendsPIXUI: View, PIXUI {
         pix = blendspix
         blendspix.inPixs = uiPixs()
     }
-
-
-
-
-
-
-
 }
 
 
@@ -903,34 +827,30 @@ public struct BlurPIXUI: View, PIXUI {
         blurpix = BlurPIX()
         pix = blurpix
     }
-
-
-
-    public func radius(_ bind: Binding<
-    CGFloat
-    >) -> BlurPIXUI {
-        blurpix.radius = LiveFloat({ bind.wrappedValue })
+    public func radius(_ binding: Binding<CGFloat>) -> BlurPIXUI {
+        blurpix.radius = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func angle(_ bind: Binding<
-    CGFloat
-    >) -> BlurPIXUI {
-        blurpix.angle = LiveFloat({ bind.wrappedValue })
+    public func radius(_ liveValue: LiveFloat) -> BlurPIXUI {
+        blurpix.radius = liveValue
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> BlurPIXUI {
-        blurpix.position = LivePoint({ bind.wrappedValue })
+    public func angle(_ binding: Binding<CGFloat>) -> BlurPIXUI {
+        blurpix.angle = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
+    public func angle(_ liveValue: LiveFloat) -> BlurPIXUI {
+        blurpix.angle = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> BlurPIXUI {
+        blurpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> BlurPIXUI {
+        blurpix.position = liveValue
+        return self
+    }
 }
 
 
@@ -951,13 +871,6 @@ public struct ChannelMixPIXUI: View, PIXUI {
         channelmixpix = ChannelMixPIX()
         pix = channelmixpix
     }
-
-
-
-
-
-
-
 }
 
 
@@ -978,48 +891,46 @@ public struct ChromaKeyPIXUI: View, PIXUI {
         chromakeypix = ChromaKeyPIX()
         pix = chromakeypix
     }
-
-    public func premultiply(_ bind: Binding<
-    Bool
-    >) -> ChromaKeyPIXUI {
-        chromakeypix.premultiply = LiveBool({ bind.wrappedValue })
+    public func premultiply(_ binding: Binding<Bool>) -> ChromaKeyPIXUI {
+        chromakeypix.premultiply = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-    public func keyColor(_ bind: Binding<
-    _Color
-    >) -> ChromaKeyPIXUI {
-        chromakeypix.keyColor = LiveColor({ bind.wrappedValue })
+    public func premultiply(_ liveValue: LiveBool) -> ChromaKeyPIXUI {
+        chromakeypix.premultiply = liveValue
         return self
     }
-
-
-    public func range(_ bind: Binding<
-    CGFloat
-    >) -> ChromaKeyPIXUI {
-        chromakeypix.range = LiveFloat({ bind.wrappedValue })
+    public func keyColor(_ binding: Binding<_Color>) -> ChromaKeyPIXUI {
+        chromakeypix.keyColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-    public func softness(_ bind: Binding<
-    CGFloat
-    >) -> ChromaKeyPIXUI {
-        chromakeypix.softness = LiveFloat({ bind.wrappedValue })
+    public func keyColor(_ liveValue: LiveColor) -> ChromaKeyPIXUI {
+        chromakeypix.keyColor = liveValue
         return self
     }
-
-    public func edgeDesaturation(_ bind: Binding<
-    CGFloat
-    >) -> ChromaKeyPIXUI {
-        chromakeypix.edgeDesaturation = LiveFloat({ bind.wrappedValue })
+    public func range(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.range = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func range(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.range = liveValue
+        return self
+    }
+    public func softness(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.softness = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func softness(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.softness = liveValue
+        return self
+    }
+    public func edgeDesaturation(_ binding: Binding<CGFloat>) -> ChromaKeyPIXUI {
+        chromakeypix.edgeDesaturation = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func edgeDesaturation(_ liveValue: LiveFloat) -> ChromaKeyPIXUI {
+        chromakeypix.edgeDesaturation = liveValue
+        return self
+    }
 }
 
 
@@ -1040,34 +951,30 @@ public struct ClampPIXUI: View, PIXUI {
         clamppix = ClampPIX()
         pix = clamppix
     }
-
-    public func clampAlpha(_ bind: Binding<
-    Bool
-    >) -> ClampPIXUI {
-        clamppix.clampAlpha = LiveBool({ bind.wrappedValue })
+    public func clampAlpha(_ binding: Binding<Bool>) -> ClampPIXUI {
+        clamppix.clampAlpha = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func low(_ bind: Binding<
-    CGFloat
-    >) -> ClampPIXUI {
-        clamppix.low = LiveFloat({ bind.wrappedValue })
+    public func clampAlpha(_ liveValue: LiveBool) -> ClampPIXUI {
+        clamppix.clampAlpha = liveValue
         return self
     }
-
-    public func high(_ bind: Binding<
-    CGFloat
-    >) -> ClampPIXUI {
-        clamppix.high = LiveFloat({ bind.wrappedValue })
+    public func low(_ binding: Binding<CGFloat>) -> ClampPIXUI {
+        clamppix.low = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func low(_ liveValue: LiveFloat) -> ClampPIXUI {
+        clamppix.low = liveValue
+        return self
+    }
+    public func high(_ binding: Binding<CGFloat>) -> ClampPIXUI {
+        clamppix.high = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func high(_ liveValue: LiveFloat) -> ClampPIXUI {
+        clamppix.high = liveValue
+        return self
+    }
 }
 
 
@@ -1088,13 +995,6 @@ public struct CornerPinPIXUI: View, PIXUI {
         cornerpinpix = CornerPinPIX()
         pix = cornerpinpix
     }
-
-
-
-
-
-
-
 }
 
 
@@ -1115,27 +1015,22 @@ public struct EdgePIXUI: View, PIXUI {
         edgepix = EdgePIX()
         pix = edgepix
     }
-
-
-
-    public func strength(_ bind: Binding<
-    CGFloat
-    >) -> EdgePIXUI {
-        edgepix.strength = LiveFloat({ bind.wrappedValue })
+    public func strength(_ binding: Binding<CGFloat>) -> EdgePIXUI {
+        edgepix.strength = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func distance(_ bind: Binding<
-    CGFloat
-    >) -> EdgePIXUI {
-        edgepix.distance = LiveFloat({ bind.wrappedValue })
+    public func strength(_ liveValue: LiveFloat) -> EdgePIXUI {
+        edgepix.strength = liveValue
         return self
     }
-
-
-
-
-
+    public func distance(_ binding: Binding<CGFloat>) -> EdgePIXUI {
+        edgepix.distance = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func distance(_ liveValue: LiveFloat) -> EdgePIXUI {
+        edgepix.distance = liveValue
+        return self
+    }
 }
 
 
@@ -1156,69 +1051,70 @@ public struct FlarePIXUI: View, PIXUI {
         flarepix = FlarePIX()
         pix = flarepix
     }
-
-
-    public func color(_ bind: Binding<
-    _Color
-    >) -> FlarePIXUI {
-        flarepix.color = LiveColor({ bind.wrappedValue })
+    public func color(_ binding: Binding<_Color>) -> FlarePIXUI {
+        flarepix.color = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-    public func scale(_ bind: Binding<
-    CGFloat
-    >) -> FlarePIXUI {
-        flarepix.scale = LiveFloat({ bind.wrappedValue })
+    public func color(_ liveValue: LiveColor) -> FlarePIXUI {
+        flarepix.color = liveValue
         return self
     }
-
-    public func angle(_ bind: Binding<
-    CGFloat
-    >) -> FlarePIXUI {
-        flarepix.angle = LiveFloat({ bind.wrappedValue })
+    public func scale(_ binding: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.scale = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func threshold(_ bind: Binding<
-    CGFloat
-    >) -> FlarePIXUI {
-        flarepix.threshold = LiveFloat({ bind.wrappedValue })
+    public func scale(_ liveValue: LiveFloat) -> FlarePIXUI {
+        flarepix.scale = liveValue
         return self
     }
-
-    public func brightness(_ bind: Binding<
-    CGFloat
-    >) -> FlarePIXUI {
-        flarepix.brightness = LiveFloat({ bind.wrappedValue })
+    public func angle(_ binding: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.angle = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func gamma(_ bind: Binding<
-    CGFloat
-    >) -> FlarePIXUI {
-        flarepix.gamma = LiveFloat({ bind.wrappedValue })
+    public func angle(_ liveValue: LiveFloat) -> FlarePIXUI {
+        flarepix.angle = liveValue
         return self
     }
-
-
-    public func count(_ bind: Binding<
-    Int
-    >) -> FlarePIXUI {
-        flarepix.count = LiveInt({ bind.wrappedValue })
+    public func threshold(_ binding: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.threshold = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func rayRes(_ bind: Binding<
-    Int
-    >) -> FlarePIXUI {
-        flarepix.rayRes = LiveInt({ bind.wrappedValue })
+    public func threshold(_ liveValue: LiveFloat) -> FlarePIXUI {
+        flarepix.threshold = liveValue
         return self
     }
-
-
-
-
+    public func brightness(_ binding: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.brightness = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func brightness(_ liveValue: LiveFloat) -> FlarePIXUI {
+        flarepix.brightness = liveValue
+        return self
+    }
+    public func gamma(_ binding: Binding<CGFloat>) -> FlarePIXUI {
+        flarepix.gamma = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func gamma(_ liveValue: LiveFloat) -> FlarePIXUI {
+        flarepix.gamma = liveValue
+        return self
+    }
+    public func count(_ binding: Binding<Int>) -> FlarePIXUI {
+        flarepix.count = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func count(_ liveValue: LiveInt) -> FlarePIXUI {
+        flarepix.count = liveValue
+        return self
+    }
+    public func rayRes(_ binding: Binding<Int>) -> FlarePIXUI {
+        flarepix.rayRes = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func rayRes(_ liveValue: LiveInt) -> FlarePIXUI {
+        flarepix.rayRes = liveValue
+        return self
+    }
 }
 
 
@@ -1239,13 +1135,6 @@ public struct FlipFlopPIXUI: View, PIXUI {
         flipfloppix = FlipFlopPIX()
         pix = flipfloppix
     }
-
-
-
-
-
-
-
 }
 
 
@@ -1266,27 +1155,22 @@ public struct HueSaturationPIXUI: View, PIXUI {
         huesaturationpix = HueSaturationPIX()
         pix = huesaturationpix
     }
-
-
-
-    public func hue(_ bind: Binding<
-    CGFloat
-    >) -> HueSaturationPIXUI {
-        huesaturationpix.hue = LiveFloat({ bind.wrappedValue })
+    public func hue(_ binding: Binding<CGFloat>) -> HueSaturationPIXUI {
+        huesaturationpix.hue = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func saturation(_ bind: Binding<
-    CGFloat
-    >) -> HueSaturationPIXUI {
-        huesaturationpix.saturation = LiveFloat({ bind.wrappedValue })
+    public func hue(_ liveValue: LiveFloat) -> HueSaturationPIXUI {
+        huesaturationpix.hue = liveValue
         return self
     }
-
-
-
-
-
+    public func saturation(_ binding: Binding<CGFloat>) -> HueSaturationPIXUI {
+        huesaturationpix.saturation = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func saturation(_ liveValue: LiveFloat) -> HueSaturationPIXUI {
+        huesaturationpix.saturation = liveValue
+        return self
+    }
 }
 
 
@@ -1307,41 +1191,38 @@ public struct KaleidoscopePIXUI: View, PIXUI {
         kaleidoscopepix = KaleidoscopePIX()
         pix = kaleidoscopepix
     }
-
-    public func mirror(_ bind: Binding<
-    Bool
-    >) -> KaleidoscopePIXUI {
-        kaleidoscopepix.mirror = LiveBool({ bind.wrappedValue })
+    public func mirror(_ binding: Binding<Bool>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.mirror = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func rotation(_ bind: Binding<
-    CGFloat
-    >) -> KaleidoscopePIXUI {
-        kaleidoscopepix.rotation = LiveFloat({ bind.wrappedValue })
+    public func mirror(_ liveValue: LiveBool) -> KaleidoscopePIXUI {
+        kaleidoscopepix.mirror = liveValue
         return self
     }
-
-
-    public func divisions(_ bind: Binding<
-    Int
-    >) -> KaleidoscopePIXUI {
-        kaleidoscopepix.divisions = LiveInt({ bind.wrappedValue })
+    public func rotation(_ binding: Binding<CGFloat>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.rotation = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> KaleidoscopePIXUI {
-        kaleidoscopepix.position = LivePoint({ bind.wrappedValue })
+    public func rotation(_ liveValue: LiveFloat) -> KaleidoscopePIXUI {
+        kaleidoscopepix.rotation = liveValue
         return self
     }
-
-
-
+    public func divisions(_ binding: Binding<Int>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.divisions = LiveInt({ binding.wrappedValue })
+        return self
+    }
+    public func divisions(_ liveValue: LiveInt) -> KaleidoscopePIXUI {
+        kaleidoscopepix.divisions = liveValue
+        return self
+    }
+    public func position(_ binding: Binding<CGPoint>) -> KaleidoscopePIXUI {
+        kaleidoscopepix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> KaleidoscopePIXUI {
+        kaleidoscopepix.position = liveValue
+        return self
+    }
 }
 
 
@@ -1362,55 +1243,54 @@ public struct LevelsPIXUI: View, PIXUI {
         levelspix = LevelsPIX()
         pix = levelspix
     }
-
-    public func inverted(_ bind: Binding<
-    Bool
-    >) -> LevelsPIXUI {
-        levelspix.inverted = LiveBool({ bind.wrappedValue })
+    public func inverted(_ binding: Binding<Bool>) -> LevelsPIXUI {
+        levelspix.inverted = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func brightness(_ bind: Binding<
-    CGFloat
-    >) -> LevelsPIXUI {
-        levelspix.brightness = LiveFloat({ bind.wrappedValue })
+    public func inverted(_ liveValue: LiveBool) -> LevelsPIXUI {
+        levelspix.inverted = liveValue
         return self
     }
-
-    public func darkness(_ bind: Binding<
-    CGFloat
-    >) -> LevelsPIXUI {
-        levelspix.darkness = LiveFloat({ bind.wrappedValue })
+    public func brightness(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.brightness = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func contrast(_ bind: Binding<
-    CGFloat
-    >) -> LevelsPIXUI {
-        levelspix.contrast = LiveFloat({ bind.wrappedValue })
+    public func brightness(_ liveValue: LiveFloat) -> LevelsPIXUI {
+        levelspix.brightness = liveValue
         return self
     }
-
-    public func gamma(_ bind: Binding<
-    CGFloat
-    >) -> LevelsPIXUI {
-        levelspix.gamma = LiveFloat({ bind.wrappedValue })
+    public func darkness(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.darkness = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func opacity(_ bind: Binding<
-    CGFloat
-    >) -> LevelsPIXUI {
-        levelspix.opacity = LiveFloat({ bind.wrappedValue })
+    public func darkness(_ liveValue: LiveFloat) -> LevelsPIXUI {
+        levelspix.darkness = liveValue
         return self
     }
-
-
-
-
-
+    public func contrast(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.contrast = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func contrast(_ liveValue: LiveFloat) -> LevelsPIXUI {
+        levelspix.contrast = liveValue
+        return self
+    }
+    public func gamma(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.gamma = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func gamma(_ liveValue: LiveFloat) -> LevelsPIXUI {
+        levelspix.gamma = liveValue
+        return self
+    }
+    public func opacity(_ binding: Binding<CGFloat>) -> LevelsPIXUI {
+        levelspix.opacity = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func opacity(_ liveValue: LiveFloat) -> LevelsPIXUI {
+        levelspix.opacity = liveValue
+        return self
+    }
 }
 
 
@@ -1431,20 +1311,14 @@ public struct QuantizePIXUI: View, PIXUI {
         quantizepix = QuantizePIX()
         pix = quantizepix
     }
-
-
-
-    public func fraction(_ bind: Binding<
-    CGFloat
-    >) -> QuantizePIXUI {
-        quantizepix.fraction = LiveFloat({ bind.wrappedValue })
+    public func fraction(_ binding: Binding<CGFloat>) -> QuantizePIXUI {
+        quantizepix.fraction = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func fraction(_ liveValue: LiveFloat) -> QuantizePIXUI {
+        quantizepix.fraction = liveValue
+        return self
+    }
 }
 
 
@@ -1465,76 +1339,78 @@ public struct RangePIXUI: View, PIXUI {
         rangepix = RangePIX()
         pix = rangepix
     }
-
-    public func ignoreAlpha(_ bind: Binding<
-    Bool
-    >) -> RangePIXUI {
-        rangepix.ignoreAlpha = LiveBool({ bind.wrappedValue })
+    public func ignoreAlpha(_ binding: Binding<Bool>) -> RangePIXUI {
+        rangepix.ignoreAlpha = LiveBool({ binding.wrappedValue })
         return self
     }
-
-
-    public func inLowColor(_ bind: Binding<
-    _Color
-    >) -> RangePIXUI {
-        rangepix.inLowColor = LiveColor({ bind.wrappedValue })
+    public func ignoreAlpha(_ liveValue: LiveBool) -> RangePIXUI {
+        rangepix.ignoreAlpha = liveValue
         return self
     }
-
-    public func inHighColor(_ bind: Binding<
-    _Color
-    >) -> RangePIXUI {
-        rangepix.inHighColor = LiveColor({ bind.wrappedValue })
+    public func inLowColor(_ binding: Binding<_Color>) -> RangePIXUI {
+        rangepix.inLowColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-    public func outLowColor(_ bind: Binding<
-    _Color
-    >) -> RangePIXUI {
-        rangepix.outLowColor = LiveColor({ bind.wrappedValue })
+    public func inLowColor(_ liveValue: LiveColor) -> RangePIXUI {
+        rangepix.inLowColor = liveValue
         return self
     }
-
-    public func outHighColor(_ bind: Binding<
-    _Color
-    >) -> RangePIXUI {
-        rangepix.outHighColor = LiveColor({ bind.wrappedValue })
+    public func inHighColor(_ binding: Binding<_Color>) -> RangePIXUI {
+        rangepix.inHighColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-    public func inLow(_ bind: Binding<
-    CGFloat
-    >) -> RangePIXUI {
-        rangepix.inLow = LiveFloat({ bind.wrappedValue })
+    public func inHighColor(_ liveValue: LiveColor) -> RangePIXUI {
+        rangepix.inHighColor = liveValue
         return self
     }
-
-    public func inHigh(_ bind: Binding<
-    CGFloat
-    >) -> RangePIXUI {
-        rangepix.inHigh = LiveFloat({ bind.wrappedValue })
+    public func outLowColor(_ binding: Binding<_Color>) -> RangePIXUI {
+        rangepix.outLowColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-    public func outLow(_ bind: Binding<
-    CGFloat
-    >) -> RangePIXUI {
-        rangepix.outLow = LiveFloat({ bind.wrappedValue })
+    public func outLowColor(_ liveValue: LiveColor) -> RangePIXUI {
+        rangepix.outLowColor = liveValue
         return self
     }
-
-    public func outHigh(_ bind: Binding<
-    CGFloat
-    >) -> RangePIXUI {
-        rangepix.outHigh = LiveFloat({ bind.wrappedValue })
+    public func outHighColor(_ binding: Binding<_Color>) -> RangePIXUI {
+        rangepix.outHighColor = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func outHighColor(_ liveValue: LiveColor) -> RangePIXUI {
+        rangepix.outHighColor = liveValue
+        return self
+    }
+    public func inLow(_ binding: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.inLow = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func inLow(_ liveValue: LiveFloat) -> RangePIXUI {
+        rangepix.inLow = liveValue
+        return self
+    }
+    public func inHigh(_ binding: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.inHigh = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func inHigh(_ liveValue: LiveFloat) -> RangePIXUI {
+        rangepix.inHigh = liveValue
+        return self
+    }
+    public func outLow(_ binding: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.outLow = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func outLow(_ liveValue: LiveFloat) -> RangePIXUI {
+        rangepix.outLow = liveValue
+        return self
+    }
+    public func outHigh(_ binding: Binding<CGFloat>) -> RangePIXUI {
+        rangepix.outHigh = LiveFloat({ binding.wrappedValue })
+        return self
+    }
+    public func outHigh(_ liveValue: LiveFloat) -> RangePIXUI {
+        rangepix.outHigh = liveValue
+        return self
+    }
 }
 
 
@@ -1555,20 +1431,14 @@ public struct SepiaPIXUI: View, PIXUI {
         sepiapix = SepiaPIX()
         pix = sepiapix
     }
-
-
-    public func color(_ bind: Binding<
-    _Color
-    >) -> SepiaPIXUI {
-        sepiapix.color = LiveColor({ bind.wrappedValue })
+    public func color(_ binding: Binding<_Color>) -> SepiaPIXUI {
+        sepiapix.color = LiveColor({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
-
+    public func color(_ liveValue: LiveColor) -> SepiaPIXUI {
+        sepiapix.color = liveValue
+        return self
+    }
 }
 
 
@@ -1589,20 +1459,14 @@ public struct SharpenPIXUI: View, PIXUI {
         sharpenpix = SharpenPIX()
         pix = sharpenpix
     }
-
-
-
-    public func contrast(_ bind: Binding<
-    CGFloat
-    >) -> SharpenPIXUI {
-        sharpenpix.contrast = LiveFloat({ bind.wrappedValue })
+    public func contrast(_ binding: Binding<CGFloat>) -> SharpenPIXUI {
+        sharpenpix.contrast = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func contrast(_ liveValue: LiveFloat) -> SharpenPIXUI {
+        sharpenpix.contrast = liveValue
+        return self
+    }
 }
 
 
@@ -1623,20 +1487,14 @@ public struct SlopePIXUI: View, PIXUI {
         slopepix = SlopePIX()
         pix = slopepix
     }
-
-
-
-    public func amplitude(_ bind: Binding<
-    CGFloat
-    >) -> SlopePIXUI {
-        slopepix.amplitude = LiveFloat({ bind.wrappedValue })
+    public func amplitude(_ binding: Binding<CGFloat>) -> SlopePIXUI {
+        slopepix.amplitude = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func amplitude(_ liveValue: LiveFloat) -> SlopePIXUI {
+        slopepix.amplitude = liveValue
+        return self
+    }
 }
 
 
@@ -1657,20 +1515,14 @@ public struct ThresholdPIXUI: View, PIXUI {
         thresholdpix = ThresholdPIX()
         pix = thresholdpix
     }
-
-
-
-    public func threshold(_ bind: Binding<
-    CGFloat
-    >) -> ThresholdPIXUI {
-        thresholdpix.threshold = LiveFloat({ bind.wrappedValue })
+    public func threshold(_ binding: Binding<CGFloat>) -> ThresholdPIXUI {
+        thresholdpix.threshold = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func threshold(_ liveValue: LiveFloat) -> ThresholdPIXUI {
+        thresholdpix.threshold = liveValue
+        return self
+    }
 }
 
 
@@ -1691,41 +1543,38 @@ public struct TransformPIXUI: View, PIXUI {
         transformpix = TransformPIX()
         pix = transformpix
     }
-
-
-
-    public func rotation(_ bind: Binding<
-    CGFloat
-    >) -> TransformPIXUI {
-        transformpix.rotation = LiveFloat({ bind.wrappedValue })
+    public func rotation(_ binding: Binding<CGFloat>) -> TransformPIXUI {
+        transformpix.rotation = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-    public func scale(_ bind: Binding<
-    CGFloat
-    >) -> TransformPIXUI {
-        transformpix.scale = LiveFloat({ bind.wrappedValue })
+    public func rotation(_ liveValue: LiveFloat) -> TransformPIXUI {
+        transformpix.rotation = liveValue
         return self
     }
-
-
-
-    public func position(_ bind: Binding<
-    CGPoint
-    >) -> TransformPIXUI {
-        transformpix.position = LivePoint({ bind.wrappedValue })
+    public func scale(_ binding: Binding<CGFloat>) -> TransformPIXUI {
+        transformpix.scale = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-    public func size(_ bind: Binding<
-    CGSize
-    >) -> TransformPIXUI {
-        transformpix.size = LiveSize({ bind.wrappedValue })
+    public func scale(_ liveValue: LiveFloat) -> TransformPIXUI {
+        transformpix.scale = liveValue
         return self
     }
-
+    public func position(_ binding: Binding<CGPoint>) -> TransformPIXUI {
+        transformpix.position = LivePoint({ binding.wrappedValue })
+        return self
+    }
+    public func position(_ liveValue: LivePoint) -> TransformPIXUI {
+        transformpix.position = liveValue
+        return self
+    }
+    public func size(_ binding: Binding<CGSize>) -> TransformPIXUI {
+        transformpix.size = LiveSize({ binding.wrappedValue })
+        return self
+    }
+    public func size(_ liveValue: LiveSize) -> TransformPIXUI {
+        transformpix.size = liveValue
+        return self
+    }
 }
 
 
@@ -1746,20 +1595,14 @@ public struct TwirlPIXUI: View, PIXUI {
         twirlpix = TwirlPIX()
         pix = twirlpix
     }
-
-
-
-    public func strength(_ bind: Binding<
-    CGFloat
-    >) -> TwirlPIXUI {
-        twirlpix.strength = LiveFloat({ bind.wrappedValue })
+    public func strength(_ binding: Binding<CGFloat>) -> TwirlPIXUI {
+        twirlpix.strength = LiveFloat({ binding.wrappedValue })
         return self
     }
-
-
-
-
-
+    public func strength(_ liveValue: LiveFloat) -> TwirlPIXUI {
+        twirlpix.strength = liveValue
+        return self
+    }
 }
 
 
