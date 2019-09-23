@@ -47,3 +47,39 @@ protocol PIXRes {
     var res: PIX.Res { get set }
     init(res: PIX.Res)
 }
+
+
+#if canImport(SwiftUI)
+
+@available(iOS 13.0.0, *)
+public protocol UIPIX {
+    var pix: PIX { get }
+}
+public protocol UIPIXSingleEffect: UIPIX {
+    var inPix: PIX & PIXOut { get }
+}
+public protocol UIPIXMergerEffect: UIPIX {
+    var inPixA: PIX & PIXOut { get }
+    var inPixB: PIX & PIXOut { get }
+}
+public protocol UIPIXMultiEffect: UIPIX {
+    var inPixs: [PIX & PIXOut] { get }
+}
+
+@available(iOS 13.0.0, *)
+@_functionBuilder
+public struct UIPIXMergerEffectBuilder {
+    public static func buildBlock(_ childA: UIPIX, _ childB: UIPIX) -> ((PIX & PIXOut)?, (PIX & PIXOut)?) {
+        return (childA.pix as? PIX & PIXOut, childB.pix as? PIX & PIXOut)
+    }
+}
+
+@available(iOS 13.0.0, *)
+@_functionBuilder
+public struct UIPIXMultiEffectBuilder {
+    public static func buildBlock(_ children: UIPIX...) -> [PIX & PIXOut] {
+        return children.compactMap { $0.pix as? PIX & PIXOut }
+    }
+}
+
+#endif

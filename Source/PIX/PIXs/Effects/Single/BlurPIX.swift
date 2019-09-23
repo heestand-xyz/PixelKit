@@ -7,6 +7,32 @@
 //
 
 import MetalPerformanceShaders
+//#if canImport(SwiftUI)
+//import SwiftUI
+//#endif
+
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//public struct BlurUIPIX: View, UIPIX {
+//    public let pix: PIX
+//    let blurPix: BlurPIX
+//    let inUiPix: UIPIX
+//    public var body: some View {
+//        PIXRepView(pix: pix)
+//    }
+//    public init(_ uiPix: () -> (UIPIX)) {
+//        blurPix = BlurPIX()
+//        blurPix.style = .box
+//        pix = blurPix
+//        inUiPix = uiPix()
+//        blurPix.inPix = inUiPix.pix as? (PIX & PIXOut)
+//    }
+//    public func radius(_ bind: Binding<CGFloat>) -> BlurUIPIX {
+//        blurPix.radius = LiveFloat({ bind.wrappedValue })
+//        return self
+//    }
+//}
+//#endif
 
 public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
@@ -49,7 +75,7 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     var relRadius: CGFloat {
         let radius = self.radius.uniform
         let relRes: PIX.Res = ._4K
-        let res: PIX.Res = resolution ?? relRes
+        let res: PIX.Res = resolution
         let relHeight = res.height.cg / relRes.height.cg
         let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
@@ -88,14 +114,10 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
                 pixelKit.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
-            #if !targetEnvironment(simulator)
             let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture
-            #else
-            return nil
-            #endif
         } else {
             return nil
         }

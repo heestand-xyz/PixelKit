@@ -6,6 +6,32 @@
 //  Open Source - MIT License
 //
 
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+#if canImport(SwiftUI)
+@available(iOS 13.0.0, *)
+public struct EdgeUIPIX: View, UIPIX {
+    public let pix: PIX
+    let edgePix: EdgePIX
+    let inUiPix: UIPIX
+    public var body: some View {
+        PIXRepView(pix: pix)
+    }
+    public init(_ uiPix: () -> (UIPIX)) {
+        edgePix = EdgePIX()
+        pix = edgePix
+        inUiPix = uiPix()
+        edgePix.inPix = inUiPix.pix as? (PIX & PIXOut)
+    }
+//    public func radius(_ bind: Binding<CGFloat>) -> EdgeUIPIX {
+//        edgePix.radius = LiveFloat({ bind.wrappedValue })
+//        return self
+//    }
+}
+#endif
+
 public class EdgePIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleEdgePIX" }
