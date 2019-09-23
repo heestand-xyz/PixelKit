@@ -11,6 +11,27 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+#if canImport(SwiftUI)
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct ImagePIXUI: View, PIXUI {
+    public let pix: PIX
+    let imagePix: ImagePIX
+    public var body: some View {
+        PIXRepView(pix: pix)
+    }
+    public init(image: UIImage) {
+        imagePix = ImagePIX()
+        imagePix.image = image
+        pix = imagePix
+    }
+}
+#endif
 
 public class ImagePIX: PIXResource {
     

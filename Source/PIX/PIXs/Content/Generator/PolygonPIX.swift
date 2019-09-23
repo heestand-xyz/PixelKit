@@ -6,29 +6,6 @@
 //  Open Source - MIT License
 //
 
-//#if canImport(SwiftUI)
-//import SwiftUI
-//#endif
-//
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//public struct PolygonUIPIX: View, UIPIX {
-//    public let pix: PIX
-//    let polygonPix: PolygonPIX
-//    public var body: some View {
-//        PIXRepView(pix: pix)
-//    }
-//    public init() {
-//        polygonPix = PolygonPIX()
-//        pix = polygonPix
-//    }
-//    public func radius(_ bind: Binding<CGFloat>) -> PolygonUIPIX {
-//        polygonPix.radius = LiveFloat({ bind.wrappedValue })
-//        return self
-//    }
-//}
-//#endif
-
 public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorPolygonPIX" }

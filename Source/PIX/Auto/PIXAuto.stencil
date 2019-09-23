@@ -3,7 +3,7 @@
 {% for inheritedType in parentType.inheritedTypes %}
 {% if inheritedType == "PIXAutoParent" %}
 
-// MARK - {{ parentType.name }}
+// MARK: - {{ parentType.name }}
 
 public enum Auto{{ parentType.name }}: String, Codable, CaseIterable {
 

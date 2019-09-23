@@ -7,29 +7,6 @@
 //
 
 import CoreGraphics
-//#if canImport(SwiftUI)
-//import SwiftUI
-//#endif
-//
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//public struct BlendsUIPIX: View, UIPIX {
-//    public let pix: PIX
-//    let blendsPix: BlendsPIX
-//    public var body: some View {
-//        PIXRepView(pix: pix)
-//    }
-//    public init(@UIPIXMultiEffectBuilder _ uiPixs: () -> ([PIX & PIXOut])) {
-//        blendsPix = BlendsPIX()
-//        pix = blendsPix
-//        blendsPix.inPixs = uiPixs()
-//    }
-//    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendsUIPIX {
-//        blendsPix.blendMode = blendMode
-//        return self
-//    }
-//}
-//#endif
 
 public class BlendsPIX: PIXMultiEffect, PIXAuto {
     

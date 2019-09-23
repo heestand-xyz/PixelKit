@@ -7,6 +7,27 @@
 //
 
 import CoreGraphics
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+#if canImport(SwiftUI)
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct ResPIXUI: View, PIXUI {
+    public let pix: PIX
+    let resPix: ResPIX
+    public var body: some View {
+        PIXRepView(pix: pix)
+    }
+    public init(res: PIX.Res = .auto) {
+        resPix = ResPIX(res: res)
+        resPix.res = res
+        pix = resPix
+    }
+}
+#endif
 
 public class ResPIX: PIXSingleEffect, PIXRes {
 

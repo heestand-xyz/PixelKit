@@ -9,32 +9,6 @@
 import CoreGraphics
 import MetalPerformanceShaders
 
-//#if canImport(SwiftUI)
-//import SwiftUI
-//#endif
-//
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//public struct BlendUIPIX: View, UIPIX {
-//    public let pix: PIX
-//    let blendPix: BlendPIX
-//    public var body: some View {
-//        PIXRepView(pix: pix)
-//    }
-//    public init(@UIPIXMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
-//        blendPix = BlendPIX()
-//        pix = blendPix
-//        let uiPixAB = uiPixAB()
-//        blendPix.inPixA = uiPixAB.0
-//        blendPix.inPixB = uiPixAB.1
-//    }
-//    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendUIPIX {
-//        blendPix.blendMode = blendMode
-//        return self
-//    }
-//}
-//#endif
-
 public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRenderDelegate {
     
     override open var shader: String { return "effectMergerBlendPIX" }

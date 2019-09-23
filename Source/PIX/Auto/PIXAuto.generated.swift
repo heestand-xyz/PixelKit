@@ -3,7 +3,7 @@
 
 
 
-// MARK - PIXGenerator
+// MARK: - PIXGenerator
 
 public enum AutoPIXGenerator: String, Codable, CaseIterable {
 
@@ -536,7 +536,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 }
 
 
-// MARK - PIXMergerEffect
+// MARK: - PIXMergerEffect
 
 public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 
@@ -1010,7 +1010,7 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 }
 
 
-// MARK - PIXMultiEffect
+// MARK: - PIXMultiEffect
 
 public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 
@@ -1169,7 +1169,7 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 }
 
 
-// MARK - PIXSingleEffect
+// MARK: - PIXSingleEffect
 
 public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 

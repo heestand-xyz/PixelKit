@@ -6,7 +6,7 @@ import SwiftUI
 {% for inheritedType in parentType.inheritedTypes %}
 {% if inheritedType == "PIXAutoParent" %}
 
-// MARK - UI{{ parentType.name }}
+// MARK: - UI{{ parentType.name }}
 
 {% for type in types.implementing.PIXAuto %}
 {% for subType in type.inheritedTypes %}
@@ -42,36 +42,40 @@ public struct {{type.name}}UI: View, PIXUI {
         {{type.name|lowercase}}.inPixs = uiPixs()
     }
     {% else %}
+    {% if parentType.name == "PIXSingleEffect" %}
+    public init(_ uiPix: () -> (PIXUI)) {
+        {{type.name|lowercase}} = {{type.name}}()
+        {{type.name|lowercase}}.inPix = uiPix().pix as? (PIX & PIXOut)
+        pix = {{type.name|lowercase}}
+    }
+    {% else %}
+    {% if parentType.name == "PIXGenerator" %}
+    public init(res: PIX.Res = .auto) {
+        {{type.name|lowercase}} = {{type.name}}(res: res)
+        pix = {{type.name|lowercase}}
+    }
+    {% else %}
     public init() {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
     }
     {% endif %}
     {% endif %}
+    {% endif %}
     
     {% for liveType in types.implementing.LiveValue %}
-
     {% for var in type.storedVariables %}
     {% if var.typeName.name == liveType.name %}
-    
-    public func {{ var.name }}(_ bind: Binding<
-    
-    {% for var in liveType.variables %}
-    {% if var.name == "type" %}
-    
-    {{ var.defaultValue|replace:".self","" }}
-    
-    {% endif %}
-    {% endfor %}
-    
-    >) -> {{type.name}}UI {
-        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ bind.wrappedValue })
+    public func {{ var.name }}(_ binding: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ binding.wrappedValue })
         return self
     }
-
+    public func {{ var.name }}(_ liveValue: {{ liveType.name }}) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = liveValue
+        return self
+    }
     {% endif %}
     {% endfor %}
-    
     {% endfor %}
     
 }
