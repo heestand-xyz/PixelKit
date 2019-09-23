@@ -6,13 +6,13 @@ import SwiftUI
 {% for inheritedType in parentType.inheritedTypes %}
 {% if inheritedType == "PIXAutoParent" %}
 
-// MARK: - UI{{ parentType.name }}
+// MARK: - {{ parentType.name }}
 
 {% for type in types.implementing.PIXAuto %}
 {% for subType in type.inheritedTypes %}
 {% if subType == parentType.name %}
 
-// {{ type.name }}UI
+// MARK: {{ type.name }}UI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -62,6 +62,22 @@ public struct {{type.name}}UI: View, PIXUI {
     {% endif %}
     {% endif %}
     {% endif %}
+    {% endif %}
+    
+    {% for liveType in types.implementing.LiveValue %}
+    {% for var in parentType.storedVariables %}
+    {% if var.typeName.name == liveType.name %}
+    public func {{ var.name }}(_ binding: Binding<{% for var in liveType.variables %}{% if var.name == "type" %}{{ var.defaultValue|replace:".self","" }}{% endif %}{% endfor %}>) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = {{ liveType.name }}({ binding.wrappedValue })
+        return self
+    }
+    public func {{ var.name }}(_ liveValue: {{ liveType.name }}) -> {{type.name}}UI {
+        {{type.name|lowercase}}.{{ var.name }} = liveValue
+        return self
+    }
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
     
     {% for liveType in types.implementing.LiveValue %}
     {% for var in type.storedVariables %}

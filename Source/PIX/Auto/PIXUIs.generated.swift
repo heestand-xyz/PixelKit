@@ -6,10 +6,10 @@
 import SwiftUI
 
 
-// MARK - UIPIXGenerator
+// MARK: - PIXGenerator
 
 
-// ArcPIXUI
+// MARK: ArcPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -25,6 +25,22 @@ public struct ArcPIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         arcpix = ArcPIX(res: res)
         pix = arcpix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> ArcPIXUI {
+        arcpix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> ArcPIXUI {
+        arcpix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> ArcPIXUI {
+        arcpix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> ArcPIXUI {
+        arcpix.color = liveValue
+        return self
     }
     public func fillColor(_ binding: Binding<_Color>) -> ArcPIXUI {
         arcpix.fillColor = LiveColor({ binding.wrappedValue })
@@ -85,7 +101,7 @@ public struct ArcPIXUI: View, PIXUI {
 }
 
 
-// CirclePIXUI
+// MARK: CirclePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -101,6 +117,22 @@ public struct CirclePIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         circlepix = CirclePIX(res: res)
         pix = circlepix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> CirclePIXUI {
+        circlepix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> CirclePIXUI {
+        circlepix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> CirclePIXUI {
+        circlepix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> CirclePIXUI {
+        circlepix.color = liveValue
+        return self
     }
     public func edgeColor(_ binding: Binding<_Color>) -> CirclePIXUI {
         circlepix.edgeColor = LiveColor({ binding.wrappedValue })
@@ -137,7 +169,7 @@ public struct CirclePIXUI: View, PIXUI {
 }
 
 
-// ColorPIXUI
+// MARK: ColorPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -154,10 +186,26 @@ public struct ColorPIXUI: View, PIXUI {
         colorpix = ColorPIX(res: res)
         pix = colorpix
     }
+    public func bgColor(_ binding: Binding<_Color>) -> ColorPIXUI {
+        colorpix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> ColorPIXUI {
+        colorpix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> ColorPIXUI {
+        colorpix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> ColorPIXUI {
+        colorpix.color = liveValue
+        return self
+    }
 }
 
 
-// GradientPIXUI
+// MARK: GradientPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -173,6 +221,22 @@ public struct GradientPIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         gradientpix = GradientPIX(res: res)
         pix = gradientpix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> GradientPIXUI {
+        gradientpix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> GradientPIXUI {
+        gradientpix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> GradientPIXUI {
+        gradientpix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> GradientPIXUI {
+        gradientpix.color = liveValue
+        return self
     }
     public func scale(_ binding: Binding<CGFloat>) -> GradientPIXUI {
         gradientpix.scale = LiveFloat({ binding.wrappedValue })
@@ -201,7 +265,7 @@ public struct GradientPIXUI: View, PIXUI {
 }
 
 
-// LinePIXUI
+// MARK: LinePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -217,6 +281,22 @@ public struct LinePIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         linepix = LinePIX(res: res)
         pix = linepix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> LinePIXUI {
+        linepix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> LinePIXUI {
+        linepix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> LinePIXUI {
+        linepix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> LinePIXUI {
+        linepix.color = liveValue
+        return self
     }
     public func scale(_ binding: Binding<CGFloat>) -> LinePIXUI {
         linepix.scale = LiveFloat({ binding.wrappedValue })
@@ -245,7 +325,7 @@ public struct LinePIXUI: View, PIXUI {
 }
 
 
-// NoisePIXUI
+// MARK: NoisePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -261,6 +341,22 @@ public struct NoisePIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         noisepix = NoisePIX(res: res)
         pix = noisepix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> NoisePIXUI {
+        noisepix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> NoisePIXUI {
+        noisepix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> NoisePIXUI {
+        noisepix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> NoisePIXUI {
+        noisepix.color = liveValue
+        return self
     }
     public func colored(_ binding: Binding<Bool>) -> NoisePIXUI {
         noisepix.colored = LiveBool({ binding.wrappedValue })
@@ -329,7 +425,7 @@ public struct NoisePIXUI: View, PIXUI {
 }
 
 
-// PolygonPIXUI
+// MARK: PolygonPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -345,6 +441,22 @@ public struct PolygonPIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         polygonpix = PolygonPIX(res: res)
         pix = polygonpix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> PolygonPIXUI {
+        polygonpix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> PolygonPIXUI {
+        polygonpix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> PolygonPIXUI {
+        polygonpix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> PolygonPIXUI {
+        polygonpix.color = liveValue
+        return self
     }
     public func radius(_ binding: Binding<CGFloat>) -> PolygonPIXUI {
         polygonpix.radius = LiveFloat({ binding.wrappedValue })
@@ -389,7 +501,7 @@ public struct PolygonPIXUI: View, PIXUI {
 }
 
 
-// RectanglePIXUI
+// MARK: RectanglePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -405,6 +517,22 @@ public struct RectanglePIXUI: View, PIXUI {
     public init(res: PIX.Res = .auto) {
         rectanglepix = RectanglePIX(res: res)
         pix = rectanglepix
+    }
+    public func bgColor(_ binding: Binding<_Color>) -> RectanglePIXUI {
+        rectanglepix.bgColor = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func bgColor(_ liveValue: LiveColor) -> RectanglePIXUI {
+        rectanglepix.bgColor = liveValue
+        return self
+    }
+    public func color(_ binding: Binding<_Color>) -> RectanglePIXUI {
+        rectanglepix.color = LiveColor({ binding.wrappedValue })
+        return self
+    }
+    public func color(_ liveValue: LiveColor) -> RectanglePIXUI {
+        rectanglepix.color = liveValue
+        return self
     }
     public func cornerRadius(_ binding: Binding<CGFloat>) -> RectanglePIXUI {
         rectanglepix.cornerRadius = LiveFloat({ binding.wrappedValue })
@@ -435,10 +563,10 @@ public struct RectanglePIXUI: View, PIXUI {
 
 
 
-// MARK - UIPIXMergerEffect
+// MARK: - PIXMergerEffect
 
 
-// BlendPIXUI
+// MARK: BlendPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -501,7 +629,7 @@ public struct BlendPIXUI: View, PIXUI {
 }
 
 
-// CrossPIXUI
+// MARK: CrossPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -532,7 +660,7 @@ public struct CrossPIXUI: View, PIXUI {
 }
 
 
-// DisplacePIXUI
+// MARK: DisplacePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -571,7 +699,7 @@ public struct DisplacePIXUI: View, PIXUI {
 }
 
 
-// LookupPIXUI
+// MARK: LookupPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -594,7 +722,7 @@ public struct LookupPIXUI: View, PIXUI {
 }
 
 
-// LumaBlurPIXUI
+// MARK: LumaBlurPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -641,7 +769,7 @@ public struct LumaBlurPIXUI: View, PIXUI {
 }
 
 
-// LumaLevelsPIXUI
+// MARK: LumaLevelsPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -704,7 +832,7 @@ public struct LumaLevelsPIXUI: View, PIXUI {
 }
 
 
-// RemapPIXUI
+// MARK: RemapPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -727,7 +855,7 @@ public struct RemapPIXUI: View, PIXUI {
 }
 
 
-// ReorderPIXUI
+// MARK: ReorderPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -752,10 +880,10 @@ public struct ReorderPIXUI: View, PIXUI {
 
 
 
-// MARK - UIPIXMultiEffect
+// MARK: - PIXMultiEffect
 
 
-// ArrayPIXUI
+// MARK: ArrayPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -784,7 +912,7 @@ public struct ArrayPIXUI: View, PIXUI {
 }
 
 
-// BlendsPIXUI
+// MARK: BlendsPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -807,10 +935,10 @@ public struct BlendsPIXUI: View, PIXUI {
 
 
 
-// MARK - UIPIXSingleEffect
+// MARK: - PIXSingleEffect
 
 
-// BlurPIXUI
+// MARK: BlurPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -823,8 +951,9 @@ public struct BlurPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         blurpix = BlurPIX()
+        blurpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = blurpix
     }
     public func radius(_ binding: Binding<CGFloat>) -> BlurPIXUI {
@@ -854,7 +983,7 @@ public struct BlurPIXUI: View, PIXUI {
 }
 
 
-// ChannelMixPIXUI
+// MARK: ChannelMixPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -867,14 +996,15 @@ public struct ChannelMixPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         channelmixpix = ChannelMixPIX()
+        channelmixpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = channelmixpix
     }
 }
 
 
-// ChromaKeyPIXUI
+// MARK: ChromaKeyPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -887,8 +1017,9 @@ public struct ChromaKeyPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         chromakeypix = ChromaKeyPIX()
+        chromakeypix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = chromakeypix
     }
     public func premultiply(_ binding: Binding<Bool>) -> ChromaKeyPIXUI {
@@ -934,7 +1065,7 @@ public struct ChromaKeyPIXUI: View, PIXUI {
 }
 
 
-// ClampPIXUI
+// MARK: ClampPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -947,8 +1078,9 @@ public struct ClampPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         clamppix = ClampPIX()
+        clamppix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = clamppix
     }
     public func clampAlpha(_ binding: Binding<Bool>) -> ClampPIXUI {
@@ -978,7 +1110,7 @@ public struct ClampPIXUI: View, PIXUI {
 }
 
 
-// CornerPinPIXUI
+// MARK: CornerPinPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -991,14 +1123,15 @@ public struct CornerPinPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         cornerpinpix = CornerPinPIX()
+        cornerpinpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = cornerpinpix
     }
 }
 
 
-// EdgePIXUI
+// MARK: EdgePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1011,8 +1144,9 @@ public struct EdgePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         edgepix = EdgePIX()
+        edgepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = edgepix
     }
     public func strength(_ binding: Binding<CGFloat>) -> EdgePIXUI {
@@ -1034,7 +1168,7 @@ public struct EdgePIXUI: View, PIXUI {
 }
 
 
-// FlarePIXUI
+// MARK: FlarePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1047,8 +1181,9 @@ public struct FlarePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         flarepix = FlarePIX()
+        flarepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = flarepix
     }
     public func color(_ binding: Binding<_Color>) -> FlarePIXUI {
@@ -1118,7 +1253,7 @@ public struct FlarePIXUI: View, PIXUI {
 }
 
 
-// FlipFlopPIXUI
+// MARK: FlipFlopPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1131,14 +1266,15 @@ public struct FlipFlopPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         flipfloppix = FlipFlopPIX()
+        flipfloppix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = flipfloppix
     }
 }
 
 
-// HueSaturationPIXUI
+// MARK: HueSaturationPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1151,8 +1287,9 @@ public struct HueSaturationPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         huesaturationpix = HueSaturationPIX()
+        huesaturationpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = huesaturationpix
     }
     public func hue(_ binding: Binding<CGFloat>) -> HueSaturationPIXUI {
@@ -1174,7 +1311,7 @@ public struct HueSaturationPIXUI: View, PIXUI {
 }
 
 
-// KaleidoscopePIXUI
+// MARK: KaleidoscopePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1187,8 +1324,9 @@ public struct KaleidoscopePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         kaleidoscopepix = KaleidoscopePIX()
+        kaleidoscopepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = kaleidoscopepix
     }
     public func mirror(_ binding: Binding<Bool>) -> KaleidoscopePIXUI {
@@ -1226,7 +1364,7 @@ public struct KaleidoscopePIXUI: View, PIXUI {
 }
 
 
-// LevelsPIXUI
+// MARK: LevelsPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1239,8 +1377,9 @@ public struct LevelsPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         levelspix = LevelsPIX()
+        levelspix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = levelspix
     }
     public func inverted(_ binding: Binding<Bool>) -> LevelsPIXUI {
@@ -1294,7 +1433,7 @@ public struct LevelsPIXUI: View, PIXUI {
 }
 
 
-// QuantizePIXUI
+// MARK: QuantizePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1307,8 +1446,9 @@ public struct QuantizePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         quantizepix = QuantizePIX()
+        quantizepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = quantizepix
     }
     public func fraction(_ binding: Binding<CGFloat>) -> QuantizePIXUI {
@@ -1322,7 +1462,7 @@ public struct QuantizePIXUI: View, PIXUI {
 }
 
 
-// RangePIXUI
+// MARK: RangePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1335,8 +1475,9 @@ public struct RangePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         rangepix = RangePIX()
+        rangepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = rangepix
     }
     public func ignoreAlpha(_ binding: Binding<Bool>) -> RangePIXUI {
@@ -1414,7 +1555,7 @@ public struct RangePIXUI: View, PIXUI {
 }
 
 
-// SepiaPIXUI
+// MARK: SepiaPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1427,8 +1568,9 @@ public struct SepiaPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         sepiapix = SepiaPIX()
+        sepiapix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = sepiapix
     }
     public func color(_ binding: Binding<_Color>) -> SepiaPIXUI {
@@ -1442,7 +1584,7 @@ public struct SepiaPIXUI: View, PIXUI {
 }
 
 
-// SharpenPIXUI
+// MARK: SharpenPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1455,8 +1597,9 @@ public struct SharpenPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         sharpenpix = SharpenPIX()
+        sharpenpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = sharpenpix
     }
     public func contrast(_ binding: Binding<CGFloat>) -> SharpenPIXUI {
@@ -1470,7 +1613,7 @@ public struct SharpenPIXUI: View, PIXUI {
 }
 
 
-// SlopePIXUI
+// MARK: SlopePIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1483,8 +1626,9 @@ public struct SlopePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         slopepix = SlopePIX()
+        slopepix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = slopepix
     }
     public func amplitude(_ binding: Binding<CGFloat>) -> SlopePIXUI {
@@ -1498,7 +1642,7 @@ public struct SlopePIXUI: View, PIXUI {
 }
 
 
-// ThresholdPIXUI
+// MARK: ThresholdPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1511,8 +1655,9 @@ public struct ThresholdPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         thresholdpix = ThresholdPIX()
+        thresholdpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = thresholdpix
     }
     public func threshold(_ binding: Binding<CGFloat>) -> ThresholdPIXUI {
@@ -1526,7 +1671,7 @@ public struct ThresholdPIXUI: View, PIXUI {
 }
 
 
-// TransformPIXUI
+// MARK: TransformPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1539,8 +1684,9 @@ public struct TransformPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         transformpix = TransformPIX()
+        transformpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = transformpix
     }
     public func rotation(_ binding: Binding<CGFloat>) -> TransformPIXUI {
@@ -1578,7 +1724,7 @@ public struct TransformPIXUI: View, PIXUI {
 }
 
 
-// TwirlPIXUI
+// MARK: TwirlPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -1591,8 +1737,9 @@ public struct TwirlPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init() {
+    public init(_ uiPix: () -> (PIXUI)) {
         twirlpix = TwirlPIX()
+        twirlpix.inPix = uiPix().pix as? (PIX & PIXOut)
         pix = twirlpix
     }
     public func strength(_ binding: Binding<CGFloat>) -> TwirlPIXUI {
