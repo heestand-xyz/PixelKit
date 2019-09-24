@@ -205,6 +205,18 @@ This can also be done with [Blend Operators](#blend-operators) and [Effect Conve
 let pix = ImagePIX("city") & VideoPIX("superman.mov")._chromaKey(.green)
 ```
 
+#### SwiftUI
+```swift
+BlendsPIXUI {
+    ImagePIXUI(image: UIImage(named: "city")!)
+    ChromaKeyPIXUI {
+        VideoPIXUI(fileNamed: "superman", withExtension: "mov")
+    }
+        .keyColor(.green)
+}
+    .blendMode(.over)
+```
+
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
 
