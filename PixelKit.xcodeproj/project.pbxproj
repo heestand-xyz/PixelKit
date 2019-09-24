@@ -1508,7 +1508,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1536,7 +1536,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1577,7 +1577,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1617,7 +1617,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1777,7 +1777,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1814,7 +1814,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.3;
+				MARKETING_VERSION = 0.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

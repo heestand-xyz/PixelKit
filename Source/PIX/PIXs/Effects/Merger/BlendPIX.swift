@@ -7,9 +7,12 @@
 //
 
 import CoreGraphics
-import MetalPerformanceShaders
+import MetalKit
+//#if !os(tvOS) || !targetEnvironment(simulator)
+//import MetalPerformanceShaders
+//#endif
 
-public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRenderDelegate {
+public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMergerRenderDelegate*/ {
     
     override open var shader: String { return "effectMergerBlendPIX" }
     
@@ -35,49 +38,52 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto, PixelCustomMergerRe
     public required init() {
         super.init()
         name = "blend"
-        customMergerRenderActive = true
-        customMergerRenderDelegate = self
+//        customMergerRenderActive = true
+//        customMergerRenderDelegate = self
     }
     
     // MARK - Custom Render
-    public func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+//    public func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        switch blendMode {
 //        case .add, .multiply, .subtract:
+//            #if !os(tvOS) || !targetEnvironment(simulator)
 //            return kernel(a: textureA, b: textureB, with: commandBuffer)
+//            #else
+//            return nil
+//            #endif
 //        default:
 //            return nil
 //        }
-        return nil
-    }
-    
-    func kernel(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        if #available(OSX 10.13, *) {
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: textureA.width, height: textureA.height, mipmapped: true) // CHECK mipmapped
-            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-            guard let texture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
-                pixelKit.log(pix: self, .error, .generator, "Blend Kernel: Make texture faild.")
-                return nil
-            }
-            #if !targetEnvironment(simulator)
-            switch blendMode {
-            case .add:
-                let kernel = MPSImageAdd(device: pixelKit.metalDevice)
-                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
-            case .multiply:
-                let kernel = MPSImageMultiply(device: pixelKit.metalDevice)
-                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
-            case .subtract:
-                let kernel = MPSImageSubtract(device: pixelKit.metalDevice)
-                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
-            default:
-                return nil
-            }
-            #endif
-            return texture
-        } else {
-            return nil
-        }
-    }
+//    }
+//
+//    #if !os(tvOS) || !targetEnvironment(simulator)
+//    func kernel(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+//        if #available(OSX 10.13, *) {
+//            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: textureA.width, height: textureA.height, mipmapped: true) // CHECK mipmapped
+//            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
+//            guard let texture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
+//                pixelKit.log(pix: self, .error, .generator, "Blend Kernel: Make texture faild.")
+//                return nil
+//            }
+//            switch blendMode {
+//            case .add:
+//                let kernel = MPSImageAdd(device: pixelKit.metalDevice)
+//                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
+//            case .multiply:
+//                let kernel = MPSImageMultiply(device: pixelKit.metalDevice)
+//                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
+//            case .subtract:
+//                let kernel = MPSImageSubtract(device: pixelKit.metalDevice)
+//                kernel.encode(commandBuffer: commandBuffer, primaryTexture: textureA, secondaryTexture: textureB, destinationTexture: texture)
+//            default:
+//                return nil
+//            }
+//            return texture
+//        } else {
+//            return nil
+//        }
+//    }
+//    #endif
     
     // MARK: Layout
     

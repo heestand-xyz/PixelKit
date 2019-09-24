@@ -6,33 +6,11 @@
 //  Open Source - MIT License
 //
 
+import CoreGraphics
+import MetalKit
+#if !os(tvOS) || !targetEnvironment(simulator)
 import MetalPerformanceShaders
-//#if canImport(SwiftUI)
-//import SwiftUI
-//#endif
-
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//public struct BlurUIPIX: View, UIPIX {
-//    public let pix: PIX
-//    let blurPix: BlurPIX
-//    let inUiPix: UIPIX
-//    public var body: some View {
-//        PIXRepView(pix: pix)
-//    }
-//    public init(_ uiPix: () -> (UIPIX)) {
-//        blurPix = BlurPIX()
-//        blurPix.style = .box
-//        pix = blurPix
-//        inUiPix = uiPix()
-//        blurPix.inPix = inUiPix.pix as? (PIX & PIXOut)
-//    }
-//    public func radius(_ bind: Binding<CGFloat>) -> BlurUIPIX {
-//        blurPix.radius = LiveFloat({ bind.wrappedValue })
-//        return self
-//    }
-//}
-//#endif
+#endif
 
 public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
@@ -103,9 +81,14 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        #if !os(tvOS) || !targetEnvironment(simulator)
         return guassianBlur(texture, with: commandBuffer)
+        #else
+        return nil
+        #endif
     }
     
+    #if !os(tvOS) || !targetEnvironment(simulator)
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
             let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
@@ -122,6 +105,7 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
             return nil
         }
     }
+    #endif
     
 }
 

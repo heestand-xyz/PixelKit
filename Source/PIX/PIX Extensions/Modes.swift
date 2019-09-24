@@ -6,7 +6,9 @@
 //  Open Source - MIT License
 //
 
+#if !os(tvOS) || !targetEnvironment(simulator)
 import MetalPerformanceShaders
+#endif
 
 extension PIX {
     
@@ -71,12 +73,14 @@ extension PIX {
     public enum InterpolateMode: String, Codable, CaseIterable {
         case nearest
         case linear
+        #if !os(tvOS) || !targetEnvironment(simulator)
         var mtl: MTLSamplerMinMagFilter {
             switch self {
             case .nearest: return .nearest
             case .linear: return .linear
             }
         }
+        #endif
     }
     
     public enum ExtendMode: String, Codable, CaseIterable {
@@ -84,6 +88,7 @@ extension PIX {
         case zero
         case loop
         case mirror
+        #if !os(tvOS) || !targetEnvironment(simulator)
         var mtl: MTLSamplerAddressMode {
             switch self {
             case .hold: return .clampToEdge
@@ -108,6 +113,7 @@ extension PIX {
                 }
             }
         }
+        #endif
         var index: Int {
             switch self {
             case .hold: return 0

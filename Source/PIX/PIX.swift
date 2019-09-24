@@ -158,7 +158,9 @@ open class PIX: Equatable {
             let frag = try pixelKit.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
             pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
+            #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            #endif
         } catch {
             pixelKit.log(pix: self, .fatal, nil, "Setup failed.", e: error)
         }
@@ -168,7 +170,9 @@ open class PIX: Equatable {
     
     func updateSampler() {
         do {
+            #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            #endif
             pixelKit.log(pix: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
             setNeedsRender()
         } catch {
