@@ -27,6 +27,10 @@ public struct ResPIXUI: View, PIXUI {
         resPix.res = res
         resPix.inPix = uiPix().pix as? (PIX & PIXOut)
     }
+    public func placement(_ placement: PIX.Placement) -> ResPIXUI {
+        resPix.placement = placement
+        return self
+    }
 }
 #endif
 

@@ -77,15 +77,15 @@ public protocol PIXUIMultiEffect: PIXUI {
     var inPixs: [PIX & PIXOut] { get }
 }
 
-@available(iOS 13.0.0, *)
-@available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-@_functionBuilder
-public struct PIXUIMergerEffectBuilder {
-    public static func buildBlock(_ childA: PIXUI, _ childB: PIXUI) -> ((PIX & PIXOut)?, (PIX & PIXOut)?) {
-        return (childA.pix as? PIX & PIXOut, childB.pix as? PIX & PIXOut)
-    }
-}
+//@available(iOS 13.0.0, *)
+//@available(OSX 10.15, *)
+//@available(tvOS 13.0.0, *)
+//@_functionBuilder
+//public struct PIXUIMergerEffectBuilder {
+//    public static func buildBlock(_ childA: PIXUI, _ childB: PIXUI) -> ((PIX & PIXOut)?, (PIX & PIXOut)?) {
+//        return (childA.pix as? PIX & PIXOut, childB.pix as? PIX & PIXOut)
+//    }
+//}
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)

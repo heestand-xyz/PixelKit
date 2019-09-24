@@ -43,7 +43,12 @@ public class PIXView: _View {
     
     let metalView: PIXMetalView
 
-    var res: PIX.Res?
+    var res: PIX.Res? {
+        didSet {
+            resSize = res?.size.cg
+        }
+    }
+    var resSize: CGSize?
 
     var boundsReady: Bool { return bounds.width > 0 }
 

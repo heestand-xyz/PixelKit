@@ -611,12 +611,11 @@ public struct BlendPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         blendpix = BlendPIX()
         pix = blendpix
-        let uiPixAB = uiPixAB()
-        blendpix.inPixA = uiPixAB.0
-        blendpix.inPixB = uiPixAB.1
+        blendpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        blendpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -681,12 +680,11 @@ public struct CrossPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         crosspix = CrossPIX()
         pix = crosspix
-        let uiPixAB = uiPixAB()
-        crosspix.inPixA = uiPixAB.0
-        crosspix.inPixB = uiPixAB.1
+        crosspix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        crosspix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -715,12 +713,11 @@ public struct DisplacePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         displacepix = DisplacePIX()
         pix = displacepix
-        let uiPixAB = uiPixAB()
-        displacepix.inPixA = uiPixAB.0
-        displacepix.inPixB = uiPixAB.1
+        displacepix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        displacepix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -757,12 +754,11 @@ public struct LookupPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lookuppix = LookupPIX()
         pix = lookuppix
-        let uiPixAB = uiPixAB()
-        lookuppix.inPixA = uiPixAB.0
-        lookuppix.inPixB = uiPixAB.1
+        lookuppix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        lookuppix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -787,12 +783,11 @@ public struct LumaBlurPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumablurpix = LumaBlurPIX()
         pix = lumablurpix
-        let uiPixAB = uiPixAB()
-        lumablurpix.inPixA = uiPixAB.0
-        lumablurpix.inPixB = uiPixAB.1
+        lumablurpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        lumablurpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -841,12 +836,11 @@ public struct LumaLevelsPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumalevelspix = LumaLevelsPIX()
         pix = lumalevelspix
-        let uiPixAB = uiPixAB()
-        lumalevelspix.inPixA = uiPixAB.0
-        lumalevelspix.inPixB = uiPixAB.1
+        lumalevelspix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        lumalevelspix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -907,12 +901,11 @@ public struct RemapPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         remappix = RemapPIX()
         pix = remappix
-        let uiPixAB = uiPixAB()
-        remappix.inPixA = uiPixAB.0
-        remappix.inPixB = uiPixAB.1
+        remappix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        remappix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -933,12 +926,11 @@ public struct ReorderPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         reorderpix = ReorderPIX()
         pix = reorderpix
-        let uiPixAB = uiPixAB()
-        reorderpix.inPixA = uiPixAB.0
-        reorderpix.inPixB = uiPixAB.1
+        reorderpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        reorderpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     // Parent Property Funcs
     // General Property Funcs

@@ -214,6 +214,7 @@ public class PixelKit {
             for frameCallback in self.frameCallbacks {
                 frameCallback.callback()
             }
+            self.checkAutoRes()
             self.checkAllLive()
             if self.renderMode == .frameTree {
                 if !self.frameTreeRendering {
@@ -236,6 +237,20 @@ public class PixelKit {
         }
 //        DispatchQueue(label: "pixelKit-frame-loop").async {}
         calcFPS()
+    }
+    
+    // MARK: - Check Auto Res
+    
+    func checkAutoRes() {
+        for pix in linkedPixs {
+//            log(pix: pix, .info, .render, "Res Check: \(pix.resolution.size.cg) - \(pix.view.resSize)")
+            if pix.resolution.size.cg != pix.view.resSize {
+                log(pix: pix, .info, .render, "Res Change Detected.")
+                pix.applyRes {
+                    pix.setNeedsRender()
+                }
+            }
+        }
     }
     
     // MARK: - Maual Render

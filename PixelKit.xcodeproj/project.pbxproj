@@ -150,6 +150,7 @@
 		3AA8019721AC2A1F009430C8 /* LiveBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8019621AC2A1F009430C8 /* LiveBool.swift */; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
+		3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */; };
 		3ACD972A21AD65FC005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ACD972B21AD6891005F5B76 /* LivePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD972921AD65FC005F5B76 /* LivePoint.swift */; };
 		3ADB0D5621AC411000AEEEFF /* LiveValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADB0D5521AC411000AEEEFF /* LiveValue.swift */; };
@@ -411,6 +412,7 @@
 		3AA8019621AC2A1F009430C8 /* LiveBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBool.swift; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
+		3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPIX.swift; sourceTree = "<group>"; };
 		3ACD972921AD65FC005F5B76 /* LivePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePoint.swift; sourceTree = "<group>"; };
 		3ADB0D5521AC411000AEEEFF /* LiveValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveValue.swift; sourceTree = "<group>"; };
 		3AF0B7842327878A00188940 /* CachePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePIX.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 				3A8AC3492277292C00A142AA /* SyphonInPIX.swift */,
 				74BF5E8F22A43978009CB791 /* VectorPIX.swift */,
 				3A84A0B022CCA958001F3D90 /* WebPIX.swift */,
+				3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1409,6 +1412,7 @@
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
 				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */,
+				3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */,
 				74DB402E2125BD9800FA6034 /* Log.swift in Sources */,
 				3A1244EB2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */,
 				7473B4FD214176E2008C6F23 /* DisplacePIX.swift in Sources */,

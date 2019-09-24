@@ -171,7 +171,7 @@ public extension PIX {
                     let size = superview.frame.size
                     return Raw(w: Int(size.width * scale), h: Int(size.height * scale))
                 }
-                return Raw(w: 128, h: 128)
+                return Res._128.raw
             case ._720p: return Raw(w: 1280, h: 720)
             case ._1080p: return Raw(w: 1920, h: 1080)
             case ._4K: return Raw(w: 3840, h: 2160)
@@ -281,7 +281,8 @@ public extension PIX {
         // MARK: Size
 
         public var size: LiveSize {
-            return LiveSize(w: LiveFloat(w), h: LiveFloat(h))
+            let raw = self.raw
+            return LiveSize(w: LiveFloat(raw.w), h: LiveFloat(raw.h))
         }
         
         public static var scale: LiveFloat {

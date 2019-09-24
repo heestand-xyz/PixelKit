@@ -27,12 +27,11 @@ public struct {{type.name}}UI: View, PIXUI {
     }
 
     {% if parentType.name == "PIXMergerEffect" %}
-    public init(@PIXUIMergerEffectBuilder _ uiPixAB: () -> ((PIX & PIXOut)?, (PIX & PIXOut)?)) {
+    public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
-        let uiPixAB = uiPixAB()
-        {{type.name|lowercase}}.inPixA = uiPixAB.0
-        {{type.name|lowercase}}.inPixB = uiPixAB.1
+        {{type.name|lowercase}}.inPixA = uiPixA().pix as? (PIX & PIXOut)
+        {{type.name|lowercase}}.inPixB = uiPixB().pix as? (PIX & PIXOut)
     }
     {% else %}
     {% if parentType.name == "PIXMultiEffect" %}

@@ -94,12 +94,12 @@ extension PIX {
 //            pixelKit.log(pix: self, .error, .res, "Unknown.")
 //            return
 //        }
-        guard view.res == nil || view.res! != res else {
+        guard view.resSize == nil || view.resSize! != res.size.cg else {
             applied()
             return
         }
         view.setRes(res)
-        pixelKit.log(pix: self, .info, .res, "Applied: \(res)")
+        pixelKit.log(pix: self, .info, .res, "Applied: \(res) aka \(res.w)x\(res.h)")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..
