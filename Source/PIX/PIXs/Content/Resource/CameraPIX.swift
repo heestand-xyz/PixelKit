@@ -22,7 +22,7 @@ public protocol CameraPIXDelegate {
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !os(macOS)
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)

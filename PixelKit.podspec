@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PixelKit"
-  spec.version      = "0.7.2"
+  spec.version      = "0.7.3"
   spec.summary      = "a Live Graphics for iOS & macOS."
 
   # This description is used to generate tags and improve search results.
@@ -106,10 +106,11 @@ Pod::Spec.new do |spec|
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
-                          "Source/PIX/PIXs/Output/AirPlayPIX.swift",
+                           "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift",
-                           "Source/Other/Motion.swift"
+                           "Source/Other/Motion.swift",
+                           "Source/PIX/PIXs/Content/Resource/ViewPIX.swift"
 
   spec.tvos.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                             "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",

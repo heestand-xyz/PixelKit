@@ -13,7 +13,7 @@ import SwiftUI
 #endif
 
 
-#if canImport(SwiftUI) && !os(macOS) // CHECK macOS
+#if canImport(SwiftUI) && !os(macOS)
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
