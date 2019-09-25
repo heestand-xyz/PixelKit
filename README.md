@@ -170,6 +170,40 @@ This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs)
 let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 ```
 
+#### SwiftUI
+```swift
+struct ContentView: View {
+    var content: PIXUI {
+        HueSaturationPIXUI {
+            LevelsPIXUI {
+                ResPIXUI {
+                    CameraPIXUI()
+                }
+            }
+                .gamma(0.5)
+                .brightness(LiveFloat(1.5))
+        }
+            .saturation(LiveFloat(0.5))
+    }
+    var body: some View {
+        BlendsPIXUI {
+            BlurPIXUI {
+                RawPIXUI(pix: content.pix)
+            }
+                .radius(0.25)
+            BlendsPIXUI {
+                CirclePIXUI()
+                    .bgColor(.clear)
+                    .radius(0.25)
+                RawPIXUI(pix: content.pix)
+            }
+                .blendMode(.multiply)
+        }
+            .blendMode(.over)
+    }
+}
+```
+
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
 | --- | --- | --- | --- | --- |
 
@@ -202,7 +236,23 @@ view.addSubview(finalPix.view)
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = ImagePIX("city") & VideoPIX("superman.mov")._chromaKey(.green)
+let pix = cityImage & supermanVideo._chromaKey(.green)
+```
+
+#### SwiftUI
+```swift
+struct ContentView: View {
+    var body: some View {
+        BlendsPIXUI {
+            ImagePIXUI(image: UIImage(named: "city")!)
+            ChromaKeyPIXUI {
+                VideoPIXUI(fileNamed: "superman", withExtension: "mov")
+            }
+                .keyColor(.green)
+        }
+            .blendMode(.over)
+    }
+}
 ```
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
