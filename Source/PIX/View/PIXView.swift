@@ -32,6 +32,18 @@ public struct PIXRepView: UIViewRepresentable {
     public func updateUIView(_ pixView: PIXView, context: Context) {}
     
 }
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct RawPIXUI: View, PIXUI {
+    public let pix: PIX
+    public var body: some View {
+        PIXRepView(pix: pix)
+    }
+    public init(pix: PIX) {
+        self.pix = pix
+    }
+}
 #endif
 
 #if os(iOS) || os(tvOS)
