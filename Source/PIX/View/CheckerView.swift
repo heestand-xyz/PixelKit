@@ -11,10 +11,31 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
 
-class CheckerView: _View {
+
+#if canImport(SwiftUI) && !os(macOS)
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct Checker: UIViewRepresentable {
+           
+    public init() {}
     
-    override var frame: CGRect {
+    public func makeUIView(context: Context) -> CheckerView {
+        return CheckerView()
+    }
+    
+    public func updateUIView(_ pixView: CheckerView, context: Context) {}
+    
+}
+#endif
+
+public class CheckerView: _View {
+    
+    override public var frame: CGRect {
         didSet {
             #if os(iOS) || os(tvOS)
             setNeedsDisplay()
@@ -73,7 +94,7 @@ class CheckerView: _View {
         #endif
     }
     
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         
         #if os(iOS) || os(tvOS)
         guard let context = UIGraphicsGetCurrentContext() else { return }

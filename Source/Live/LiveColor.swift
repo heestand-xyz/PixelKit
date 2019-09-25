@@ -447,6 +447,13 @@ public class LiveColor: LiveValue, CustomStringConvertible {
     }
     
     public init(hex: String, a: CGFloat = 1) {
+        guard hex.count >= 1 && (hex[0..<1] == "#" ? [4, 7].contains(hex.count) : [3, 6].contains(hex.count)) else {
+            self.r = 0
+            self.g = 0
+            self.b = 0
+            self.a = LiveFloat(a)
+            return
+        }
         var hex = hex
         if hex[0..<1] == "#" {
             if hex.count == 4 {
