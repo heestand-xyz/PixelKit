@@ -40,6 +40,10 @@ public class PixelKit {
     var manualRenderInProgress: Bool = false
     var manualRenderCallback: (() -> ())?
     
+    // MARK: Checker
+    
+    public var backgroundAlphaCheckerActive: Bool = true
+    
     // MARK: Log
     
     public var logActive: Bool = true

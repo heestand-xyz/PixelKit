@@ -86,7 +86,7 @@ public class PIXView: _View {
     
     /// This enables a checker background view, the default is `true`.
     /// Disable if you have a transparent PIX and want views under the PIXView to show.
-    public var checker: Bool = true { didSet { checkerView.isHidden = !checker } }
+    public var checker: Bool = true { didSet { checkerView.isHidden = !checker || !PixelKit.main.backgroundAlphaCheckerActive } }
     let checkerView: CheckerView
     
     #if os(iOS)
@@ -117,6 +117,7 @@ public class PIXView: _View {
         clipsToBounds = true
         #endif
         
+        checkerView.isHidden = !PixelKit.main.backgroundAlphaCheckerActive
         addSubview(checkerView)
         
         addSubview(metalView)
