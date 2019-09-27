@@ -7,11 +7,9 @@
 //
 
 import MetalKit
-
 #if canImport(SwiftUI)
 import SwiftUI
 #endif
-
 
 #if canImport(SwiftUI)
 #if os(macOS)
@@ -29,7 +27,7 @@ public struct PIXRepView: NSViewRepresentable {
 #else
 @available(iOS 13.0.0, *)
 @available(tvOS 13.0.0, *)
-public struct PIXRepView: _ViewRepresentable {
+public struct PIXRepView: UIViewRepresentable {
     public let pix: PIX
     public init(pix: PIX) {
         self.pix = pix

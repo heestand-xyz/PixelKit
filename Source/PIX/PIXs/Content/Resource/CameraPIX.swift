@@ -32,7 +32,7 @@ public struct CameraPIXUI: View, PIXUI {
     public var body: some View {
         PIXRepView(pix: pix)
     }
-    #if os(ios)
+    #if os(iOS)
     public init(camera: CameraPIX.Camera = .back, camRes: CameraPIX.CamRes = ._1080p) {
         cameraPix = CameraPIX()
         cameraPix.camera = camera
