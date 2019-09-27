@@ -16,7 +16,7 @@ import AVFoundation
 import SwiftUI
 #endif
 
-#if canImport(SwiftUI) && !os(macOS)
+#if canImport(SwiftUI)
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)

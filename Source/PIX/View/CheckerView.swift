@@ -16,21 +16,27 @@ import SwiftUI
 #endif
 
 
-#if canImport(SwiftUI) && !os(macOS)
-@available(iOS 13.0.0, *)
+#if canImport(SwiftUI)
+#if os(macOS)
 @available(OSX 10.15, *)
+public struct Checker: NSViewRepresentable {
+    public init() {}
+    public func makeNSView(context: Context) -> CheckerView {
+        return CheckerView()
+    }
+    public func updateNSView(_ pixView: CheckerView, context: Context) {}
+}
+#else
+@available(iOS 13.0.0, *)
 @available(tvOS 13.0.0, *)
 public struct Checker: UIViewRepresentable {
-           
     public init() {}
-    
     public func makeUIView(context: Context) -> CheckerView {
         return CheckerView()
     }
-    
     public func updateUIView(_ pixView: CheckerView, context: Context) {}
-    
 }
+#endif
 #endif
 
 public class CheckerView: _View {

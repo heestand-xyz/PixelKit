@@ -13,25 +13,33 @@ import SwiftUI
 #endif
 
 
-#if canImport(SwiftUI) && !os(macOS)
-@available(iOS 13.0.0, *)
+#if canImport(SwiftUI)
+#if os(macOS)
 @available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-public struct PIXRepView: UIViewRepresentable {
-        
+public struct PIXRepView: NSViewRepresentable {
     public let pix: PIX
-    
     public init(pix: PIX) {
         self.pix = pix
     }
-    
+    public func makeNSView(context: Context) -> PIXView {
+        return pix.view
+    }
+    public func updateNSView(_ pixView: PIXView, context: Context) {}
+}
+#else
+@available(iOS 13.0.0, *)
+@available(tvOS 13.0.0, *)
+public struct PIXRepView: _ViewRepresentable {
+    public let pix: PIX
+    public init(pix: PIX) {
+        self.pix = pix
+    }
     public func makeUIView(context: Context) -> PIXView {
         return pix.view
     }
-    
     public func updateUIView(_ pixView: PIXView, context: Context) {}
-    
 }
+#endif
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)

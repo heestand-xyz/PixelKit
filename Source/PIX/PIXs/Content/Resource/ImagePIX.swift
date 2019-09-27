@@ -15,7 +15,7 @@ import AppKit
 import SwiftUI
 #endif
 
-#if canImport(SwiftUI) && !os(macOS)
+#if canImport(SwiftUI)
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
@@ -25,11 +25,19 @@ public struct ImagePIXUI: View, PIXUI {
     public var body: some View {
         PIXRepView(pix: pix)
     }
+    #if os(iOS) || os(tvOS)
     public init(image: UIImage) {
         imagePix = ImagePIX()
         imagePix.image = image
         pix = imagePix
     }
+    #elseif os(macOS)
+    public init(image: NSImage) {
+        imagePix = ImagePIX()
+        imagePix.image = image
+        pix = imagePix
+    }
+    #endif
 }
 #endif
 
