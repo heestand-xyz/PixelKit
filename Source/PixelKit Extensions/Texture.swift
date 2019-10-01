@@ -160,28 +160,25 @@ extension PixelKit {
 //            throw TextureError.pixelBuffer(-3)
 //        }
 //        return inputTexture
-        // CVMetalTextureCacheCreateTextureFromImage
-        guard let texture = CVMetalTextureGetTexture(pixelBuffer) else {
-            throw TextureError.pixelBuffer(-1)
-        }
-        return texture
-//        var cgImage: CGImage?
-//        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
-//        guard let image = cgImage else {
-//            throw TextureError.pixelBuffer(-4)
+        
+//        guard let texture = CVMetalTextureGetTexture(pixelBuffer) else {
+//            throw TextureError.pixelBuffer(-1)
 //        }
-//        return try makeTexture(from: image, with: commandBuffer)
+//        return texture
+        
+        var cgImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+        guard let image = cgImage else {
+            throw TextureError.pixelBuffer(-4)
+        }
+        return try makeTexture(from: image, with: commandBuffer)
     }
 
     func makeTexture(from image: CGImage, with commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
-        #if !targetEnvironment(simulator)
         let textureLoader = MTKTextureLoader(device: metalDevice)
         let texture: MTLTexture = try textureLoader.newTexture(cgImage: image, options: nil)
         try mipmap(texture: texture, with: commandBuffer)
         return texture
-        #else
-        return try emptyTexture(size: CGSize(width: 1, height: 1))
-        #endif
     }
     
     func mipmap(texture: MTLTexture, with commandBuffer: MTLCommandBuffer) throws {
