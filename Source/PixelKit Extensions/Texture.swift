@@ -160,12 +160,17 @@ extension PixelKit {
 //            throw TextureError.pixelBuffer(-3)
 //        }
 //        return inputTexture
-        var cgImage: CGImage?
-        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
-        guard let image = cgImage else {
-            throw TextureError.pixelBuffer(-4)
+        // CVMetalTextureCacheCreateTextureFromImage
+        guard let texture = CVMetalTextureGetTexture(pixelBuffer) else {
+            throw TextureError.pixelBuffer(-1)
         }
-        return try makeTexture(from: image, with: commandBuffer)
+        return texture
+//        var cgImage: CGImage?
+//        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+//        guard let image = cgImage else {
+//            throw TextureError.pixelBuffer(-4)
+//        }
+//        return try makeTexture(from: image, with: commandBuffer)
     }
 
     func makeTexture(from image: CGImage, with commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
