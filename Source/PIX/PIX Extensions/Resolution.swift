@@ -23,8 +23,12 @@ extension PIX {
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 if let imagePix = pixResource as? ImagePIX {
-                    guard let size = imagePix.image?.size else { return nil }
-                    return Res.cgSize(size) * Res.scale
+                    if let res = imagePix.resizedRes {
+                        return res
+                    }
+                    guard let image = imagePix.image else { return nil }
+                    let x = Res.cgSize(image.size) * LiveFloat(image.scale)
+                    return x
                 } else {
                     #if !os(tvOS)
                     if let webPix = pixResource as? WebPIX {

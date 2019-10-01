@@ -57,6 +57,13 @@ public class ImagePIX: PIXResource {
     public var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
     
+    public var resizeToFitRes: Res? = nil
+    var resizedRes: Res? {
+        guard let res = resizeToFitRes else { return nil }
+        guard let image = image else { return nil }
+        return PIX.Res.cgSize(image.size).aspectRes(to: .fit, in: res)
+    }
+    
     // MARK: - Life Cycle
     
     public override init() {
@@ -82,9 +89,12 @@ public class ImagePIX: PIXResource {
     // MARK: Buffer
     
     func setNeedsBuffer() {
-        guard let image = image else {
+        guard var image = image else {
             pixelKit.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
+        }
+        if let res = resizedRes {
+            image = PixelKit.resize(image, to: res.size.cg)
         }
         if pixelKit.frame == 0 {
             pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
