@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Live
 import CoreGraphics
 
 extension PIX {
@@ -27,8 +28,11 @@ extension PIX {
                         return res
                     }
                     guard let image = imagePix.image else { return nil }
-                    let x = Res.cgSize(image.size) * LiveFloat(image.scale)
-                    return x
+                    #if !os(macOS)
+                    return Res.cgSize(image.size) * LiveFloat(image.scale)
+                    #else
+                    return Res.cgSize(image.size)
+                    #endif
                 } else {
                     #if !os(tvOS)
                     if let webPix = pixResource as? WebPIX {

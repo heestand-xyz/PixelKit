@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import Live
+
 public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleLevelsPIX" }

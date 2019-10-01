@@ -6,11 +6,12 @@
 //  Open Source - MIT License
 //
 
+import Live
 import CoreGraphics
 
 public extension PixelKit {
     
-    public struct Pixel {
+    struct Pixel {
         public let x: Int
         public let y: Int
         public let uv: CGVector

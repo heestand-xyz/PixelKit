@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import Live
+
 public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorLinePIX" }

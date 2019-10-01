@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import Live
+
 public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     
     override open var shader: String { return "contentGeneratorCirclePIX" }

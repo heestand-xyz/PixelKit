@@ -12,6 +12,7 @@
 //
 
 import Foundation
+import Live
 
 protocol PIXAutoParent {}
 protocol PIXAuto {}

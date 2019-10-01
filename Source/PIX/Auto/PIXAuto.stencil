@@ -1,4 +1,6 @@
 
+import Live
+
 {% for parentType in types.implementing.PIXAutoParent %}
 {% for inheritedType in parentType.inheritedTypes %}
 {% if inheritedType == "PIXAutoParent" %}

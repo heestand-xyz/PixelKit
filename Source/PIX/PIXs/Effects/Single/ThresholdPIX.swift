@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Live
 import CoreGraphics
 
 public class ThresholdPIX: PIXSingleEffect, PIXAuto {

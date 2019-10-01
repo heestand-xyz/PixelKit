@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Live
 import AVKit
 
 public class RecordPIX: PIXOutput {

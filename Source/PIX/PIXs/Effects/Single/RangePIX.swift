@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Live
 
 public class RangePIX: PIXSingleEffect, PIXAuto {
     

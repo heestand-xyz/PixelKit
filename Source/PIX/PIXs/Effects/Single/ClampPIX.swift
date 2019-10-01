@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import Live
+
 public class ClampPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleClampPIX" }

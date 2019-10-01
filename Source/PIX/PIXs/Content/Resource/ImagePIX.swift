@@ -57,11 +57,17 @@ public class ImagePIX: PIXResource {
     public var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
     
+    #if !os(macOS)
     public var resizeToFitRes: Res? = nil
+    #endif
     var resizedRes: Res? {
+        #if !os(macOS)
         guard let res = resizeToFitRes else { return nil }
         guard let image = image else { return nil }
         return PIX.Res.cgSize(image.size).aspectRes(to: .fit, in: res)
+        #else
+        return nil
+        #endif
     }
     
     // MARK: - Life Cycle
@@ -93,9 +99,11 @@ public class ImagePIX: PIXResource {
             pixelKit.log(pix: self, .debug, .resource, "Nil not supported yet.")
             return
         }
+        #if !os(macOS)
         if let res = resizedRes {
             image = PixelKit.resize(image, to: res.size.cg)
         }
+        #endif
         if pixelKit.frame == 0 {
             pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
             pixelKit.delay(frames: 1, done: {

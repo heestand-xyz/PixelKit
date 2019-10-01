@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import Live
+
 public class NoisePIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorNoisePIX" }

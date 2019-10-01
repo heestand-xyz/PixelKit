@@ -5,7 +5,8 @@
 //  Created by Hexagons on 2018-08-23.
 //  Open Source - MIT License
 //
-import CoreGraphics//x
+
+import Live
 
 public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     

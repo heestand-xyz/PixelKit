@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import Live
+
 public class TransformPIX: PIXSingleEffect, PIXAuto {
     
     override open var shader: String { return "effectSingleTransformPIX" }

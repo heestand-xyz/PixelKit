@@ -2,6 +2,8 @@
 // DO NOT EDIT
 
 
+import Live
+
 
 // MARK: - PIXGenerator
 

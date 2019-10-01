@@ -1,5 +1,6 @@
 #if canImport(SwiftUI)
 
+import Live
 import SwiftUI
 
 {% for parentType in types.implementing.PIXAutoParent %}
