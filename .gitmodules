@@ -1,0 +1,3 @@
+[submodule "Shaders/Shaders"]
+	path = Shaders/Shaders
+	url = https://github.com/hexagons/Shaders.git
