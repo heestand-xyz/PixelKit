@@ -42,6 +42,10 @@ open class PIX: Equatable {
                 vals.append(contentsOf: livePoint.uniformList)
             } else if let liveSize = liveValue as? LiveSize {
                 vals.append(contentsOf: liveSize.uniformList)
+            } else if let liveRect = liveValue as? LiveRect {
+                vals.append(contentsOf: liveRect.uniformList)
+            } else if let liveVec = liveValue as? LiveVec {
+                vals.append(contentsOf: liveVec.uniformList)
             }
         }
         vals.append(contentsOf: postUniforms)
