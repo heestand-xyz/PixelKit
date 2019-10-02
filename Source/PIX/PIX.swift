@@ -12,7 +12,7 @@ import LiveValues
 import Metal
 import simd
 
-open class PIX: Equatable {
+open class PIX: NODE {
     
     public var id = UUID()
     public var name: String?
