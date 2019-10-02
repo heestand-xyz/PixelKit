@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import Live
+import LiveValues
 import CoreGraphics
 import MetalKit
 #if !os(tvOS) || !targetEnvironment(simulator)

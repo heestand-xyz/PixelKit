@@ -11,7 +11,7 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
-import Live
+import LiveValues
 
 public extension PIX {
 

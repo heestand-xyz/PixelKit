@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import Live
+import LiveValues
 import Metal
 
 public class FreezePIX: PIXSingleEffect {

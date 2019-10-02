@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import Live
+import LiveValues
 import AVKit
 #if os(iOS) && !targetEnvironment(macCatalyst)
 typealias _Orientation = UIInterfaceOrientation

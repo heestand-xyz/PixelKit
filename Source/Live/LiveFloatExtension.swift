@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import Live
+import LiveValues
 
 extension LiveFloat {
     
@@ -21,7 +21,7 @@ extension LiveFloat {
                 return value
             }
             if !self.live.isFrozen {
-                value += 1.0 / CGFloat(PixelKit.main.finalFps ?? Live.main.fpsMax)
+                value += 1.0 / CGFloat(PixelKit.main.finalFps ?? PixelKit.main.fpsMax)
             }
             lastFrame = PixelKit.main.finalFrame
             return value

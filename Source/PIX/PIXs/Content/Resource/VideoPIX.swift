@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import Live
+import LiveValues
 #if os(iOS) || os(tvOS)
 import UIKit
 #else

@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import Live
+import LiveValues
 
 public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
     

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import Live
+import LiveValues
 import Foundation
 
 public class SepiaPIX: PIXSingleEffect, PIXAuto {

@@ -1,5 +1,5 @@
 
-import Live
+import LiveValues
 
 {% for parentType in types.implementing.PIXAutoParent %}
 {% for inheritedType in parentType.inheritedTypes %}

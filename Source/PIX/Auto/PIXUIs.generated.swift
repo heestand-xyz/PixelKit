@@ -3,7 +3,7 @@
 
 #if canImport(SwiftUI)
 
-import Live
+import LiveValues
 import SwiftUI
 
 
