@@ -308,7 +308,7 @@ open class PIX: Equatable {
     // MARK: - Out Path
 
     
-    struct OutPath {
+    public struct OutPath {
         var pixIn: PIX & PIXIn
         let inIndex: Int
 //        init(pixIn: PIX & PIXIn, inIndex: Int) {

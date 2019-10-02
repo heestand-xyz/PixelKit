@@ -9,11 +9,11 @@
 
 open class PIXEffect: PIX, PIXInIO, PIXOutIO {
     
-    var pixInList: [PIX & PIXOut] = []
+    public var pixInList: [PIX & PIXOut] = []
 //    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
-    var pixOutPathList: [PIX.OutPath] = []
-    var connectedIn: Bool { return !pixInList.isEmpty }
-    var connectedOut: Bool { return !pixOutPathList.isEmpty }
+    public var pixOutPathList: [PIX.OutPath] = []
+    public var connectedIn: Bool { return !pixInList.isEmpty }
+    public var connectedOut: Bool { return !pixOutPathList.isEmpty }
         
     override init() {
         super.init()

@@ -18,7 +18,7 @@ public struct ColorStep {
     }
 }
 
-public class GradientPIX: PIXGenerator, PIXAuto {
+open class GradientPIX: PIXGenerator, PIXAuto {
     
     override open var shader: String { return "contentGeneratorGradientPIX" }
     
@@ -57,7 +57,7 @@ public class GradientPIX: PIXGenerator, PIXAuto {
     override public var preUniforms: [CGFloat] {
         return [CGFloat(direction.index)]
     }
-    override public var postUniforms: [CGFloat] {
+    override open var postUniforms: [CGFloat] {
         return [CGFloat(extendRamp.index)]
     }
 

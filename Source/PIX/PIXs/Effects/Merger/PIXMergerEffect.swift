@@ -11,7 +11,7 @@ open class PIXMergerEffect: PIXEffect, PIXInMerger, PIXAutoParent {
     
     public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnectMerger(new: inPixA, old: oldValue, second: false) } }
     public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnectMerger(new: inPixB, old: oldValue, second: true) } }
-    override var connectedIn: Bool { return pixInList.count == 2 }
+    public override var connectedIn: Bool { return pixInList.count == 2 }
     
     public var placement: Placement = .aspectFit { didSet { setNeedsRender() } }
     

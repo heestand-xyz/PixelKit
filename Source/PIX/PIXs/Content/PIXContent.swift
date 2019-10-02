@@ -10,8 +10,8 @@
 open class PIXContent: PIX, PIXOutIO {
     
 //    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
-    var pixOutPathList: [PIX.OutPath] = []
-    var connectedOut: Bool { return !pixOutPathList.isEmpty }
+    public var pixOutPathList: [PIX.OutPath] = []
+    public var connectedOut: Bool { return !pixOutPathList.isEmpty }
     
     override public init() {
         super.init()

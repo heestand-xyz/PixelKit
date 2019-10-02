@@ -9,8 +9,8 @@
 
 open class PIXOutput: PIX, PIXInIO, PIXInSingle {
     
-    var pixInList: [PIX & PIXOut] = []
-    var connectedIn: Bool { return !pixInList.isEmpty }
+    public var pixInList: [PIX & PIXOut] = []
+    public var connectedIn: Bool { return !pixInList.isEmpty }
     
     public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
     

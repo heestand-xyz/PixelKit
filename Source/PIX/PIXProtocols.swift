@@ -27,11 +27,11 @@ public protocol PIXInMulti: PIXIn {
     var inPixs: [PIX & PIXOut] { get set }
 }
 
-protocol PIXInIO: PIXIn {
+public protocol PIXInIO: PIXIn {
     var pixInList: [PIX & PIXOut] { get set }
     var connectedIn: Bool { get }
 }
-protocol PIXOutIO: PIXOut {
+public protocol PIXOutIO: PIXOut {
 //    var pixOutPathList: PIX.WeakOutPaths { get set }
     var pixOutPathList: [PIX.OutPath] { get set }
     var connectedOut: Bool { get }
