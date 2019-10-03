@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class StreamInPIX: PIXResource {
     
-    override open var shader: String { return "contentResourceBGRPIX" }
+    override open var shaderName: String { return "contentResourceBGRPIX" }
     
     enum Connected {
         case disconnected
@@ -60,23 +60,23 @@ public class StreamInPIX: PIXResource {
     
     func setNeedsBuffer() {
         guard let image = image else {
-            pixelKit.log(pix: self, .debug, .resource, "Nil not supported yet.")
+            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
         if pixelKit.frame == 0 {
-            pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
+            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
             pixelKit.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let buffer = pixelKit.buffer(from: image) else {
-            pixelKit.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        pixelKit.log(pix: self, .info, .resource, "Image Loaded.")
-        applyRes { self.setNeedsRender() }
+        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        applyResolution { self.setNeedsRender() }
     }
     
 }

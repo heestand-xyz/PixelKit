@@ -10,7 +10,7 @@ import LiveValues
 
 public class ColorPIX: PIXGenerator, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorColorPIX" }
+    override open var shaderName: String { return "contentGeneratorColorPIX" }
     
     // MARK: - Property Helpers
     
@@ -20,7 +20,7 @@ public class ColorPIX: PIXGenerator, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "color"
     }

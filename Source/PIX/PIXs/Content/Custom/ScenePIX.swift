@@ -33,7 +33,7 @@ public class ScenePIX: PIXCustom {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         
         super.init(res: res)
         
@@ -47,7 +47,7 @@ public class ScenePIX: PIXCustom {
     
     public func render() {
         guard customDelegateRender else {
-            pixelKit.log(pix: self, .warning, nil, "customDelegateRender not enabled.")
+            pixelKit.logger.log(node: self, .warning, nil, "customDelegateRender not enabled.")
             return
         }
         self.setNeedsRender()
@@ -55,11 +55,11 @@ public class ScenePIX: PIXCustom {
     
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         guard let scene = scene else {
-            pixelKit.log(pix: self, .warning, nil, "Scene not found.")
+            pixelKit.logger.log(node: self, .warning, nil, "Scene not found.")
             return nil
         }
         guard let sceneView = sceneView else {
-            pixelKit.log(pix: self, .warning, nil, "Scene View not found.")
+            pixelKit.logger.log(node: self, .warning, nil, "Scene View not found.")
             return  nil
         }
         

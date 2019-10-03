@@ -10,7 +10,7 @@ import LiveValues
 
 public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorCirclePIX" }
+    override open var shaderName: String { return "contentGeneratorCirclePIX" }
     
     // MARK: - Public Properties
     
@@ -27,7 +27,7 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "circle"
     }

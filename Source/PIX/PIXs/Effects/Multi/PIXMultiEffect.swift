@@ -7,9 +7,9 @@
 //
 
 
-open class PIXMultiEffect: PIXEffect, PIXInMulti, PIXAutoParent {
+open class PIXMultiEffect: PIXEffect, NODEInMulti, PIXAutoParent {
     
-    public var inPixs: [PIX & PIXOut] = [] { didSet { setNeedsConnectMulti(new: inPixs, old: oldValue) } }
+    public var inPixs: [PIX & NODEOut] = [] { didSet { setNeedsConnectMulti(new: inPixs, old: oldValue) } }
     
     // MARK: - Life Cycle
     

@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleThresholdPIX" }
+    override open var shaderName: String { return "effectSingleThresholdPIX" }
     
     // MARK: - Public Properties
     
@@ -50,12 +50,12 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _threshold(_ threshold: LiveFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.name = ":threshold:"
-        thresholdPix.inPix = self as? PIX & PIXOut
+        thresholdPix.inPix = self as? PIX & NODEOut
         thresholdPix.threshold = threshold
 //        thresholdPix.smooth = true
         return thresholdPix
@@ -64,11 +64,11 @@ public extension PIXOut {
     func _mask(low: LiveFloat, high: LiveFloat) -> BlendPIX {
         let thresholdLowPix = ThresholdPIX()
         thresholdLowPix.name = "mask:threshold:low"
-        thresholdLowPix.inPix = self as? PIX & PIXOut
+        thresholdLowPix.inPix = self as? PIX & NODEOut
         thresholdLowPix.threshold = low
         let thresholdHighPix = ThresholdPIX()
         thresholdHighPix.name = "mask:threshold:high"
-        thresholdHighPix.inPix = self as? PIX & PIXOut
+        thresholdHighPix.inPix = self as? PIX & NODEOut
         thresholdHighPix.threshold = high
         return thresholdLowPix - thresholdHighPix
     }

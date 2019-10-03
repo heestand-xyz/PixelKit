@@ -10,13 +10,13 @@ import CoreGraphics
 
 public class CropPIX: PIXSingleEffect {
     
-    override open var shader: String { return "effectSingleCropPIX" }
+    override open var shaderName: String { return "effectSingleCropPIX" }
     
     // MARK: - Public Properties
     
     var resScale: CGSize { return cropFrame.size }
     
-    public var cropFrame: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) { didSet { applyRes { self.setNeedsRender() } } }
+    public var cropFrame: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) { didSet { applyResolution { self.setNeedsRender() } } }
     public var cropLeft: CGFloat {
         get { return cropFrame.minX }
         set { cropFrame = CGRect(x: newValue, y: cropFrame.minY, width: cropFrame.width - (newValue - cropFrame.minX), height: cropFrame.height) }
@@ -49,12 +49,12 @@ public class CropPIX: PIXSingleEffect {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _crop(_ cropFrame: CGRect) -> CropPIX {
         let cropPix = CropPIX()
         cropPix.name = ":crop:"
-        cropPix.inPix = self as? PIX & PIXOut
+        cropPix.inPix = self as? PIX & NODEOut
         cropPix.cropFrame = cropFrame
         return cropPix
     }

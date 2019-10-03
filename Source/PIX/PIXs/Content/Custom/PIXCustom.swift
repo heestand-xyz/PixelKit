@@ -11,22 +11,22 @@ import Metal
 
 open class PIXCustom: PIXContent, PIXRes, PixelCustomRenderDelegate {
     
-    override open var shader: String { return "contentResourcePIX" }
+    override open var shaderName: String { return "contentResourcePIX" }
     
     // MARK: - Public Properties
     
-    public var res: Res { didSet { applyRes { self.setNeedsRender() } } }
+    public var res: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
     public var bgColor: LiveColor = .black
     
     override open var liveValues: [LiveValue] { return [bgColor] }
     
-    required public init(res: Res = .auto) {
+    required public init(res: Resolution = .auto) {
         self.res = res
         super.init()
         customRenderDelegate = self
         customRenderActive = true
-        applyRes { self.setNeedsRender() }
+        applyResolution { self.setNeedsRender() }
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { return nil }

@@ -15,7 +15,7 @@ import MetalPerformanceShaders
 
 public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
-    override open var shader: String { return "effectSingleBlurPIX" }
+    override open var shaderName: String { return "effectSingleBlurPIX" }
     
     // MARK: - Public Properties
     
@@ -53,8 +53,8 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
     var relRadius: CGFloat {
         let radius = self.radius.uniform
-        let relRes: PIX.Res = ._4K
-        let res: PIX.Res = resolution
+        let relRes: Resolution = ._4K
+        let res: Resolution = resolution
         let relHeight = res.height.cg / relRes.height.cg
         let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
@@ -95,7 +95,7 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
             let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
             descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
             guard let blurTexture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
-                pixelKit.log(pix: self, .error, .generator, "Guassian Blur: Make texture faild.")
+                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
             let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.metalDevice, sigma: Float(relRadius))
@@ -110,12 +110,12 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _blur(_ radius: LiveFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
-        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.inPix = self as? PIX & NODEOut
         blurPix.radius = radius
         return blurPix
     }
@@ -125,13 +125,13 @@ public extension PIXOut {
         blurPix.name = ":zoom-blur:"
         blurPix.style = .zoom
         blurPix.quality = .epic
-        blurPix.inPix = self as? PIX & PIXOut
+        blurPix.inPix = self as? PIX & NODEOut
         blurPix.radius = radius
         return blurPix
     }
     
     func _bloom(radius: LiveFloat, amount: LiveFloat) -> CrossPIX {
-        let pix = self as? PIX & PIXOut
+        let pix = self as? PIX & NODEOut
         let bloomPix = (pix!._blur(radius) + pix!) / 2
         return cross(pix!, bloomPix, at: amount)
     }

@@ -11,7 +11,7 @@ import Foundation
 
 public class FlarePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleFlarePIX" }
+    override open var shaderName: String { return "effectSingleFlarePIX" }
     
     override var shaderNeedsAspect: Bool { return true }
     
@@ -41,12 +41,12 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _flare() -> FlarePIX {
         let flarePix = FlarePIX()
         flarePix.name = ":flare:"
-        flarePix.inPix = self as? PIX & PIXOut
+        flarePix.inPix = self as? PIX & NODEOut
         return flarePix
     }
     

@@ -59,16 +59,16 @@ extension LivePoint {
     
     // MARK: - Corners
 
-    public static func topLeft(res: PIX.Res) -> LivePoint {
+    public static func topLeft(res: Resolution) -> LivePoint {
         return LivePoint(x: -res.aspect / 2.0, y: 0.5)
     }
-    public static func topRight(res: PIX.Res) -> LivePoint {
+    public static func topRight(res: Resolution) -> LivePoint {
         return LivePoint(x: res.aspect / 2.0, y: 0.5)
     }
-    public static func bottomLeft(res: PIX.Res) -> LivePoint {
+    public static func bottomLeft(res: Resolution) -> LivePoint {
         return LivePoint(x: -res.aspect / 2.0, y: -0.5)
     }
-    public static func bottomRight(res: PIX.Res) -> LivePoint {
+    public static func bottomRight(res: Resolution) -> LivePoint {
         return LivePoint(x: res.aspect / 2.0, y: -0.5)
     }
     

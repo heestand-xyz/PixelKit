@@ -10,7 +10,7 @@ import LiveValues
 
 public class RangePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleRangePIX" }
+    override open var shaderName: String { return "effectSingleRangePIX" }
     
     // MARK: - Public Properties
     
@@ -37,12 +37,12 @@ public class RangePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _range(inLow: LiveFloat = 0.0, inHigh: LiveFloat = 1.0, outLow: LiveFloat = 0.0, outHigh: LiveFloat = 1.0) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
-        rangePix.inPix = self as? PIX & PIXOut
+        rangePix.inPix = self as? PIX & NODEOut
         rangePix.inLow = inLow
         rangePix.inHigh = inHigh
         rangePix.outLow = outLow
@@ -53,7 +53,7 @@ public extension PIXOut {
     func _range(inLow: LiveColor = .clear, inHigh: LiveColor = .white, outLow: LiveColor = .clear, outHigh: LiveColor = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
-        rangePix.inPix = self as? PIX & PIXOut
+        rangePix.inPix = self as? PIX & NODEOut
         rangePix.inLowColor = inLow
         rangePix.inHighColor = inHigh
         rangePix.outLowColor = outLow

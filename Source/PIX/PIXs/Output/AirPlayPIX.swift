@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class AirPlayPIX: PIXOutput {
+public class AirPlayPIX: NODEOutput {
     
     // MARK: - Private Properties
     
@@ -50,7 +50,7 @@ public class AirPlayPIX: PIXOutput {
         } else {
             message = "Not enabled (mirroring)."
         }
-        pixelKit.log(pix: self, .info, nil, slug + " " + message)
+        pixelKit.logger.log(node: self, .info, nil, slug + " " + message)
     }
     
     func addAirPlayView(bounds: CGRect) {

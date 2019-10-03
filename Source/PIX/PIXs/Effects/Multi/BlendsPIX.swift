@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class BlendsPIX: PIXMultiEffect, PIXAuto {
     
-    override open var shader: String { return "effectMultiBlendsPIX" }
+    override open var shaderName: String { return "effectMultiBlendsPIX" }
     
     // MARK: - Public Properties
     
@@ -38,7 +38,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
 
 // MARK: - Loop
 
-public func loop(_ count: Int, blendMode: PIX.BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & PIXOut)) -> BlendsPIX {
+public func loop(_ count: Int, blendMode: PIX.BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & NODEOut)) -> BlendsPIX {
     let blendsPix = BlendsPIX()
     blendsPix.name = "loop:blends"
     blendsPix.blendMode = blendMode

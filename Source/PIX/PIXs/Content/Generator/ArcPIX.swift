@@ -10,7 +10,7 @@ import LiveValues
 
 public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorArcPIX" }
+    override open var shaderName: String { return "contentGeneratorArcPIX" }
     
     // MARK: - Public Properties
     
@@ -30,7 +30,7 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "arc"
     }

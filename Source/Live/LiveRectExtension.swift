@@ -10,7 +10,7 @@ import LiveValues
 
 extension LiveRect {
     
-    public static func fill(res: PIX.Res) -> LiveRect {
+    public static func fill(res: Resolution) -> LiveRect {
         return LiveRect.fill(aspect: res.aspect)
     }
     

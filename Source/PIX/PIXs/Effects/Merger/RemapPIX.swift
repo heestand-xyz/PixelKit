@@ -8,7 +8,7 @@
 
 public class RemapPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerRemapPIX" }
+    override open var shaderName: String { return "effectMergerRemapPIX" }
     
     // MARK: - Life Cycle
     
@@ -19,12 +19,12 @@ public class RemapPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _remap(with pix: PIX & PIXOut) -> RemapPIX {
+    func _remap(with pix: PIX & NODEOut) -> RemapPIX {
         let remapPix = RemapPIX()
         remapPix.name = ":remap:"
-        remapPix.inPixA = self as? PIX & PIXOut
+        remapPix.inPixA = self as? PIX & NODEOut
         remapPix.inPixB = pix
         return remapPix
     }

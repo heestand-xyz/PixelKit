@@ -15,7 +15,7 @@ import WebKit
 
 public class WebPIX: PIXResource, PIXRes {
     
-    override open var shader: String { return "contentResourceBGRPIX" }
+    override open var shaderName: String { return "contentResourceBGRPIX" }
     
     // MARK: - Private Properties
     
@@ -23,14 +23,14 @@ public class WebPIX: PIXResource, PIXRes {
     
     // MARK: - Public Properties
     
-    public var res: Res { didSet { /*setFrame();*/ applyRes { self.setNeedsBuffer() } } }
+    public var res: Resolution { didSet { /*setFrame();*/ applyResolution { self.setNeedsBuffer() } } }
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
     public var webView: WKWebView
     
     // MARK: - Life Cycle
     
-    public required init(res: PIX.Res = .auto) {
+    public required init(res: Resolution = .auto) {
         
         self.res = res
         
@@ -44,7 +44,7 @@ public class WebPIX: PIXResource, PIXRes {
         
         webView.navigationDelegate = helper
         helper.refreshCallback = {
-            self.pixelKit.log(pix: self, .info, .resource, "Web refreshed!")
+            self.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
             self.setNeedsBuffer()
         }
         
@@ -52,7 +52,7 @@ public class WebPIX: PIXResource, PIXRes {
         
 //        setFrame()
         
-        applyRes { self.setNeedsRender() }
+        applyResolution { self.setNeedsRender() }
         
     }
     
@@ -63,7 +63,7 @@ public class WebPIX: PIXResource, PIXRes {
     // MARK: - Load
     
     public func refresh() {
-        pixelKit.log(pix: self, .info, .resource, "Web refresh: \(url)")
+        pixelKit.logger.log(node: self, .info, .resource, "Web refresh: \(url)")
         let request = URLRequest(url: url)
         webView.load(request)
     }
@@ -81,19 +81,19 @@ public class WebPIX: PIXResource, PIXRes {
         config.rect = CGRect(origin: .zero, size: res.size.cg)
         webView.takeSnapshot(with: config) { image, error in
             guard error == nil else {
-                self.pixelKit.log(pix: self, .error, .resource, "Web snapshot failed.", e: error)
+                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
                 return
             }
             guard let image = image else {
-                self.pixelKit.log(pix: self, .error, .resource, "Web snapshot image not avalible.")
+                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot image not avalible.")
                 return
             }
             guard let buffer = self.pixelKit.buffer(from: image) else {
-                self.pixelKit.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+                self.pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
                 return
             }
             self.pixelBuffer = buffer
-            self.pixelKit.log(pix: self, .info, .resource, "Image Loaded.")
+            self.pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
             self.setNeedsRender()
         }
     }

@@ -60,7 +60,7 @@ public struct CameraPIXUI: View, PIXUI {
 
 public class CameraPIX: PIXResource {
         
-    override open var shader: String { return "contentResourceCameraPIX" }
+    override open var shaderName: String { return "contentResourceCameraPIX" }
     
     public var cameraDelegate: CameraPIXDelegate?
     
@@ -97,7 +97,7 @@ public class CameraPIX: PIXResource {
             #endif
             }
         }
-        public var res: Res {
+        public var res: Resolution {
             switch self {
             case .vga: return .custom(w: 640, h: 480)
             case .sd: return .custom(w: 960, h: 540)
@@ -297,7 +297,7 @@ public class CameraPIX: PIXResource {
                 if accessGranted {
                     gotAccess()
                 } else {
-                    self.pixelKit.log(pix: self, .warning, .resource, "Camera Access Not Granted.")
+                    self.pixelKit.logger.log(node: self, .warning, .resource, "Camera Access Not Granted.")
                 }
                 self.access = accessGranted
             }
@@ -330,7 +330,7 @@ public class CameraPIX: PIXResource {
         let depth = false
         #endif
         helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, depth: depth, useExternalCamera: extCam, setup: { _, orientation in
-            self.pixelKit.log(pix: self, .info, .resource, "Camera setup.")
+            self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
             #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -338,10 +338,10 @@ public class CameraPIX: PIXResource {
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
         }, captured: { pixelBuffer in
-            self.pixelKit.log(pix: self, .info, .resource, "Camera frame captured.", loop: true)
+            self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution {
-                self.applyRes { self.setNeedsRender() }
+                self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
             }
@@ -355,13 +355,13 @@ public class CameraPIX: PIXResource {
     
     func camAttatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixelKit.log(pix: self, .info, .resource, "Camera Attatched.")
+        self.pixelKit.logger.log(node: self, .info, .resource, "Camera Attatched.")
         setupCamera()
     }
     
     func camDeattatched(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixelKit.log(pix: self, .info, .resource, "Camera Deattatched.")
+        self.pixelKit.logger.log(node: self, .info, .resource, "Camera Deattatched.")
         setupCamera()
     }
     

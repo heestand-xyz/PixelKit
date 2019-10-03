@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class ReorderPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerReorderPIX" }
+    override open var shaderName: String { return "effectMergerReorderPIX" }
     
     // MARK: - Public Properties
     
@@ -77,12 +77,12 @@ public class ReorderPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _reorder(with pix: PIX & PIXOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
+    func _reorder(with pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
-        reorderPix.inPixA = self as? PIX & PIXOut
+        reorderPix.inPixA = self as? PIX & NODEOut
         reorderPix.inPixB = pix
         switch rawChannel {
         case .red:
@@ -104,8 +104,8 @@ public extension PIXOut {
     func _replace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
-        reorderPix.inPixA = self as? PIX & PIXOut
-        reorderPix.inPixB = self as? PIX & PIXOut
+        reorderPix.inPixA = self as? PIX & NODEOut
+        reorderPix.inPixB = self as? PIX & NODEOut
         switch rawChannel {
         case .red:
             reorderPix.redChannel = channel
@@ -119,10 +119,10 @@ public extension PIXOut {
         return reorderPix
     }
     
-    func _RGtoBA(with pix: PIX & PIXOut) -> ReorderPIX {
+    func _RGtoBA(with pix: PIX & NODEOut) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = "BAtoRG:reorder"
-        reorderPix.inPixA = self as? PIX & PIXOut
+        reorderPix.inPixA = self as? PIX & NODEOut
         reorderPix.inPixB = pix
         reorderPix.blueInput = .b
         reorderPix.alphaInput = .b

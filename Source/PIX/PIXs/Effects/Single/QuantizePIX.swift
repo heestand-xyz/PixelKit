@@ -10,7 +10,7 @@ import LiveValues
 
 public class QuantizePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleQuantizePIX" }
+    override open var shaderName: String { return "effectSingleQuantizePIX" }
     
     // MARK: - Public Properties
     
@@ -31,12 +31,12 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _quantize(_ fraction: LiveFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
-        quantizePix.inPix = self as? PIX & PIXOut
+        quantizePix.inPix = self as? PIX & NODEOut
         quantizePix.fraction = fraction
         return quantizePix
     }

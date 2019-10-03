@@ -16,18 +16,18 @@ import SwiftSVG
 public class VectorPIX: PIXResource {
     
     #if os(iOS) || os(tvOS)
-    override open var shader: String { return "contentResourceFlipPIX" }
+    override open var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shader: String { return "contentResourceBGRPIX" }
+    override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    public var res: Res { didSet { setNeedsBuffer(); applyRes { self.setNeedsRender() } } }
+    public var res: Resolution { didSet { setNeedsBuffer(); applyResolution { self.setNeedsRender() } } }
     
     var svgLayer: CALayer? { didSet { setNeedsBuffer() } }
     
     // MARK: - Life Cycle
     
-    public init(res: Res) {
+    public init(res: Resolution) {
         self.res = res
         super.init()
         name = "vector"
@@ -64,23 +64,23 @@ public class VectorPIX: PIXResource {
         }
         svgLayer.render(in: context)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            pixelKit.log(pix: self, .error, .resource, "Vector image fail.")
+            pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
             return
         }
         if pixelKit.frame == 0 {
-            pixelKit.log(pix: self, .debug, .resource, "Vector one frame delay.")
+            pixelKit.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
             pixelKit.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let buffer = pixelKit.buffer(from: image) else {
-            pixelKit.log(pix: self, .error, .resource, "Vector pixel Buffer creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        pixelKit.log(pix: self, .info, .resource, "Vector image loaded.")
-        applyRes { self.setNeedsRender() }
+        pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
+        applyResolution { self.setNeedsRender() }
     }
     
 }

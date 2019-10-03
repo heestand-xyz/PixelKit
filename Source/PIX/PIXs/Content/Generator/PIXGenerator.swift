@@ -11,9 +11,9 @@ import CoreGraphics
 
 open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
     
-    var _res: Res
-    public var res: Res {
-        set { _res = newValue; applyRes { self.setNeedsRender() } }
+    var _res: Resolution
+    public var res: Resolution {
+        set { _res = newValue; applyResolution { self.setNeedsRender() } }
         get { return _res * PIXGenerator.globalResMultiplier }
     }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
@@ -25,10 +25,10 @@ open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
     public var bgColor: LiveColor = .black
     public var color: LiveColor = .white
 
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         _res = res
         super.init()
-        applyRes { self.setNeedsRender() }
+        applyResolution { self.setNeedsRender() }
     }
     
 //    required convenience public init(from decoder: Decoder) throws {

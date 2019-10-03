@@ -11,7 +11,7 @@ import Metal
 
 public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     // MARK: - Private Properties
     
@@ -57,12 +57,12 @@ public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _delay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
         delayPix.name = ":delay:"
-        delayPix.inPix = self as? PIX & PIXOut
+        delayPix.inPix = self as? PIX & NODEOut
         delayPix.delayFrames = frames
         return delayPix
     }

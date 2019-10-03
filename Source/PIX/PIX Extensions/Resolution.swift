@@ -6,19 +6,20 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import LiveValues
 import CoreGraphics
 
 extension PIX {
     
-    public var resolution: Res {
+    public var renderResolution: Resolution {
         realResolution ?? .auto
     }
     
-    public var realResolution: Res? {
+    public var realResolution: Resolution? {
         guard !bypass else {
-            if let pixIn = self as? PIXInIO {
-                return pixIn.pixInList.first?.resolution
+            if let pixIn = self as? NODEInIO {
+                return pixIn.nodeInList.first?.resolution
             } else { return nil }
         }
         if let pixContent = self as? PIXContent {
@@ -54,20 +55,20 @@ extension PIX {
                 return pixCustom.res
             } else { return nil }
         } else if let resPix = self as? ResPIX {
-            let resRes: Res
+            let resRes: Resolution
             if resPix.inheritInRes {
-                guard let inResolution = resPix.pixInList.first?.resolution else { return nil }
+                guard let inResolution = resPix.nodeInList.first?.resolution else { return nil }
                 resRes = inResolution
             } else {
                 resRes = resPix.res
             }
             return resRes * resPix.resMultiplier
-        } else if let pixIn = self as? PIX & PIXInIO {
+        } else if let pixIn = self as? PIX & NODEInIO {
             if let remapPix = pixIn as? RemapPIX {
                 guard let inResB = remapPix.inPixB?.resolution else { return nil }
                 return inResB
             }
-            guard let inRes = pixIn.pixInList.first?.resolution else { return nil }
+            guard let inRes = pixIn.nodeInList.first?.resolution else { return nil }
             if let cropPix = self as? CropPIX {
                 return .size(inRes.size * LiveSize(cropPix.resScale))
             } else if let convertPix = self as? ConvertPIX {
@@ -79,7 +80,7 @@ extension PIX {
         } else { return nil }
     }
     
-    public func nextRealResolution(callback: @escaping (Res) -> ()) {
+    public func nextRealResolution(callback: @escaping (Resolution) -> ()) {
         if let res = realResolution {
             callback(res)
             return
@@ -89,37 +90,37 @@ extension PIX {
         })
     }
     
-    public func applyRes(applied: @escaping () -> ()) {
+    public func applyResolution(applied: @escaping () -> ()) {
         let res = resolution
 //        guard let res = resolution else {
 //            if pixelKit.frame == 0 {
-//                pixelKit.log(pix: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
+//                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
 //                pixelKit.delay(frames: 1, done: {
-//                    self.applyRes(applied: applied)
+//                    self.applyResolution(applied: applied)
 //                })
 //                return
 //            }
-//            pixelKit.log(pix: self, .error, .res, "Unknown.")
+//            pixelKit.logger.log(node: self, .error, .res, "Unknown.")
 //            return
 //        }
         guard view.resSize == nil || view.resSize! != res.size.cg else {
             applied()
             return
         }
-        view.setRes(res)
-        pixelKit.log(pix: self, .info, .res, "Applied: \(res) aka \(res.w)x\(res.h)")
+        view.setResolution(res)
+        pixelKit.logger.log(node: self, .info, .res, "Applied: \(res) aka \(res.w)x\(res.h)")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..
-        if let pixOut = self as? PIXOutIO {
+        if let pixOut = self as? NODEOutIO {
             for pathList in pixOut.pixOutPathList {
-                pathList.pixIn.applyRes(applied: {})
+                pathList.pixIn.applyResolution(applied: {})
             }
         }
     }
     
     func removeRes() {
-        view.setRes(nil)
+        view.setResolution(nil)
     }
     
 }

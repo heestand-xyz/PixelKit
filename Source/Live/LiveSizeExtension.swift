@@ -10,7 +10,7 @@ import LiveValues
 
 extension LiveSize {
     
-    public static func fill(res: PIX.Res) -> LiveSize {
+    public static func fill(res: Resolution) -> LiveSize {
         return LiveSize.fill(aspect: res.aspect)
     }
     

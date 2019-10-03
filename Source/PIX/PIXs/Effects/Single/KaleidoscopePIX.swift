@@ -10,7 +10,7 @@ import LiveValues
 
 public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleKaleidoscopePIX" }
+    override open var shaderName: String { return "effectSingleKaleidoscopePIX" }
     
     // MARK: - Public Properties
     
@@ -33,12 +33,12 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _kaleidoscope(divisions: LiveInt = 12, mirror: LiveBool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
-        kaleidoscopePix.inPix = self as? PIX & PIXOut
+        kaleidoscopePix.inPix = self as? PIX & NODEOut
         kaleidoscopePix.divisions = divisions
         kaleidoscopePix.mirror = mirror
         return kaleidoscopePix

@@ -20,7 +20,7 @@ public struct ColorStep {
 
 open class GradientPIX: PIXGenerator, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorGradientPIX" }
+    override open var shaderName: String { return "contentGeneratorGradientPIX" }
     
     // MARK: - Public Types
     
@@ -85,7 +85,7 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "gradient"
     }
@@ -98,14 +98,14 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     // FIXME: Create custom shader
     func _gradientMap(from firstColor: LiveColor, to lastColor: LiveColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
-        lookupPix.inPixA = self as? PIX & PIXOut
-        let res: PIX.Res = PixelKit.main.bits == ._8 ? ._256 : ._8192
+        lookupPix.inPixA = self as? PIX & NODEOut
+        let res: Resolution = PixelKit.main.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
         gradientPix.colorSteps = [ColorStep(0.0, firstColor), ColorStep(1.0, lastColor)]

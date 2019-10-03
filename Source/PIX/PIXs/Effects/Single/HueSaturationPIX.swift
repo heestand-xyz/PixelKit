@@ -10,7 +10,7 @@ import LiveValues
 
 public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleHueSaturationPIX" }
+    override open var shaderName: String { return "effectSingleHueSaturationPIX" }
     
     // MARK: - Public Properties
 
@@ -32,12 +32,12 @@ public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _hue(_ hue: LiveFloat) -> HueSaturationPIX {
         let hueSatPix = HueSaturationPIX()
         hueSatPix.name = "hue:hueSaturation"
-        hueSatPix.inPix = self as? PIX & PIXOut
+        hueSatPix.inPix = self as? PIX & NODEOut
         hueSatPix.hue = hue
         return hueSatPix
     }
@@ -45,7 +45,7 @@ public extension PIXOut {
     func _saturation(_ saturation: LiveFloat) -> HueSaturationPIX {
         let hueSatPix = HueSaturationPIX()
         hueSatPix.name = "saturation:hueSaturation"
-        hueSatPix.inPix = self as? PIX & PIXOut
+        hueSatPix.inPix = self as? PIX & NODEOut
         hueSatPix.saturation = saturation
         return hueSatPix
     }
@@ -53,7 +53,7 @@ public extension PIXOut {
     func _monochrome() -> HueSaturationPIX {
         let hueSatPix = HueSaturationPIX()
         hueSatPix.name = "monochrome:hueSaturation"
-        hueSatPix.inPix = self as? PIX & PIXOut
+        hueSatPix.inPix = self as? PIX & NODEOut
         hueSatPix.saturation = 0.0
         return hueSatPix
     }

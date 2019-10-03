@@ -44,7 +44,7 @@ public class TextPIX: PIXSprite {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         
         label = SKLabelNode()
         
@@ -93,14 +93,14 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsFont() {
-        let size = (res / PIX.Res.scale).size.cg
+        let size = (res / Resolution.scale).size.cg
         label.fontName = font.fontName
         let x = font.pointSize * size.height
         label.fontSize = x
     }
     
     func setNeedsPosition() {
-        let size = (res / PIX.Res.scale).size.cg
+        let size = (res / Resolution.scale).size.cg
         let pos = CGPoint(x: position.x * size.height,
                           y: position.y * size.height)
         label.position = CGPoint(x: size.width / 2 + pos.x,

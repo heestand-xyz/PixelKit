@@ -80,7 +80,7 @@ public extension PIX {
     }
     
     struct PixelPack {
-        public let res: Res
+        public let res: Resolution
         public let raw: [[PixelKit.Pixel]]
         public func pixel(x: Int, y: Int) -> PixelKit.Pixel {
             return raw[y][x]

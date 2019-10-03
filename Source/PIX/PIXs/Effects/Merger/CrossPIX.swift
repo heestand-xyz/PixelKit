@@ -10,7 +10,7 @@ import LiveValues
 
 public class CrossPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerCrossPIX" }
+    override open var shaderName: String { return "effectMergerCrossPIX" }
     
     // MARK: - Public Properties
     
@@ -31,12 +31,12 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _cross(with pix: PIX & PIXOut, fraction: LiveFloat) -> CrossPIX {
+    func _cross(with pix: PIX & NODEOut, fraction: LiveFloat) -> CrossPIX {
         let crossPix = CrossPIX()
         crossPix.name = ":cross:"
-        crossPix.inPixA = self as? PIX & PIXOut
+        crossPix.inPixA = self as? PIX & NODEOut
         crossPix.inPixB = pix
         crossPix.fraction = fraction
         return crossPix
@@ -44,7 +44,7 @@ public extension PIXOut {
     
 }
 
-public func cross(_ pixA: PIX & PIXOut, _ pixB: PIX & PIXOut, at fraction: LiveFloat) -> CrossPIX {
+public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: LiveFloat) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
     crossPix.inPixA = pixA

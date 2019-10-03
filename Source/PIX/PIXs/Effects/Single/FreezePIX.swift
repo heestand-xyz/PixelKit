@@ -11,7 +11,7 @@ import Metal
 
 public class FreezePIX: PIXSingleEffect {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
     
@@ -40,12 +40,12 @@ public class FreezePIX: PIXSingleEffect {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _freeze(_ active: LiveBool) -> FreezePIX {
         let freezePix = FreezePIX()
         freezePix.name = ":freeze:"
-        freezePix.inPix = self as? PIX & PIXOut
+        freezePix.inPix = self as? PIX & NODEOut
         freezePix.freeze = active
         return freezePix
     }

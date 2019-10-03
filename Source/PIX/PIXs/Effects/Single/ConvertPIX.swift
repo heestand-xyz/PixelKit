@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class ConvertPIX: PIXSingleEffect {
     
-    override open var shader: String { return "effectSingleConvertPIX" }
+    override open var shaderName: String { return "effectSingleConvertPIX" }
     
     var resScale: CGSize {
         switch mode {

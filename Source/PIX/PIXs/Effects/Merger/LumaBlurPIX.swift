@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerLumaBlurPIX" }
+    override open var shaderName: String { return "effectMergerLumaBlurPIX" }
     
     // MARK: - Public Properties
     
@@ -56,19 +56,19 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _lumaBlur(with pix: PIX & PIXOut, radius: LiveFloat) -> LumaBlurPIX {
+    func _lumaBlur(with pix: PIX & NODEOut, radius: LiveFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
-        lumaBlurPix.inPixA = self as? PIX & PIXOut
+        lumaBlurPix.inPixA = self as? PIX & NODEOut
         lumaBlurPix.inPixB = pix
         lumaBlurPix.radius = radius
         return lumaBlurPix
     }
     
     func _tiltShift(radius: LiveFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
-        let pix = self as! PIX & PIXOut
+        let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
         gradientPix.name = "tiltShift:gradient"
         gradientPix.direction = .vertical

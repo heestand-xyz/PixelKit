@@ -10,7 +10,7 @@ import LiveValues
 
 public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleTwirlPIX" }
+    override open var shaderName: String { return "effectSingleTwirlPIX" }
     
     // MARK: - Public Properties
     
@@ -32,12 +32,12 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _twirl(_ strength: LiveFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
         twirlPix.name = ":twirl:"
-        twirlPix.inPix = self as? PIX & PIXOut
+        twirlPix.inPix = self as? PIX & NODEOut
         twirlPix.strength = strength
         return twirlPix
     }

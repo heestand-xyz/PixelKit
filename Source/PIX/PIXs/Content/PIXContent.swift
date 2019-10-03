@@ -7,7 +7,7 @@
 //
 
 
-open class PIXContent: PIX, PIXOutIO {
+open class PIXContent: PIX, NODEOutIO {
     
 //    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
     public var pixOutPathList: [PIX.OutPath] = []

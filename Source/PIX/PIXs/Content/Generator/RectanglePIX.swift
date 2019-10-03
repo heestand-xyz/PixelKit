@@ -10,7 +10,7 @@ import LiveValues
 
 public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorRectanglePIX" }
+    override open var shaderName: String { return "contentGeneratorRectanglePIX" }
     
     // MARK: - Public Properties
     
@@ -25,7 +25,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
         return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "rectangle"
     }

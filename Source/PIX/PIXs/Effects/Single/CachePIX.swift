@@ -16,7 +16,7 @@ import AppKit
 
 public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
     
@@ -66,7 +66,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         }
         guard let cacheId = self.cacheId else { return nil }
         guard let texture = getTexture(for: cacheId) else {
-            pixelKit.log(pix: self, .warning, nil, "Custom Render - Texture not found.")
+            pixelKit.logger.log(node: self, .warning, nil, "Custom Render - Texture not found.")
             return nil
         }
         return texture
@@ -83,12 +83,12 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     func saveToDisk(texture: MTLTexture, with id: UUID) {
         let url = mtlTextureUrl(for: id)
         guard let image = pixelKit.image(from: texture) else {
-            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - Texture to Image conversion failed.")
+            pixelKit.logger.log(node: self, .error, nil, "Save to Disk Failed - Texture to Image conversion failed.")
             return
         }
         #if os(iOS) || os(tvOS)
         guard let data = image.pngData() else {
-            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - PNG Data not found.")
+            pixelKit.logger.log(node: self, .error, nil, "Save to Disk Failed - PNG Data not found.")
             return
         }
         #elseif os(macOS)
@@ -100,7 +100,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         do {
             try data.write(to: url)
         } catch {
-            pixelKit.log(pix: self, .error, nil, "Save to Disk Failed - Data save failed.")
+            pixelKit.logger.log(node: self, .error, nil, "Save to Disk Failed - Data save failed.")
         }
     }
     
@@ -109,16 +109,16 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
         do {
             let data = try Data(contentsOf: url)
             guard let image = _Image(data: data) else {
-                pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Image not found.")
+                pixelKit.logger.log(node: self, .error, nil, "Load from Disk Failed - Image not found.")
                 return nil
             }
             guard let texture = pixelKit.texture(from: image) else {
-                pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Texture conversion failed.")
+                pixelKit.logger.log(node: self, .error, nil, "Load from Disk Failed - Texture conversion failed.")
                 return nil
             }
             return texture
         } catch {
-            pixelKit.log(pix: self, .error, nil, "Load from Disk Failed - Data not found.")
+            pixelKit.logger.log(node: self, .error, nil, "Load from Disk Failed - Data not found.")
             return nil
         }
     }
@@ -138,11 +138,11 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     public func seek(to index: Int) {
         guard !cachedInfo.isEmpty else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - No textures cached.")
             return
         }
         guard index >= 0 && index < cachedInfo.count else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - Index out of bounds.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - Index out of bounds.")
             return
         }
         cacheId = cachedInfo[index].id
@@ -150,11 +150,11 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     public func seek(to fraction: CGFloat) {
         guard !cachedInfo.isEmpty else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - No textures cached.")
             return
         }
         guard fraction >= 0.0 && fraction <= 1.0 else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - Fraction out of bounds.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - Fraction out of bounds.")
             return
         }
         let index = Int(round(fraction * CGFloat(cachedInfo.count - 1)))
@@ -163,7 +163,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     public func seek(to date: Date) {
         guard !cachedInfo.isEmpty else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - No textures cached.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - No textures cached.")
             return
         }
         var index: Int?
@@ -196,7 +196,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             }
         }
         guard exists else {
-            pixelKit.log(pix: self, .warning, nil, "Seek - Id not found in cached textures.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - Id not found in cached textures.")
             return
         }
         cacheId = id

@@ -15,7 +15,7 @@ import MetalKit
 
 public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMergerRenderDelegate*/ {
     
-    override open var shader: String { return "effectMergerBlendPIX" }
+    override open var shaderName: String { return "effectMergerBlendPIX" }
     
     // MARK: - Public Properties
     
@@ -63,7 +63,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
 //            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: textureA.width, height: textureA.height, mipmapped: true) // CHECK mipmapped
 //            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
 //            guard let texture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
-//                pixelKit.log(pix: self, .error, .generator, "Blend Kernel: Make texture faild.")
+//                pixelKit.logger.log(node: self, .error, .generator, "Blend Kernel: Make texture faild.")
 //                return nil
 //            }
 //            switch blendMode {
@@ -140,7 +140,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     
 }
 
-public func blend(_ mode: PIX.BlendingMode, _ pixA: PIX & PIXOut, _ pixB: PIX & PIXOut) -> BlendPIX {
+public func blend(_ mode: PIX.BlendingMode, _ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut) -> BlendPIX {
     let blendPix = BlendPIX()
     blendPix.inPixA = pixA
     blendPix.inPixB = pixB

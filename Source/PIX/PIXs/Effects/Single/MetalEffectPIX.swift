@@ -25,7 +25,7 @@ import Metal
 /// ~~~~
 public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     
-    override open var shader: String { return "effectSingleMetalPIX" }
+    override open var shaderName: String { return "effectSingleMetalPIX" }
     
     // MARK: - Private Properties
 
@@ -43,7 +43,7 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
         do {
             return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
-            pixelKit.log(pix: self, .error, .metal, "Metal code could not be generated.", e: error)
+            pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
@@ -77,16 +77,16 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
         } catch {
             switch error {
             case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
-                pixelKit.log(pix: self, .error, nil, "Metal code failed.", e: codeError)
+                pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 consoleCallback?(console!)
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
-                    pixelKit.log(pix: self, .fatal, nil, "Metal fail failed.", e: error)
+                    pixelKit.logger.log(node: self, .fatal, nil, "Metal fail failed.", e: error)
                 }
             default:
-                pixelKit.log(pix: self, .fatal, nil, "Metal bake failed.", e: error)
+                pixelKit.logger.log(node: self, .fatal, nil, "Metal bake failed.", e: error)
             }
         }
     }
@@ -100,7 +100,7 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
 }
 
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _lumaToAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
@@ -110,7 +110,7 @@ public extension PIXOut {
             """
         )
         metalEffectPix.name = "lumaToAlpha:metalEffectPix"
-        metalEffectPix.inPix = self as? PIX & PIXOut
+        metalEffectPix.inPix = self as? PIX & NODEOut
         return metalEffectPix
     }
     

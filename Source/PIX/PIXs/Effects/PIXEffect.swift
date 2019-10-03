@@ -7,9 +7,9 @@
 //
 
 
-open class PIXEffect: PIX, PIXInIO, PIXOutIO {
+open class PIXEffect: PIX, NODEInIO, NODEOutIO {
     
-    public var pixInList: [PIX & PIXOut] = []
+    public var pixInList: [PIX & NODEOut] = []
 //    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
     public var pixOutPathList: [PIX.OutPath] = []
     public var connectedIn: Bool { return !pixInList.isEmpty }

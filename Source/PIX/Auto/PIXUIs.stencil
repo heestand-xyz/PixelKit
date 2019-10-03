@@ -31,12 +31,12 @@ public struct {{type.name}}UI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
-        {{type.name|lowercase}}.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        {{type.name|lowercase}}.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        {{type.name|lowercase}}.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        {{type.name|lowercase}}.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     {% else %}
     {% if parentType.name == "PIXMultiEffect" %}
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & PIXOut])) {
+    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
         {{type.name|lowercase}}.inPixs = uiPixs()
@@ -45,12 +45,12 @@ public struct {{type.name}}UI: View, PIXUI {
     {% if parentType.name == "PIXSingleEffect" %}
     public init(_ uiPix: () -> (PIXUI)) {
         {{type.name|lowercase}} = {{type.name}}()
-        {{type.name|lowercase}}.inPix = uiPix().pix as? (PIX & PIXOut)
+        {{type.name|lowercase}}.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = {{type.name|lowercase}}
     }
     {% else %}
     {% if parentType.name == "PIXGenerator" %}
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         {{type.name|lowercase}} = {{type.name}}(res: res)
         pix = {{type.name|lowercase}}
     }

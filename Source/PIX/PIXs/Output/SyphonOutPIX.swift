@@ -9,7 +9,7 @@
 import AppKit
 import Metal
 
-public class SyphonOutPIX: PIXOutput {
+public class SyphonOutPIX: NODEOutput {
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!

@@ -11,7 +11,7 @@ import CoreGraphics
 import CoreImage
 import UIKit
 
-public class StreamOutPIX: PIXOutput {
+public class StreamOutPIX: NODEOutput {
     
     enum Connected {
         case disconnected

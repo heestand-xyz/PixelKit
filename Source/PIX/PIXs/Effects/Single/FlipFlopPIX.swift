@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleFlipFlopPIX" }
+    override open var shaderName: String { return "effectSingleFlipFlopPIX" }
     
     // MARK: - Public Properties
         
@@ -43,7 +43,7 @@ public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
     }
     
     public var flip: Flip = .none { didSet { setNeedsRender() } }
-    public var flop: Flop = .none { didSet { applyRes { self.setNeedsRender() } } }
+    public var flop: Flop = .none { didSet { applyResolution { self.setNeedsRender() } } }
     
     // MARK: - Property Helpers
     
@@ -60,12 +60,12 @@ public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _flipX() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipX:flipFlop"
-        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.inPix = self as? PIX & NODEOut
         flipFlopPix.flip = .x
         return flipFlopPix
     }
@@ -73,7 +73,7 @@ public extension PIXOut {
     func _flipY() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipY:flipFlop"
-        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.inPix = self as? PIX & NODEOut
         flipFlopPix.flip = .y
         return flipFlopPix
     }
@@ -81,7 +81,7 @@ public extension PIXOut {
     func _flopLeft() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopLeft:flipFlop"
-        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.inPix = self as? PIX & NODEOut
         flipFlopPix.flop = .left
         return flipFlopPix
     }
@@ -89,7 +89,7 @@ public extension PIXOut {
     func _flopRight() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopRight:flipFlop"
-        flipFlopPix.inPix = self as? PIX & PIXOut
+        flipFlopPix.inPix = self as? PIX & NODEOut
         flipFlopPix.flop = .right
         return flipFlopPix
     }

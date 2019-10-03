@@ -7,9 +7,9 @@
 //
 
 
-open class PIXSingleEffect: PIXEffect, PIXInSingle, PIXAutoParent {
+open class PIXSingleEffect: PIXEffect, NODEInSingle, PIXAutoParent {
     
-    public var inPix: (PIX & PIXOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
+    public var inPix: (PIX & NODEOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
     
     // MARK: - Life Cycle
     

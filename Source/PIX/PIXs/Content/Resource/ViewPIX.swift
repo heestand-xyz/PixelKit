@@ -34,9 +34,9 @@ public struct ViewPIXUI<Content: View>: View, PIXUI {
         viewPix.renderView = uiView
         pix = viewPix
 //        PixelKit.main.listenToFramesUntil {
-//            let res: PIX.Res = .auto
+//            let res: Resolution = .auto
 //            guard res.w != 128 else { return .continue }
-//            let size = (res / PIX.Res.scale).size.cg
+//            let size = (res / Resolution.scale).size.cg
 //            uiView.frame = CGRect(origin: .zero, size: size)
 //            viewPix.viewNeedsRender()
 //            return .done
@@ -78,9 +78,9 @@ public class ViewPIX: PIXResource {
 //    }
     
     #if os(iOS) || os(tvOS)
-    override open var shader: String { return "contentResourceFlipPIX" }
+    override open var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shader: String { return "contentResourceBGRPIX" }
+    override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
     // MARK: - Private Properties
@@ -94,7 +94,7 @@ public class ViewPIX: PIXResource {
             guard renderView != nil else {
 //                containerView = nil
                 pixelBuffer = nil
-                applyRes {
+                applyResolution {
                     self.setNeedsRender()
                 }
                 return
@@ -114,7 +114,7 @@ public class ViewPIX: PIXResource {
     public override init() {
         super.init()
         name = "view"
-        applyRes {
+        applyResolution {
             self.setNeedsRender()
         }
         pixelKit.listenToFrames {
@@ -123,12 +123,12 @@ public class ViewPIX: PIXResource {
             } else {
                 if self.renderView != nil {
                     let viewRelSize = self.renderView!.frame.size
-                    let viewSize = LiveSize(viewRelSize) * PIX.Res.scale
-                    let res = PIX.Res.auto
+                    let viewSize = LiveSize(viewRelSize) * Resolution.scale
+                    let res = Resolution.auto
                     let resSize = res.size.cg
-                    let resRelSize = (res / PIX.Res.scale).size.cg
+                    let resRelSize = (res / Resolution.scale).size.cg
                     if viewSize.cg != resSize {
-                        self.pixelKit.log(pix: self, .info, .resource, "View Res Change Detected.")
+                        self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
                         self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
                         self.setNeedsBuffer()
                     }
@@ -145,34 +145,34 @@ public class ViewPIX: PIXResource {
     
     func setNeedsBuffer() {
         if pixelKit.frame == 0 {
-            pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
+            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
             pixelKit.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let view = renderView else {
-            pixelKit.log(pix: self, .debug, .resource, "Nil not supported.")
+            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported.")
             return
         }
         guard view.bounds.size.width > 0 else {
-            pixelKit.log(pix: self, .debug, .resource, "View frame not set.")
+            pixelKit.logger.log(node: self, .debug, .resource, "View frame not set.")
             return
         }
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, PIX.Res.scale.cg)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, Resolution.scale.cg)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            pixelKit.log(pix: self, .error, .resource, "Image creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Image creation failed.")
             return
         }
         UIGraphicsEndImageContext()
         guard let buffer = pixelKit.buffer(from: image) else {
-            pixelKit.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        pixelKit.log(pix: self, .info, .resource, "Render View Loaded.")
-        applyRes { self.setNeedsRender() }
+        pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
+        applyResolution { self.setNeedsRender() }
     }
     
 }

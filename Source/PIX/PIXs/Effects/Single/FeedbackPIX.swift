@@ -11,7 +11,7 @@ import Metal
 
 public class FeedbackPIX: PIXSingleEffect {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     // MARK: - Private Properties
     
@@ -26,7 +26,7 @@ public class FeedbackPIX: PIXSingleEffect {
     }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
-    public var feedPix: (PIX & PIXOut)? { didSet { if feedActive { setNeedsRender() } } }
+    public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
     
     public required init() {
         super.init()
@@ -53,7 +53,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     public func resetFeed() {
         guard feedActive else {
-            pixelKit.log(pix: self, .info, .effect, "Feedback reset; feed not active.")
+            pixelKit.logger.log(node: self, .info, .effect, "Feedback reset; feed not active.")
             return
         }
         feedActive = false
@@ -63,25 +63,25 @@ public class FeedbackPIX: PIXSingleEffect {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _feed(_ fraction: LiveFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
+    func _feed(_ fraction: LiveFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
-        feedbackPix.inPix = self as? PIX & PIXOut
+        feedbackPix.inPix = self as? PIX & NODEOut
         let crossPix = CrossPIX()
         crossPix.name = "feed:cross"
-        crossPix.inPixA = self as? PIX & PIXOut
+        crossPix.inPixA = self as? PIX & NODEOut
         crossPix.inPixB = loop?(feedbackPix) ?? feedbackPix
         crossPix.fraction = fraction
         feedbackPix.feedPix = crossPix
         return feedbackPix
     }
     
-//    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & PIXOut))? = nil) -> FeedbackPIX {
+//    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
 //        let feedbackPix = FeedbackPIX()
 //        feedbackPix.name = "feed:feedback"
-//        let pix = self as! PIX & PIXOut
+//        let pix = self as! PIX & NODEOut
 //        feedbackPix.inPix = pix
 //        feedbackPix.feedPix = pix + (loop?(feedbackPix) ?? feedbackPix)
 //        return feedbackPix

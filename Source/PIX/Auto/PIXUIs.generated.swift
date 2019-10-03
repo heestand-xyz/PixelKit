@@ -23,7 +23,7 @@ public struct ArcPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         arcpix = ArcPIX(res: res)
         pix = arcpix
     }
@@ -118,7 +118,7 @@ public struct CirclePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         circlepix = CirclePIX(res: res)
         pix = circlepix
     }
@@ -189,7 +189,7 @@ public struct ColorPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         colorpix = ColorPIX(res: res)
         pix = colorpix
     }
@@ -228,7 +228,7 @@ public struct GradientPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         gradientpix = GradientPIX(res: res)
         pix = gradientpix
     }
@@ -299,7 +299,7 @@ public struct LinePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         linepix = LinePIX(res: res)
         pix = linepix
     }
@@ -362,7 +362,7 @@ public struct NoisePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         noisepix = NoisePIX(res: res)
         pix = noisepix
     }
@@ -465,7 +465,7 @@ public struct PolygonPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         polygonpix = PolygonPIX(res: res)
         pix = polygonpix
     }
@@ -544,7 +544,7 @@ public struct RectanglePIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(res: PIX.Res = .auto) {
+    public init(res: Resolution = .auto) {
         rectanglepix = RectanglePIX(res: res)
         pix = rectanglepix
     }
@@ -615,8 +615,8 @@ public struct BlendPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         blendpix = BlendPIX()
         pix = blendpix
-        blendpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        blendpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        blendpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        blendpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -684,8 +684,8 @@ public struct CrossPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         crosspix = CrossPIX()
         pix = crosspix
-        crosspix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        crosspix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        crosspix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        crosspix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -717,8 +717,8 @@ public struct DisplacePIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         displacepix = DisplacePIX()
         pix = displacepix
-        displacepix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        displacepix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        displacepix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        displacepix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -758,8 +758,8 @@ public struct LookupPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lookuppix = LookupPIX()
         pix = lookuppix
-        lookuppix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        lookuppix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        lookuppix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        lookuppix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -787,8 +787,8 @@ public struct LumaBlurPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumablurpix = LumaBlurPIX()
         pix = lumablurpix
-        lumablurpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        lumablurpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        lumablurpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        lumablurpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -840,8 +840,8 @@ public struct LumaLevelsPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumalevelspix = LumaLevelsPIX()
         pix = lumalevelspix
-        lumalevelspix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        lumalevelspix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        lumalevelspix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        lumalevelspix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -905,8 +905,8 @@ public struct RemapPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         remappix = RemapPIX()
         pix = remappix
-        remappix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        remappix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        remappix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        remappix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -930,8 +930,8 @@ public struct ReorderPIXUI: View, PIXUI {
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         reorderpix = ReorderPIX()
         pix = reorderpix
-        reorderpix.inPixA = uiPixA().pix as? (PIX & PIXOut)
-        reorderpix.inPixB = uiPixB().pix as? (PIX & PIXOut)
+        reorderpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
+        reorderpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -989,7 +989,7 @@ public struct ArrayPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & PIXOut])) {
+    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         arraypix = ArrayPIX()
         pix = arraypix
         arraypix.inPixs = uiPixs()
@@ -1025,7 +1025,7 @@ public struct BlendsPIXUI: View, PIXUI {
         PIXRepView(pix: pix)
     }
 
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & PIXOut])) {
+    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         blendspix = BlendsPIX()
         pix = blendspix
         blendspix.inPixs = uiPixs()
@@ -1060,7 +1060,7 @@ public struct BlurPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         blurpix = BlurPIX()
-        blurpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        blurpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = blurpix
     }
     // Parent Property Funcs
@@ -1112,7 +1112,7 @@ public struct ChannelMixPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         channelmixpix = ChannelMixPIX()
-        channelmixpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        channelmixpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = channelmixpix
     }
     // Parent Property Funcs
@@ -1136,7 +1136,7 @@ public struct ChromaKeyPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         chromakeypix = ChromaKeyPIX()
-        chromakeypix.inPix = uiPix().pix as? (PIX & PIXOut)
+        chromakeypix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = chromakeypix
     }
     // Parent Property Funcs
@@ -1200,7 +1200,7 @@ public struct ClampPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         clamppix = ClampPIX()
-        clamppix.inPix = uiPix().pix as? (PIX & PIXOut)
+        clamppix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = clamppix
     }
     // Parent Property Funcs
@@ -1248,7 +1248,7 @@ public struct CornerPinPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         cornerpinpix = CornerPinPIX()
-        cornerpinpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        cornerpinpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = cornerpinpix
     }
     // Parent Property Funcs
@@ -1272,7 +1272,7 @@ public struct EdgePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         edgepix = EdgePIX()
-        edgepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        edgepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = edgepix
     }
     // Parent Property Funcs
@@ -1312,7 +1312,7 @@ public struct FlarePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         flarepix = FlarePIX()
-        flarepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        flarepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = flarepix
     }
     // Parent Property Funcs
@@ -1400,7 +1400,7 @@ public struct FlipFlopPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         flipfloppix = FlipFlopPIX()
-        flipfloppix.inPix = uiPix().pix as? (PIX & PIXOut)
+        flipfloppix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = flipfloppix
     }
     // Parent Property Funcs
@@ -1432,7 +1432,7 @@ public struct HueSaturationPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         huesaturationpix = HueSaturationPIX()
-        huesaturationpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        huesaturationpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = huesaturationpix
     }
     // Parent Property Funcs
@@ -1472,7 +1472,7 @@ public struct KaleidoscopePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         kaleidoscopepix = KaleidoscopePIX()
-        kaleidoscopepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        kaleidoscopepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = kaleidoscopepix
     }
     // Parent Property Funcs
@@ -1528,7 +1528,7 @@ public struct LevelsPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         levelspix = LevelsPIX()
-        levelspix.inPix = uiPix().pix as? (PIX & PIXOut)
+        levelspix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = levelspix
     }
     // Parent Property Funcs
@@ -1600,7 +1600,7 @@ public struct QuantizePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         quantizepix = QuantizePIX()
-        quantizepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        quantizepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = quantizepix
     }
     // Parent Property Funcs
@@ -1632,7 +1632,7 @@ public struct RangePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         rangepix = RangePIX()
-        rangepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        rangepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = rangepix
     }
     // Parent Property Funcs
@@ -1728,7 +1728,7 @@ public struct SepiaPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         sepiapix = SepiaPIX()
-        sepiapix.inPix = uiPix().pix as? (PIX & PIXOut)
+        sepiapix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = sepiapix
     }
     // Parent Property Funcs
@@ -1760,7 +1760,7 @@ public struct SharpenPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         sharpenpix = SharpenPIX()
-        sharpenpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        sharpenpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = sharpenpix
     }
     // Parent Property Funcs
@@ -1792,7 +1792,7 @@ public struct SlopePIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         slopepix = SlopePIX()
-        slopepix.inPix = uiPix().pix as? (PIX & PIXOut)
+        slopepix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = slopepix
     }
     // Parent Property Funcs
@@ -1824,7 +1824,7 @@ public struct ThresholdPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         thresholdpix = ThresholdPIX()
-        thresholdpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        thresholdpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = thresholdpix
     }
     // Parent Property Funcs
@@ -1856,7 +1856,7 @@ public struct TransformPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         transformpix = TransformPIX()
-        transformpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        transformpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = transformpix
     }
     // Parent Property Funcs
@@ -1912,7 +1912,7 @@ public struct TwirlPIXUI: View, PIXUI {
 
     public init(_ uiPix: () -> (PIXUI)) {
         twirlpix = TwirlPIX()
-        twirlpix.inPix = uiPix().pix as? (PIX & PIXOut)
+        twirlpix.inPix = uiPix().pix as? (PIX & NODEOut)
         pix = twirlpix
     }
     // Parent Property Funcs

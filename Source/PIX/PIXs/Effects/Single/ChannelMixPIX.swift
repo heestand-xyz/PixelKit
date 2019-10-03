@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleChannelMixPIX" }
+    override open var shaderName: String { return "effectSingleChannelMixPIX" }
     
     // MARK: - Public Properties
     
@@ -40,12 +40,12 @@ public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _swap(_ pureColorA: LiveColor.Pure, _ pureColorB: LiveColor.Pure) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
-        channelMixPix.inPix = self as? PIX & PIXOut
+        channelMixPix.inPix = self as? PIX & NODEOut
         switch pureColorA {
         case .red: channelMixPix.red = pureColorB
         case .green: channelMixPix.green = pureColorB

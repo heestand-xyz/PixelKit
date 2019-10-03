@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerLumaLevelsPIX" }
+    override open var shaderName: String { return "effectMergerLumaLevelsPIX" }
     
     // MARK: - Public Properties
     
@@ -36,12 +36,12 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _lumaLevels(with pix: PIX & PIXOut, brightness: LiveFloat = 1.0, darkness: LiveFloat = 0.0, contrast: LiveFloat = 0.0, gamma: LiveFloat = 1.0, opacity: LiveFloat = 1.0) -> LumaLevelsPIX {
+    func _lumaLevels(with pix: PIX & NODEOut, brightness: LiveFloat = 1.0, darkness: LiveFloat = 0.0, contrast: LiveFloat = 0.0, gamma: LiveFloat = 1.0, opacity: LiveFloat = 1.0) -> LumaLevelsPIX {
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = ":lumaLevels:"
-        lumaLevelsPix.inPixA = self as? PIX & PIXOut
+        lumaLevelsPix.inPixA = self as? PIX & NODEOut
         lumaLevelsPix.inPixB = pix
         lumaLevelsPix.brightness = brightness
         lumaLevelsPix.darkness = darkness
@@ -52,7 +52,7 @@ public extension PIXOut {
     }
     
     func _vignetting(radius: LiveFloat = 0.5, inset: LiveFloat = 0.25, gamma: LiveFloat = 0.5) -> LumaLevelsPIX {
-        let pix = self as! PIX & PIXOut
+        let pix = self as! PIX & NODEOut
         let rectangle = RectanglePIX(res: pix.resolution)
         rectangle.bgColor = .white
         rectangle.color = .black

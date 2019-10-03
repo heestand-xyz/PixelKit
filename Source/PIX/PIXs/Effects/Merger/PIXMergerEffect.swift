@@ -7,10 +7,10 @@
 //
 import CoreGraphics//x
 
-open class PIXMergerEffect: PIXEffect, PIXInMerger, PIXAutoParent {
+open class PIXMergerEffect: PIXEffect, NODEInMerger, PIXAutoParent {
     
-    public var inPixA: (PIX & PIXOut)? { didSet { setNeedsConnectMerger(new: inPixA, old: oldValue, second: false) } }
-    public var inPixB: (PIX & PIXOut)? { didSet { setNeedsConnectMerger(new: inPixB, old: oldValue, second: true) } }
+    public var inPixA: (PIX & NODEOut)? { didSet { setNeedsConnectMerger(new: inPixA, old: oldValue, second: false) } }
+    public var inPixB: (PIX & NODEOut)? { didSet { setNeedsConnectMerger(new: inPixB, old: oldValue, second: true) } }
     public override var connectedIn: Bool { return pixInList.count == 2 }
     
     public var placement: Placement = .aspectFit { didSet { setNeedsRender() } }

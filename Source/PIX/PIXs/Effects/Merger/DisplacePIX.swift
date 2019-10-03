@@ -10,7 +10,7 @@ import LiveValues
 
 public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerDisplacePIX" }
+    override open var shaderName: String { return "effectMergerDisplacePIX" }
     
     // MARK: - Public Properties
     
@@ -33,19 +33,19 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _displace(with pix: PIX & PIXOut, distance: LiveFloat) -> DisplacePIX {
+    func _displace(with pix: PIX & NODEOut, distance: LiveFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
         displacePix.name = ":displace:"
-        displacePix.inPixA = self as? PIX & PIXOut
+        displacePix.inPixA = self as? PIX & NODEOut
         displacePix.inPixB = pix
         displacePix.distance = distance
         return displacePix
     }
     
     func _noiseDisplace(distance: LiveFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
-        let pix = self as! PIX & PIXOut
+        let pix = self as! PIX & NODEOut
         let noisePix = NoisePIX(res: pix.resolution ?? ._128) // FIXME: with LiveRes
         noisePix.name = "noiseDisplace:noise"
         noisePix.colored = true

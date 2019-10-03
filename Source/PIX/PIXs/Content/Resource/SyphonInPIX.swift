@@ -12,7 +12,7 @@ import OpenGL
 
 public class SyphonInPIX: PIXResource {
     
-    override open var shader: String { return "contentResourcePIX" }
+    override open var shaderName: String { return "contentResourcePIX" }
     
     var context: NSOpenGLContext?
     var clinet: SyphonClient?
@@ -401,7 +401,7 @@ public class SyphonInPIX: PIXResource {
 
 //        pixelBuffer = cvPixelBuffer
         
-        applyRes { self.setNeedsRender() }
+        applyResolution { self.setNeedsRender() }
         
         firstFrame = false
         

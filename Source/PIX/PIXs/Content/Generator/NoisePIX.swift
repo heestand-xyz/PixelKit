@@ -10,7 +10,7 @@ import LiveValues
 
 public class NoisePIX: PIXGenerator, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorNoisePIX" }
+    override open var shaderName: String { return "contentGeneratorNoisePIX" }
     
     // MARK: - Public Properties
     
@@ -31,14 +31,14 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "noise"
     }
     
 //    // MARK: - Life Cycle
 //
-//    public init(res: Res, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
+//    public init(res: Resolution, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
 //        self.seed = seed
 //        self.octaves = octaves
 //        self.colored = colored

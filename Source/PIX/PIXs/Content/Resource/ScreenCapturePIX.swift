@@ -10,7 +10,7 @@ import AVKit
 
 public class ScreenCapturePIX: PIXResource {
         
-    override open var shader: String { return "contentResourcePIX" }
+    override open var shaderName: String { return "contentResourcePIX" }
     
     // MARK: - Private Properties
     
@@ -36,12 +36,12 @@ public class ScreenCapturePIX: PIXResource {
     func setupScreenCapture() {
         helper?.stop()
         helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { _ in
-            self.pixelKit.log(pix: self, .info, .resource, "Screen Capture setup.")
+            self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture setup.")
         }, captured: { pixelBuffer in
-            self.pixelKit.log(pix: self, .info, .resource, "Screen Capture frame captured.", loop: true)
+            self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
             if self.view.res == nil || self.view.res! != self.resolution {
-                self.applyRes { self.setNeedsRender() }
+                self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
             }

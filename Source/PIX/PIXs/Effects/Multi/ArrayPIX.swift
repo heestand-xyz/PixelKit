@@ -24,7 +24,7 @@ public struct Coordinate {
 
 public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
-    override open var shader: String { return "effectMultiArrayPIX" }
+    override open var shaderName: String { return "effectMultiArrayPIX" }
     
     override var shaderNeedsAspect: Bool { return true }
     

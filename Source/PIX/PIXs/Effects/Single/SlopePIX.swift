@@ -10,7 +10,7 @@ import LiveValues
 
 public class SlopePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleSlopePIX" }
+    override open var shaderName: String { return "effectSingleSlopePIX" }
     
     // MARK: - Public Properties
     
@@ -31,12 +31,12 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _slope(_ amplitude: LiveFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.name = ":slope:"
-        slopePix.inPix = self as? PIX & PIXOut
+        slopePix.inPix = self as? PIX & NODEOut
         slopePix.amplitude = amplitude
         return slopePix
     }

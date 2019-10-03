@@ -10,7 +10,7 @@ import LiveValues
 
 public class EdgePIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleEdgePIX" }
+    override open var shaderName: String { return "effectSingleEdgePIX" }
     
     // MARK: - Public Properties
     
@@ -32,12 +32,12 @@ public class EdgePIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _edge(_ strength: LiveFloat = 1.0) -> EdgePIX {
         let edgePix = EdgePIX()
         edgePix.name = ":edge:"
-        edgePix.inPix = self as? PIX & PIXOut
+        edgePix.inPix = self as? PIX & NODEOut
         edgePix.strength = strength
         return edgePix
     }

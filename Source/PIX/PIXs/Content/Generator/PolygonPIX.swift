@@ -10,7 +10,7 @@ import LiveValues
 
 public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
-    override open var shader: String { return "contentGeneratorPolygonPIX" }
+    override open var shaderName: String { return "contentGeneratorPolygonPIX" }
     
     // MARK: - Public Properties
     
@@ -28,7 +28,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Res = .auto) {
+    public required init(res: Resolution = .auto) {
         super.init(res: res)
         name = "polygon"
     }

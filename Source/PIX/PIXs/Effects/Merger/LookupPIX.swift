@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class LookupPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shader: String { return "effectMergerLookupPIX" }
+    override open var shaderName: String { return "effectMergerLookupPIX" }
     
     // MARK: - Public Properties
     
@@ -42,12 +42,12 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
-    func _lookup(with pix: PIX & PIXOut, axis: LookupPIX.Axis) -> LookupPIX {
+    func _lookup(with pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = ":lookup:"
-        lookupPix.inPixA = self as? PIX & PIXOut
+        lookupPix.inPixA = self as? PIX & NODEOut
         lookupPix.inPixB = pix
         lookupPix.axis = axis
         return lookupPix

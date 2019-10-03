@@ -8,7 +8,7 @@
 
 public class NilPIX: PIXSingleEffect {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     public required init() {
         super.init()
@@ -16,12 +16,12 @@ public class NilPIX: PIXSingleEffect {
     }
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _node() -> NilPIX {
         let nilPix = NilPIX()
         nilPix.name = "node:nil"
-        nilPix.inPix = self as? PIX & PIXOut
+        nilPix.inPix = self as? PIX & NODEOut
         nilPix.bypass = true
         return nilPix
     }
@@ -29,7 +29,7 @@ public extension PIXOut {
     func _nil() -> NilPIX {
         let nilPix = NilPIX()
         nilPix.name = ":nil:"
-        nilPix.inPix = self as? PIX & PIXOut
+        nilPix.inPix = self as? PIX & NODEOut
         return nilPix
     }
     

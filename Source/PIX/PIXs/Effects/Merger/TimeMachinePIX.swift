@@ -11,7 +11,7 @@ import Metal
 
 public class TimeMachinePIX: PIXMergerEffect {
    
-    override open var shader: String { return "effectMergerTimeMachinePIX" }
+    override open var shaderName: String { return "effectMergerTimeMachinePIX" }
     
     // MARK: - Public Properties
     

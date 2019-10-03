@@ -10,7 +10,7 @@ import LiveValues
 
 public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleChromaKeyPIX" }
+    override open var shaderName: String { return "effectSingleChromaKeyPIX" }
     
     // MARK: - Public Properties
     
@@ -35,12 +35,12 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _chromaKey(_ color: LiveColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.name = ":chromaKey:"
-        chromaKeyPix.inPix = self as? PIX & PIXOut
+        chromaKeyPix.inPix = self as? PIX & NODEOut
         chromaKeyPix.keyColor = color
         return chromaKeyPix
     }

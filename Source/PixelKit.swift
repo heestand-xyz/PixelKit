@@ -9,10 +9,9 @@
 import RenderKit
 
 public class PixelKit {
-    
-    public static let render = Render(with: kMetalLibName)
-    public static let logger = Logger()
 
+    public static let main = PixelKit()
+    
     // MARK: Signature
     
     #if os(macOS) || targetEnvironment(macCatalyst)
@@ -25,5 +24,13 @@ public class PixelKit {
     let kBundleId = "se.hexagons.pixelkit.tvos"
     let kMetalLibName = "PixelKitShaders-tvOS"
     #endif
+    
+    public let render: Render
+    let logger: Logger
+
+    init() {
+        render = Render(with: kMetalLibName)
+        logger = Logger(name: "PixelKit")
+    }
     
 }

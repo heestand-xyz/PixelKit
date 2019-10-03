@@ -11,7 +11,7 @@ import Foundation
 
 public class SepiaPIX: PIXSingleEffect, PIXAuto {
     
-    override open var shader: String { return "effectSingleSepiaPIX" }
+    override open var shaderName: String { return "effectSingleSepiaPIX" }
     
     // MARK: - Public Properties
     

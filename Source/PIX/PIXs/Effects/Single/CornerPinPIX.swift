@@ -11,7 +11,7 @@ import CoreGraphics
 
 public class CornerPinPIX: PIXSingleEffect, PixelCustomGeometryDelegate, PIXAuto {
     
-    override open var shader: String { return "nilPIX" }
+    override open var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
     
@@ -156,7 +156,7 @@ public class CornerPinPIX: PIXSingleEffect, PixelCustomGeometryDelegate, PIXAuto
     
 }
 
-public extension PIXOut {
+public extension NODEOut {
     
     func _cornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
                     topRight: CGPoint = CGPoint(x: 1, y: 1),
@@ -164,7 +164,7 @@ public extension PIXOut {
                     bottomRight: CGPoint = CGPoint(x: 1, y: 0)) -> CornerPinPIX {
         let cornerPixPix = CornerPinPIX()
         cornerPixPix.name = ":cornerPin:"
-        cornerPixPix.inPix = self as? PIX & PIXOut
+        cornerPixPix.inPix = self as? PIX & NODEOut
         cornerPixPix.corners = CornerPinPIX.Corners(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
         return cornerPixPix
     }

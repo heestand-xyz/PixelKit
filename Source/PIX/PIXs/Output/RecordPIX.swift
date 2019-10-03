@@ -9,9 +9,9 @@
 import LiveValues
 import AVKit
 
-public class RecordPIX: PIXOutput {
+public class RecordPIX: NODEOutput {
     
-    public override var shader: String { return "contentResourceBGRPIX" }
+    public override var shaderName: String { return "contentResourceBGRPIX" }
     
     // MARK: - Private Properties
     
@@ -194,7 +194,7 @@ public class RecordPIX: PIXOutput {
 //
 //    }
     
-    func setup(res: Res) throws {
+    func setup(res: Resolution) throws {
         
         let id = UUID()
         
@@ -210,7 +210,7 @@ public class RecordPIX: PIXOutput {
         do {
             try FileManager.default.createDirectory(at: id_url, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            pixelKit.log(pix: self, .error, nil, "Creating exports folder.", e: error)
+            pixelKit.logger.log(node: self, .error, nil, "Creating exports folder.", e: error)
             throw RecError.setup("Creating exports folder.")
         }
         
@@ -293,14 +293,14 @@ public class RecordPIX: PIXOutput {
                     }
                     
                     if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
-                        self.pixelKit.log(pix: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                        self.pixelKit.logger.log(node: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
                     }
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
                     
                 } else {
-                    self.pixelKit.log(pix: self, .error, nil, "isReadyForMoreMediaData is false.")
+                    self.pixelKit.logger.log(node: self, .error, nil, "isReadyForMoreMediaData is false.")
                 }
                 
                 self.currentImage = nil
@@ -331,14 +331,14 @@ public class RecordPIX: PIXOutput {
                     currentImage = cg_image!
                 
                 } else {
-                    self.pixelKit.log(pix: self, .error, nil, "cg_image is nil.")
+                    self.pixelKit.logger.log(node: self, .error, nil, "cg_image is nil.")
                 }
             } else {
-                self.pixelKit.log(pix: self, .error, nil, "ci_image is nil.")
+                self.pixelKit.logger.log(node: self, .error, nil, "ci_image is nil.")
             }
             
         } else {
-            self.pixelKit.log(pix: self, .error, nil, "Some writer is nil.")
+            self.pixelKit.logger.log(node: self, .error, nil, "Some writer is nil.")
         }
         
     }
@@ -357,14 +357,14 @@ public class RecordPIX: PIXOutput {
                         done()
                     }
                 } else if writer.error == nil {
-                    self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
+                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
                     didError(RecError.render("Rec Stop. Cancelled."))
                 } else {
-                    self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
                     didError(RecError.render("Rec Stop. Writer Error."))
                 }
             } else {
-                self.pixelKit.log(pix: self, .error, nil, "Rec Stop. Writer not found.")
+                self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer not found.")
                 didError(RecError.render("Rec Stop. Writer not found."))
             }
             self.writerVideoInput = nil

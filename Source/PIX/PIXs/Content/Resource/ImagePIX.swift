@@ -44,9 +44,9 @@ public struct ImagePIXUI: View, PIXUI {
 public class ImagePIX: PIXResource {
     
     #if os(iOS) || os(tvOS)
-    override open var shader: String { return "contentResourceFlipPIX" }
+    override open var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shader: String { return "contentResourceBGRPIX" }
+    override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
     // MARK: - Public Properties
@@ -58,13 +58,13 @@ public class ImagePIX: PIXResource {
     #endif
     
     #if !os(macOS)
-    public var resizeToFitRes: Res? = nil
+    public var resizeToFitRes: Resolution? = nil
     #endif
-    var resizedRes: Res? {
+    var resizedRes: Resolution? {
         #if !os(macOS)
         guard let res = resizeToFitRes else { return nil }
         guard let image = image else { return nil }
-        return PIX.Res.cgSize(image.size).aspectRes(to: .fit, in: res)
+        return Resolution.cgSize(image.size).aspectRes(to: .fit, in: res)
         #else
         return nil
         #endif
@@ -75,7 +75,7 @@ public class ImagePIX: PIXResource {
     public override init() {
         super.init()
         name = "image"
-        self.applyRes {
+        self.applyResolution {
             self.setNeedsRender()
         }
 //        pixelKit.listenToFramesUntil {
@@ -83,7 +83,7 @@ public class ImagePIX: PIXResource {
 //                return .done
 //            }
 //            if self.resolution != ._128 {
-//                self.applyRes {
+//                self.applyResolution {
 //                    self.setNeedsRender()
 //                }
 //                return .done
@@ -96,7 +96,7 @@ public class ImagePIX: PIXResource {
     
     func setNeedsBuffer() {
         guard var image = image else {
-            pixelKit.log(pix: self, .debug, .resource, "Nil not supported yet.")
+            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
         #if !os(macOS)
@@ -105,19 +105,19 @@ public class ImagePIX: PIXResource {
         }
         #endif
         if pixelKit.frame == 0 {
-            pixelKit.log(pix: self, .debug, .resource, "One frame delay.")
+            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
             pixelKit.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
         guard let buffer = pixelKit.buffer(from: image) else {
-            pixelKit.log(pix: self, .error, .resource, "Pixel Buffer creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         pixelBuffer = buffer
-        pixelKit.log(pix: self, .info, .resource, "Image Loaded.")
-        applyRes { self.setNeedsRender() }
+        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        applyResolution { self.setNeedsRender() }
     }
     
 }
