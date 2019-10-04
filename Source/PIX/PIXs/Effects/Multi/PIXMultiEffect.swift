@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 
-open class PIXMultiEffect: PIXEffect, NODEInMulti, PIXAutoParent {
-    
-    public var inPixs: [PIX & NODEOut] = [] { didSet { setNeedsConnectMulti(new: inPixs, old: oldValue) } }
+open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti, PIXAutoParent {
+
+    public var inputs: [NODE & NODEOut] = [] { didSet { setNeedsConnectMulti(new: inputs, old: oldValue) } }
     
     // MARK: - Life Cycle
     
@@ -23,7 +24,7 @@ open class PIXMultiEffect: PIXEffect, NODEInMulti, PIXAutoParent {
 //    }
     
     public override func destroy() {
-        inPixs = []
+        inputs = []
         super.destroy()
     }
     

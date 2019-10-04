@@ -7,11 +7,12 @@
 //
 
 import LiveValues
+import RenderKit
 
 extension LiveSize {
     
-    public static func fill(res: Resolution) -> LiveSize {
-        return LiveSize.fill(aspect: res.aspect)
+    public static func fill(resolution: Resolution) -> LiveSize {
+        return LiveSize.fill(aspect: resolution.aspect)
     }
     
 }

@@ -1,6 +1,7 @@
 #if canImport(SwiftUI)
 
 import LiveValues
+import RenderKit
 import SwiftUI
 
 {% for parentType in types.implementing.PIXAutoParent %}
@@ -19,39 +20,41 @@ import SwiftUI
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct {{type.name}}UI: View, PIXUI {
+    
+    public var node: NODE { pix }
 
     public let pix: PIX
     let {{type.name|lowercase}}: {{type.name}}
     
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     {% if parentType.name == "PIXMergerEffect" %}
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
-        {{type.name|lowercase}}.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        {{type.name|lowercase}}.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        {{type.name|lowercase}}.inputA = uiPixA().pix as? (PIX & NODEOut)
+        {{type.name|lowercase}}.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     {% else %}
     {% if parentType.name == "PIXMultiEffect" %}
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
+    public init(@NODEUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         {{type.name|lowercase}} = {{type.name}}()
         pix = {{type.name|lowercase}}
-        {{type.name|lowercase}}.inPixs = uiPixs()
+        {{type.name|lowercase}}.inputs = uiPixs()
     }
     {% else %}
     {% if parentType.name == "PIXSingleEffect" %}
     public init(_ uiPix: () -> (PIXUI)) {
         {{type.name|lowercase}} = {{type.name}}()
-        {{type.name|lowercase}}.inPix = uiPix().pix as? (PIX & NODEOut)
+        {{type.name|lowercase}}.input = uiPix().pix as? (PIX & NODEOut)
         pix = {{type.name|lowercase}}
     }
     {% else %}
     {% if parentType.name == "PIXGenerator" %}
-    public init(res: Resolution = .auto) {
-        {{type.name|lowercase}} = {{type.name}}(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        {{type.name|lowercase}} = {{type.name}}(at: resolution)
         pix = {{type.name|lowercase}}
     }
     {% else %}

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 extension LiveFloat {
     
@@ -16,14 +17,14 @@ extension LiveFloat {
         var value: CGFloat = 0.0
         var lastFrame: Int = -1
         return LiveFloat({ () -> (CGFloat) in
-            guard lastFrame != PixelKit.main.finalFrame else {
-                lastFrame = PixelKit.main.finalFrame
+            guard lastFrame != PixelKit.main.render.finalFrame else {
+                lastFrame = PixelKit.main.render.finalFrame
                 return value
             }
             if !self.live.isFrozen {
-                value += 1.0 / CGFloat(PixelKit.main.finalFps ?? PixelKit.main.fpsMax)
+                value += 1.0 / CGFloat(PixelKit.main.render.finalFps ?? PixelKit.main.render.fpsMax)
             }
-            lastFrame = PixelKit.main.finalFrame
+            lastFrame = PixelKit.main.render.finalFrame
             return value
         })
     }
@@ -44,9 +45,9 @@ extension LiveFloat {
     }
     public static var touchForce: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                return pix.view.liveTouchView.force
+                return pix.pixView.liveTouchView.force
             }
             return 0.0
         })

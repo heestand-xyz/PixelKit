@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import RenderKit
 import UIKit
 import CoreGraphics
 
@@ -63,14 +64,14 @@ public class StreamInPIX: PIXResource {
             pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        if pixelKit.frame == 0 {
+        if pixelKit.render.frame == 0 {
             pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.delay(frames: 1, done: {
+            pixelKit.render.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        guard let buffer = pixelKit.buffer(from: image) else {
+        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }

@@ -40,7 +40,7 @@ public class ScreenCapturePIX: PIXResource {
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
-            if self.view.res == nil || self.view.res! != self.resolution {
+            if self.view.resolution == nil || self.view.resolution! != self.renderResolution {
                 self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
@@ -81,7 +81,7 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.bits.os]
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
         
         if screenInput != nil {
             if captureSession.canAddInput(screenInput!) {
@@ -92,13 +92,13 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
                     videoOutput.setSampleBufferDelegate(self, queue: queue)
                     start()
                 } else {
-                    pixelKit.log(.error, .resource, "Screen can't add output.")
+                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
                 }
             } else {
-                pixelKit.log(.error, .resource, "Screen can't add input.")
+                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
             }
         } else {
-            pixelKit.log(.error, .resource, "Screen not found.")
+            pixelKit.logger.log(.error, .resource, "Screen not found.")
         }
         
     }
@@ -106,7 +106,7 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            pixelKit.log(.error, .resource, "Camera buffer conversion failed.")
+            pixelKit.logger.log(.error, .resource, "Camera buffer conversion failed.")
             return
         }
         

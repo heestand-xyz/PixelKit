@@ -7,14 +7,15 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
-open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
+open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, PIXAutoParent {
     
-    var _res: Resolution
-    public var res: Resolution {
-        set { _res = newValue; applyResolution { self.setNeedsRender() } }
-        get { return _res * PIXGenerator.globalResMultiplier }
+    var _resolution: Resolution
+    public var resolution: Resolution {
+        set { _resolution = newValue; applyResolution { self.setNeedsRender() } }
+        get { return _resolution * PIXGenerator.globalResMultiplier }
     }
     public var premultiply: Bool = true { didSet { setNeedsRender() } }
     
@@ -25,14 +26,14 @@ open class PIXGenerator: PIXContent, PIXAutoParent, PIXRes {
     public var bgColor: LiveColor = .black
     public var color: LiveColor = .white
 
-    public required init(res: Resolution = .auto) {
-        _res = res
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        _resolution = resolution
         super.init()
         applyResolution { self.setNeedsRender() }
     }
     
 //    required convenience public init(from decoder: Decoder) throws {
-//        self.init(res: ._128) // CHECK
+//        self.init(resolution: ._128) // CHECK
 ////        fatalError("init(from:) has not been implemented")
 //    }
     

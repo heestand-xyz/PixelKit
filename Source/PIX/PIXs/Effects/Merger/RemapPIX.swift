@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
+
 public class RemapPIX: PIXMergerEffect, PIXAuto {
     
     override open var shaderName: String { return "effectMergerRemapPIX" }
@@ -24,8 +26,8 @@ public extension NODEOut {
     func _remap(with pix: PIX & NODEOut) -> RemapPIX {
         let remapPix = RemapPIX()
         remapPix.name = ":remap:"
-        remapPix.inPixA = self as? PIX & NODEOut
-        remapPix.inPixB = pix
+        remapPix.inputA = self as? PIX & NODEOut
+        remapPix.inputB = pix
         return remapPix
     }
     

@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import CoreGraphics
 
 public class ReorderPIX: PIXMergerEffect, PIXAuto {
@@ -82,8 +83,8 @@ public extension NODEOut {
     func _reorder(with pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
-        reorderPix.inPixA = self as? PIX & NODEOut
-        reorderPix.inPixB = pix
+        reorderPix.inputA = self as? PIX & NODEOut
+        reorderPix.inputB = pix
         switch rawChannel {
         case .red:
             reorderPix.redInput = .b
@@ -104,8 +105,8 @@ public extension NODEOut {
     func _replace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
-        reorderPix.inPixA = self as? PIX & NODEOut
-        reorderPix.inPixB = self as? PIX & NODEOut
+        reorderPix.inputA = self as? PIX & NODEOut
+        reorderPix.inputB = self as? PIX & NODEOut
         switch rawChannel {
         case .red:
             reorderPix.redChannel = channel
@@ -122,8 +123,8 @@ public extension NODEOut {
     func _RGtoBA(with pix: PIX & NODEOut) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = "BAtoRG:reorder"
-        reorderPix.inPixA = self as? PIX & NODEOut
-        reorderPix.inPixB = pix
+        reorderPix.inputA = self as? PIX & NODEOut
+        reorderPix.inputB = pix
         reorderPix.blueInput = .b
         reorderPix.alphaInput = .b
         reorderPix.blueChannel = .red

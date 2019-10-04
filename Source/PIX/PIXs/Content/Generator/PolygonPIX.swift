@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
@@ -28,8 +29,8 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Resolution = .auto) {
-        super.init(res: res)
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        super.init(at: resolution)
         name = "polygon"
     }
     

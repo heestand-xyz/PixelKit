@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public struct ColorStep {
@@ -61,7 +62,7 @@ open class GradientPIX: PIXGenerator, PIXAuto {
         return [CGFloat(extendRamp.index)]
     }
 
-    override var liveArray: [[LiveFloat]] {
+    override public var liveArray: [[LiveFloat]] {
         return colorSteps.map({ colorStep -> [LiveFloat] in
             return [colorStep.step, colorStep.color.r, colorStep.color.g, colorStep.color.b, colorStep.color.a]
         })
@@ -85,8 +86,8 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Resolution = .auto) {
-        super.init(res: res)
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        super.init(at: resolution)
         name = "gradient"
     }
     
@@ -104,12 +105,12 @@ public extension NODEOut {
     func _gradientMap(from firstColor: LiveColor, to lastColor: LiveColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
-        lookupPix.inPixA = self as? PIX & NODEOut
-        let res: Resolution = PixelKit.main.bits == ._8 ? ._256 : ._8192
-        let gradientPix = GradientPIX(res: .custom(w: res.w, h: 1))
+        lookupPix.inputA = self as? PIX & NODEOut
+        let resolution: Resolution = PixelKit.main.render.bits == ._8 ? ._256 : ._8192
+        let gradientPix = GradientPIX(at: .custom(w: resolution.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
         gradientPix.colorSteps = [ColorStep(0.0, firstColor), ColorStep(1.0, lastColor)]
-        lookupPix.inPixB = gradientPix
+        lookupPix.inputB = gradientPix
         return lookupPix
     }
     

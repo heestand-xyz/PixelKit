@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
@@ -45,7 +46,7 @@ public extension NODEOut {
     func _swap(_ pureColorA: LiveColor.Pure, _ pureColorB: LiveColor.Pure) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
-        channelMixPix.inPix = self as? PIX & NODEOut
+        channelMixPix.input = self as? PIX & NODEOut
         switch pureColorA {
         case .red: channelMixPix.red = pureColorB
         case .green: channelMixPix.green = pureColorB

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 /// Metal Shader (Generator)
@@ -15,19 +16,19 @@ import Metal
 ///
 /// Example:
 /// ~~~~swift
-/// let metalPix = MetalPIX(res: ._1080p, code:
+/// let metalPix = MetalPIX(at: ._1080p, code:
 ///     """
 ///     pix = float4(u, v, 0.0, 1.0);
 ///     """
 /// )
 /// ~~~~
-public class MetalPIX: PIXGenerator, PIXMetal {
+public class MetalPIX: PIXGenerator, NODEMetal {
     
     override open var shaderName: String { return "contentGeneratorMetalPIX" }
     
     // MARK: - Private Properties
 
-    let metalFileName = "ContentGeneratorMetalPIX.metal"
+    public let metalFileName = "ContentGeneratorMetalPIX.metal"
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -35,11 +36,11 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     public var code: String { didSet { bakeFrag() } }
     public var isRawCode: Bool = false
-    var metalCode: String? {
+    public var metalCode: String? {
         if isRawCode { return code }
         console = nil
         do {
-          return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+          return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
@@ -56,28 +57,28 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     
     // MARK: - Life Cycle
     
-    public init(res: Resolution = .auto, uniforms: [MetalUniform] = [], code: String) {
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init(res: res)
+        super.init(at: resolution)
         name = "metal"
 //        bakeFrag()
     }
     
-    required init(res: Resolution) {
+    required init(at resolution: Resolution) {
         metalUniforms = []
         code = ""
-        super.init(res: res)
+        super.init(at: resolution)
     }
     
     func bakeFrag() {
         console = nil
         do {
-            let frag = try pixelKit.makeMetalFrag(shader, from: self)
+            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
-            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+            case Render.ShaderError.metalError(let codeError, let errorFrag):
                 pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 consoleCallback?(console!)
@@ -93,8 +94,8 @@ public class MetalPIX: PIXGenerator, PIXMetal {
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
         setNeedsRender()
     }
     
@@ -102,8 +103,8 @@ public class MetalPIX: PIXGenerator, PIXMetal {
 
 public extension MetalPIX {
     
-    static func _uv(res: Resolution) -> MetalPIX {
-        let metalPix = MetalPIX(res: res, code:
+    static func _uv(resolution: Resolution) -> MetalPIX {
+        let metalPix = MetalPIX(at: resolution, code:
             """
             pix = float4(u, v, 0.0, 1.0);
             """

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class QuantizePIX: PIXSingleEffect, PIXAuto {
     
@@ -36,7 +37,7 @@ public extension NODEOut {
     func _quantize(_ fraction: LiveFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
-        quantizePix.inPix = self as? PIX & NODEOut
+        quantizePix.input = self as? PIX & NODEOut
         quantizePix.fraction = fraction
         return quantizePix
     }

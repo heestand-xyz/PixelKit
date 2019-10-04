@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public class BlendsPIX: PIXMultiEffect, PIXAuto {
@@ -15,7 +16,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
@@ -38,7 +39,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
 
 // MARK: - Loop
 
-public func loop(_ count: Int, blendMode: PIX.BlendingMode, extend: PIX.ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & NODEOut)) -> BlendsPIX {
+public func loop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & NODEOut)) -> BlendsPIX {
     let blendsPix = BlendsPIX()
     blendsPix.name = "loop:blends"
     blendsPix.blendMode = blendMode
@@ -47,7 +48,7 @@ public func loop(_ count: Int, blendMode: PIX.BlendingMode, extend: PIX.ExtendMo
         let fraction = LiveFloat(i) / LiveFloat(count)
         let pix = loop(LiveInt(i), fraction)
         pix.name = pix.name != nil ? "\(pix.name!):\(i)" : "\(i)"
-        blendsPix.inPixs.append(pix)
+        blendsPix.inputs.append(pix)
     }
     return blendsPix
 }

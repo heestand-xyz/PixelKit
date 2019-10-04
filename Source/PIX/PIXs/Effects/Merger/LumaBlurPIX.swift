@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
@@ -61,15 +62,15 @@ public extension NODEOut {
     func _lumaBlur(with pix: PIX & NODEOut, radius: LiveFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
-        lumaBlurPix.inPixA = self as? PIX & NODEOut
-        lumaBlurPix.inPixB = pix
+        lumaBlurPix.inputA = self as? PIX & NODEOut
+        lumaBlurPix.inputB = pix
         lumaBlurPix.radius = radius
         return lumaBlurPix
     }
     
     func _tiltShift(radius: LiveFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
-        let gradientPix = GradientPIX(res: pix.resolution ?? ._128)
+        let gradientPix = GradientPIX(at: pix.renderResolution)
         gradientPix.name = "tiltShift:gradient"
         gradientPix.direction = .vertical
         gradientPix.offset = 0.5

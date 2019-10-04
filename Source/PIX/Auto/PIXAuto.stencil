@@ -1,5 +1,6 @@
 
 import LiveValues
+import RenderKit
 
 {% for parentType in types.implementing.PIXAutoParent %}
 {% for inheritedType in parentType.inheritedTypes %}

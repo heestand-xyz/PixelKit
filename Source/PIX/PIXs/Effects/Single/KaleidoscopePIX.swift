@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
@@ -38,7 +39,7 @@ public extension NODEOut {
     func _kaleidoscope(divisions: LiveInt = 12, mirror: LiveBool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
-        kaleidoscopePix.inPix = self as? PIX & NODEOut
+        kaleidoscopePix.input = self as? PIX & NODEOut
         kaleidoscopePix.divisions = divisions
         kaleidoscopePix.mirror = mirror
         return kaleidoscopePix

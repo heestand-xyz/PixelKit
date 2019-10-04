@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
+import LiveValues
 #if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
@@ -20,10 +22,11 @@ import SwiftUI
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ImagePIXUI: View, PIXUI {
+    public var node: NODE { pix }
     public let pix: PIX
     let imagePix: ImagePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
     #if os(iOS) || os(tvOS)
     public init(image: UIImage) {
@@ -58,13 +61,13 @@ public class ImagePIX: PIXResource {
     #endif
     
     #if !os(macOS)
-    public var resizeToFitRes: Resolution? = nil
+    public var resizeToFitResolution: Resolution? = nil
     #endif
-    var resizedRes: Resolution? {
+    var resizedResolution: Resolution? {
         #if !os(macOS)
-        guard let res = resizeToFitRes else { return nil }
+        guard let res = resizeToFitResolution else { return nil }
         guard let image = image else { return nil }
-        return Resolution.cgSize(image.size).aspectRes(to: .fit, in: res)
+        return Resolution.cgSize(image.size).aspectResolution(to: .fit, in: res)
         #else
         return nil
         #endif
@@ -100,18 +103,24 @@ public class ImagePIX: PIXResource {
             return
         }
         #if !os(macOS)
-        if let res = resizedRes {
-            image = PixelKit.resize(image, to: res.size.cg)
+        if let res = resizedResolution {
+            image = Texture.resize(image, to: res.size.cg)
         }
         #endif
-        if pixelKit.frame == 0 {
+        if pixelKit.render.frame == 0 {
             pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.delay(frames: 1, done: {
+            pixelKit.render.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        guard let buffer = pixelKit.buffer(from: image) else {
+        #if os(macOS)
+        let bits = pixelKit.render.bits
+        #else
+        guard let cgImage = image.cgImage else { return }
+        guard let bits = LiveColor.Bits(rawValue: cgImage.bitsPerPixel) else { return }
+        #endif
+        guard let buffer = Texture.buffer(from: image, bits: bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }

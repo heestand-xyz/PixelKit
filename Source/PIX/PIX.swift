@@ -8,6 +8,7 @@
 
 import RenderKit
 import LiveValues
+import RenderKit
 import CoreGraphics
 import Metal
 import simd
@@ -75,8 +76,8 @@ open class PIX: NODE {
     public var texture: MTLTexture? {
         get {
             guard !bypass else {
-                guard let inPix = self as? NODEInIO else { return nil }
-                return inPix.nodeInList.first?.texture
+                guard let input = self as? NODEInIO else { return nil }
+                return input.inputList.first?.texture
             }
             return _texture
         }
@@ -98,8 +99,9 @@ open class PIX: NODE {
     
     open var additiveVertexBlending: Bool { return false }
     
-    public let view: NODEView
-    
+    public let pixView: PIXView
+    public var view: NODEView { pixView }
+
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
     public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
@@ -145,7 +147,7 @@ open class PIX: NODE {
     
     init() {
     
-        view = PIXView(with: PixelKit.main.render)
+        pixView = PIXView(with: PixelKit.main.render)
         
         setupShader()
             
@@ -206,7 +208,7 @@ open class PIX: NODE {
 //        }
         guard view.metalView.resolution != nil else {
             pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.", loop: true)
-            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Res...", loop: true)
+            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...", loop: true)
             applyResolution {
                 self.setNeedsRender()
             }
@@ -236,8 +238,8 @@ open class PIX: NODE {
                 pixelKit.logger.log(node: self, .warning, .render, "Content not loaded.", loop: true)
             }
         }
-        if let inPix = self as? NODEInIO {
-            if inPix.nodeInList.first?.texture != nil {
+        if let input = self as? NODEInIO {
+            if input.inputList.first?.texture != nil {
                 let wasBad = inputTextureAvalible == false
                 if inputTextureAvalible != true {
                     inputTextureAvalible = true
@@ -287,7 +289,7 @@ open class PIX: NODE {
     
     func renderOuts() {
         if let pixOut = self as? NODEOutIO {
-            for pixOutPath in pixOut.nodeOutPathList {
+            for pixOutPath in pixOut.outputPathList {
 //                guard let pix = pixOutPath?.pixIn else { continue }
                 let pix = pixOutPath.nodeIn
                 guard !pix.destroyed else { continue }
@@ -303,8 +305,8 @@ open class PIX: NODE {
     func renderCustomVertexTexture() {
         for pix in pixelKit.render.linkedNodes {
             if pix.customVertexTextureActive {
-                if let inPix = pix.customVertexNodeIn {
-                    if inPix.id == self.id {
+                if let input = pix.customVertexNodeIn {
+                    if input.id == self.id {
                         pix.setNeedsRender()
                     }
                 }
@@ -351,27 +353,27 @@ open class PIX: NODE {
     
     // MARK: - Connect
     
-    func setNeedsConnectSingle(new newInPix: (PIX & NODEOut)?, old oldInPix: (PIX & NODEOut)?) {
+    func setNeedsConnectSingle(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?) {
         guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & NODEOutIO)
-            for (i, pixOutPath) in pixOut.nodeOutPathList.enumerated() {
+            for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
                 if pixOutPath.nodeIn.id == pixInIO.id {
-                    pixOut.nodeOutPathList.remove(at: i)
+                    pixOut.outputPathList.remove(at: i)
                     break
                 }
             }
-            pixInIO.nodeInList = []
+            pixInIO.inputList = []
             pixelKit.logger.log(node: self, .info, .connection, "Disonnected Single: \(pixOut)")
         }
         if let newPixOut = newInPix {
-            guard newPixOut != self else {
+            guard newPixOut.id != self.id else {
                 pixelKit.logger.log(node: self, .error, .connection, "Can't connect to self.")
                 return
             }
             var pixOut = newPixOut as! (PIX & NODEOutIO)
-            pixInIO.nodeInList = [pixOut]
-            pixOut.nodeOutPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
+            pixInIO.inputList = [pixOut]
+            pixOut.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
             applyResolution { self.setNeedsRender() }
             pixelKit.logger.log(node: self, .info, .connection, "Connected Single: \(pixOut)")
         } else {
@@ -379,26 +381,26 @@ open class PIX: NODE {
         }
     }
     
-    func setNeedsConnectMerger(new newInPix: (PIX & NODEOut)?, old oldInPix: (PIX & NODEOut)?, second: Bool) {
+    func setNeedsConnectMerger(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?, second: Bool) {
         guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
         guard let pixInMerger = self as? NODEInMerger else { return }
         if let oldPixOut = oldInPix {
             var pixOut = oldPixOut as! (PIX & NODEOutIO)
-            for (i, pixOutPath) in pixOut.nodeOutPathList.enumerated() {
+            for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
                 if pixOutPath.nodeIn.id == pixInIO.id {
-                    pixOut.nodeOutPathList.remove(at: i)
+                    pixOut.outputPathList.remove(at: i)
                     break
                 }
             }
-            pixInIO.nodeInList = []
+            pixInIO.inputList = []
             pixelKit.logger.log(node: self, .info, .connection, "Disonnected Merger: \(pixOut)")
         }
         if let newPixOut = newInPix {
-            if var pixOutA = (!second ? newPixOut : pixInMerger.inNodeA) as? (PIX & NODEOutIO),
-                var pixOutB = (second ? newPixOut : pixInMerger.inNodeB) as? (PIX & NODEOutIO) {
-                pixInIO.nodeInList = [pixOutA, pixOutB]
-                pixOutA.nodeOutPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
-                pixOutB.nodeOutPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
+            if var pixOutA = (!second ? newPixOut : pixInMerger.inputA) as? (PIX & NODEOutIO),
+                var pixOutB = (second ? newPixOut : pixInMerger.inputB) as? (PIX & NODEOutIO) {
+                pixInIO.inputList = [pixOutA, pixOutB]
+                pixOutA.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
+                pixOutB.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
                 applyResolution { self.setNeedsRender() }
                 pixelKit.logger.log(node: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
             }
@@ -407,22 +409,22 @@ open class PIX: NODE {
         }
     }
     
-    func setNeedsConnectMulti(new newInPixs: [PIX & NODEOut], old oldInPixs: [PIX & NODEOut]) {
+    func setNeedsConnectMulti(new newInPixs: [NODE & NODEOut], old oldInPixs: [NODE & NODEOut]) {
         guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
-        pixInIO.nodeInList = newInPixs
+        pixInIO.inputList = newInPixs
         for oldInPix in oldInPixs {
-            if var inPix = oldInPix as? (PIX & NODEOutIO) {
-                for (j, pixOutPath) in inPix.nodeOutPathList.enumerated() {
+            if var input = oldInPix as? (PIX & NODEOutIO) {
+                for (j, pixOutPath) in input.outputPathList.enumerated() {
                     if pixOutPath.nodeIn.id == pixInIO.id {
-                        inPix.nodeOutPathList.remove(at: j)
+                        input.outputPathList.remove(at: j)
                         break
                     }
                 }
             }
         }
         for (i, newInPix) in newInPixs.enumerated() {
-            if var inPix = newInPix as? (PIX & NODEOutIO) {
-                inPix.nodeOutPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: i))
+            if var input = newInPix as? (PIX & NODEOutIO) {
+                input.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: i))
             }
         }
         if newInPixs.isEmpty {

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import MetalKit
 import simd
 
@@ -16,12 +17,12 @@ public extension PIX {
     
     var renderedCIImage: CIImage? {
         guard let texture = renderedTexture else { return nil }
-        return pixelKit.ciImage(from: texture)
+        return Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace)
     }
     
     var renderedCGImage: CGImage? {
         guard let ciImage = renderedCIImage else { return nil }
-        return pixelKit.cgImage(from: ciImage, at: resolution.size.cg)
+        return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
     }
     
     #if os(iOS) || os(tvOS)
@@ -31,70 +32,90 @@ public extension PIX {
     #endif
     var renderedImage: _Image? {
         guard let cgImage = renderedCGImage else { return nil }
-        return pixelKit.image(from: cgImage, at: resolution.size.cg)
+        return Texture.image(from: cgImage, at: renderResolution.size.cg)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {
             callback(image)
             return
         }
-        PixelKit.main.delay(frames: 1, done: {
+        pixelKit.render.delay(frames: 1, done: {
             self.nextRenderedImage(callback: callback)
         })
     }
     
     var renderedPixelBuffer: CVPixelBuffer? {
-        let res = resolution
-        guard let cgImage = renderedCGImage else { pixelKit.log(.error, nil, "renderedPixelBuffer: no cgImage."); return nil }
+        let res = renderResolution
+        guard let cgImage = renderedCGImage else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: no cgImage."); return nil }
         var maybePixelBuffer: CVPixelBuffer?
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
                      kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, res.w, res.h, PixelKit.main.bits.os, attrs as CFDictionary, &maybePixelBuffer)
-        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { pixelKit.log(.error, nil, "renderedPixelBuffer: CVPixelBufferCreate failed with status \(status)"); return nil }
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, renderResolution.w, renderResolution.h, pixelKit.render.bits.os, attrs as CFDictionary, &maybePixelBuffer)
+        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: CVPixelBufferCreate failed with status \(status)"); return nil }
         let flags = CVPixelBufferLockFlags(rawValue: 0)
-        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { pixelKit.log(.error, nil, "renderedPixelBuffer: CVPixelBufferLockBaseAddress failed."); return nil }
+        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: CVPixelBufferLockBaseAddress failed."); return nil }
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
-        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: res.w, height: res.h, bitsPerComponent: PixelKit.main.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: PixelKit.main.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { pixelKit.log(.error, nil, "renderedPixelBuffer: context failed to be created."); return nil }
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg))
+        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: renderResolution.w, height: renderResolution.h, bitsPerComponent: pixelKit.render.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: pixelKit.render.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: context failed to be created."); return nil }
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: renderResolution.width.cg, height: renderResolution.height.cg))
         return pixelBuffer
     }
     
     var renderedRaw8: [UInt8]? {
         guard let texture = renderedTexture else { return nil }
-        return pixelKit.raw8(texture: texture)
+        do {
+            return try Texture.raw8(texture: texture)
+        } catch {
+            pixelKit.logger.log(node: self, .error, .texture, "Raw 8 Bit texture failed.", e: error)
+            return nil
+        }
     }
     
     var renderedRaw16: [Float]? {
         guard let texture = renderedTexture else { return nil }
-        return pixelKit.raw16(texture: texture)
+        do {
+            return try Texture.raw16(texture: texture)
+        } catch {
+            pixelKit.logger.log(node: self, .error, .texture, "Raw 16 Bit texture failed.", e: error)
+            return nil
+        }
     }
     
     var renderedRaw32: [float4]? {
         guard let texture = renderedTexture else { return nil }
-        return pixelKit.raw32(texture: texture)
+        do {
+            return try Texture.raw32(texture: texture)
+        } catch {
+            pixelKit.logger.log(node: self, .error, .texture, "Raw 32 Bit texture failed.", e: error)
+            return nil
+        }
     }
     
     var renderedRawNormalized: [CGFloat]? {
         guard let texture = renderedTexture else { return nil }
-        return pixelKit.rawNormalized(texture: texture)
+        do {
+            return try Texture.rawNormalized(texture: texture, bits: pixelKit.render.bits)
+        } catch {
+            pixelKit.logger.log(node: self, .error, .texture, "Raw Normalized texture failed.", e: error)
+            return nil
+        }
     }
     
     struct PixelPack {
-        public let res: Resolution
-        public let raw: [[PixelKit.Pixel]]
-        public func pixel(x: Int, y: Int) -> PixelKit.Pixel {
+        public let resolution: Resolution
+        public let raw: [[Pixel]]
+        public func pixel(x: Int, y: Int) -> Pixel {
             return raw[y][x]
         }
-        public func pixel(uv: CGVector) -> PixelKit.Pixel {
-            let xMax = res.width.cg - 1
-            let yMax = res.height.cg - 1
+        public func pixel(uv: CGVector) -> Pixel {
+            let xMax = resolution.width.cg - 1
+            let yMax = resolution.height.cg - 1
             let x = max(0, min(Int(round(uv.dx * xMax + 0.5)), Int(xMax)))
             let y = max(0, min(Int(round(uv.dy * yMax + 0.5)), Int(yMax)))
             return pixel(pos: CGPoint(x: x, y: y))
         }
-        public func pixel(pos: CGPoint) -> PixelKit.Pixel {
-            let xMax = res.width.cg - 1
-            let yMax = res.height.cg - 1
+        public func pixel(pos: CGPoint) -> Pixel {
+            let xMax = resolution.width.cg - 1
+            let yMax = resolution.height.cg - 1
             let x = max(0, min(Int(round(pos.x)), Int(xMax)))
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
@@ -110,7 +131,7 @@ public extension PIX {
                     color += px.color
                 }
             }
-            color /= LiveFloat(CGFloat(res.count))
+            color /= LiveFloat(CGFloat(resolution.count))
             return color
         }
         public var maximum: LiveColor {
@@ -146,14 +167,14 @@ public extension PIX {
     }
     
     var renderedPixels: PixelPack? {
-        guard let res = realResolution else { return nil }
+        guard let resolution = realResolution else { return nil }
         guard let rawPixelKit = renderedRawNormalized else { return nil }
-        var pixelKit: [[PixelKit.Pixel]] = []
-        let w = Int(res.width.cg)
-        let h = Int(res.height.cg)
+        var pixelKit: [[Pixel]] = []
+        let w = Int(resolution.width.cg)
+        let h = Int(resolution.height.cg)
         for y in 0..<h {
             let v = (CGFloat(y) + 0.5) / CGFloat(h)
-            var pixelRow: [PixelKit.Pixel] = []
+            var pixelRow: [Pixel] = []
             for x in 0..<w {
                 let u = (CGFloat(x) + 0.5) / CGFloat(w)
                 var c: [CGFloat] = []
@@ -165,12 +186,12 @@ public extension PIX {
                 }
                 let color = LiveColor(c)
                 let uv = CGVector(dx: u, dy: v)
-                let pixel = PixelKit.Pixel(x: x, y: y, uv: uv, color: color)
+                let pixel = Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)
             }
             pixelKit.append(pixelRow)
         }
-        return PixelPack(res: res, raw: pixelKit)
+        return PixelPack(resolution: resolution, raw: pixelKit)
     }
     
 }

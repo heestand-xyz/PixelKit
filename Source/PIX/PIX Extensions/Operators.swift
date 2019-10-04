@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 infix operator ++
 infix operator --
@@ -32,20 +33,20 @@ public extension PIX {
         
         public var globalPlacement: Placement = .aspectFit
         
-        func blend(_ pixA: PIX, _ pixB: PIX & NODEOut, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            let pixA = (pixA as? PIX & NODEOut) ?? ColorPIX(res: ._128) // CHECK
+        func blend(_ pixA: PIX, _ pixB: PIX & NODEOut, blendingMode: BlendMode) -> BlendPIX {
+            let pixA = (pixA as? PIX & NODEOut) ?? ColorPIX(at: ._128) // CHECK
             let blendPix = BlendPIX()
             blendPix.name = operatorName(of: blendingMode)
             blendPix.blendMode = blendingMode
             blendPix.bypassTransform = true
             blendPix.placement = globalPlacement
-            blendPix.inPixA = pixA
-            blendPix.inPixB = pixB
+            blendPix.inputA = pixA
+            blendPix.inputB = pixB
             return blendPix
         }
         
-        func blend(_ pix: PIX, _ color: LiveColor, blendingMode: PIX.BlendingMode) -> BlendPIX {
-            let colorPix = ColorPIX(res: .custom(w: 1, h: 1))
+        func blend(_ pix: PIX, _ color: LiveColor, blendingMode: BlendMode) -> BlendPIX {
+            let colorPix = ColorPIX(at: .custom(w: 1, h: 1))
             colorPix.color = color
             if [.addWithAlpha, .subtractWithAlpha].contains(blendingMode) {
                 colorPix.premultiply = false
@@ -55,7 +56,7 @@ public extension PIX {
             return blendPix
         }
         
-        func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: PIX.BlendingMode) -> BlendPIX {
+        func blend(_ pix: PIX, _ val: LiveFloat, blendingMode: BlendMode) -> BlendPIX {
             let color: LiveColor
             switch blendingMode {
             case .addWithAlpha, .subtractWithAlpha:
@@ -66,11 +67,11 @@ public extension PIX {
             return blend(pix, color, blendingMode: blendingMode)
         }
         
-        func blend(_ pix: PIX, _ val: LivePoint, blendingMode: PIX.BlendingMode) -> BlendPIX {
+        func blend(_ pix: PIX, _ val: LivePoint, blendingMode: BlendMode) -> BlendPIX {
             return blend(pix, LiveColor(r: val.x, g: val.y, b: 0.0, a: 1.0), blendingMode: blendingMode)
         }
         
-        func operatorName(of blendingMode: PIX.BlendingMode) -> String {
+        func operatorName(of blendingMode: BlendMode) -> String {
             switch blendingMode {
             case .over: return "&"
             case .under: return "!&"
@@ -393,7 +394,7 @@ public extension PIX {
     
     prefix static func ! (operand: PIX) -> PIX & NODEOut {
         guard let pix = operand as? NODEOut else {
-            let black = ColorPIX(res: ._128)
+            let black = ColorPIX(at: ._128)
             black.bgColor = .black
             return black
         }

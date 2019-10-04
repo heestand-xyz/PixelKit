@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     
@@ -25,8 +26,8 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
         return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     
-    public required init(res: Resolution = .auto) {
-        super.init(res: res)
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        super.init(at: resolution)
         name = "rectangle"
     }
     

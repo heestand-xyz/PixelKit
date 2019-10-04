@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Foundation
 
 public class SepiaPIX: PIXSingleEffect, PIXAuto {

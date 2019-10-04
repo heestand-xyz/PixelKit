@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import RenderKit
 import Metal
 #if os(iOS) || os(tvOS)
 import UIKit
@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
+public class CachePIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "nilPIX" }
     
@@ -45,15 +45,16 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
 //    func cacheTexture() {
 //        guard let texture = texture else {
-//            pixelKit.log(.warning, nil, "Cache failed. No texture avalible.")
+//            pixelKit.logger.log(.warning, nil, "Cache failed. No texture avalible.")
 //            return
 //        }
-//        cachedTextures.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
+//        cachedTexturesolution.append(CachedTexture(id: UUID(), date: Date(), texture: texture))
 //    }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if cacheActive {
-            if let textureCopy = try? pixelKit.copy(texture: texture) {
+            let render = PixelKit.main.render
+            if let textureCopy = try? Texture.copy(texture: texture, on: render.metalDevice, in: render.commandQueue) {
                 let cacheId = UUID()
                 if diskCache {
                     saveToDisk(texture: textureCopy, with: cacheId)
@@ -82,7 +83,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
     
     func saveToDisk(texture: MTLTexture, with id: UUID) {
         let url = mtlTextureUrl(for: id)
-        guard let image = pixelKit.image(from: texture) else {
+        guard let image = Texture.image(from: texture, colorSpace: PixelKit.main.render.colorSpace) else {
             pixelKit.logger.log(node: self, .error, nil, "Save to Disk Failed - Texture to Image conversion failed.")
             return
         }
@@ -112,7 +113,8 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
                 pixelKit.logger.log(node: self, .error, nil, "Load from Disk Failed - Image not found.")
                 return nil
             }
-            guard let texture = pixelKit.texture(from: image) else {
+            let render = PixelKit.main.render
+            guard let texture = Texture.texture(from: image, on: render.metalDevice, in: render.commandQueue) else {
                 pixelKit.logger.log(node: self, .error, nil, "Load from Disk Failed - Texture conversion failed.")
                 return nil
             }
@@ -196,7 +198,7 @@ public class CachePIX: PIXSingleEffect, PixelCustomRenderDelegate {
             }
         }
         guard exists else {
-            pixelKit.logger.log(node: self, .warning, nil, "Seek - Id not found in cached textures.")
+            pixelKit.logger.log(node: self, .warning, nil, "Seek - Id not found in cached texturesolution.")
             return
         }
         cacheId = id

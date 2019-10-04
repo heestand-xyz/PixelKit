@@ -70,10 +70,10 @@ public class StreamOutPIX: NODEOutput {
                 peer.sendImg(img: image!, quality: quality)
                 
             } else {
-                pixelKit.log(.warning, .resource, "Stream Image Convert B.")
+                pixelKit.logger.log(.warning, .resource, "Stream Image Convert B.")
             }
         } else {
-            pixelKit.log(.warning, .resource, "Stream Image Convert A.")
+            pixelKit.logger.log(.warning, .resource, "Stream Image Convert A.")
         }
     }
     

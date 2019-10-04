@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 /// Metal Shader (Multi Effect)
@@ -17,21 +18,21 @@ import Metal
 /// ~~~~swift
 /// let metalMultiEffectPix = MetalMultiEffectPIX(code:
 ///     """
-///     float4 inPixA = inTexs.sample(s, uv, 0);
-///     float4 inPixB = inTexs.sample(s, uv, 1);
-///     float4 inPixC = inTexs.sample(s, uv, 2);
-///     pix = inPixA + inPixB + inPixC;
+///     float4 inputA = inTexs.sample(s, uv, 0);
+///     float4 inputB = inTexs.sample(s, uv, 1);
+///     float4 inputC = inTexs.sample(s, uv, 2);
+///     pix = inputA + inputB + inputC;
 ///     """
 /// )
-/// metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
+/// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 /// ~~~~
-public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
+public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
     
     override open var shaderName: String { return "effectMultiMetalPIX" }
     
     // MARK: - Private Properties
     
-    let metalFileName = "EffectMultiMetalPIX.metal"
+    public let metalFileName = "EffectMultiMetalPIX.metal"
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -39,11 +40,11 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     
     public var code: String { didSet { bakeFrag() } }
     public var isRawCode: Bool = false
-    var metalCode: String? {
+    public var metalCode: String? {
         if isRawCode { return code }
         console = nil
         do {
-            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
@@ -98,11 +99,11 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     func bakeFrag() {
         console = nil
         do {
-            let frag = try pixelKit.makeMetalFrag(shader, from: self)
+            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
-            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+            case Render.ShaderError.metalError(let codeError, let errorFrag):
                 pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 consoleCallback?(console!)
@@ -118,8 +119,8 @@ public class MetalMultiEffectPIX: PIXMultiEffect, PIXMetal {
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
         setNeedsRender()
     }
     

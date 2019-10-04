@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 
-open class PIXSingleEffect: PIXEffect, NODEInSingle, PIXAutoParent {
+open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle, PIXAutoParent {
     
-    public var inPix: (PIX & NODEOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
+    public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
     
     // MARK: - Life Cycle
     
@@ -18,7 +19,7 @@ open class PIXSingleEffect: PIXEffect, NODEInSingle, PIXAutoParent {
     }
     
     public override func destroy() {
-        inPix = nil
+        input = nil
         super.destroy()
     }
     

@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import CoreGraphics
 
 public class LookupPIX: PIXMergerEffect, PIXAuto {
@@ -20,7 +21,7 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     }
     
     var holdEdgeFraction: CGFloat {
-        let axisRes = axis == .x ? resolution.width.cg : resolution.height.cg
+        let axisRes = axis == .x ? renderResolution.width.cg : renderResolution.height.cg
         return 1 / axisRes
     }
     
@@ -47,8 +48,8 @@ public extension NODEOut {
     func _lookup(with pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = ":lookup:"
-        lookupPix.inPixA = self as? PIX & NODEOut
-        lookupPix.inPixB = pix
+        lookupPix.inputA = self as? PIX & NODEOut
+        lookupPix.inputB = pix
         lookupPix.axis = axis
         return lookupPix
     }

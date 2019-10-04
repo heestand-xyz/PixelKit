@@ -23,7 +23,7 @@ public class SyphonOutPIX: NODEOutput {
         super.init()
         setup()
         if pixelKit.bits != ._8 {
-            pixelKit.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
+            pixelKit.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
         }
     }
     
@@ -47,13 +47,13 @@ public class SyphonOutPIX: NODEOutput {
         context = NSOpenGLContext(format: format, share: nil)
         server = SyphonServer(name: "PixelKit", context: context.cglContextObj, options: nil)
         if server == nil {
-            pixelKit.log(.error, .connection, "Syphon server init failed.")
+            pixelKit.logger.log(.error, .connection, "Syphon server init failed.")
         }
     }
     
     public override func setNeedsRender() {
         super.setNeedsRender()
-        if let texture = inPix?.texture {
+        if let texture = input?.texture {
             stream(texture: texture)
         }
     }

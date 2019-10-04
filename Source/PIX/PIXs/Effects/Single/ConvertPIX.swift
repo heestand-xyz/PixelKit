@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public class ConvertPIX: PIXSingleEffect {

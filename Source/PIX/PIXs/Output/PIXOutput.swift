@@ -6,13 +6,14 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 
 open class NODEOutput: PIX, NODEInIO, NODEInSingle {
     
-    public var pixInList: [PIX & NODEOut] = []
-    public var connectedIn: Bool { return !pixInList.isEmpty }
+    public var inputList: [NODE & NODEOut] = []
+    public var connectedIn: Bool { return !inputList.isEmpty }
     
-    public var inPix: (PIX & NODEOut)? { didSet { setNeedsConnectSingle(new: inPix, old: oldValue) } }
+    public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
     
     open override var shaderName: String { return "nilPIX" }
     
@@ -20,7 +21,7 @@ open class NODEOutput: PIX, NODEInIO, NODEInSingle {
     
     override init() {
         super.init()
-        pixInList = []
+        inputList = []
     }
     
 //    required public init(from decoder: Decoder) throws {
@@ -28,7 +29,7 @@ open class NODEOutput: PIX, NODEInIO, NODEInSingle {
 //    }
     
     public override func destroy() {
-        inPix = nil
+        input = nil
         super.destroy()
     }
     

@@ -7,22 +7,23 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
-open class PIXCustom: PIXContent, PIXRes, PixelCustomRenderDelegate {
+open class PIXCustom: PIXContent, NODEResolution, CustomRenderDelegate {
     
     override open var shaderName: String { return "contentResourcePIX" }
     
     // MARK: - Public Properties
     
-    public var res: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
     public var bgColor: LiveColor = .black
     
     override open var liveValues: [LiveValue] { return [bgColor] }
     
-    required public init(res: Resolution = .auto) {
-        self.res = res
+    required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        self.resolution = resolution
         super.init()
         customRenderDelegate = self
         customRenderActive = true

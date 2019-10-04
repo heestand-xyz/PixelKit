@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class ClampPIX: PIXSingleEffect, PIXAuto {
     
@@ -38,7 +39,7 @@ public extension NODEOut {
     func _clamp(low: LiveFloat = 0.0, high: LiveFloat = 1.0) -> ClampPIX {
         let clampPix = ClampPIX()
         clampPix.name = ":clamp:"
-        clampPix.inPix = self as? PIX & NODEOut
+        clampPix.input = self as? PIX & NODEOut
         clampPix.low = low
         clampPix.high = high
         return clampPix

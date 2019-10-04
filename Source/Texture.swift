@@ -33,7 +33,7 @@ import RenderKit
 //                throw RenderError.texture("Sprite Texture fail.")
 //            }
 //            let spriteImage: CGImage = spriteTexture.cgImage()
-//            guard let spriteBuffer = buffer(from: spriteImage, at: nodeSprite.res.size.cg) else {
+//            guard let spriteBuffer = buffer(from: spriteImage, at: nodeSprite.resolution.size.cg) else {
 //                throw RenderError.texture("Sprite Buffer fail.")
 //            }
 //            inputTexture = try makeTexture(from: spriteBuffer, with: commandBuffer)
@@ -43,17 +43,17 @@ import RenderKit
 //    } else if let nodeIn = node as? NODE & NODEInIO {
 //        if let nodeInMulti = nodeIn as? NODEInMulti {
 //            var inTextures: [MTLTexture] = []
-//            for (i, nodeOut) in nodeInMulti.inNodes.enumerated() {
+//            for (i, nodeOut) in nodeInMulti.inputs.enumerated() {
 //                guard let nodeOutTexture = nodeOut.texture else {
 //                    throw RenderError.texture("IO Texture \(i) not found for: \(nodeOut)")
 //                }
 //                try mipmap(texture: nodeOutTexture, with: commandBuffer)
-//                inTextures.append(nodeOutTexture)
+//                inTexturesolution.append(nodeOutTexture)
 //            }
 //            inputTexture = try makeMultiTexture(from: inTextures, with: commandBuffer)
 //        } else {
-//            guard let nodeOut = nodeIn.nodeInList.first else {
-//                throw RenderError.texture("inNode not connected.")
+//            guard let nodeOut = nodeIn.inputList.first else {
+//                throw RenderError.texture("input not connected.")
 //            }
 //            var feed = false
 //            if let feedbackNode = nodeIn as? FeedbackNODE {
@@ -71,7 +71,7 @@ import RenderKit
 //                }
 //                inputTexture = nodeOutTexture // CHECK copy?
 //                if node is NODEInMerger {
-//                    let nodeOutB = nodeIn.nodeInList[1]
+//                    let nodeOutB = nodeIn.inputList[1]
 //                    guard let nodeOutTextureB = nodeOutB.texture else {
 //                        throw RenderError.texture("IO Texture B not found for: \(nodeOutB)")
 //                    }
@@ -103,7 +103,7 @@ import RenderKit
 //    var customTexture: MTLTexture?
 //    if !generator && node.customRenderActive {
 //        guard let customRenderDelegate = node.customRenderDelegate else {
-//            throw RenderError.custom("PixelCustomRenderDelegate not implemented.")
+//            throw RenderError.custom("CustomRenderDelegate not implemented.")
 //        }
 //        if let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) {
 //            inputTexture = nil

@@ -7,13 +7,14 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 import MetalKit
 #if !os(tvOS) || !targetEnvironment(simulator)
 import MetalPerformanceShaders
 #endif
 
-public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
+public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override open var shaderName: String { return "effectSingleBlurPIX" }
     
@@ -54,7 +55,7 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     var relRadius: CGFloat {
         let radius = self.radius.uniform
         let relRes: Resolution = ._4K
-        let res: Resolution = resolution
+        let res: Resolution = renderResolution
         let relHeight = res.height.cg / relRes.height.cg
         let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
@@ -92,13 +93,13 @@ public class BlurPIX: PIXSingleEffect, PixelCustomRenderDelegate, PIXAuto {
     #if !os(tvOS) || !targetEnvironment(simulator)
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
+            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
             descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
-            guard let blurTexture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
+            guard let blurTexture = pixelKit.render.metalDevice.makeTexture(descriptor: descriptor) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
-            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.metalDevice, sigma: Float(relRadius))
+            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.render.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture
@@ -115,7 +116,7 @@ public extension NODEOut {
     func _blur(_ radius: LiveFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
-        blurPix.inPix = self as? PIX & NODEOut
+        blurPix.input = self as? PIX & NODEOut
         blurPix.radius = radius
         return blurPix
     }
@@ -125,7 +126,7 @@ public extension NODEOut {
         blurPix.name = ":zoom-blur:"
         blurPix.style = .zoom
         blurPix.quality = .epic
-        blurPix.inPix = self as? PIX & NODEOut
+        blurPix.input = self as? PIX & NODEOut
         blurPix.radius = radius
         return blurPix
     }

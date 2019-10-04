@@ -7,29 +7,30 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 /// Metal Shader (Effect)
 ///
-/// vars: pi, u, v, uv, w, h, wu, hv, inPix
+/// vars: pi, u, v, uv, w, h, wu, hv, input
 ///
 /// Example:
 /// ~~~~swift
 /// let metalEffectPix = MetalEffectPIX(code:
 ///     """
 ///     float gamma = 0.25;
-///     pix = pow(inPix, 1.0 / gamma);
+///     pix = pow(input, 1.0 / gamma);
 ///     """
 /// )
-/// metalEffectPix.inPix = CameraPIX()
+/// metalEffectPix.input = CameraPIX()
 /// ~~~~
-public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
+public class MetalEffectPIX: PIXSingleEffect, NODEMetal {
     
     override open var shaderName: String { return "effectSingleMetalPIX" }
     
     // MARK: - Private Properties
 
-    let metalFileName = "EffectSingleMetalPIX.metal"
+    public let metalFileName = "EffectSingleMetalPIX.metal"
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -37,11 +38,11 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     
     public var code: String { didSet { bakeFrag() } }
     public var isRawCode: Bool = false
-    var metalCode: String? {
+    public var metalCode: String? {
         if isRawCode { return code }
         console = nil
         do {
-            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
@@ -72,11 +73,11 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     func bakeFrag() {
         console = nil
         do {
-            let frag = try pixelKit.makeMetalFrag(shader, from: self)
+            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
-            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+            case Render.ShaderError.metalError(let codeError, let errorFrag):
                 pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 consoleCallback?(console!)
@@ -92,8 +93,8 @@ public class MetalEffectPIX: PIXSingleEffect, PIXMetal {
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
         setNeedsRender()
     }
     
@@ -105,12 +106,12 @@ public extension NODEOut {
     func _lumaToAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
-            float luma = (inPix.r + inPix.g + inPix.b) / 3;
-            pix = float4(inPix.r, inPix.r, inPix.r, luma);
+            float luma = (input.r + input.g + input.b) / 3;
+            pix = float4(input.r, input.r, input.r, luma);
             """
         )
         metalEffectPix.name = "lumaToAlpha:metalEffectPix"
-        metalEffectPix.inPix = self as? PIX & NODEOut
+        metalEffectPix.input = self as? PIX & NODEOut
         return metalEffectPix
     }
     

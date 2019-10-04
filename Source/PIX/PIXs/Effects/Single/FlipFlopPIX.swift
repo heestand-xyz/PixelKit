@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import CoreGraphics
 
 public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
@@ -65,7 +66,7 @@ public extension NODEOut {
     func _flipX() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipX:flipFlop"
-        flipFlopPix.inPix = self as? PIX & NODEOut
+        flipFlopPix.input = self as? PIX & NODEOut
         flipFlopPix.flip = .x
         return flipFlopPix
     }
@@ -73,7 +74,7 @@ public extension NODEOut {
     func _flipY() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipY:flipFlop"
-        flipFlopPix.inPix = self as? PIX & NODEOut
+        flipFlopPix.input = self as? PIX & NODEOut
         flipFlopPix.flip = .y
         return flipFlopPix
     }
@@ -81,7 +82,7 @@ public extension NODEOut {
     func _flopLeft() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopLeft:flipFlop"
-        flipFlopPix.inPix = self as? PIX & NODEOut
+        flipFlopPix.input = self as? PIX & NODEOut
         flipFlopPix.flop = .left
         return flipFlopPix
     }
@@ -89,7 +90,7 @@ public extension NODEOut {
     func _flopRight() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopRight:flipFlop"
-        flipFlopPix.inPix = self as? PIX & NODEOut
+        flipFlopPix.input = self as? PIX & NODEOut
         flipFlopPix.flop = .right
         return flipFlopPix
     }

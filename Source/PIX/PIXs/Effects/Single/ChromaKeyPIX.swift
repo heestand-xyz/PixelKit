@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     
@@ -40,7 +41,7 @@ public extension NODEOut {
     func _chromaKey(_ color: LiveColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.name = ":chromaKey:"
-        chromaKeyPix.inPix = self as? PIX & NODEOut
+        chromaKeyPix.input = self as? PIX & NODEOut
         chromaKeyPix.keyColor = color
         return chromaKeyPix
     }

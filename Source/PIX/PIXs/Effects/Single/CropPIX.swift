@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import CoreGraphics
 
 public class CropPIX: PIXSingleEffect {
@@ -54,7 +55,7 @@ public extension NODEOut {
     func _crop(_ cropFrame: CGRect) -> CropPIX {
         let cropPix = CropPIX()
         cropPix.name = ":crop:"
-        cropPix.inPix = self as? PIX & NODEOut
+        cropPix.input = self as? PIX & NODEOut
         cropPix.cropFrame = cropFrame
         return cropPix
     }

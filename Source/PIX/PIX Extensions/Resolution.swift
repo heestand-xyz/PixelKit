@@ -8,73 +8,74 @@
 
 import RenderKit
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 extension PIX {
     
     public var renderResolution: Resolution {
-        realResolution ?? .auto
+        realResolution ?? .auto(render: pixelKit.render)
     }
     
     public var realResolution: Resolution? {
         guard !bypass else {
             if let pixIn = self as? NODEInIO {
-                return pixIn.nodeInList.first?.resolution
+                return (pixIn.inputList.first as? PIX)?.realResolution
             } else { return nil }
         }
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 if let imagePix = pixResource as? ImagePIX {
-                    if let res = imagePix.resizedRes {
+                    if let res = imagePix.resizedResolution {
                         return res
                     }
                     guard let image = imagePix.image else { return nil }
                     #if !os(macOS)
-                    return Res.cgSize(image.size) * LiveFloat(image.scale)
+                    return Resolution.cgSize(image.size) * LiveFloat(image.scale)
                     #else
-                    return Res.cgSize(image.size)
+                    return Resolution.cgSize(image.size)
                     #endif
                 } else {
                     #if !os(tvOS)
                     if let webPix = pixResource as? WebPIX {
-                        return webPix.res
+                        return webPix.resolution
                     }
                     #endif
                     guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
-                    var bufferRes = Res(pixelBuffer: pixelBuffer)
+                    var bufferRes = Resolution(pixelBuffer: pixelBuffer)
                     if pixResource.flop {
-                        bufferRes = Res(bufferRes.raw.flopped)
+                        bufferRes = Resolution(bufferRes.raw.flopped)
                     }
                     return bufferRes
                 }
             } else if let pixGenerator = pixContent as? PIXGenerator {
-                return pixGenerator.res
+                return pixGenerator.resolution
             } else if let pixSprite = pixContent as? PIXSprite {
                 return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128))
             } else if let pixCustom = pixContent as? PIXCustom {
-                return pixCustom.res
+                return pixCustom.resolution
             } else { return nil }
-        } else if let resPix = self as? ResPIX {
+        } else if let resPix = self as? ResolutionPIX {
             let resRes: Resolution
-            if resPix.inheritInRes {
-                guard let inResolution = resPix.nodeInList.first?.resolution else { return nil }
+            if resPix.inheritInResolution {
+                guard let inResolution = (resPix.inputList.first as? PIX)?.realResolution else { return nil }
                 resRes = inResolution
             } else {
-                resRes = resPix.res
+                resRes = resPix.resolution
             }
             return resRes * resPix.resMultiplier
         } else if let pixIn = self as? PIX & NODEInIO {
             if let remapPix = pixIn as? RemapPIX {
-                guard let inResB = remapPix.inPixB?.resolution else { return nil }
+                guard let inResB = (remapPix.inputB as? PIX)?.realResolution else { return nil }
                 return inResB
             }
-            guard let inRes = pixIn.nodeInList.first?.resolution else { return nil }
+            guard let inRes = (pixIn.inputList.first as? PIX)?.realResolution else { return nil }
             if let cropPix = self as? CropPIX {
                 return .size(inRes.size * LiveSize(cropPix.resScale))
             } else if let convertPix = self as? ConvertPIX {
                 return .size(inRes.size * LiveSize(convertPix.resScale))
             } else if let flipFlopPix = self as? FlipFlopPIX {
-                return flipFlopPix.flop != .none ? Res(inRes.raw.flopped) : inRes
+                return flipFlopPix.flop != .none ? Resolution(inRes.raw.flopped) : inRes
             }
             return inRes
         } else { return nil }
@@ -85,13 +86,13 @@ extension PIX {
             callback(res)
             return
         }
-        PixelKit.main.delay(frames: 1, done: {
+        PixelKit.main.render.delay(frames: 1, done: {
             self.nextRealResolution(callback: callback)
         })
     }
     
     public func applyResolution(applied: @escaping () -> ()) {
-        let res = resolution
+        let res = renderResolution
 //        guard let res = resolution else {
 //            if pixelKit.frame == 0 {
 //                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
@@ -103,18 +104,18 @@ extension PIX {
 //            pixelKit.logger.log(node: self, .error, .res, "Unknown.")
 //            return
 //        }
-        guard view.resSize == nil || view.resSize! != res.size.cg else {
+        guard view.resolutionSize == nil || view.resolutionSize! != res.size.cg else {
             applied()
             return
         }
         view.setResolution(res)
-        pixelKit.logger.log(node: self, .info, .res, "Applied: \(res) aka \(res.w)x\(res.h)")
+        pixelKit.logger.log(node: self, .info, .res, "Applied: \(res) [\(res.w)x\(res.h)]")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..
         if let pixOut = self as? NODEOutIO {
-            for pathList in pixOut.pixOutPathList {
-                pathList.pixIn.applyResolution(applied: {})
+            for pathList in pixOut.outputPathList {
+                pathList.nodeIn.applyResolution(applied: {})
             }
         }
     }

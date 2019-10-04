@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import RenderKit
 #if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
@@ -13,7 +14,7 @@ import AppKit
 #endif
 import WebKit
 
-public class WebPIX: PIXResource, PIXRes {
+public class WebPIX: PIXResource, NODEResolution {
     
     override open var shaderName: String { return "contentResourceBGRPIX" }
     
@@ -23,16 +24,16 @@ public class WebPIX: PIXResource, PIXRes {
     
     // MARK: - Public Properties
     
-    public var res: Resolution { didSet { /*setFrame();*/ applyResolution { self.setNeedsBuffer() } } }
+    public var resolution: Resolution { didSet { /*setFrame();*/ applyResolution { self.setNeedsBuffer() } } }
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
     public var webView: WKWebView
     
     // MARK: - Life Cycle
     
-    public required init(res: Resolution = .auto) {
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         
-        self.res = res
+        self.resolution = resolution
         
         helper = WebHelper()
         
@@ -57,7 +58,7 @@ public class WebPIX: PIXResource, PIXRes {
     }
     
 //    func setFrame() {
-//        webView.frame = CGRect(origin: .zero, size: res.size.cg)
+//        webView.frame = CGRect(origin: .zero, size: resolution.size.cg)
 //    }
     
     // MARK: - Load
@@ -78,7 +79,7 @@ public class WebPIX: PIXResource, PIXRes {
 //                config.afterScreenUpdates = false
             }
         }
-        config.rect = CGRect(origin: .zero, size: res.size.cg)
+        config.rect = CGRect(origin: .zero, size: resolution.size.cg)
         webView.takeSnapshot(with: config) { image, error in
             guard error == nil else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
@@ -88,7 +89,7 @@ public class WebPIX: PIXResource, PIXRes {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot image not avalible.")
                 return
             }
-            guard let buffer = self.pixelKit.buffer(from: image) else {
+            guard let buffer = Texture.buffer(from: image, bits: self.pixelKit.render.bits) else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
                 return
             }

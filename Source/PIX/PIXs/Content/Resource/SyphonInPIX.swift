@@ -74,7 +74,7 @@ public class SyphonInPIX: PIXResource {
             self.render(glTexture: glTexture, at: size)
         })
         if clinet == nil {
-            pixelKit.log(.error, .connection, "Syphon client init failed.")
+            pixelKit.logger.log(.error, .connection, "Syphon client init failed.")
         }
     }
     
@@ -110,7 +110,7 @@ public class SyphonInPIX: PIXResource {
 //        let status: GLenum = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
 //        if status != GL_FRAMEBUFFER_COMPLETE {
 //            // Deal with this error - you won't be able to draw into the FBO
-//            pixelKit.log(.error, .connection, "Syphon In FBO failed.")
+//            pixelKit.logger.log(.error, .connection, "Syphon In FBO failed.")
 //        }
 //
 //        // Restore state we're done with thus-far
@@ -128,7 +128,7 @@ public class SyphonInPIX: PIXResource {
 //        glBufferData(GLenum(GL_PIXEL_PACK_BUFFER), Int(size.width) * Int(size.height) * 4, nil, GLenum(GL_DYNAMIC_READ))
 //        if glGetError() != GL_NO_ERROR {
 //            // Storage for the PBO couldn't be allocated, deal with it here
-//            pixelKit.log(.error, .connection, "Syphon In PBO failed.")
+//            pixelKit.logger.log(.error, .connection, "Syphon In PBO failed.")
 //        }
 //
 //        // Restore state

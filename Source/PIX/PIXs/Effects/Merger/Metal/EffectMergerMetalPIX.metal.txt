@@ -39,8 +39,8 @@ fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],
     float wuB = 1.0 / float(wB);
     float hvB = 1.0 / float(hB);
     
-    float4 inPixA = inTexA.sample(s, uv);
-    float4 inPixB = inTexB.sample(s, uv);
+    float4 inputA = inTexA.sample(s, uv);
+    float4 inputB = inTexB.sample(s, uv);
     
     float4 pix = 0.0;
     

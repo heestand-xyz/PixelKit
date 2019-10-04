@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class EdgePIX: PIXSingleEffect, PIXAuto {
     
@@ -37,7 +38,7 @@ public extension NODEOut {
     func _edge(_ strength: LiveFloat = 1.0) -> EdgePIX {
         let edgePix = EdgePIX()
         edgePix.name = ":edge:"
-        edgePix.inPix = self as? PIX & NODEOut
+        edgePix.input = self as? PIX & NODEOut
         edgePix.strength = strength
         return edgePix
     }

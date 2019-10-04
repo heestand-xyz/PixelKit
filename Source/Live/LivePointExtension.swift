@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 extension LivePoint {
     
@@ -15,9 +16,9 @@ extension LivePoint {
     #if os(iOS)
     public static var touchXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                return pix.view.liveTouchView.touchPointMain
+                return pix.pixView.liveTouchView.touchPointMain
             }
             return .zero
         })
@@ -46,9 +47,9 @@ extension LivePoint {
     }
     public static var mouseXY: LivePoint {
         return LivePoint({ () -> (CGPoint) in
-            for linkedPix in PixelKit.main.linkedPixs {
+            for linkedPix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard linkedPix.view.superview != nil else { continue }
-                if let mousePoint = linkedPix.view.liveMouseView.mousePoint {
+                if let mousePoint = linkedPix.pixView.liveMouseView.mousePoint {
                     return mousePoint
                 }
             }
@@ -59,17 +60,17 @@ extension LivePoint {
     
     // MARK: - Corners
 
-    public static func topLeft(res: Resolution) -> LivePoint {
-        return LivePoint(x: -res.aspect / 2.0, y: 0.5)
+    public static func topLeft(resolution: Resolution) -> LivePoint {
+        return LivePoint(x: -resolution.aspect / 2.0, y: 0.5)
     }
-    public static func topRight(res: Resolution) -> LivePoint {
-        return LivePoint(x: res.aspect / 2.0, y: 0.5)
+    public static func topRight(resolution: Resolution) -> LivePoint {
+        return LivePoint(x: resolution.aspect / 2.0, y: 0.5)
     }
-    public static func bottomLeft(res: Resolution) -> LivePoint {
-        return LivePoint(x: -res.aspect / 2.0, y: -0.5)
+    public static func bottomLeft(resolution: Resolution) -> LivePoint {
+        return LivePoint(x: -resolution.aspect / 2.0, y: -0.5)
     }
-    public static func bottomRight(res: Resolution) -> LivePoint {
-        return LivePoint(x: res.aspect / 2.0, y: -0.5)
+    public static func bottomRight(resolution: Resolution) -> LivePoint {
+        return LivePoint(x: resolution.aspect / 2.0, y: -0.5)
     }
     
 }

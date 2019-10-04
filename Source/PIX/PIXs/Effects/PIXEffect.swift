@@ -6,14 +6,15 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 
 open class PIXEffect: PIX, NODEInIO, NODEOutIO {
     
-    public var pixInList: [PIX & NODEOut] = []
+    public var inputList: [NODE & NODEOut] = []
 //    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
-    public var pixOutPathList: [PIX.OutPath] = []
-    public var connectedIn: Bool { return !pixInList.isEmpty }
-    public var connectedOut: Bool { return !pixOutPathList.isEmpty }
+    public var outputPathList: [NODEOutPath] = []
+    public var connectedIn: Bool { return !inputList.isEmpty }
+    public var connectedOut: Bool { return !outputPathList.isEmpty }
         
     override init() {
         super.init()

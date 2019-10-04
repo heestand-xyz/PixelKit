@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 public class FreezePIX: PIXSingleEffect {
@@ -45,7 +46,7 @@ public extension NODEOut {
     func _freeze(_ active: LiveBool) -> FreezePIX {
         let freezePix = FreezePIX()
         freezePix.name = ":freeze:"
-        freezePix.inPix = self as? PIX & NODEOut
+        freezePix.input = self as? PIX & NODEOut
         freezePix.freeze = active
         return freezePix
     }

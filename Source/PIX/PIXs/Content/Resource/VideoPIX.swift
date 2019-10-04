@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 #if os(iOS) || os(tvOS)
 import UIKit
 #else
@@ -22,10 +23,11 @@ import SwiftUI
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct VideoPIXUI: View, PIXUI {
+    public var node: NODE { pix }
     public let pix: PIX
     let videoPix: VideoPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
     public init(url: URL) {
         videoPix = VideoPIX()
@@ -70,8 +72,8 @@ public class VideoPIX: PIXResource {
         name = "video"
         helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer, fraction in
             self.pixelBuffer = pixelBuffer
-            let res = self.resolution
-            if self.view.res == nil || self.view.res! != res {
+            let res = self.renderResolution
+            if self.view.resolution == nil || self.view.resolution! != res {
                 self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()
@@ -117,7 +119,7 @@ public class VideoPIX: PIXResource {
     
     func find(video named: String, withExtension ext: String?) -> URL? {
         guard let url = Bundle.main.url(forResource: named, withExtension: ext) else {
-            PixelKit.main.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
+            PixelKit.main.logger.log(.error, .resource, "Video file named \"\(named)\" could not be found.")
             return nil
         }
         return url
@@ -193,7 +195,7 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
             return
         }
-        pixelKit.listenToFramesUntil { () -> (PixelKit.ListenState) in
+        pixelKit.render.listenToFramesUntil { () -> (Render.ListenState) in
             let ready = player.status == .readyToPlay
             if ready {            
                 let currentTime = item.currentTime()
@@ -231,7 +233,7 @@ public class VideoPIX: PIXResource {
     }
     
     #if os(iOS) || os(tvOS)
-    public func thumbnail(fraction: CGFloat, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
+    public func thumbnail(fraction: CGFloat, at size: CGSize, placement: Texture.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
@@ -245,7 +247,7 @@ public class VideoPIX: PIXResource {
         return thumbnail(seconds: seconds, at: size, placement: placement)
     }
     
-    public func thumbnail(seconds: Double, at size: CGSize, placement: PixelKit.ImagePlacement = .fill) -> UIImage? {
+    public func thumbnail(seconds: Double, at size: CGSize, placement: Texture.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
@@ -263,7 +265,7 @@ public class VideoPIX: PIXResource {
             return nil
         }
         let uiImage = UIImage(cgImage: cgImage)
-        return PixelKit.resize(uiImage, to: size, placement: placement)
+        return Texture.resize(uiImage, to: size, placement: placement)
     }
     #endif
     
@@ -306,7 +308,7 @@ class VideoHelper: NSObject {
         
         super.init()
         
-        PixelKit.main.listenToFrames(callback: {  
+        PixelKit.main.render.listenToFrames(callback: {  
             if self.loaded {
                 self.readBuffer()
             }
@@ -342,7 +344,7 @@ class VideoHelper: NSObject {
         let tempVideoURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(PixelKit.main.kBundleId).pix.video.temp.\(UUID().uuidString).mov") // CHECK format
         
         guard FileManager.default.createFile(atPath: tempVideoURL.path, contents: data, attributes: nil) else {
-            PixelKit.main.log(.error, .resource, "Video data load: File creation failed.")
+            PixelKit.main.logger.log(.error, .resource, "Video data load: File creation failed.")
             return
         }
         
@@ -374,7 +376,7 @@ class VideoHelper: NSObject {
         // CHECK wrong observeValue
         if keyPath == "currentItem.presentationSize" {
             guard let size = player?.currentItem?.tracks[0].assetTrack?.naturalSize else {
-                PixelKit.main.log(.error, .resource, "Video size not found.")
+                PixelKit.main.logger.log(.error, .resource, "Video size not found.")
                 return
             } // player?.currentItem?.presentationSize
             let res = Resolution(size: size)

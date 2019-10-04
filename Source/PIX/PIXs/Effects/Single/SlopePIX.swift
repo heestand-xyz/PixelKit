@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class SlopePIX: PIXSingleEffect, PIXAuto {
     
@@ -36,7 +37,7 @@ public extension NODEOut {
     func _slope(_ amplitude: LiveFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.name = ":slope:"
-        slopePix.inPix = self as? PIX & NODEOut
+        slopePix.input = self as? PIX & NODEOut
         slopePix.amplitude = amplitude
         return slopePix
     }

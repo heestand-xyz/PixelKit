@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
@@ -38,15 +39,15 @@ public extension NODEOut {
     func _displace(with pix: PIX & NODEOut, distance: LiveFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
         displacePix.name = ":displace:"
-        displacePix.inPixA = self as? PIX & NODEOut
-        displacePix.inPixB = pix
+        displacePix.inputA = self as? PIX & NODEOut
+        displacePix.inputB = pix
         displacePix.distance = distance
         return displacePix
     }
     
     func _noiseDisplace(distance: LiveFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
         let pix = self as! PIX & NODEOut
-        let noisePix = NoisePIX(res: pix.resolution ?? ._128) // FIXME: with LiveRes
+        let noisePix = NoisePIX(at: pix.renderResolution)
         noisePix.name = "noiseDisplace:noise"
         noisePix.colored = true
         noisePix.zPosition = zPosition

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
@@ -41,7 +42,7 @@ public extension NODEOut {
     func _brightness(_ brightness: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "brightness:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.brightness = brightness
         return levelsPix
     }
@@ -49,7 +50,7 @@ public extension NODEOut {
     func _darkness(_ darkness: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "darkness:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.darkness = darkness
         return levelsPix
     }
@@ -57,7 +58,7 @@ public extension NODEOut {
     func _contrast(_ contrast: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "contrast:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.contrast = contrast
         return levelsPix
     }
@@ -65,7 +66,7 @@ public extension NODEOut {
     func _gamma(_ gamma: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "gamma:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.gamma = gamma
         return levelsPix
     }
@@ -73,7 +74,7 @@ public extension NODEOut {
     func _invert() -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "invert:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.inverted = true
         return levelsPix
     }
@@ -81,7 +82,7 @@ public extension NODEOut {
     func _opacity(_ opacity: LiveFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "opacity:levels"
-        levelsPix.inPix = self as? PIX & NODEOut
+        levelsPix.input = self as? PIX & NODEOut
         levelsPix.opacity = opacity
         return levelsPix
     }

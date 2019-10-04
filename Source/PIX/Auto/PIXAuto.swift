@@ -13,6 +13,7 @@
 
 import Foundation
 import LiveValues
+import RenderKit
 
 protocol PIXAutoParent {}
 protocol PIXAuto {}
@@ -138,6 +139,21 @@ public class AutoEnumProperty: AutoProperty {
     init(name: String, cases: [String], getCallback: @escaping () -> (String), setCallback: @escaping (String) -> ()) {
         self.name = name
         self.cases = cases
+        self.getCallback = getCallback
+        self.setCallback = setCallback
+    }
+}
+
+public class AutoLiveVecProperty: AutoProperty {
+    public let name: String
+    public var value: LiveVec {
+        get { return getCallback() }
+        set { setCallback(newValue) }
+    }
+    let getCallback: () -> (LiveVec)
+    let setCallback: (LiveVec) -> ()
+    init(name: String, getCallback: @escaping () -> (LiveVec), setCallback: @escaping (LiveVec) -> ()) {
+        self.name = name
         self.getCallback = getCallback
         self.setCallback = setCallback
     }

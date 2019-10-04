@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import RenderKit
 import SceneKit
 
 public class ScenePIX: PIXCustom {
@@ -33,11 +34,11 @@ public class ScenePIX: PIXCustom {
     
     // MARK: - Life Cycle
     
-    public required init(res: Resolution = .auto) {
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         
-        super.init(res: res)
+        super.init(at: resolution)
         
-        renderer = SCNRenderer(device: pixelKit.metalDevice, options: nil)
+        renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
         
         sceneHelper = SceneHelper(render: {
             self.setNeedsRender()
@@ -63,7 +64,7 @@ public class ScenePIX: PIXCustom {
             return  nil
         }
         
-        let viewport = CGRect(x: 0, y: 0, width: res.width.cg, height: res.height.cg)
+        let viewport = CGRect(x: 0, y: 0, width: resolution.width.cg, height: resolution.height.cg)
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = texture

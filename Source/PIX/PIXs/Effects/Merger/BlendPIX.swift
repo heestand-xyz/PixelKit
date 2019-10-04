@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 import MetalKit
 //#if !os(tvOS) || !targetEnvironment(simulator)
@@ -19,7 +20,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: LiveBool = false
     public var position: LivePoint = .zero
     public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
@@ -127,23 +128,23 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     }
     
     func frameSize() -> LiveSize {
-        guard let resB = inPixB?.resolution else { return LiveSize(scale: 1.0) }
+        guard let resB = inputB?.renderResolution else { return LiveSize(scale: 1.0) }
         return LiveSize(w: resB.aspect, h: 1.0)
     }
     
     func resScale() -> LiveFloat {
-        guard let resA = inPixA?.resolution else { return 1.0 }
-        guard let resB = inPixB?.resolution else { return 1.0 }
+        guard let resA = inputA?.renderResolution else { return 1.0 }
+        guard let resB = inputB?.renderResolution else { return 1.0 }
         let resScale = resB.height / resA.height
         return resScale
     }
     
 }
 
-public func blend(_ mode: PIX.BlendingMode, _ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut) -> BlendPIX {
+public func blend(_ mode: BlendMode, _ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut) -> BlendPIX {
     let blendPix = BlendPIX()
-    blendPix.inPixA = pixA
-    blendPix.inPixB = pixB
+    blendPix.inputA = pixA
+    blendPix.inputB = pixB
     blendPix.blendMode = mode
     return blendPix
 }

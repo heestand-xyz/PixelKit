@@ -7,15 +7,16 @@
 //
 
 import LiveValues
+import RenderKit
 
 extension LiveBool {
 
     #if os(iOS)
     public static var touch: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                if pix.view.liveTouchView.touch {
+                if pix.pixView.liveTouchView.touch {
                     return true
                 }
             }
@@ -25,9 +26,9 @@ extension LiveBool {
     #elseif os(macOS)
     public static var mouseLeft: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                if pix.view.liveMouseView.mouseLeft {
+                if pix.pixView.liveMouseView.mouseLeft {
                     return true
                 }
             }
@@ -36,9 +37,9 @@ extension LiveBool {
     }
     public static var mouseRight: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                if pix.view.liveMouseView.mouseRight {
+                if pix.pixView.liveMouseView.mouseRight {
                     return true
                 }
             }
@@ -47,9 +48,9 @@ extension LiveBool {
     }
     public static var mouseInView: LiveBool {
         return LiveBool({ () -> (Bool) in
-            for pix in PixelKit.main.linkedPixs {
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
-                if pix.view.liveMouseView.mouseInView {
+                if pix.pixView.liveMouseView.mouseInView {
                     return true
                 }
             }

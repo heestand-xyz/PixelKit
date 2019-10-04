@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import RenderKit
 #if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
@@ -21,14 +22,14 @@ public class VectorPIX: PIXResource {
     override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    public var res: Resolution { didSet { setNeedsBuffer(); applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { setNeedsBuffer(); applyResolution { self.setNeedsRender() } } }
     
     var svgLayer: CALayer? { didSet { setNeedsBuffer() } }
     
     // MARK: - Life Cycle
     
-    public init(res: Resolution) {
-        self.res = res
+    public init(at resolution: Resolution) {
+        self.resolution = resolution
         super.init()
         name = "vector"
     }
@@ -37,7 +38,7 @@ public class VectorPIX: PIXResource {
     
     public func load(named name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "svg") else {
-            pixelKit.log(.error, .resource, "Vector SVG file not found.")
+            pixelKit.logger.log(.error, .resource, "Vector SVG file not found.")
             return
         }
         load(url: url)
@@ -53,13 +54,13 @@ public class VectorPIX: PIXResource {
     
     func setNeedsBuffer() {
         guard let svgLayer = svgLayer else {
-            pixelKit.log(.error, .resource, "Vector not loaded.")
+            pixelKit.logger.log(.error, .resource, "Vector not loaded.")
             return
         }
-        UIGraphicsBeginImageContextWithOptions(res.size.cg, false, 0)
+        UIGraphicsBeginImageContextWithOptions(resolution.size.cg, false, 0)
         defer { UIGraphicsEndImageContext() }
         guard let context = UIGraphicsGetCurrentContext() else {
-            pixelKit.log(.error, .resource, "Vector context fail.")
+            pixelKit.logger.log(.error, .resource, "Vector context fail.")
             return
         }
         svgLayer.render(in: context)
@@ -67,14 +68,14 @@ public class VectorPIX: PIXResource {
             pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
             return
         }
-        if pixelKit.frame == 0 {
+        if pixelKit.render.frame == 0 {
             pixelKit.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
-            pixelKit.delay(frames: 1, done: {
+            pixelKit.render.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        guard let buffer = pixelKit.buffer(from: image) else {
+        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
             return
         }

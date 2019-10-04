@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class CrossPIX: PIXMergerEffect, PIXAuto {
     
@@ -36,8 +37,8 @@ public extension NODEOut {
     func _cross(with pix: PIX & NODEOut, fraction: LiveFloat) -> CrossPIX {
         let crossPix = CrossPIX()
         crossPix.name = ":cross:"
-        crossPix.inPixA = self as? PIX & NODEOut
-        crossPix.inPixB = pix
+        crossPix.inputA = self as? PIX & NODEOut
+        crossPix.inputB = pix
         crossPix.fraction = fraction
         return crossPix
     }
@@ -47,8 +48,8 @@ public extension NODEOut {
 public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: LiveFloat) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
-    crossPix.inPixA = pixA
-    crossPix.inPixB = pixB
+    crossPix.inputA = pixA
+    crossPix.inputB = pixB
     crossPix.fraction = fraction
     return crossPix
 }

@@ -7,13 +7,14 @@
 //
 
 import LiveValues
+import RenderKit
 import Foundation
 
 public class FlarePIX: PIXSingleEffect, PIXAuto {
     
     override open var shaderName: String { return "effectSingleFlarePIX" }
     
-    override var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsAspect: Bool { return true }
     
     // MARK: - Public Properties
     
@@ -46,7 +47,7 @@ public extension NODEOut {
     func _flare() -> FlarePIX {
         let flarePix = FlarePIX()
         flarePix.name = ":flare:"
-        flarePix.inPix = self as? PIX & NODEOut
+        flarePix.input = self as? PIX & NODEOut
         return flarePix
     }
     

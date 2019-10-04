@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 public class FeedbackPIX: PIXSingleEffect {
@@ -22,7 +23,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     var feedTexture: MTLTexture? {
         guard let texture = feedPix?.texture else { return nil }
-        return try? pixelKit.copy(texture: texture)
+        return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
@@ -31,8 +32,8 @@ public class FeedbackPIX: PIXSingleEffect {
     public required init() {
         super.init()
         name = "feedback"
-        pixelKit.listenToFramesUntil { () -> (PixelKit.ListenState) in
-            if self.inPix?.texture != nil && self.feedTexture != nil {
+        pixelKit.render.listenToFramesUntil {
+            if self.input?.texture != nil && self.feedTexture != nil {
                 self.setNeedsRender()
                 return .done
             } else {
@@ -68,11 +69,11 @@ public extension NODEOut {
     func _feed(_ fraction: LiveFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
-        feedbackPix.inPix = self as? PIX & NODEOut
+        feedbackPix.input = self as? PIX & NODEOut
         let crossPix = CrossPIX()
         crossPix.name = "feed:cross"
-        crossPix.inPixA = self as? PIX & NODEOut
-        crossPix.inPixB = loop?(feedbackPix) ?? feedbackPix
+        crossPix.inputA = self as? PIX & NODEOut
+        crossPix.inputB = loop?(feedbackPix) ?? feedbackPix
         crossPix.fraction = fraction
         feedbackPix.feedPix = crossPix
         return feedbackPix
@@ -82,7 +83,7 @@ public extension NODEOut {
 //        let feedbackPix = FeedbackPIX()
 //        feedbackPix.name = "feed:feedback"
 //        let pix = self as! PIX & NODEOut
-//        feedbackPix.inPix = pix
+//        feedbackPix.input = pix
 //        feedbackPix.feedPix = pix + (loop?(feedbackPix) ?? feedbackPix)
 //        return feedbackPix
 //    }

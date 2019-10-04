@@ -6,9 +6,10 @@
 //  Open Source - MIT License
 //
 
+import RenderKit
 import CoreVideo
 
-open class PIXResource: PIXContent {
+open class PIXResource: PIXContent, NODEResource {
     
     public var pixelBuffer: CVPixelBuffer?
     var flop: Bool = false

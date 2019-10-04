@@ -4,6 +4,7 @@
 #if canImport(SwiftUI)
 
 import LiveValues
+import RenderKit
 import SwiftUI
 
 
@@ -16,15 +17,16 @@ import SwiftUI
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ArcPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let arcpix: ArcPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        arcpix = ArcPIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        arcpix = ArcPIX(at: resolution)
         pix = arcpix
     }
     // Parent Property Funcs
@@ -111,15 +113,16 @@ public struct ArcPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct CirclePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let circlepix: CirclePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        circlepix = CirclePIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        circlepix = CirclePIX(at: resolution)
         pix = circlepix
     }
     // Parent Property Funcs
@@ -182,15 +185,16 @@ public struct CirclePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ColorPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let colorpix: ColorPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        colorpix = ColorPIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        colorpix = ColorPIX(at: resolution)
         pix = colorpix
     }
     // Parent Property Funcs
@@ -221,15 +225,16 @@ public struct ColorPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct GradientPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let gradientpix: GradientPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        gradientpix = GradientPIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        gradientpix = GradientPIX(at: resolution)
         pix = gradientpix
     }
     // Parent Property Funcs
@@ -279,10 +284,6 @@ public struct GradientPIXUI: View, PIXUI {
         gradientpix.direction = direction
         return self
     }
-    public func extendRamp(_ extendRamp: PIX.ExtendMode) -> GradientPIXUI {
-        gradientpix.extendRamp = extendRamp
-        return self
-    }
 }
 
 
@@ -292,15 +293,16 @@ public struct GradientPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct LinePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let linepix: LinePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        linepix = LinePIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        linepix = LinePIX(at: resolution)
         pix = linepix
     }
     // Parent Property Funcs
@@ -355,15 +357,16 @@ public struct LinePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct NoisePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let noisepix: NoisePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        noisepix = NoisePIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        noisepix = NoisePIX(at: resolution)
         pix = noisepix
     }
     // Parent Property Funcs
@@ -458,15 +461,16 @@ public struct NoisePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct PolygonPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let polygonpix: PolygonPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        polygonpix = PolygonPIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        polygonpix = PolygonPIX(at: resolution)
         pix = polygonpix
     }
     // Parent Property Funcs
@@ -537,15 +541,16 @@ public struct PolygonPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct RectanglePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let rectanglepix: RectanglePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(res: Resolution = .auto) {
-        rectanglepix = RectanglePIX(res: res)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        rectanglepix = RectanglePIX(at: resolution)
         pix = rectanglepix
     }
     // Parent Property Funcs
@@ -605,18 +610,19 @@ public struct RectanglePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct BlendPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let blendpix: BlendPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         blendpix = BlendPIX()
         pix = blendpix
-        blendpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        blendpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        blendpix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        blendpix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -661,10 +667,6 @@ public struct BlendPIXUI: View, PIXUI {
         return self
     }
     // Enum Property Funcs
-    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendPIXUI {
-        blendpix.blendMode = blendMode
-        return self
-    }
 }
 
 
@@ -674,18 +676,19 @@ public struct BlendPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct CrossPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let crosspix: CrossPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         crosspix = CrossPIX()
         pix = crosspix
-        crosspix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        crosspix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        crosspix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        crosspix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -707,18 +710,19 @@ public struct CrossPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct DisplacePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let displacepix: DisplacePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         displacepix = DisplacePIX()
         pix = displacepix
-        displacepix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        displacepix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        displacepix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        displacepix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -748,18 +752,19 @@ public struct DisplacePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct LookupPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let lookuppix: LookupPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lookuppix = LookupPIX()
         pix = lookuppix
-        lookuppix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        lookuppix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        lookuppix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        lookuppix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -777,18 +782,19 @@ public struct LookupPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct LumaBlurPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let lumablurpix: LumaBlurPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumablurpix = LumaBlurPIX()
         pix = lumablurpix
-        lumablurpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        lumablurpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        lumablurpix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        lumablurpix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -830,18 +836,19 @@ public struct LumaBlurPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct LumaLevelsPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let lumalevelspix: LumaLevelsPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         lumalevelspix = LumaLevelsPIX()
         pix = lumalevelspix
-        lumalevelspix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        lumalevelspix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        lumalevelspix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        lumalevelspix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -895,18 +902,19 @@ public struct LumaLevelsPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct RemapPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let remappix: RemapPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         remappix = RemapPIX()
         pix = remappix
-        remappix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        remappix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        remappix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        remappix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -920,18 +928,19 @@ public struct RemapPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ReorderPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let reorderpix: ReorderPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
         reorderpix = ReorderPIX()
         pix = reorderpix
-        reorderpix.inPixA = uiPixA().pix as? (PIX & NODEOut)
-        reorderpix.inPixB = uiPixB().pix as? (PIX & NODEOut)
+        reorderpix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        reorderpix.inputB = uiPixB().pix as? (PIX & NODEOut)
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -982,17 +991,18 @@ public struct ReorderPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ArrayPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let arraypix: ArrayPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
+    public init(@NODEUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         arraypix = ArrayPIX()
         pix = arraypix
-        arraypix.inPixs = uiPixs()
+        arraypix.inputs = uiPixs()
     }
     // Parent Property Funcs
     // General Property Funcs
@@ -1005,10 +1015,6 @@ public struct ArrayPIXUI: View, PIXUI {
         return self
     }
     // Enum Property Funcs
-    public func blendMode(_ blendMode: PIX.BlendingMode) -> ArrayPIXUI {
-        arraypix.blendMode = blendMode
-        return self
-    }
 }
 
 
@@ -1018,25 +1024,22 @@ public struct ArrayPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct BlendsPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let blendspix: BlendsPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
-    public init(@PIXUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
+    public init(@NODEUIMultiEffectBuilder _ uiPixs: () -> ([PIX & NODEOut])) {
         blendspix = BlendsPIX()
         pix = blendspix
-        blendspix.inPixs = uiPixs()
+        blendspix.inputs = uiPixs()
     }
     // Parent Property Funcs
     // General Property Funcs
     // Enum Property Funcs
-    public func blendMode(_ blendMode: PIX.BlendingMode) -> BlendsPIXUI {
-        blendspix.blendMode = blendMode
-        return self
-    }
 }
 
 
@@ -1051,16 +1054,17 @@ public struct BlendsPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct BlurPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let blurpix: BlurPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         blurpix = BlurPIX()
-        blurpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        blurpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = blurpix
     }
     // Parent Property Funcs
@@ -1103,16 +1107,17 @@ public struct BlurPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ChannelMixPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let channelmixpix: ChannelMixPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         channelmixpix = ChannelMixPIX()
-        channelmixpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        channelmixpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = channelmixpix
     }
     // Parent Property Funcs
@@ -1127,16 +1132,17 @@ public struct ChannelMixPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ChromaKeyPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let chromakeypix: ChromaKeyPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         chromakeypix = ChromaKeyPIX()
-        chromakeypix.inPix = uiPix().pix as? (PIX & NODEOut)
+        chromakeypix.input = uiPix().pix as? (PIX & NODEOut)
         pix = chromakeypix
     }
     // Parent Property Funcs
@@ -1191,16 +1197,17 @@ public struct ChromaKeyPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ClampPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let clamppix: ClampPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         clamppix = ClampPIX()
-        clamppix.inPix = uiPix().pix as? (PIX & NODEOut)
+        clamppix.input = uiPix().pix as? (PIX & NODEOut)
         pix = clamppix
     }
     // Parent Property Funcs
@@ -1239,16 +1246,17 @@ public struct ClampPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct CornerPinPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let cornerpinpix: CornerPinPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         cornerpinpix = CornerPinPIX()
-        cornerpinpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        cornerpinpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = cornerpinpix
     }
     // Parent Property Funcs
@@ -1263,16 +1271,17 @@ public struct CornerPinPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct EdgePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let edgepix: EdgePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         edgepix = EdgePIX()
-        edgepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        edgepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = edgepix
     }
     // Parent Property Funcs
@@ -1303,16 +1312,17 @@ public struct EdgePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct FlarePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let flarepix: FlarePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         flarepix = FlarePIX()
-        flarepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        flarepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = flarepix
     }
     // Parent Property Funcs
@@ -1391,16 +1401,17 @@ public struct FlarePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct FlipFlopPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let flipfloppix: FlipFlopPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         flipfloppix = FlipFlopPIX()
-        flipfloppix.inPix = uiPix().pix as? (PIX & NODEOut)
+        flipfloppix.input = uiPix().pix as? (PIX & NODEOut)
         pix = flipfloppix
     }
     // Parent Property Funcs
@@ -1423,16 +1434,17 @@ public struct FlipFlopPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct HueSaturationPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let huesaturationpix: HueSaturationPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         huesaturationpix = HueSaturationPIX()
-        huesaturationpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        huesaturationpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = huesaturationpix
     }
     // Parent Property Funcs
@@ -1463,16 +1475,17 @@ public struct HueSaturationPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct KaleidoscopePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let kaleidoscopepix: KaleidoscopePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         kaleidoscopepix = KaleidoscopePIX()
-        kaleidoscopepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        kaleidoscopepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = kaleidoscopepix
     }
     // Parent Property Funcs
@@ -1519,16 +1532,17 @@ public struct KaleidoscopePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct LevelsPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let levelspix: LevelsPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         levelspix = LevelsPIX()
-        levelspix.inPix = uiPix().pix as? (PIX & NODEOut)
+        levelspix.input = uiPix().pix as? (PIX & NODEOut)
         pix = levelspix
     }
     // Parent Property Funcs
@@ -1591,16 +1605,17 @@ public struct LevelsPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct QuantizePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let quantizepix: QuantizePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         quantizepix = QuantizePIX()
-        quantizepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        quantizepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = quantizepix
     }
     // Parent Property Funcs
@@ -1623,16 +1638,17 @@ public struct QuantizePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct RangePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let rangepix: RangePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         rangepix = RangePIX()
-        rangepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        rangepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = rangepix
     }
     // Parent Property Funcs
@@ -1719,16 +1735,17 @@ public struct RangePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct SepiaPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let sepiapix: SepiaPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         sepiapix = SepiaPIX()
-        sepiapix.inPix = uiPix().pix as? (PIX & NODEOut)
+        sepiapix.input = uiPix().pix as? (PIX & NODEOut)
         pix = sepiapix
     }
     // Parent Property Funcs
@@ -1751,16 +1768,17 @@ public struct SepiaPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct SharpenPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let sharpenpix: SharpenPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         sharpenpix = SharpenPIX()
-        sharpenpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        sharpenpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = sharpenpix
     }
     // Parent Property Funcs
@@ -1783,16 +1801,17 @@ public struct SharpenPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct SlopePIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let slopepix: SlopePIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         slopepix = SlopePIX()
-        slopepix.inPix = uiPix().pix as? (PIX & NODEOut)
+        slopepix.input = uiPix().pix as? (PIX & NODEOut)
         pix = slopepix
     }
     // Parent Property Funcs
@@ -1815,16 +1834,17 @@ public struct SlopePIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ThresholdPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let thresholdpix: ThresholdPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         thresholdpix = ThresholdPIX()
-        thresholdpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        thresholdpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = thresholdpix
     }
     // Parent Property Funcs
@@ -1847,16 +1867,17 @@ public struct ThresholdPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct TransformPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let transformpix: TransformPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         transformpix = TransformPIX()
-        transformpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        transformpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = transformpix
     }
     // Parent Property Funcs
@@ -1903,16 +1924,17 @@ public struct TransformPIXUI: View, PIXUI {
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct TwirlPIXUI: View, PIXUI {
+    public var node: NODE { pix }
 
     public let pix: PIX
     let twirlpix: TwirlPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
         twirlpix = TwirlPIX()
-        twirlpix.inPix = uiPix().pix as? (PIX & NODEOut)
+        twirlpix.input = uiPix().pix as? (PIX & NODEOut)
         pix = twirlpix
     }
     // Parent Property Funcs

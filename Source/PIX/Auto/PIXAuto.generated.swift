@@ -3,6 +3,7 @@
 
 
 import LiveValues
+import RenderKit
 
 
 // MARK: - PIXGenerator
@@ -485,6 +486,34 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		}	
 	}
+	public func autoLiveVecs(for pix: PIXGenerator) -> [AutoLiveVecProperty] {
+		switch self {
+		case .arcpix:
+			return [
+			]
+		case .circlepix:
+			return [
+			]
+		case .colorpix:
+			return [
+			]
+		case .gradientpix:
+			return [
+			]
+		case .linepix:
+			return [
+			]
+		case .noisepix:
+			return [
+			]
+		case .polygonpix:
+			return [
+			]
+		case .rectanglepix:
+			return [
+			]
+		}	
+	}
 
 	public func autoEnums(for pix: PIXGenerator) -> [AutoEnumProperty] {
 		switch self {
@@ -508,16 +537,6 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 					return (pix as! GradientPIX).direction.rawValue
 				}, setCallback: { value in
 					(pix as! GradientPIX).direction = GradientPIX.Direction(rawValue: value) ?? .horizontal
-				}),
-				AutoEnumProperty(name: "extendRamp", cases: [
-						"hold",
-						"zero",
-						"loop",
-						"mirror",
-				], getCallback: {
-					return (pix as! GradientPIX).extendRamp.rawValue
-				}, setCallback: { value in
-					(pix as! GradientPIX).extendRamp = PIX.ExtendMode(rawValue: value) ?? .hold
 				}),
 			]
 		case .linepix:
@@ -853,35 +872,39 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
+	public func autoLiveVecs(for pix: PIXMergerEffect) -> [AutoLiveVecProperty] {
+		switch self {
+		case .blendpix:
+			return [
+			]
+		case .crosspix:
+			return [
+			]
+		case .displacepix:
+			return [
+			]
+		case .lookuppix:
+			return [
+			]
+		case .lumablurpix:
+			return [
+			]
+		case .lumalevelspix:
+			return [
+			]
+		case .remappix:
+			return [
+			]
+		case .reorderpix:
+			return [
+			]
+		}	
+	}
 
 	public func autoEnums(for pix: PIXMergerEffect) -> [AutoEnumProperty] {
 		switch self {
 		case .blendpix:
 			return [
-				AutoEnumProperty(name: "blendMode", cases: [
-						"over",
-						"under",
-						"add",
-						"addWithAlpha",
-						"multiply",
-						"difference",
-						"subtract",
-						"subtractWithAlpha",
-						"maximum",
-						"minimum",
-						"gamma",
-						"power",
-						"divide",
-						"average",
-						"cosine",
-						"inside",
-						"outside",
-						"exclusiveOr",
-				], getCallback: {
-					return (pix as! BlendPIX).blendMode.rawValue
-				}, setCallback: { value in
-					(pix as! BlendPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
-				}),
 			]
 		case .crosspix:
 			return [
@@ -1108,62 +1131,24 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
+	public func autoLiveVecs(for pix: PIXMultiEffect) -> [AutoLiveVecProperty] {
+		switch self {
+		case .arraypix:
+			return [
+			]
+		case .blendspix:
+			return [
+			]
+		}	
+	}
 
 	public func autoEnums(for pix: PIXMultiEffect) -> [AutoEnumProperty] {
 		switch self {
 		case .arraypix:
 			return [
-				AutoEnumProperty(name: "blendMode", cases: [
-						"over",
-						"under",
-						"add",
-						"addWithAlpha",
-						"multiply",
-						"difference",
-						"subtract",
-						"subtractWithAlpha",
-						"maximum",
-						"minimum",
-						"gamma",
-						"power",
-						"divide",
-						"average",
-						"cosine",
-						"inside",
-						"outside",
-						"exclusiveOr",
-				], getCallback: {
-					return (pix as! ArrayPIX).blendMode.rawValue
-				}, setCallback: { value in
-					(pix as! ArrayPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
-				}),
 			]
 		case .blendspix:
 			return [
-				AutoEnumProperty(name: "blendMode", cases: [
-						"over",
-						"under",
-						"add",
-						"addWithAlpha",
-						"multiply",
-						"difference",
-						"subtract",
-						"subtractWithAlpha",
-						"maximum",
-						"minimum",
-						"gamma",
-						"power",
-						"divide",
-						"average",
-						"cosine",
-						"inside",
-						"outside",
-						"exclusiveOr",
-				], getCallback: {
-					return (pix as! BlendsPIX).blendMode.rawValue
-				}, setCallback: { value in
-					(pix as! BlendsPIX).blendMode = PIX.BlendingMode(rawValue: value) ?? .over
-				}),
 			]
 		}	
 	}
@@ -1924,6 +1909,67 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 				}, setCallback: { value in
 					(pix as! TransformPIX).size = value
 				}),
+			]
+		case .twirlpix:
+			return [
+			]
+		}	
+	}
+	public func autoLiveVecs(for pix: PIXSingleEffect) -> [AutoLiveVecProperty] {
+		switch self {
+		case .blurpix:
+			return [
+			]
+		case .channelmixpix:
+			return [
+			]
+		case .chromakeypix:
+			return [
+			]
+		case .clamppix:
+			return [
+			]
+		case .cornerpinpix:
+			return [
+			]
+		case .edgepix:
+			return [
+			]
+		case .flarepix:
+			return [
+			]
+		case .flipfloppix:
+			return [
+			]
+		case .huesaturationpix:
+			return [
+			]
+		case .kaleidoscopepix:
+			return [
+			]
+		case .levelspix:
+			return [
+			]
+		case .quantizepix:
+			return [
+			]
+		case .rangepix:
+			return [
+			]
+		case .sepiapix:
+			return [
+			]
+		case .sharpenpix:
+			return [
+			]
+		case .slopepix:
+			return [
+			]
+		case .thresholdpix:
+			return [
+			]
+		case .transformpix:
+			return [
 			]
 		case .twirlpix:
 			return [

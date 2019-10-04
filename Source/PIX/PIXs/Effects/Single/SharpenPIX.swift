@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class SharpenPIX: PIXSingleEffect, PIXAuto {
     
@@ -36,7 +37,7 @@ public extension NODEOut {
     func _sharpen(_ contrast: LiveFloat = 1.0) -> SharpenPIX {
         let sharpenPix = SharpenPIX()
         sharpenPix.name = ":sharpen:"
-        sharpenPix.inPix = self as? PIX & NODEOut
+        sharpenPix.input = self as? PIX & NODEOut
         sharpenPix.contrast = contrast
         return sharpenPix
     }

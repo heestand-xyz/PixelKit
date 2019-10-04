@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 #if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(macOS)
@@ -21,10 +22,11 @@ import SwiftUI
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
 public struct ViewPIXUI<Content: View>: View, PIXUI {
+    public var node: NODE { pix }
     public let pix: PIX
     let viewPix: ViewPIX
     public var body: some View {
-        PIXRepView(pix: pix)
+        NODERepView(node: pix)
     }
     public init(continuously: Bool = false, _ view: () -> (Content)) {
         let viewPix = ViewPIX()
@@ -33,9 +35,9 @@ public struct ViewPIXUI<Content: View>: View, PIXUI {
         let uiView = UIHostingController(rootView: view()).view!
         viewPix.renderView = uiView
         pix = viewPix
-//        PixelKit.main.listenToFramesUntil {
-//            let res: Resolution = .auto
-//            guard res.w != 128 else { return .continue }
+//        PixelKit.main.render.listenToFramesUntil {
+//            let resolution: Resolution = .auto(render: PixelKit.main.render)
+//            guard resolution.w != 128 else { return .continue }
 //            let size = (res / Resolution.scale).size.cg
 //            uiView.frame = CGRect(origin: .zero, size: size)
 //            viewPix.viewNeedsRender()
@@ -117,15 +119,15 @@ public class ViewPIX: PIXResource {
         applyResolution {
             self.setNeedsRender()
         }
-        pixelKit.listenToFrames {
+        pixelKit.render.listenToFrames {
             if self.renderViewContinuously {
                 self.setNeedsBuffer()
             } else {
                 if self.renderView != nil {
                     let viewRelSize = self.renderView!.frame.size
                     let viewSize = LiveSize(viewRelSize) * Resolution.scale
-                    let res = Resolution.auto
-                    let resSize = res.size.cg
+                    let res: Resolution = .auto(render: self.pixelKit.render)
+                    let resSize = self.renderResolution.size.cg
                     let resRelSize = (res / Resolution.scale).size.cg
                     if viewSize.cg != resSize {
                         self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
@@ -144,9 +146,9 @@ public class ViewPIX: PIXResource {
     // MARK: Buffer
     
     func setNeedsBuffer() {
-        if pixelKit.frame == 0 {
+        if pixelKit.render.frame == 0 {
             pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.delay(frames: 1, done: {
+            pixelKit.render.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
@@ -166,7 +168,7 @@ public class ViewPIX: PIXResource {
             return
         }
         UIGraphicsEndImageContext()
-        guard let buffer = pixelKit.buffer(from: image) else {
+        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }

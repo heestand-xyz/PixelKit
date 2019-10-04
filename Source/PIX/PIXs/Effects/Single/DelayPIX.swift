@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
-
+import RenderKit
+import RenderKit
 import Metal
 
-public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
+public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "nilPIX" }
     
@@ -43,7 +44,7 @@ public class DelayPIX: PIXSingleEffect, PixelCustomRenderDelegate {
         if cachedTextures.count > 0 {
             cachedTextures.remove(at: 0)
         }
-        if let textureCopy = try? pixelKit.copy(texture: texture) {
+        if let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) {
             while delayFrames != cachedTextures.count {
                 if cachedTextures.count < delayFrames {
                     cachedTextures.append(textureCopy)
@@ -62,7 +63,7 @@ public extension NODEOut {
     func _delay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
         delayPix.name = ":delay:"
-        delayPix.inPix = self as? PIX & NODEOut
+        delayPix.input = self as? PIX & NODEOut
         delayPix.delayFrames = frames
         return delayPix
     }

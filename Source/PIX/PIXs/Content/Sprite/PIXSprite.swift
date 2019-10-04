@@ -5,16 +5,18 @@
 //  Created by Hexagons on 2018-08-28.
 //  Open Source - MIT License
 //
+
 import LiveValues
+import RenderKit
 import SpriteKit
 
-open class PIXSprite: PIXContent, PIXRes {
+open class PIXSprite: PIXContent, NODEResolution {
     
     override open var shaderName: String { return "spritePIX" }
     
     // MARK: - Public Properties
     
-    public var res: Resolution { didSet { reSize(); applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { reSize(); applyResolution { self.setNeedsRender() } } }
     
     public var bgColor: LiveColor = .black {
         didSet {
@@ -26,15 +28,15 @@ open class PIXSprite: PIXContent, PIXRes {
     var scene: SKScene!
     var sceneView: SKView!
     
-    required public init(res: Resolution = .auto) {
-        self.res = res
+    required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        self.resolution = resolution
         super.init()
         setup()
         applyResolution { self.setNeedsRender() }
     }
     
     func setup() {
-        let size = (res / Resolution.scale).size.cg
+        let size = (resolution / Resolution.scale).size.cg
         scene = SKScene(size: size)
         scene.backgroundColor = bgColor._color
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
@@ -43,7 +45,7 @@ open class PIXSprite: PIXContent, PIXRes {
     }
     
     func reSize() {
-        let size = (res / Resolution.scale).size.cg
+        let size = (resolution / Resolution.scale).size.cg
         scene.size = size
         sceneView.frame = CGRect(origin: .zero, size: size)
     }

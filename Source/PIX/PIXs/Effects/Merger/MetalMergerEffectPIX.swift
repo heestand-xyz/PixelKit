@@ -7,31 +7,32 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 /// Metal Shader (Merger Effect)
 ///
-/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inPixA, wB, hB, wuB, hvB, inPixB
+/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inputA, wB, hB, wuB, hvB, inputB
 ///
-/// float4 inPixA = inTexA.sample(s, uv);
+/// float4 inputA = inTexA.sample(s, uv);
 ///
 /// Example:
 /// ~~~~swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:
 ///     """
-///     pix = pow(inPixA, 1.0 / inPixB);
+///     pix = pow(inputA, 1.0 / inputB);
 ///     """
 /// )
-/// metalMergerEffectPix.inPixA = CameraPIX()
-/// metalMergerEffectPix.inPixB = ImagePIX("img_name")
+/// metalMergerEffectPix.inputA = CameraPIX()
+/// metalMergerEffectPix.inputB = ImagePIX("img_name")
 /// ~~~~
-public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
+public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal {
     
     override open var shaderName: String { return "effectMergerMetalPIX" }
     
     // MARK: - Private Properties
     
-    let metalFileName = "EffectMergerMetalPIX.metal"
+    public let metalFileName = "EffectMergerMetalPIX.metal"
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -39,11 +40,11 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     
     public var code: String { didSet { bakeFrag() } }
     public var isRawCode: Bool = false
-    var metalCode: String? {
+    public var metalCode: String? {
         if isRawCode { return code }
         console = nil
         do {
-            return try pixelKit.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
@@ -98,11 +99,11 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     func bakeFrag() {
         console = nil
         do {
-            let frag = try pixelKit.makeMetalFrag(shader, from: self)
+            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
-            case PixelKit.ShaderError.metalError(let codeError, let errorFrag):
+            case Render.ShaderError.metalError(let codeError, let errorFrag):
                 pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 console = codeError.localizedDescription
                 consoleCallback?(console!)
@@ -118,8 +119,8 @@ public class MetalMergerEffectPIX: PIXMergerEffect, PIXMetal {
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixelKit.makeShaderPipeline(frag, with: vtx)
+        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
+        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
         setNeedsRender()
     }
     

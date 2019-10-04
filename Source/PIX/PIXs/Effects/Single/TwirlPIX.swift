@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
@@ -37,7 +38,7 @@ public extension NODEOut {
     func _twirl(_ strength: LiveFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
         twirlPix.name = ":twirl:"
-        twirlPix.inPix = self as? PIX & NODEOut
+        twirlPix.input = self as? PIX & NODEOut
         twirlPix.strength = strength
         return twirlPix
     }

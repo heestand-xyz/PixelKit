@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class NoisePIX: PIXGenerator, PIXAuto {
     
@@ -31,19 +32,19 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     
     // MARK: - Life Cycle
     
-    public required init(res: Resolution = .auto) {
-        super.init(res: res)
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        super.init(at: resolution)
         name = "noise"
     }
     
 //    // MARK: - Life Cycle
 //
-//    public init(res: Resolution, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
+//    public init(at resolution: Resolution, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
 //        self.seed = seed
 //        self.octaves = octaves
 //        self.colored = colored
 //        self.random = random
-//        super.init(res: res)
+//        super.init(at: resolution)
 //    }
     
 }

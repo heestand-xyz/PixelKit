@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 #if os(iOS) || os(tvOS)
 import UIKit
@@ -81,7 +82,7 @@ class Layout {
     }
     
     static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
-        let aspect = LiveFloat({ return layoutablePix.resolution.aspect.cg })
+        let aspect = LiveFloat({ return layoutablePix.renderResolution.aspect.cg })
         let sourceValue: LiveFloat
         switch sourceAnchor {
         case .left:

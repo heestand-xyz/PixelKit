@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 
 public class TransformPIX: PIXSingleEffect, PIXAuto {
     
@@ -40,7 +41,7 @@ public extension NODEOut {
     func _move(by position: LivePoint) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "position:transform"
-        transformPix.inPix = self as? PIX & NODEOut
+        transformPix.input = self as? PIX & NODEOut
         transformPix.position = position
         return transformPix
     }
@@ -52,7 +53,7 @@ public extension NODEOut {
     func _rotatate(by rotation: LiveFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "rotatate:transform"
-        transformPix.inPix = self as? PIX & NODEOut
+        transformPix.input = self as? PIX & NODEOut
         transformPix.rotation = rotation
         return transformPix
     }
@@ -68,7 +69,7 @@ public extension NODEOut {
     func _scale(by scale: LiveFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
-        transformPix.inPix = self as? PIX & NODEOut
+        transformPix.input = self as? PIX & NODEOut
         transformPix.scale = scale
         return transformPix
     }
@@ -76,7 +77,7 @@ public extension NODEOut {
     func _scale(size: LiveSize) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
-        transformPix.inPix = self as? PIX & NODEOut
+        transformPix.input = self as? PIX & NODEOut
         transformPix.size = size
         return transformPix
     }

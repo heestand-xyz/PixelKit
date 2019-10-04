@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import AVKit
 
 public class RecordPIX: NODEOutput {
@@ -86,23 +87,23 @@ public class RecordPIX: NODEOutput {
     // MARK: - Record
     
     public func startRec(name: String? = nil) throws {
-        pixelKit.log(.info, nil, "Rec start.")
+        pixelKit.logger.log(.info, nil, "Rec start.")
         customName = name
         try startRecord()
     }
     
     public func pauseRec() {
-        pixelKit.log(.info, nil, "Rec pause.")
+        pixelKit.logger.log(.info, nil, "Rec pause.")
         pauseRecord()
     }
     
     public func resumeRec() {
-        pixelKit.log(.info, nil, "Rec resume.")
+        pixelKit.logger.log(.info, nil, "Rec resume.")
         resumeRecord()
     }
     
     public func stopRec(_ exported: @escaping (URL) -> (), didError: ((Error) -> ())?) {
-        pixelKit.log(.info, nil, "Rec stop.")
+        pixelKit.logger.log(.info, nil, "Rec stop.")
 //        guard recording else { return }
         stopRecord(done: {
             guard let url = self.exportUrl else { return }
@@ -115,7 +116,7 @@ public class RecordPIX: NODEOutput {
     // MARK: Export
     
     func realtimeListen() {
-        pixelKit.listenToFrames(callback: {
+        pixelKit.render.listenToFrames(callback: {
             self.frameLoop()
         })
     }
@@ -123,7 +124,7 @@ public class RecordPIX: NODEOutput {
     func frameLoop() {
         if !directMode && recording && realtime && connectedIn {
             if lastFrameDate == nil || -lastFrameDate!.timeIntervalSinceNow >= 1.0 / Double(fps) {
-                if let texture = inPix?.texture {
+                if let texture = input?.texture {
                     DispatchQueue.global(qos: .background).async {
                         self.recordFrame(texture: texture)
                     }
@@ -155,7 +156,7 @@ public class RecordPIX: NODEOutput {
             throw RecordError.noRes
         }
 
-        try self.setup(res: res)
+        try self.setup(resolution: res)
     
         self.startDate = Date()
         self.frameIndex = 0
@@ -194,7 +195,7 @@ public class RecordPIX: NODEOutput {
 //
 //    }
     
-    func setup(res: Resolution) throws {
+    func setup(resolution: Resolution) throws {
         
         let id = UUID()
         
@@ -220,8 +221,8 @@ public class RecordPIX: NODEOutput {
         writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
         let videoSettings: [String: Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoWidthKey: res.w,
-            AVVideoHeightKey: res.h
+            AVVideoWidthKey: resolution.w,
+            AVVideoHeightKey: resolution.h
         ]
         writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         writerVideoInput!.expectsMediaDataInRealTime = true
@@ -229,9 +230,9 @@ public class RecordPIX: NODEOutput {
         
         
         let sourceBufferAttributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.bits.osARGB),
-            kCVPixelBufferWidthKey as String: res.w,
-            kCVPixelBufferHeightKey as String: res.h,
+            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.render.bits.osARGB),
+            kCVPixelBufferWidthKey as String: resolution.w,
+            kCVPixelBufferHeightKey as String: resolution.h,
             kCVPixelBufferMetalCompatibilityKey as String: true,
             kCVPixelBufferCGImageCompatibilityKey as String: true
         ]
@@ -248,14 +249,14 @@ public class RecordPIX: NODEOutput {
                     if self.audioStartTime == nil {
                         self.audioStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
                         guard self.writer!.status != .unknown else {
-                            PixelKit.main.log(.error, nil, "Audio Rec: Writer status is unknown.")
+                            PixelKit.main.logger.log(.error, nil, "Audio Rec: Writer status is unknown.")
                             return
                         }
                         self.writer!.startSession(atSourceTime: self.audioStartTime!)
                     }
                     let success = input.append(sampleBuffer)
                     if !success {
-                        PixelKit.main.log(.error, nil, "Audio Rec: Sample faied to write.")
+                        PixelKit.main.logger.log(.error, nil, "Audio Rec: Sample faied to write.")
                     }
                 }
             }
@@ -316,7 +317,7 @@ public class RecordPIX: NODEOutput {
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
             let options: [CIImageOption : Any] = [
-                CIImageOption.colorSpace: pixelKit.colorSpace.cg
+                CIImageOption.colorSpace: pixelKit.render.colorSpace.cg
             ]
             let ci_image = CIImage(mtlTexture: texture, options: options)
             if ci_image != nil {
@@ -325,7 +326,7 @@ public class RecordPIX: NODEOutput {
                 EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: LiveColor.Bits._8.ci, colorSpace: pixelKit.colorSpace.cg)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: LiveColor.Bits._8.ci, colorSpace: pixelKit.render.colorSpace.cg)
                 if cg_image != nil {
                     
                     currentImage = cg_image!
@@ -387,7 +388,7 @@ public class RecordPIX: NODEOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) -> Bool {
-        guard let pixelBuffer = pixelKit.buffer(from: cg_image, at: resolution.size.cg) else { return false }
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: renderResolution.size.cg) else { return false }
         return pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time)
     }
     
@@ -432,7 +433,7 @@ class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
             captureSession!.commitConfiguration()
             
         } catch {
-            PixelKit.main.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
+            PixelKit.main.logger.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
         }
         
     }

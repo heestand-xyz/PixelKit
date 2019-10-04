@@ -7,11 +7,12 @@
 //
 
 import LiveValues
+import RenderKit
 
 extension LiveRect {
     
-    public static func fill(res: Resolution) -> LiveRect {
-        return LiveRect.fill(aspect: res.aspect)
+    public static func fill(resolution: Resolution) -> LiveRect {
+        return LiveRect.fill(aspect: resolution.aspect)
     }
     
 }

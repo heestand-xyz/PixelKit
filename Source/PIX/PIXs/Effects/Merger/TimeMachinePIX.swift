@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import Metal
 
 public class TimeMachinePIX: PIXMergerEffect {
@@ -38,7 +39,7 @@ public class TimeMachinePIX: PIXMergerEffect {
         name = "timeMachine"
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
-        PixelKit.main.listenToFrames {
+        PixelKit.main.render.listenToFrames {
             self.frameLoop()
             self.setNeedsRender()
         }
@@ -49,7 +50,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     func frameLoop() {
         
         if let firstCachedTexture = textureCache.first {
-            if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(PixelKit.main.fps)) {
+            if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(PixelKit.main.render.fps)) {
                 let newCachedTexture = CachedTexture(texture: firstCachedTexture.texture, date: Date())
                 textureCache.insert(newCachedTexture, at: 0)
             }
@@ -68,7 +69,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     // MARK: - Custom Render
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> [MTLTexture] {
-        if let textureCopy = try? pixelKit.copy(texture: texture) {
+        if let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) {
             textureCache.insert(CachedTexture(texture: textureCopy, date: Date()), at: 0)
         }
         return textureCache.map({$0.texture})

@@ -7,6 +7,7 @@
 //
 
 import LiveValues
+import RenderKit
 import CoreGraphics
 
 public struct Coordinate {
@@ -26,11 +27,11 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     override open var shaderName: String { return "effectMultiArrayPIX" }
     
-    override var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsAspect: Bool { return true }
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendingMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
     public var coordinates: [Coordinate] = []
     public var bgColor: LiveColor = .black
     
@@ -89,7 +90,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
                 let yBounds = LiveFloat(yRange.upperBound - yRange.lowerBound)
                 let position = LivePoint(x: LiveFloat(xRange.lowerBound) + xBounds * xFraction,
                                        y: LiveFloat(yRange.lowerBound) + yBounds * yFraction)
-                let coordinate = Coordinate(position, scale: (yBounds / LiveFloat(yCount)) * scaleMultiplier, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
+                let coordinate = Coordinate(position, scale: (yBounds / LiveFloat(yCount)) * scaleMultiplier, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
                 coordinates.append(coordinate)
             }
         }
@@ -97,7 +98,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: LiveFloat = 1.0) {
         coordinates = []
-        let aspect = resolution.aspect.cg
+        let aspect = renderResolution.aspect.cg
         let hexScale: CGFloat = sqrt(0.75)
         let xScale = hexScale * scale
         let yScale = (3 / 4) * scale
@@ -113,7 +114,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
                 let isOdd = abs(y) % 2 == 1
                 let position = LivePoint(x: LiveFloat(x) * LiveFloat(xScale) * scaleMultiplier + LiveFloat(isOdd ? xScale / 2 : 0) * scaleMultiplier,
                                          y: LiveFloat(y) * LiveFloat(yScale) * scaleMultiplier)
-                let coordinate = Coordinate(position, scale: LiveFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
+                let coordinate = Coordinate(position, scale: LiveFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
                 coordinates.append(coordinate)
                 i += 1
             }
@@ -126,7 +127,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
             let fraction = LiveFloat(i) / LiveFloat(count);
             let position = LivePoint(x: cos(fraction * .pi * 2) * scale,
                                    y: sin(fraction * .pi * 2) * scale)
-            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
+            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
             coordinates.append(coordinate)
         }
     }
@@ -140,16 +141,16 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
             let position = LivePoint(x: fromPoint.x + vector.x * fraction,
                                    y: fromPoint.y + vector.y * fraction)
             let rotation: LiveFloat = atan2(vector.y, vector.x) / (.pi * 2) + 0.25
-            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * scaleMultiplier, rotation: rotation, textueIndex: LiveInt(inPixs.count > 0 ? i % inPixs.count : 0))
+            let coordinate = Coordinate(position, scale: (1.0 / LiveFloat(count)) * scaleMultiplier, rotation: rotation, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
             coordinates.append(coordinate)
         }
     }
     
     public func buildRandom(count: Int) {
         coordinates = []
-        let pixCount = inPixs.isEmpty ? 1 : inPixs.count
+        let pixCount = inputs.isEmpty ? 1 : inputs.count
         for _ in 0..<count {
-            let aspect = resolution.aspect.cg
+            let aspect = renderResolution.aspect.cg
             let position = LivePoint(x: LiveFloat.random(in: (-aspect / 2)...(aspect / 2)),
                                    y: LiveFloat.random(in: -0.5...0.5))
             let rotation = LiveFloat.random(in: 0.0...1.0)
