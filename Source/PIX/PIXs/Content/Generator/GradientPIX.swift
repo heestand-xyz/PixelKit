@@ -52,7 +52,7 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     // MARK: - Property Helpers
     
     override open var liveValues: [LiveValue] {
-        return [scale, offset, position, position]
+        return [scale, offset, position, position] // CHECK
     }
     
     override open var preUniforms: [CGFloat] {

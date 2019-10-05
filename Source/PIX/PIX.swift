@@ -157,6 +157,8 @@ open class PIX: NODE {
     
     }
     
+    // MARK: - Setup
+    
     func setupShader() {
         guard shaderName != "" else {
             pixelKit.logger.log(node: self, .fatal, nil, "Shader not defined.")
@@ -176,7 +178,7 @@ open class PIX: NODE {
         }
     }
     
-    // MARK: Sampler
+    // MARK: - Sampler
     
     func updateSampler() {
         do {
@@ -271,6 +273,21 @@ open class PIX: NODE {
             }
         }
     }
+        
+    func renderOuts() {
+        if let pixOut = self as? NODEOutIO {
+            for pixOutPath in pixOut.outputPathList {
+//                guard let pix = pixOutPath?.pixIn else { continue }
+                let pix = pixOutPath.nodeIn
+                guard !pix.destroyed else { continue }
+                guard pix.id != self.id else {
+                    pixelKit.logger.log(node: self, .error, .render, "Connected to self.")
+                    continue
+                }
+                pix.setNeedsRender()
+            }
+        }
+    }
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
@@ -283,21 +300,6 @@ open class PIX: NODE {
             if !force { // CHECK the force!
                 renderOuts()
                 renderCustomVertexTexture()
-            }
-        }
-    }
-    
-    func renderOuts() {
-        if let pixOut = self as? NODEOutIO {
-            for pixOutPath in pixOut.outputPathList {
-//                guard let pix = pixOutPath?.pixIn else { continue }
-                let pix = pixOutPath.nodeIn
-                guard !pix.destroyed else { continue }
-                guard pix.id != self.id else {
-                    pixelKit.logger.log(node: self, .error, .render, "Connected to self.")
-                    continue
-                }
-                pix.setNeedsRender()
             }
         }
     }
