@@ -168,8 +168,8 @@ public extension PIX {
     
     var renderedPixels: PixelPack? {
         guard let resolution = realResolution else { return nil }
-        guard let rawPixelKit = renderedRawNormalized else { return nil }
-        var pixelKit: [[Pixel]] = []
+        guard let rawPixels = renderedRawNormalized else { return nil }
+        var pixels: [[Pixel]] = []
         let w = Int(resolution.width.cg)
         let h = Int(resolution.height.cg)
         for y in 0..<h {
@@ -180,8 +180,8 @@ public extension PIX {
                 var c: [CGFloat] = []
                 for i in 0..<4 {
                     let j = y * w * 4 + x * 4 + i
-                    guard j < rawPixelKit.count else { return nil }
-                    let chan = rawPixelKit[j]
+                    guard j < rawPixels.count else { return nil }
+                    let chan = rawPixels[j]
                     c.append(chan)
                 }
                 let color = LiveColor(c)
@@ -189,9 +189,9 @@ public extension PIX {
                 let pixel = Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)
             }
-            pixelKit.append(pixelRow)
+            pixels.append(pixelRow)
         }
-        return PixelPack(resolution: resolution, raw: pixelKit)
+        return PixelPack(resolution: resolution, raw: pixels)
     }
     
 }
