@@ -23,6 +23,9 @@ extension LivePoint {
             return .zero
         })
     }
+    public static var touchUV: LivePoint {
+        LivePoint(x: .touchU, y: .touchV)
+    }
 //    public static var touchPoints: [LivePoint] {
 //        var points: [LivePoint] = []
 //        for i in 0..<10 {

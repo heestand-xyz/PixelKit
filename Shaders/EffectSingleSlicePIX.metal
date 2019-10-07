@@ -15,8 +15,8 @@ struct VertexOut {
 };
 
 struct Uniforms {
-    float axis;
     float fraction;
+    float axis;
 };
 
 fragment float4 effectSingleSlicePIX(VertexOut out [[stage_in]],

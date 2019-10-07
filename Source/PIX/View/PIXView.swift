@@ -32,10 +32,11 @@ public class PIXView: NODEView {
         addSubview(liveMouseView)
         #endif
         
+        subAutoLayout()
+        
     }
     
-    public override func autoLayout() {
-        super.autoLayout()
+    func subAutoLayout() {
         
         #if os(iOS)
         liveTouchView.translatesAutoresizingMaskIntoConstraints = false

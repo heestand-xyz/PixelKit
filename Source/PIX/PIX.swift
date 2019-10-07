@@ -356,9 +356,9 @@ open class PIX: NODE {
     // MARK: - Connect
     
     func setNeedsConnectSingle(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?) {
-        guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
+        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
         if let oldPixOut = oldInPix {
-            var pixOut = oldPixOut as! (PIX & NODEOutIO)
+            var pixOut = oldPixOut as! (NODE & NODEOutIO)
             for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
                 if pixOutPath.nodeIn.id == pixInIO.id {
                     pixOut.outputPathList.remove(at: i)
@@ -373,7 +373,7 @@ open class PIX: NODE {
                 pixelKit.logger.log(node: self, .error, .connection, "Can't connect to self.")
                 return
             }
-            var pixOut = newPixOut as! (PIX & NODEOutIO)
+            var pixOut = newPixOut as! (NODE & NODEOutIO)
             pixInIO.inputList = [pixOut]
             pixOut.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
             applyResolution { self.setNeedsRender() }
@@ -384,10 +384,10 @@ open class PIX: NODE {
     }
     
     func setNeedsConnectMerger(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?, second: Bool) {
-        guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
+        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
         guard let pixInMerger = self as? NODEInMerger else { return }
         if let oldPixOut = oldInPix {
-            var pixOut = oldPixOut as! (PIX & NODEOutIO)
+            var pixOut = oldPixOut as! (NODE & NODEOutIO)
             for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
                 if pixOutPath.nodeIn.id == pixInIO.id {
                     pixOut.outputPathList.remove(at: i)
@@ -398,8 +398,8 @@ open class PIX: NODE {
             pixelKit.logger.log(node: self, .info, .connection, "Disonnected Merger: \(pixOut)")
         }
         if let newPixOut = newInPix {
-            if var pixOutA = (!second ? newPixOut : pixInMerger.inputA) as? (PIX & NODEOutIO),
-                var pixOutB = (second ? newPixOut : pixInMerger.inputB) as? (PIX & NODEOutIO) {
+            if var pixOutA = (!second ? newPixOut : pixInMerger.inputA) as? (NODE & NODEOutIO),
+                var pixOutB = (second ? newPixOut : pixInMerger.inputB) as? (NODE & NODEOutIO) {
                 pixInIO.inputList = [pixOutA, pixOutB]
                 pixOutA.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
                 pixOutB.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
@@ -412,10 +412,10 @@ open class PIX: NODE {
     }
     
     func setNeedsConnectMulti(new newInPixs: [NODE & NODEOut], old oldInPixs: [NODE & NODEOut]) {
-        guard var pixInIO = self as? PIX & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
+        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
         pixInIO.inputList = newInPixs
         for oldInPix in oldInPixs {
-            if var input = oldInPix as? (PIX & NODEOutIO) {
+            if var input = oldInPix as? (NODE & NODEOutIO) {
                 for (j, pixOutPath) in input.outputPathList.enumerated() {
                     if pixOutPath.nodeIn.id == pixInIO.id {
                         input.outputPathList.remove(at: j)
@@ -425,7 +425,7 @@ open class PIX: NODE {
             }
         }
         for (i, newInPix) in newInPixs.enumerated() {
-            if var input = newInPix as? (PIX & NODEOutIO) {
+            if var input = newInPix as? (NODE & NODEOutIO) {
                 input.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: i))
             }
         }

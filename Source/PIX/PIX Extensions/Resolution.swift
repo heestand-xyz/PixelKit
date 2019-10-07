@@ -55,16 +55,26 @@ extension PIX {
             } else if let pixCustom = pixContent as? PIXCustom {
                 return pixCustom.resolution
             } else { return nil }
-        } else if let resPix = self as? ResolutionPIX {
-            let resRes: Resolution
-            if resPix.inheritInResolution {
-                guard let inResolution = (resPix.inputList.first as? PIX)?.realResolution else { return nil }
-                resRes = inResolution
-            } else {
-                resRes = resPix.resolution
-            }
-            return resRes * resPix.resMultiplier
         } else if let pixIn = self as? PIX & NODEInIO {
+            if let resPix = self as? ResolutionPIX {
+                let resRes: Resolution
+                if resPix.inheritInResolution {
+                    guard let inResolution = (resPix.inputList.first as? PIX)?.realResolution else { return nil }
+                    resRes = inResolution
+                } else {
+                    resRes = resPix.resolution
+                }
+                return resRes * resPix.resMultiplier
+            }
+            if let slicePix = self as? SlicePIX {
+                guard let node3d = slicePix.input as? NODE3D else { return nil }
+                let res3d = node3d.renderedResolution3d
+                switch slicePix.axis {
+                case .x: return .custom(w: res3d.y, h: res3d.z)
+                case .y: return .custom(w: res3d.x, h: res3d.z)
+                case .z: return .custom(w: res3d.x, h: res3d.y)
+                }
+            }
             if let remapPix = pixIn as? RemapPIX {
                 guard let inResB = (remapPix.inputB as? PIX)?.realResolution else { return nil }
                 return inResB

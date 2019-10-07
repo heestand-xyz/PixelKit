@@ -38,10 +38,34 @@ extension LiveFloat {
         })
     }
     public static var touchX: LiveFloat {
-        return LivePoint.touchXY.x
+        return LiveFloat({ () -> (CGFloat) in
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
+                guard pix.view.superview != nil else { continue }
+                return pix.pixView.liveTouchView.touchPointMain.x
+            }
+            return 0.0
+        })
     }
     public static var touchY: LiveFloat {
-        return LivePoint.touchXY.y
+        return LiveFloat({ () -> (CGFloat) in
+            for pix in PixelKit.main.render.linkedNodes as! [PIX] {
+                guard pix.view.superview != nil else { continue }
+                return pix.pixView.liveTouchView.touchPointMain.y
+            }
+            return 0.0
+        })
+    }
+    public static var touchU: LiveFloat {
+        var aspect: LiveFloat = 1.0
+        for pix in PixelKit.main.render.linkedNodes as! [PIX] {
+            guard pix.view.superview != nil else { continue }
+            aspect = pix.renderResolution.aspect
+            break
+        }
+        return touchX / aspect + 0.5
+    }
+    public static var touchV: LiveFloat {
+        return touchY + 0.5
     }
     public static var touchForce: LiveFloat {
         return LiveFloat({ () -> (CGFloat) in
