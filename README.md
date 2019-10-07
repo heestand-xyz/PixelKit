@@ -7,8 +7,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/PixelKit.svg)](http://cocoapods.org/pods/PixelKit)
 <img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
 
-Live Graphics Framework for iOS and macOS<br>
-powered by Metal - inspired by TouchDesigner
+Live Graphics Framework for iOS, macOS and tvOS<br>
+runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal - inspired by TouchDesigner
 
 Examples:
 [Camera Effects](#example-camera-effects) -
