@@ -29,7 +29,7 @@ struct Uniforms {
 
 fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
                                             const device Uniforms& in [[ buffer(0) ]],
-                                            const device array<ArrayUniforms, ARRMAX>& inArr [[ buffer(1) ]],
+                                            const device array<ColorStopArray, ARRMAX>& inArr [[ buffer(1) ]],
                                             const device array<bool, ARRMAX>& inArrActive [[ buffer(2) ]],
                                             sampler s [[ sampler(0) ]]) {
 
