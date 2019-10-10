@@ -198,6 +198,9 @@
 		3AF28C1D219313090079FC7A /* VideoPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7441339F212F859D00326015 /* VideoPIX.swift */; };
 		3AF28C1E2193130C0079FC7A /* PIXContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C0210A321F001AA523 /* PIXContent.swift */; };
 		3AF38740233A5E02006DD6E4 /* ViewPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */; };
+		3AF4235C234F55B20019B4C1 /* AveragePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF42358234F55B20019B4C1 /* AveragePIX.swift */; };
+		3AF4235D234F55B20019B4C1 /* AveragePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF42358234F55B20019B4C1 /* AveragePIX.swift */; };
+		3AF4235E234F55B20019B4C1 /* AveragePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF42358234F55B20019B4C1 /* AveragePIX.swift */; };
 		3AF91614229D8269003D5DAB /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF91611229D8269003D5DAB /* Motion.swift */; };
 		74013306224D298000826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
 		74013307224D29E800826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
@@ -387,6 +390,7 @@
 		3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPIX.swift; sourceTree = "<group>"; };
 		3AF0B7842327878A00188940 /* CachePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePIX.swift; sourceTree = "<group>"; };
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF42358234F55B20019B4C1 /* AveragePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AveragePIX.swift; sourceTree = "<group>"; };
 		3AF91611229D8269003D5DAB /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 				3AF0B7842327878A00188940 /* CachePIX.swift */,
 				7421ED3E2231782E00E60A0E /* FreezePIX.swift */,
 				74844E722348928900F99875 /* SlicePIX.swift */,
+				3AF42358234F55B20019B4C1 /* AveragePIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -1167,6 +1172,7 @@
 				747944A12343D640006C9F4C /* LivePointExtension.swift in Sources */,
 				3A0156FA2334FD210002B2D9 /* ResolutionPIX.swift in Sources */,
 				3A1244ED2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */,
+				3AF4235E234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3A0156EB2334FD150002B2D9 /* CirclePIX.swift in Sources */,
 				3A9D288023477A9600A29E9C /* PIXView.swift in Sources */,
 				3A0156EE2334FD150002B2D9 /* RectanglePIX.swift in Sources */,
@@ -1245,6 +1251,7 @@
 				3AF28C01219312F50079FC7A /* FeedbackPIX.swift in Sources */,
 				3AF28BF3219312EB0079FC7A /* ReorderPIX.swift in Sources */,
 				3AF28C09219312F50079FC7A /* SharpenPIX.swift in Sources */,
+				3AF4235D234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3AF28BE0219312CF0079FC7A /* Rendered.swift in Sources */,
 				3AF28C1C219313090079FC7A /* ImagePIX.swift in Sources */,
 				3AF28C16219313050079FC7A /* PolygonPIX.swift in Sources */,
@@ -1421,6 +1428,7 @@
 				749DC6CB2124E12600AE5F6A /* PIXResource.swift in Sources */,
 				74A7B98621412BD70078DDE3 /* SlopePIX.swift in Sources */,
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
+				3AF4235C234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */,
 				740EC53A213EFC3E006E2996 /* Operators.swift in Sources */,
 				7443E6AD2343CFD80084F947 /* LiveSizeExtension.swift in Sources */,

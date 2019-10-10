@@ -74,6 +74,14 @@ extension PIX {
                 case .y: return .custom(w: res3d.x, h: res3d.z)
                 case .z: return .custom(w: res3d.x, h: res3d.y)
                 }
+            } else if let averagePix = self as? AveragePIX {
+                guard let node3d = averagePix.input as? NODE3D else { return nil }
+                let res3d = node3d.renderedResolution3d
+                switch averagePix.axis {
+                case .x: return .custom(w: res3d.y, h: res3d.z)
+                case .y: return .custom(w: res3d.x, h: res3d.z)
+                case .z: return .custom(w: res3d.x, h: res3d.y)
+                }
             }
             if let remapPix = pixIn as? RemapPIX {
                 guard let inResB = (remapPix.inputB as? PIX)?.realResolution else { return nil }
