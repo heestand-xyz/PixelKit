@@ -14,7 +14,7 @@ import Metal
 import simd
 
 open class PIX: NODE {
-    
+   
     public var id = UUID()
     public var name: String?
     
@@ -61,7 +61,11 @@ open class PIX: NODE {
             })
         })
     }
-
+    public var uniformArrayMaxLimit: Int? { nil }
+    public var uniformIndexArray: [[Int]] { [] }
+    public var uniformIndexArrayMaxLimit: Int? { nil }
+       
+       
     open var vertexUniforms: [CGFloat] { return [] }
     public var shaderNeedsAspect: Bool { return false }
     
