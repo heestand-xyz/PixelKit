@@ -19,10 +19,18 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     let kMetalLibName = "PixelKitShaders-macOS"
     #elseif os(iOS)
     let kBundleId = "se.hexagons.pixelkit"
+    #if targetEnvironment(simulator)
+    let kMetalLibName = "PixelKitShaders-Simulator"
+    #else
     let kMetalLibName = "PixelKitShaders"
+    #endif
     #elseif os(tvOS)
     let kBundleId = "se.hexagons.pixelkit.tvos"
+    #if targetEnvironment(simulator)
+    let kMetalLibName = "PixelKitShaders-tvOS-Simulator"
+    #else
     let kMetalLibName = "PixelKitShaders-tvOS"
+    #endif
     #endif
     
     public let render: Render

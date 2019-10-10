@@ -60,9 +60,11 @@ Pod::Spec.new do |spec|
                             "Source/PIX/PIXs/Content/Resource/CameraPIX.swift"
 
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders.metallib",
+                       "Resources/Metal Libs/PixelKitShaders-Simulator.metallib",
                        "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
   spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
-  spec.tvos.resources = "Resources/Metal Libs/PixelKitShaders-tvOS.metallib"
+  spec.tvos.resources = "Resources/Metal Libs/PixelKitShaders-tvOS.metallib",
+                        "Resources/Metal Libs/PixelKitShaders-tvOS-Simulator.metallib"
   spec.resources = "Source/PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Single/Metal/EffectSingleMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
