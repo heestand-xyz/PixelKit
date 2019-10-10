@@ -34,14 +34,14 @@ public struct CameraPIXUI: View, PIXUI {
     public var body: some View {
         NODERepView(node: pix)
     }
-    #if os(iOS)
+    #if os(iOS) && !targetEnvironment(macCatalyst)
     public init(camera: CameraPIX.Camera = .back, camRes: CameraPIX.CamRes = ._1080p) {
         cameraPix = CameraPIX()
         cameraPix.camera = camera
         cameraPix.camRes = camRes
         pix = cameraPix
     }
-    #elseif os(macOS)
+    #elseif os(macOS) || targetEnvironment(macCatalyst)
     public init(camera: CameraPIX.Camera = .front, camRes: CameraPIX.CamRes = ._720p) {
         cameraPix = CameraPIX()
         cameraPix.camera = camera
