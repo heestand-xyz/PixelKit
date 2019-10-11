@@ -81,18 +81,18 @@ public class ImagePIX: PIXResource {
         self.applyResolution {
             self.setNeedsRender()
         }
-//        pixelKit.listenToFramesUntil {
-//            if self.realResolution != nil {
-//                return .done
-//            }
-//            if self.resolution != ._128 {
-//                self.applyResolution {
-//                    self.setNeedsRender()
-//                }
-//                return .done
-//            }
-//            return .continue
-//        }
+        pixelKit.render.listenToFramesUntil {
+            if self.realResolution != nil {
+                return .done
+            }
+            if self.renderResolution != ._128 {
+                self.applyResolution {
+                    self.setNeedsRender()
+                }
+                return .done
+            }
+            return .continue
+        }
     }
     
     // MARK: Buffer
