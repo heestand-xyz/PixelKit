@@ -45,19 +45,13 @@ public extension PIX {
     }
     
     var renderedPixelBuffer: CVPixelBuffer? {
-        let res = renderResolution
         guard let cgImage = renderedCGImage else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: no cgImage."); return nil }
-        var maybePixelBuffer: CVPixelBuffer?
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
-                     kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, renderResolution.w, renderResolution.h, pixelKit.render.bits.os, attrs as CFDictionary, &maybePixelBuffer)
-        guard status == kCVReturnSuccess, let pixelBuffer = maybePixelBuffer else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: CVPixelBufferCreate failed with status \(status)"); return nil }
-        let flags = CVPixelBufferLockFlags(rawValue: 0)
-        guard kCVReturnSuccess == CVPixelBufferLockBaseAddress(pixelBuffer, flags) else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: CVPixelBufferLockBaseAddress failed."); return nil }
-        defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, flags) }
-        guard let context = CGContext(data: CVPixelBufferGetBaseAddress(pixelBuffer), width: renderResolution.w, height: renderResolution.h, bitsPerComponent: pixelKit.render.bits.rawValue, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: pixelKit.render.colorSpace.cg, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: context failed to be created."); return nil }
-        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: renderResolution.width.cg, height: renderResolution.height.cg))
-        return pixelBuffer
+        do {
+            return try Texture.pixelBuffer(from: cgImage, colorSpace: PixelKit.main.render.colorSpace, bits: PixelKit.main.render.bits)
+        } catch {
+            pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer failed.", e: error);
+            return nil
+        }
     }
     
     var renderedRaw8: [UInt8]? {
