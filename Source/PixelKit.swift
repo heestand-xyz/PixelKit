@@ -34,7 +34,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     #endif
     
     public let render: Render
-    let logger: Logger
+    public let logger: Logger
 
     init() {
         

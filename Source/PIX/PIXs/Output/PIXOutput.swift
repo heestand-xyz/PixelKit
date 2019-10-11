@@ -1,5 +1,5 @@
 //
-//  NODEOutput.swift
+//  PIXOutput.swift
 //  PixelKit
 //
 //  Created by Hexagons on 2018-07-26.
@@ -8,7 +8,7 @@
 
 import RenderKit
 
-open class NODEOutput: PIX, NODEInIO, NODEInSingle {
+open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     
     public var inputList: [NODE & NODEOut] = []
     public var connectedIn: Bool { return !inputList.isEmpty }

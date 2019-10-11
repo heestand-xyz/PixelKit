@@ -10,7 +10,7 @@ import LiveValues
 import RenderKit
 import AVKit
 
-public class RecordPIX: NODEOutput {
+public class RecordPIX: PIXOutput {
     
     public override var shaderName: String { return "contentResourceBGRPIX" }
     

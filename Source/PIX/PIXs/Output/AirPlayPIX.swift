@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class AirPlayPIX: NODEOutput {
+public class AirPlayPIX: PIXOutput {
     
     // MARK: - Private Properties
     
