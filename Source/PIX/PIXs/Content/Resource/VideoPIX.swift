@@ -49,6 +49,7 @@ public class VideoPIX: PIXResource {
     // MARK: - Private Properties
     
     var helper: VideoHelper!
+    var loadCallback: (() -> ())?
     var seekCallback: (() -> ())?
     
     // MARK: - Public Properties
@@ -58,8 +59,16 @@ public class VideoPIX: PIXResource {
     public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
     var _progressFraction: CGFloat = 0
     public var progressFraction: LiveFloat { return LiveFloat({ return self._progressFraction }) }
-    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * self.duration.uniform }) }
+    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * self.duration.cg }) }
+    public var progressFrames: LiveInt { return LiveInt({ return Int(self._progressFraction * self.duration.cg * CGFloat(self.fps.val)) }) }
     public var duration: LiveFloat { return LiveFloat({ return CGFloat(self.helper.player?.currentItem?.duration.seconds ?? 0.0) }) }
+    public var frameCount: LiveInt { return LiveInt({ Int(self.duration.cg * CGFloat(self.fps.val)) }) }
+    public var fps: LiveInt { return LiveInt({
+        guard let asset = self.helper.player?.currentItem?.asset else { return 1 }
+        let tracks = asset.tracks(withMediaType: .video)
+        guard let fps = tracks.first?.nominalFrameRate else { return 1 }
+        return Int(fps)
+    }) }
     var _rate: CGFloat = 1.0
     public var rate: LiveFloat { return LiveFloat({ return self._rate }) }
     var _playing: Bool = false
@@ -70,7 +79,9 @@ public class VideoPIX: PIXResource {
     public override init() {
         super.init()
         name = "video"
-        helper = VideoHelper(loaded: { res in }, updated: { pixelBuffer, fraction in
+        helper = VideoHelper(loaded: { res in
+            self.loadCallback?()
+        }, updated: { pixelBuffer, fraction in
             self.pixelBuffer = pixelBuffer
             let res = self.renderResolution
             if self.view.resolution == nil || self.view.resolution! != res {
@@ -101,20 +112,23 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Load
     
-    public func load(fileNamed name: String, withExtension ext: String) {
+    public func load(fileNamed name: String, withExtension ext: String, done: (() -> ())? = nil) {
         guard let url = find(video: name, withExtension: ext) else { return }
         self.url = url
+        loadCallback = done
     }
     
-    public func load(url: URL) {
+    public func load(url: URL, done: (() -> ())? = nil) {
         self.url = url
+        loadCallback = done
     }
     
-    public func load(data: Data) {
+    public func load(data: Data, done: (() -> ())? = nil) {
         // CHECK format
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixelKit_temp_video.mov")
         FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         self.url = url
+        loadCallback = done
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
@@ -163,6 +177,30 @@ public class VideoPIX: PIXResource {
         seekCallback = done
     }
     
+    public func seekFrame(to frame: Int, done: (() -> ())? = nil) {
+        guard let player = helper.player else {
+            pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to frame. Video not loaded.")
+            return
+        }
+        guard let item = player.currentItem else {
+            pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to frame. Video item not found.")
+            return
+        }
+        guard progressFrames.val != frame else {
+            pixelKit.logger.log(node: self, .warning, .resource, "Frame already at seek.")
+            return
+        }
+        let fraction = CGFloat(frame) / CGFloat(frameCount.val)
+        let seconds = item.duration.seconds * Double(fraction)
+        let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        guard player.currentTime() != time else {
+            pixelKit.logger.log(node: self, .warning, .resource, "Frame already at time.")
+            return
+        }
+        player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        seekCallback = done
+    }
+    
     public func seekFraction(to fraction: CGFloat, done: (() -> ())? = nil) {
         guard let player = helper.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
@@ -179,7 +217,7 @@ public class VideoPIX: PIXResource {
         let seconds = item.duration.seconds * Double(fraction)
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         guard player.currentTime() != time else {
-            pixelKit.logger.log(node: self, .warning, .resource, "Time already at time.")
+            pixelKit.logger.log(node: self, .warning, .resource, "Fraction already at time.")
             return
         }
         player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
