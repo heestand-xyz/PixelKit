@@ -51,7 +51,8 @@ public class VideoPIX: PIXResource {
     var helper: VideoHelper!
     var loadCallback: (() -> ())?
     var seekCallback: (() -> ())?
-    
+    var frameCallback: (() -> ())?
+
     // MARK: - Public Properties
     
     public var loops: Bool = true { didSet { helper.loops = loops } }
@@ -80,8 +81,11 @@ public class VideoPIX: PIXResource {
         super.init()
         name = "video"
         helper = VideoHelper(loaded: { res in
+            self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
             self.loadCallback?()
+            self.loadCallback = nil
         }, updated: { pixelBuffer, fraction in
+            self.pixelKit.logger.log(node: self, .detail, .resource, "Video pixel buffer available.")
             self.pixelBuffer = pixelBuffer
             let res = self.renderResolution
             if self.view.resolution == nil || self.view.resolution! != res {
@@ -92,6 +96,8 @@ public class VideoPIX: PIXResource {
             self._progressFraction = fraction
             self.seekCallback?()
             self.seekCallback = nil
+            self.frameCallback?()
+            self.frameCallback = nil
         })
         self.applyResolution {
             self.setNeedsRender()
@@ -137,6 +143,10 @@ public class VideoPIX: PIXResource {
             return nil
         }
         return url
+    }
+    
+    public func nextFrame(done: @escaping () -> ()) {
+        frameCallback = done
     }
     
     // MARK - Playback
@@ -186,11 +196,12 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to frame. Video item not found.")
             return
         }
-        guard progressFrames.val != frame else {
+        let currentFrame = progressFrames.val
+        guard currentFrame != frame else {
             pixelKit.logger.log(node: self, .warning, .resource, "Frame already at seek.")
             return
         }
-        let fraction = CGFloat(frame) / CGFloat(frameCount.val)
+        let fraction = CGFloat(frame) / CGFloat(frameCount.val - 1)
         let seconds = item.duration.seconds * Double(fraction)
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         guard player.currentTime() != time else {
@@ -346,9 +357,9 @@ class VideoHelper: NSObject {
         
         super.init()
         
-        PixelKit.main.render.listenToFrames(callback: {  
-            if self.loaded {
-                self.readBuffer()
+        PixelKit.main.render.listenToFrames(callback: { [weak self] in
+            if self?.loaded == true {
+                self!.readBuffer()
             }
         })
         

@@ -12,7 +12,7 @@ import AVKit
 
 public class RecordPIX: PIXOutput {
     
-    public override var shaderName: String { return "contentResourceBGRPIX" }
+    public override var shaderName: String { return "contentResourceFlipPIX" }
     
     // MARK: - Private Properties
     
@@ -293,8 +293,10 @@ public class RecordPIX: PIXOutput {
                         time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
                     }
                     
-                    if !self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
-                        self.pixelKit.logger.log(node: self, .error, nil, "Export Frame. Status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                    if self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
+                        self.pixelKit.logger.log(node: self, .detail, nil, "Exported frame at \(time.seconds).", loop: true)
+                    } else {
+                        self.pixelKit.logger.log(node: self, .error, nil, "Export frame status: \(self.writer!.status.rawValue).", e: self.writer!.error)
                     }
                     
                     self.lastFrameDate = Date()
@@ -313,6 +315,8 @@ public class RecordPIX: PIXOutput {
     }
     
     func recordFrame(texture: MTLTexture) {
+        
+        self.pixelKit.logger.log(node: self, .detail, nil, "Record Frame.", loop: true)
         
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
