@@ -16,12 +16,18 @@ public extension PIX {
     var renderedTexture: MTLTexture? { return texture } // CHECK copy?
     
     var renderedCIImage: CIImage? {
-        guard let texture = renderedTexture else { return nil }
+        guard let texture = renderedTexture else {
+            pixelKit.logger.log(.error, .texture, "Texture is not available.")
+            return nil
+        }
         return Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace)
     }
     
     var renderedCGImage: CGImage? {
-        guard let ciImage = renderedCIImage else { return nil }
+        guard let ciImage = renderedCIImage else {
+            pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
+            return nil
+        }
         return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
     }
     
@@ -31,7 +37,10 @@ public extension PIX {
     typealias _Image = NSImage
     #endif
     var renderedImage: _Image? {
-        guard let cgImage = renderedCGImage else { return nil }
+        guard let cgImage = renderedCGImage else {
+            pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
+            return nil
+        }
         return Texture.image(from: cgImage, at: renderResolution.size.cg)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {

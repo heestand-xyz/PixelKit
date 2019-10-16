@@ -111,12 +111,14 @@ extension PIX {
     
     public func applyResolution(applied: @escaping () -> ()) {
         let res = renderResolution
-        if pixelKit.render.frame == 0 {
-            pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.applyResolution(applied: applied)
-            })
-            return
+        if pixelKit.render.engine.renderMode != .manual {
+            if pixelKit.render.frame == 0 {
+                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
+                pixelKit.render.delay(frames: 1, done: {
+                    self.applyResolution(applied: applied)
+                })
+                return
+            }
         }
         guard view.resolutionSize == nil || view.resolutionSize! != res.size.cg else {
             applied()
