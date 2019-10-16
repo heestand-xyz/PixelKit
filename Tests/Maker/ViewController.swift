@@ -36,14 +36,17 @@ class ViewController: NSViewController {
         
         makeTestPix()
         
-//        self.makeGenerators {
-//            self.makeSingleEffects {
-//                self.makeMergerEffects {
-//                    print(">>>>>>>>> test maker done")
-//                }
-//            }
-//        }
-        self.makeRandomGenerators {}
+        self.makeGenerators {
+            self.makeSingleEffects {
+                self.makeRandomGenerators {
+                    self.makeRandomSingleEffects {
+                        self.makeRandomMergerEffects {
+                            print(">>>>>>>>> test maker done")
+                        }
+                    }
+                }
+            }
+        }
         
     }
     
@@ -171,7 +174,98 @@ class ViewController: NSViewController {
         renderAuto(autos.remove(at: 0))
     }
     
+    func makeRandomSingleEffects(done: @escaping () -> ()) {
+        print(">>>>>> random single effects started")
+        let singleEffectUrl = rendersUrl.appendingPathComponent("randomSingleEffect")
+        makeDirectory(at: singleEffectUrl)
+        var autos = AutoPIXSingleEffect.allCases
+        func renderAuto(_ auto: AutoPIXSingleEffect) {
+            print(">>> random single effect \(auto.name)")
+            let pix = auto.pixType.init()
+            pix.input = testPix
+            func renderIndex(_ index: Int) {
+                randomizeSingleEffect(auto: auto, with: pix, at: index)
+                try! PixelKit.main.render.engine.manuallyRender {
+                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    let imageUrl = singleEffectUrl.appendingPathComponent("\(auto.name)_\(index).png")
+                    guard image.savePNG(to: imageUrl) else { fatalError() }
+                    print(">>> saved \(index) \(auto.name)")
+                    if index < 10 {
+                        renderIndex(index + 1)
+                    } else {
+                        pix.destroy()
+                        if !autos.isEmpty {
+                            renderAuto(autos.remove(at: 0))
+                        } else {
+                            print(">>>>>> random single effects done")
+                            done()
+                        }
+                    }
+                }
+            }
+            renderIndex(0)
+        }
+        renderAuto(autos.remove(at: 0))
+    }
+    
+    func makeRandomMergerEffects(done: @escaping () -> ()) {
+        print(">>>>>> random merger effects started")
+        let mergerEffectUrl = rendersUrl.appendingPathComponent("randomMergerEffect")
+        makeDirectory(at: mergerEffectUrl)
+        var autos = AutoPIXMergerEffect.allCases
+        func renderAuto(_ auto: AutoPIXMergerEffect) {
+            print(">>> random merger effect \(auto.name)")
+            let pix = auto.pixType.init()
+            pix.inputA = testPixA
+            pix.inputB = testPixB
+            func renderIndex(_ index: Int) {
+                randomizeMergerEffect(auto: auto, with: pix, at: index)
+                try! PixelKit.main.render.engine.manuallyRender {
+                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    let imageUrl = mergerEffectUrl.appendingPathComponent("\(auto.name)_\(index).png")
+                    guard image.savePNG(to: imageUrl) else { fatalError() }
+                    print(">>> saved \(index) \(auto.name)")
+                    if index < 10 {
+                        renderIndex(index + 1)
+                    } else {
+                        pix.destroy()
+                        if !autos.isEmpty {
+                            renderAuto(autos.remove(at: 0))
+                        } else {
+                            print(">>>>>> random merger effects done")
+                            done()
+                        }
+                    }
+                }
+            }
+            renderIndex(0)
+        }
+        renderAuto(autos.remove(at: 0))
+    }
+    
     func randomizeGenerator(auto: AutoPIXGenerator, with pix: PIXGenerator, at index: Int) {
+        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeRects(auto.autoLiveRects(for: pix), at: index)
+        randomzeColors(auto.autoLiveColors(for: pix), at: index)
+        randomzeEnums(auto.autoEnums(for: pix), at: index)
+    }
+    
+    func randomizeSingleEffect(auto: AutoPIXSingleEffect, with pix: PIXSingleEffect, at index: Int) {
+        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeRects(auto.autoLiveRects(for: pix), at: index)
+        randomzeColors(auto.autoLiveColors(for: pix), at: index)
+        randomzeEnums(auto.autoEnums(for: pix), at: index)
+    }
+    
+    func randomizeMergerEffect(auto: AutoPIXMergerEffect, with pix: PIXMergerEffect, at index: Int) {
         randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
         randomzeInts(auto.autoLiveInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
