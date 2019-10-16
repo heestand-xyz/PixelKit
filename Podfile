@@ -28,3 +28,21 @@ target 'PixelKit-tvOS' do
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
 
 end
+
+
+
+target 'PixelKitTests' do
+  use_frameworks!
+
+  pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
+  pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+
+end
+
+target 'PixelKitDemo' do
+  use_frameworks!
+
+  pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
+  pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+
+end

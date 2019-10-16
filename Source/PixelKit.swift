@@ -14,15 +14,19 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     // MARK: Signature
     
-    #if os(macOS) || targetEnvironment(macCatalyst)
+    #if os(macOS)
     let kBundleId = "se.hexagons.pixelkit.macos"
     let kMetalLibName = "PixelKitShaders-macOS"
     #elseif os(iOS)
     let kBundleId = "se.hexagons.pixelkit"
-    #if targetEnvironment(simulator)
-    let kMetalLibName = "PixelKitShaders-Simulator"
+    #if targetEnvironment(macCatalyst)
+    let kMetalLibName = "PixelKitShaders-macCatalyst"
     #else
-    let kMetalLibName = "PixelKitShaders"
+    #if targetEnvironment(simulator)
+    let kMetalLibName = "PixelKitShaders-iOS-Simulator"
+    #else
+    let kMetalLibName = "PixelKitShaders-iOS"
+    #endif
     #endif
     #elseif os(tvOS)
     let kBundleId = "se.hexagons.pixelkit.tvos"
