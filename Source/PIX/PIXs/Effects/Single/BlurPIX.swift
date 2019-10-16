@@ -21,14 +21,18 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: - Public Properties
     
     public enum BlurStyle: String, CaseIterable {
+        #if !os(tvOS) || !targetEnvironment(simulator)
         case guassian
+        #endif
         case box
         case angle
         case zoom
         case random
         var index: Int {
             switch self {
+            #if !os(tvOS) || !targetEnvironment(simulator)
             case .guassian: return 0
+            #endif
             case .box: return 1
             case .angle: return 2
             case .zoom: return 3
@@ -37,7 +41,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         }
     }
     
-    public var style: BlurStyle = .guassian { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .box { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -78,7 +82,9 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: Guassian
     
     override public func setNeedsRender() {
+        #if !os(tvOS) || !targetEnvironment(simulator)
         customRenderActive = style == .guassian
+        #endif
         super.setNeedsRender()
     }
     
@@ -93,8 +99,12 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     #if !os(tvOS) || !targetEnvironment(simulator)
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true) // CHECK mipmapped
-            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
+//            guard let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) else {
+//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Copy texture faild.")
+//                return nil
+//            }
+            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true)
+            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue)
             guard let blurTexture = pixelKit.render.metalDevice.makeTexture(descriptor: descriptor) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
