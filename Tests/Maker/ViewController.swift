@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import LiveValues
 import RenderKit
 import PixelKit_macOS
 
@@ -35,13 +36,14 @@ class ViewController: NSViewController {
         
         makeTestPix()
         
-        self.makeGenerators {
-            self.makeSingleEffects {
-                self.makeMergerEffects {
-                    print(">>>>>>>>> test maker done")
-                }
-            }
-        }
+//        self.makeGenerators {
+//            self.makeSingleEffects {
+//                self.makeMergerEffects {
+//                    print(">>>>>>>>> test maker done")
+//                }
+//            }
+//        }
+        self.makeRandomGenerators {}
         
     }
     
@@ -53,6 +55,8 @@ class ViewController: NSViewController {
         testPixA = polygonPix
         testPixB = noisePix
     }
+    
+    // MARK: - Standard
     
     func makeGenerators(done: @escaping () -> ()) {
         print(">>>>>> generators started")
@@ -130,6 +134,132 @@ class ViewController: NSViewController {
             }
         }
         render(auto: autos.remove(at: 0))
+    }
+    
+    // MARK: - Random
+    
+    func makeRandomGenerators(done: @escaping () -> ()) {
+        print(">>>>>> random generators started")
+        let generatorsUrl = rendersUrl.appendingPathComponent("randomGenerators")
+        makeDirectory(at: generatorsUrl)
+        var autos = AutoPIXGenerator.allCases
+        func renderAuto(_ auto: AutoPIXGenerator) {
+            print(">>> random generator \(auto.name)")
+            let pix = auto.pixType.init(at: ._128)
+            func renderIndex(_ index: Int) {
+                randomizeGenerator(auto: auto, with: pix, at: index)
+                try! PixelKit.main.render.engine.manuallyRender {
+                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    let imageUrl = generatorsUrl.appendingPathComponent("\(auto.name)_\(index).png")
+                    guard image.savePNG(to: imageUrl) else { fatalError() }
+                    print(">>> saved \(index) \(auto.name)")
+                    if index < 10 {
+                        renderIndex(index + 1)
+                    } else {
+                        pix.destroy()
+                        if !autos.isEmpty {
+                            renderAuto(autos.remove(at: 0))
+                        } else {
+                            print(">>>>>> random generators done")
+                            done()
+                        }
+                    }
+                }
+            }
+            renderIndex(0)
+        }
+        renderAuto(autos.remove(at: 0))
+    }
+    
+    func randomizeGenerator(auto: AutoPIXGenerator, with pix: PIXGenerator, at index: Int) {
+        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeRects(auto.autoLiveRects(for: pix), at: index)
+        randomzeColors(auto.autoLiveColors(for: pix), at: index)
+        randomzeEnums(auto.autoEnums(for: pix), at: index)
+    }
+    
+    func randomzeFloats(_ values: [AutoLiveFloatProperty], at index: Int) {
+        var gen = ArbitraryRandomNumberGenerator(seed: 1_000 + UInt64(index))
+        for value in values {
+            let random: CGFloat = .random(in: value.value.min...value.value.max, using: &gen)
+            value.value = LiveFloat(random)
+        }
+    }
+    
+    func randomzeInts(_ values: [AutoLiveIntProperty], at index: Int) {
+        var gen = ArbitraryRandomNumberGenerator(seed: 2_000 + UInt64(index))
+        for value in values {
+            let random: Int = .random(in: value.value.min...value.value.max, using: &gen)
+            value.value = LiveInt(random)
+        }
+    }
+    
+    func randomzeBools(_ values: [AutoLiveBoolProperty], at index: Int) {
+        var gen = ArbitraryRandomNumberGenerator(seed: 3_000 + UInt64(index))
+        for value in values {
+            let random: Bool = .random(using: &gen)
+            value.value = LiveBool(random)
+        }
+    }
+    
+    func randomzePoints(_ values: [AutoLivePointProperty], at index: Int) {
+        var gen1 = ArbitraryRandomNumberGenerator(seed: 4_000 + UInt64(index))
+        var gen2 = ArbitraryRandomNumberGenerator(seed: 4_100 + UInt64(index))
+        for value in values {
+            let randomX: CGFloat = .random(in: -0.5...0.5, using: &gen1)
+            let randomY: CGFloat = .random(in: -0.5...0.5, using: &gen2)
+            value.value = LivePoint(CGPoint(x: randomX, y: randomY))
+        }
+    }
+    
+    func randomzeSizes(_ values: [AutoLiveSizeProperty], at index: Int) {
+        var gen1 = ArbitraryRandomNumberGenerator(seed: 5_000 + UInt64(index))
+        var gen2 = ArbitraryRandomNumberGenerator(seed: 5_100 + UInt64(index))
+        for value in values {
+            let randomW: CGFloat = .random(in: 0.0...1.0, using: &gen1)
+            let randomH: CGFloat = .random(in: 0.0...1.0, using: &gen2)
+            value.value = LiveSize(CGSize(width: randomW, height: randomH))
+        }
+    }
+    
+    func randomzeRects(_ values: [AutoLiveRectProperty], at index: Int) {
+        var gen1 = ArbitraryRandomNumberGenerator(seed: 6_000 + UInt64(index))
+        var gen2 = ArbitraryRandomNumberGenerator(seed: 6_100 + UInt64(index))
+        var gen3 = ArbitraryRandomNumberGenerator(seed: 6_200 + UInt64(index))
+        var gen4 = ArbitraryRandomNumberGenerator(seed: 6_300 + UInt64(index))
+        for value in values {
+            let randomX: CGFloat = .random(in: -0.5...0.5, using: &gen1)
+            let randomY: CGFloat = .random(in: -0.5...0.5, using: &gen2)
+            let randomW: CGFloat = .random(in: 0.0...1.0, using: &gen3)
+            let randomH: CGFloat = .random(in: 0.0...1.0, using: &gen4)
+            value.value = LiveRect(CGRect(x: randomX, y: randomY, width: randomW, height: randomH))
+        }
+    }
+    
+    func randomzeColors(_ values: [AutoLiveColorProperty], at index: Int) {
+        var gen1 = ArbitraryRandomNumberGenerator(seed: 7_000 + UInt64(index))
+        var gen2 = ArbitraryRandomNumberGenerator(seed: 7_100 + UInt64(index))
+        var gen3 = ArbitraryRandomNumberGenerator(seed: 7_200 + UInt64(index))
+        var gen4 = ArbitraryRandomNumberGenerator(seed: 7_300 + UInt64(index))
+        for value in values {
+            let randomR: CGFloat = .random(in: 0.0...1.0, using: &gen1)
+            let randomG: CGFloat = .random(in: 0.0...1.0, using: &gen2)
+            let randomB: CGFloat = .random(in: 0.0...1.0, using: &gen3)
+            let randomA: CGFloat = .random(in: 0.0...1.0, using: &gen4)
+            value.value = LiveColor(NSColor(deviceRed: randomR, green: randomG, blue: randomB, alpha: randomA))
+        }
+    }
+    
+    func randomzeEnums(_ values: [AutoEnumProperty], at index: Int) {
+        var gen = ArbitraryRandomNumberGenerator(seed: 8_000 + UInt64(index))
+        for value in values {
+            let random: Int = .random(in: 0..<value.cases.count, using: &gen)
+            value.value = value.cases[random]
+        }
     }
     
     func makeDirectory(at url: URL) {
