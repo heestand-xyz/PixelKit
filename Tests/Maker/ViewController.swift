@@ -15,7 +15,9 @@ class ViewController: NSViewController {
     let outputPath = "Code/Frameworks/Production/PixelKit/Resources/Tests/Renders"
     var rendersUrl: URL!
     var testPix: (PIX & NODEOut)!
-    
+    var testPixA: (PIX & NODEOut)!
+    var testPixB: (PIX & NODEOut)!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,21 +33,25 @@ class ViewController: NSViewController {
         var isDir: ObjCBool = true
         guard FileManager.default.fileExists(atPath: rendersUrl.path, isDirectory: &isDir) else { fatalError() }
         
-        testPix = makeTestPix()
+        makeTestPix()
         
         self.makeGenerators {
             self.makeSingleEffects {
-                print(">>>>>>>>> test maker done")
+                self.makeMergerEffects {
+                    print(">>>>>>>>> test maker done")
+                }
             }
         }
         
     }
     
-    func makeTestPix() -> PIX & NODEOut {
+    func makeTestPix() {
         let polygonPix = PolygonPIX(at: ._128)
         let noisePix = NoisePIX(at: ._128)
         noisePix.colored = true
-        return polygonPix + noisePix
+        testPix = polygonPix + noisePix
+        testPixA = polygonPix
+        testPixB = noisePix
     }
     
     func makeGenerators(done: @escaping () -> ()) {
@@ -92,6 +98,33 @@ class ViewController: NSViewController {
                     render(auto: autos.remove(at: 0))
                 } else {
                     print(">>>>>> single effects done")
+                    done()
+                }
+            }
+        }
+        render(auto: autos.remove(at: 0))
+    }
+    
+    func makeMergerEffects(done: @escaping () -> ()) {
+        print(">>>>>> merger effects started")
+        let mergerEffectsUrl = rendersUrl.appendingPathComponent("mergerEffects")
+        makeDirectory(at: mergerEffectsUrl)
+        var autos = AutoPIXMergerEffect.allCases
+        func render(auto: AutoPIXMergerEffect) {
+            print(">>> merger effect \(auto.name)")
+            let pix = auto.pixType.init()
+            pix.inputA = testPixA
+            pix.inputB = testPixB
+            try! PixelKit.main.render.engine.manuallyRender {
+                guard let image: NSImage = pix.renderedImage else { fatalError() }
+                let imageUrl = mergerEffectsUrl.appendingPathComponent("\(auto.name).png")
+                guard image.savePNG(to: imageUrl) else { fatalError() }
+                print(">>> saved \(auto.name)")
+                pix.destroy()
+                if !autos.isEmpty {
+                    render(auto: autos.remove(at: 0))
+                } else {
+                    print(">>>>>> merger effects done")
                     done()
                 }
             }
