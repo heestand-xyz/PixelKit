@@ -316,11 +316,11 @@ class PixelKitTests: XCTestCase {
                 
                 let avg = pixels.average.lum.cg
                 XCTAssertEqual(avg, 0.0, auto.name)
-                if avg != 0.0 {
-                    let badUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
-                    guard let image: NSImage = diffPix.renderedImage else { fatalError() }
-                    guard image.savePNG(to: badUrl) else { fatalError() }
-                }
+//                if avg != 0.0 {
+//                    let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
+//                    guard let image: NSImage = diffPix.renderedImage else { fatalError() }
+//                    guard image.savePNG(to: diffUrl) else { fatalError() }
+//                }
                 
                 pix.destroy()
                 imgPix.destroy()

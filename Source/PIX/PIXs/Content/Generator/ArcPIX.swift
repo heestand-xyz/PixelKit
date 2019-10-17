@@ -21,7 +21,7 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     public var angleTo: LiveFloat = LiveFloat(0.125, min: -0.5, max: 0.5)
     public var angleOffset: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var edgeRadius: LiveFloat = LiveFloat(0.05, max: 0.5)
-    public var fillColor: LiveColor = .clear
+    public var fillColor: LiveColor = .white
     
     // MARK: - Property Helpers
     
