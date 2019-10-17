@@ -103,7 +103,7 @@ public class MetalPIX: PIXGenerator, NODEMetal {
 
 public extension MetalPIX {
     
-    static func _uv(resolution: Resolution) -> MetalPIX {
+    static func _uv(at resolution: Resolution) -> MetalPIX {
         let metalPix = MetalPIX(at: resolution, code:
             """
             pix = float4(u, v, 0.0, 1.0);
