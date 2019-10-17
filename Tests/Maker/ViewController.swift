@@ -31,15 +31,17 @@ class ViewController: NSViewController {
         rendersUrl = Files.outputUrl()
         guard rendersUrl != nil else { fatalError() }
         
-        makeTestPix()
+        (testPix, testPixA, testPixB) = Files.makeTestPixs()
         
         if check() {
             self.makeGenerators {
                 self.makeSingleEffects {
-                    self.makeRandomGenerators {
-                        self.makeRandomSingleEffects {
-                            self.makeRandomMergerEffects {
-                                self.done()
+                    self.makeMergerEffects {
+                        self.makeRandomGenerators {
+                            self.makeRandomSingleEffects {
+                                self.makeRandomMergerEffects {
+                                    self.done()
+                                }
                             }
                         }
                     }
@@ -68,15 +70,6 @@ class ViewController: NSViewController {
         alert.runModal()
     }
     
-    func makeTestPix() {
-        let polygonPix = PolygonPIX(at: ._128)
-        let noisePix = NoisePIX(at: ._128)
-        noisePix.colored = true
-        testPix = polygonPix + noisePix
-        testPixA = polygonPix
-        testPixB = noisePix
-    }
-    
     // MARK: - Standard
     
     func makeGenerators(done: @escaping () -> ()) {
@@ -87,12 +80,14 @@ class ViewController: NSViewController {
         func render(auto: AutoPIXGenerator) {
             print(">>> generator \(auto.name)")
             let pix = auto.pixType.init(at: ._128)
+            let bgPix = .black & pix
             try! PixelKit.main.render.engine.manuallyRender {
-                guard let image: NSImage = pix.renderedImage else { fatalError() }
+                guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                 let imageUrl = generatorsUrl.appendingPathComponent("\(auto.name).png")
                 guard image.savePNG(to: imageUrl) else { fatalError() }
                 print(">>> saved \(auto.name)")
                 pix.destroy()
+                bgPix.destroy()
                 if !autos.isEmpty {
                     render(auto: autos.remove(at: 0))
                 } else {
@@ -113,12 +108,14 @@ class ViewController: NSViewController {
             print(">>> single effect \(auto.name)")
             let pix = auto.pixType.init()
             pix.input = testPix
+            let bgPix = .black & pix
             try! PixelKit.main.render.engine.manuallyRender {
-                guard let image: NSImage = pix.renderedImage else { fatalError() }
+                guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                 let imageUrl = singleEffectsUrl.appendingPathComponent("\(auto.name).png")
                 guard image.savePNG(to: imageUrl) else { fatalError() }
                 print(">>> saved \(auto.name)")
                 pix.destroy()
+                bgPix.destroy()
                 if !autos.isEmpty {
                     render(auto: autos.remove(at: 0))
                 } else {
@@ -140,12 +137,14 @@ class ViewController: NSViewController {
             let pix = auto.pixType.init()
             pix.inputA = testPixA
             pix.inputB = testPixB
+            let bgPix = .black & pix
             try! PixelKit.main.render.engine.manuallyRender {
-                guard let image: NSImage = pix.renderedImage else { fatalError() }
+                guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                 let imageUrl = mergerEffectsUrl.appendingPathComponent("\(auto.name).png")
                 guard image.savePNG(to: imageUrl) else { fatalError() }
                 print(">>> saved \(auto.name)")
                 pix.destroy()
+                bgPix.destroy()
                 if !autos.isEmpty {
                     render(auto: autos.remove(at: 0))
                 } else {
@@ -167,17 +166,19 @@ class ViewController: NSViewController {
         func renderAuto(_ auto: AutoPIXGenerator) {
             print(">>> random generator \(auto.name)")
             let pix = auto.pixType.init(at: ._128)
+            let bgPix = .black & pix
             func renderIndex(_ index: Int) {
                 Randomize.randomizeGenerator(auto: auto, with: pix, at: index)
                 try! PixelKit.main.render.engine.manuallyRender {
-                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                     let imageUrl = generatorsUrl.appendingPathComponent("\(auto.name)_\(index).png")
                     guard image.savePNG(to: imageUrl) else { fatalError() }
                     print(">>> saved \(index) \(auto.name)")
-                    if index < Randomize.randomCount {
+                    if index < Randomize.randomCount - 1 {
                         renderIndex(index + 1)
                     } else {
                         pix.destroy()
+                        bgPix.destroy()
                         if !autos.isEmpty {
                             renderAuto(autos.remove(at: 0))
                         } else {
@@ -194,24 +195,26 @@ class ViewController: NSViewController {
     
     func makeRandomSingleEffects(done: @escaping () -> ()) {
         print(">>>>>> random single effects started")
-        let singleEffectUrl = rendersUrl.appendingPathComponent("randomSingleEffect")
+        let singleEffectUrl = rendersUrl.appendingPathComponent("randomSingleEffects")
         makeDirectory(at: singleEffectUrl)
         var autos = AutoPIXSingleEffect.allCases
         func renderAuto(_ auto: AutoPIXSingleEffect) {
             print(">>> random single effect \(auto.name)")
             let pix = auto.pixType.init()
             pix.input = testPix
+            let bgPix = .black & pix
             func renderIndex(_ index: Int) {
                 Randomize.randomizeSingleEffect(auto: auto, with: pix, at: index)
                 try! PixelKit.main.render.engine.manuallyRender {
-                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                     let imageUrl = singleEffectUrl.appendingPathComponent("\(auto.name)_\(index).png")
                     guard image.savePNG(to: imageUrl) else { fatalError() }
                     print(">>> saved \(index) \(auto.name)")
-                    if index < Randomize.randomCount {
+                    if index < Randomize.randomCount - 1 {
                         renderIndex(index + 1)
                     } else {
                         pix.destroy()
+                        bgPix.destroy()
                         if !autos.isEmpty {
                             renderAuto(autos.remove(at: 0))
                         } else {
@@ -228,7 +231,7 @@ class ViewController: NSViewController {
     
     func makeRandomMergerEffects(done: @escaping () -> ()) {
         print(">>>>>> random merger effects started")
-        let mergerEffectUrl = rendersUrl.appendingPathComponent("randomMergerEffect")
+        let mergerEffectUrl = rendersUrl.appendingPathComponent("randomMergerEffects")
         makeDirectory(at: mergerEffectUrl)
         var autos = AutoPIXMergerEffect.allCases
         func renderAuto(_ auto: AutoPIXMergerEffect) {
@@ -236,17 +239,19 @@ class ViewController: NSViewController {
             let pix = auto.pixType.init()
             pix.inputA = testPixA
             pix.inputB = testPixB
+            let bgPix = .black & pix
             func renderIndex(_ index: Int) {
                 Randomize.randomizeMergerEffect(auto: auto, with: pix, at: index)
                 try! PixelKit.main.render.engine.manuallyRender {
-                    guard let image: NSImage = pix.renderedImage else { fatalError() }
+                    guard let image: NSImage = bgPix.renderedImage else { fatalError() }
                     let imageUrl = mergerEffectUrl.appendingPathComponent("\(auto.name)_\(index).png")
                     guard image.savePNG(to: imageUrl) else { fatalError() }
                     print(">>> saved \(index) \(auto.name)")
-                    if index < Randomize.randomCount {
+                    if index < Randomize.randomCount - 1 {
                         renderIndex(index + 1)
                     } else {
                         pix.destroy()
+                        bgPix.destroy()
                         if !autos.isEmpty {
                             renderAuto(autos.remove(at: 0))
                         } else {

@@ -115,4 +115,27 @@ public extension NODEOut {
         return metalEffectPix
     }
     
+    func _ignoreAlpha() -> MetalEffectPIX {
+        let metalEffectPix = MetalEffectPIX(code:
+            """
+            pix = float4(input.r, input.g, input.b, 1.0);
+            """
+        )
+        metalEffectPix.name = "ignoreAlpha:metalEffectPix"
+        metalEffectPix.input = self as? PIX & NODEOut
+        return metalEffectPix
+    }
+    
+    func _premultiply() -> MetalEffectPIX {
+        let metalEffectPix = MetalEffectPIX(code:
+            """
+            float4 c = input;
+            pix = float4(c.r * c.a, c.g * c.a, c.b * c.a, c.a);
+            """
+        )
+        metalEffectPix.name = "premultiply:metalEffectPix"
+        metalEffectPix.input = self as? PIX & NODEOut
+        return metalEffectPix
+    }
+    
 }

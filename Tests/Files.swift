@@ -6,7 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import Foundation
+import RenderKit
+import PixelKit_macOS
 
 class Files {
 
@@ -18,6 +19,14 @@ class Files {
         var isDir: ObjCBool = true
         guard FileManager.default.fileExists(atPath: rendersUrl.path, isDirectory: &isDir) else { return nil }
         return rendersUrl
+    }
+    
+    static func makeTestPixs() -> (main: PIX & NODEOut, a: PIX & NODEOut, b: PIX & NODEOut) {
+        let polygonPix = PolygonPIX(at: ._128)
+        polygonPix.vertexCount = 3
+        let noisePix = NoisePIX(at: ._128)
+        noisePix.colored = true
+        return (main: polygonPix + noisePix, a: polygonPix, b: noisePix)
     }
     
 }

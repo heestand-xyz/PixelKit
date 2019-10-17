@@ -244,7 +244,7 @@ open class PIX: NODE {
                 pixelKit.logger.log(node: self, .warning, .render, "Content not loaded.", loop: true)
             }
         }
-        if let input = self as? NODEInIO {
+        if let input = self as? NODEInIO, !(self is NODEMetal) {
             if input.inputList.first?.texture != nil {
                 let wasBad = inputTextureAvalible == false
                 if inputTextureAvalible != true {
