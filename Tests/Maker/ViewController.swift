@@ -36,18 +36,30 @@ class ViewController: NSViewController {
         
         makeTestPix()
         
-        self.makeGenerators {
-            self.makeSingleEffects {
-                self.makeRandomGenerators {
-                    self.makeRandomSingleEffects {
-                        self.makeRandomMergerEffects {
-                            print(">>>>>>>>> test maker done")
+        if check() {
+            self.makeGenerators {
+                self.makeSingleEffects {
+                    self.makeRandomGenerators {
+                        self.makeRandomSingleEffects {
+                            self.makeRandomMergerEffects {
+                                print(">>>>>>>>> test maker done")
+                            }
                         }
                     }
                 }
             }
         }
         
+    }
+    
+    func check() -> Bool {
+        let alert = NSAlert()
+        alert.messageText = "Render?"
+        alert.informativeText = "All files will be replaced."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        return alert.runModal() == .alertFirstButtonReturn
     }
     
     func makeTestPix() {

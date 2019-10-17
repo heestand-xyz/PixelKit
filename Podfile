@@ -31,6 +31,14 @@ end
 
 
 
+target 'PixelKitTests' do
+  use_frameworks!
+
+  pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
+  pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+
+end
+
 target 'PixelKitTestMaker' do
   use_frameworks!
 
@@ -40,18 +48,11 @@ target 'PixelKitTestMaker' do
 
 end
 
-target 'PixelKitTests' do
+target 'PixelKitTestDemo' do
   use_frameworks!
 
   pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
-
-end
-
-target 'PixelKitDemo' do
-  use_frameworks!
-
-  pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
-  pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+  pod 'SwiftSVG', '~> 2.0'
 
 end

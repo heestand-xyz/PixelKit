@@ -113,8 +113,13 @@ extension PIX {
         let res = renderResolution
         if pixelKit.render.engine.renderMode != .manual {
             if pixelKit.render.frame == 0 {
-                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed one frame.")
-                pixelKit.render.delay(frames: 1, done: {
+                #if os(macOS)
+                let delayFrames = 2
+                #else
+                let delayFrames = 1
+                #endif
+                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed \(delayFrames) frames.")
+                pixelKit.render.delay(frames: delayFrames, done: {
                     self.applyResolution(applied: applied)
                 })
                 return

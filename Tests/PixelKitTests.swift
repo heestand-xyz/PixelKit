@@ -8,11 +8,14 @@
 
 import XCTest
 import LiveValues
-import PixelKit
+import PixelKit_macOS
 
 class PixelKitTests: XCTestCase {
 
     override func setUp() {
+        PixelKit.main.logger.logAll()
+        PixelKit.main.render.logger.logAll()
+        PixelKit.main.render.engine.logger.logAll()
         PixelKit.main.render.engine.renderMode = .manual
     }
 
@@ -32,8 +35,13 @@ class PixelKitTests: XCTestCase {
             .rectanglepix: 0.19140625
         ]
         
+//        let mainExpect = XCTestExpectation()
+//        PixelKit.main.render.delay(frames: 2) {
+            
         for average in averages {
-        
+            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            
+            print("testing", average.key.name)
             let pix = average.key.pixType.init(at: ._128)
                     
             let expect = XCTestExpectation()
@@ -44,14 +52,19 @@ class PixelKitTests: XCTestCase {
                     return
                 }
                 let lum = pixels.average.lum.cg
+                print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", lum)
                 XCTAssert(lum == average.value, "\(average.key.name) average should be \(average.value) and was \(lum)")
                 expect.fulfill()
             }
-            wait(for: [expect], timeout: 1.0)
+            self.wait(for: [expect], timeout: 1.0)
             
             pix.destroy()
             
         }
+            
+//            mainExpect.fulfill()
+//        }
+//        wait(for: [mainExpect], timeout: 1.0)
         
     }
 
