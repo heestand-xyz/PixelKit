@@ -7,16 +7,20 @@
 //
 
 import XCTest
+import Cocoa
 import LiveValues
 import PixelKit_macOS
 
 class PixelKitTests: XCTestCase {
 
     override func setUp() {
+        
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
+        
         PixelKit.main.render.engine.renderMode = .manual
+        
     }
 
     override func tearDown() {}
@@ -35,9 +39,6 @@ class PixelKitTests: XCTestCase {
             .rectanglepix: 0.19140625
         ]
         
-//        let mainExpect = XCTestExpectation()
-//        PixelKit.main.render.delay(frames: 2) {
-            
         for average in averages {
             print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
             
@@ -61,10 +62,6 @@ class PixelKitTests: XCTestCase {
             pix.destroy()
             
         }
-            
-//            mainExpect.fulfill()
-//        }
-//        wait(for: [mainExpect], timeout: 1.0)
         
     }
 
@@ -230,7 +227,7 @@ class PixelKitTests: XCTestCase {
         for shape in shapes {
         
             let pix = shape.key.pixType.init(at: .custom(w: 20, h: 20))
-                    
+            
             let expect = XCTestExpectation()
             try! PixelKit.main.render.engine.manuallyRender {
                 guard let pixels = pix.renderedPixels else {
@@ -260,7 +257,7 @@ class PixelKitTests: XCTestCase {
     }
 
     func testHueSaturationPix() {
-    
+        
         let colorPix = ColorPIX(at: ._128)
         colorPix.color = .red
         
@@ -287,6 +284,55 @@ class PixelKitTests: XCTestCase {
         }
         wait(for: [expect], timeout: 1.0)
                 
+    }
+    
+    func testCachedGenerators() {
+        
+        guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
+        let folderUrl = outputUrl.appendingPathComponent("generators")
+        
+        for auto in AutoPIXGenerator.allCases {
+            
+            print(">>> generator \(auto.name)")
+            
+            let pix = auto.pixType.init(at: ._128)
+            
+            let url = folderUrl.appendingPathComponent("\(auto.name).png")
+            guard let data = try? Data(contentsOf: url) else { XCTAssert(false, auto.name); continue }
+            guard let img = NSImage(data: data) else { XCTAssert(false, auto.name); continue }
+            let imgPix = ImagePIX()
+            imgPix.image = img
+            
+            let diffPix = pix % imgPix
+
+            let expect = XCTestExpectation()
+            try! PixelKit.main.render.engine.manuallyRender {
+                
+                guard let pixels = diffPix.renderedPixels else {
+                    XCTAssert(false, auto.name);
+                    expect.fulfill();
+                    return
+                }
+                
+                let avg = pixels.average.lum.cg
+                XCTAssertEqual(avg, 0.0, auto.name)
+                if avg != 0.0 {
+                    let badUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
+                    guard let image: NSImage = diffPix.renderedImage else { fatalError() }
+                    guard image.savePNG(to: badUrl) else { fatalError() }
+                }
+                
+                pix.destroy()
+                imgPix.destroy()
+                diffPix.destroy()
+                
+                expect.fulfill();
+                
+            }
+            wait(for: [expect], timeout: 1.0)
+            
+        }
+        
     }
 
     func testPerformanceExample() {

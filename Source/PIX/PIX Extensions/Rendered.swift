@@ -66,7 +66,11 @@ public extension PIX {
     var renderedRaw8: [UInt8]? {
         guard let texture = renderedTexture else { return nil }
         do {
+            #if os(macOS)
+            return try Texture.rawCopy8(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+            #else
             return try Texture.raw8(texture: texture)
+            #endif
         } catch {
             pixelKit.logger.log(node: self, .error, .texture, "Raw 8 Bit texture failed.", e: error)
             return nil
@@ -96,7 +100,11 @@ public extension PIX {
     var renderedRawNormalized: [CGFloat]? {
         guard let texture = renderedTexture else { return nil }
         do {
+            #if os(macOS)
+            return try Texture.rawNormalizedCopy(texture: texture, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+            #else
             return try Texture.rawNormalized(texture: texture, bits: pixelKit.render.bits)
+            #endif
         } catch {
             pixelKit.logger.log(node: self, .error, .texture, "Raw Normalized texture failed.", e: error)
             return nil

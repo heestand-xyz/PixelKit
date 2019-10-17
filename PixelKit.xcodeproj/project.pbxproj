@@ -137,6 +137,12 @@
 		3AA4AC21224CFB6200E894B2 /* ArcPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */; };
 		3AA4AC26224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
 		3AA4AC27224D077500E894B2 /* LinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4AC25224D077400E894B2 /* LinePIX.swift */; };
+		3AAA652A2358936500E7A2B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
+		3AAA652B2358936C00E7A2B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
+		3AAA652E2358937F00E7A2B9 /* Randomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA652C2358937900E7A2B9 /* Randomize.swift */; };
+		3AAA652F2358937F00E7A2B9 /* Randomize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA652C2358937900E7A2B9 /* Randomize.swift */; };
+		3AAA65322358940800E7A2B9 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA65302358940100E7A2B9 /* Files.swift */; };
+		3AAA65332358940800E7A2B9 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA65302358940100E7A2B9 /* Files.swift */; };
 		3AABCD7C23573EFF00CA8C63 /* SlicePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74844E722348928900F99875 /* SlicePIX.swift */; };
 		3AABCD7D23573F0000CA8C63 /* SlicePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74844E722348928900F99875 /* SlicePIX.swift */; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
@@ -146,7 +152,6 @@
 		3ABC70A123574314007781DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC70A023574314007781DF /* ViewController.swift */; };
 		3ABC70A323574315007781DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ABC70A223574315007781DF /* Assets.xcassets */; };
 		3ABC70A623574315007781DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ABC70A423574315007781DF /* Main.storyboard */; };
-		3ABC70AF2357431C007781DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
 		3ABC70B423574419007781DF /* PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; };
 		3ABC70B523574419007781DF /* PixelKit_macOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEC9FAF235749DF0045E91B /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
@@ -472,6 +477,8 @@
 		3A9D287B23476E7F00A29E9C /* PIXUIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXUIs.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
+		3AAA652C2358937900E7A2B9 /* Randomize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Randomize.swift; sourceTree = "<group>"; };
+		3AAA65302358940100E7A2B9 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPIX.swift; sourceTree = "<group>"; };
@@ -755,7 +762,6 @@
 			children = (
 				3ABC709E23574314007781DF /* AppDelegate.swift */,
 				3ABC70A023574314007781DF /* ViewController.swift */,
-				3ADA0FD0235741D300605B00 /* Extensions.swift */,
 				3ABC70A223574315007781DF /* Assets.xcassets */,
 				3ABC70A423574315007781DF /* Main.storyboard */,
 				3ABC70A723574315007781DF /* Info.plist */,
@@ -768,6 +774,9 @@
 			isa = PBXGroup;
 			children = (
 				3ADEAADA2357172A00414C01 /* PixelKitTests.swift */,
+				3ADA0FD0235741D300605B00 /* Extensions.swift */,
+				3AAA652C2358937900E7A2B9 /* Randomize.swift */,
+				3AAA65302358940100E7A2B9 /* Files.swift */,
 				3ADEAADC2357172A00414C01 /* Info.plist */,
 				3ABC709D23574314007781DF /* Maker */,
 				3A36AE3923584F0600DC9696 /* Demo */,
@@ -1558,6 +1567,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2E346C235854A100D67D7A /* PixelKitTests.swift in Sources */,
+				3AAA65332358940800E7A2B9 /* Files.swift in Sources */,
+				3AAA652A2358936500E7A2B9 /* Extensions.swift in Sources */,
+				3AAA652F2358937F00E7A2B9 /* Randomize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1672,8 +1684,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ABC70A123574314007781DF /* ViewController.swift in Sources */,
+				3AAA652B2358936C00E7A2B9 /* Extensions.swift in Sources */,
+				3AAA65322358940800E7A2B9 /* Files.swift in Sources */,
 				3ABC709F23574314007781DF /* AppDelegate.swift in Sources */,
-				3ABC70AF2357431C007781DF /* Extensions.swift in Sources */,
+				3AAA652E2358937F00E7A2B9 /* Randomize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1934,6 +1948,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AA8B3D867E2FFF743278847 /* Pods-PixelKitTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
@@ -1957,6 +1972,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3226A7D1D7D8ABCDC794D5D6 /* Pods-PixelKitTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
@@ -1985,7 +2001,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Tests/Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2009,7 +2025,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Tests/Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
