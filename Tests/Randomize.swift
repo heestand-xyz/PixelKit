@@ -50,7 +50,7 @@ class Randomize {
         var gen = ArbitraryRandomNumberGenerator(seed: 1_000 + UInt64(index))
         for value in values {
             let random: CGFloat = .random(in: value.value.min...value.value.max, using: &gen)
-            value.value = LiveFloat(random)
+            value.value = LiveFloat(random, min: value.value.min, max: value.value.max)
         }
     }
     
@@ -58,7 +58,7 @@ class Randomize {
         var gen = ArbitraryRandomNumberGenerator(seed: 2_000 + UInt64(index))
         for value in values {
             let random: Int = .random(in: value.value.min...value.value.max, using: &gen)
-            value.value = LiveInt(random)
+            value.value = LiveInt(random, min: value.value.min, max: value.value.max)
         }
     }
     
