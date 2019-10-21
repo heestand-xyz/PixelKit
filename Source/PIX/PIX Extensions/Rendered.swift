@@ -100,7 +100,7 @@ public extension PIX {
     var renderedRawNormalized: [CGFloat]? {
         guard let texture = renderedTexture else { return nil }
         do {
-            #if os(macOS)
+            #if os(macOS) || targetEnvironment(macCatalyst)
             return try Texture.rawNormalizedCopy(texture: texture, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
             #else
             return try Texture.rawNormalized(texture: texture, bits: pixelKit.render.bits)
