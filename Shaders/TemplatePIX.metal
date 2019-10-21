@@ -49,10 +49,10 @@ fragment float4 templatePIX(VertexOut out [[stage_in]],
     }
     
     float dist = sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2));
-    if (dist > 0.5 - ra / 2 && dist < 0.5) {
+    if (dist > 0.5 - ra && dist < 0.5) {
         c = 1.0;
     }
-    if (dist > in.aspect / 2 - ra / 2 && dist < in.aspect / 2) {
+    if (dist > in.aspect / 2 - ra && dist < in.aspect / 2) {
         c = 1.0;
     }
 
