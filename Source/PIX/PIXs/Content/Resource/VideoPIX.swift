@@ -49,7 +49,7 @@ public class VideoPIX: PIXResource {
     // MARK: - Private Properties
     
     var helper: VideoHelper!
-    var loadCallback: (() -> ())?
+    var loadCallback: ((Resolution) -> ())?
     var seekCallback: (() -> ())?
     var frameCallback: (() -> ())?
 
@@ -60,16 +60,25 @@ public class VideoPIX: PIXResource {
     public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
     var _progressFraction: CGFloat = 0
     public var progressFraction: LiveFloat { return LiveFloat({ return self._progressFraction }) }
-    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * self.duration.cg }) }
-    public var progressFrames: LiveInt { return LiveInt({ return Int(self._progressFraction * self.duration.cg * CGFloat(self.fps.val)) }) }
-    public var duration: LiveFloat { return LiveFloat({ return CGFloat(self.helper.player?.currentItem?.duration.seconds ?? 0.0) }) }
-    public var frameCount: LiveInt { return LiveInt({ Int(self.duration.cg * CGFloat(self.fps.val)) }) }
-    public var fps: LiveInt { return LiveInt({
-        guard let asset = self.helper.player?.currentItem?.asset else { return 1 }
+    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * CGFloat(self.duration ?? 0.0) }) }
+    public var progressFrames: LiveInt { return LiveInt({ return Int(self._progressFraction * CGFloat(self.duration ?? 0.0) * CGFloat(self.fps ?? 1)) }) }
+    public var duration: Double? {
+        guard let duration = self.helper.player?.currentItem?.duration.seconds else { return nil }
+        guard String(duration) != "nan" else { return nil }
+        guard duration != 0.0 else { return nil }
+        return duration
+    }
+    public var frameCount: Int? {
+        guard let duration = duration else { return nil }
+        guard let fps = fps else { return nil }
+        return Int(duration * Double(fps))
+    }
+    public var fps: Int? {
+        guard let asset = self.helper.player?.currentItem?.asset else { return nil }
         let tracks = asset.tracks(withMediaType: .video)
-        guard let fps = tracks.first?.nominalFrameRate else { return 1 }
+        guard let fps = tracks.first?.nominalFrameRate else { return nil }
         return Int(fps)
-    }) }
+    }
     var _rate: CGFloat = 1.0
     public var rate: LiveFloat { return LiveFloat({ return self._rate }) }
     var _playing: Bool = false
@@ -80,9 +89,9 @@ public class VideoPIX: PIXResource {
     public override init() {
         super.init()
         name = "video"
-        helper = VideoHelper(loaded: { res in
+        helper = VideoHelper(loaded: { resolution in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
-            self.loadCallback?()
+            self.loadCallback?(resolution)
             self.loadCallback = nil
         }, updated: { pixelBuffer, fraction in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video pixel buffer available.")
@@ -118,18 +127,18 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Load
     
-    public func load(fileNamed name: String, withExtension ext: String, done: (() -> ())? = nil) {
+    public func load(fileNamed name: String, withExtension ext: String, done: ((Resolution) -> ())? = nil) {
         guard let url = find(video: name, withExtension: ext) else { return }
         self.url = url
         loadCallback = done
     }
     
-    public func load(url: URL, done: (() -> ())? = nil) {
+    public func load(url: URL, done: ((Resolution) -> ())? = nil) {
         self.url = url
         loadCallback = done
     }
     
-    public func load(data: Data, done: (() -> ())? = nil) {
+    public func load(data: Data, done: ((Resolution) -> ())? = nil) {
         // CHECK format
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixelKit_temp_video.mov")
         FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
@@ -201,7 +210,11 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Frame already at seek.")
             return
         }
-        let fraction = CGFloat(frame) / CGFloat(frameCount.val - 1)
+        guard let frameCount = frameCount else {
+            pixelKit.logger.log(node: self, .warning, .resource, "Frame count not found.")
+            return
+        }
+        let fraction = CGFloat(frame) / CGFloat(frameCount - 1)
         let seconds = item.duration.seconds * Double(fraction)
         let time = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         guard player.currentTime() != time else {
@@ -423,8 +436,18 @@ class VideoHelper: NSObject {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         // CHECK wrong observeValue
+        // FIXME: Called two times
         if keyPath == "currentItem.presentationSize" {
-            guard let size = player?.currentItem?.tracks[0].assetTrack?.naturalSize else {
+            guard let tracks = player?.currentItem?.tracks else {
+                PixelKit.main.logger.log(.error, .resource, "Video tracks not found.")
+                return
+            }
+            let sizes: [CGSize] = tracks.compactMap { track -> CGSize? in
+                track.assetTrack?.naturalSize
+            }
+            guard let size: CGSize = sizes.filter({ size -> Bool in
+                size.width > 0 && size.height > 0
+            }).first else {
                 PixelKit.main.logger.log(.error, .resource, "Video size not found.")
                 return
             } // player?.currentItem?.presentationSize
