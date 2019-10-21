@@ -456,7 +456,9 @@ class VideoHelper: NSObject {
 //            if needs_orientation! {
 //                orientation = getOrientation(size: size)
 //            }
-            setup(res)
+            DispatchQueue.main.async {
+                self.setup(res)
+            }
         }
     }
     

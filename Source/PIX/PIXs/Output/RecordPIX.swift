@@ -12,7 +12,7 @@ import AVKit
 
 public class RecordPIX: PIXOutput {
     
-    public override var shaderName: String { return "contentResourceFlipPIX" }
+    public override var shaderName: String { return "contentResourceBGRPIX" }
     
     // MARK: - Private Properties
     
@@ -268,6 +268,8 @@ public class RecordPIX: PIXOutput {
         
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
             
+            guard let writer = self.writer else { return }
+            
             guard self.recording && !self.paused else { return }
             
             if self.directMode {
@@ -296,7 +298,7 @@ public class RecordPIX: PIXOutput {
                     if self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
                         self.pixelKit.logger.log(node: self, .detail, nil, "Exported frame at \(time.seconds).", loop: true)
                     } else {
-                        self.pixelKit.logger.log(node: self, .error, nil, "Export frame status: \(self.writer!.status.rawValue).", e: self.writer!.error)
+                        self.pixelKit.logger.log(node: self, .error, nil, "Export frame status: \(writer.status.rawValue).", e: writer.error)
                     }
                     
                     self.lastFrameDate = Date()
@@ -392,7 +394,14 @@ public class RecordPIX: PIXOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) -> Bool {
-        guard let pixelBuffer = Texture.buffer(from: cg_image, at: renderResolution.size.cg) else { return false }
+        var size: CGSize!
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.main.async {
+            size = self.renderResolution.size.cg
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: .distantFuture)
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return false }
         return pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time)
     }
     
