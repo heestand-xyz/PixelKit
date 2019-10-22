@@ -21,6 +21,12 @@ struct Uniforms{
     float a;
     float premultiply;
     float aspect;
+    float tile;
+    float tileX;
+    float tileY;
+    float tileResX;
+    float tileResY;
+    float tileFraction;
 };
 
 fragment float4 contentGeneratorColorPIX(VertexOut out [[stage_in]],

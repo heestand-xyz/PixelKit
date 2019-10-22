@@ -33,6 +33,12 @@ struct Uniforms{
     float ba;
     float premultiply;
     float aspect;
+    float tile;
+    float tileX;
+    float tileY;
+    float tileResX;
+    float tileResY;
+    float tileFraction;
 };
 
 fragment float4 contentGeneratorCirclePIX(VertexOut out [[stage_in]],
@@ -41,6 +47,10 @@ fragment float4 contentGeneratorCirclePIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    if (in.tile > 0.0) {
+        u = (in.tileX / in.tileResX) + u * in.tileFraction;
+        v = (in.tileY / in.tileResY) + v * in.tileFraction;
+    }
     v = 1 - v; // Content Flip Fix
     
     float4 ac = float4(in.ar, in.ag, in.ab, in.aa);

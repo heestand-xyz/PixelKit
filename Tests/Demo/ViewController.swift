@@ -20,19 +20,20 @@ class ViewController: NSViewController {
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
+        PixelKit.main.render.engine.renderMode = .frameLoop
 //        PixelKit.main.render.engine.renderMode = .manual
         
         let polygonPix = PolygonPIX() //(at: .square(40))
         polygonPix.name = "demo-polygon"
         
         finalPix = polygonPix
-        view.addSubview(finalPix.view)
         
-        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
-        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+//        view.addSubview(finalPix.view)
+//        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
+//        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
 //        try! PixelKit.main.render.engine.manuallyRender {
 //            self.imageView.image = self.finalPix.renderedImage!

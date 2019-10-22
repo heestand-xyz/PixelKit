@@ -31,6 +31,12 @@ struct Uniforms{
     float ba;
     float premultiply;
     float aspect;
+    float tile;
+    float tileX;
+    float tileY;
+    float tileResX;
+    float tileResY;
+    float tileFraction;
 };
 
 fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
@@ -39,6 +45,10 @@ fragment float4 contentGeneratorRectanglePIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    if (in.tile > 0.0) {
+        u = (in.tileX / in.tileResX) + u * in.tileFraction;
+        v = (in.tileY / in.tileResY) + v * in.tileFraction;
+    }
     
     float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
     float4 bc = float4(in.br, in.bg, in.bb, in.ba);

@@ -29,6 +29,12 @@ struct Uniforms{
     float includeAlpha;
     float premultiply;
     float aspect;
+    float tile;
+    float tileX;
+    float tileY;
+    float tileResX;
+    float tileResY;
+    float tileFraction;
 };
 
 fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
@@ -39,6 +45,10 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
+    if (in.tile > 0.0) {
+        u = (in.tileX / in.tileResX) + u * in.tileFraction;
+        v = (in.tileY / in.tileResY) + v * in.tileFraction;
+    }
     
     float ux = (u * in.aspect - in.x - 0.5 * in.aspect) / in.zoom;
     float vy = (v - in.y - 0.5) / in.zoom;

@@ -42,6 +42,15 @@ public class FeedbackPIX: PIXSingleEffect {
         }
     }
     
+    func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
+        guard let tileFeedPix = feedPix as? PIX & NODETileable2D else {
+            pixelKit.logger.log(node: self, .error, .texture, "Feed Input Pix Not Tileable.")
+            return nil
+        }
+        guard let texture = tileFeedPix.tileTextures?[tileIndex.y][tileIndex.x] else { return nil }
+        return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+    }
+    
     override public func didRender(texture: MTLTexture, force: Bool) {
         super.didRender(texture: texture)
         if feedReset {

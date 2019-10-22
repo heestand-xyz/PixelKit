@@ -109,7 +109,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 inputTexture = try Texture.makeMultiTexture(from: inTextures, with: commandBuffer, on: render.metalDevice)
             } else {
                 guard let nodeOut = nodeIn.inputList.first else {
-                    throw Engine.RenderError.texture("input not connected.")
+                    throw Engine.RenderError.texture("Input not connected.")
                 }
                 var feed = false
                 if let feedbackNode = nodeIn as? FeedbackPIX {
@@ -189,5 +189,117 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         return (inputTexture, secondInputTexture, customTexture)
 
     }
+    
+    public func tileTextures(from node: NODE & NODETileable, at tileIndex: TileIndex, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
 
+        guard node is NODE & NODETileable2D else {
+             throw Engine.RenderError.nodeNotTileable
+        }
+        
+        var generator: Bool = false
+        var inputTexture: MTLTexture? = nil
+        var secondInputTexture: MTLTexture? = nil
+        if let nodeContent = node as? NODEContent {
+            if nodeContent is NODEGenerator {
+                generator = true
+            }
+        } else if let nodeIn = node as? NODE & NODEInIO {
+            if let nodeInMulti = nodeIn as? NODEInMulti {
+                var inTextures: [MTLTexture] = []
+                for (i, nodeOut) in nodeInMulti.inputs.enumerated() {
+                    guard let nodeOutTileable2d = nodeOut as? NODE & NODETileable2D else {
+                         throw Engine.RenderError.nodeNotTileable
+                    }
+                    guard let nodeOutTexture = nodeOutTileable2d.tileTextures?[tileIndex.y][tileIndex.x] else {
+                        throw Engine.RenderError.texture("Tile IO Texture \(i) not found for: \(nodeOut)")
+                    }
+                    try Texture.mipmap(texture: nodeOutTexture, with: commandBuffer)
+                    inTextures.append(nodeOutTexture)
+                }
+                inputTexture = try Texture.makeMultiTexture(from: inTextures, with: commandBuffer, on: render.metalDevice)
+            } else {
+                guard let nodeOut = nodeIn.inputList.first else {
+                    throw Engine.RenderError.texture("Tile Input not connected.")
+                }
+                guard let nodeOutTileable2d = nodeOut as? NODE & NODETileable2D else {
+                     throw Engine.RenderError.nodeNotTileable
+                }
+                var feed = false
+                if let feedbackNode = nodeIn as? FeedbackPIX {
+                    if feedbackNode.readyToFeed && feedbackNode.feedActive {
+                        guard let feedTexture = feedbackNode.tileFeedTexture(at: tileIndex) else {
+                            throw Engine.RenderError.texture("Tile Feed Texture not avalible.")
+                        }
+                        inputTexture = feedTexture
+                        feed = true
+                    }
+                }
+                if !feed {
+                    guard let nodeOutTexture = nodeOutTileable2d.tileTextures?[tileIndex.y][tileIndex.x] else {
+                        throw Engine.RenderError.texture("Tile IO Texture not found for: \(nodeOut)")
+                    }
+                    inputTexture = nodeOutTexture // CHECK copy?
+                    if node is NODEInMerger {
+                        let nodeOutB = nodeIn.inputList[1]
+                        guard let nodeOutBTileable2d = nodeOutB as? NODE & NODETileable2D else {
+                             throw Engine.RenderError.nodeNotTileable
+                        }
+                        guard let nodeOutTextureB = nodeOutBTileable2d.tileTextures?[tileIndex.y][tileIndex.x] else {
+                            throw Engine.RenderError.texture("Tile IO Texture B not found for: \(nodeOutB)")
+                        }
+                        secondInputTexture = nodeOutTextureB // CHECK copy?
+                    }
+                }
+            }
+        }
+
+        guard generator || inputTexture != nil else {
+            throw Engine.RenderError.texture("Tile Input Texture missing.")
+        }
+
+        // Mipmap
+
+        if inputTexture != nil {
+            try Texture.mipmap(texture: inputTexture!, with: commandBuffer)
+        }
+        if secondInputTexture != nil {
+            try Texture.mipmap(texture: secondInputTexture!, with: commandBuffer)
+        }
+
+        // MARK: Custom Render
+
+        var customTexture: MTLTexture?
+        if !generator && node.customRenderActive {
+            guard let customRenderDelegate = node.customRenderDelegate else {
+                throw Engine.RenderError.custom("Tile CustomRenderDelegate not implemented.")
+            }
+            if let customRenderedTexture = customRenderDelegate.customRender(inputTexture!, with: commandBuffer) {
+                inputTexture = nil
+                customTexture = customRenderedTexture
+            }
+        }
+
+        if node is NODEInMerger {
+            if !generator && node.customMergerRenderActive {
+                guard let customMergerRenderDelegate = node.customMergerRenderDelegate else {
+                    throw Engine.RenderError.custom("Tile PixelCustomMergerRenderDelegate not implemented.")
+                }
+                let customRenderedTextures = customMergerRenderDelegate.customRender(a: inputTexture!, b: secondInputTexture!, with: commandBuffer)
+                if let customRenderedTexture = customRenderedTextures {
+                    inputTexture = nil
+                    secondInputTexture = nil
+                    customTexture = customRenderedTexture
+                }
+            }
+        }
+
+        if let timeMachineNode = node as? TimeMachinePIX {
+            let textures = timeMachineNode.customRender(inputTexture!, with: commandBuffer)
+            inputTexture = try Texture.makeMultiTexture(from: textures, with: commandBuffer, on: render.metalDevice, in3D: true)
+        }
+
+        return (inputTexture, secondInputTexture, customTexture)
+
+    }
+    
 }
