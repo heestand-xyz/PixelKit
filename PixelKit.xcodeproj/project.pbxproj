@@ -121,6 +121,7 @@
 		3A6E9D302254A97F008F36D8 /* PIXAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */; };
 		3A70A64222859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
+		3A76BC3C235F3D210057CA2C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
 		3A7EA6DE23191D0F007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
 		3A7EA6E123191D41007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
@@ -1578,6 +1579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A36AE3D23584F0600DC9696 /* ViewController.swift in Sources */,
+				3A76BC3C235F3D210057CA2C /* Extensions.swift in Sources */,
 				3A36AE3B23584F0600DC9696 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

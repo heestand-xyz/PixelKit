@@ -111,7 +111,7 @@ extension PIX {
     
     public func applyResolution(applied: @escaping () -> ()) {
         let res = renderResolution
-        if pixelKit.render.engine.renderMode != .manual {
+        if !pixelKit.render.engine.renderMode.isManual {
             if pixelKit.render.frame == 0 {
                 #if os(macOS)
                 let delayFrames = 2

@@ -8,6 +8,7 @@
 
 import Cocoa
 import LiveValues
+import RenderKit
 import PixelKit_macOS
 
 class ViewController: NSViewController {
@@ -17,16 +18,20 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PixelKit.main.logger.logAll()
-        PixelKit.main.render.logger.logAll()
-        PixelKit.main.render.engine.logger.logAll()
+        PixelKit.main.logger.logMore()
+        PixelKit.main.render.logger.logMore()
+        PixelKit.main.render.engine.logger.logMore()
         PixelKit.main.render.engine.renderMode = .manualTiles
+        PixelKit.main.tileResolution = .square(1000)
 //        PixelKit.main.render.engine.renderMode = .manual
         
-        let polygonPix = PolygonPIX(at: .square(64))
-        polygonPix.name = "demo-polygon"
+//        let polygonPix = PolygonPIX(at: .square(10_000))
+//        polygonPix.name = "demo-polygon"
         
-        finalPix = polygonPix
+        let noise = NoisePIX(at: .square(10_000))
+//        noise.octaves = 3
+        
+        finalPix = noise._threshold()//._edge()
         
 //        view.addSubview(finalPix.view)
 //        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +41,12 @@ class ViewController: NSViewController {
 //        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         try! PixelKit.main.render.engine.manuallyRender {
+            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
+//            guard let image = self.finalPix.renderedTileImage(at: TileIndex(x: 1, y: 0)) else { print("xxxxxx"); return }
+            let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+            let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
+            guard image.savePNG(to: imageUrl) else { fatalError() }
             print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 //            self.imageView.image = self.finalPix.renderedImage!
 //            self.log()

@@ -53,6 +53,58 @@ public extension PIX {
         })
     }
     
+    var renderedTileImage: _Image? {
+        guard let nodeTileable2d = self as? NODETileable2D else {
+            pixelKit.logger.log(.error, .texture, "PIX is not tilable.")
+            return nil
+        }
+        guard let textures = nodeTileable2d.tileTextures else {
+            pixelKit.logger.log(.error, .texture, "Tile textures not available.")
+            return nil
+        }
+        do {
+            let texture = try Texture.mergeTiles2d(textures: textures, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+            guard let ciImage = Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace) else {
+                pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
+                return nil
+            }
+            guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
+                pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
+                return nil
+            }
+            return Texture.image(from: cgImage, at: renderResolution.size.cg)
+        } catch {
+            pixelKit.logger.log(.error, .texture, "Tile texture merge failed.", e: error)
+            return nil
+        }
+    }
+    
+    func renderedTileImage(at tileIndex: TileIndex) -> _Image? {
+        guard let nodeTileable2d = self as? NODETileable2D else {
+            pixelKit.logger.log(.error, .texture, "PIX is not tilable.")
+            return nil
+        }
+        guard let textures = nodeTileable2d.tileTextures else {
+            pixelKit.logger.log(.error, .texture, "Tile textures not available.")
+            return nil
+        }
+        guard tileIndex.y < textures.count && tileIndex.x < textures.first!.count else {
+            pixelKit.logger.log(.error, .texture, "Tile index out of bounds.")
+            return nil
+        }
+        let texture = textures[tileIndex.y][tileIndex.x]
+        guard let ciImage = Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace) else {
+            pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
+            return nil
+        }
+        let size = CGSize(width: texture.width, height: texture.height)
+        guard let cgImage = Texture.cgImage(from: ciImage, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
+            pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
+            return nil
+        }
+        return Texture.image(from: cgImage, at: size)
+    }
+    
     var renderedPixelBuffer: CVPixelBuffer? {
         guard let cgImage = renderedCGImage else { pixelKit.logger.log(node: self, .error, nil, "renderedPixelBuffer: no cgImage."); return nil }
         do {
