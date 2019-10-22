@@ -511,8 +511,9 @@ open class PIX: NODE, NODETileable {
     // MARK: Live
     
     public func checkLive() {
-        for liveValue in liveValues {
+        for (i, liveValue) in liveValues.enumerated() {
             if liveValue.uniformIsNew {
+                pixelKit.logger.log(node: self, .debug, nil, "Live Check at \(i) is new.", loop: true)
                 setNeedsRender()
                 break
             }

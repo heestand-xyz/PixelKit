@@ -18,9 +18,9 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PixelKit.main.logger.logMore()
-        PixelKit.main.render.logger.logMore()
-        PixelKit.main.render.engine.logger.logMore()
+        PixelKit.main.logger.logDebug()
+        PixelKit.main.render.logger.logDebug()
+        PixelKit.main.render.engine.logger.logDebug()
         PixelKit.main.render.engine.renderMode = .manualTiles
         PixelKit.main.tileResolution = .square(1000)
 //        PixelKit.main.render.engine.renderMode = .manual
@@ -31,7 +31,7 @@ class ViewController: NSViewController {
         let noise = NoisePIX(at: .square(10_000))
 //        noise.octaves = 3
         
-        finalPix = noise._threshold()//._edge()
+        finalPix = noise._edge()//._threshold()//._edge()
         
 //        view.addSubview(finalPix.view)
 //        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
