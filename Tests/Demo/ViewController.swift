@@ -20,10 +20,10 @@ class ViewController: NSViewController {
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
-        PixelKit.main.render.engine.renderMode = .frameLoop
+        PixelKit.main.render.engine.renderMode = .manualTiles
 //        PixelKit.main.render.engine.renderMode = .manual
         
-        let polygonPix = PolygonPIX() //(at: .square(40))
+        let polygonPix = PolygonPIX(at: .square(64))
         polygonPix.name = "demo-polygon"
         
         finalPix = polygonPix
@@ -35,10 +35,11 @@ class ViewController: NSViewController {
 //        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
 //        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
-//        try! PixelKit.main.render.engine.manuallyRender {
+        try! PixelKit.main.render.engine.manuallyRender {
+            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 //            self.imageView.image = self.finalPix.renderedImage!
 //            self.log()
-//        }
+        }
         
     }
     
