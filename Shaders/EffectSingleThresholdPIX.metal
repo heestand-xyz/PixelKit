@@ -17,7 +17,6 @@ struct VertexOut{
 
 struct Uniforms{
     float threshold;
-    float smoothness;
 };
 
 fragment float4 effectSingleThresholdPIX(VertexOut out [[stage_in]],
@@ -31,12 +30,10 @@ fragment float4 effectSingleThresholdPIX(VertexOut out [[stage_in]],
     
     float4 c = inTex.sample(s, uv);
     float bw = (c.r + c.g + c.b) / 3;
-        
-    float t = (bw - in.threshold) / in.smoothness + in.threshold;
-    if (t < 0) {
-        t = 0;
-    } else if (t > 1) {
-        t = 1;
+    
+    float t = 0.0;
+    if (bw > in.threshold) {
+        t = 1.0;
     }
     
     return float4(t, t, t, 1.0);

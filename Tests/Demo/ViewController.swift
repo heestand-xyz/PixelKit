@@ -18,20 +18,24 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PixelKit.main.logger.logDebug()
-        PixelKit.main.render.logger.logDebug()
-        PixelKit.main.render.engine.logger.logDebug()
+        PixelKit.main.logger.logAll()
+        PixelKit.main.render.logger.logAll()
+        PixelKit.main.render.engine.logger.logAll()
         PixelKit.main.render.engine.renderMode = .manualTiles
-        PixelKit.main.tileResolution = .square(1000)
+        PixelKit.main.tileResolution = .square(100)
 //        PixelKit.main.render.engine.renderMode = .manual
         
 //        let polygonPix = PolygonPIX(at: .square(10_000))
 //        polygonPix.name = "demo-polygon"
         
-        let noise = NoisePIX(at: .square(10_000))
+        let noise = NoisePIX(at: .square(1_000))
 //        noise.octaves = 3
         
-        finalPix = noise._edge()//._threshold()//._edge()
+        let threshold = ThresholdPIX()
+        threshold.input = noise
+//        threshold.threshold = 0.333
+        
+        finalPix = threshold//noise._threshold(0.25)//._edge()
         
 //        view.addSubview(finalPix.view)
 //        finalPix.view.translatesAutoresizingMaskIntoConstraints = false

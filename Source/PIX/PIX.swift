@@ -28,29 +28,29 @@ open class PIX: NODE, NODETileable {
     open var preUniforms: [CGFloat] { return [] }
     open var postUniforms: [CGFloat] { return [] }
     open var uniforms: [CGFloat] {
-        var vals: [CGFloat] = []
-        vals.append(contentsOf: preUniforms)
+        var uniforms: [CGFloat] = []
+        uniforms.append(contentsOf: preUniforms)
         for liveValue in liveValues {
             if let liveFloat = liveValue as? LiveFloat {
-                vals.append(liveFloat.uniform)
+                uniforms.append(liveFloat.uniform)
             } else if let liveInt = liveValue as? LiveInt {
-                vals.append(CGFloat(liveInt.uniform))
+                uniforms.append(CGFloat(liveInt.uniform))
             } else if let liveBool = liveValue as? LiveBool {
-                vals.append(liveBool.uniform ? 1.0 : 0.0)
+                uniforms.append(liveBool.uniform ? 1.0 : 0.0)
             } else if let liveColor = liveValue as? LiveColor {
-                vals.append(contentsOf: liveColor.colorCorrect.uniformList)
+                uniforms.append(contentsOf: liveColor.colorCorrect.uniformList)
             } else if let livePoint = liveValue as? LivePoint {
-                vals.append(contentsOf: livePoint.uniformList)
+                uniforms.append(contentsOf: livePoint.uniformList)
             } else if let liveSize = liveValue as? LiveSize {
-                vals.append(contentsOf: liveSize.uniformList)
+                uniforms.append(contentsOf: liveSize.uniformList)
             } else if let liveRect = liveValue as? LiveRect {
-                vals.append(contentsOf: liveRect.uniformList)
+                uniforms.append(contentsOf: liveRect.uniformList)
             } else if let liveVec = liveValue as? LiveVec {
-                vals.append(contentsOf: liveVec.uniformList)
+                uniforms.append(contentsOf: liveVec.uniformList)
             }
         }
-        vals.append(contentsOf: postUniforms)
-        return vals
+        uniforms.append(contentsOf: postUniforms)
+        return uniforms
     }
     
     public var liveArray: [[LiveFloat]] { return [] }
@@ -208,6 +208,10 @@ open class PIX: NODE, NODETileable {
 //            pixelKit.logger.log(node: self, .warning, .render, "Already requested.", loop: true)
             return
         }
+        guard !rendering && !inRender else {
+            pixelKit.logger.log(node: self, .debug, .render, "No need to render. Render in progress.", loop: true)
+            return
+        }
 //        guard resolution != nil else {
 //            pixelKit.logger.log(node: self, .warning, .render, "Resolution unknown.", loop: true)
 //            return
@@ -245,7 +249,17 @@ open class PIX: NODE, NODETileable {
             }
         }
         if let input = self as? NODEInIO, !(self is NODEMetal) {
-            if input.inputList.first?.texture != nil {
+            let hasInTexture: Bool
+            if pixelKit.render.engine.renderMode.isTile {
+                if self is NODE3D {
+                    hasInTexture = (input.inputList.first as? NODETileable3D)?.tileTextures != nil
+                } else {
+                    hasInTexture = (input.inputList.first as? NODETileable2D)?.tileTextures != nil
+                }
+            } else {
+                hasInTexture = input.inputList.first?.texture != nil
+            }
+            if hasInTexture {
                 let wasBad = inputTextureAvalible == false
                 if inputTextureAvalible != true {
                     inputTextureAvalible = true
@@ -511,13 +525,24 @@ open class PIX: NODE, NODETileable {
     // MARK: Live
     
     public func checkLive() {
-        for (i, liveValue) in liveValues.enumerated() {
+        
+        let needsInTexture = self is NODEInIO
+        let hasInTexture = needsInTexture && (self as! NODEInIO).inputList.first?.texture != nil
+        let needsContent = self.contentLoaded != nil
+        let hasContent = self.contentLoaded == true
+        let needsGenerated = self is NODEGenerator
+        let hasGenerated = !self.bypass
+        let template = ((needsInTexture && !hasInTexture) || (needsContent && !hasContent) || (needsGenerated && !hasGenerated)) && !(self is NODE3D)
+        
+        guard !template else { return }
+        
+        for liveValue in liveValues {
             if liveValue.uniformIsNew {
-                pixelKit.logger.log(node: self, .debug, nil, "Live Check at \(i) is new.", loop: true)
                 setNeedsRender()
                 break
             }
         }
+        
         for liveValues in liveArray {
             for liveValue in liveValues {
                 if liveValue.uniformIsNew {
@@ -526,6 +551,7 @@ open class PIX: NODE, NODETileable {
                 }
             }
         }
+        
     }
     
     // MARK: Clean
