@@ -37,6 +37,8 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     #endif
     #endif
     
+    public var tileResolution: Resolution = .square(32)
+    
     public let render: Render
     public let logger: Logger
 

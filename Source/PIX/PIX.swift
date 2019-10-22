@@ -13,7 +13,7 @@ import CoreGraphics
 import Metal
 import simd
 
-open class PIX: NODE {
+open class PIX: NODE, NODETileable {
    
     public var id = UUID()
     public var name: String?
@@ -295,6 +295,14 @@ open class PIX: NODE {
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
         self.texture = texture
+        didRender(force: force)
+    }
+    
+    public func didRenderTiles(force: Bool) {
+        didRender(force: force)
+    }
+    
+    func didRender(force: Bool = false) {
         renderIndex += 1
         delegate?.nodeDidRender(self)
         if pixelKit.render.engine.renderMode != .frameTree {
