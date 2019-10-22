@@ -29,6 +29,7 @@ public class EdgePIX: PIXSingleEffect, PIXAuto {
     public required init() {
         super.init()
         name = "edge"
+        extend = .hold
     }
     
 }

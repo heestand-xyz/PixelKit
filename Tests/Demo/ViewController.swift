@@ -11,7 +11,7 @@ import LiveValues
 import RenderKit
 import PixelKit_macOS
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NODEDelegate {
     
     var finalPix: PIX!
     
@@ -21,21 +21,25 @@ class ViewController: NSViewController {
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
-        PixelKit.main.render.engine.renderMode = .manualTiles
-        PixelKit.main.tileResolution = .square(100)
-//        PixelKit.main.render.engine.renderMode = .manual
+        PixelKit.main.render.engine.renderMode = .manualTiles//.frameLoopTiles
+        PixelKit.main.tileResolution = .square(1000)
+        PixelKit.main.render.bits = ._16
         
 //        let polygonPix = PolygonPIX(at: .square(10_000))
 //        polygonPix.name = "demo-polygon"
         
-        let noise = NoisePIX(at: .square(1_000))
-//        noise.octaves = 3
+//        let noise = NoisePIX(at: .square(10_000))
+//        noise.octaves = 4
         
-        let threshold = ThresholdPIX()
-        threshold.input = noise
-//        threshold.threshold = 0.333
+        let blends = loop(10, blendMode: .difference) { i, f in
+            let noise = NoisePIX(at: .square(10_000))
+            noise.octaves = 4
+            noise.seed = i
+            return noise
+        }
         
-        finalPix = threshold//noise._threshold(0.25)//._edge()
+        finalPix = blends._quantize(0.1)._edge(1000)
+        finalPix.delegate = self
         
 //        view.addSubview(finalPix.view)
 //        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
@@ -45,17 +49,20 @@ class ViewController: NSViewController {
 //        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         try! PixelKit.main.render.engine.manuallyRender {
-            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
-//            guard let image = self.finalPix.renderedTileImage(at: TileIndex(x: 1, y: 0)) else { print("xxxxxx"); return }
-            let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
-            let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
-            guard image.savePNG(to: imageUrl) else { fatalError() }
-            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-//            self.imageView.image = self.finalPix.renderedImage!
-//            self.log()
+            self.save()
         }
         
+    }
+    
+    func nodeDidRender(_ node: NODE) {}
+    
+    func save() {
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
+        let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+        let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
+        guard image.savePNG(to: imageUrl) else { fatalError() }
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     }
     
 //    func log() {
