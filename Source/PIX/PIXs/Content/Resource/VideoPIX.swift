@@ -62,8 +62,17 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Public Properties
     
+    public var url: URL? {
+        didSet {
+            if url != nil {
+                helper.load(from: url!)
+            } else {
+                helper.unload()
+            }
+        }
+    }
+    
     public var loops: Bool = true { didSet { helper.loops = loops } }
-    public var url: URL? { didSet { if url != nil { helper.load(from: url!) } } }
     public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
     var _progressFraction: CGFloat = 0
     public var progressFraction: LiveFloat { return LiveFloat({ return self._progressFraction }) }
@@ -151,6 +160,11 @@ public class VideoPIX: PIXResource {
         FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         self.url = url
         loadCallback = done
+    }
+    
+    public func unload() {
+        url = nil
+        pixelBuffer = nil
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
@@ -424,6 +438,12 @@ class VideoHelper: NSObject {
         
     }
     
+    func unload() {
+        player = nil
+        loaded = false
+        loadDate = nil
+    }
+    
     // MARK: Read Buffer
     
     func readBuffer() {
@@ -433,6 +453,7 @@ class VideoHelper: NSObject {
         let currentTime = player!.currentItem!.currentTime()
         let duration = player!.currentItem!.duration.seconds
         let fraction = currentTime.seconds / duration
+        guard String(fraction) != "nan" else { return }
         
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime) {
             if let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {

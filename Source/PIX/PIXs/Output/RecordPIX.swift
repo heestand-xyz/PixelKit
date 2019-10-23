@@ -268,8 +268,6 @@ public class RecordPIX: PIXOutput {
         
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
             
-            guard let writer = self.writer else { return }
-            
             guard self.recording && !self.paused else { return }
             
             if self.directMode {
@@ -295,11 +293,8 @@ public class RecordPIX: PIXOutput {
                         time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
                     }
                     
-                    if self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!) {
-                        self.pixelKit.logger.log(node: self, .detail, nil, "Exported frame at \(time.seconds).", loop: true)
-                    } else {
-                        self.pixelKit.logger.log(node: self, .error, nil, "Export frame status: \(writer.status.rawValue).", e: writer.error)
-                    }
+                    self.pixelKit.logger.log(node: self, .detail, nil, "Exporting frame at \(time.seconds).", loop: true)
+                    self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!)
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
@@ -393,16 +388,15 @@ public class RecordPIX: PIXOutput {
         
     }
     
-    func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) -> Bool {
-        var size: CGSize!
-        let semaphore = DispatchSemaphore(value: 0)
+    func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) {
         DispatchQueue.main.async {
-            size = self.renderResolution.size.cg
-            semaphore.signal()
+            let size = self.renderResolution.size.cg
+            guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return }
+            if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
+                guard let writer = self.writer else { return }
+                self.pixelKit.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
+            }
         }
-        _ = semaphore.wait(timeout: .distantFuture)
-        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return false }
-        return pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time)
     }
     
 }
