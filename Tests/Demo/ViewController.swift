@@ -22,23 +22,23 @@ class ViewController: NSViewController, NODEDelegate {
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
         PixelKit.main.render.engine.renderMode = .manualTiles//.frameLoopTiles
-        PixelKit.main.tileResolution = .square(1000)
+        PixelKit.main.tileResolution = .square(1024)
         PixelKit.main.render.bits = ._16
         
 //        let polygonPix = PolygonPIX(at: .square(10_000))
 //        polygonPix.name = "demo-polygon"
         
-//        let noise = NoisePIX(at: .square(10_000))
-//        noise.octaves = 4
+        let noise = NoisePIX(at: .square(16384))
+        noise.octaves = 2
         
-        let blends = loop(10, blendMode: .difference) { i, f in
-            let noise = NoisePIX(at: .square(10_000))
-            noise.octaves = 4
-            noise.seed = i
-            return noise
-        }
+//        let blends = loop(10, blendMode: .difference) { i, f in
+//            let noise = NoisePIX(at: .square(10_000))
+//            noise.octaves = 4
+//            noise.seed = i
+//            return noise
+//        }
         
-        finalPix = blends._quantize(0.1)._edge(1000)
+        finalPix = noise._quantize(0.01)._edge(1000)
         finalPix.delegate = self
         
 //        view.addSubview(finalPix.view)
