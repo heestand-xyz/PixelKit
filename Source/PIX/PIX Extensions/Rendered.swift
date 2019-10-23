@@ -53,7 +53,7 @@ public extension PIX {
         })
     }
     
-    var renderedTileImage: _Image? {
+    var renderedTileTexture: MTLTexture? {
         guard let nodeTileable2d = self as? NODETileable2D else {
             pixelKit.logger.log(.error, .texture, "PIX is not tilable.")
             return nil
@@ -63,20 +63,24 @@ public extension PIX {
             return nil
         }
         do {
-            let texture = try Texture.mergeTiles2d(textures: textures, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
-            guard let ciImage = Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace) else {
-                pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
-                return nil
-            }
-            guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
-                pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
-                return nil
-            }
-            return Texture.image(from: cgImage, at: renderResolution.size.cg)
+            return try Texture.mergeTiles2d(textures: textures, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
         } catch {
             pixelKit.logger.log(.error, .texture, "Tile texture merge failed.", e: error)
             return nil
         }
+    }
+    
+    var renderedTileImage: _Image? {
+        guard let texture = renderedTileTexture else { return nil }
+        guard let ciImage = Texture.ciImage(from: texture, colorSpace: pixelKit.render.colorSpace) else {
+            pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
+            return nil
+        }
+        guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
+            pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
+            return nil
+        }
+        return Texture.image(from: cgImage, at: renderResolution.size.cg)
     }
     
     func renderedTileImage(at tileIndex: TileIndex) -> _Image? {
@@ -115,8 +119,16 @@ public extension PIX {
         }
     }
     
+    var dynamicTexture: MTLTexture? {
+        if PixelKit.main.render.engine.renderMode.isTile {
+            return renderedTileTexture
+        } else {
+            return renderedTexture
+        }
+    }
+    
     var renderedRaw8: [UInt8]? {
-        guard let texture = renderedTexture else { return nil }
+        guard let texture = dynamicTexture else { return nil }
         do {
             #if os(macOS)
             return try Texture.rawCopy8(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
@@ -130,7 +142,7 @@ public extension PIX {
     }
     
     var renderedRaw16: [Float]? {
-        guard let texture = renderedTexture else { return nil }
+        guard let texture = dynamicTexture else { return nil }
         do {
             return try Texture.raw16(texture: texture)
         } catch {
@@ -140,7 +152,7 @@ public extension PIX {
     }
     
     var renderedRaw32: [float4]? {
-        guard let texture = renderedTexture else { return nil }
+        guard let texture = dynamicTexture else { return nil }
         do {
             return try Texture.raw32(texture: texture)
         } catch {
@@ -150,7 +162,7 @@ public extension PIX {
     }
     
     var renderedRawNormalized: [CGFloat]? {
-        guard let texture = renderedTexture else { return nil }
+        guard let texture = dynamicTexture else { return nil }
         do {
             #if os(macOS) || targetEnvironment(macCatalyst)
             return try Texture.rawNormalizedCopy(texture: texture, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)

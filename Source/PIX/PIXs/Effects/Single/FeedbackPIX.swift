@@ -44,7 +44,7 @@ public class FeedbackPIX: PIXSingleEffect {
     
     func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
         guard let tileFeedPix = feedPix as? PIX & NODETileable2D else {
-            pixelKit.logger.log(node: self, .error, .texture, "Feed Input Pix Not Tileable.")
+            pixelKit.logger.log(node: self, .error, .texture, "Feed Input PIX Not Tileable.")
             return nil
         }
         guard let texture = tileFeedPix.tileTextures?[tileIndex.y][tileIndex.x] else { return nil }

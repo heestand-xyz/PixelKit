@@ -13,7 +13,7 @@ import CoreGraphics
 import Metal
 import simd
 
-open class PIX: NODE, NODETileable {
+open class PIX: NODE, Equatable, NODETileable {
    
     public var id = UUID()
     public var name: String?
