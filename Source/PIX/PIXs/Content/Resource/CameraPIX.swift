@@ -73,6 +73,13 @@ public class CameraPIX: PIXResource {
     var access: Bool = false
     var orientation: _Orientation?
     
+    public override var bypass: Bool {
+        didSet {
+            super.bypass = bypass
+            helper?.bypass = bypass
+        }
+    }
+    
     // MARK: - Public Properties
     
     public enum CamRes: String, Codable, CaseIterable {
@@ -394,6 +401,15 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
 //    let photoOutput: AVCapturePhotoOutput?
     
+    var bypass: Bool = false {
+        didSet {
+            if bypass {
+                stop()
+            } else {
+                start()
+            }
+        }
+    }
 
     var lastUIOrientation: _Orientation
 
@@ -598,6 +614,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     #endif
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        guard !bypass else { return }
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             pixelKit.logger.log(.error, .resource, "Camera buffer conversion failed.")

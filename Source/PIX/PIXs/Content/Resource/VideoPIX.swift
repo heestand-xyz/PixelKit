@@ -52,7 +52,14 @@ public class VideoPIX: PIXResource {
     var loadCallback: ((Resolution) -> ())?
     var seekCallback: (() -> ())?
     var frameCallback: (() -> ())?
-
+    
+    public override var bypass: Bool {
+        didSet {
+            super.bypass = bypass
+            helper?.bypass = bypass
+        }
+    }
+    
     // MARK: - Public Properties
     
     public var loops: Bool = true { didSet { helper.loops = loops } }
@@ -359,6 +366,8 @@ class VideoHelper: NSObject {
         }
     }
     
+    var bypass: Bool = false
+    
     var doneCallback: (() -> ())?
 
     // MARK: Life Cycle
@@ -372,6 +381,7 @@ class VideoHelper: NSObject {
         
         PixelKit.main.render.listenToFrames(callback: { [weak self] in
             if self?.loaded == true {
+                guard !self!.bypass else { return }
                 self!.readBuffer()
             }
         })
