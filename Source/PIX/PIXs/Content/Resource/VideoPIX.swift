@@ -165,6 +165,7 @@ public class VideoPIX: PIXResource {
     public func unload() {
         url = nil
         pixelBuffer = nil
+        setNeedsRender()
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {
