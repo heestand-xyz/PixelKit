@@ -456,8 +456,12 @@ class VideoHelper: NSObject {
         let fraction = currentTime.seconds / duration
         guard String(fraction) != "nan" else { return }
         
+        let localRenderTime = CFAbsoluteTimeGetCurrent()
         if playerItemVideoOutput.hasNewPixelBuffer(forItemTime: currentTime) {
             if let pixelBuffer = playerItemVideoOutput.copyPixelBuffer(forItemTime: currentTime, itemTimeForDisplay: nil) {
+                let renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+                let renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+                PixelKit.main.logger.log(.debug, .resource, "Video Frame Time: [\(renderTimeMs)ms]")
                 update(pixelBuffer, CGFloat(fraction))
             }
         }
