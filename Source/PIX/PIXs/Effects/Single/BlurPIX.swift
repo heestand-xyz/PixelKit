@@ -41,7 +41,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         }
     }
     
-    public var style: BlurStyle = .box { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .guassian { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -99,20 +99,6 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     #if !os(tvOS) || !targetEnvironment(simulator)
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
-//            guard let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) else {
-//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Copy texture faild.")
-//                return nil
-//            }
-//            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true)
-//            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue)
-//            guard let blurTexture = pixelKit.render.metalDevice.makeTexture(descriptor: descriptor) else {
-//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
-//                return nil
-//            }
-//            guard let localCommandBuffer = PixelKit.main.render.commandQueue.makeCommandBuffer() else {
-//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Command buffer faild.")
-//                return nil
-//            }
             guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
@@ -120,8 +106,6 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
             let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.render.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
-//            localCommandBuffer.commit()
-//            localCommandBuffer.waitUntilCompleted()
             return blurTexture
         } else {
             return nil
