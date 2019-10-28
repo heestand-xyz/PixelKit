@@ -199,6 +199,9 @@ open class PIX: NODE, Equatable, NODETileable {
     // MARK: - Render
     
     public func setNeedsRender() {
+        setNeedsRender(first: true)
+    }
+    public func setNeedsRender(first: Bool = true) {
         guard !bypass || self is PIXGenerator else {
             renderOuts()
             return
@@ -217,10 +220,14 @@ open class PIX: NODE, Equatable, NODETileable {
 //            return
 //        }
         guard view.metalView.resolution != nil else {
+            guard !first else {
+                pixelKit.logger.log(node: self, .error, .render, "Metal View could not be set with applyResolution.")
+                return
+            }
             pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.", loop: true)
             pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...", loop: true)
             applyResolution {
-                self.setNeedsRender()
+                self.setNeedsRender(first: false)
             }
             return
         }
