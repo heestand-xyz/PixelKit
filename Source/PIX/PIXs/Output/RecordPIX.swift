@@ -264,10 +264,10 @@ public class RecordPIX: PIXOutput {
             writer!.startSession(atSourceTime: .zero)
         }
         
-        let media_queue = DispatchQueue(label: "mediaInputQueue")
+        let media_queue = DispatchQueue(label: "mediaInputQueue", qos: .background) //DispatchQueue(label: "mediaInputQueue")
         
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
-            
+
             guard self.recording && !self.paused else { return }
             
             if self.directMode {
@@ -389,13 +389,11 @@ public class RecordPIX: PIXOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) {
-        DispatchQueue.main.async {
-            let size = self.renderResolution.size.cg
-            guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return }
-            if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
-                guard let writer = self.writer else { return }
-                self.pixelKit.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
-            }
+        let size = UIImage(cgImage: cg_image).size
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return }
+        if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
+            guard let writer = self.writer else { return }
+            self.pixelKit.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
         }
     }
     
