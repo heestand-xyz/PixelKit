@@ -21,36 +21,31 @@ class ViewController: NSViewController, NODEDelegate {
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
-        PixelKit.main.render.engine.renderMode = .manualTiles//.frameLoopTiles
-        PixelKit.main.tileResolution = .square(1024)
-        PixelKit.main.render.bits = ._16
+//        PixelKit.main.render.engine.renderMode = .manualTiles
+//        PixelKit.main.tileResolution = .square(1024)
+//        PixelKit.main.render.bits = ._16
         
-//        let polygonPix = PolygonPIX(at: .square(10_000))
-//        polygonPix.name = "demo-polygon"
+        let polygonPix = PolygonPIX()//(at: .square(10_000))
+        polygonPix.name = "demo-polygon"
         
-        let noise = NoisePIX(at: .square(16384))
-        noise.octaves = 2
+        let blurPix = BlurPIX()
+        blurPix.style = .guassian
+        blurPix.input = polygonPix
+//        blurPix.radius = cos(.live) / 2 + 0.5
         
-//        let blends = loop(10, blendMode: .difference) { i, f in
-//            let noise = NoisePIX(at: .square(10_000))
-//            noise.octaves = 4
-//            noise.seed = i
-//            return noise
-//        }
-        
-        finalPix = noise._quantize(0.01)._edge(1000)
+        finalPix = blurPix
         finalPix.delegate = self
         
-//        view.addSubview(finalPix.view)
-//        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
-//        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        view.addSubview(finalPix.view)
+        finalPix.view.translatesAutoresizingMaskIntoConstraints = false
+        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
-        try! PixelKit.main.render.engine.manuallyRender {
-            self.save()
-        }
+//        try! PixelKit.main.render.engine.manuallyRender {
+//            self.save()
+//        }
         
     }
     

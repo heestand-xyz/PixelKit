@@ -103,15 +103,25 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
 //                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Copy texture faild.")
 //                return nil
 //            }
-            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true)
-            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue)
-            guard let blurTexture = pixelKit.render.metalDevice.makeTexture(descriptor: descriptor) else {
+//            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.render.bits.pixelFormat, width: texture.width, height: texture.height, mipmapped: true)
+//            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue)
+//            guard let blurTexture = pixelKit.render.metalDevice.makeTexture(descriptor: descriptor) else {
+//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+//                return nil
+//            }
+//            guard let localCommandBuffer = PixelKit.main.render.commandQueue.makeCommandBuffer() else {
+//                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Command buffer faild.")
+//                return nil
+//            }
+            guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
             let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.render.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
+//            localCommandBuffer.commit()
+//            localCommandBuffer.waitUntilCompleted()
             return blurTexture
         } else {
             return nil

@@ -265,7 +265,7 @@ public class RecordPIX: PIXOutput {
         }
         
         let media_queue = DispatchQueue(label: "mediaInputQueue", qos: .background) //DispatchQueue(label: "mediaInputQueue")
-        
+                
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
 
             guard self.recording && !self.paused else { return }
@@ -294,7 +294,7 @@ public class RecordPIX: PIXOutput {
                     }
                     
                     self.pixelKit.logger.log(node: self, .detail, nil, "Exporting frame at \(time.seconds).", loop: true)
-                    self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!)
+                    self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!, at: resolution.size.cg)
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
@@ -388,8 +388,7 @@ public class RecordPIX: PIXOutput {
         
     }
     
-    func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage) {
-        let size = UIImage(cgImage: cg_image).size
+    func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage, at size: CGSize) {
         guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return }
         if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
             guard let writer = self.writer else { return }
