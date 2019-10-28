@@ -471,6 +471,8 @@ open class PIX: NODE, Equatable, NODETileable {
     
     func disconnected() {
         removeRes()
+        texture = nil
+        view.clear()
     }
     
     // MARK: - Other
@@ -568,6 +570,7 @@ open class PIX: NODE, Equatable, NODETileable {
         texture = nil
         bypass = true
         destroyed = true
+        view.clear()
     }
     
 }
