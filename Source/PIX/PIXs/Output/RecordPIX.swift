@@ -268,6 +268,8 @@ public class RecordPIX: PIXOutput {
                 
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
 
+            guard self.writer!.status == .writing else { return }
+            
             guard self.recording && !self.paused else { return }
             
             if self.directMode {
