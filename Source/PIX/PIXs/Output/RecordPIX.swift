@@ -279,7 +279,7 @@ public class RecordPIX: PIXOutput {
             
             if self.currentImage != nil {
                 
-                if self.writerVideoInput!.isReadyForMoreMediaData { // && self.recording
+                if self.writerVideoInput!.isReadyForMoreMediaData {
                     
                     let time: CMTime
                     if self.timeSync {
