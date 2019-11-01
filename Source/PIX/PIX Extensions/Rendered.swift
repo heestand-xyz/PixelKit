@@ -209,6 +209,16 @@ public extension PIX {
             color /= LiveFloat(CGFloat(resolution.count))
             return color
         }
+        public var averageLuminance: CGFloat {
+            var luminance: CGFloat = 0.0
+            for row in raw {
+                for px in row {
+                    luminance += px.color.lum.cg
+                }
+            }
+            luminance /= CGFloat(resolution.count)
+            return luminance
+        }
         public var maximum: LiveColor {
             var color: LiveColor!
             for row in raw {
