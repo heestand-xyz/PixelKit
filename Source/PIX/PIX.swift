@@ -221,7 +221,7 @@ open class PIX: NODE, Equatable, NODETileable {
 //        }
         guard view.metalView.resolution != nil else {
             guard !first else {
-                pixelKit.logger.log(node: self, .error, .render, "Metal View could not be set with applyResolution.")
+                pixelKit.logger.log(node: self, .debug, .render, "Metal View could not be set with applyResolution.", loop: true)
                 return
             }
             pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.", loop: true)
@@ -462,17 +462,19 @@ open class PIX: NODE, Equatable, NODETileable {
                 input.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: i))
             }
         }
-        if newInPixs.isEmpty {
+        if !newInPixs.isEmpty {
+            pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs)")
+            applyResolution { self.setNeedsRender() }
+        } else {
             disconnected()
         }
-        pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs)")
-        applyResolution { self.setNeedsRender() }
     }
     
     func disconnected() {
+        pixelKit.logger.log(node: self, .info, .connection, "Disconnected")
         removeRes()
-        texture = nil
-        view.clear()
+//        texture = nil
+//        view.clear()
     }
     
     // MARK: - Other
