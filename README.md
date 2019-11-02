@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         let circlePix = CirclePIX(res: .fullscreen)
 
         let blurPix = BlurPIX()
-        blurPix.inPix = circlePix
+        blurPix.input = circlePix
         blurPix.radius = 0.25
 
         let finalPix: PIX = blurPix
@@ -143,16 +143,16 @@ struct ContentView: View {
 let camera = CameraPIX()
 
 let levels = LevelsPIX()
-levels.inPix = camera
+levels.input = camera
 levels.brightness = 1.5
 levels.gamma = 0.5
 
 let hueSat = HueSaturationPIX()
-hueSat.inPix = levels
+hueSat.input = levels
 hueSat.sat = 0.5
 
 let blur = BlurPIX()
-blur.inPix = hueSat
+blur.input = hueSat
 blur.radius = 0.25
 
 let res: PIX.Res = .custom(w: 1500, h: 1000)
@@ -221,13 +221,13 @@ let supermanVideo = VideoPIX()
 supermanVideo.load(fileNamed: "superman", withExtension: "mov")
 
 let supermanKeyed = ChromaKeyPIX()
-supermanKeyed.inPix = supermanVideo
+supermanKeyed.input = supermanVideo
 supermanKeyed.keyColor = .green
 
 let blendPix = BlendPIX()
 blendPix.blendingMode = .over
-blendPix.inPixA = cityImage
-blendPix.inPixB = supermanKeyed
+blendPix.inputA = cityImage
+blendPix.inputB = supermanKeyed
 
 let finalPix: PIX = blendPix
 finalPix.view.frame = view.bounds
@@ -385,29 +385,6 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory, some funcs create several PIXs.
 
-<!--
-## File IO
-
-You can find example files [here](https://github.com/anton-hexagons/PixelKit/tree/master/Assets/Examples).
-
-`import PixelKit`
-
-~~~~swift
-let url = Bundle.main.url(forResource: "test", withExtension: "json")!
-let json = try! String(contentsOf: url)
-let project = try! PixelKit.main.import(json: json)
-    
-let finalPix: PIX = project.pixs.last!
-finalPix.view.frame = view.bounds
-view.addSubview(finalPix.view)
-~~~~ 
-
-To export just run `PixelKit.main.export()` once you've created your PIXs.
-
-Note that exporting resourses like image and video are not yet supported.
-
--->
-
 ## MIDI
 
 Here's an example of live midi values in range 0.0 to 1.0.
@@ -449,20 +426,20 @@ let metalPix = MetalPIX(res: ._1080p, code:
 let metalEffectPix = MetalEffectPIX(code:
     """
     float gamma = 0.25;
-    pix = pow(inPix, 1.0 / gamma);
+    pix = pow(input, 1.0 / gamma);
     """
 )
-metalEffectPix.inPix = CameraPIX()
+metalEffectPix.input = CameraPIX()
 ~~~~
 
 ~~~~swift
 let metalMergerEffectPix = MetalMergerEffectPIX(code:
     """
-    pix = pow(inPixA, 1.0 / inPixB);
+    pix = pow(inputA, 1.0 / inputB);
     """
 )
-metalMergerEffectPix.inPixA = CameraPIX()
-metalMergerEffectPix.inPixB = ImagePIX("img_name")
+metalMergerEffectPix.inputA = CameraPIX()
+metalMergerEffectPix.inputB = ImagePIX("img_name")
 ~~~~
 
 ~~~~swift
@@ -474,7 +451,7 @@ let metalMultiEffectPix = MetalMultiEffectPIX(code:
     pix = inPixA + inPixB + inPixC;
     """
 )
-metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
+metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 ~~~~
 
 ### Uniforms:
