@@ -21,6 +21,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: - Public Properties
     
     public enum BlurStyle: String, CaseIterable {
+        case ´default´
         #if !os(tvOS) || !targetEnvironment(simulator)
         case guassian
         #endif
@@ -30,6 +31,12 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         case random
         var index: Int {
             switch self {
+            case .´default´:
+                #if !os(tvOS) || !targetEnvironment(simulator)
+                return 0
+                #else
+                return 1
+                #endif
             #if !os(tvOS) || !targetEnvironment(simulator)
             case .guassian: return 0
             #endif
@@ -41,7 +48,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         }
     }
     
-    public var style: BlurStyle = .guassian { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .´default´ { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -73,6 +80,11 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     override open var shaderNeedsAspect: Bool { return true }
     
     public required init() {
+        #if !os(tvOS) || !targetEnvironment(simulator)
+        style = .guassian
+        #else
+        style = .box
+        #endif
         super.init()
         extend = .hold
         customRenderDelegate = self

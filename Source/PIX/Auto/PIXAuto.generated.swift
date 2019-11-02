@@ -1982,6 +1982,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .blurpix:
 			return [
 				AutoEnumProperty(name: "style", cases: [
+						"´default´",
 						"guassian",
 						"box",
 						"angle",
@@ -1990,7 +1991,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 				], getCallback: {
 					return (pix as! BlurPIX).style.rawValue
 				}, setCallback: { value in
-					(pix as! BlurPIX).style = BlurPIX.BlurStyle(rawValue: value) ?? .guassian
+					(pix as! BlurPIX).style = BlurPIX.BlurStyle(rawValue: value) ?? .´default´
 				}),
 			]
 		case .channelmixpix:

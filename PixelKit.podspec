@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PixelKit"
-  spec.version      = "0.7.4"
+  spec.version      = "0.8.1"
 
   spec.summary      = "a Live Graphics for iOS & macOS."
   spec.description  = <<-DESC
@@ -70,8 +70,8 @@ Pod::Spec.new do |spec|
                    "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt"
   
-  spec.dependency 'LiveValues'
-  spec.dependency 'RenderKit'
+  spec.dependency 'LiveValues', '~> 1.1'
+  spec.dependency 'RenderKit', '~> 0.3'
   spec.ios.dependency 'SwiftSVG', '~> 2.0'
   spec.osx.dependency 'SwiftSVG', '~> 2.0'
 
