@@ -119,7 +119,9 @@ struct ContentView: View {
 
 ## Docs
 
-[Jazzy Docs](http://pixelkit.net/docs/)
+[LiveValues Docs](http://hexagons.se/live-values/)<br>
+[RenderKit Docs](http://renderkit.info)<br>
+[PixelKit Docs](http://pixelkit.net/docs/)
 
 ## Tutorials
 
