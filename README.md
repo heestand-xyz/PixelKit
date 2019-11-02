@@ -72,6 +72,13 @@ Note that PixelKit only have simulator support in Xcode 11 for iOS 13 on macOS C
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
+To get access to all dependency features:
+
+~~~~swift
+import LiveValues
+import RenderKit
+~~~~
+
 ## Setup
 
 ### UIKit
