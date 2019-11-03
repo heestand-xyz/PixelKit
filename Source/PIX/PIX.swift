@@ -220,12 +220,12 @@ open class PIX: NODE, Equatable, NODETileable {
 //            return
 //        }
         guard view.metalView.resolution != nil else {
-            guard !first else {
+            guard first else {
                 pixelKit.logger.log(node: self, .debug, .render, "Metal View could not be set with applyResolution.", loop: true)
                 return
             }
-            pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.", loop: true)
-            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...", loop: true)
+            pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.")//, loop: true)
+            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...")//, loop: true)
             applyResolution {
                 self.setNeedsRender(first: false)
             }
@@ -414,8 +414,8 @@ open class PIX: NODE, Equatable, NODETileable {
             var pixOut = newPixOut as! (NODE & NODEOutIO)
             pixInIO.inputList = [pixOut]
             pixOut.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
-            applyResolution { self.setNeedsRender() }
             pixelKit.logger.log(node: self, .info, .connection, "Connected Single: \(pixOut)")
+            connected()
         } else {
             disconnected()
         }
@@ -441,8 +441,8 @@ open class PIX: NODE, Equatable, NODETileable {
                 pixInIO.inputList = [pixOutA, pixOutB]
                 pixOutA.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
                 pixOutB.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
-                applyResolution { self.setNeedsRender() }
                 pixelKit.logger.log(node: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+                connected()
             }
         } else {
             disconnected()
@@ -469,17 +469,20 @@ open class PIX: NODE, Equatable, NODETileable {
         }
         if !newInPixs.isEmpty {
             pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs)")
-            applyResolution { self.setNeedsRender() }
+            connected()
         } else {
             disconnected()
         }
     }
     
+    func connected() {
+        applyResolution { self.setNeedsRender() }
+    }
+    
     func disconnected() {
         pixelKit.logger.log(node: self, .info, .connection, "Disconnected")
         removeRes()
-//        texture = nil
-//        view.clear()
+        texture = nil
     }
     
     // MARK: - Other
@@ -577,7 +580,7 @@ open class PIX: NODE, Equatable, NODETileable {
         texture = nil
         bypass = true
         destroyed = true
-        view.clear()
+        view.destroy()
     }
     
 }

@@ -14,13 +14,14 @@ import PixelKit_macOS
 class ViewController: NSViewController, NODEDelegate {
     
     var finalPix: PIX!
-    
+    var finalPix2: PIX!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PixelKit.main.logger.logAll()
-        PixelKit.main.render.logger.logAll()
-        PixelKit.main.render.engine.logger.logAll()
+        PixelKit.main.logger.logDebug()
+        PixelKit.main.render.logger.logDebug()
+        PixelKit.main.render.engine.logger.logDebug()
 //        PixelKit.main.render.engine.renderMode = .manualTiles
 //        PixelKit.main.tileResolution = .square(1024)
 //        PixelKit.main.render.bits = ._16
@@ -28,15 +29,34 @@ class ViewController: NSViewController, NODEDelegate {
         let polygonPix = PolygonPIX()//(at: .square(10_000))
         polygonPix.name = "demo-polygon"
         
+        let transformPix = TransformPIX()
+        transformPix.input = polygonPix
+        transformPix.scale = 0.5
+        
+        RunLoop.current.add(Timer(timeInterval: 1.0, repeats: false, block: { _ in
+            transformPix.input = nil
+        }), forMode: .common)
+        
+        RunLoop.current.add(Timer(timeInterval: 2.0, repeats: false, block: { _ in
+            transformPix.input = polygonPix
+        }), forMode: .common)
+        
         finalPix = polygonPix
-        finalPix.delegate = self
+        finalPix2 = transformPix
+//        finalPix.delegate = self
         
         view.addSubview(finalPix.view)
         finalPix.view.translatesAutoresizingMaskIntoConstraints = false
-        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        finalPix.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
         finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        view.addSubview(finalPix2.view)
+        finalPix2.view.translatesAutoresizingMaskIntoConstraints = false
+        finalPix2.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        finalPix2.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        finalPix2.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
+        finalPix2.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
 //        try! PixelKit.main.render.engine.manuallyRender {
 //            self.save()
