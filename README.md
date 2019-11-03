@@ -72,6 +72,13 @@ Note that PixelKit only have simulator support in Xcode 11 for iOS 13 on macOS C
 
 To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
+To get access to all dependency features:
+
+~~~~swift
+import LiveValues
+import RenderKit
+~~~~
+
 ## Setup
 
 ### UIKit
@@ -85,10 +92,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let circlePix = CirclePIX(res: .fullscreen)
+        let circlePix = CirclePIX(at: .fullscreen)
 
         let blurPix = BlurPIX()
-        blurPix.inPix = circlePix
+        blurPix.input = circlePix
         blurPix.radius = 0.25
 
         let finalPix: PIX = blurPix
@@ -119,7 +126,9 @@ struct ContentView: View {
 
 ## Docs
 
-[Jazzy Docs](http://pixelkit.net/docs/)
+[LiveValues Docs](http://hexagons.se/live-values/)<br>
+[RenderKit Docs](http://renderkit.info)<br>
+[PixelKit Docs](http://pixelkit.net/docs/)
 
 ## Tutorials
 
@@ -143,20 +152,20 @@ struct ContentView: View {
 let camera = CameraPIX()
 
 let levels = LevelsPIX()
-levels.inPix = camera
+levels.input = camera
 levels.brightness = 1.5
 levels.gamma = 0.5
 
 let hueSat = HueSaturationPIX()
-hueSat.inPix = levels
+hueSat.input = levels
 hueSat.sat = 0.5
 
 let blur = BlurPIX()
-blur.inPix = hueSat
+blur.input = hueSat
 blur.radius = 0.25
 
-let res: PIX.Res = .custom(w: 1500, h: 1000)
-let circle = CirclePIX(res: res)
+let res: Resolution = .custom(w: 1500, h: 1000)
+let circle = CirclePIX(at: res)
 circle.radius = 0.45
 circle.bgColor = .clear
 
@@ -221,13 +230,13 @@ let supermanVideo = VideoPIX()
 supermanVideo.load(fileNamed: "superman", withExtension: "mov")
 
 let supermanKeyed = ChromaKeyPIX()
-supermanKeyed.inPix = supermanVideo
+supermanKeyed.input = supermanVideo
 supermanKeyed.keyColor = .green
 
 let blendPix = BlendPIX()
 blendPix.blendingMode = .over
-blendPix.inPixA = cityImage
-blendPix.inPixB = supermanKeyed
+blendPix.inputA = cityImage
+blendPix.inputB = supermanKeyed
 
 let finalPix: PIX = blendPix
 finalPix.view.frame = view.bounds
@@ -271,13 +280,13 @@ A full rotation is defined by 1.0
 <b>Bottom Left:</b> CGPoint(x: -0.5 * aspectRatio, y: -0.5)<br>
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
-<b>Tip:</b> `PIX.Res` has an `.aspect` property:<br>
-`let aspectRatio: LiveFloat = PIX.Res._1080p.aspect`
+<b>Tip:</b> `Resolution` has an `.aspect` property:<br>
+`let aspectRatio: LiveFloat = Resolution._1080p.aspect`
 
 ## Blend Operators
 
 A quick and convenient way to blend PIXs<br>
-These are the supported `PIX.BlendingMode` operators:
+These are the supported `BlendingMode` operators:
 
 | `&` | `!&` | `+` | `-` | `*` | `**` | `!**` | `%` | `~` | `°` |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -289,7 +298,7 @@ These are the supported `PIX.BlendingMode` operators:
 | .minimum | .maximum | .addWithAlpha | .subtractWithAlpha | inside | outside | exclusiveOr |
 
 ```swift
-let blendPix = (CameraPIX() !** NoisePIX(res: .fullHD(.portrait))) * CirclePIX(res: .fullHD(.portrait))
+let blendPix = (CameraPIX() !** NoisePIX(at: .fullHD(.portrait))) * CirclePIX(at: .fullHD(.portrait))
 ```
 
 Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
@@ -385,35 +394,12 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory, some funcs create several PIXs.
 
-<!--
-## File IO
-
-You can find example files [here](https://github.com/anton-hexagons/PixelKit/tree/master/Assets/Examples).
-
-`import PixelKit`
-
-~~~~swift
-let url = Bundle.main.url(forResource: "test", withExtension: "json")!
-let json = try! String(contentsOf: url)
-let project = try! PixelKit.main.import(json: json)
-    
-let finalPix: PIX = project.pixs.last!
-finalPix.view.frame = view.bounds
-view.addSubview(finalPix.view)
-~~~~ 
-
-To export just run `PixelKit.main.export()` once you've created your PIXs.
-
-Note that exporting resourses like image and video are not yet supported.
-
--->
-
 ## MIDI
 
 Here's an example of live midi values in range 0.0 to 1.0.
 
 ```
-let circle = CirclePIX(res: ._1024)
+let circle = CirclePIX(at: ._1024)
 circle.radius = .midi("13")
 circle.color = .midi("17")
 ```
@@ -426,7 +412,7 @@ You can find the addresses by enabeling logging like this:
 
 Some effects like <b>DisplacePIX</b> and <b>SlopePIX</b> can benefit from a higher bit depth.<br>
 The default is 8 bits. Change it like this:
-`PixelKit.main.bits = ._16`
+`PixelKit.main.render.bits = ._16`
 
 Enable high bit mode before you create any PIXs.
 
@@ -438,7 +424,7 @@ There is currently there is some gamma offset with resources.
 <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/uv_1080p.png" width="150"/>
 
 ~~~~swift
-let metalPix = MetalPIX(res: ._1080p, code:
+let metalPix = MetalPIX(at: ._1080p, code:
     """
     pix = float4(u, v, 0.0, 1.0);
     """
@@ -449,20 +435,20 @@ let metalPix = MetalPIX(res: ._1080p, code:
 let metalEffectPix = MetalEffectPIX(code:
     """
     float gamma = 0.25;
-    pix = pow(inPix, 1.0 / gamma);
+    pix = pow(input, 1.0 / gamma);
     """
 )
-metalEffectPix.inPix = CameraPIX()
+metalEffectPix.input = CameraPIX()
 ~~~~
 
 ~~~~swift
 let metalMergerEffectPix = MetalMergerEffectPIX(code:
     """
-    pix = pow(inPixA, 1.0 / inPixB);
+    pix = pow(inputA, 1.0 / inputB);
     """
 )
-metalMergerEffectPix.inPixA = CameraPIX()
-metalMergerEffectPix.inPixB = ImagePIX("img_name")
+metalMergerEffectPix.inputA = CameraPIX()
+metalMergerEffectPix.inputB = ImagePIX("img_name")
 ~~~~
 
 ~~~~swift
@@ -474,14 +460,14 @@ let metalMultiEffectPix = MetalMultiEffectPIX(code:
     pix = inPixA + inPixB + inPixC;
     """
 )
-metalMultiEffectPix.inPixs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
+metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 ~~~~
 
 ### Uniforms:
 
 ~~~~swift
 var lumUniform = MetalUniform(name: "lum")
-let metalPix = MetalPIX(res: ._1080p, code:
+let metalPix = MetalPIX(at: ._1080p, code:
     """
     pix = float4(in.lum, in.lum, in.lum, 1.0);
     """,
