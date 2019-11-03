@@ -713,7 +713,7 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
-		3A8E24BA2285947E007AA99B /* PIX Extensions */ = {
+		3A8E24BA2285947E007AA99B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				7498CA032122073200B07711 /* Resolution.swift */,
@@ -722,7 +722,7 @@
 				7424A1B4212F5C9300401654 /* Modes.swift */,
 				74013305224D298000826395 /* Layout.swift */,
 			);
-			path = "PIX Extensions";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3A8E24BB228594C9007AA99B /* Auto */ = {
@@ -797,7 +797,7 @@
 			isa = PBXGroup;
 			children = (
 				742321A021027C70003697C3 /* PIX.swift */,
-				3A8E24BA2285947E007AA99B /* PIX Extensions */,
+				3A8E24BA2285947E007AA99B /* Extensions */,
 				3A8E24BC228594E9007AA99B /* PIXs */,
 				7465FC75211A3CAC00899359 /* View */,
 				3A8E24BB228594C9007AA99B /* Auto */,
