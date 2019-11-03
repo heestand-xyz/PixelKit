@@ -315,8 +315,13 @@ open class PIX: NODE, Equatable, NODETileable {
     }
     
     open func didRender(texture: MTLTexture, force: Bool = false) {
+        let firstRender = self.texture == nil
         self.texture = texture
         didRender(force: force)
+        if firstRender {
+            // FIXME: Temp double render fix.
+            setNeedsRender()
+        }
     }
     
     public func didRenderTiles(force: Bool) {

@@ -1047,8 +1047,8 @@
 			isa = PBXGroup;
 			children = (
 				74DA3D2221026A5900430261 /* PixelKit.swift */,
-				7486537921A896530073F758 /* Live */,
 				7452F4C6210A3362001AA523 /* PIX */,
+				7486537921A896530073F758 /* Live */,
 				3A8E24B922859465007AA99B /* Other */,
 			);
 			path = Source;

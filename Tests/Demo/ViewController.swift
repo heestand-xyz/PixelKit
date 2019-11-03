@@ -28,12 +28,7 @@ class ViewController: NSViewController, NODEDelegate {
         let polygonPix = PolygonPIX()//(at: .square(10_000))
         polygonPix.name = "demo-polygon"
         
-        let blurPix = BlurPIX()
-        blurPix.style = .guassian
-        blurPix.input = polygonPix
-//        blurPix.radius = cos(.live) / 2 + 0.5
-        
-        finalPix = blurPix
+        finalPix = polygonPix
         finalPix.delegate = self
         
         view.addSubview(finalPix.view)
