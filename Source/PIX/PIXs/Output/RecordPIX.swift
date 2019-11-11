@@ -279,6 +279,10 @@ public class RecordPIX: PIXOutput {
             
             if self.currentImage != nil {
                 
+                guard self.writerVideoInput != nil else {
+                    self.pixelKit.logger.log(node: self, .error, nil, "writerVideoInput is nil.")
+                    return
+                }
                 if self.writerVideoInput!.isReadyForMoreMediaData {
                     
                     let time: CMTime
