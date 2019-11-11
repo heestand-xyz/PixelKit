@@ -71,7 +71,7 @@ public extension PIX {
             return blend(pix, LiveColor(r: val.x, g: val.y, b: 0.0, a: 1.0), blendingMode: blendingMode)
         }
         
-        func operatorName(of blendingMode: BlendMode) -> String {
+        public func operatorName(of blendingMode: BlendMode) -> String {
             switch blendingMode {
             case .over: return "&"
             case .under: return "!&"
