@@ -473,6 +473,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         } else {
             videoOutput = AVCaptureVideoDataOutput()
         }
+        #else
+        videoOutput = AVCaptureVideoDataOutput()
         #endif
         
 //        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
