@@ -52,7 +52,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         
     }
     
-    // MARK: - Logger Delegate
+    // MARK: - Logger
     
     public func loggerFrameIndex() -> Int {
         render.frame
@@ -60,6 +60,18 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     public func loggerLinkIndex(of node: NODE) -> Int? {
         render.linkIndex(of: node)
+    }
+    
+    public func logAll(padding: Bool = false, limit: Bool = false) {
+        logger.logAll(padding: padding, limit: limit)
+        render.logger.logAll(padding: padding, limit: limit)
+        render.engine.logger.logAll(padding: padding, limit: limit)
+    }
+    
+    public func logDebug(padding: Bool = false, limit: Bool = false) {
+        logger.logDebug(padding: padding, limit: limit)
+        render.logger.logDebug(padding: padding, limit: limit)
+        render.engine.logger.logDebug(padding: padding, limit: limit)
     }
     
     // MARK: - Texture
