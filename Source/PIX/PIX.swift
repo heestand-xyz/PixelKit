@@ -87,7 +87,9 @@ open class PIX: NODE, Equatable, NODETileable {
         }
         set {
             _texture = newValue
-            nextTextureAvalibleCallback?()
+            if newValue != nil {
+                nextTextureAvalibleCallback?()
+            }
         }
     }
     public var didRenderTexture: Bool {
