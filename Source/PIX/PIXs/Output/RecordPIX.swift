@@ -58,6 +58,7 @@ public class RecordPIX: PIXOutput {
     enum RecError: Error {
         case setup(String)
         case render(String)
+        case audioSetupFailed
     }
     
     // MARK: - Life Cycle
@@ -226,6 +227,7 @@ public class RecordPIX: PIXOutput {
         ]
         writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         writerVideoInput!.expectsMediaDataInRealTime = true
+        print("STATUS 1", writer!.status.rawValue)
         writer!.add(writerVideoInput!)
         
         
@@ -239,11 +241,11 @@ public class RecordPIX: PIXOutput {
         
         writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
         
-        writer!.startWriting()
-        
         if recordAudio {
             if let input = audioRecHelper?.writerAudioInput {
+                print("STATUS 2", writer!.status.rawValue)
                 writer!.add(input)
+                writer!.startWriting()
                 audioRecHelper!.captureSession?.startRunning()
                 audioRecHelper!.sampleCallback = { sampleBuffer in
                     if self.audioStartTime == nil {
@@ -259,12 +261,21 @@ public class RecordPIX: PIXOutput {
                         PixelKit.main.logger.log(.error, nil, "Audio Rec: Sample faied to write.")
                     }
                 }
+            } else {
+                throw RecError.audioSetupFailed
             }
         } else {
+            writer!.startWriting()
             writer!.startSession(atSourceTime: .zero)
         }
+
+        record(at: resolution)
         
-        let media_queue = DispatchQueue(label: "mediaInputQueue", qos: .background) //DispatchQueue(label: "mediaInputQueue")
+    }
+    
+    func record(at resolution: Resolution) {
+        
+        let media_queue = DispatchQueue(label: "mediaInputQueue", qos: .background)
                 
         writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
 
@@ -355,28 +366,34 @@ public class RecordPIX: PIXOutput {
     
     func stopRecord(done: @escaping () -> (), didError: @escaping (Error) -> ()) {
         
-//        audioRecorder?.stop()
         audioRecHelper?.captureSession?.stopRunning()
-        audioRecHelper?.writerAudioInput?.markAsFinished()
-        
-        writerVideoInput?.markAsFinished()
-        writer?.finishWriting {
-            if let writer = self.writer {
-                if writer.status == .completed {
-                    DispatchQueue.main.async {
-                        done()
+
+        if writer?.status == .writing {
+            writerVideoInput?.markAsFinished()
+            audioRecHelper?.writerAudioInput?.markAsFinished()
+            writer?.finishWriting {
+                if let writer = self.writer {
+                    if writer.status == .completed {
+                        DispatchQueue.main.async {
+                            done()
+                        }
+                    } else if writer.error == nil {
+                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
+                        didError(RecError.render("Rec Stop. Cancelled."))
+                    } else {
+                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                        didError(RecError.render("Rec Stop. Writer Error."))
                     }
-                } else if writer.error == nil {
-                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Cancelled. Writer Status: \(writer.status).")
-                    didError(RecError.render("Rec Stop. Cancelled."))
                 } else {
-                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer Error. Writer Status: \(writer.status).", e: writer.error)
-                    didError(RecError.render("Rec Stop. Writer Error."))
+                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer not found.")
+                    didError(RecError.render("Rec Stop. Writer not found."))
                 }
-            } else {
-                self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer not found.")
-                didError(RecError.render("Rec Stop. Writer not found."))
+                self.writerVideoInput = nil
+                self.writer = nil
             }
+        } else {
+            self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop. Writer has bad satus: \(writer?.status.rawValue ?? -1)")
+            didError(RecError.render("Rec Stop. Writer has bad satus: \(writer?.status.rawValue ?? -1)"))
             self.writerVideoInput = nil
             self.writer = nil
         }

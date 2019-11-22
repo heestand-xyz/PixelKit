@@ -105,7 +105,7 @@ public class VideoPIX: PIXResource {
     public override init() {
         super.init()
         name = "video"
-        helper = VideoHelper(loaded: { resolution in
+        helper = VideoHelper(volume: Float(volume), loaded: { resolution in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
             self.loadCallback?(resolution)
             self.loadCallback = nil
@@ -375,7 +375,7 @@ class VideoHelper: NSObject {
     var update: (CVPixelBuffer, CGFloat) -> ()
     
     var loops: Bool = true
-    var volume: Float = 1.0 {
+    var volume: Float {
         didSet {
             player?.volume = volume
         }
@@ -387,10 +387,12 @@ class VideoHelper: NSObject {
 
     // MARK: Life Cycle
     
-    init(loaded: @escaping (Resolution) -> (), updated: @escaping (CVPixelBuffer, CGFloat) -> ()) {
+    init(volume: Float, loaded: @escaping (Resolution) -> (), updated: @escaping (CVPixelBuffer, CGFloat) -> ()) {
         
         setup = loaded
         update = updated
+        
+        self.volume = volume
         
         super.init()
         
