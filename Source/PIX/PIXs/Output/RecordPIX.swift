@@ -270,6 +270,8 @@ public class RecordPIX: PIXOutput {
 
             guard self.writer!.status == .writing else { return }
             
+            guard self.writerAdoptor!.assetWriterInput.isReadyForMoreMediaData else { return }
+            
             guard self.recording && !self.paused else { return }
             
             if self.directMode {
