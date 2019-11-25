@@ -41,11 +41,15 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     public let render: Render
     public let logger: Logger
+    
+    public var fallbackResolution: Resolution
 
     init() {
         
         render = Render(with: kMetalLibName, in: Bundle(for: type(of: self)))
         logger = Logger(name: "PixelKit")
+        
+        fallbackResolution = .auto(render: render)
         
         render.engine.deleagte = self
         logger.delegate = self

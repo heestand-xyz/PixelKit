@@ -14,7 +14,7 @@ import CoreGraphics
 extension PIX {
     
     public var renderResolution: Resolution {
-        realResolution ?? .auto(render: pixelKit.render)
+        realResolution ?? PixelKit.main.fallbackResolution
     }
     
     public var realResolution: Resolution? {
