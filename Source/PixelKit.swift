@@ -66,16 +66,16 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         render.linkIndex(of: node)
     }
     
-    public func logAll(padding: Bool = false, limit: Bool = false) {
-        logger.logAll(padding: padding, limit: limit)
-        render.logger.logAll(padding: padding, limit: limit)
-        render.engine.logger.logAll(padding: padding, limit: limit)
+    public func logAll(padding: Bool = false) {
+        logger.logAll(padding: padding)
+        render.logger.logAll(padding: padding)
+        render.engine.logger.logAll(padding: padding)
     }
     
-    public func logDebug(padding: Bool = false, limit: Bool = false) {
-        logger.logDebug(padding: padding, limit: limit)
-        render.logger.logDebug(padding: padding, limit: limit)
-        render.engine.logger.logDebug(padding: padding, limit: limit)
+    public func logDebug(padding: Bool = false) {
+        logger.logDebug(padding: padding)
+        render.logger.logDebug(padding: padding)
+        render.engine.logger.logDebug(padding: padding)
     }
     
     // MARK: - Texture
