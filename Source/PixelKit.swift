@@ -95,9 +95,10 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 #if os(tvOS)
                 force8bit = false
                 #else
-                force8bit = (node as? CameraPIX) != nil
+                force8bit = node is CameraPIX
                 #endif
-                inputTexture = try Texture.makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: force8bit, on: render.metalDevice)
+//                inputTexture = try Texture.makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: force8bit, on: render.metalDevice)
+                inputTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: force8bit ? ._8 : render.bits, in: render.textureCache)
             } else if nodeContent is NODEGenerator {
                 generator = true
             } else if let nodeSprite = nodeContent as? PIXSprite {
@@ -108,7 +109,8 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 guard let spriteBuffer = Texture.buffer(from: spriteImage, at: nodeSprite.resolution.size.cg) else {
                     throw Engine.RenderError.texture("Sprite Buffer fail.")
                 }
-                inputTexture = try Texture.makeTexture(from: spriteBuffer, with: commandBuffer, on: render.metalDevice)
+//                inputTexture = try Texture.makeTexture(from: spriteBuffer, with: commandBuffer, on: render.metalDevice)
+                inputTexture = try Texture.makeTextureFromCache(from: spriteBuffer, bits: render.bits, in: render.textureCache)
             } else if nodeContent is NODECustom {
                 custom = true
             }

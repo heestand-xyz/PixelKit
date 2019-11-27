@@ -700,43 +700,133 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCa
         }
         depthProcessing = true
         DispatchQueue.global(qos: .background).async {
+            
+            // Render Time
+            let globalRenderTime = CFAbsoluteTimeGetCurrent()
+            var localRenderTime = CFAbsoluteTimeGetCurrent()
+            var renderTime: Double = -1
+            var renderTimeMs: Double = -1
+            print("Render Time: Started")
+            
             guard let data: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: self.depthOutput!) else {
                 self.pixelKit.logger.log(.error, .resource, "Camera depth data not found.")
                 self.depthProcessing = false
                 return
             }
+            
+            // Render Time
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            print("Render Time: [\(renderTimeMs)ms] data ")
+            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
             guard let depthData = (data as? AVCaptureSynchronizedDepthData)?.depthData else {
                 self.pixelKit.logger.log(.error, .resource, "Camera depth data in bad format.")
                 self.depthProcessing = false
                 return
             }
-            var convertedDepth: AVDepthData
-            if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
-                convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
-            } else {
-                convertedDepth = depthData
-            }
-            let depthPixelBuffer = convertedDepth.depthDataMap
-            depthPixelBuffer.normalize()
-            let depthCiImage = CIImage(cvPixelBuffer: depthPixelBuffer)
-            let depthImage = UIImage(ciImage: depthCiImage)
-            guard let depthImageData = depthImage.pngData() else {
-                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (1)")
-                self.depthProcessing = false
-                return
-            }
-            guard let depthDataImage = UIImage(data: depthImageData) else {
-                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (2)")
-                self.depthProcessing = false
-                return
-            }
-            guard let pixelBuffer = try? Texture.pixelBuffer(from: depthDataImage, colorSpace: .sRGB, bits: ._8) else {
-                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (3)")
-                self.depthProcessing = false
-                return
-            }
+            
+            // Render Time
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            print("Render Time: [\(renderTimeMs)ms] depthData ")
+            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
+            
+//            var convertedDepth: AVDepthData
+//            if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
+//                convertedDepth = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
+//            } else {
+//                convertedDepth = depthData
+//            }
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] convertedDepth ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
+            
+            let depthPixelBuffer = depthData.depthDataMap
+            
+            // Render Time
+            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            print("Render Time: [\(renderTimeMs)ms] depthPixelBuffer ")
+            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
+//            depthPixelBuffer.normalize()
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] normalize ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
+//            let depthCiImage = CIImage(cvPixelBuffer: depthPixelBuffer)
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] depthCiImage ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+//
+//
+//            let depthImage = UIImage(ciImage: depthCiImage)
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] depthImage ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+//
+//
+//            guard let depthImageData = depthImage.pngData() else {
+//                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (1)")
+//                self.depthProcessing = false
+//                return
+//            }
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] depthImageData ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+//
+//
+//            guard let depthDataImage = UIImage(data: depthImageData) else {
+//                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (2)")
+//                self.depthProcessing = false
+//                return
+//            }
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] depthDataImage ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+//
+//
+//            guard let pixelBuffer = try? Texture.pixelBuffer(from: depthDataImage, colorSpace: .sRGB, bits: ._8) else {
+//                self.pixelKit.logger.log(.error, .resource, "Camera depth data conversion failed. (3)")
+//                self.depthProcessing = false
+//                return
+//            }
+//
+//            // Render Time
+//            renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Render Time: [\(renderTimeMs)ms] pixelBuffer ")
+//            localRenderTime = CFAbsoluteTimeGetCurrent()
+            
+            renderTime = CFAbsoluteTimeGetCurrent() - globalRenderTime
+            renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+            print("Render Time: [\(renderTimeMs)ms] Total ")
+            
+            print("Render Time: Ended")
+            
             DispatchQueue.main.async { [weak self] in
-                self?.capturedCallback(pixelBuffer)
+                self?.capturedCallback(depthPixelBuffer)
             }
             self.depthProcessing = false
         }
