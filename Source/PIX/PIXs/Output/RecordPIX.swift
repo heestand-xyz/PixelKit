@@ -445,24 +445,27 @@ class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         writerAudioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
         writerAudioInput!.expectsMediaDataInRealTime = true
         
-        let microphone = AVCaptureDevice.default(for: .audio)!
-        do {
-            let micInput = try AVCaptureDeviceInput(device: microphone)
-            if captureSession!.canAddInput(micInput){
-                captureSession!.addInput(micInput)
+        if let microphone = AVCaptureDevice.default(for: .audio) {
+            do {
+                let micInput = try AVCaptureDeviceInput(device: microphone)
+                if captureSession!.canAddInput(micInput){
+                    captureSession!.addInput(micInput)
+                }
+                
+                audioOutput = AVCaptureAudioDataOutput()
+                if captureSession!.canAddOutput(audioOutput!){
+                    captureSession!.addOutput(audioOutput!)
+                }
+                let captureSessionQueue = DispatchQueue(label: "MicSessionQueue", attributes: [])
+                audioOutput!.setSampleBufferDelegate(self, queue: captureSessionQueue)
+                
+                captureSession!.commitConfiguration()
+                
+            } catch {
+                PixelKit.main.logger.log(.error, nil, "Audio Rec Helper setup failed. Mic failed.", e: error)
             }
-            
-            audioOutput = AVCaptureAudioDataOutput()
-            if captureSession!.canAddOutput(audioOutput!){
-                captureSession!.addOutput(audioOutput!)
-            }
-            let captureSessionQueue = DispatchQueue(label: "MicSessionQueue", attributes: [])
-            audioOutput!.setSampleBufferDelegate(self, queue: captureSessionQueue)
-            
-            captureSession!.commitConfiguration()
-            
-        } catch {
-            PixelKit.main.logger.log(.error, nil, "Audo Rec Helper setup failed.", e: error)
+        } else {
+            PixelKit.main.logger.log(.error, nil, "Audio Rec Helper setup failed. No mic found.")
         }
         
     }
