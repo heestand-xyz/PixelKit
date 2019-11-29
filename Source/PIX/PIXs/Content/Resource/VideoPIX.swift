@@ -522,7 +522,7 @@ class VideoHelper: NSObject {
         doneCallback?()
         guard loops else { return }
 //        player!.pause()
-        player!.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
+        player?.seek(to: CMTime(seconds: 0.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC)))
 //        player!.play()
     }
     
