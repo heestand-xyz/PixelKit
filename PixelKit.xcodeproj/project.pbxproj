@@ -129,6 +129,7 @@
 		3A80C3F52345F25300DE9266 /* PIXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A80C3F42345F25300DE9266 /* PIXView.swift */; };
 		3A84A0B122CCA958001F3D90 /* WebPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A84A0B022CCA958001F3D90 /* WebPIX.swift */; };
 		3A84A0B422CCAA00001F3D90 /* WebPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A84A0B022CCA958001F3D90 /* WebPIX.swift */; };
+		3A9A92EF23955DE20036B6ED /* DepthCameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A92EE23955DE20036B6ED /* DepthCameraPIX.swift */; };
 		3A9D287C23476E7F00A29E9C /* PIXUIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9D287B23476E7F00A29E9C /* PIXUIs.swift */; };
 		3A9D287D23476E8500A29E9C /* PIXUIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9D287B23476E7F00A29E9C /* PIXUIs.swift */; };
 		3A9D287E23476E8500A29E9C /* PIXUIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9D287B23476E7F00A29E9C /* PIXUIs.swift */; };
@@ -469,6 +470,7 @@
 		3A84A0B022CCA958001F3D90 /* WebPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPIX.swift; sourceTree = "<group>"; };
 		3A8AC3482277282C00A142AA /* PixelKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKit.entitlements; sourceTree = "<group>"; };
 		3A8AC3492277292C00A142AA /* SyphonInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyphonInPIX.swift; sourceTree = "<group>"; };
+		3A9A92EE23955DE20036B6ED /* DepthCameraPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthCameraPIX.swift; sourceTree = "<group>"; };
 		3A9D287B23476E7F00A29E9C /* PIXUIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXUIs.swift; sourceTree = "<group>"; };
 		3AA4AC1F224CFB5D00E894B2 /* ArcPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcPIX.swift; sourceTree = "<group>"; };
 		3AA4AC25224D077400E894B2 /* LinePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinePIX.swift; sourceTree = "<group>"; };
@@ -939,6 +941,7 @@
 			children = (
 				749DC6CA2124E12600AE5F6A /* PIXResource.swift */,
 				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
+				3A9A92EE23955DE20036B6ED /* DepthCameraPIX.swift */,
 				749EB33E2119A5D900921BDF /* ImagePIX.swift */,
 				7441339F212F859D00326015 /* VideoPIX.swift */,
 				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
@@ -1815,6 +1818,7 @@
 				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */,
 				3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */,
+				3A9A92EF23955DE20036B6ED /* DepthCameraPIX.swift in Sources */,
 				3A1244EB2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */,
 				7473B4FD214176E2008C6F23 /* DisplacePIX.swift in Sources */,
 				7452F4C3210A332B001AA523 /* PIXEffect.swift in Sources */,
