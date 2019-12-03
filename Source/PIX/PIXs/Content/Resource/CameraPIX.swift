@@ -337,8 +337,10 @@ public class CameraPIX: PIXResource {
         #endif
         #if os(iOS) && !targetEnvironment(macCatalyst)
         let depth = self.depth
+        let filterDepth = self.filterDepth
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let depth = false
+        let filterDepth = false
         #endif
         helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, depth: depth, filterDepth: filterDepth, useExternalCamera: extCam, setup: { _, orientation in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
@@ -358,7 +360,9 @@ public class CameraPIX: PIXResource {
             }
             self.cameraDelegate?.cameraFrame(pix: self, pixelBuffer: pixelBuffer)
         }, capturedDepth: { depthPixelBuffer in
+            #if os(iOS) && !targetEnvironment(macCatalyst)
             self.depthCallback?(depthPixelBuffer)
+            #endif
         })
     }
     
