@@ -547,6 +547,8 @@ open class PIX: NODE, Equatable, NODETileable {
     
     public func checkLive() {
         
+        guard !bypass else { return }
+        
         let needsInTexture = self is NODEInIO
         let hasInTexture = needsInTexture && (self as! NODEInIO).inputList.first?.texture != nil
         let needsContent = self.contentLoaded != nil

@@ -370,25 +370,18 @@ public class RecordPIX: PIXOutput {
             if writer.status == .writing {
                 writerVideoInput.markAsFinished()
                 audioRecHelper?.writerAudioInput?.markAsFinished()
-                if writer.status != .writing {
-                    writer.finishWriting {
-                        if writer.status == .completed {
-                            DispatchQueue.main.async {
-                                done()
-                            }
-                        } else if writer.error == nil {
-                            self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop E. Cancelled. Writer Status: \(writer.status).")
-                            didError(RecError.render("Rec Stop E. Cancelled."))
-                        } else {
-                            self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop D. Writer Error. Writer Status: \(writer.status).", e: writer.error)
-                            didError(RecError.render("Rec Stop D. Writer Error."))
+                writer.finishWriting {
+                    if writer.status == .completed {
+                        DispatchQueue.main.async {
+                            done()
                         }
-                        self.writerVideoInput = nil
-                        self.writer = nil
+                    } else if writer.error == nil {
+                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop E. Cancelled. Writer Status: \(writer.status).")
+                        didError(RecError.render("Rec Stop E. Cancelled."))
+                    } else {
+                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop D. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                        didError(RecError.render("Rec Stop D. Writer Error."))
                     }
-                } else {
-                    self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop C. Writer has bad satus: \(writer.status.rawValue)")
-                    didError(RecError.render("Rec Stop C. Writer has bad satus: \(writer.status.rawValue)"))
                     self.writerVideoInput = nil
                     self.writer = nil
                 }
@@ -404,6 +397,8 @@ public class RecordPIX: PIXOutput {
             self.writerVideoInput = nil
             self.writer = nil
         }
+        
+//        writer.cancelWriting()
         
 //        try? recordingSession?.setActive(false)
 //        recordingSession = nil
