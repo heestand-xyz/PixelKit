@@ -269,6 +269,37 @@ struct ContentView: View {
 
 This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
 
+
+### Example: Depth Camera
+
+`import PixelKit`
+
+~~~~swift
+let camera = CameraPIX()
+camera.camera = .front
+
+let depthCamera = DepthCameraPIX.setup(with: camera)
+
+let levels = LevelsPIX()
+levels.input = depthCamera
+levels.inverted = true
+
+let lumaBlur = camera._lumaBlur(with: levels, radius: 0.1)
+
+let finalPix: PIX = lumaBlur
+finalPix.view.frame = view.bounds
+view.addSubview(finalPix.view)
+~~~~ 
+
+The Depth Camera needs an iPhone X or newer.
+
+Note to use the `setup(with:filter:)` method of `DepthCameraPIX`.<br>
+It will take care of orientation, color and enable depth on the `CameraPIX`.
+
+To gain access to depth values ouside of the 0.0 and 1.0 bounds,<br>
+enable `16 bit` mode like this: `PixelKit.main.render.bits = ._16`
+
+
 ## Coordinate Space
 
 PixelKit coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
