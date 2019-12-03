@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PixelKit"
-  spec.version      = "0.8.2"
+  spec.version      = "0.8.3"
 
   spec.summary      = "a Live Graphics for iOS & macOS."
   spec.description  = <<-DESC
@@ -31,7 +31,7 @@ Pod::Spec.new do |spec|
                            "Source/PIX/View/LiveMouseView.swift"
 
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
-  						   "Source/PIX/PIXs/Output/StreamOutPIX.swift",
+  						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
@@ -39,7 +39,8 @@ Pod::Spec.new do |spec|
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/IO/Peer.swift",
                            "Source/Other/Motion.swift",
-                           "Source/PIX/PIXs/Content/Resource/ViewPIX.swift"
+                           "Source/PIX/PIXs/Content/Resource/ViewPIX.swift",
+                           "Source/PIX/PIXs/Content/Resource/DepthCameraPIX.swift"
 
   spec.tvos.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                             "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
@@ -54,7 +55,8 @@ Pod::Spec.new do |spec|
                             "Source/Other/Motion.swift",
                             "Source/PIX/PIXs/Content/Resource/WebPIX.swift",
                             "Source/PIX/PIXs/Output/RecordPIX.swift",
-                            "Source/PIX/PIXs/Content/Resource/CameraPIX.swift"
+                            "Source/PIX/PIXs/Content/Resource/CameraPIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/DepthCameraPIX.swift"
 
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders-iOS.metallib",
                        "Resources/Metal Libs/PixelKitShaders-iOS-Simulator.metallib",
@@ -67,8 +69,8 @@ Pod::Spec.new do |spec|
                    "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt"
   
-  spec.dependency 'LiveValues', '~> 1.1'
-  spec.dependency 'RenderKit', '~> 0.3'
+  spec.dependency 'LiveValues', '= 1.1.5'
+  spec.dependency 'RenderKit', '= 0.3.2'
   spec.ios.dependency 'SwiftSVG', '~> 2.0'
   spec.osx.dependency 'SwiftSVG', '~> 2.0'
 
