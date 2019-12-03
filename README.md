@@ -291,7 +291,7 @@ finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
 
-The Depth Camera needs an iPhone X or newer.
+The `DepthCameraPIX` was added in PixelKit `v0.8.4` and requires an iPhone X or newer.
 
 Note to use the `setup(with:filter:)` method of `DepthCameraPIX`.<br>
 It will take care of orientation, color and enable depth on the `CameraPIX`.
