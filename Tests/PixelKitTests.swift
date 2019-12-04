@@ -24,7 +24,15 @@ class PixelKitTests: XCTestCase {
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
         
+    }
+    
+    func setuUpManual() {
+        
         PixelKit.main.render.engine.renderMode = .manual
+        
+    }
+    
+    func setUpTestPixs() {
         
         (testPix, testPixA, testPixB) = Files.makeTestPixs()
         
@@ -33,6 +41,8 @@ class PixelKitTests: XCTestCase {
     override func tearDown() {}
 
     func testAveragePixGenerators() {
+        
+        setuUpManual()
         
         /// 8bit at 128x128
         let averages: [AutoPIXGenerator: CGFloat] = [
@@ -73,6 +83,8 @@ class PixelKitTests: XCTestCase {
     }
 
     func testShapePixGenerators() {
+        
+        setuUpManual()
         
         let shapes: [AutoPIXGenerator: String] = [
             .arcpix: """
@@ -265,6 +277,8 @@ class PixelKitTests: XCTestCase {
 
     func testHueSaturationPix() {
         
+        setuUpManual()
+        
         let colorPix = ColorPIX(at: ._128)
         colorPix.color = .red
         
@@ -296,6 +310,8 @@ class PixelKitTests: XCTestCase {
     // MARK: - Cached Standard
     
     func testCachedGenerators() {
+        
+        setuUpManual()
         
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("generators")
@@ -344,6 +360,9 @@ class PixelKitTests: XCTestCase {
     }
         
     func testCachedSingleEffects() {
+
+        setuUpManual()
+        setUpTestPixs()
         
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("singleEffects")
@@ -393,6 +412,9 @@ class PixelKitTests: XCTestCase {
     }
         
     func testCachedMergerEffects() {
+        
+        setuUpManual()
+        setUpTestPixs()
         
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("mergerEffects")
@@ -445,6 +467,8 @@ class PixelKitTests: XCTestCase {
     // MARK: - Cached Random
         
     func testCachedRandomGenerators() {
+        
+        setuUpManual()
         
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("randomGenerators")
@@ -501,6 +525,9 @@ class PixelKitTests: XCTestCase {
             
     func testCachedRandomSingleEffects() {
         
+        setuUpManual()
+        setUpTestPixs()
+        
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("randomSingleEffects")
         
@@ -556,6 +583,9 @@ class PixelKitTests: XCTestCase {
     }
                 
     func testCachedRandomMergerEffects() {
+       
+        setuUpManual()
+        setUpTestPixs()
         
         guard let outputUrl = Files.outputUrl() else { XCTAssert(false); return }
         let folderUrl = outputUrl.appendingPathComponent("randomMergerEffects")
@@ -609,6 +639,19 @@ class PixelKitTests: XCTestCase {
             diffPix.destroy()
                         
         }
+        
+    }
+    
+    func testImagePIX() {
+        
+        let imagePix = ImagePIX()
+        imagePix.image = NSImage(named: "photo")
+
+        let expect = XCTestExpectation()
+        imagePix.nextTextureAvalible {
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 1.0)
         
     }
 

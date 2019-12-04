@@ -29,34 +29,15 @@ class ViewController: NSViewController, NODEDelegate {
         let polygonPix = PolygonPIX()//(at: .square(10_000))
         polygonPix.name = "demo-polygon"
         
-        let transformPix = TransformPIX()
-        transformPix.input = polygonPix
-        transformPix.scale = 0.5
-        
-        RunLoop.current.add(Timer(timeInterval: 1.0, repeats: false, block: { _ in
-            transformPix.input = nil
-        }), forMode: .common)
-        
-        RunLoop.current.add(Timer(timeInterval: 2.0, repeats: false, block: { _ in
-            transformPix.input = polygonPix
-        }), forMode: .common)
-        
         finalPix = polygonPix
-        finalPix2 = transformPix
 //        finalPix.delegate = self
         
         view.addSubview(finalPix.view)
         finalPix.view.translatesAutoresizingMaskIntoConstraints = false
-        finalPix.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        finalPix.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         finalPix.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
+        finalPix.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         finalPix.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        view.addSubview(finalPix2.view)
-        finalPix2.view.translatesAutoresizingMaskIntoConstraints = false
-        finalPix2.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        finalPix2.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        finalPix2.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
-        finalPix2.view.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
 //        try! PixelKit.main.render.engine.manuallyRender {
 //            self.save()
@@ -66,14 +47,14 @@ class ViewController: NSViewController, NODEDelegate {
     
     func nodeDidRender(_ node: NODE) {}
     
-    func save() {
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-        guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
-        let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
-        let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
-        guard image.savePNG(to: imageUrl) else { fatalError() }
-        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-    }
+//    func save() {
+//        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+//        guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
+//        let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+//        let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
+//        guard image.savePNG(to: imageUrl) else { fatalError() }
+//        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+//    }
     
 //    func log() {
 //        guard let pixels = self.finalPix.renderedPixels else { return }
