@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AA99988F713619141BF69C2 /* Pods_PixelKit_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C005B55124A95E76ED80353B /* Pods_PixelKit_tvOS.framework */; };
-		0F07239DFC40516FDF398532 /* Pods_PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */; };
+		22AA2860B9719864903B8D70 /* Pods_PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB01030A3E59CD1D747D5809 /* Pods_PixelKit_macOS.framework */; };
+		24676CEB45F81922D3EB8F72 /* Pods_PixelKit_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45EDFFD54B0EAEAE4F423EA /* Pods_PixelKit_tvOS.framework */; };
+		39903A59DD67199E56BA7AF9 /* Pods_PixelKitTestDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */; };
 		3A0156C42334FC890002B2D9 /* ContentGeneratorMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C3E21473BD100CBBD58 /* ContentGeneratorMetalPIX.metal.txt */; };
 		3A0156C82334FC8E0002B2D9 /* EffectSingleMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C412147404200CBBD58 /* EffectSingleMetalPIX.metal.txt */; };
 		3A0156C92334FC910002B2D9 /* EffectMergerMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74B57C472147405800CBBD58 /* EffectMergerMetalPIX.metal.txt */; };
@@ -114,6 +115,7 @@
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
 		3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
 		3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
+		3A5AD32A23A906CA00D8A1B7 /* MultiCameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */; };
 		3A63C79F2157C6BB0030BCC4 /* DelayPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */; };
 		3A6D696D225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A6D696E225499A600DB7C8C /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
@@ -230,7 +232,6 @@
 		3AF4235D234F55B20019B4C1 /* AveragePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF42358234F55B20019B4C1 /* AveragePIX.swift */; };
 		3AF4235E234F55B20019B4C1 /* AveragePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF42358234F55B20019B4C1 /* AveragePIX.swift */; };
 		3AF91614229D8269003D5DAB /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF91611229D8269003D5DAB /* Motion.swift */; };
-		665FCA61895FB69425C6B651 /* Pods_PixelKitTestMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C14EA0366256D114435495A /* Pods_PixelKitTestMaker.framework */; };
 		74013306224D298000826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
 		74013307224D29E800826395 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74013305224D298000826395 /* Layout.swift */; };
 		7401CF3121147C9700000A38 /* ResolutionPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7401CF3021147C9700000A38 /* ResolutionPIX.swift */; };
@@ -328,9 +329,9 @@
 		74E642512135396600D7B57F /* PIXSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E642502135396600D7B57F /* PIXSprite.swift */; };
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
-		E39EEFB639676CDC31EEE7BB /* Pods_PixelKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382DE7B90714EB13868B6103 /* Pods_PixelKitTests.framework */; };
-		E8D0A1D3F723BA4030155A57 /* Pods_PixelKitTestDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF11B288EA031C82303DDF1D /* Pods_PixelKitTestDemo.framework */; };
-		F0A54AAE188537EBBC325060 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */; };
+		DBC9E6EA081E3B8ADCC15AE7 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */; };
+		E017721AB5FA5CA5D489A0E0 /* Pods_PixelKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */; };
+		FDD7437E49EA5DCBA19AF94A /* Pods_PixelKitTestMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -434,11 +435,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		022E5BE5E6726F744EBF2553 /* Pods-PixelKit-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		084310E6FC3A6998FBB0E2E2 /* Pods-PixelKitMaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitMaker.release.xcconfig"; path = "Target Support Files/Pods-PixelKitMaker/Pods-PixelKitMaker.release.xcconfig"; sourceTree = "<group>"; };
-		16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		3226A7D1D7D8ABCDC794D5D6 /* Pods-PixelKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.release.xcconfig"; sourceTree = "<group>"; };
-		382DE7B90714EB13868B6103 /* Pods_PixelKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		308D629F3A6B6C7FF630BE57 /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LumaLevelsPIX.swift; sourceTree = "<group>"; };
 		3A1244EE2338C55E00169E42 /* PIXUIs.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXUIs.generated.swift; sourceTree = "<group>"; };
 		3A1244F22338C56200169E42 /* PIXUIs.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXUIs.stencil; sourceTree = "<group>"; };
@@ -458,6 +455,8 @@
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
 		3A3756392334FA5200D90172 /* PixelKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
+		3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCameraPIX.swift; sourceTree = "<group>"; };
+		3A5AD32C23A91A3800D8A1B7 /* PixelKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelKit.podspec; sourceTree = "<group>"; };
 		3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyphonOutPIX.swift; sourceTree = "<group>"; };
 		3A63C79E2157C6BB0030BCC4 /* DelayPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPIX.swift; sourceTree = "<group>"; };
 		3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXAuto.generated.swift; sourceTree = "<group>"; };
@@ -496,9 +495,9 @@
 		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF42358234F55B20019B4C1 /* AveragePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AveragePIX.swift; sourceTree = "<group>"; };
 		3AF91611229D8269003D5DAB /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
-		42AEDD912DE8050047F6FEA9 /* Pods-PixelKitTestDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestDemo.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo.release.xcconfig"; sourceTree = "<group>"; };
-		4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
-		4C14EA0366256D114435495A /* Pods_PixelKitTestMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5136B599FF589232B0D1C750 /* Pods-PixelKit-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		65CE8D27D25EE35A073FCC9E /* Pods-PixelKit-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResolutionPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
@@ -582,18 +581,20 @@
 		74E642502135396600D7B57F /* PIXSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXSprite.swift; sourceTree = "<group>"; };
 		74E6425221353C2D00D7B57F /* TextPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPIX.swift; sourceTree = "<group>"; };
 		74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumaBlurPIX.swift; sourceTree = "<group>"; };
-		7AA8B3D867E2FFF743278847 /* Pods-PixelKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.debug.xcconfig"; sourceTree = "<group>"; };
-		827AC5BAE0EB37320EF50183 /* Pods-PixelKitTestDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestDemo.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		918222C0B6C3DB8C6C1113DE /* Pods-PixelKitMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitMaker.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitMaker/Pods-PixelKitMaker.debug.xcconfig"; sourceTree = "<group>"; };
-		AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
-		B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C005B55124A95E76ED80353B /* Pods_PixelKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4CF4FBD3F9DB4ADCD13A5A8 /* Pods-PixelKitTestMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestMaker.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker.debug.xcconfig"; sourceTree = "<group>"; };
-		DB6ED23EA8F5735D887681F4 /* Pods-PixelKitTestMaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestMaker.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker.release.xcconfig"; sourceTree = "<group>"; };
-		F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		FADD6CB0811A8E53AEC69481 /* Pods-PixelKit-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		FF11B288EA031C82303DDF1D /* Pods_PixelKitTestDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75477884F45301A28D823B2F /* Pods-PixelKitTestMaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestMaker.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker.release.xcconfig"; sourceTree = "<group>"; };
+		83192676B88FEF89E582648D /* Pods-PixelKitTestMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestMaker.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker.debug.xcconfig"; sourceTree = "<group>"; };
+		8928375ACB1667F45E7394B4 /* Pods-PixelKitTestDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestDemo.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo.release.xcconfig"; sourceTree = "<group>"; };
+		898848403C72CE6DECB2FEFE /* Pods-PixelKit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		900CCD073F27367EF99FA170 /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
+		90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8F61C55C04E8E3B65AF5710 /* Pods-PixelKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		BBFE0ADD10EBE7304AE16D56 /* Pods-PixelKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E45EDFFD54B0EAEAE4F423EA /* Pods_PixelKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB01030A3E59CD1D747D5809 /* Pods_PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC2EFEB32E73DA0F7D7E89EE /* Pods-PixelKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.release.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.release.xcconfig"; sourceTree = "<group>"; };
+		FB21D6852EA0DB9B88CBAA96 /* Pods-PixelKitTestDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTestDemo.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -602,7 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2E34662358547F00D67D7A /* PixelKit_macOS.framework in Frameworks */,
-				E39EEFB639676CDC31EEE7BB /* Pods_PixelKitTests.framework in Frameworks */,
+				E017721AB5FA5CA5D489A0E0 /* Pods_PixelKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,7 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A36AE5323584FEE00DC9696 /* PixelKit_macOS.framework in Frameworks */,
-				E8D0A1D3F723BA4030155A57 /* Pods_PixelKitTestDemo.framework in Frameworks */,
+				39903A59DD67199E56BA7AF9 /* Pods_PixelKitTestDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +620,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AA99988F713619141BF69C2 /* Pods_PixelKit_tvOS.framework in Frameworks */,
+				24676CEB45F81922D3EB8F72 /* Pods_PixelKit_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +629,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ABC70B423574419007781DF /* PixelKit_macOS.framework in Frameworks */,
-				665FCA61895FB69425C6B651 /* Pods_PixelKitTestMaker.framework in Frameworks */,
+				FDD7437E49EA5DCBA19AF94A /* Pods_PixelKitTestMaker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,7 +638,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
-				0F07239DFC40516FDF398532 /* Pods_PixelKit_macOS.framework in Frameworks */,
+				22AA2860B9719864903B8D70 /* Pods_PixelKit_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,26 +646,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0A54AAE188537EBBC325060 /* Pods_PixelKit.framework in Frameworks */,
+				DBC9E6EA081E3B8ADCC15AE7 /* Pods_PixelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1739624EC5FAE956BE665B4F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B20782386A322B9CDB5578E1 /* Pods_PixelKit.framework */,
-				F0CC275331F1BF13D182C294 /* Pods_PixelKit_macOS.framework */,
-				C005B55124A95E76ED80353B /* Pods_PixelKit_tvOS.framework */,
-				382DE7B90714EB13868B6103 /* Pods_PixelKitTests.framework */,
-				FF11B288EA031C82303DDF1D /* Pods_PixelKitTestDemo.framework */,
-				4C14EA0366256D114435495A /* Pods_PixelKitTestMaker.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3A36AE3923584F0600DC9696 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -942,6 +930,7 @@
 				749DC6CA2124E12600AE5F6A /* PIXResource.swift */,
 				7452F4CA210A33A5001AA523 /* CameraPIX.swift */,
 				3A9A92EE23955DE20036B6ED /* DepthCameraPIX.swift */,
+				3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */,
 				749EB33E2119A5D900921BDF /* ImagePIX.swift */,
 				7441339F212F859D00326015 /* VideoPIX.swift */,
 				3A370F6222268B29001B0208 /* StreamInPIX.swift */,
@@ -1008,6 +997,7 @@
 			isa = PBXGroup;
 			children = (
 				74D90B1B21331CF60028A69E /* README.md */,
+				3A5AD32C23A91A3800D8A1B7 /* PixelKit.podspec */,
 				74BC39D921011E3A004E9AA0 /* Source */,
 				3AAB4FD92277137100B73870 /* Resources */,
 				3ADEAAD92357172A00414C01 /* Tests */,
@@ -1017,7 +1007,7 @@
 				74BC39D821011E3A004E9AA0 /* Products */,
 				3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */,
 				C5542F82A4B442192136EE3B /* Pods */,
-				1739624EC5FAE956BE665B4F /* Frameworks */,
+				B6330DE5299D7ECB0FA17C44 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1054,23 +1044,34 @@
 			path = Sprite;
 			sourceTree = "<group>";
 		};
+		B6330DE5299D7ECB0FA17C44 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */,
+				EB01030A3E59CD1D747D5809 /* Pods_PixelKit_macOS.framework */,
+				E45EDFFD54B0EAEAE4F423EA /* Pods_PixelKit_tvOS.framework */,
+				4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */,
+				A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */,
+				B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C5542F82A4B442192136EE3B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */,
-				AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */,
-				F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */,
-				16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */,
-				022E5BE5E6726F744EBF2553 /* Pods-PixelKit-tvOS.debug.xcconfig */,
-				FADD6CB0811A8E53AEC69481 /* Pods-PixelKit-tvOS.release.xcconfig */,
-				7AA8B3D867E2FFF743278847 /* Pods-PixelKitTests.debug.xcconfig */,
-				3226A7D1D7D8ABCDC794D5D6 /* Pods-PixelKitTests.release.xcconfig */,
-				918222C0B6C3DB8C6C1113DE /* Pods-PixelKitMaker.debug.xcconfig */,
-				084310E6FC3A6998FBB0E2E2 /* Pods-PixelKitMaker.release.xcconfig */,
-				827AC5BAE0EB37320EF50183 /* Pods-PixelKitTestDemo.debug.xcconfig */,
-				42AEDD912DE8050047F6FEA9 /* Pods-PixelKitTestDemo.release.xcconfig */,
-				C4CF4FBD3F9DB4ADCD13A5A8 /* Pods-PixelKitTestMaker.debug.xcconfig */,
-				DB6ED23EA8F5735D887681F4 /* Pods-PixelKitTestMaker.release.xcconfig */,
+				900CCD073F27367EF99FA170 /* Pods-PixelKit.debug.xcconfig */,
+				EC2EFEB32E73DA0F7D7E89EE /* Pods-PixelKit.release.xcconfig */,
+				898848403C72CE6DECB2FEFE /* Pods-PixelKit-macOS.debug.xcconfig */,
+				308D629F3A6B6C7FF630BE57 /* Pods-PixelKit-macOS.release.xcconfig */,
+				65CE8D27D25EE35A073FCC9E /* Pods-PixelKit-tvOS.debug.xcconfig */,
+				5136B599FF589232B0D1C750 /* Pods-PixelKit-tvOS.release.xcconfig */,
+				FB21D6852EA0DB9B88CBAA96 /* Pods-PixelKitTestDemo.debug.xcconfig */,
+				8928375ACB1667F45E7394B4 /* Pods-PixelKitTestDemo.release.xcconfig */,
+				83192676B88FEF89E582648D /* Pods-PixelKitTestMaker.debug.xcconfig */,
+				75477884F45301A28D823B2F /* Pods-PixelKitTestMaker.release.xcconfig */,
+				BBFE0ADD10EBE7304AE16D56 /* Pods-PixelKitTests.debug.xcconfig */,
+				B8F61C55C04E8E3B65AF5710 /* Pods-PixelKitTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1106,11 +1107,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A2E34692358547F00D67D7A /* Build configuration list for PBXNativeTarget "PixelKitTests" */;
 			buildPhases = (
-				6250C5BFECE88595A29BE143 /* [CP] Check Pods Manifest.lock */,
+				9A28C3AC98B7795E457AC957 /* [CP] Check Pods Manifest.lock */,
 				3A2E345D2358547F00D67D7A /* Sources */,
 				3A2E345E2358547F00D67D7A /* Frameworks */,
 				3A2E345F2358547F00D67D7A /* Resources */,
-				7F78285921A68EE714476063 /* [CP] Embed Pods Frameworks */,
+				2D5B2CF428BD5BF9B18A49A9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1127,12 +1128,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A36AE4A23584F0700DC9696 /* Build configuration list for PBXNativeTarget "PixelKitTestDemo" */;
 			buildPhases = (
-				8F41BF07B12C207239B853D8 /* [CP] Check Pods Manifest.lock */,
+				739A675A0D935B2246488E7E /* [CP] Check Pods Manifest.lock */,
 				3A36AE3423584F0600DC9696 /* Sources */,
 				3A36AE3523584F0600DC9696 /* Frameworks */,
 				3A36AE3623584F0600DC9696 /* Resources */,
-				980CA1E523368E3F9926D7AA /* [CP] Embed Pods Frameworks */,
 				3A36AE5723584FEE00DC9696 /* Embed Frameworks */,
+				FCBF901C517F59082DBDE317 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1148,7 +1149,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A3756422334FA5200D90172 /* Build configuration list for PBXNativeTarget "PixelKit-tvOS" */;
 			buildPhases = (
-				3FFF5FD357F7A5A54CA47B2A /* [CP] Check Pods Manifest.lock */,
+				54858FB7BB00D48A1C2479AE /* [CP] Check Pods Manifest.lock */,
 				3A3756342334FA5200D90172 /* Headers */,
 				3A3756352334FA5200D90172 /* Sources */,
 				3A3756362334FA5200D90172 /* Frameworks */,
@@ -1167,12 +1168,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3ABC70AE23574315007781DF /* Build configuration list for PBXNativeTarget "PixelKitTestMaker" */;
 			buildPhases = (
-				831AC49E170477F28C38AF98 /* [CP] Check Pods Manifest.lock */,
+				EF95DC6151EC93A64DDEE068 /* [CP] Check Pods Manifest.lock */,
 				3ABC709823574314007781DF /* Sources */,
 				3ABC709923574314007781DF /* Frameworks */,
 				3ABC709A23574314007781DF /* Resources */,
-				E2DE5CE22DBBDC608DAE084F /* [CP] Embed Pods Frameworks */,
 				3ABC70B823574419007781DF /* Embed Frameworks */,
+				8CFE6ADF5AC8FED631F2F4DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1188,7 +1189,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "PixelKit-macOS" */;
 			buildPhases = (
-				C5FC44CEC5995E606FF2CF27 /* [CP] Check Pods Manifest.lock */,
+				84EC82A5D7945F87CE4D3417 /* [CP] Check Pods Manifest.lock */,
 				746B50452275A171003F5C37 /* CopyFiles */,
 				3AF28BC7219312900079FC7A /* Headers */,
 				3AF28BC8219312900079FC7A /* Sources */,
@@ -1209,7 +1210,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74BC39EB21011E3A004E9AA0 /* Build configuration list for PBXNativeTarget "PixelKit" */;
 			buildPhases = (
-				CA0AE9C3BB1E511AF25DCDC4 /* [CP] Check Pods Manifest.lock */,
+				E58481A78566039B6CC2D06E /* [CP] Check Pods Manifest.lock */,
 				74BC39D221011E3A004E9AA0 /* Headers */,
 				74BC39D321011E3A004E9AA0 /* Sources */,
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
@@ -1368,7 +1369,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3FFF5FD357F7A5A54CA47B2A /* [CP] Check Pods Manifest.lock */ = {
+		2D5B2CF428BD5BF9B18A49A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54858FB7BB00D48A1C2479AE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1390,68 +1408,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6250C5BFECE88595A29BE143 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PixelKitTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F78285921A68EE714476063 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		831AC49E170477F28C38AF98 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PixelKitTestMaker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F41BF07B12C207239B853D8 /* [CP] Check Pods Manifest.lock */ = {
+		739A675A0D935B2246488E7E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1473,24 +1430,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		980CA1E523368E3F9926D7AA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C5FC44CEC5995E606FF2CF27 /* [CP] Check Pods Manifest.lock */ = {
+		84EC82A5D7945F87CE4D3417 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1512,7 +1452,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CA0AE9C3BB1E511AF25DCDC4 /* [CP] Check Pods Manifest.lock */ = {
+		8CFE6ADF5AC8FED631F2F4DD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A28C3AC98B7795E457AC957 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PixelKitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E58481A78566039B6CC2D06E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1534,21 +1513,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E2DE5CE22DBBDC608DAE084F /* [CP] Embed Pods Frameworks */ = {
+		EF95DC6151EC93A64DDEE068 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PixelKitTestMaker-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestMaker/Pods-PixelKitTestMaker-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCBF901C517F59082DBDE317 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKitTestDemo/Pods-PixelKitTestDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1837,6 +1838,7 @@
 				3A17FBC4225238EC00453079 /* ClampPIX.swift in Sources */,
 				74E642512135396600D7B57F /* PIXSprite.swift in Sources */,
 				74AE242621284F0900E80B96 /* PolygonPIX.swift in Sources */,
+				3A5AD32A23A906CA00D8A1B7 /* MultiCameraPIX.swift in Sources */,
 				3A7EA6DE23191D0F007BFD8C /* ScenePIX.swift in Sources */,
 				749EB33F2119A5D900921BDF /* ImagePIX.swift in Sources */,
 				7445508821349DCC006E01D8 /* CornerPinPIX.swift in Sources */,
@@ -1934,7 +1936,7 @@
 /* Begin XCBuildConfiguration section */
 		3A2E346A2358547F00D67D7A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AA8B3D867E2FFF743278847 /* Pods-PixelKitTests.debug.xcconfig */;
+			baseConfigurationReference = BBFE0ADD10EBE7304AE16D56 /* Pods-PixelKitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1958,7 +1960,7 @@
 		};
 		3A2E346B2358547F00D67D7A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3226A7D1D7D8ABCDC794D5D6 /* Pods-PixelKitTests.release.xcconfig */;
+			baseConfigurationReference = B8F61C55C04E8E3B65AF5710 /* Pods-PixelKitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1982,7 +1984,7 @@
 		};
 		3A36AE4523584F0700DC9696 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 827AC5BAE0EB37320EF50183 /* Pods-PixelKitTestDemo.debug.xcconfig */;
+			baseConfigurationReference = FB21D6852EA0DB9B88CBAA96 /* Pods-PixelKitTestDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tests/Demo/PixelKitTestDemo.entitlements;
@@ -2006,7 +2008,7 @@
 		};
 		3A36AE4623584F0700DC9696 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42AEDD912DE8050047F6FEA9 /* Pods-PixelKitTestDemo.release.xcconfig */;
+			baseConfigurationReference = 8928375ACB1667F45E7394B4 /* Pods-PixelKitTestDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tests/Demo/PixelKitTestDemo.entitlements;
@@ -2030,7 +2032,7 @@
 		};
 		3A37563E2334FA5200D90172 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 022E5BE5E6726F744EBF2553 /* Pods-PixelKit-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 65CE8D27D25EE35A073FCC9E /* Pods-PixelKit-tvOS.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 888;
@@ -2060,7 +2062,7 @@
 		};
 		3A37563F2334FA5200D90172 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FADD6CB0811A8E53AEC69481 /* Pods-PixelKit-tvOS.release.xcconfig */;
+			baseConfigurationReference = 5136B599FF589232B0D1C750 /* Pods-PixelKit-tvOS.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 888;
@@ -2090,7 +2092,7 @@
 		};
 		3ABC70A923574315007781DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4CF4FBD3F9DB4ADCD13A5A8 /* Pods-PixelKitTestMaker.debug.xcconfig */;
+			baseConfigurationReference = 83192676B88FEF89E582648D /* Pods-PixelKitTestMaker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tests/Maker/PixelKitMaker.entitlements;
@@ -2114,7 +2116,7 @@
 		};
 		3ABC70AA23574315007781DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB6ED23EA8F5735D887681F4 /* Pods-PixelKitTestMaker.release.xcconfig */;
+			baseConfigurationReference = 75477884F45301A28D823B2F /* Pods-PixelKitTestMaker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tests/Maker/PixelKitMaker.entitlements;
@@ -2138,7 +2140,7 @@
 		};
 		3AF28BD1219312900079FC7A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4C69A6740D4FF5990961AE8 /* Pods-PixelKit-macOS.debug.xcconfig */;
+			baseConfigurationReference = 898848403C72CE6DECB2FEFE /* Pods-PixelKit-macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -2179,7 +2181,7 @@
 		};
 		3AF28BD2219312900079FC7A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16DBE3A98ADEADF88DC8FD0C /* Pods-PixelKit-macOS.release.xcconfig */;
+			baseConfigurationReference = 308D629F3A6B6C7FF630BE57 /* Pods-PixelKit-macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
@@ -2340,7 +2342,7 @@
 		};
 		74BC39EC21011E3A004E9AA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B1710A18580C3671F0C5DEE /* Pods-PixelKit.debug.xcconfig */;
+			baseConfigurationReference = 900CCD073F27367EF99FA170 /* Pods-PixelKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2383,7 +2385,7 @@
 		};
 		74BC39ED21011E3A004E9AA0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEB043868DC9B17B0722CD3D /* Pods-PixelKit.release.xcconfig */;
+			baseConfigurationReference = EC2EFEB32E73DA0F7D7E89EE /* Pods-PixelKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";

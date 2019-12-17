@@ -146,6 +146,22 @@ public class CameraPIX: PIXResource {
             #endif
             }
         }
+        var deviceType: AVCaptureDevice.DeviceType {
+            switch self {
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            case .tele:
+                return .builtInTelephotoCamera
+            case .ultraWide:
+                if #available(iOS 13.0, *) {
+                    return .builtInUltraWideCamera
+                } else {
+                    return .builtInWideAngleCamera
+                }
+            #endif
+            default:
+                return .builtInWideAngleCamera
+            }
+        }
         var mirrored: Bool {
             return self == .front
         }
@@ -182,9 +198,20 @@ public class CameraPIX: PIXResource {
     #endif
     
     #if os(iOS) && !targetEnvironment(macCatalyst)
+    
     public var depth: Bool = false { didSet { if setup { setupCamera() } } }
     public var filterDepth: Bool = false { didSet { if setup { setupCamera() } } }
     var depthCallback: ((CVPixelBuffer) -> ())?
+    
+    public var multi: Bool = false { didSet { if setup { setupCamera() } } }
+    struct MultiCallback {
+        let id: UUID
+        let camera: () -> (Camera)
+        let setup: (_Orientation) -> ()
+        let frameLoop: (CVPixelBuffer) -> ()
+    }
+    var multiCallbacks: [MultiCallback] = []
+    
     #endif
     
     #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -356,7 +383,15 @@ public class CameraPIX: PIXResource {
         let depth = false
         let filterDepth = false
         #endif
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, useExternalCamera: extCam, setup: { _, orientation in
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        var multiCameras: [Camera]?
+        if #available(iOS 13.0, *) {
+            multiCameras = self.multi ? self.multiCallbacks.map({ $0.camera() }) : nil
+        }
+        #elseif os(macOS) || targetEnvironment(macCatalyst)
+        let multiCameras: [Camera]? = nil
+        #endif
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { _, orientation in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -364,6 +399,9 @@ public class CameraPIX: PIXResource {
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
+            self.multiCallbacks.forEach { multiCallback in
+                multiCallback.setup(orientation)
+            }
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -377,6 +415,9 @@ public class CameraPIX: PIXResource {
             #if os(iOS) && !targetEnvironment(macCatalyst)
             self.depthCallback?(depthPixelBuffer)
             #endif
+        }, capturedMulti: { multiIndex, multiPixelBuffer in
+            guard multiIndex < self.multiCallbacks.count else { return }
+            self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
         })
     }
     
@@ -400,6 +441,11 @@ public class CameraPIX: PIXResource {
     
 }
 
+
+
+
+
+
 // MARK: - Camera Helper
 
 class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
@@ -407,13 +453,16 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let pixelKit = PixelKit.main
     
     var device: AVCaptureDevice?
-    
-    let cameraPosition: AVCaptureDevice.Position
+
 //    let photoSupport: Bool
     
     let captureSession: AVCaptureSession
     var videoOutput: AVCaptureVideoDataOutput?
-    
+
+    var isMulti: Bool
+    var multiDevices: [AVCaptureDevice] = []
+    var multiVideoOutputs: [AVCaptureVideoDataOutput] = []
+
     #if os(iOS)
     let depth: Bool
     var depthOutput: AVCaptureDepthDataOutput?
@@ -442,9 +491,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let setupCallback: (CGSize, _Orientation) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     let capturedDepthCallback: (CVPixelBuffer) -> ()
-    
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> ()) {
+    let capturedMultiCallback: (Int, CVPixelBuffer) -> ()
+
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
+        
         #if os(iOS) && !targetEnvironment(macCatalyst)
+        
         let deviceType: AVCaptureDevice.DeviceType
         if depth {
             if cameraPosition == .front {
@@ -470,12 +522,35 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 deviceType = .builtInWideAngleCamera
             }
         }
-        pixelKit.logger.log(.info, .resource, "Camera \"\(deviceType.rawValue)\" Setup.")
-        device = AVCaptureDevice.default(deviceType, for: .video, position: cameraPosition)
-        if device == nil {
-            device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+        
+        var multi: Bool = false
+        var multiDeviceTypes: [AVCaptureDevice.DeviceType] = []
+        var multiCameraPositions: [AVCaptureDevice.Position] = []
+        if let multiCameras: [CameraPIX.Camera] = multiCameras {
+            multiDeviceTypes.append(deviceType)
+            multiDeviceTypes.append(contentsOf: multiCameras.map({ $0.deviceType }))
+            multiCameraPositions.append(cameraPosition)
+            multiCameraPositions.append(contentsOf: multiCameras.map({ $0.position }))
+            multi = true
         }
+        
+        if !multi {
+            pixelKit.logger.log(.info, .resource, "Camera \"\(deviceType.rawValue)\" Setup.")
+            device = AVCaptureDevice.default(deviceType, for: .video, position: cameraPosition)
+            if device == nil {
+                device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
+            }
+        } else {
+            for camera in zip(multiDeviceTypes, multiCameraPositions) {
+                guard let multiDevice = AVCaptureDevice.default(camera.0, for: .video, position: camera.1) else {
+                    fatalError("PixelKit - Multi Camera - Device Failed")
+                }
+                multiDevices.append(multiDevice)
+            }
+        }
+        
         #elseif os(macOS) || targetEnvironment(macCatalyst)
+        
         if !useExternalCamera {
             print(":::::::::::::", AVCaptureDevice.devices())
             device = AVCaptureDevice.default(for: .video)
@@ -496,18 +571,21 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 device = AVCaptureDevice.default(for: .video)
             }
         }
+        
         #endif
         
         #if os(iOS)
         self.depth = depth
         #endif
         
-        self.cameraPosition = cameraPosition
+        isMulti = multi
+        
 //        self.photoSupport = photoSupport
         
         setupCallback = setup
         capturedCallback = captured
         capturedDepthCallback = capturedDepth
+        capturedMultiCallback = capturedMulti
         
         #if os(iOS) && !targetEnvironment(macCatalyst)
         lastUIOrientation = UIApplication.shared.statusBarOrientation
@@ -515,14 +593,29 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         lastUIOrientation = ()
         #endif
         
-        captureSession = AVCaptureSession()
-
-        videoOutput = AVCaptureVideoDataOutput()
-        #if os(iOS) && !targetEnvironment(macCatalyst)
-        if depth {
-            depthOutput = AVCaptureDepthDataOutput()
+        
+        if !multi {
+            captureSession = AVCaptureSession()
+        } else {
+            if #available(iOS 13.0, *) {
+                captureSession = AVCaptureMultiCamSession()
+            } else {
+                fatalError("Multi Cam Requires iOS 13")
+            }
         }
-        #endif
+
+        if !multi {
+            videoOutput = AVCaptureVideoDataOutput()
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            if depth {
+                depthOutput = AVCaptureDepthDataOutput()
+            }
+            #endif
+        } else {
+            for _ in 0..<(multiCameras!.count + 1) {
+                multiVideoOutputs.append(AVCaptureVideoDataOutput())
+            }
+        }
         
 //        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
         
@@ -530,20 +623,35 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         super.init()
         
         
-        guard device != nil else {
-            pixelKit.logger.log(.error, nil, "Camera device not found.")
-            return
+        if !multi {
+            guard device != nil else {
+                pixelKit.logger.log(.error, nil, "Camera device not found.")
+                return
+            }
         }
         
-        let preset: AVCaptureSession.Preset = depth ? .vga640x480 : camRes.sessionPreset
-        if captureSession.canSetSessionPreset(preset) {
-            captureSession.sessionPreset = preset
+        if !multi {
+            let preset: AVCaptureSession.Preset = depth ? .vga640x480 : camRes.sessionPreset
+            if captureSession.canSetSessionPreset(preset) {
+                captureSession.sessionPreset = preset
+            } else {
+                captureSession.sessionPreset = .high
+            }
         } else {
-            captureSession.sessionPreset = .high
+//            multiVideoOutputs.forEach { multiVideoOutput in
+//                multiVideoOutput.prset
+//            }
         }
         
-        videoOutput!.alwaysDiscardsLateVideoFrames = true
-        videoOutput!.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
+        if !multi {
+            videoOutput!.alwaysDiscardsLateVideoFrames = true
+            videoOutput!.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
+        } else {
+            multiVideoOutputs.forEach { multiVideoOutput in
+                multiVideoOutput.alwaysDiscardsLateVideoFrames = true
+                multiVideoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
+            }
+        }
 
         #if os(iOS) && !targetEnvironment(macCatalyst)
         if depth {
@@ -552,38 +660,61 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         #endif
         
         do {
-            let input = try AVCaptureDeviceInput(device: device!)
-            if captureSession.canAddInput(input) {
-                captureSession.addInput(input)
-                if captureSession.canAddOutput(videoOutput!){
-                    captureSession.addOutput(videoOutput!)
-                    #if os(iOS) && !targetEnvironment(macCatalyst)
-                    if depth {
-                        if captureSession.canAddOutput(depthOutput!){
-                            captureSession.addOutput(depthOutput!)
-                        } else {
-                            pixelKit.logger.log(.error, .resource, "Camera can't add depth output.")
-                            return
-                        }
-                    }
-                    #endif
-                    let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
-                    if depth {
-                        #if os(iOS) && !targetEnvironment(macCatalyst)
-                        depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoOutput!, depthOutput!])
-                        depthOutput!.setDelegate(self, callbackQueue: queue)
-                        depthSynchronizer!.setDelegate(self, queue: queue)
-                        #endif
-                    } else {
-                        videoOutput!.setSampleBufferDelegate(self, queue: queue)
-                    }
-                    start()
-                } else {
-                    pixelKit.logger.log(.error, .resource, "Camera can't add output.")
+            if !multi {
+                let input = try AVCaptureDeviceInput(device: device!)
+                guard captureSession.canAddInput(input) else {
+                    pixelKit.logger.log(.error, .resource, "Camera can't add input.")
+                    return
                 }
+                captureSession.addInput(input)
+                guard captureSession.canAddOutput(videoOutput!) else {
+                    pixelKit.logger.log(.error, .resource, "Camera can't add output.")
+                    return
+                }
+                captureSession.addOutput(videoOutput!)
             } else {
-                pixelKit.logger.log(.error, .resource, "Camera can't add input.")
+                try multiDevices.forEach { multiDevice in
+                    let input = try AVCaptureDeviceInput(device: multiDevice)
+                    guard captureSession.canAddInput(input) else {
+                        pixelKit.logger.log(.error, .resource, "Camera can't add multi input.")
+                        return
+                    }
+                    captureSession.addInput(input)
+                }
+                multiVideoOutputs.forEach { multiVideoOutput in
+                    guard captureSession.canAddOutput(multiVideoOutput) else {
+                        pixelKit.logger.log(.error, .resource, "Camera can't add multi output.")
+                        return
+                    }
+                    captureSession.addOutput(multiVideoOutput)
+                }
             }
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            if depth {
+                guard captureSession.canAddOutput(depthOutput!) else {
+                    pixelKit.logger.log(.error, .resource, "Camera can't add depth output.")
+                    return
+                }
+                captureSession.addOutput(depthOutput!)
+            }
+            #endif
+            let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
+            if depth {
+                #if os(iOS) && !targetEnvironment(macCatalyst)
+                depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoOutput!, depthOutput!])
+                depthOutput!.setDelegate(self, callbackQueue: queue)
+                depthSynchronizer!.setDelegate(self, queue: queue)
+                #endif
+            } else {
+                if !multi {
+                    videoOutput!.setSampleBufferDelegate(self, queue: queue)
+                } else {
+                    multiVideoOutputs.forEach { multiVideoOutput in
+                        multiVideoOutput.setSampleBufferDelegate(self, queue: queue)
+                    }
+                }
+            }
+            start()
         } catch {
             pixelKit.logger.log(.error, .resource, "Camera input failed to load.", e: error)
         }
@@ -635,19 +766,43 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             return
         }
         
-        DispatchQueue.main.async {
+        func main() {
+            DispatchQueue.main.async {
+                
+                if !self.initialFrameCaptured {
+                    self.setup(pixelBuffer)
+                    self.initialFrameCaptured = true
+                } else if self.orientationUpdated {
+                    self.setup(pixelBuffer)
+                    self.orientationUpdated = false
+                }
+                
+                self.capturedCallback(pixelBuffer)
+                
+            }
+        }
+        
+        if !isMulti {
             
-            if !self.initialFrameCaptured {
-                self.setup(pixelBuffer)
-                self.initialFrameCaptured = true
-            } else if self.orientationUpdated {
-                self.setup(pixelBuffer)
-                self.orientationUpdated = false
+            main()
+            
+        } else {
+            
+            guard let videoOutput = output as? AVCaptureVideoDataOutput else { return }
+            guard let index: Int = multiVideoOutputs.firstIndex(of: videoOutput) else { return }
+            if index == 0 {
+                main()
+            } else {
+                let multiIndex: Int = index - 1
+                DispatchQueue.main.async {
+                    
+                    self.capturedMultiCallback(multiIndex, pixelBuffer)
+                    
+                }
             }
             
-            self.capturedCallback(pixelBuffer)
-            
         }
+        
         
     }
     
