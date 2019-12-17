@@ -119,9 +119,9 @@ public class CameraPIX: PIXResource {
         }
     }
     #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var camRes: CamRes = ._1080p { didSet { setupCamera() } }
+    public var camRes: CamRes = ._1080p { didSet { if setup { setupCamera() } } }
     #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public var camRes: CamRes = ._720p { didSet { setupCamera() } }
+    public var camRes: CamRes = ._720p { didSet { if setup { setupCamera() } } }
     #endif
     
     public enum Camera: String, Codable, CaseIterable {
@@ -129,6 +129,7 @@ public class CameraPIX: PIXResource {
         #if os(iOS) && !targetEnvironment(macCatalyst)
         case back = "Wide Camera"
         case tele = "Tele Camera"
+        case ultraWide = "Ultra Wide Camera"
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         case external = "External Camera"
         #endif
@@ -137,7 +138,7 @@ public class CameraPIX: PIXResource {
             case .front:
                 return .front
             #if os(iOS) && !targetEnvironment(macCatalyst)
-            case .back, .tele:
+            case .back, .tele, .ultraWide:
                 return .back
             #elseif os(macOS) || targetEnvironment(macCatalyst)
             case .external:
@@ -162,11 +163,18 @@ public class CameraPIX: PIXResource {
             return false
             #endif
         }
+        var isUltraWide: Bool {
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            return self == .ultraWide
+            #elseif os(macOS) || targetEnvironment(macCatalyst)
+            return false
+            #endif
+        }
     }
     #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var camera: Camera = .back { didSet { setupCamera() } }
+    public var camera: Camera = .back { didSet { if setup { setupCamera() } } }
     #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public var camera: Camera = .front { didSet { setupCamera() } }
+    public var camera: Camera = .front { didSet { if setup { setupCamera() } } }
     #endif
     
     #if os(macOS) || targetEnvironment(macCatalyst)
@@ -174,8 +182,8 @@ public class CameraPIX: PIXResource {
     #endif
     
     #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var depth: Bool = false { didSet { setupCamera() } }
-    public var filterDepth: Bool = false { didSet { setupCamera() } }
+    public var depth: Bool = false { didSet { if setup { setupCamera() } } }
+    public var filterDepth: Bool = false { didSet { if setup { setupCamera() } } }
     var depthCallback: ((CVPixelBuffer) -> ())?
     #endif
     
@@ -260,6 +268,8 @@ public class CameraPIX: PIXResource {
     }
     
     #endif
+    
+    var setup: Bool = false
 
     // MARK: - Property Helpers
     
@@ -279,7 +289,10 @@ public class CameraPIX: PIXResource {
         
         name = "camera"
         
-        setupCamera()
+        DispatchQueue.main.async {
+            self.setupCamera()
+            self.setup = true
+        }
         
         #if os(macOS)
         NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
@@ -328,6 +341,7 @@ public class CameraPIX: PIXResource {
                 }
                 return
             }
+            return
         }
         helper?.stop()
         #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -342,7 +356,7 @@ public class CameraPIX: PIXResource {
         let depth = false
         let filterDepth = false
         #endif
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, depth: depth, filterDepth: filterDepth, useExternalCamera: extCam, setup: { _, orientation in
+        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, useExternalCamera: extCam, setup: { _, orientation in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -429,7 +443,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let capturedCallback: (CVPixelBuffer) -> ()
     let capturedDepthCallback: (CVPixelBuffer) -> ()
     
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, depth: Bool = false, filterDepth: Bool, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> ()) {
+    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> ()) {
         #if os(iOS) && !targetEnvironment(macCatalyst)
         let deviceType: AVCaptureDevice.DeviceType
         if depth {
@@ -445,10 +459,18 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         } else {
             if tele {
                 deviceType = .builtInWideAngleCamera
+            } else if ultraWide {
+                if #available(iOS 13.0, *) {
+                    deviceType = .builtInUltraWideCamera
+                } else {
+                    pixelKit.logger.log(.warning, .resource, "Ultra Wide Camera is only avalible in iOS 13.")
+                    deviceType = .builtInWideAngleCamera
+                }
             } else {
                 deviceType = .builtInWideAngleCamera
             }
         }
+        pixelKit.logger.log(.info, .resource, "Camera \"\(deviceType.rawValue)\" Setup.")
         device = AVCaptureDevice.default(deviceType, for: .video, position: cameraPosition)
         if device == nil {
             device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: cameraPosition)
