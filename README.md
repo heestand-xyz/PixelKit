@@ -275,18 +275,18 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 `import PixelKit`
 
 ~~~~swift
-let camera = CameraPIX()
-camera.camera = .front
+let cameraPix = CameraPIX()
+cameraPix.camera = .front
 
-let depthCamera = DepthCameraPIX.setup(with: camera)
+let depthCameraPix = DepthCameraPIX.setup(with: cameraPix)
 
-let levels = LevelsPIX()
-levels.input = depthCamera
-levels.inverted = true
+let levelsPix = LevelsPIX()
+levelsPix.input = depthCameraPix
+levelsPix.inverted = true
 
-let lumaBlur = camera._lumaBlur(with: levels, radius: 0.1)
+let lumaBlurPix = cameraPix._lumaBlur(with: levelsPix, radius: 0.1)
 
-let finalPix: PIX = lumaBlur
+let finalPix: PIX = lumaBlurPix
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
@@ -299,6 +299,23 @@ It will take care of orientation, color and enable depth on the `CameraPIX`.
 To gain access to depth values ouside of the 0.0 and 1.0 bounds,<br>
 enable `16 bit` mode like this: `PixelKit.main.render.bits = ._16`
 
+
+### Example: Multi Camera
+
+~~~~swift
+let cameraPix = CameraPIX()
+cameraPix.camera = .back
+
+let multiCameraPix = MultiCameraPIX.setup(with: cameraPix, camera: .front)
+
+let movedMultiCameraPix = multiCameraPix._scale(by: 0.25)._move(x: 0.375 * (9 / 16), y: 0.375)
+
+let finalPix: PIX = camearPix & movedMultiCameraPix
+finalPix.view.frame = view.bounds
+view.addSubview(finalPix.view)
+~~~~ 
+
+Note `MultiCameraPIX` requires iOS 13. 
 
 ## Coordinate Space
 

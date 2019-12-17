@@ -146,6 +146,7 @@ public class CameraPIX: PIXResource {
             #endif
             }
         }
+        @available(OSX 10.15, *)
         var deviceType: AVCaptureDevice.DeviceType {
             switch self {
             #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -399,9 +400,13 @@ public class CameraPIX: PIXResource {
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
-            self.multiCallbacks.forEach { multiCallback in
-                multiCallback.setup(orientation)
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            if self.multi {
+                self.multiCallbacks.forEach { multiCallback in
+                    multiCallback.setup(orientation)
+                }
             }
+            #endif
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -416,8 +421,10 @@ public class CameraPIX: PIXResource {
             self.depthCallback?(depthPixelBuffer)
             #endif
         }, capturedMulti: { multiIndex, multiPixelBuffer in
+            #if os(iOS) && !targetEnvironment(macCatalyst)
             guard multiIndex < self.multiCallbacks.count else { return }
             self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
+            #endif
         })
     }
     
@@ -459,9 +466,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let captureSession: AVCaptureSession
     var videoOutput: AVCaptureVideoDataOutput?
 
+    #if os(iOS)
     var isMulti: Bool
     var multiDevices: [AVCaptureDevice] = []
     var multiVideoOutputs: [AVCaptureVideoDataOutput] = []
+    #endif
 
     #if os(iOS)
     let depth: Bool
@@ -495,6 +504,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 
     init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
         
+        var multi: Bool = false
+        
         #if os(iOS) && !targetEnvironment(macCatalyst)
         
         let deviceType: AVCaptureDevice.DeviceType
@@ -523,7 +534,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
         }
         
-        var multi: Bool = false
         var multiDeviceTypes: [AVCaptureDevice.DeviceType] = []
         var multiCameraPositions: [AVCaptureDevice.Position] = []
         if let multiCameras: [CameraPIX.Camera] = multiCameras {
@@ -578,7 +588,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         self.depth = depth
         #endif
         
+        #if os(iOS)
         isMulti = multi
+        #endif
         
 //        self.photoSupport = photoSupport
         
@@ -597,11 +609,15 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         if !multi {
             captureSession = AVCaptureSession()
         } else {
+            #if os(iOS)
             if #available(iOS 13.0, *) {
                 captureSession = AVCaptureMultiCamSession()
             } else {
                 fatalError("Multi Cam Requires iOS 13")
             }
+            #else
+            fatalError("Multi Cam Requires iOS")
+            #endif
         }
 
         if !multi {
@@ -612,9 +628,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
             #endif
         } else {
+            #if os(iOS)
             for _ in 0..<(multiCameras!.count + 1) {
                 multiVideoOutputs.append(AVCaptureVideoDataOutput())
             }
+            #endif
         }
         
 //        photoOutput = photoSupport ? AVCapturePhotoOutput() : nil
@@ -647,10 +665,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             videoOutput!.alwaysDiscardsLateVideoFrames = true
             videoOutput!.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
         } else {
+            #if os(iOS)
             multiVideoOutputs.forEach { multiVideoOutput in
                 multiVideoOutput.alwaysDiscardsLateVideoFrames = true
                 multiVideoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
             }
+            #endif
         }
 
         #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -673,6 +693,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 }
                 captureSession.addOutput(videoOutput!)
             } else {
+                #if os(iOS)
                 try multiDevices.forEach { multiDevice in
                     let input = try AVCaptureDeviceInput(device: multiDevice)
                     guard captureSession.canAddInput(input) else {
@@ -688,6 +709,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                     }
                     captureSession.addOutput(multiVideoOutput)
                 }
+                #endif
             }
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if depth {
@@ -709,9 +731,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 if !multi {
                     videoOutput!.setSampleBufferDelegate(self, queue: queue)
                 } else {
+                    #if os(iOS)
                     multiVideoOutputs.forEach { multiVideoOutput in
                         multiVideoOutput.setSampleBufferDelegate(self, queue: queue)
                     }
+                    #endif
                 }
             }
             start()
@@ -782,6 +806,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
         }
         
+        #if !os(iOS)
+        main()
+        #else
         if !isMulti {
             
             main()
@@ -802,6 +829,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
             
         }
+        #endif
         
         
     }
