@@ -656,8 +656,34 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 captureSession.sessionPreset = .high
             }
         } else {
-//            multiVideoOutputs.forEach { multiVideoOutput in
-//                multiVideoOutput.prset
+//            if #available(iOS 13.0, *) {
+//                multiDevices.forEach { multiDevice in
+//                    let targetWidth: Int = camRes.resolution.w
+//                    let targetHeight: Int = camRes.resolution.h
+//                    var deviceFormat: AVCaptureDevice.Format?
+//                    for format in multiDevice.formats {
+//                        let dimensions = format.formatDescription.dimensions
+//                        let width = Int(dimensions.width)
+//                        let height = Int(dimensions.height)
+//                        if targetWidth == width && targetHeight == height {
+//                            guard format.isMultiCamSupported else { continue }
+//                            deviceFormat = format
+//                            break
+//                        }
+//                    }
+//                    if let format = deviceFormat {
+//                        do {
+//                            try multiDevice.lockForConfiguration()
+//                            multiDevice.activeFormat = format
+//                            multiDevice.unlockForConfiguration()
+//                            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", multiDevice.deviceType.rawValue, format.formatDescription.dimensions.width, format.formatDescription.dimensions.height)
+//                        } catch {
+//                            pixelKit.logger.log(.error, nil, "Camera Device configuration failed for \"\(multiDevice.deviceType.rawValue)\".")
+//                        }
+//                    } else {
+//                        pixelKit.logger.log(.error, nil, "CamRes not supported for \"\(multiDevice.deviceType.rawValue)\".")
+//                    }
+//                }
 //            }
         }
         
