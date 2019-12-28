@@ -8,6 +8,7 @@
 
 import RenderKit
 
+#if os(iOS) && !targetEnvironment(macCatalyst)
 public class DepthCameraPIX: PIXResource {
     
     override open var shaderName: String { return "contentResourcePIX" }
@@ -71,3 +72,4 @@ public class DepthCameraPIX: PIXResource {
     }
     
 }
+#endif

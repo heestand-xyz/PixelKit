@@ -9,6 +9,7 @@
 import Foundation
 import RenderKit
 
+#if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)
 public class MultiCameraPIX: PIXResource {
     
@@ -86,3 +87,4 @@ public class MultiCameraPIX: PIXResource {
     }
     
 }
+#endif

@@ -71,8 +71,8 @@ Pod::Spec.new do |spec|
                    "Source/PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
                    "Source/PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt"
   
-  spec.dependency 'LiveValues', '= 1.1.5'
-  spec.dependency 'RenderKit', '= 0.3.2'
+  spec.dependency 'LiveValues', '~> 1.1.6'
+  spec.dependency 'RenderKit', '~> 0.3.2'
   spec.ios.dependency 'SwiftSVG', '~> 2.0'
   spec.osx.dependency 'SwiftSVG', '~> 2.0'
 
