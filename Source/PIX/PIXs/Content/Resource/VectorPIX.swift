@@ -13,19 +13,25 @@ import UIKit
 import AppKit
 #endif
 import WebKit
+import LiveValues
 
 public class VectorPIX: PIXResource {
     
-//    #if os(iOS) || os(tvOS)
-//    override open var shaderName: String { return "contentResourceFlipPIX" }
-//    #elseif os(macOS)
-//    override open var shaderName: String { return "contentResourceBGRPIX" }
-//    #endif
-    override open var shaderName: String { return "nilPIX" }
+    #if os(iOS) || os(tvOS)
+    override open var shaderName: String { return "contentResourceFlipPIX" }
+    #elseif os(macOS)
+    override open var shaderName: String { return "contentResourceBGRPIX" }
+    #endif
     
-    public var resolution: Resolution { didSet { setNeedsBuffer() } }
+    public var resolution: Resolution { didSet { setFrame(); setNeedsBuffer() } }
     
     let helper: VectorHelper
+    
+    public var scale: CGFloat = 1.0 { didSet { load() } }
+    public var position: CGPoint = .zero { didSet { load() } }
+    public var bgColor: UIColor = .black { didSet { load() } }
+    
+    var svg: String?
     
     let webView: WKWebView
     
@@ -38,6 +44,7 @@ public class VectorPIX: PIXResource {
         super.init()
         webView.navigationDelegate = helper
         helper.loaded = setNeedsBuffer
+        setFrame()
         name = "vector"
     }
     
@@ -56,7 +63,20 @@ public class VectorPIX: PIXResource {
             pixelKit.logger.log(.error, .resource, "Vector SVG file corrupted.")
             return
         }
-        webView.loadHTMLString(svg, baseURL: nil)
+        self.svg = svg
+        load()
+    }
+    
+    func load() {
+        guard let svg = self.svg else { return }
+        let html = makeHTML(with: svg)
+        webView.loadHTMLString(html, baseURL: URL(string: "http://pixelnodes.net/")!)
+    }
+    
+    // MARK: - Frame
+    
+    func setFrame() {
+        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size.cg)
     }
     
     // MARK: Buffer
@@ -93,6 +113,30 @@ public class VectorPIX: PIXResource {
             self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
             self.applyResolution { self.setNeedsRender() }
         }
+    }
+    
+    func makeHTML(with svg: String) -> String {
+        let size: CGSize = (resolution / Resolution.scale).size.cg
+        let bgColorHex: String = LiveColor(bgColor).hex
+        var svg_html: String = svg
+        let svg_html_components = svg_html.components(separatedBy: "<svg")
+        let svg_html_splits = svg_html_components.last!.split(separator: ">", maxSplits: 1)
+        let svg_html_style_components = svg_html_splits.first!.components(separatedBy: "style=\"")
+        if svg_html_style_components.count == 2 {
+            svg_html = svg_html_components.first! + "<svg" + svg_html_style_components.first! + "style=\"width: 100%; height: 100%;" + svg_html_style_components.last! + ">" + svg_html_splits.last!
+        } else {
+            svg_html = svg_html_components.first! + "<svg" + svg_html_splits.first! + " style=\"width: 100%; height: 100%;\">" + svg_html_splits.last!
+        }
+        return """
+        <html>
+        <head><title>Pixel Nodes - Vector</title></head>
+        <body style="margin: 0; background-color: \(bgColorHex);">
+            <div style="position: absolute; left: calc(50% + \(position.x * size.width)px); top: calc(50% + \(-position.y * size.height)px); transform: translate(-50%, -50%); width: \(size.width * scale)px; height: \(size.height * scale)px;">
+                \(svg_html)
+            </div>
+        </body>
+        </html>
+        """
     }
     
 }
