@@ -12,25 +12,32 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
-import SwiftSVG
+import WebKit
 
 public class VectorPIX: PIXResource {
     
-    #if os(iOS) || os(tvOS)
-    override open var shaderName: String { return "contentResourceFlipPIX" }
-    #elseif os(macOS)
-    override open var shaderName: String { return "contentResourceBGRPIX" }
-    #endif
+//    #if os(iOS) || os(tvOS)
+//    override open var shaderName: String { return "contentResourceFlipPIX" }
+//    #elseif os(macOS)
+//    override open var shaderName: String { return "contentResourceBGRPIX" }
+//    #endif
+    override open var shaderName: String { return "nilPIX" }
     
-    public var resolution: Resolution { didSet { setNeedsBuffer(); applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { setNeedsBuffer() } }
     
-    var svgLayer: CALayer? { didSet { setNeedsBuffer() } }
+    let helper: VectorHelper
+    
+    let webView: WKWebView
     
     // MARK: - Life Cycle
     
-    public init(at resolution: Resolution) {
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        helper = VectorHelper()
+        webView = WKWebView()
         self.resolution = resolution
         super.init()
+        webView.navigationDelegate = helper
+        helper.loaded = setNeedsBuffer
         name = "vector"
     }
     
@@ -45,43 +52,57 @@ public class VectorPIX: PIXResource {
     }
     
     public func load(url: URL) {
-        CALayer(SVGURL: url) { layer in
-            self.svgLayer = layer
+        guard let svg: String = try? String(contentsOf: url) else {
+            pixelKit.logger.log(.error, .resource, "Vector SVG file corrupted.")
+            return
         }
+        webView.loadHTMLString(svg, baseURL: nil)
     }
     
     // MARK: Buffer
     
     func setNeedsBuffer() {
-        guard let svgLayer = svgLayer else {
-            pixelKit.logger.log(.error, .resource, "Vector not loaded.")
-            return
+//        if pixelKit.render.frame == 0 {
+//            pixelKit.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
+//            pixelKit.render.delay(frames: 1, done: {
+//                self.setNeedsBuffer()
+//            })
+//            return
+//        }
+//        UIGraphicsBeginImageContextWithOptions(resolution.size.cg, false, 0)
+//        defer { UIGraphicsEndImageContext() }
+//        guard let context = UIGraphicsGetCurrentContext() else {
+//            pixelKit.logger.log(.error, .resource, "Vector context fail.")
+//            return
+//        }
+//        webView.layer.render(in: context)
+//        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+//            pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
+//            return
+//        }
+        webView.takeSnapshot(with: nil) { image, error in
+            guard error == nil && image != nil else {
+                self.pixelKit.logger.log(node: self, .error, .resource, "Vector image failed.", e: error)
+                return
+            }
+            guard let buffer = Texture.buffer(from: image!, bits: self.pixelKit.render.bits) else {
+                self.pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
+                return
+            }
+            self.pixelBuffer = buffer
+            self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
+            self.applyResolution { self.setNeedsRender() }
         }
-        UIGraphicsBeginImageContextWithOptions(resolution.size.cg, false, 0)
-        defer { UIGraphicsEndImageContext() }
-        guard let context = UIGraphicsGetCurrentContext() else {
-            pixelKit.logger.log(.error, .resource, "Vector context fail.")
-            return
-        }
-        svgLayer.render(in: context)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
-            return
-        }
-        if pixelKit.render.frame == 0 {
-            pixelKit.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.setNeedsBuffer()
-            })
-            return
-        }
-        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
-            return
-        }
-        pixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
-        applyResolution { self.setNeedsRender() }
+    }
+    
+}
+
+class VectorHelper: NSObject, WKNavigationDelegate {
+    
+    var loaded: (() -> ())?
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        loaded?()
     }
     
 }

@@ -4,9 +4,6 @@ target 'PixelKit' do
   pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
 
-  pod 'SwiftSVG', '~> 2.0'
-  #pod 'OSCKit'
-
 end
 
 target 'PixelKit-macOS' do
@@ -14,9 +11,6 @@ target 'PixelKit-macOS' do
 
   pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
-
-  pod 'SwiftSVG', '~> 2.0'
-  #pod 'OSCKit'
 
 end
 
@@ -44,7 +38,6 @@ target 'PixelKitTestMaker' do
 
   pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
-  pod 'SwiftSVG', '~> 2.0'
 
 end
 
@@ -53,6 +46,5 @@ target 'PixelKitTestDemo' do
 
   pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
-  pod 'SwiftSVG', '~> 2.0'
 
 end

@@ -102,14 +102,14 @@
 		3A2924462249114F00A05B7A /* FlarePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2924442249114F00A05B7A /* FlarePIX.swift */; };
 		3A2C1DA9224906220040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
 		3A2C1DAD2249068D0040D5D0 /* SepiaPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C1DA8224906220040D5D0 /* SepiaPIX.swift */; };
-		3A2E34662358547F00D67D7A /* PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; };
+		3A2E34662358547F00D67D7A /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; };
 		3A2E346C235854A100D67D7A /* PixelKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADEAADA2357172A00414C01 /* PixelKitTests.swift */; };
 		3A36AE3B23584F0600DC9696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36AE3A23584F0600DC9696 /* AppDelegate.swift */; };
 		3A36AE3D23584F0600DC9696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36AE3C23584F0600DC9696 /* ViewController.swift */; };
 		3A36AE3F23584F0700DC9696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A36AE3E23584F0700DC9696 /* Assets.xcassets */; };
 		3A36AE4223584F0700DC9696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A36AE4023584F0700DC9696 /* Main.storyboard */; };
-		3A36AE5323584FEE00DC9696 /* PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; };
-		3A36AE5423584FEE00DC9696 /* PixelKit_macOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A36AE5323584FEE00DC9696 /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; };
+		3A36AE5423584FEE00DC9696 /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
@@ -156,8 +156,8 @@
 		3ABC70A123574314007781DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC70A023574314007781DF /* ViewController.swift */; };
 		3ABC70A323574315007781DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ABC70A223574315007781DF /* Assets.xcassets */; };
 		3ABC70A623574315007781DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ABC70A423574315007781DF /* Main.storyboard */; };
-		3ABC70B423574419007781DF /* PixelKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; };
-		3ABC70B523574419007781DF /* PixelKit_macOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3ABC70B423574419007781DF /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; };
+		3ABC70B523574419007781DF /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AEC9FAF235749DF0045E91B /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
 		3AEC9FB323574A250045E91B /* PixelKitShaders-macCatalyst.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB023574A240045E91B /* PixelKitShaders-macCatalyst.metallib */; };
 		3AEC9FB423574A250045E91B /* PixelKitShaders-iOS.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */; };
@@ -276,6 +276,7 @@
 		7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4C4210A3337001AA523 /* PIXOutput.swift */; };
 		7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CA210A33A5001AA523 /* CameraPIX.swift */; };
 		7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7452F4CC210A33D4001AA523 /* LevelsPIX.swift */; };
+		746CF7D523BA2A82007FEAF9 /* Hexagons.svg in Resources */ = {isa = PBXBuildFile; fileRef = 746CF7D123BA2A82007FEAF9 /* Hexagons.svg */; };
 		746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746F7471213FF82700C2AE62 /* CropPIX.swift */; };
 		7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */; };
 		7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7471FC852128328200ECF2E2 /* LookupPIX.swift */; };
@@ -397,7 +398,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3A36AE5423584FEE00DC9696 /* PixelKit_macOS.framework in Embed Frameworks */,
+				3A36AE5423584FEE00DC9696 /* PixelKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,7 +419,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3ABC70B523574419007781DF /* PixelKit_macOS.framework in Embed Frameworks */,
+				3ABC70B523574419007781DF /* PixelKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +454,7 @@
 		3A370F6222268B29001B0208 /* StreamInPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamInPIX.swift; sourceTree = "<group>"; };
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
-		3A3756392334FA5200D90172 /* PixelKit_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A3756392334FA5200D90172 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCameraPIX.swift; sourceTree = "<group>"; };
 		3A5AD32C23A91A3800D8A1B7 /* PixelKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelKit.podspec; sourceTree = "<group>"; };
@@ -492,7 +493,7 @@
 		3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelKitShaders-iOS.metallib"; path = "Resources/Metal Libs/PixelKitShaders-iOS.metallib"; sourceTree = "<group>"; };
 		3AEC9FB223574A240045E91B /* PixelKitShaders-iOS-Simulator.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelKitShaders-iOS-Simulator.metallib"; path = "Resources/Metal Libs/PixelKitShaders-iOS-Simulator.metallib"; sourceTree = "<group>"; };
 		3AF0B7842327878A00188940 /* CachePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePIX.swift; sourceTree = "<group>"; };
-		3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AF28BCC219312900079FC7A /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF42358234F55B20019B4C1 /* AveragePIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AveragePIX.swift; sourceTree = "<group>"; };
 		3AF91611229D8269003D5DAB /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -538,6 +539,7 @@
 		7452F4C4210A3337001AA523 /* PIXOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXOutput.swift; sourceTree = "<group>"; };
 		7452F4CA210A33A5001AA523 /* CameraPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPIX.swift; sourceTree = "<group>"; };
 		7452F4CC210A33D4001AA523 /* LevelsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsPIX.swift; sourceTree = "<group>"; };
+		746CF7D123BA2A82007FEAF9 /* Hexagons.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Hexagons.svg; sourceTree = "<group>"; };
 		746F7471213FF82700C2AE62 /* CropPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropPIX.swift; sourceTree = "<group>"; };
 		7471FC802128307D00ECF2E2 /* KaleidoscopePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaleidoscopePIX.swift; sourceTree = "<group>"; };
 		7471FC852128328200ECF2E2 /* LookupPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupPIX.swift; sourceTree = "<group>"; };
@@ -602,7 +604,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2E34662358547F00D67D7A /* PixelKit_macOS.framework in Frameworks */,
+				3A2E34662358547F00D67D7A /* PixelKit.framework in Frameworks */,
 				E017721AB5FA5CA5D489A0E0 /* Pods_PixelKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,7 +613,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A36AE5323584FEE00DC9696 /* PixelKit_macOS.framework in Frameworks */,
+				3A36AE5323584FEE00DC9696 /* PixelKit.framework in Frameworks */,
 				39903A59DD67199E56BA7AF9 /* Pods_PixelKitTestDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,7 +630,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ABC70B423574419007781DF /* PixelKit_macOS.framework in Frameworks */,
+				3ABC70B423574419007781DF /* PixelKit.framework in Frameworks */,
 				FDD7437E49EA5DCBA19AF94A /* Pods_PixelKitTestMaker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,6 +663,7 @@
 				3A36AE3E23584F0700DC9696 /* Assets.xcassets */,
 				3A36AE4023584F0700DC9696 /* Main.storyboard */,
 				3A36AE4323584F0700DC9696 /* Info.plist */,
+				746CF7D123BA2A82007FEAF9 /* Hexagons.svg */,
 				3A36AE4423584F0700DC9696 /* PixelKitTestDemo.entitlements */,
 			);
 			path = Demo;
@@ -1015,8 +1018,8 @@
 			isa = PBXGroup;
 			children = (
 				74BC39D721011E3A004E9AA0 /* PixelKit.framework */,
-				3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */,
-				3A3756392334FA5200D90172 /* PixelKit_tvOS.framework */,
+				3AF28BCC219312900079FC7A /* PixelKit.framework */,
+				3A3756392334FA5200D90172 /* PixelKit.framework */,
 				3ABC709C23574314007781DF /* PixelKitTestMaker.app */,
 				3A36AE3823584F0600DC9696 /* PixelKitTestDemo.app */,
 				3A2E34612358547F00D67D7A /* PixelKitTests.xctest */,
@@ -1161,7 +1164,7 @@
 			);
 			name = "PixelKit-tvOS";
 			productName = "PixelKit-tvOS";
-			productReference = 3A3756392334FA5200D90172 /* PixelKit_tvOS.framework */;
+			productReference = 3A3756392334FA5200D90172 /* PixelKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3ABC709B23574314007781DF /* PixelKitTestMaker */ = {
@@ -1203,7 +1206,7 @@
 			);
 			name = "PixelKit-macOS";
 			productName = "Pixels-macOS";
-			productReference = 3AF28BCC219312900079FC7A /* PixelKit_macOS.framework */;
+			productReference = 3AF28BCC219312900079FC7A /* PixelKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		74BC39D621011E3A004E9AA0 /* PixelKit */ = {
@@ -1317,6 +1320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A36AE3F23584F0700DC9696 /* Assets.xcassets in Resources */,
+				746CF7D523BA2A82007FEAF9 /* Hexagons.svg in Resources */,
 				3A36AE4223584F0700DC9696 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2048,10 +2052,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -2078,10 +2082,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -2168,10 +2172,10 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
@@ -2209,10 +2213,10 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
@@ -2370,9 +2374,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -2408,9 +2412,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.7;
+				MARKETING_VERSION = 0.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Default" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 86.6 100" style="enable-background:new 0 0 86.6 100;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.1647;fill:#FFFFFF;enable-background:new    ;}
+	.st1{fill:#FFFFFF;}
+</style>
+<title>Hexagons</title>
+<g id="hexSpline__1">
+	<path class="st0" d="M34.6,45c8.3-4.8,11.1-15.4,6.3-23.7c-1.5-2.6-3.7-4.8-6.3-6.3H52c-8.3,4.8-11.1,15.4-6.3,23.7
+		c1.5,2.6,3.7,4.8,6.3,6.3H34.6z"/>
+	<polygon class="st1" points="52,15 52,5 43.3,0 34.6,5 34.6,15 43.3,20 	"/>
+</g>
+<g id="hexSpline__2">
+	<path class="st0" d="M34.6,55c0-9.6-7.7-17.3-17.3-17.3c-3.1,0-6.1,0.8-8.7,2.3l8.7-15c0,9.6,7.7,17.3,17.3,17.3
+		c3.1,0,6.1-0.8,8.7-2.3L34.6,55z"/>
+	<polygon class="st1" points="8.7,40 17.3,35 17.3,25 8.7,20 0,25 0,35 	"/>
+</g>
+<g id="hexSpline__3">
+	<path class="st0" d="M43.3,60c-8.3-4.8-18.9-2-23.7,6.3c-1.5,2.6-2.3,5.6-2.3,8.7L8.7,60c8.3,4.8,18.9,2,23.7-6.3
+		c1.5-2.6,2.3-5.6,2.3-8.7L43.3,60z"/>
+	<polygon class="st1" points="17.3,75 17.3,65 8.7,60 0,65 0,75 8.7,80 	"/>
+</g>
+<g id="hexSpline__4">
+	<path class="st0" d="M52,55c-8.3,4.8-11.1,15.4-6.3,23.7c1.5,2.6,3.7,4.8,6.3,6.3H34.6c8.3-4.8,11.1-15.4,6.3-23.7
+		c-1.5-2.6-3.7-4.8-6.3-6.3H52z"/>
+	<polygon class="st1" points="43.3,80 34.6,85 34.6,95 43.3,100 52,95 52,85 	"/>
+</g>
+<g id="hexSpline__5">
+	<path class="st0" d="M52,45c0,9.6,7.7,17.3,17.3,17.3c3.1,0,6.1-0.8,8.7-2.3l-8.7,15c0-9.6-7.7-17.3-17.3-17.3
+		c-3.1,0-6.1,0.8-8.7,2.3L52,45z"/>
+	<polygon class="st1" points="77.9,60 69.3,65 69.3,75 77.9,80 86.6,75 86.6,65 	"/>
+</g>
+<g id="hexSpline__6">
+	<path class="st0" d="M43.3,40c8.3,4.8,18.9,2,23.7-6.3c1.5-2.6,2.3-5.6,2.3-8.7L78,40c-8.3-4.8-18.9-1.9-23.7,6.4
+		C52.8,49,52,52,52,55L43.3,40z"/>
+	<polygon class="st1" points="69.3,25 69.3,35 77.9,40 86.6,35 86.6,25 77.9,20 	"/>
+</g>
+<g id="hex__hexagons">
+	<polygon class="st1" points="43.3,40 34.6,45 34.6,55 43.3,60 52,55 52,45 	"/>
+</g>
+</svg>

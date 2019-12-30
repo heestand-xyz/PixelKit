@@ -9,7 +9,7 @@
 import Cocoa
 import LiveValues
 import RenderKit
-import PixelKit_macOS
+import PixelKit
 
 class ViewController: NSViewController, NODEDelegate {
     
@@ -26,10 +26,14 @@ class ViewController: NSViewController, NODEDelegate {
 //        PixelKit.main.tileResolution = .square(1024)
 //        PixelKit.main.render.bits = ._16
         
-        let polygonPix = PolygonPIX()//(at: .square(10_000))
-        polygonPix.name = "demo-polygon"
+//        let polygonPix = PolygonPIX()//(at: .square(10_000))
+//        polygonPix.name = "demo-polygon"
         
-        finalPix = polygonPix
+        let vectorPix = VectorPIX()
+        let url = Bundle.main.url(forResource: "Hexagons", withExtension: "svg")!
+        vectorPix.load(url: url)
+        
+        finalPix = vectorPix
 //        finalPix.delegate = self
         
         view.addSubview(finalPix.view)

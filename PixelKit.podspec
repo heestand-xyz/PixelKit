@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PixelKit"
-  spec.version      = "0.8.7"
+  spec.version      = "0.8.8"
 
   spec.summary      = "a Live Graphics for iOS & macOS."
   spec.description  = <<-DESC
@@ -33,10 +33,10 @@ Pod::Spec.new do |spec|
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
   						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
-                           "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
                            "Source/PIX/PIXs/Output/AirPlayPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
+                           "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/IO/Peer.swift",
                            "Source/Other/Motion.swift",
                            "Source/PIX/PIXs/Content/Resource/ViewPIX.swift",
@@ -73,7 +73,5 @@ Pod::Spec.new do |spec|
   
   spec.dependency 'LiveValues', '~> 1.1.6'
   spec.dependency 'RenderKit', '~> 0.3.2'
-  spec.ios.dependency 'SwiftSVG', '~> 2.0'
-  spec.osx.dependency 'SwiftSVG', '~> 2.0'
 
 end
