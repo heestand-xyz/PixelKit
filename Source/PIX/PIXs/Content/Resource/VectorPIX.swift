@@ -23,7 +23,7 @@ public class VectorPIX: PIXResource {
     override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    public var resolution: Resolution { didSet { setFrame(); setNeedsBuffer() } }
+    public var resolution: Resolution { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
     
     let helper: VectorHelper
     

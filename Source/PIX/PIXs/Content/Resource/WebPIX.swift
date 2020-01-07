@@ -16,7 +16,11 @@ import WebKit
 
 public class WebPIX: PIXResource, NODEResolution {
     
+    #if os(iOS) || os(tvOS)
+    override open var shaderName: String { return "contentResourceFlipPIX" }
+    #elseif os(macOS)
     override open var shaderName: String { return "contentResourceBGRPIX" }
+    #endif
     
     // MARK: - Private Properties
     
@@ -24,7 +28,7 @@ public class WebPIX: PIXResource, NODEResolution {
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { /*setFrame();*/ applyResolution { self.setNeedsBuffer() } } }
+    public var resolution: Resolution { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
     public var webView: WKWebView
@@ -51,15 +55,11 @@ public class WebPIX: PIXResource, NODEResolution {
         
         refresh()
         
-//        setFrame()
+        setFrame()
         
         applyResolution { self.setNeedsRender() }
         
     }
-    
-//    func setFrame() {
-//        webView.frame = CGRect(origin: .zero, size: resolution.size.cg)
-//    }
     
     // MARK: - Load
     
@@ -69,18 +69,24 @@ public class WebPIX: PIXResource, NODEResolution {
         webView.load(request)
     }
     
+    // MARK: - Frame
+    
+    func setFrame() {
+        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size.cg)
+    }
+    
     // MARK: - Buffer
     
     func setNeedsBuffer() {
-        let config = WKSnapshotConfiguration()
-        if #available(OSX 10.15, *) {
-            if #available(iOS 13.0, *) {
-                // CHECK
-//                config.afterScreenUpdates = false
-            }
-        }
-        config.rect = CGRect(origin: .zero, size: resolution.size.cg)
-        webView.takeSnapshot(with: config) { image, error in
+//        let config = WKSnapshotConfiguration()
+//        if #available(OSX 10.15, *) {
+//            if #available(iOS 13.0, *) {
+//                // CHECK
+////                config.afterScreenUpdates = false
+//            }
+//        }
+//        config.rect = CGRect(origin: .zero, size: resolution.size.cg)
+        webView.takeSnapshot(with: nil) { image, error in
             guard error == nil else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
                 return
