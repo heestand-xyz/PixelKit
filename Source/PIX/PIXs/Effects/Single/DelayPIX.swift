@@ -36,6 +36,16 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
         customRenderActive = true
         customRenderDelegate = self
         name = "delay"
+        PixelKit.main.render.listenToFrames { [weak self] in
+            guard self != nil else { return }
+            guard !self!.destroyed else { return }
+            guard self!.connectedIn else { return }
+            self!.setNeedsRender()
+        }
+    }
+    
+    deinit {
+        print("±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±± DELAY")
     }
     
     // MARK: Delay
