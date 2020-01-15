@@ -10,7 +10,7 @@ import LiveValues
 import RenderKit
 import CoreGraphics
 import MetalKit
-//#if !os(tvOS) || !targetEnvironment(simulator)
+//#if !os(tvOS) && !targetEnvironment(simulator)
 //import MetalPerformanceShaders
 //#endif
 
@@ -48,7 +48,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
 //    public func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        switch blendMode {
 //        case .add, .multiply, .subtract:
-//            #if !os(tvOS) || !targetEnvironment(simulator)
+//            #if !os(tvOS) && !targetEnvironment(simulator)
 //            return kernel(a: textureA, b: textureB, with: commandBuffer)
 //            #else
 //            return nil
@@ -58,7 +58,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
 //        }
 //    }
 //
-//    #if !os(tvOS) || !targetEnvironment(simulator)
+//    #if !os(tvOS) && !targetEnvironment(simulator)
 //    func kernel(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        if #available(OSX 10.13, *) {
 //            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: textureA.width, height: textureA.height, mipmapped: true) // CHECK mipmapped

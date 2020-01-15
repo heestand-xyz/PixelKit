@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-#if !os(tvOS) || !targetEnvironment(simulator)
+#if !os(tvOS) && !targetEnvironment(simulator)
 import MetalPerformanceShaders
 #endif
 

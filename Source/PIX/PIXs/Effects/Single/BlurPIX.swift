@@ -10,7 +10,7 @@ import LiveValues
 import RenderKit
 import CoreGraphics
 import MetalKit
-#if !os(tvOS) || !targetEnvironment(simulator)
+#if !os(tvOS) && !targetEnvironment(simulator)
 import MetalPerformanceShaders
 #endif
 
@@ -21,8 +21,8 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: - Public Properties
     
     public enum BlurStyle: String, CaseIterable {
-        case ´default´
-        #if !os(tvOS) || !targetEnvironment(simulator)
+        case regular
+        #if !os(tvOS) && !targetEnvironment(simulator)
         case guassian
         #endif
         case box
@@ -31,13 +31,13 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         case random
         var index: Int {
             switch self {
-            case .´default´:
-                #if !os(tvOS) || !targetEnvironment(simulator)
+            case .regular:
+                #if !os(tvOS) && !targetEnvironment(simulator)
                 return 0
                 #else
                 return 1
                 #endif
-            #if !os(tvOS) || !targetEnvironment(simulator)
+            #if !os(tvOS) && !targetEnvironment(simulator)
             case .guassian: return 0
             #endif
             case .box: return 1
@@ -48,7 +48,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         }
     }
     
-    public var style: BlurStyle = .´default´ { didSet { setNeedsRender() } }
+    public var style: BlurStyle = .regular { didSet { setNeedsRender() } }
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -80,7 +80,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     override open var shaderNeedsAspect: Bool { return true }
     
     public required init() {
-        #if !os(tvOS) || !targetEnvironment(simulator)
+        #if !os(tvOS) && !targetEnvironment(simulator)
         style = .guassian
         #else
         style = .box
@@ -94,21 +94,21 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: Guassian
     
     override public func setNeedsRender() {
-        #if !os(tvOS) || !targetEnvironment(simulator)
+        #if !os(tvOS) && !targetEnvironment(simulator)
         customRenderActive = style == .guassian
         #endif
         super.setNeedsRender()
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        #if !os(tvOS) || !targetEnvironment(simulator)
+        #if !os(tvOS) && !targetEnvironment(simulator)
         return guassianBlur(texture, with: commandBuffer)
         #else
         return nil
         #endif
     }
     
-    #if !os(tvOS) || !targetEnvironment(simulator)
+    #if !os(tvOS) && !targetEnvironment(simulator)
     func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
             guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {

@@ -1991,7 +1991,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 				], getCallback: {
 					return (pix as! BlurPIX).style.rawValue
 				}, setCallback: { value in
-					(pix as! BlurPIX).style = BlurPIX.BlurStyle(rawValue: value) ?? .´default´
+					(pix as! BlurPIX).style = BlurPIX.BlurStyle(rawValue: value) ?? .regular
 				}),
 			]
 		case .channelmixpix:

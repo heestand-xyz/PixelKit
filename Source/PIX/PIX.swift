@@ -176,7 +176,7 @@ open class PIX: NODE, Equatable, NODETileable {
             let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
             pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
-            #if !os(tvOS) || !targetEnvironment(simulator)
+            #if !os(tvOS) && !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
         } catch {
@@ -188,7 +188,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     func updateSampler() {
         do {
-            #if !os(tvOS) || !targetEnvironment(simulator)
+            #if !os(tvOS) && !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
             pixelKit.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
