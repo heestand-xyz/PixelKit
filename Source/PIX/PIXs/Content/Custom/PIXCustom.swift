@@ -10,7 +10,7 @@ import LiveValues
 import RenderKit
 import Metal
 
-open class PIXCustom: PIXContent, NODEResolution, CustomRenderDelegate {
+open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelegate {
     
     override open var shaderName: String { return "contentResourcePIX" }
     
