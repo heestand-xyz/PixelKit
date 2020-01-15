@@ -41,7 +41,7 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
         }
         set {
-            reFrame(to: frame)
+            reFrame(to: newValue)
         }
     }
     public var frameRotation: LiveFloat {

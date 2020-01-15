@@ -277,7 +277,7 @@ public class CameraPIX: PIXResource {
         }
         set {
             guard manualWhiteBalance else { return }
-            helper?.setWhiteBalance(LiveColor(whiteBalance))
+            helper?.setWhiteBalance(LiveColor(newValue))
         }
     }
 

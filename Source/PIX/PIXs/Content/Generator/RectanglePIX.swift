@@ -38,7 +38,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(center: position, size: size)
         }
         set {
-            reFrame(to: frame)
+            reFrame(to: newValue)
         }
     }
     public var frameRotation: LiveFloat {

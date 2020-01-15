@@ -151,7 +151,7 @@ public extension PIX {
         }
     }
     
-    var renderedRaw32: [float4]? {
+    var renderedRaw32: [SIMD4<Float>]? {
         guard let texture = dynamicTexture else { return nil }
         do {
             return try Texture.raw32(texture: texture)

@@ -118,6 +118,8 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
                 self.peer(.connecting, peerID.displayName)
             case .notConnected:
                 self.peer(.dissconnected, peerID.displayName)
+            @unknown default:
+                break
             }
         }
     }

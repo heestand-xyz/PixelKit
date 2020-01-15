@@ -41,7 +41,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
             return LiveRect(center: position, size: LiveSize(scale: radius * 2))
         }
         set {
-            reFrame(to: frame)
+            reFrame(to: newValue)
         }
     }
     public var frameRotation: LiveFloat {

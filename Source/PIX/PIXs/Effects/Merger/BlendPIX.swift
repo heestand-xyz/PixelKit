@@ -94,7 +94,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
             return LiveRect(center: position * resScale(), size: frameSize() * resScale() * scale * size)
         }
         set {
-            reFrame(to: frame)
+            reFrame(to: newValue)
         }
     }
     public var frameRotation: LiveFloat {
