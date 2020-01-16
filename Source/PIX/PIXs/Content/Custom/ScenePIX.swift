@@ -18,7 +18,16 @@ public class ScenePIX: PIXCustom {
     
     // MARK: - Public Properties
     
-    public var scene: SCNScene?
+    public var cameraNode: SCNNode? {
+        didSet {
+            renderer.pointOfView = cameraNode //sceneView.pointOfView
+        }
+    }
+    public var scene: SCNScene? {
+        didSet {
+            renderer.scene = scene
+        }
+    }
     public var sceneView: SCNView? {
         didSet {
             sceneView?.isPlaying = true
@@ -39,11 +48,21 @@ public class ScenePIX: PIXCustom {
         super.init(at: resolution)
         
         renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
+        renderer.autoenablesDefaultLighting = true
+//        renderer.isJitteringEnabled = true
         
         sceneHelper = SceneHelper(render: {
+            guard !self.customDelegateRender else { return }
             self.setNeedsRender()
         })
         
+    }
+    
+    public func setup(cameraNode: SCNNode, scene: SCNScene, sceneView: SCNView) {
+        self.cameraNode = cameraNode
+        self.scene = scene
+        self.sceneView = sceneView
+        setNeedsRender()
     }
     
     public func render() {
@@ -55,28 +74,23 @@ public class ScenePIX: PIXCustom {
     }
     
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        guard let scene = scene else {
-            pixelKit.logger.log(node: self, .warning, nil, "Scene not found.")
+
+        guard let customTexture: MTLTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice) else {
+            pixelKit.logger.log(node: self, .error, .generator, "Make of empty texture faild.")
             return nil
-        }
-        guard let sceneView = sceneView else {
-            pixelKit.logger.log(node: self, .warning, nil, "Scene View not found.")
-            return  nil
         }
         
         let viewport = CGRect(x: 0, y: 0, width: resolution.width.cg, height: resolution.height.cg)
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
-        renderPassDescriptor.colorAttachments[0].texture = texture
+        renderPassDescriptor.colorAttachments[0].texture = customTexture
         renderPassDescriptor.colorAttachments[0].loadAction = .clear
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r.cg), Double(bgColor.g.cg), Double(bgColor.b.cg), Double(bgColor.a.cg))
         renderPassDescriptor.colorAttachments[0].storeAction = .store
 
-        renderer.scene = scene
-        renderer.pointOfView = sceneView.pointOfView
         renderer.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
-
-        return texture
+        
+        return customTexture
     }
     
 }
@@ -86,9 +100,7 @@ class SceneHelper: NSObject, SCNSceneRendererDelegate {
     let renderCallback: () -> ()
     
     init(render: @escaping () -> ()) {
-        
         renderCallback = render
-        
     }
 
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
