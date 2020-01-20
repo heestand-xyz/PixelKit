@@ -48,3 +48,11 @@ target 'PixelKitTestDemo' do
   pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
 
 end
+
+target 'PixelKit-iOS-Demo' do
+  use_frameworks!
+
+  pod 'RenderKit', :path => '~/Documents/Code/Frameworks/Production/RenderKit'
+  pod 'LiveValues', :path => '~/Documents/Code/Frameworks/Production/LiveValues'
+
+end

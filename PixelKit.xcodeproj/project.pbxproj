@@ -151,6 +151,8 @@
 		3AABCD7D23573F0000CA8C63 /* SlicePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74844E722348928900F99875 /* SlicePIX.swift */; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
+		3AAFCB3B23D5DBCA00337189 /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; };
+		3AAFCB3C23D5DBCA00337189 /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AB5EB4D23D5CEFB001FBB2C /* libndi.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; };
 		3AB5EB4E23D5CF00001FBB2C /* libndi.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
@@ -172,6 +174,13 @@
 		3AB5EB5F23D5CF69001FBB2C /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */; };
 		3AB5EB6023D5CF69001FBB2C /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */; };
 		3AB5EB6123D5CF69001FBB2C /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */; };
+		3AB5EB6B23D5DB14001FBB2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */; };
+		3AB5EB6D23D5DB14001FBB2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */; };
+		3AB5EB6F23D5DB14001FBB2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6E23D5DB14001FBB2C /* ContentView.swift */; };
+		3AB5EB7123D5DB15001FBB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB5EB7023D5DB15001FBB2C /* Assets.xcassets */; };
+		3AB5EB7423D5DB15001FBB2C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AB5EB7323D5DB15001FBB2C /* Preview Assets.xcassets */; };
+		3AB5EB7723D5DB15001FBB2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AB5EB7523D5DB15001FBB2C /* LaunchScreen.storyboard */; };
+		3AB5EB8423D5DB6A001FBB2C /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB8323D5DB6A001FBB2C /* Main.swift */; };
 		3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */; };
 		3ABC709F23574314007781DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC709E23574314007781DF /* AppDelegate.swift */; };
 		3ABC70A123574314007781DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC70A023574314007781DF /* ViewController.swift */; };
@@ -351,6 +360,7 @@
 		74E642512135396600D7B57F /* PIXSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E642502135396600D7B57F /* PIXSprite.swift */; };
 		74E6425321353C2D00D7B57F /* TextPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6425221353C2D00D7B57F /* TextPIX.swift */; };
 		74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */; };
+		CA49285C303A7FC0C3D0ED2C /* Pods_PixelKit_iOS_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A6B8184C5B36E7EA7918BC /* Pods_PixelKit_iOS_Demo.framework */; };
 		DBC9E6EA081E3B8ADCC15AE7 /* Pods_PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */; };
 		E017721AB5FA5CA5D489A0E0 /* Pods_PixelKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */; };
 		FDD7437E49EA5DCBA19AF94A /* Pods_PixelKitTestMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */; };
@@ -391,6 +401,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 74E9F6C72193813800F541DE;
 			remoteInfo = "PixelKitShaders-macOS";
+		};
+		3AAFCB3D23D5DBCA00337189 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 74BC39CE21011E3A004E9AA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 74BC39D621011E3A004E9AA0;
+			remoteInfo = PixelKit;
 		};
 		3ABC70B623574419007781DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -434,6 +451,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AAFCB3F23D5DBCA00337189 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AAFCB3C23D5DBCA00337189 /* PixelKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ABC70B823574419007781DF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,6 +486,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07A6B8184C5B36E7EA7918BC /* Pods_PixelKit_iOS_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit_iOS_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		308D629F3A6B6C7FF630BE57 /* Pods-PixelKit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-macOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-macOS/Pods-PixelKit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LumaLevelsPIX.swift; sourceTree = "<group>"; };
 		3A1244EE2338C55E00169E42 /* PIXUIs.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PIXUIs.generated.swift; sourceTree = "<group>"; };
@@ -521,6 +550,15 @@
 		3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.h; sourceTree = "<group>"; };
 		3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.h; sourceTree = "<group>"; };
 		3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libndi.3.dylib; sourceTree = "<group>"; };
+		3AB5EB6823D5DB14001FBB2C /* PixelKit-iOS-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixelKit-iOS-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		3AB5EB6E23D5DB14001FBB2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3AB5EB7023D5DB15001FBB2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3AB5EB7323D5DB15001FBB2C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3AB5EB7623D5DB15001FBB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3AB5EB7823D5DB15001FBB2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AB5EB8323D5DB6A001FBB2C /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPIX.swift; sourceTree = "<group>"; };
 		3ABC709C23574314007781DF /* PixelKitTestMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelKitTestMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ABC709E23574314007781DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -542,6 +580,7 @@
 		4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5136B599FF589232B0D1C750 /* Pods-PixelKit-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		65CE8D27D25EE35A073FCC9E /* Pods-PixelKit-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-tvOS/Pods-PixelKit-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		68483347D0C154656E386649 /* Pods-PixelKit-iOS-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-iOS-Demo.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit-iOS-Demo/Pods-PixelKit-iOS-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		74013305224D298000826395 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		7401CF3021147C9700000A38 /* ResolutionPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionPIX.swift; sourceTree = "<group>"; };
 		74032AF8212C38DB00E77766 /* FeedbackPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPIX.swift; sourceTree = "<group>"; };
@@ -633,6 +672,7 @@
 		900CCD073F27367EF99FA170 /* Pods-PixelKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit.debug.xcconfig"; path = "Target Support Files/Pods-PixelKit/Pods-PixelKit.debug.xcconfig"; sourceTree = "<group>"; };
 		90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTestMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8D506615C46C056D82B331D /* Pods-PixelKit-iOS-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKit-iOS-Demo.release.xcconfig"; path = "Target Support Files/Pods-PixelKit-iOS-Demo/Pods-PixelKit-iOS-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F61C55C04E8E3B65AF5710 /* Pods-PixelKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.release.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		BBFE0ADD10EBE7304AE16D56 /* Pods-PixelKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelKitTests.debug.xcconfig"; path = "Target Support Files/Pods-PixelKitTests/Pods-PixelKitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -666,6 +706,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				24676CEB45F81922D3EB8F72 /* Pods_PixelKit_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AB5EB6523D5DB14001FBB2C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AAFCB3B23D5DBCA00337189 /* PixelKit.framework in Frameworks */,
+				CA49285C303A7FC0C3D0ED2C /* Pods_PixelKit_iOS_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,6 +876,61 @@
 				3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		3AB5EB6923D5DB14001FBB2C /* PixelKit-iOS-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB7F23D5DB1E001FBB2C /* Sources */,
+				3AB5EB8023D5DB26001FBB2C /* Resources */,
+			);
+			path = "PixelKit-iOS-Demo";
+			sourceTree = "<group>";
+		};
+		3AB5EB7223D5DB15001FBB2C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB7323D5DB15001FBB2C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3AB5EB7F23D5DB1E001FBB2C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */,
+				3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */,
+				3AB5EB8123D5DB55001FBB2C /* Views */,
+				3AB5EB8223D5DB5A001FBB2C /* Controllers */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		3AB5EB8023D5DB26001FBB2C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB7023D5DB15001FBB2C /* Assets.xcassets */,
+				3AB5EB7523D5DB15001FBB2C /* LaunchScreen.storyboard */,
+				3AB5EB7823D5DB15001FBB2C /* Info.plist */,
+				3AB5EB7223D5DB15001FBB2C /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3AB5EB8123D5DB55001FBB2C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB6E23D5DB14001FBB2C /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3AB5EB8223D5DB5A001FBB2C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB8323D5DB6A001FBB2C /* Main.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		3ABC709D23574314007781DF /* Maker */ = {
@@ -1096,6 +1200,7 @@
 				3AEC9FB223574A240045E91B /* PixelKitShaders-iOS-Simulator.metallib */,
 				3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */,
 				3AEC9FB023574A240045E91B /* PixelKitShaders-macCatalyst.metallib */,
+				3AB5EB6923D5DB14001FBB2C /* PixelKit-iOS-Demo */,
 				74BC39D821011E3A004E9AA0 /* Products */,
 				3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */,
 				C5542F82A4B442192136EE3B /* Pods */,
@@ -1112,6 +1217,7 @@
 				3ABC709C23574314007781DF /* PixelKitTestMaker.app */,
 				3A36AE3823584F0600DC9696 /* PixelKitTestDemo.app */,
 				3A2E34612358547F00D67D7A /* PixelKitTests.xctest */,
+				3AB5EB6823D5DB14001FBB2C /* PixelKit-iOS-Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1145,6 +1251,7 @@
 				4052BDF3AC9593949E32A949 /* Pods_PixelKitTestDemo.framework */,
 				A17E032F1B4F32C6CE208C4C /* Pods_PixelKitTestMaker.framework */,
 				B526DB537C94C908A27115BB /* Pods_PixelKitTests.framework */,
+				07A6B8184C5B36E7EA7918BC /* Pods_PixelKit_iOS_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1164,6 +1271,8 @@
 				75477884F45301A28D823B2F /* Pods-PixelKitTestMaker.release.xcconfig */,
 				BBFE0ADD10EBE7304AE16D56 /* Pods-PixelKitTests.debug.xcconfig */,
 				B8F61C55C04E8E3B65AF5710 /* Pods-PixelKitTests.release.xcconfig */,
+				68483347D0C154656E386649 /* Pods-PixelKit-iOS-Demo.debug.xcconfig */,
+				A8D506615C46C056D82B331D /* Pods-PixelKit-iOS-Demo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1272,6 +1381,27 @@
 			productReference = 3A3756392334FA5200D90172 /* PixelKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		3AB5EB6723D5DB14001FBB2C /* PixelKit-iOS-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AB5EB7E23D5DB15001FBB2C /* Build configuration list for PBXNativeTarget "PixelKit-iOS-Demo" */;
+			buildPhases = (
+				D26C76039BC2AF3E4AD7A09B /* [CP] Check Pods Manifest.lock */,
+				3AB5EB6423D5DB14001FBB2C /* Sources */,
+				3AB5EB6523D5DB14001FBB2C /* Frameworks */,
+				3AB5EB6623D5DB14001FBB2C /* Resources */,
+				3AAFCB3F23D5DBCA00337189 /* Embed Frameworks */,
+				016C5E3F48653DF08CEC3988 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AAFCB3E23D5DBCA00337189 /* PBXTargetDependency */,
+			);
+			name = "PixelKit-iOS-Demo";
+			productName = "PixelKit-iOS-Demo";
+			productReference = 3AB5EB6823D5DB14001FBB2C /* PixelKit-iOS-Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		3ABC709B23574314007781DF /* PixelKitTestMaker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3ABC70AE23574315007781DF /* Build configuration list for PBXNativeTarget "PixelKitTestMaker" */;
@@ -1355,6 +1485,9 @@
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1120;
 					};
+					3AB5EB6723D5DB14001FBB2C = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
 					3ABC709B23574314007781DF = {
 						CreatedOnToolsVersion = 11.2;
 					};
@@ -1392,6 +1525,7 @@
 				3A36AE3723584F0600DC9696 /* PixelKitTestDemo */,
 				3ABC709B23574314007781DF /* PixelKitTestMaker */,
 				3A2E34602358547F00D67D7A /* PixelKitTests */,
+				3AB5EB6723D5DB14001FBB2C /* PixelKit-iOS-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -1442,6 +1576,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AB5EB6623D5DB14001FBB2C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB5EB7723D5DB15001FBB2C /* LaunchScreen.storyboard in Resources */,
+				3AB5EB7423D5DB15001FBB2C /* Preview Assets.xcassets in Resources */,
+				3AB5EB7123D5DB15001FBB2C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ABC709A23574314007781DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1479,6 +1623,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		016C5E3F48653DF08CEC3988 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKit-iOS-Demo/Pods-PixelKit-iOS-Demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PixelKit-iOS-Demo/Pods-PixelKit-iOS-Demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PixelKit-iOS-Demo/Pods-PixelKit-iOS-Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D5B2CF428BD5BF9B18A49A9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1595,6 +1756,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-PixelKitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D26C76039BC2AF3E4AD7A09B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PixelKit-iOS-Demo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1780,6 +1963,17 @@
 				747944A52343D640006C9F4C /* LiveRectExtension.swift in Sources */,
 				3A0156F52334FD1B0002B2D9 /* PIXCustom.swift in Sources */,
 				3A0156E22334FCD50002B2D9 /* PIXContent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AB5EB6423D5DB14001FBB2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB5EB6B23D5DB14001FBB2C /* AppDelegate.swift in Sources */,
+				3AB5EB6D23D5DB14001FBB2C /* SceneDelegate.swift in Sources */,
+				3AB5EB8423D5DB6A001FBB2C /* Main.swift in Sources */,
+				3AB5EB6F23D5DB14001FBB2C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2020,6 +2214,11 @@
 			target = 3AF28BCB219312900079FC7A /* PixelKit-macOS */;
 			targetProxy = 3A36AE5523584FEE00DC9696 /* PBXContainerItemProxy */;
 		};
+		3AAFCB3E23D5DBCA00337189 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 74BC39D621011E3A004E9AA0 /* PixelKit */;
+			targetProxy = 3AAFCB3D23D5DBCA00337189 /* PBXContainerItemProxy */;
+		};
 		3ABC70B723574419007781DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3AF28BCB219312900079FC7A /* PixelKit-macOS */;
@@ -2034,6 +2233,14 @@
 				3A36AE4123584F0700DC9696 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3AB5EB7523D5DB15001FBB2C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3AB5EB7623D5DB15001FBB2C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		3ABC70A423574315007781DF /* Main.storyboard */ = {
@@ -2203,6 +2410,52 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		3AB5EB7923D5DB15001FBB2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68483347D0C154656E386649 /* Pods-PixelKit-iOS-Demo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PixelKit-iOS-Demo/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PixelKit-iOS-Demo/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.hexagons.PixelKit-iOS-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3AB5EB7A23D5DB15001FBB2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8D506615C46C056D82B331D /* Pods-PixelKit-iOS-Demo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PixelKit-iOS-Demo/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = 2QHTY6FMW2;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "PixelKit-iOS-Demo/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.hexagons.PixelKit-iOS-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2570,6 +2823,15 @@
 			buildConfigurations = (
 				3A37563E2334FA5200D90172 /* Debug */,
 				3A37563F2334FA5200D90172 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AB5EB7E23D5DB15001FBB2C /* Build configuration list for PBXNativeTarget "PixelKit-iOS-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AB5EB7923D5DB15001FBB2C /* Debug */,
+				3AB5EB7A23D5DB15001FBB2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
