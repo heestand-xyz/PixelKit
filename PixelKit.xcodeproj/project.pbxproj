@@ -898,6 +898,7 @@
 				3AB5EB0A23D5C904001FBB2C /* NDIMain.h */,
 				3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */,
 				3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */,
+				3AAFCB6323D5E0DF00337189 /* include */,
 			);
 			path = NDI;
 			sourceTree = "<group>";
@@ -905,7 +906,6 @@
 		3AB5EB2023D5CEF0001FBB2C /* NDI */ = {
 			isa = PBXGroup;
 			children = (
-				3AAFCB6323D5E0DF00337189 /* include */,
 				3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */,
 				3AAFCB6123D5DE6200337189 /* libndi_ios.a */,
 			);

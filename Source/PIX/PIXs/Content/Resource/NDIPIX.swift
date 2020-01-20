@@ -13,6 +13,8 @@ public protocol NDIPIXDelegate {
     func ndiPIXUpdated(sources: [String])
 }
 
+// NOTE: - iOS is excluded from Pods
+
 public class NDIPIX: PIXResource {
     
     public var ndiDelegate: NDIPIXDelegate? {
