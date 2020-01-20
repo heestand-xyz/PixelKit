@@ -182,6 +182,12 @@
 		3AAFCB8823D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */; };
 		3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
 		3AAFCB8A23D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
+		3AAFCB8B23D5E21600337189 /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
+		3AAFCB8C23D5E25900337189 /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
+		3AAFCB8D23D5E25900337189 /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
+		3AAFCB8E23D5E25900337189 /* NDIWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */; };
+		3AAFCB8F23D5E25900337189 /* NDIWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */; };
+		3AAFCB9223D5E3F300337189 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB9123D5E3F300337189 /* NetworkExtension.framework */; };
 		3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
 		3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
 		3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
@@ -568,6 +574,8 @@
 		3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.DynamicLoad.h; sourceTree = "<group>"; };
 		3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.h; sourceTree = "<group>"; };
 		3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.h; sourceTree = "<group>"; };
+		3AAFCB9023D5E3F300337189 /* PixelKit-iOS-Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PixelKit-iOS-Demo.entitlements"; sourceTree = "<group>"; };
+		3AAFCB9123D5E3F300337189 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDIPIX.swift; sourceTree = "<group>"; };
 		3AB5EB0A23D5C904001FBB2C /* NDIMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDIMain.h; sourceTree = "<group>"; };
 		3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDIMain.cpp; sourceTree = "<group>"; };
@@ -738,6 +746,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAFCB3B23D5DBCA00337189 /* PixelKit.framework in Frameworks */,
+				3AAFCB9223D5E3F300337189 /* NetworkExtension.framework in Frameworks */,
 				CA49285C303A7FC0C3D0ED2C /* Pods_PixelKit_iOS_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -906,6 +915,7 @@
 		3AB5EB6923D5DB14001FBB2C /* PixelKit-iOS-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				3AAFCB9023D5E3F300337189 /* PixelKit-iOS-Demo.entitlements */,
 				3AB5EB7F23D5DB1E001FBB2C /* Sources */,
 				3AB5EB8023D5DB26001FBB2C /* Resources */,
 			);
@@ -1270,6 +1280,7 @@
 		B6330DE5299D7ECB0FA17C44 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AAFCB9123D5E3F300337189 /* NetworkExtension.framework */,
 				90C64BC59E76D8705C6F73E1 /* Pods_PixelKit.framework */,
 				EB01030A3E59CD1D747D5809 /* Pods_PixelKit_macOS.framework */,
 				E45EDFFD54B0EAEAE4F423EA /* Pods_PixelKit_tvOS.framework */,
@@ -1338,6 +1349,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAFCB8E23D5E25900337189 /* NDIWrapper.h in Headers */,
 				3AAFCB8323D5E0DF00337189 /* Processing.NDI.Find.h in Headers */,
 				3AAFCB7F23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */,
 				3AAFCB8123D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */,
@@ -1345,6 +1357,7 @@
 				3AAFCB7D23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */,
 				3AAFCB7B23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */,
 				3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */,
+				3AAFCB8D23D5E25900337189 /* NDIMain.h in Headers */,
 				3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */,
 				3AAFCB8723D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */,
 				3AAFCB7723D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */,
@@ -2150,6 +2163,7 @@
 				3A1244EF2338C55E00169E42 /* PIXUIs.generated.swift in Sources */,
 				741D2CF921AC9CC0007259E3 /* String.swift in Sources */,
 				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
+				3AAFCB8C23D5E25900337189 /* NDIMain.cpp in Sources */,
 				7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
@@ -2158,6 +2172,7 @@
 				3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
 				74BF5E9022A43978009CB791 /* VectorPIX.swift in Sources */,
+				3AAFCB8F23D5E25900337189 /* NDIWrapper.mm in Sources */,
 				3A80C3F52345F25300DE9266 /* PIXView.swift in Sources */,
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
 				7443E6B32343D0710084F947 /* LiveRectExtension.swift in Sources */,
@@ -2223,6 +2238,7 @@
 				3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */,
 				740EC53A213EFC3E006E2996 /* Operators.swift in Sources */,
 				7443E6AD2343CFD80084F947 /* LiveSizeExtension.swift in Sources */,
+				3AAFCB8B23D5E21600337189 /* NDIPIX.swift in Sources */,
 				743F375D215BADDF002BC5BA /* AirPlayPIX.swift in Sources */,
 				7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */,
 				7452F4C5210A3337001AA523 /* PIXOutput.swift in Sources */,
@@ -2456,6 +2472,7 @@
 			baseConfigurationReference = 68483347D0C154656E386649 /* Pods-PixelKit-iOS-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PixelKit-iOS-Demo/PixelKit-iOS-Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PixelKit-iOS-Demo/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;
@@ -2479,6 +2496,7 @@
 			baseConfigurationReference = A8D506615C46C056D82B331D /* Pods-PixelKit-iOS-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PixelKit-iOS-Demo/PixelKit-iOS-Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PixelKit-iOS-Demo/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 2QHTY6FMW2;

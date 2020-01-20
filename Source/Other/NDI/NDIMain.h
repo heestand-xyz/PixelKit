@@ -83,25 +83,32 @@ public:
         while (record_thread) {
             NDIlib_video_frame_v2_t video_frame;
             NDIlib_audio_frame_v2_t audio_frame;
+            printf("\\\n");
+            printf("NDI FRAME > > > \n");
             
-            NDIlib_frame_type_e type_captured = p_NDILib->NDIlib_recv_capture_v2(*p_NDI_recv, &video_frame, &audio_frame, NULL, 500);
+            NDIlib_frame_type_e type_captured = p_NDILib->recv_capture_v2(*p_NDI_recv, &video_frame, &audio_frame, NULL, 500); // NDIlib_recv_capture_v2
             CaptureThread* ptr = const_cast<CaptureThread*>(this);
             if (NDIlib_frame_type_audio == type_captured)
             {
 //                p_audio_buf = audio_frame;
                 p_NDILib->NDIlib_recv_free_audio_v2(*p_NDI_recv, &audio_frame);
                 ptr->audioUpdated = true;
+                printf("NDI AUDIO >->-> \n");
             }
             else if (NDIlib_frame_type_video == type_captured) {
+                printf("NDI GOT FRAME >->-> \n");
                 //video_frame.
                 int size = video_frame.xres * getBitsPerPixel(video_frame.FourCC) / 8 * video_frame.xres / video_frame.picture_aspect_ratio; //video_frame.yres;
                 if (p_video_buff == NULL) {
+                    printf("NDI BAD A >->-> \n");
                     ptr->p_video_buff = new unsigned char[size];
                 }
                 else if (size != ptr->size) {
+                    printf("NDI BAD B >->-> \n");
                     delete ptr->p_video_buff;
                     ptr->p_video_buff = new unsigned char[size];
                 }
+                printf("NDI GOOD >->-> \n");
                 ptr->p_video_time = video_frame.timecode;
                 ptr->size = size;
                 ptr->width = video_frame.xres;
@@ -127,8 +134,11 @@ public:
                 
             }
             else{
+                printf("NDI UNKNOWN >->-> \n");
+                printf("NDI STATUS %d \n", type_captured);
 //                printf("Timed out receiving audio from NDI source \n");
             }
+            printf("/\n");
         }
         p_NDILib->NDIlib_recv_destroy(*p_NDI_recv);
     }

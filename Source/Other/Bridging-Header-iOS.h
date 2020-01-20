@@ -7,3 +7,5 @@
 //
 
 //#import <Syphon/Syphon.h>
+
+#import "NDIWrapper.h"
