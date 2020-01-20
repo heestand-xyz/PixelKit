@@ -6,6 +6,9 @@
 //  Copyright © 2020 Hexagons. All rights reserved.
 //
 
+// NDI v4
+// https://github.com/lizhming/NDI-recording-swift
+
 import RenderKit
 import LiveValues
 
@@ -13,7 +16,9 @@ public protocol NDIPIXDelegate {
     func ndiPIXUpdated(sources: [String])
 }
 
-// NOTE: - iOS is excluded from Pods
+// FIXME: - iOS is excluded from Pods
+// https://github.com/nariakiiwatani/ofxNDI
+// Receivers on mobile OS won't work because they are not supported by SDK currently.
 
 public class NDIPIX: PIXResource {
     

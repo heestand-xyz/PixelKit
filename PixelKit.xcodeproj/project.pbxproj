@@ -125,6 +125,7 @@
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A76BC3C235F3D210057CA2C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
+		3A7C2BB523D5F46400F28356 /* libndi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C2BB423D5F46400F28356 /* libndi_ios.a */; };
 		3A7EA6DE23191D0F007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
 		3A7EA6E123191D41007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
 		3A7EA6E423191D76007BFD8C /* PIXCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6E323191D76007BFD8C /* PIXCustom.swift */; };
@@ -155,7 +156,6 @@
 		3AAFCB3C23D5DBCA00337189 /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AAFCB5E23D5DDC700337189 /* libndi.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; };
 		3AAFCB5F23D5DDD000337189 /* libndi.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3AAFCB6223D5DE6200337189 /* libndi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB6123D5DE6200337189 /* libndi_ios.a */; };
 		3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
 		3AAFCB7223D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
 		3AAFCB7323D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */; };
@@ -545,6 +545,7 @@
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
+		3A7C2BB423D5F46400F28356 /* libndi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libndi_ios.a; sourceTree = "<group>"; };
 		3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePIX.swift; sourceTree = "<group>"; };
 		3A7EA6E323191D76007BFD8C /* PIXCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXCustom.swift; sourceTree = "<group>"; };
 		3A80C3F42345F25300DE9266 /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
@@ -560,7 +561,6 @@
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
 		3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libndi.4.dylib; sourceTree = "<group>"; };
-		3AAFCB6123D5DE6200337189 /* libndi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libndi_ios.a; sourceTree = "<group>"; };
 		3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.compat.h; sourceTree = "<group>"; };
 		3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.utilities.h; sourceTree = "<group>"; };
 		3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.ex.h; sourceTree = "<group>"; };
@@ -775,7 +775,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC9E6EA081E3B8ADCC15AE7 /* Pods_PixelKit.framework in Frameworks */,
-				3AAFCB6223D5DE6200337189 /* libndi_ios.a in Frameworks */,
+				3A7C2BB523D5F46400F28356 /* libndi_ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,7 +907,7 @@
 			isa = PBXGroup;
 			children = (
 				3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */,
-				3AAFCB6123D5DE6200337189 /* libndi_ios.a */,
+				3A7C2BB423D5F46400F28356 /* libndi_ios.a */,
 			);
 			path = NDI;
 			sourceTree = "<group>";
