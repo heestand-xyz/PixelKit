@@ -11,7 +11,9 @@ import LiveValues
 import RenderKit
 import PixelKit
 
-class ViewController: NSViewController, NODEDelegate {
+class ViewController: NSViewController, NODEDelegate, NDIPIXDelegate {
+    
+    var ndiPix: NDIPIX!
     
     var finalPix: PIX!
     var finalPix2: PIX!
@@ -29,11 +31,10 @@ class ViewController: NSViewController, NODEDelegate {
 //        let polygonPix = PolygonPIX()//(at: .square(10_000))
 //        polygonPix.name = "demo-polygon"
         
-        let vectorPix = VectorPIX()
-        let url = Bundle.main.url(forResource: "Hexagons", withExtension: "svg")!
-        vectorPix.load(url: url)
+        ndiPix = NDIPIX()
+        ndiPix.ndiDelegate = self
         
-        finalPix = vectorPix
+        finalPix = ndiPix
 //        finalPix.delegate = self
         
         view.addSubview(finalPix.view)
@@ -50,6 +51,12 @@ class ViewController: NSViewController, NODEDelegate {
     }
     
     func nodeDidRender(_ node: NODE) {}
+    
+    func ndiPIXUpdated(sources: [String]) {
+        guard let source = sources.first else { return }
+        print("NDI >>>>>>>>>>", source)
+        ndiPix.connect(to: source)
+    }
     
 //    func save() {
 //        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")

@@ -151,6 +151,27 @@
 		3AABCD7D23573F0000CA8C63 /* SlicePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74844E722348928900F99875 /* SlicePIX.swift */; };
 		3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
+		3AB5EB4D23D5CEFB001FBB2C /* libndi.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; };
+		3AB5EB4E23D5CF00001FBB2C /* libndi.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
+		3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
+		3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
+		3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */; };
+		3AB5EB5323D5CF64001FBB2C /* NDIWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */; };
+		3AB5EB5423D5CF69001FBB2C /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */; };
+		3AB5EB5523D5CF69001FBB2C /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */; };
+		3AB5EB5623D5CF69001FBB2C /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */; };
+		3AB5EB5723D5CF69001FBB2C /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */; };
+		3AB5EB5823D5CF69001FBB2C /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */; };
+		3AB5EB5923D5CF69001FBB2C /* Processing.NDI.Embedded.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */; };
+		3AB5EB5A23D5CF69001FBB2C /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */; };
+		3AB5EB5B23D5CF69001FBB2C /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */; };
+		3AB5EB5C23D5CF69001FBB2C /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */; };
+		3AB5EB5D23D5CF69001FBB2C /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */; };
+		3AB5EB5E23D5CF69001FBB2C /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */; };
+		3AB5EB5F23D5CF69001FBB2C /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */; };
+		3AB5EB6023D5CF69001FBB2C /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */; };
+		3AB5EB6123D5CF69001FBB2C /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */; };
 		3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */; };
 		3ABC709F23574314007781DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC709E23574314007781DF /* AppDelegate.swift */; };
 		3ABC70A123574314007781DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC70A023574314007781DF /* ViewController.swift */; };
@@ -430,6 +451,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3AB5EB4E23D5CF00001FBB2C /* libndi.3.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +500,27 @@
 		3AAA65302358940100E7A2B9 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
+		3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDIPIX.swift; sourceTree = "<group>"; };
+		3AB5EB0A23D5C904001FBB2C /* NDIMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDIMain.h; sourceTree = "<group>"; };
+		3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDIMain.cpp; sourceTree = "<group>"; };
+		3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDIWrapper.h; sourceTree = "<group>"; };
+		3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NDIWrapper.mm; sourceTree = "<group>"; };
+		3AB5EB1B23D5C9A4001FBB2C /* Bridging-Header-macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header-macOS.h"; sourceTree = "<group>"; };
+		3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.compat.h; sourceTree = "<group>"; };
+		3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.utilities.h; sourceTree = "<group>"; };
+		3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.ex.h; sourceTree = "<group>"; };
+		3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.deprecated.h; sourceTree = "<group>"; };
+		3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Routing.h; sourceTree = "<group>"; };
+		3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Embedded.h; sourceTree = "<group>"; };
+		3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Send.h; sourceTree = "<group>"; };
+		3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.structs.h; sourceTree = "<group>"; };
+		3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.cplusplus.h; sourceTree = "<group>"; };
+		3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.FrameSync.h; sourceTree = "<group>"; };
+		3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Find.h; sourceTree = "<group>"; };
+		3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.DynamicLoad.h; sourceTree = "<group>"; };
+		3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.h; sourceTree = "<group>"; };
+		3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.h; sourceTree = "<group>"; };
+		3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libndi.3.dylib; sourceTree = "<group>"; };
 		3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPIX.swift; sourceTree = "<group>"; };
 		3ABC709C23574314007781DF /* PixelKitTestMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelKitTestMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ABC709E23574314007781DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -516,7 +559,7 @@
 		7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyPIX.swift; sourceTree = "<group>"; };
 		7424A1B2212F5A8B00401654 /* BlendPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendPIX.swift; sourceTree = "<group>"; };
 		7424A1B4212F5C9300401654 /* Modes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modes.swift; sourceTree = "<group>"; };
-		7425CF5A22759CE300757CD2 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		7425CF5A22759CE300757CD2 /* Bridging-Header-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header-iOS.h"; sourceTree = "<group>"; };
 		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
 		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
 		7439E9EE21238ECE003B0190 /* NilPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NilPIX.swift; sourceTree = "<group>"; };
@@ -641,6 +684,7 @@
 			files = (
 				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
 				22AA2860B9719864903B8D70 /* Pods_PixelKit_macOS.framework in Frameworks */,
+				3AB5EB4D23D5CEFB001FBB2C /* libndi.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,9 +734,11 @@
 		3A8E24B922859465007AA99B /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				7425CF5A22759CE300757CD2 /* BridgingHeader.h */,
+				7425CF5A22759CE300757CD2 /* Bridging-Header-iOS.h */,
+				3AB5EB1B23D5C9A4001FBB2C /* Bridging-Header-macOS.h */,
 				741D2CF821AC9CC0007259E3 /* String.swift */,
 				3AF91611229D8269003D5DAB /* Motion.swift */,
+				3AB5EB0923D5C8D5001FBB2C /* NDI */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -742,6 +788,47 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		3AB5EB0923D5C8D5001FBB2C /* NDI */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */,
+				3AB5EB0A23D5C904001FBB2C /* NDIMain.h */,
+				3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */,
+				3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */,
+			);
+			path = NDI;
+			sourceTree = "<group>";
+		};
+		3AB5EB2023D5CEF0001FBB2C /* NDI */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB2123D5CEF0001FBB2C /* include */,
+				3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */,
+			);
+			path = NDI;
+			sourceTree = "<group>";
+		};
+		3AB5EB2123D5CEF0001FBB2C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */,
+				3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */,
+				3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */,
+				3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */,
+				3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */,
+				3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */,
+				3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */,
+				3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */,
+				3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */,
+				3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */,
+				3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */,
+				3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */,
+				3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */,
+				3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		3ABC709D23574314007781DF /* Maker */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,6 +859,7 @@
 		744A9DA922932D9200A01CA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AB5EB2023D5CEF0001FBB2C /* NDI */,
 				744A9DAA22932D9200A01CA1 /* Syphon.framework */,
 			);
 			path = Frameworks;
@@ -942,6 +1030,7 @@
 				74BF5E8F22A43978009CB791 /* VectorPIX.swift */,
 				3A84A0B022CCA958001F3D90 /* WebPIX.swift */,
 				3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */,
+				3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1093,6 +1182,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AB5EB5623D5CF69001FBB2C /* Processing.NDI.Recv.ex.h in Headers */,
+				3AB5EB5C23D5CF69001FBB2C /* Processing.NDI.Lib.cplusplus.h in Headers */,
+				3AB5EB5A23D5CF69001FBB2C /* Processing.NDI.Send.h in Headers */,
+				3AB5EB5F23D5CF69001FBB2C /* Processing.NDI.DynamicLoad.h in Headers */,
+				3AB5EB5823D5CF69001FBB2C /* Processing.NDI.Routing.h in Headers */,
+				3AB5EB6123D5CF69001FBB2C /* Processing.NDI.Lib.h in Headers */,
+				3AB5EB5D23D5CF69001FBB2C /* Processing.NDI.FrameSync.h in Headers */,
+				3AB5EB5523D5CF69001FBB2C /* Processing.NDI.utilities.h in Headers */,
+				3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */,
+				3AB5EB5423D5CF69001FBB2C /* Processing.NDI.compat.h in Headers */,
+				3AB5EB5B23D5CF69001FBB2C /* Processing.NDI.structs.h in Headers */,
+				3AB5EB6023D5CF69001FBB2C /* Processing.NDI.Recv.h in Headers */,
+				3AB5EB5923D5CF69001FBB2C /* Processing.NDI.Embedded.h in Headers */,
+				3AB5EB5723D5CF69001FBB2C /* Processing.NDI.deprecated.h in Headers */,
+				3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */,
+				3AB5EB5E23D5CF69001FBB2C /* Processing.NDI.Find.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1248,6 +1353,7 @@
 					};
 					3A3756382334FA5200D90172 = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1120;
 					};
 					3ABC709B23574314007781DF = {
 						CreatedOnToolsVersion = 11.2;
@@ -1257,7 +1363,7 @@
 					};
 					74BC39D621011E3A004E9AA0 = {
 						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -1741,6 +1847,7 @@
 				3AF28BF6219312F50079FC7A /* PIXSingleEffect.swift in Sources */,
 				741D2CFB21ACA05E007259E3 /* String.swift in Sources */,
 				3AF28BFF219312F50079FC7A /* KaleidoscopePIX.swift in Sources */,
+				3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */,
 				3AF28BF4219312EB0079FC7A /* MetalMergerEffectPIX.swift in Sources */,
 				3A17FBC82252398900453079 /* ClampPIX.swift in Sources */,
 				743FBC682260C5E20009DA97 /* ArrayPIX.swift in Sources */,
@@ -1768,10 +1875,12 @@
 				3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */,
 				3AF28C02219312F50079FC7A /* ChannelMixPIX.swift in Sources */,
 				3AF28BE9219312E10079FC7A /* BlendsPIX.swift in Sources */,
+				3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */,
 				3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */,
 				3AF28C0D219312F50079FC7A /* MetalEffectPIX.swift in Sources */,
 				3AF28C1A219313090079FC7A /* PIXResource.swift in Sources */,
 				3AF28BED219312EB0079FC7A /* CrossPIX.swift in Sources */,
+				3AB5EB5323D5CF64001FBB2C /* NDIWrapper.mm in Sources */,
 				7479449A2343D63F006C9F4C /* LiveColorExtension.swift in Sources */,
 				3AF28C0E219312F70079FC7A /* PIXEffect.swift in Sources */,
 				747944992343D63F006C9F4C /* LiveBoolExtension.swift in Sources */,
@@ -2038,6 +2147,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 65CE8D27D25EE35A073FCC9E /* Pods-PixelKit-tvOS.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 888;
 				DEFINES_MODULE = YES;
@@ -2054,10 +2164,11 @@
 				);
 				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
@@ -2068,6 +2179,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5136B599FF589232B0D1C750 /* Pods-PixelKit-tvOS.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 888;
 				DEFINES_MODULE = YES;
@@ -2084,7 +2196,7 @@
 				);
 				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "se.hexagons.PixelKit-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -2146,7 +2258,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 898848403C72CE6DECB2FEFE /* Pods-PixelKit-macOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -2171,6 +2282,11 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources/Frameworks",
+					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
@@ -2178,7 +2294,7 @@
 				PRODUCT_NAME = PixelKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Other/Bridging-Header-macOS.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -2187,7 +2303,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 308D629F3A6B6C7FF630BE57 /* Pods-PixelKit-macOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_ENTITLEMENTS = Resources/PixelKit.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -2212,6 +2327,11 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources/Frameworks",
+					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 0.8.8;
 				MTL_FAST_MATH = YES;
@@ -2219,7 +2339,7 @@
 				PRODUCT_NAME = PixelKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = Source/Other/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Other/Bridging-Header-macOS.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -2379,7 +2499,7 @@
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Other/Bridging-Header-iOS.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2417,7 +2537,7 @@
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
 				STRIP_SWIFT_SYMBOLS = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/Other/Bridging-Header-iOS.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
