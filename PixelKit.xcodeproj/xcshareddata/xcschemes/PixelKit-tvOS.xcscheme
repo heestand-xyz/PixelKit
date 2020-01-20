@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1120"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "74E9F6C62193813800F541DE"
-               BuildableName = "PixelKitShaders-macOS.metallib"
-               BlueprintName = "PixelKitShaders-macOS"
-               ReferencedContainer = "container:PixelKitShaders.xcodeproj">
+               BlueprintIdentifier = "3A3756382334FA5200D90172"
+               BuildableName = "PixelKit.framework"
+               BlueprintName = "PixelKit-tvOS"
+               ReferencedContainer = "container:PixelKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -40,15 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74E9F6C62193813800F541DE"
-            BuildableName = "PixelKitShaders-macOS.metallib"
-            BlueprintName = "PixelKitShaders-macOS"
-            ReferencedContainer = "container:PixelKitShaders.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -59,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74E9F6C62193813800F541DE"
-            BuildableName = "PixelKitShaders-macOS.metallib"
-            BlueprintName = "PixelKitShaders-macOS"
-            ReferencedContainer = "container:PixelKitShaders.xcodeproj">
+            BlueprintIdentifier = "3A3756382334FA5200D90172"
+            BuildableName = "PixelKit.framework"
+            BlueprintName = "PixelKit-tvOS"
+            ReferencedContainer = "container:PixelKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

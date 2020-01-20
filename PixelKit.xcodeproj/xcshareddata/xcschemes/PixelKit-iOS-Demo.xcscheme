@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1120"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "74E9F6C62193813800F541DE"
-               BuildableName = "PixelKitShaders-macOS.metallib"
-               BlueprintName = "PixelKitShaders-macOS"
-               ReferencedContainer = "container:PixelKitShaders.xcodeproj">
+               BlueprintIdentifier = "3AB5EB6723D5DB14001FBB2C"
+               BuildableName = "PixelKit-iOS-Demo.app"
+               BlueprintName = "PixelKit-iOS-Demo"
+               ReferencedContainer = "container:PixelKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -40,15 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74E9F6C62193813800F541DE"
-            BuildableName = "PixelKitShaders-macOS.metallib"
-            BlueprintName = "PixelKitShaders-macOS"
-            ReferencedContainer = "container:PixelKitShaders.xcodeproj">
+            BlueprintIdentifier = "3AB5EB6723D5DB14001FBB2C"
+            BuildableName = "PixelKit-iOS-Demo.app"
+            BlueprintName = "PixelKit-iOS-Demo"
+            ReferencedContainer = "container:PixelKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -56,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "74E9F6C62193813800F541DE"
-            BuildableName = "PixelKitShaders-macOS.metallib"
-            BlueprintName = "PixelKitShaders-macOS"
-            ReferencedContainer = "container:PixelKitShaders.xcodeproj">
+            BlueprintIdentifier = "3AB5EB6723D5DB14001FBB2C"
+            BuildableName = "PixelKit-iOS-Demo.app"
+            BlueprintName = "PixelKit-iOS-Demo"
+            ReferencedContainer = "container:PixelKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

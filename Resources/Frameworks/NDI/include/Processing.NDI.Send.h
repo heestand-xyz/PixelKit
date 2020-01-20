@@ -3,11 +3,11 @@
 // NOTE : The following MIT license applies to this file ONLY and not to the SDK as a whole. Please review the SDK documentation 
 // for the description of the full license terms, which are also provided in the file "NDI License Agreement.pdf" within the SDK or 
 // online at http://new.tk/ndisdk_license/. Your use of any part of this SDK is acknowledgment that you agree to the SDK license 
-// terms. The full NDI SDK may be downloaded at https://www.newtek.com/ndi/sdk/
+// terms. The full NDI SDK may be downloaded at http://ndi.tv/
 //
-//***********************************************************************************************************************************************
+//*************************************************************************************************************************************
 // 
-// Copyright(c) 2014-2018 NewTek, inc
+// Copyright(c) 2014-2019 NewTek, inc
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 // files(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, 
@@ -21,7 +21,7 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//***********************************************************************************************************************************************
+//*************************************************************************************************************************************
 
 // Structures and type definitions required by NDI sending
 // The reference to an instance of the sender
@@ -82,6 +82,10 @@ void NDIlib_send_send_video_async_v2(NDIlib_send_instance_t p_instance, const ND
 // This will add an audio frame
 PROCESSINGNDILIB_API
 void NDIlib_send_send_audio_v2(NDIlib_send_instance_t p_instance, const NDIlib_audio_frame_v2_t* p_audio_data);
+
+// This will add an audio frame
+PROCESSINGNDILIB_API
+void NDIlib_send_send_audio_v3(NDIlib_send_instance_t p_instance, const NDIlib_audio_frame_v3_t* p_audio_data);
 
 // This will add a metadata frame
 PROCESSINGNDILIB_API

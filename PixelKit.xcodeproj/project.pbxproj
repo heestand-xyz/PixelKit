@@ -153,27 +153,40 @@
 		3AAED4092271CE5500FB3154 /* ConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */; };
 		3AAFCB3B23D5DBCA00337189 /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; };
 		3AAFCB3C23D5DBCA00337189 /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3AB5EB4D23D5CEFB001FBB2C /* libndi.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; };
-		3AB5EB4E23D5CF00001FBB2C /* libndi.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3AAFCB5E23D5DDC700337189 /* libndi.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; };
+		3AAFCB5F23D5DDD000337189 /* libndi.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3AAFCB6223D5DE6200337189 /* libndi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB6123D5DE6200337189 /* libndi_ios.a */; };
+		3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
+		3AAFCB7223D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
+		3AAFCB7323D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */; };
+		3AAFCB7423D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */; };
+		3AAFCB7523D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */; };
+		3AAFCB7623D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */; };
+		3AAFCB7723D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */; };
+		3AAFCB7823D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */; };
+		3AAFCB7923D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */; };
+		3AAFCB7A23D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */; };
+		3AAFCB7B23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */; };
+		3AAFCB7C23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */; };
+		3AAFCB7D23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */; };
+		3AAFCB7E23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */; };
+		3AAFCB7F23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */; };
+		3AAFCB8023D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */; };
+		3AAFCB8123D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */; };
+		3AAFCB8223D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */; };
+		3AAFCB8323D5E0DF00337189 /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */; };
+		3AAFCB8423D5E0DF00337189 /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */; };
+		3AAFCB8523D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */; };
+		3AAFCB8623D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */; };
+		3AAFCB8723D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */; };
+		3AAFCB8823D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */; };
+		3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
+		3AAFCB8A23D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
 		3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
 		3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
 		3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
 		3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */; };
 		3AB5EB5323D5CF64001FBB2C /* NDIWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */; };
-		3AB5EB5423D5CF69001FBB2C /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */; };
-		3AB5EB5523D5CF69001FBB2C /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */; };
-		3AB5EB5623D5CF69001FBB2C /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */; };
-		3AB5EB5723D5CF69001FBB2C /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */; };
-		3AB5EB5823D5CF69001FBB2C /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */; };
-		3AB5EB5923D5CF69001FBB2C /* Processing.NDI.Embedded.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */; };
-		3AB5EB5A23D5CF69001FBB2C /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */; };
-		3AB5EB5B23D5CF69001FBB2C /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */; };
-		3AB5EB5C23D5CF69001FBB2C /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */; };
-		3AB5EB5D23D5CF69001FBB2C /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */; };
-		3AB5EB5E23D5CF69001FBB2C /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */; };
-		3AB5EB5F23D5CF69001FBB2C /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */; };
-		3AB5EB6023D5CF69001FBB2C /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */; };
-		3AB5EB6123D5CF69001FBB2C /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */; };
 		3AB5EB6B23D5DB14001FBB2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */; };
 		3AB5EB6D23D5DB14001FBB2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */; };
 		3AB5EB6F23D5DB14001FBB2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6E23D5DB14001FBB2C /* ContentView.swift */; };
@@ -462,6 +475,27 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AAFCB5C23D5DCF300337189 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AAFCB6023D5DDD000337189 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AAFCB5F23D5DDD000337189 /* libndi.4.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3ABC70B823574419007781DF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,16 +505,6 @@
 				3ABC70B523574419007781DF /* PixelKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		746B50452275A171003F5C37 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				3AB5EB4E23D5CF00001FBB2C /* libndi.3.dylib in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -529,27 +553,27 @@
 		3AAA65302358940100E7A2B9 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		3AAC2F732257523200182E58 /* PIXAuto.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = PIXAuto.stencil; sourceTree = "<group>"; };
 		3AAED4042271CCAF00FB3154 /* ConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertPIX.swift; sourceTree = "<group>"; };
+		3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libndi.4.dylib; sourceTree = "<group>"; };
+		3AAFCB6123D5DE6200337189 /* libndi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libndi_ios.a; sourceTree = "<group>"; };
+		3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.compat.h; sourceTree = "<group>"; };
+		3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.utilities.h; sourceTree = "<group>"; };
+		3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.ex.h; sourceTree = "<group>"; };
+		3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.deprecated.h; sourceTree = "<group>"; };
+		3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Routing.h; sourceTree = "<group>"; };
+		3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Send.h; sourceTree = "<group>"; };
+		3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.structs.h; sourceTree = "<group>"; };
+		3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.cplusplus.h; sourceTree = "<group>"; };
+		3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.FrameSync.h; sourceTree = "<group>"; };
+		3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Find.h; sourceTree = "<group>"; };
+		3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.DynamicLoad.h; sourceTree = "<group>"; };
+		3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.h; sourceTree = "<group>"; };
+		3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.h; sourceTree = "<group>"; };
 		3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDIPIX.swift; sourceTree = "<group>"; };
 		3AB5EB0A23D5C904001FBB2C /* NDIMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDIMain.h; sourceTree = "<group>"; };
 		3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDIMain.cpp; sourceTree = "<group>"; };
 		3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDIWrapper.h; sourceTree = "<group>"; };
 		3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NDIWrapper.mm; sourceTree = "<group>"; };
 		3AB5EB1B23D5C9A4001FBB2C /* Bridging-Header-macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header-macOS.h"; sourceTree = "<group>"; };
-		3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.compat.h; sourceTree = "<group>"; };
-		3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.utilities.h; sourceTree = "<group>"; };
-		3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.ex.h; sourceTree = "<group>"; };
-		3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.deprecated.h; sourceTree = "<group>"; };
-		3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Routing.h; sourceTree = "<group>"; };
-		3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Embedded.h; sourceTree = "<group>"; };
-		3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Send.h; sourceTree = "<group>"; };
-		3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.structs.h; sourceTree = "<group>"; };
-		3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.cplusplus.h; sourceTree = "<group>"; };
-		3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.FrameSync.h; sourceTree = "<group>"; };
-		3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Find.h; sourceTree = "<group>"; };
-		3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.DynamicLoad.h; sourceTree = "<group>"; };
-		3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Recv.h; sourceTree = "<group>"; };
-		3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processing.NDI.Lib.h; sourceTree = "<group>"; };
-		3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libndi.3.dylib; sourceTree = "<group>"; };
 		3AB5EB6823D5DB14001FBB2C /* PixelKit-iOS-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixelKit-iOS-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -731,9 +755,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAFCB5E23D5DDC700337189 /* libndi.4.dylib in Frameworks */,
 				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
 				22AA2860B9719864903B8D70 /* Pods_PixelKit_macOS.framework in Frameworks */,
-				3AB5EB4D23D5CEFB001FBB2C /* libndi.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,6 +766,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC9E6EA081E3B8ADCC15AE7 /* Pods_PixelKit.framework in Frameworks */,
+				3AAFCB6223D5DE6200337189 /* libndi_ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +862,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		3AAFCB6323D5E0DF00337189 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */,
+				3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */,
+				3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */,
+				3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */,
+				3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */,
+				3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */,
+				3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */,
+				3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */,
+				3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */,
+				3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */,
+				3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */,
+				3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */,
+				3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		3AB5EB0923D5C8D5001FBB2C /* NDI */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,31 +896,11 @@
 		3AB5EB2023D5CEF0001FBB2C /* NDI */ = {
 			isa = PBXGroup;
 			children = (
-				3AB5EB2123D5CEF0001FBB2C /* include */,
-				3AB5EB3023D5CEF0001FBB2C /* libndi.3.dylib */,
+				3AAFCB6323D5E0DF00337189 /* include */,
+				3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */,
+				3AAFCB6123D5DE6200337189 /* libndi_ios.a */,
 			);
 			path = NDI;
-			sourceTree = "<group>";
-		};
-		3AB5EB2123D5CEF0001FBB2C /* include */ = {
-			isa = PBXGroup;
-			children = (
-				3AB5EB2223D5CEF0001FBB2C /* Processing.NDI.compat.h */,
-				3AB5EB2323D5CEF0001FBB2C /* Processing.NDI.utilities.h */,
-				3AB5EB2423D5CEF0001FBB2C /* Processing.NDI.Recv.ex.h */,
-				3AB5EB2523D5CEF0001FBB2C /* Processing.NDI.deprecated.h */,
-				3AB5EB2623D5CEF0001FBB2C /* Processing.NDI.Routing.h */,
-				3AB5EB2723D5CEF0001FBB2C /* Processing.NDI.Embedded.h */,
-				3AB5EB2823D5CEF0001FBB2C /* Processing.NDI.Send.h */,
-				3AB5EB2923D5CEF0001FBB2C /* Processing.NDI.structs.h */,
-				3AB5EB2A23D5CEF0001FBB2C /* Processing.NDI.Lib.cplusplus.h */,
-				3AB5EB2B23D5CEF0001FBB2C /* Processing.NDI.FrameSync.h */,
-				3AB5EB2C23D5CEF0001FBB2C /* Processing.NDI.Find.h */,
-				3AB5EB2D23D5CEF0001FBB2C /* Processing.NDI.DynamicLoad.h */,
-				3AB5EB2E23D5CEF0001FBB2C /* Processing.NDI.Recv.h */,
-				3AB5EB2F23D5CEF0001FBB2C /* Processing.NDI.Lib.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		3AB5EB6923D5DB14001FBB2C /* PixelKit-iOS-Demo */ = {
@@ -1291,22 +1316,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AB5EB5623D5CF69001FBB2C /* Processing.NDI.Recv.ex.h in Headers */,
-				3AB5EB5C23D5CF69001FBB2C /* Processing.NDI.Lib.cplusplus.h in Headers */,
-				3AB5EB5A23D5CF69001FBB2C /* Processing.NDI.Send.h in Headers */,
-				3AB5EB5F23D5CF69001FBB2C /* Processing.NDI.DynamicLoad.h in Headers */,
-				3AB5EB5823D5CF69001FBB2C /* Processing.NDI.Routing.h in Headers */,
-				3AB5EB6123D5CF69001FBB2C /* Processing.NDI.Lib.h in Headers */,
-				3AB5EB5D23D5CF69001FBB2C /* Processing.NDI.FrameSync.h in Headers */,
-				3AB5EB5523D5CF69001FBB2C /* Processing.NDI.utilities.h in Headers */,
+				3AAFCB7623D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */,
+				3AAFCB8A23D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */,
+				3AAFCB7C23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */,
+				3AAFCB7A23D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */,
+				3AAFCB7423D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */,
+				3AAFCB8423D5E0DF00337189 /* Processing.NDI.Find.h in Headers */,
+				3AAFCB7E23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */,
+				3AAFCB8223D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */,
 				3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */,
-				3AB5EB5423D5CF69001FBB2C /* Processing.NDI.compat.h in Headers */,
-				3AB5EB5B23D5CF69001FBB2C /* Processing.NDI.structs.h in Headers */,
-				3AB5EB6023D5CF69001FBB2C /* Processing.NDI.Recv.h in Headers */,
-				3AB5EB5923D5CF69001FBB2C /* Processing.NDI.Embedded.h in Headers */,
-				3AB5EB5723D5CF69001FBB2C /* Processing.NDI.deprecated.h in Headers */,
+				3AAFCB8023D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */,
+				3AAFCB7223D5E0DF00337189 /* Processing.NDI.compat.h in Headers */,
+				3AAFCB8623D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */,
+				3AAFCB8823D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */,
+				3AAFCB7823D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */,
 				3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */,
-				3AB5EB5E23D5CF69001FBB2C /* Processing.NDI.Find.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1338,19 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAFCB8323D5E0DF00337189 /* Processing.NDI.Find.h in Headers */,
+				3AAFCB7F23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */,
+				3AAFCB8123D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */,
+				3AAFCB7323D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */,
+				3AAFCB7D23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */,
+				3AAFCB7B23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */,
+				3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */,
+				3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */,
+				3AAFCB8723D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */,
+				3AAFCB7723D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */,
+				3AAFCB7523D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */,
+				3AAFCB8523D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */,
+				3AAFCB7923D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1428,12 +1465,12 @@
 			buildConfigurationList = 3AF28BD3219312900079FC7A /* Build configuration list for PBXNativeTarget "PixelKit-macOS" */;
 			buildPhases = (
 				84EC82A5D7945F87CE4D3417 /* [CP] Check Pods Manifest.lock */,
-				746B50452275A171003F5C37 /* CopyFiles */,
 				3AF28BC7219312900079FC7A /* Headers */,
 				3AF28BC8219312900079FC7A /* Sources */,
 				3AF28BC9219312900079FC7A /* Frameworks */,
 				3AF28BCA219312900079FC7A /* Resources */,
 				3A84C6E02282F5A9000410DD /* CopyFiles */,
+				3AAFCB6023D5DDD000337189 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -1454,6 +1491,7 @@
 				74BC39D421011E3A004E9AA0 /* Frameworks */,
 				74BC39D521011E3A004E9AA0 /* Resources */,
 				3A1A91772282F4A000B7876F /* Copy Files */,
+				3AAFCB5C23D5DCF300337189 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -2747,6 +2785,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
+				);
 				MARKETING_VERSION = 0.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
@@ -2784,6 +2826,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MARKETING_VERSION = 0.8.8;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;

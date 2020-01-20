@@ -3,11 +3,11 @@
 // NOTE : The following MIT license applies to this file ONLY and not to the SDK as a whole. Please review the SDK documentation 
 // for the description of the full license terms, which are also provided in the file "NDI License Agreement.pdf" within the SDK or 
 // online at http://new.tk/ndisdk_license/. Your use of any part of this SDK is acknowledgment that you agree to the SDK license 
-// terms. The full NDI SDK may be downloaded at https://www.newtek.com/ndi/sdk/
+// terms. The full NDI SDK may be downloaded at http://ndi.tv/
 //
-//***********************************************************************************************************************************************
+//*************************************************************************************************************************************
 // 
-// Copyright(c) 2014-2018 NewTek, inc
+// Copyright(c) 2014-2019 NewTek, inc
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 // files(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, 
@@ -21,7 +21,7 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//***********************************************************************************************************************************************
+//*************************************************************************************************************************************
 
 // It is important when using video to realize that often you are using difference clocks
 // for different parts of the signal chain. Within NDI, the sender can send at the clock rate
@@ -100,7 +100,7 @@ void NDIlib_framesync_destroy(NDIlib_framesync_instance_t p_instance);
 // If you wish to know what the current incoming audio format is, then you can make a call
 // with the parameters set to zero and it will then return the associated settings. For instance
 // a call as follows :
-//		NDIlib_framesync_capture_audio(p_instance, p_audio_data, 0, 0, 0);
+//     NDIlib_framesync_capture_audio(p_instance, p_audio_data, 0, 0, 0);
 //
 // will return in p_audio_data the current received audio format if there is one or sample-rate
 // and no_channels equal to zero if there is not one. At any time you can specify sample_rate and
@@ -119,6 +119,27 @@ void NDIlib_framesync_free_audio(// The frame sync instance data
                                  NDIlib_framesync_instance_t p_instance,
                                  // The destination audio buffer that you wish to have filled in.
                                  NDIlib_audio_frame_v2_t* p_audio_data);
+
+// This function will tell you the approximate current depth of the audio queue to give you an indication
+// of the number of audio samples you can request. Note that if you should treat the results of this function
+// with some care because in reality the frame-sync API is meant to dynamically resample audio to match the
+// rate that you are calling it. If you have an innacurate clock then this functon can be useful.
+// for instance :
+//
+//  while(true)
+//  {   int no_samples = NDIlib_framesync_audio_queue_depth(p_instance);
+//      NDIlib_framesync_capture_audio( ... );
+//      play_audio( ... )
+//      NDIlib_framesync_free_audio( ... )
+//      inaccurate_sleep( 33ms );
+//  }
+//
+// Obviously because audio is being received in real-time there is no guarantee after the call that the
+// number is correct since new samples might have been captured in that time. On syncronous use of this
+// function however this will be the minimum number of samples in the queue at any later time until
+// NDIlib_framesync_capture_audio is called.
+PROCESSINGNDILIB_API
+int NDIlib_framesync_audio_queue_depth(NDIlib_framesync_instance_t p_instance);
 
 // This function will pull video samples from the frame-sync queue. This function
 // will always immediately return a video sample by using time-base correction. You can 
