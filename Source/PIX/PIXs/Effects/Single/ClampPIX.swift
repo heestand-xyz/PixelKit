@@ -22,14 +22,14 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
     public enum Style: String, CaseIterable {
         case hold
         case relative
-        case relativeLoop
-        case relativeMirror
+        case loop
+        case mirror
         case zero
         var index: Int {
             switch self {
             case .hold: return 0
-            case .relativeLoop: return 1
-            case .relativeMirror: return 2
+            case .loop: return 1
+            case .mirror: return 2
             case .zero: return 3
             case .relative: return 4
             }
