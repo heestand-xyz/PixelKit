@@ -19,11 +19,31 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
     public var high: LiveFloat = 1.0
     public var clampAlpha: LiveBool = false
     
+    public enum Style: String, CaseIterable {
+        case hold
+        case relative
+        case relativeLoop
+        case relativeMirror
+        case zero
+        var index: Int {
+            switch self {
+            case .hold: return 0
+            case .relativeLoop: return 1
+            case .relativeMirror: return 2
+            case .zero: return 3
+            case .relative: return 4
+            }
+        }
+    }
+    public var style: Style = .hold { didSet { setNeedsRender() } }
+    
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
         return [low, high, clampAlpha]
     }
+    
+    public override var postUniforms: [CGFloat] { [CGFloat(style.index)] }
     
     // MARK: - Life Cycle
     

@@ -2423,7 +2423,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2455,7 +2455,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;

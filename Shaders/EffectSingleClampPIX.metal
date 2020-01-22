@@ -17,8 +17,57 @@ struct VertexOut{
 struct Uniforms {
     float low;
     float high;
-    float clampAlpha;
+    float includeAlpha;
+    float style;
 };
+
+float clampValue(float value, float low, float high, int style) {
+    float rel = 0.0;
+    float vala = 0.0;
+    float valb = 0.0;
+    if (style == 1 || style == 2 || style == 4) {
+        rel = (value - low) / (high - low);
+        if (rel > 0.0) {
+            vala = rel - float(int(rel));
+        } else {
+            valb = rel + float(int(1.0 - rel));
+        }
+    }
+    switch (style) {
+        case 0: // hold
+            if (value < low) {
+                return low;
+            } else if (value > high) {
+                return high;
+            }
+            return value;
+        case 1: // relativeLoop
+            if (rel > 0.0) {
+                return vala;
+            } else {
+                return valb;
+            }
+        case 2: // relativeMirror
+            if (rel > 0.0) {
+                return int(rel) % 2 == 0 ? 1.0 - vala : vala;
+            } else {
+                return int(1.0 - rel) % 2 == 0 ? 1.0 - valb : valb;
+            }
+        case 3: // zero
+            if (value < low || value > high) {
+                return 0.0;
+            }
+            return value;
+        case 4: // relative
+            if (value < low) {
+                return 0.0;
+            } else if (value > high) {
+                return 1.0;
+            }
+            return rel;
+        default: return 0.0;
+    }
+}
 
 fragment float4 effectSingleClampPIX(VertexOut out [[stage_in]],
                                      texture2d<float>  inTex [[ texture(0) ]],
@@ -31,37 +80,15 @@ fragment float4 effectSingleClampPIX(VertexOut out [[stage_in]],
     
     float4 c = inTex.sample(s, uv);
     
-    float r = c.r;
-    if (r < in.low) {
-        r = in.low;
-    } else if (r > in.high) {
-        r = in.high;
-    }
+    bool doseIncludeAlpha = in.includeAlpha > 0.0;
+    int style = int(in.style);
     
-    float g = c.g;
-    if (g < in.low) {
-        g = in.low;
-    } else if (g > in.high) {
-        g = in.high;
-    }
+    float r = clampValue(c.r, in.low, in.high, style);
+    float g = clampValue(c.g, in.low, in.high, style);
+    float b = clampValue(c.b, in.low, in.high, style);
+    float a = doseIncludeAlpha ? clampValue(c.a, in.low, in.high, style) : c.a;
     
-    float b = c.b;
-    if (b < in.low) {
-        b = in.low;
-    } else if (b > in.high) {
-        b = in.high;
-    }
-    
-    float a = c.a;
-    if (in.clampAlpha) {
-        if (a < in.low) {
-            a = in.low;
-        } else if (a > in.high) {
-            a = in.high;
-        }
-    }
-    
-    return float4(r, g, b, c.a);
+    return float4(r, g, b, a);
 }
 
 

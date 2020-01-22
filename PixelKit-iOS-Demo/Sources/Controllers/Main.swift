@@ -11,22 +11,26 @@ import LiveValues
 import RenderKit
 import PixelKit
 
-class Main: ObservableObject, NDIPIXDelegate {
+class Main: ObservableObject {
     
-//    let polygonPix: PolygonPIX
-    let ndiPix: NDIPIX
+    let gradientPix: GradientPIX
+    let clampPix: ClampPIX
     let finalPix: PIX
     
     init() {
-//        polygonPix = PolygonPIX()
-        ndiPix = NDIPIX()
-        finalPix = ndiPix
-        ndiPix.ndiDelegate = self
-    }
-    
-    func ndiPIXUpdated(sources: [String]) {
-        guard let source = sources.first else { return }
-        ndiPix.connect(to: source)
+        
+        gradientPix = GradientPIX()
+        gradientPix.direction = .vertical
+        
+        clampPix = ClampPIX()
+        clampPix.input = gradientPix
+        clampPix.low = 0.4
+        clampPix.high = 0.6
+        clampPix.style = .relative
+//        clampPix.clampAlpha = true
+        
+        finalPix = clampPix
+        
     }
     
 }
