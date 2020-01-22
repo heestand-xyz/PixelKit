@@ -207,6 +207,12 @@
 		3ABC70A623574315007781DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ABC70A423574315007781DF /* Main.storyboard */; };
 		3ABC70B423574419007781DF /* PixelKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; };
 		3ABC70B523574419007781DF /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF28BCC219312900079FC7A /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3ACAF5E623D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5E223D8800C00EC6F1D /* RainbowLumaBlurPIX.swift */; };
+		3ACAF5E723D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5E223D8800C00EC6F1D /* RainbowLumaBlurPIX.swift */; };
+		3ACAF5E823D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5E223D8800C00EC6F1D /* RainbowLumaBlurPIX.swift */; };
+		3ACAF5ED23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
+		3ACAF5EE23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
+		3ACAF5EF23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
 		3AEC9FAF235749DF0045E91B /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
 		3AEC9FB323574A250045E91B /* PixelKitShaders-macCatalyst.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB023574A240045E91B /* PixelKitShaders-macCatalyst.metallib */; };
 		3AEC9FB423574A250045E91B /* PixelKitShaders-iOS.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */; };
@@ -599,6 +605,8 @@
 		3ABC70A523574315007781DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3ABC70A723574315007781DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3ABC70A823574315007781DF /* PixelKitMaker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelKitMaker.entitlements; sourceTree = "<group>"; };
+		3ACAF5E223D8800C00EC6F1D /* RainbowLumaBlurPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainbowLumaBlurPIX.swift; sourceTree = "<group>"; };
+		3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainbowBlurPIX.swift; sourceTree = "<group>"; };
 		3ADA0FD0235741D300605B00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3ADEAADA2357172A00414C01 /* PixelKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelKitTests.swift; sourceTree = "<group>"; };
 		3ADEAADC2357172A00414C01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1092,6 +1100,7 @@
 				7401CF3021147C9700000A38 /* ResolutionPIX.swift */,
 				7452F4CC210A33D4001AA523 /* LevelsPIX.swift */,
 				747845B121131B080077AB89 /* BlurPIX.swift */,
+				3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */,
 				74879D632118E8C200BF17DE /* EdgePIX.swift */,
 				74179CA821271046007F9579 /* ThresholdPIX.swift */,
 				7471FC89212843AB00ECF2E2 /* QuantizePIX.swift */,
@@ -1132,6 +1141,7 @@
 				7473B4FC214176E2008C6F23 /* DisplacePIX.swift */,
 				7471FC852128328200ECF2E2 /* LookupPIX.swift */,
 				74E826CE211CECDB004A1DE9 /* LumaBlurPIX.swift */,
+				3ACAF5E223D8800C00EC6F1D /* RainbowLumaBlurPIX.swift */,
 				3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */,
 				74D2BCEB21426CFE0099B6B4 /* RemapPIX.swift */,
 				7449A18B2142797100FAA8CC /* ReorderPIX.swift */,
@@ -1942,6 +1952,7 @@
 				747944A02343D640006C9F4C /* LiveFloatExtension.swift in Sources */,
 				3A0157272334FD8C0002B2D9 /* StreamInPIX.swift in Sources */,
 				3A01570B2334FD210002B2D9 /* SharpenPIX.swift in Sources */,
+				3ACAF5E823D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */,
 				3A0157032334FD210002B2D9 /* FeedbackPIX.swift in Sources */,
 				3A0156FF2334FD210002B2D9 /* QuantizePIX.swift in Sources */,
 				3A01570D2334FD210002B2D9 /* SepiaPIX.swift in Sources */,
@@ -1970,6 +1981,7 @@
 				3A0156E92334FD150002B2D9 /* PIXGenerator.swift in Sources */,
 				3A0157022334FD210002B2D9 /* TwirlPIX.swift in Sources */,
 				3A0157052334FD210002B2D9 /* ChromaKeyPIX.swift in Sources */,
+				3ACAF5EF23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */,
 				3A0157232334FD300002B2D9 /* PIXOutput.swift in Sources */,
 				3A0156EC2334FD150002B2D9 /* ArcPIX.swift in Sources */,
 				3A0156FE2334FD210002B2D9 /* ThresholdPIX.swift in Sources */,
@@ -2055,6 +2067,7 @@
 				3AF28C01219312F50079FC7A /* FeedbackPIX.swift in Sources */,
 				3AF28BF3219312EB0079FC7A /* ReorderPIX.swift in Sources */,
 				3AF28C09219312F50079FC7A /* SharpenPIX.swift in Sources */,
+				3ACAF5E723D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */,
 				3AF4235D234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3AF28BE0219312CF0079FC7A /* Rendered.swift in Sources */,
 				3AF28C1C219313090079FC7A /* ImagePIX.swift in Sources */,
@@ -2114,6 +2127,7 @@
 				3AF28C1E2193130C0079FC7A /* PIXContent.swift in Sources */,
 				3AF28C00219312F50079FC7A /* TwirlPIX.swift in Sources */,
 				3AF28BEC219312EB0079FC7A /* PIXMergerEffect.swift in Sources */,
+				3ACAF5EE23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */,
 				747944952343D63F006C9F4C /* LiveIntExtension.swift in Sources */,
 				3AF28BF1219312EB0079FC7A /* DisplacePIX.swift in Sources */,
 				3A9D287F23477A9600A29E9C /* PIXView.swift in Sources */,
@@ -2176,6 +2190,7 @@
 				3A80C3F52345F25300DE9266 /* PIXView.swift in Sources */,
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
 				7443E6B32343D0710084F947 /* LiveRectExtension.swift in Sources */,
+				3ACAF5ED23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */,
 				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */,
 				3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */,
@@ -2228,6 +2243,7 @@
 				748ADFB42120C1E3007462F8 /* Rendered.swift in Sources */,
 				7443E6AB2343CF5B0084F947 /* LivePointExtension.swift in Sources */,
 				74A7B98221412BBF0078DDE3 /* RangePIX.swift in Sources */,
+				3ACAF5E623D8800C00EC6F1D /* RainbowLumaBlurPIX.swift in Sources */,
 				3AF91614229D8269003D5DAB /* Motion.swift in Sources */,
 				74E826CF211CECDB004A1DE9 /* LumaBlurPIX.swift in Sources */,
 				3A7EA6E423191D76007BFD8C /* PIXCustom.swift in Sources */,
@@ -2423,7 +2439,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2455,7 +2471,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2597,7 +2613,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2642,7 +2658,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2807,7 +2823,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2849,7 +2865,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.8.9;
+				MARKETING_VERSION = 0.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;

@@ -6,30 +6,44 @@
 //  Copyright © 2020 Hexagons. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import LiveValues
 import RenderKit
 import PixelKit
 
 class Main: ObservableObject {
     
-    let gradientPix: GradientPIX
-    let clampPix: ClampPIX
+    let imagePix: ImagePIX
+//    let gradientPix: GradientPIX
+//    let rainbowLumaBlurPix: RainbowLumaBlurPIX
+    let rainbowBlurPix: RainbowBlurPIX
     let finalPix: PIX
     
     init() {
         
-        gradientPix = GradientPIX()
-        gradientPix.direction = .vertical
+        PixelKit.main.logAll()
         
-        clampPix = ClampPIX()
-        clampPix.input = gradientPix
-        clampPix.low = 0.4
-        clampPix.high = 0.6
-        clampPix.style = .relative
-//        clampPix.clampAlpha = true
+        imagePix = ImagePIX()
+        imagePix.image = UIImage(named: "test")!
         
-        finalPix = clampPix
+//        gradientPix = GradientPIX()
+//
+//        rainbowLumaBlurPix = RainbowLumaBlurPIX()
+//        rainbowLumaBlurPix.inputA = imagePix
+//        rainbowLumaBlurPix.inputB = gradientPix
+//        rainbowLumaBlurPix.radius = 0.5
+//        rainbowLumaBlurPix.style = .angle
+//        rainbowLumaBlurPix.angle = 0.25
+        
+        rainbowBlurPix = RainbowBlurPIX()
+        rainbowBlurPix.input = imagePix
+        rainbowBlurPix.radius = 0.5
+        rainbowBlurPix.style = .angle
+        rainbowBlurPix.angle = 0.25
+        rainbowBlurPix.quality = .epic
+        
+        finalPix = rainbowBlurPix
+        finalPix.pixView.liveTouch(active: true)
         
     }
     
