@@ -113,6 +113,9 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
+		3A3DAB7123D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
+		3A3DAB7223D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
+		3A3DAB7323D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
 		3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
 		3A4A71312285BB8900B7193C /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A4A712C2285BB7800B7193C /* PixelKitShaders-macOS.metallib */; };
 		3A5AD32A23A906CA00D8A1B7 /* MultiCameraPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */; };
@@ -542,6 +545,7 @@
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
 		3A3756392334FA5200D90172 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliencyPIX.swift; sourceTree = "<group>"; };
 		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCameraPIX.swift; sourceTree = "<group>"; };
 		3A5AD32C23A91A3800D8A1B7 /* PixelKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelKit.podspec; sourceTree = "<group>"; };
@@ -1126,6 +1130,7 @@
 				7421ED3E2231782E00E60A0E /* FreezePIX.swift */,
 				74844E722348928900F99875 /* SlicePIX.swift */,
 				3AF42358234F55B20019B4C1 /* AveragePIX.swift */,
+				3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -1962,6 +1967,7 @@
 				747944A12343D640006C9F4C /* LivePointExtension.swift in Sources */,
 				3A0156FA2334FD210002B2D9 /* ResolutionPIX.swift in Sources */,
 				3A1244ED2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */,
+				3A3DAB7323D987E0007358A1 /* SaliencyPIX.swift in Sources */,
 				3AF4235E234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3A0156EB2334FD150002B2D9 /* CirclePIX.swift in Sources */,
 				3A9D288023477A9600A29E9C /* PIXView.swift in Sources */,
@@ -2117,6 +2123,7 @@
 				3AF28BE1219312CF0079FC7A /* Modes.swift in Sources */,
 				3AF28C19219313050079FC7A /* MetalPIX.swift in Sources */,
 				3AF28C13219313050079FC7A /* ColorPIX.swift in Sources */,
+				3A3DAB7223D987E0007358A1 /* SaliencyPIX.swift in Sources */,
 				3AF28BEF219312EB0079FC7A /* LookupPIX.swift in Sources */,
 				7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */,
 				3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */,
@@ -2193,6 +2200,7 @@
 				3ACAF5ED23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */,
 				74179CA921271046007F9579 /* ThresholdPIX.swift in Sources */,
 				3AAED4052271CCAF00FB3154 /* ConvertPIX.swift in Sources */,
+				3A3DAB7123D987E0007358A1 /* SaliencyPIX.swift in Sources */,
 				3ABA63E02339FDDC00E6EFE9 /* ViewPIX.swift in Sources */,
 				3A9A92EF23955DE20036B6ED /* DepthCameraPIX.swift in Sources */,
 				3A1244EB2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */,
@@ -2823,7 +2831,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2865,7 +2873,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.2;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;

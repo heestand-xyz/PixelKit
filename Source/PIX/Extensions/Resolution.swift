@@ -66,6 +66,11 @@ extension PIX {
                 }
                 return resRes * resPix.resMultiplier
             }
+            if #available(iOS 13.0, *) {
+                if self is SaliencyPIX {
+                    return SaliencyPIX.saliencyResolution
+                }
+            }
             if let slicePix = self as? SlicePIX {
                 guard let node3d = slicePix.input as? NODE3D else { return nil }
                 let res3d = node3d.renderedResolution3d

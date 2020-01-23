@@ -14,9 +14,8 @@ import PixelKit
 class Main: ObservableObject {
     
     let imagePix: ImagePIX
-//    let gradientPix: GradientPIX
-//    let rainbowLumaBlurPix: RainbowLumaBlurPIX
-    let rainbowBlurPix: RainbowBlurPIX
+    let saliencyPix: SaliencyPIX
+    let blendPix: BlendPIX
     let finalPix: PIX
     
     init() {
@@ -26,24 +25,17 @@ class Main: ObservableObject {
         imagePix = ImagePIX()
         imagePix.image = UIImage(named: "test")!
         
-//        gradientPix = GradientPIX()
-//
-//        rainbowLumaBlurPix = RainbowLumaBlurPIX()
-//        rainbowLumaBlurPix.inputA = imagePix
-//        rainbowLumaBlurPix.inputB = gradientPix
-//        rainbowLumaBlurPix.radius = 0.5
-//        rainbowLumaBlurPix.style = .angle
-//        rainbowLumaBlurPix.angle = 0.25
+        saliencyPix = SaliencyPIX()
+        saliencyPix.input = imagePix
         
-        rainbowBlurPix = RainbowBlurPIX()
-        rainbowBlurPix.input = imagePix
-        rainbowBlurPix.radius = 0.5
-        rainbowBlurPix.style = .angle
-        rainbowBlurPix.angle = 0.25
-        rainbowBlurPix.quality = .epic
+        blendPix = BlendPIX()
+        blendPix.blendMode = .multiply
+        blendPix.inputA = imagePix
+        blendPix.inputB = saliencyPix
+        blendPix.placement = .fill
+        blendPix.extend = .hold
         
-        finalPix = rainbowBlurPix
-        finalPix.pixView.liveTouch(active: true)
+        finalPix = blendPix
         
     }
     
