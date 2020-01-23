@@ -11,6 +11,7 @@ import RenderKit
 import CoreGraphics
 import MetalKit
 #if !os(tvOS) && !targetEnvironment(simulator)
+// MPS does not support the iOS simulator.
 import MetalPerformanceShaders
 #endif
 
