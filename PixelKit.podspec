@@ -23,7 +23,8 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "https://github.com/hexagons/pixelkit.git", :branch => "master", :tag => "#{spec.version}" }
 
-  spec.source_files  = "Source", "Source/**/*.swift"
+  spec.source_files  = "Source", "Source/**/*.swift",
+                       "Resources/Models/*"
 
   spec.ios.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",

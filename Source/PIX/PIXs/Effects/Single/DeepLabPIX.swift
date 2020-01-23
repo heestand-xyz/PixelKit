@@ -11,6 +11,8 @@ import RenderKit
 import Vision
 import CoreMedia
 
+/// TODO: - Process .deep() on GPU
+
 @available(iOS 12.0, *)
 @available(OSX 10.14, *)
 @available(tvOS 12.0, *)
@@ -36,12 +38,12 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         case cat
         case chair
         case cow
-        case diningtable
+        case diningTable
         case dog
         case horse
         case motorbike
         case person
-        case pottedplant
+        case pottedPlant
         case sheep
         case sofa
         case train
@@ -80,7 +82,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     }
     
     func deep(_ output: DeepLabV3Int8LUTOutput) -> CGImage? {
-        
+        print("DEEP > > >")
         let shape: [NSNumber] = output.semanticPredictions.shape
         let d: Int = 1
         let (w,h) = (Int(truncating: shape[0]), Int(truncating: shape[1]))
@@ -115,9 +117,9 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         var data = Data(count: length)
         data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Void in
             var pointer = bytes
-            for (i, pix) in res.enumerated() {
+            for pix in res {
                 if pix != 0 {
-                    print(i, pix)
+                    print(pix, deepLabTarget.index, pix == deepLabTarget.index ? "<<<<<<<<<" : "?")
                 }
                 let v: UInt8 = deepLabTarget.index == pix ? 255 : 0
                 for _ in 0..<3 {
@@ -143,7 +145,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
             shouldInterpolate: false,
             intent: CGColorRenderingIntent.defaultIntent
         )
-        
+        print("DEEP < < <")
         return cgimg
         
     }
