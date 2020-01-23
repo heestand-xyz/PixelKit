@@ -12,8 +12,10 @@ import RenderKit
 struct ContentView: View {
     @EnvironmentObject var main: Main
     var body: some View {
-        NODERepView(node: main.finalPix)
-            .edgesIgnoringSafeArea(.all)
+        VStack {
+            NODERepView(node: main.imagePix)
+            NODERepView(node: main.finalPix)
+        }
     }
 }
 

@@ -67,8 +67,21 @@ extension PIX {
                 return resRes * resPix.resMultiplier
             }
             if #available(iOS 13.0, *) {
-                if self is SaliencyPIX {
-                    return SaliencyPIX.saliencyResolution
+                if #available(OSX 10.15, *) {
+                    if #available(tvOS 13.0, *) {
+                        if self is SaliencyPIX {
+                            return SaliencyPIX.saliencyResolution
+                        }
+                    }
+                }
+            }
+            if #available(iOS 12.0, *) {
+                if #available(OSX 10.14, *) {
+                    if #available(tvOS 12.0, *) {
+                        if self is DeepLabPIX {
+                            return DeepLabPIX.deepLabResolution
+                        }
+                    }
                 }
             }
             if let slicePix = self as? SlicePIX {

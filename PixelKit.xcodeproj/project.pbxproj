@@ -216,6 +216,12 @@
 		3ACAF5ED23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
 		3ACAF5EE23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
 		3ACAF5EF23D8868300EC6F1D /* RainbowBlurPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAF5EC23D8868300EC6F1D /* RainbowBlurPIX.swift */; };
+		3AE212AD23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212A923D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel */; };
+		3AE212AE23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212A923D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel */; };
+		3AE212AF23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212A923D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel */; };
+		3AE212B123D9CA66003297BA /* DeepLabPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212B023D9CA65003297BA /* DeepLabPIX.swift */; };
+		3AE212B223D9CA66003297BA /* DeepLabPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212B023D9CA65003297BA /* DeepLabPIX.swift */; };
+		3AE212B323D9CA66003297BA /* DeepLabPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE212B023D9CA65003297BA /* DeepLabPIX.swift */; };
 		3AEC9FAF235749DF0045E91B /* PixelKitShaders.metallib in Copy Files */ = {isa = PBXBuildFile; fileRef = 3A4A712A2285BB7800B7193C /* PixelKitShaders.metallib */; };
 		3AEC9FB323574A250045E91B /* PixelKitShaders-macCatalyst.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB023574A240045E91B /* PixelKitShaders-macCatalyst.metallib */; };
 		3AEC9FB423574A250045E91B /* PixelKitShaders-iOS.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */; };
@@ -614,6 +620,8 @@
 		3ADA0FD0235741D300605B00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3ADEAADA2357172A00414C01 /* PixelKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelKitTests.swift; sourceTree = "<group>"; };
 		3ADEAADC2357172A00414C01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AE212A923D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DeepLabV3Int8LUT.mlmodel; sourceTree = "<group>"; };
+		3AE212B023D9CA65003297BA /* DeepLabPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLabPIX.swift; sourceTree = "<group>"; };
 		3AEC9FB023574A240045E91B /* PixelKitShaders-macCatalyst.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelKitShaders-macCatalyst.metallib"; path = "Resources/Metal Libs/PixelKitShaders-macCatalyst.metallib"; sourceTree = "<group>"; };
 		3AEC9FB123574A240045E91B /* PixelKitShaders-iOS.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelKitShaders-iOS.metallib"; path = "Resources/Metal Libs/PixelKitShaders-iOS.metallib"; sourceTree = "<group>"; };
 		3AEC9FB223574A240045E91B /* PixelKitShaders-iOS-Simulator.metallib */ = {isa = PBXFileReference; lastKnownFileType = "archive.metal-library"; name = "PixelKitShaders-iOS-Simulator.metallib"; path = "Resources/Metal Libs/PixelKitShaders-iOS-Simulator.metallib"; sourceTree = "<group>"; };
@@ -876,6 +884,7 @@
 		3AAB4FD92277137100B73870 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3AE212A823D9CA47003297BA /* Models */,
 				744A9DA922932D9200A01CA1 /* Frameworks */,
 				7479F6B12275C04D009B4B65 /* Info.plist */,
 				3A8AC3482277282C00A142AA /* PixelKit.entitlements */,
@@ -1007,6 +1016,14 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		3AE212A823D9CA47003297BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3AE212A923D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		744A9DA922932D9200A01CA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,6 +1148,7 @@
 				74844E722348928900F99875 /* SlicePIX.swift */,
 				3AF42358234F55B20019B4C1 /* AveragePIX.swift */,
 				3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */,
+				3AE212B023D9CA65003297BA /* DeepLabPIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
@@ -1945,6 +1963,7 @@
 				3A0157062334FD210002B2D9 /* CornerPinPIX.swift in Sources */,
 				3A0156ED2334FD150002B2D9 /* LinePIX.swift in Sources */,
 				3A0156D92334FCD00002B2D9 /* PIX.swift in Sources */,
+				3AE212AF23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */,
 				3A0156F42334FD190002B2D9 /* TextPIX.swift in Sources */,
 				3A0157042334FD210002B2D9 /* ChannelMixPIX.swift in Sources */,
 				3A01572D2334FDA10002B2D9 /* Peer.swift in Sources */,
@@ -2017,6 +2036,7 @@
 				3A0156F62334FD1B0002B2D9 /* ScenePIX.swift in Sources */,
 				3A0157012334FD210002B2D9 /* KaleidoscopePIX.swift in Sources */,
 				3A01570A2334FD210002B2D9 /* RangePIX.swift in Sources */,
+				3AE212B323D9CA66003297BA /* DeepLabPIX.swift in Sources */,
 				3A0156F92334FD210002B2D9 /* NilPIX.swift in Sources */,
 				3A01572B2334FD9D0002B2D9 /* PIXAuto.swift in Sources */,
 				3A0157132334FD210002B2D9 /* FreezePIX.swift in Sources */,
@@ -2068,7 +2088,9 @@
 				747944962343D63F006C9F4C /* LiveFloatExtension.swift in Sources */,
 				3AF28BDE219312CF0079FC7A /* Resolution.swift in Sources */,
 				3AF28C0F219312FD0079FC7A /* PIXSprite.swift in Sources */,
+				3AE212AE23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */,
 				3AF28BE6219312D50079FC7A /* RecordPIX.swift in Sources */,
+				3AE212B223D9CA66003297BA /* DeepLabPIX.swift in Sources */,
 				3A7EA6E123191D41007BFD8C /* ScenePIX.swift in Sources */,
 				3AF28C01219312F50079FC7A /* FeedbackPIX.swift in Sources */,
 				3AF28BF3219312EB0079FC7A /* ReorderPIX.swift in Sources */,
@@ -2211,6 +2233,7 @@
 				74B488A2214122320033B3B5 /* FlipFlopPIX.swift in Sources */,
 				7452F4CB210A33A5001AA523 /* CameraPIX.swift in Sources */,
 				7424A1B5212F5C9300401654 /* Modes.swift in Sources */,
+				3AE212B123D9CA66003297BA /* DeepLabPIX.swift in Sources */,
 				748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */,
 				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,
 				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
@@ -2260,6 +2283,7 @@
 				7471FC812128307D00ECF2E2 /* KaleidoscopePIX.swift in Sources */,
 				3AF4235C234F55B20019B4C1 /* AveragePIX.swift in Sources */,
 				3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */,
+				3AE212AD23D9CA47003297BA /* DeepLabV3Int8LUT.mlmodel in Sources */,
 				740EC53A213EFC3E006E2996 /* Operators.swift in Sources */,
 				7443E6AD2343CFD80084F947 /* LiveSizeExtension.swift in Sources */,
 				3AAFCB8B23D5E21600337189 /* NDIPIX.swift in Sources */,
@@ -2447,7 +2471,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2479,7 +2503,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2621,7 +2645,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2666,7 +2690,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.1;
+				MARKETING_VERSION = 0.9.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2831,7 +2855,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.2;
+				MARKETING_VERSION = 0.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2873,7 +2897,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.2;
+				MARKETING_VERSION = 0.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
