@@ -26,6 +26,7 @@ class Main: ObservableObject {
         imagePix.image = UIImage(named: "test")!
         
         saliencyPix = SaliencyPIX()
+//        saliencyPix.style = .objectness
         saliencyPix.input = imagePix
         
         blendPix = BlendPIX()

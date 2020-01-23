@@ -17,31 +17,31 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override open var shaderName: String { return "contentResourceRedToWhitePIX" }
     
-    static let saliencyResolution: Resolution = .square(64)
+    static let saliencyResolution: Resolution = .square(68)
     
     // MARK: - Public Properties
     
     public enum SaliencyStyle: String, CaseIterable {
-        case attention
         case objectness
+        case attention
         var revision: Int {
             switch self {
-            case .attention:
-                return VNGenerateAttentionBasedSaliencyImageRequestRevision1
             case .objectness:
                 return VNGenerateObjectnessBasedSaliencyImageRequestRevision1
+            case .attention:
+                return VNGenerateAttentionBasedSaliencyImageRequestRevision1
             }
         }
         func request() -> VNImageBasedRequest {
             switch self {
-            case .attention:
-                return VNGenerateAttentionBasedSaliencyImageRequest()
             case .objectness:
                 return VNGenerateObjectnessBasedSaliencyImageRequest()
+            case .attention:
+                return VNGenerateAttentionBasedSaliencyImageRequest()
             }
         }
     }
-    public var style: SaliencyStyle = .attention { didSet { setNeedsRender() } }
+    public var style: SaliencyStyle = .objectness { didSet { setNeedsRender() } }
     
     public required init() {
         super.init()
@@ -65,7 +65,14 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
                 return nil
             }
             let pixelBuffer: CVPixelBuffer = observation.pixelBuffer
-            let saliencyTexture: MTLTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: pixelKit.render.bits, in: pixelKit.render.textureCache)
+            let saliencyTexture: MTLTexture
+            if style == .objectness {
+                let ciImage: CIImage = Texture.ciImage(from: pixelBuffer)
+                let size: CGSize = SaliencyPIX.saliencyResolution.size.cg
+                saliencyTexture = try Texture.makeTexture(from: ciImage, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, with: commandBuffer, on: pixelKit.render.metalDevice, vFlip: false)
+            } else {
+                saliencyTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: pixelKit.render.bits, in: pixelKit.render.textureCache)
+            }
             return saliencyTexture
         } catch {
             pixelKit.logger.log(node: self, .error, .effect, "Saliency failed with error.", e: error)
