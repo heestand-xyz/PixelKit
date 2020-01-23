@@ -22,26 +22,26 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     // MARK: - Public Properties
     
     public enum SaliencyStyle: String, CaseIterable {
-        case objectness
         case attention
+        case objectness
         var revision: Int {
             switch self {
-            case .objectness:
-                return VNGenerateObjectnessBasedSaliencyImageRequestRevision1
             case .attention:
                 return VNGenerateAttentionBasedSaliencyImageRequestRevision1
+            case .objectness:
+                return VNGenerateObjectnessBasedSaliencyImageRequestRevision1
             }
         }
         func request() -> VNImageBasedRequest {
             switch self {
-            case .objectness:
-                return VNGenerateObjectnessBasedSaliencyImageRequest()
             case .attention:
                 return VNGenerateAttentionBasedSaliencyImageRequest()
+            case .objectness:
+                return VNGenerateObjectnessBasedSaliencyImageRequest()
             }
         }
     }
-    public var style: SaliencyStyle = .objectness { didSet { setNeedsRender() } }
+    public var style: SaliencyStyle = .attention { didSet { setNeedsRender() } }
     
     public required init() {
         super.init()
