@@ -14,9 +14,7 @@ import PixelKit
 class Main: ObservableObject {
     
     let imagePix: ImagePIX
-    let deepLabPix: DeepLabPIX
-//    let saliencyPix: SaliencyPIX
-//    let blendPix: BlendPIX
+    let colorConvertPix: ColorConvertPIX
     let finalPix: PIX
     
     init() {
@@ -26,21 +24,12 @@ class Main: ObservableObject {
         imagePix = ImagePIX()
         imagePix.image = UIImage(named: "test")!
         
-        deepLabPix = DeepLabPIX()
-        deepLabPix.input = imagePix
+        colorConvertPix = ColorConvertPIX()
+        colorConvertPix.ccWay = .hsvToRgb
+//        colorConvertPix.ccIndex = .third
+        colorConvertPix.input = imagePix
         
-//        saliencyPix = SaliencyPIX()
-////        saliencyPix.style = .objectness
-//        saliencyPix.input = imagePix
-//
-//        blendPix = BlendPIX()
-//        blendPix.blendMode = .multiply
-//        blendPix.inputA = imagePix
-//        blendPix.inputB = saliencyPix
-//        blendPix.placement = .fill
-//        blendPix.extend = .hold
-        
-        finalPix = deepLabPix
+        finalPix = colorConvertPix
         
     }
     

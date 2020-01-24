@@ -113,6 +113,9 @@
 		3A370F6322268B29001B0208 /* StreamInPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6222268B29001B0208 /* StreamInPIX.swift */; };
 		3A370F6522268C45001B0208 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A370F6722268EC1001B0208 /* StreamOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6622268EC1001B0208 /* StreamOutPIX.swift */; };
+		3A3A467523DAE42A008AF36F /* ColorConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A467423DAE42A008AF36F /* ColorConvertPIX.swift */; };
+		3A3A467623DAE42A008AF36F /* ColorConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A467423DAE42A008AF36F /* ColorConvertPIX.swift */; };
+		3A3A467723DAE42A008AF36F /* ColorConvertPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A467423DAE42A008AF36F /* ColorConvertPIX.swift */; };
 		3A3DAB7123D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
 		3A3DAB7223D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
 		3A3DAB7323D987E0007358A1 /* SaliencyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */; };
@@ -551,6 +554,7 @@
 		3A370F6422268C44001B0208 /* Peer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		3A370F6622268EC1001B0208 /* StreamOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamOutPIX.swift; sourceTree = "<group>"; };
 		3A3756392334FA5200D90172 /* PixelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PixelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A3A467423DAE42A008AF36F /* ColorConvertPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConvertPIX.swift; sourceTree = "<group>"; };
 		3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaliencyPIX.swift; sourceTree = "<group>"; };
 		3A4A71242285BB7700B7193C /* PixelKitShaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PixelKitShaders.xcodeproj; path = Resources/PixelKitShaders.xcodeproj; sourceTree = "<group>"; };
 		3A5AD32623A906CA00D8A1B7 /* MultiCameraPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCameraPIX.swift; sourceTree = "<group>"; };
@@ -1150,6 +1154,7 @@
 				3A3DAB7023D987E0007358A1 /* SaliencyPIX.swift */,
 				3AE212B023D9CA65003297BA /* DeepLabPIX.swift */,
 				747CBA7E214286BF00CB2616 /* MetalEffectPIX.swift */,
+				3A3A467423DAE42A008AF36F /* ColorConvertPIX.swift */,
 				74B57C402147404200CBBD58 /* Metal */,
 			);
 			path = Single;
@@ -1958,6 +1963,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A0156F02334FD150002B2D9 /* GradientPIX.swift in Sources */,
+				3A3A467723DAE42A008AF36F /* ColorConvertPIX.swift in Sources */,
 				3A0157142334FD210002B2D9 /* MetalEffectPIX.swift in Sources */,
 				3A0157102334FD210002B2D9 /* ConvertPIX.swift in Sources */,
 				3A0157062334FD210002B2D9 /* CornerPinPIX.swift in Sources */,
@@ -2151,6 +2157,7 @@
 				3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */,
 				3AF28BFA219312F50079FC7A /* BlurPIX.swift in Sources */,
 				3AF28BEE219312EB0079FC7A /* BlendPIX.swift in Sources */,
+				3A3A467623DAE42A008AF36F /* ColorConvertPIX.swift in Sources */,
 				3AF28BF8219312F50079FC7A /* ResolutionPIX.swift in Sources */,
 				3AF28C03219312F50079FC7A /* ChromaKeyPIX.swift in Sources */,
 				3AF28C1E2193130C0079FC7A /* PIXContent.swift in Sources */,
@@ -2237,6 +2244,7 @@
 				748859E1212F371800E04F17 /* RectanglePIX.swift in Sources */,
 				7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */,
 				7471FC862128328200ECF2E2 /* LookupPIX.swift in Sources */,
+				3A3A467523DAE42A008AF36F /* ColorConvertPIX.swift in Sources */,
 				743F375F215BB2C3002BC5BA /* RecordPIX.swift in Sources */,
 				7424A1A5212F3BDA00401654 /* ChannelMixPIX.swift in Sources */,
 				7443E6B12343D0330084F947 /* LiveColorExtension.swift in Sources */,
