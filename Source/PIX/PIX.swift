@@ -170,7 +170,7 @@ open class PIX: NODE, Equatable, NODETileable {
             pixelKit.logger.log(node: self, .fatal, nil, "Shader not defined.")
             return
         }
-        let template = contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false
+        let template = (contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false) && !(self is NODEMetal)
         let shaderName = template ? "templatePIX" : self.shaderName
         do {
             let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
