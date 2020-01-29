@@ -12,6 +12,15 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     public static let main = PixelKit()
     
+    // MARK: - Version
+    
+    public var version: (app: String, build: String)? {
+        guard let infos = Bundle(for: PixelKit.self).infoDictionary else { return nil }
+        guard let appVersion: String = infos["CFBundleShortVersionString"] as? String else { return nil }
+        guard let buildVersion: String = infos["CFBundleVersion"] as? String else { return nil }
+        return (app: appVersion, build: buildVersion)
+    }
+    
     // MARK: Signature
     
     #if os(macOS)
@@ -37,13 +46,18 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     #endif
     #endif
     
+    // MARK: - Resolution
+    
     public var tileResolution: Resolution = .square(32)
+    public var fallbackResolution: Resolution
+    
+    // MARK: - Renderer
     
     public let render: Render
     public let logger: Logger
     
-    public var fallbackResolution: Resolution
-
+    // MARK: - Life Cycle
+    
     init() {
         
         render = Render(with: kMetalLibName, in: Bundle(for: type(of: self)))
