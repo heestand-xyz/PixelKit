@@ -914,7 +914,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     }
     
     func manualFocus(_ active: Bool) {
-        guard device!.isFocusModeSupported(.locked) else { return }
+        guard device?.isFocusModeSupported(.locked) == true else { return }
         do {
             try device?.lockForConfiguration()
             device?.focusMode = active ? .locked : .continuousAutoFocus
@@ -953,10 +953,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func setLight(_ exposure: CGFloat, _ iso: CGFloat) {
         let clampedExposure = min(max(exposure, minExposure), maxExposure)
         let clampedIso = min(max(iso, minISO), maxISO)
-        device!.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
+        device?.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
     }
 //    func setTorch(_ value: CGFloat) {
-//        try? device!.setTorchModeOn(level: Float(max(value, 0.001)))
+//        try? device?.setTorchModeOn(level: Float(max(value, 0.001)))
 //    }
     
     func setFocus(_ value: CGFloat) {
