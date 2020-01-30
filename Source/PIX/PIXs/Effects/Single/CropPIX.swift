@@ -17,28 +17,24 @@ public class CropPIX: PIXSingleEffect {
     
     var resScale: CGSize { return cropFrame.size }
     
-    public var cropFrame: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) { didSet { applyResolution { self.setNeedsRender() } } }
-    public var cropLeft: CGFloat {
-        get { return cropFrame.minX }
-        set { cropFrame = CGRect(x: newValue, y: cropFrame.minY, width: cropFrame.width - (newValue - cropFrame.minX), height: cropFrame.height) }
+    public var cropFrame: CGRect {
+        get { CGRect(x: cropLeft, y: cropBottom, width: cropRight - cropLeft, height: cropTop - cropBottom) }
+        set {
+            cropLeft = newValue.minX
+            cropRight = newValue.maxX
+            cropBottom = newValue.minY
+            cropTop = newValue.maxY
+        }
     }
-    public var cropRight: CGFloat {
-        get { return cropFrame.maxX }
-        set { cropFrame = CGRect(x: cropFrame.minX, y: cropFrame.minY, width: newValue, height: cropFrame.height) }
-    }
-    public var cropBottom: CGFloat {
-        get { return cropFrame.minY }
-        set { cropFrame = CGRect(x: cropFrame.minX, y: newValue, width: cropFrame.width, height: cropFrame.height - (newValue - cropFrame.minY)) }
-    }
-    public var cropTop: CGFloat {
-        get { return cropFrame.maxY }
-        set { cropFrame = CGRect(x: cropFrame.minX, y: cropFrame.minY, width: cropFrame.width, height: newValue) }
-    }
+    public var cropLeft: CGFloat = 0.0 { didSet { applyResolution { self.setNeedsRender() } } }
+    public var cropRight: CGFloat = 1.0 { didSet { applyResolution { self.setNeedsRender() } } }
+    public var cropBottom: CGFloat = 0.0 { didSet { applyResolution { self.setNeedsRender() } } }
+    public var cropTop: CGFloat = 1.0 { didSet { applyResolution { self.setNeedsRender() } } }
     
     // MARK: - Property Helpers
     
     open override var uniforms: [CGFloat] {
-        return [cropFrame.minX, cropFrame.maxX, cropFrame.minY, cropFrame.maxY]
+        return [cropLeft, cropRight, cropBottom, cropTop]
     }
     
     // MARK: - Life Cycle
