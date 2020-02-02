@@ -13,10 +13,16 @@ struct ContentView: View {
     @EnvironmentObject var main: Main
     var body: some View {
         VStack {
-            NODERepView(node: main.imagePix)
+            RepView(view: main.finalView)
             NODERepView(node: main.finalPix)
         }
     }
+}
+
+struct RepView: UIViewRepresentable {
+    let view: UIView
+    func makeUIView(context: Self.Context) -> UIView { view }
+    func updateUIView(_ uiView: UIView, context: Self.Context) {}
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -43,6 +43,8 @@ public class PaintPIX: PIXResource {
     // MARK: - Public Properties
     
     public var resolution: Resolution { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
+    
+    let helper: PaintHelper
 
     public let canvasView: PKCanvasView
     public var drawing: PKDrawing {
@@ -64,7 +66,12 @@ public class PaintPIX: PIXResource {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
         canvasView = PKCanvasView()
+        helper = PaintHelper()
         super.init()
+        canvasView.delegate = helper
+        helper.paintedCallback = {
+            self.setNeedsBuffer()
+        }
         name = "paint"
         setFrame()
     }
@@ -96,4 +103,20 @@ public class PaintPIX: PIXResource {
         applyResolution { self.setNeedsRender() }
     }
     
+}
+
+@available(iOS 13.0, *)
+class PaintHelper: NSObject, PKCanvasViewDelegate {
+    
+    var paintedCallback: (() -> ())?
+    
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        print("PAINT DID CHANGE")
+    }
+    
+    func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
+        print("PAINT DID RENDER")
+        paintedCallback?()
+    }
+
 }
