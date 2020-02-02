@@ -43,7 +43,8 @@ Pod::Spec.new do |spec|
                            "Source/Other/Motion.swift",
                            "Source/PIX/PIXs/Content/Resource/ViewPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/DepthCameraPIX.swift",
-                           "Source/PIX/PIXs/Content/Resource/MultiCameraPIX.swift"
+                           "Source/PIX/PIXs/Content/Resource/MultiCameraPIX.swift",
+                           "Source/PIX/PIXs/Content/Resource/PaintPIX.swift"
 
   spec.tvos.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                             "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
@@ -61,7 +62,8 @@ Pod::Spec.new do |spec|
                             "Source/PIX/PIXs/Content/Resource/CameraPIX.swift",
                             "Source/PIX/PIXs/Content/Resource/DepthCameraPIX.swift",
                             "Source/PIX/PIXs/Content/Resource/MultiCameraPIX.swift",
-                            "Source/PIX/PIXs/Content/Resource/NDIPIX.swift"
+                            "Source/PIX/PIXs/Content/Resource/NDIPIX.swift",
+                            "Source/PIX/PIXs/Content/Resource/PaintPIX.swift"
 
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders-iOS.metallib",
                        "Resources/Metal Libs/PixelKitShaders-iOS-Simulator.metallib",

@@ -321,6 +321,7 @@
 		7424A1AB212F432F00401654 /* ChromaKeyPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1AA212F432F00401654 /* ChromaKeyPIX.swift */; };
 		7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B2212F5A8B00401654 /* BlendPIX.swift */; };
 		7424A1B5212F5C9300401654 /* Modes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424A1B4212F5C9300401654 /* Modes.swift */; };
+		7434694C23E751C800F7B220 /* PaintPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7434694B23E751C800F7B220 /* PaintPIX.swift */; };
 		7439E9E8212378E2003B0190 /* NoisePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9E7212378E2003B0190 /* NoisePIX.swift */; };
 		7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EC212382D0003B0190 /* BlendsPIX.swift */; };
 		7439E9EF21238ECE003B0190 /* NilPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439E9EE21238ECE003B0190 /* NilPIX.swift */; };
@@ -655,6 +656,7 @@
 		7424A1B2212F5A8B00401654 /* BlendPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendPIX.swift; sourceTree = "<group>"; };
 		7424A1B4212F5C9300401654 /* Modes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modes.swift; sourceTree = "<group>"; };
 		7425CF5A22759CE300757CD2 /* Bridging-Header-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header-iOS.h"; sourceTree = "<group>"; };
+		7434694B23E751C800F7B220 /* PaintPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintPIX.swift; sourceTree = "<group>"; };
 		7439E9E7212378E2003B0190 /* NoisePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePIX.swift; sourceTree = "<group>"; };
 		7439E9EC212382D0003B0190 /* BlendsPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendsPIX.swift; sourceTree = "<group>"; };
 		7439E9EE21238ECE003B0190 /* NilPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NilPIX.swift; sourceTree = "<group>"; };
@@ -1208,6 +1210,7 @@
 				3A84A0B022CCA958001F3D90 /* WebPIX.swift */,
 				3ABA63DF2339FDDC00E6EFE9 /* ViewPIX.swift */,
 				3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */,
+				7434694B23E751C800F7B220 /* PaintPIX.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -2275,6 +2278,7 @@
 				7449A18C2142797100FAA8CC /* ReorderPIX.swift in Sources */,
 				74013306224D298000826395 /* Layout.swift in Sources */,
 				7452F4CD210A33D4001AA523 /* LevelsPIX.swift in Sources */,
+				7434694C23E751C800F7B220 /* PaintPIX.swift in Sources */,
 				747CBA972142882700CB2616 /* MetalPIX.swift in Sources */,
 				7498CA042122073200B07711 /* Resolution.swift in Sources */,
 				74982CB021107E2C009A4264 /* PIXMultiEffect.swift in Sources */,

@@ -13,23 +13,17 @@ import PixelKit
 
 class Main: ObservableObject {
     
-    let imagePix: ImagePIX
-    let colorConvertPix: ColorConvertPIX
+    let paintPix: PaintPIX
     let finalPix: PIX
+    var finalView: UIView { paintPix.canvasView }
     
     init() {
         
         PixelKit.main.logAll()
         
-        imagePix = ImagePIX()
-        imagePix.image = UIImage(named: "test")!
+        paintPix = PaintPIX()
         
-        colorConvertPix = ColorConvertPIX()
-        colorConvertPix.ccWay = .hsvToRgb
-//        colorConvertPix.ccIndex = .third
-        colorConvertPix.input = imagePix
-        
-        finalPix = colorConvertPix
+        finalPix = paintPix
         
     }
     
