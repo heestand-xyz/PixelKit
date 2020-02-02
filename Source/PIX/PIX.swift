@@ -108,6 +108,12 @@ open class PIX: NODE, Equatable, NODETileable {
     public let pixView: PIXView
     public var view: NODEView { pixView }
 
+    
+    public var viewInterpolation: ViewInterpolation = .linear {
+        didSet {
+            view.metalView.viewInterpolation = viewInterpolation
+        }
+    }
     public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
     public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
