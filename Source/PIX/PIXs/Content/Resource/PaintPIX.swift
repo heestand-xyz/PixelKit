@@ -61,7 +61,7 @@ public class PaintPIX: PIXResource {
     
     public override var liveValues: [LiveValue] { [bgColor] }
     
-    public override var postUniforms: [CGFloat] { [true/*flip*/] }
+    public override var postUniforms: [CGFloat] { [1/*flip*/] }
     
     // MARK: - Life Cycle
     
@@ -81,7 +81,7 @@ public class PaintPIX: PIXResource {
     }
     
     func setFrame() {
-        canvasView.frame = CGRect(origin: .zero, size: resolution.size.cg)
+        canvasView.frame = CGRect(origin: .zero, size: (resolution.size / Resolution.scale).cg)
     }
     
     // MARK: Buffer
