@@ -20,6 +20,7 @@ struct Uniforms {
     float bgB;
     float bgA;
     float flip;
+    float swapRB;
 };
 
 fragment float4 contentResourceBackgroundPIX(VertexOut out [[stage_in]],
@@ -36,6 +37,9 @@ fragment float4 contentResourceBackgroundPIX(VertexOut out [[stage_in]],
     
     float4 bg = float4(in.bgR, in.bgG, in.bgB, in.bgA);
     float4 c = inTex.sample(s, uv);
+    if (in.swapRB > 0.0) {
+        c = float4(c.b, c.g, c.r, c.a);
+    }
     float4 bgc = float4(bg.rgb * (1.0 - c.a) + c.rgb * c.a, max(c.a, bg.a));
 
     return bgc;

@@ -45,7 +45,10 @@ public class PaintPIX: PIXResource {
     public var showTools: Bool = false {
         didSet {
             guard let window: UIWindow = UIApplication.shared.keyWindow else { return }
-            PKToolPicker.shared(for: window)?.setVisible(showTools, forFirstResponder: canvasView)
+            guard let toolPicker: PKToolPicker = PKToolPicker.shared(for: window) else { return }
+            toolPicker.setVisible(showTools, forFirstResponder: canvasView)
+            toolPicker.addObserver(canvasView)
+            canvasView.becomeFirstResponder()
         }
     }
     public var drawing: PKDrawing {
@@ -57,11 +60,15 @@ public class PaintPIX: PIXResource {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
     }
-    public var bgColor: LiveColor = .white
+    public var bgColor: LiveColor = .white {
+        didSet {
+            canvasView.backgroundColor = bgColor.uiColor
+        }
+    }
     
     public override var liveValues: [LiveValue] { [bgColor] }
     
-    public override var postUniforms: [CGFloat] { [1/*flip*/] }
+    public override var postUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     
     // MARK: - Life Cycle
     
@@ -81,7 +88,7 @@ public class PaintPIX: PIXResource {
     }
     
     func setFrame() {
-        canvasView.frame = CGRect(origin: .zero, size: (resolution.size / Resolution.scale).cg)
+        canvasView.frame = CGRect(origin: .zero, size: resolution.size.cg)
     }
     
     // MARK: Buffer
