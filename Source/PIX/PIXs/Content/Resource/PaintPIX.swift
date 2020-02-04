@@ -33,12 +33,7 @@ public struct PaintPIXUI: View, PIXUI {
 @available(iOS 13.0, *)
 public class PaintPIX: PIXResource {
     
-    override open var shaderName: String { return "contentResourcePIX" }
-//    #if os(iOS) || os(tvOS)
-//    override open var shaderName: String { return "contentResourceFlipPIX" }
-//    #elseif os(macOS)
-//    override open var shaderName: String { return "contentResourceBGRPIX" }
-//    #endif
+    override open var shaderName: String { return "contentResourceBackgroundPIX" }
 
     // MARK: - Public Properties
     
@@ -47,25 +42,33 @@ public class PaintPIX: PIXResource {
     let helper: PaintHelper
 
     public let canvasView: PKCanvasView
+    public var showTools: Bool = false {
+        didSet {
+            guard let window: UIWindow = UIApplication.shared.keyWindow else { return }
+            PKToolPicker.shared(for: window)?.setVisible(showTools, forFirstResponder: canvasView)
+        }
+    }
     public var drawing: PKDrawing {
         get { canvasView.drawing }
-        set { canvasView.drawing = newValue }
+        set { canvasView.drawing = newValue; setNeedsBuffer() }
     }
+    public var allowsFingerDrawing: Bool {
+        didSet {
+            canvasView.allowsFingerDrawing = allowsFingerDrawing
+        }
+    }
+    public var bgColor: LiveColor = .white
     
-//    public enum Tool: String, CaseIterable {
-//        var tool: PKTool {
-//            switch self {
-//
-//            }
-//        }
-//    }
-//    public var tool: Tool
+    public override var liveValues: [LiveValue] { [bgColor] }
+    
+    public override var postUniforms: [CGFloat] { [true/*flip*/] }
     
     // MARK: - Life Cycle
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
         canvasView = PKCanvasView()
+        allowsFingerDrawing = canvasView.allowsFingerDrawing
         helper = PaintHelper()
         super.init()
         canvasView.delegate = helper
@@ -74,6 +77,7 @@ public class PaintPIX: PIXResource {
         }
         name = "paint"
         setFrame()
+        setNeedsBuffer()
     }
     
     func setFrame() {
@@ -85,13 +89,6 @@ public class PaintPIX: PIXResource {
     func setNeedsBuffer() {
         let frame: CGRect = CGRect(origin: .zero, size: resolution.size.cg)
         let image: UIImage = drawing.image(from: frame, scale: 1.0)
-        if pixelKit.render.frame == 0 {
-            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.setNeedsBuffer()
-            })
-            return
-        }
         guard let cgImage: CGImage = image.cgImage else { return }
         guard let bits = LiveColor.Bits(rawValue: cgImage.bitsPerPixel) else { return }
         guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
@@ -99,7 +96,7 @@ public class PaintPIX: PIXResource {
             return
         }
         pixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
         applyResolution { self.setNeedsRender() }
     }
     
@@ -111,11 +108,10 @@ class PaintHelper: NSObject, PKCanvasViewDelegate {
     var paintedCallback: (() -> ())?
     
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        print("PAINT DID CHANGE")
+        paintedCallback?()
     }
     
     func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
-        print("PAINT DID RENDER")
         paintedCallback?()
     }
 
