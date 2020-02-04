@@ -47,8 +47,10 @@ public class PaintPIX: PIXResource {
             guard let window: UIWindow = UIApplication.shared.keyWindow else { return }
             guard let toolPicker: PKToolPicker = PKToolPicker.shared(for: window) else { return }
             toolPicker.setVisible(showTools, forFirstResponder: canvasView)
-            toolPicker.addObserver(canvasView)
-            canvasView.becomeFirstResponder()
+            if showTools {
+                toolPicker.addObserver(canvasView)
+                canvasView.becomeFirstResponder()                
+            }
         }
     }
     public var drawing: PKDrawing {
@@ -60,7 +62,7 @@ public class PaintPIX: PIXResource {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
     }
-    public var bgColor: LiveColor = .white {
+    public var bgColor: LiveColor = .black {
         didSet {
             canvasView.backgroundColor = bgColor.uiColor
         }
@@ -78,6 +80,7 @@ public class PaintPIX: PIXResource {
         allowsFingerDrawing = canvasView.allowsFingerDrawing
         helper = PaintHelper()
         super.init()
+        canvasView.backgroundColor = bgColor.uiColor
         canvasView.delegate = helper
         helper.paintedCallback = {
             self.setNeedsBuffer()
