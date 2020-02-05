@@ -18,10 +18,12 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
     
     public enum RainbowBlurStyle: String, CaseIterable {
+        case circle
         case angle
         case zoom
         var index: Int {
             switch self {
+            case .circle: return 1
             case .angle: return 2
             case .zoom: return 3
             }
@@ -29,10 +31,7 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
     }
     
     public var style: RainbowBlurStyle = .zoom { didSet { setNeedsRender() } }
-    /// radius is relative. default at 0.5
-    ///
-    /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    public var radius: LiveFloat = LiveFloat(0.5, limit: true)
+    public var radius: LiveFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var position: LivePoint = .zero
@@ -43,21 +42,13 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
         return [radius, angle, position]
     }
     
-    var relRadius: CGFloat {
-        let radius = self.radius.uniform
-        let relRes: Resolution = ._4K
-        let res: Resolution = renderResolution
-        let relHeight = res.height.cg / relRes.height.cg
-        let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
-        let maxRadius: CGFloat = 32 * 10
-        let mappedRadius = relRadius * maxRadius
-        return mappedRadius //radius.uniform * 32 * 10
-    }
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
+        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
     }
     
     override open var shaderNeedsAspect: Bool { return true }
+    
+    // MARK: - Life Cycle
     
     public required init() {
         super.init()

@@ -12,10 +12,7 @@ import RenderKit
 struct ContentView: View {
     @EnvironmentObject var main: Main
     var body: some View {
-        VStack {
-            RepView(view: main.finalView)
-            NODERepView(node: main.finalPix)
-        }
+        NODERepView(node: main.finalPix)
     }
 }
 

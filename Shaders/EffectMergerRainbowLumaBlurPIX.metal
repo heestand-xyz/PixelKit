@@ -52,7 +52,24 @@ fragment float4 effectMergerRainbowLumaBlurPIX(VertexOut out [[stage_in]],
     
     float4 c = 0.0;
     float amounts = 0.0;
-    if (in.type > 0.5 && in.type < 1.5) {
+    if (in.type == 1) {
+        
+        // Circle
+        
+        for (int i = 0; i < res * 3; ++i) {
+            float fraction = float(i) / float(res * 3);
+            float3 rgb = hsv2rgb(fraction, 1.0, 1.0);
+            float4 rgba = float4(rgb.r, rgb.g, rgb.b, 1.0);
+            float xu = u;
+            float yv = v;
+            float ang = fraction * pi * 2;
+            xu += cos(ang - angle) * in.radius * lum / (32 * 100);
+            yv += sin(ang - angle) * in.radius * lum / (32 * 100);
+            c += inTexA.sample(s, float2(xu, yv)) * rgba;
+            amounts += 1.0;
+        }
+        
+    } else if (in.type == 2) {
         
         // Angle
         
@@ -73,7 +90,7 @@ fragment float4 effectMergerRainbowLumaBlurPIX(VertexOut out [[stage_in]],
             amounts += 1.0;
         }
         
-    } else if (in.type > 1.5 && in.type < 2.5) {
+    } else if (in.type == 3) {
         
         // Zoom
         

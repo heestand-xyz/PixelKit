@@ -17,12 +17,14 @@ public class RainbowLumaBlurPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Public Properties
     
     public enum RainbowLumaBlurStyle: String, CaseIterable {
+        case circle
         case angle
         case zoom
         var index: Int {
             switch self {
-            case .angle: return 1
-            case .zoom: return 2
+            case .circle: return 1
+            case .angle: return 2
+            case .zoom: return 3
             }
         }
     }

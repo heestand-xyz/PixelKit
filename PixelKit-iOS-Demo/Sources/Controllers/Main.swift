@@ -13,17 +13,33 @@ import PixelKit
 
 class Main: ObservableObject {
     
-    let paintPix: PaintPIX
+    let imagePix: ImagePIX
+//    let gradientPix: GradientPIX
+    let rainbowBlurPix: RainbowBlurPIX
+//    let rainbowLumaBlurPix: RainbowLumaBlurPIX
     let finalPix: PIX
-    var finalView: UIView { paintPix.canvasView }
     
     init() {
         
         PixelKit.main.logAll()
         
-        paintPix = PaintPIX()
+        imagePix = ImagePIX()
+        imagePix.image = UIImage(named: "test")!
         
-        finalPix = paintPix
+//        gradientPix = GradientPIX()
+        
+        rainbowBlurPix = RainbowBlurPIX()
+        rainbowBlurPix.input = imagePix
+        rainbowBlurPix.style = .circle
+        rainbowBlurPix.quality = .epic
+        
+//        rainbowLumaBlurPix = RainbowLumaBlurPIX()
+//        rainbowLumaBlurPix.inputA = imagePix
+//        rainbowLumaBlurPix.inputB = gradientPix !** 0.5
+//        rainbowLumaBlurPix.style = .circle
+//        rainbowLumaBlurPix.quality = .epic
+        
+        finalPix = rainbowBlurPix
         
     }
     
