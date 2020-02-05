@@ -59,12 +59,14 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     public required init() {
         deepLab = DeepLabV3Int8LUT()
         super.init()
-        name = "deepFake"
+        name = "deepLab"
         customRenderDelegate = self
         customRenderActive = true
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+//        print(">>>")
+//        let globalRenderTime = CFAbsoluteTimeGetCurrent()
         let size: CGSize = DeepLabPIX.deepLabResolution.size.cg
         do {
             let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
@@ -74,6 +76,10 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
                 return nil
             }
             let deepTexture: MTLTexture = try Texture.makeTexture(from: deepCGImage, with: commandBuffer, on: pixelKit.render.metalDevice)
+//            let renderTime = CFAbsoluteTimeGetCurrent() - globalRenderTime
+//            let renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//            print("Total Render Time: [\(renderTimeMs)ms]")
+//            print("<<<")
             return deepTexture
         } catch {
             pixelKit.logger.log(node: self, .error, .effect, "Lab fail.", e: error)
@@ -82,25 +88,38 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     }
     
     func deep(_ output: DeepLabV3Int8LUTOutput) -> CGImage? {
-        print("DEEP > > >")
+//        print("DEEP > > >")
+
+//        // Render Time
+//        var localRenderTime = CFAbsoluteTimeGetCurrent()
+//        var renderTime: Double = -1
+//        var renderTimeMs: Double = -1
+//        print("Render Time: Started")
+        
         let shape: [NSNumber] = output.semanticPredictions.shape
         let d: Int = 1
         let (w,h) = (Int(truncating: shape[0]), Int(truncating: shape[1]))
         let pageSize = w*h
         var res:Array<Int> = []
         
-        func argmax(arr:Array<Int>) -> Int{
-            precondition(arr.count > 0)
-            var maxValue = arr[0]
-            var maxValueIndex = 0
-            for i in 1..<arr.count {
-                if arr[i] > maxValue {
-                    maxValue = arr[i]
-                    maxValueIndex = i
-                }
-            }
-            return maxValueIndex
-        }
+//        // Render Time
+//        renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//        print("Render Time: [\(renderTimeMs)ms] A")
+//        localRenderTime = CFAbsoluteTimeGetCurrent()
+        
+//        func argmax(arr:Array<Int>) -> Int{
+//            precondition(arr.count > 0)
+//            var maxValue = arr[0]
+//            var maxValueIndex = 0
+//            for i in 1..<arr.count {
+//                if arr[i] > maxValue {
+//                    maxValue = arr[i]
+//                    maxValueIndex = i
+//                }
+//            }
+//            return maxValueIndex
+//        }
         
         for i in 0..<w {
             for j in 0..<h {
@@ -110,6 +129,12 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
             }
         }
         
+//        // Render Time
+//        renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//        print("Render Time: [\(renderTimeMs)ms] B")
+//        localRenderTime = CFAbsoluteTimeGetCurrent()
+        
         let bytesPerComponent = MemoryLayout<UInt8>.size
         let bytesPerPixel = bytesPerComponent * 4
         let length = pageSize * bytesPerPixel
@@ -118,9 +143,6 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         data.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Void in
             var pointer = bytes
             for pix in res {
-                if pix != 0 {
-                    print(pix, deepLabTarget.index, pix == deepLabTarget.index ? "<<<<<<<<<" : "?")
-                }
                 let v: UInt8 = deepLabTarget.index == pix ? 255 : 0
                 for _ in 0..<3 {
                     pointer.pointee = v
@@ -130,6 +152,12 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
                 pointer += 1
             }
         }
+        
+//        // Render Time
+//        renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//        print("Render Time: [\(renderTimeMs)ms] C")
+//        localRenderTime = CFAbsoluteTimeGetCurrent()
         
         let provider: CGDataProvider = CGDataProvider(data: data as CFData)!
         let cgimg = CGImage(
@@ -145,7 +173,15 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
             shouldInterpolate: false,
             intent: CGColorRenderingIntent.defaultIntent
         )
-        print("DEEP < < <")
+        
+//        // Render Time
+//        renderTime = CFAbsoluteTimeGetCurrent() - localRenderTime
+//        renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
+//        print("Render Time: [\(renderTimeMs)ms] D")
+//        localRenderTime = CFAbsoluteTimeGetCurrent()
+        
+//        print("DEEP < < <")
+        
         return cgimg
         
     }

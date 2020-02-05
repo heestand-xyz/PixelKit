@@ -15,8 +15,9 @@ class Main: ObservableObject {
     
     let imagePix: ImagePIX
 //    let gradientPix: GradientPIX
-    let rainbowBlurPix: RainbowBlurPIX
+//    let rainbowBlurPix: RainbowBlurPIX
 //    let rainbowLumaBlurPix: RainbowLumaBlurPIX
+    let deepLabPix: DeepLabPIX
     let finalPix: PIX
     
     init() {
@@ -26,12 +27,12 @@ class Main: ObservableObject {
         imagePix = ImagePIX()
         imagePix.image = UIImage(named: "test")!
         
-//        gradientPix = GradientPIX()
+//        rainbowBlurPix = RainbowBlurPIX()
+//        rainbowBlurPix.input = imagePix
+//        rainbowBlurPix.style = .circle
+//        rainbowBlurPix.quality = .epic
         
-        rainbowBlurPix = RainbowBlurPIX()
-        rainbowBlurPix.input = imagePix
-        rainbowBlurPix.style = .circle
-        rainbowBlurPix.quality = .epic
+//        gradientPix = GradientPIX()
         
 //        rainbowLumaBlurPix = RainbowLumaBlurPIX()
 //        rainbowLumaBlurPix.inputA = imagePix
@@ -39,7 +40,10 @@ class Main: ObservableObject {
 //        rainbowLumaBlurPix.style = .circle
 //        rainbowLumaBlurPix.quality = .epic
         
-        finalPix = rainbowBlurPix
+        deepLabPix = DeepLabPIX()
+        deepLabPix.input = imagePix
+        
+        finalPix = deepLabPix
         
     }
     
