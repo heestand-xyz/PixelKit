@@ -16,7 +16,7 @@ public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
 
     public var hue: LiveFloat = 0.0
-    public var saturation: LiveFloat = 0.5
+    public var saturation: LiveFloat = 1.0
     
     // MARK: - Property Helpers
     
