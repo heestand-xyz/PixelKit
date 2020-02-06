@@ -26,6 +26,9 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Source", "Source/**/*.swift",
                        "Resources/Models/*"
 
+  # spec.osx.xcconfig = { 'SWIFT_OBJC_BRIDGING_HEADER' => 'Source/Other/Bridging-Header-macOS.h' } 
+  # spec.osx.xcconfig = { 'SWIFT_ENABLE_BATCH_MODE' => 'NO' } 
+
   spec.ios.exclude_files = "Source/PIX/PIXs/Content/Resource/ScreenCapturePIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
                            "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
@@ -35,8 +38,8 @@ Pod::Spec.new do |spec|
   spec.osx.exclude_files = "Source/PIX/PIXs/Content/Resource/StreamInPIX.swift",
   						             "Source/PIX/PIXs/Output/StreamOutPIX.swift",
                            "Source/PIX/PIXs/Content/Resource/SyphonInPIX.swift",
-                           "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
                            "Source/PIX/PIXs/Output/AirPlayPIX.swift",
+                           "Source/PIX/PIXs/Output/SyphonOutPIX.swift",
                            "Source/PIX/View/LiveTouchView.swift",
                            "Source/PIX/PIXs/Content/Resource/VectorPIX.swift",
                            "Source/PIX/IO/Peer.swift",
@@ -68,7 +71,8 @@ Pod::Spec.new do |spec|
   spec.ios.resources = "Resources/Metal Libs/PixelKitShaders-iOS.metallib",
                        "Resources/Metal Libs/PixelKitShaders-iOS-Simulator.metallib",
                        "Resources/Metal Libs/PixelKitShaders-macCatalyst.metallib"
-  spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib"
+  spec.osx.resources = "Resources/Metal Libs/PixelKitShaders-macOS.metallib",
+                       "Resources/Frameworks/Syphon.framework"
   spec.tvos.resources = "Resources/Metal Libs/PixelKitShaders-tvOS.metallib",
                         "Resources/Metal Libs/PixelKitShaders-tvOS-Simulator.metallib"
   spec.resources = "Source/PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
