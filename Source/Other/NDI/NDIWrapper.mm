@@ -65,4 +65,10 @@
     self->_scanType = scanType;
     return result;
 }
+
+//- (Boolean) sendPIXTexture {
+//    unsigned char* result = m_wrapper->getVideoFrame(128, 128, 255, 0, 0);
+//    return true;
+//}
+
 @end

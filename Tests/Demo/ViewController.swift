@@ -11,31 +11,26 @@ import LiveValues
 import RenderKit
 import PixelKit
 
-class ViewController: NSViewController, NODEDelegate, NDIPIXDelegate {
+class ViewController: NSViewController, NODEDelegate/*, NDIPIXDelegate*/ {
     
-    var ndiPix: NDIPIX!
-    
-    var finalPix: PIX!
-    var finalPix2: PIX!
+    var finalPix: (PIX & NODEOut)!
+    var syphonOutPix: SyphonOutPIX!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PixelKit.main.logger.logDebug()
-        PixelKit.main.render.logger.logDebug()
-        PixelKit.main.render.engine.logger.logDebug()
-//        PixelKit.main.render.engine.renderMode = .manualTiles
-//        PixelKit.main.tileResolution = .square(1024)
-//        PixelKit.main.render.bits = ._16
+//        PixelKit.main.logger.logDebug()
+//        PixelKit.main.render.logger.logDebug()
+//        PixelKit.main.render.engine.logger.logDebug()
         
-//        let polygonPix = PolygonPIX()//(at: .square(10_000))
-//        polygonPix.name = "demo-polygon"
+        let polygonPix = PolygonPIX(at: ._1080p)
+        polygonPix.rotation = .live
         
-        ndiPix = NDIPIX()
-        ndiPix.ndiDelegate = self
+        finalPix = polygonPix
+        finalPix.delegate = self
         
-        finalPix = ndiPix
-//        finalPix.delegate = self
+        syphonOutPix = SyphonOutPIX()
+        syphonOutPix.input = finalPix
         
         view.addSubview(finalPix.view)
         finalPix.view.translatesAutoresizingMaskIntoConstraints = false
@@ -52,11 +47,11 @@ class ViewController: NSViewController, NODEDelegate, NDIPIXDelegate {
     
     func nodeDidRender(_ node: NODE) {}
     
-    func ndiPIXUpdated(sources: [String]) {
-        guard let source = sources.first else { return }
-        print("NDI >>>>>>>>>>", source)
-        ndiPix.connect(to: source)
-    }
+//    func ndiPIXUpdated(sources: [String]) {
+//        guard let source = sources.first else { return }
+//        print("NDI >>>>>>>>>>", source)
+//        ndiPix.connect(to: source)
+//    }
     
 //    func save() {
 //        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")

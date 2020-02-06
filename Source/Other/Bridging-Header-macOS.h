@@ -6,6 +6,6 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-//#import <Syphon/Syphon.h>
+#import <Syphon/Syphon.h>
 
 #import "NDIWrapper.h"

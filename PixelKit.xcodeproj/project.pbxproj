@@ -307,6 +307,10 @@
 		74076D08211A2C80000E56E0 /* CirclePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74076D07211A2C80000E56E0 /* CirclePIX.swift */; };
 		740C685D228706C5001FC5BA /* EffectMultiMetalPIX.metal.txt in Resources */ = {isa = PBXBuildFile; fileRef = 74981DF621474B3400F9E030 /* EffectMultiMetalPIX.metal.txt */; };
 		740EC53A213EFC3E006E2996 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740EC539213EFC3E006E2996 /* Operators.swift */; };
+		7410AB6923ECA53E009166F3 /* NDIOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410AB6823ECA53E009166F3 /* NDIOutPIX.swift */; };
+		7410AB6E23ECA981009166F3 /* SyphonOutPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */; };
+		7410AB6F23ECAA58009166F3 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 744A9DAA22932D9200A01CA1 /* Syphon.framework */; };
+		7410AB7023ECAA58009166F3 /* Syphon.framework in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 744A9DAA22932D9200A01CA1 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7410E6CC223D1DD700DF64AC /* TimeMachinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */; };
 		7410E6D0223D1E2000DF64AC /* TimeMachinePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */; };
 		741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741510DB212F300B00B251E7 /* ColorPIX.swift */; };
@@ -517,6 +521,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3AAFCB5F23D5DDD000337189 /* libndi.4.dylib in Embed Libraries */,
+				7410AB7023ECAA58009166F3 /* Syphon.framework in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,6 +653,7 @@
 		74032AFB212C478000E77766 /* CrossPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossPIX.swift; sourceTree = "<group>"; };
 		74076D07211A2C80000E56E0 /* CirclePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePIX.swift; sourceTree = "<group>"; };
 		740EC539213EFC3E006E2996 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		7410AB6823ECA53E009166F3 /* NDIOutPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDIOutPIX.swift; sourceTree = "<group>"; };
 		7410E6CB223D1DD700DF64AC /* TimeMachinePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMachinePIX.swift; sourceTree = "<group>"; };
 		741510DB212F300B00B251E7 /* ColorPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPIX.swift; sourceTree = "<group>"; };
 		74179CA821271046007F9579 /* ThresholdPIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdPIX.swift; sourceTree = "<group>"; };
@@ -791,6 +797,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAFCB5E23D5DDC700337189 /* libndi.4.dylib in Frameworks */,
+				7410AB6F23ECAA58009166F3 /* Syphon.framework in Frameworks */,
 				3A4A712E2285BB8000B7193C /* PixelKitShaders-macOS.metallib in Frameworks */,
 				6A6E5138D43171FDE6C93C1F /* Pods_PixelKit_macOS.framework in Frameworks */,
 			);
@@ -1083,6 +1090,7 @@
 				743F375E215BB2C3002BC5BA /* RecordPIX.swift */,
 				3A370F6622268EC1001B0208 /* StreamOutPIX.swift */,
 				3A5B862922770EAD0030F98E /* SyphonOutPIX.swift */,
+				7410AB6823ECA53E009166F3 /* NDIOutPIX.swift */,
 			);
 			path = Output;
 			sourceTree = "<group>";
@@ -2155,6 +2163,7 @@
 				3AF28C19219313050079FC7A /* MetalPIX.swift in Sources */,
 				3AF28C13219313050079FC7A /* ColorPIX.swift in Sources */,
 				3A3DAB7223D987E0007358A1 /* SaliencyPIX.swift in Sources */,
+				7410AB6E23ECA981009166F3 /* SyphonOutPIX.swift in Sources */,
 				3AF28BEF219312EB0079FC7A /* LookupPIX.swift in Sources */,
 				7421ED402231782E00E60A0E /* FreezePIX.swift in Sources */,
 				3AF28BE4219312D50079FC7A /* PIXOutput.swift in Sources */,
@@ -2200,6 +2209,7 @@
 			files = (
 				3AF0B7872327878A00188940 /* CachePIX.swift in Sources */,
 				7483FC36213ECD5600D3F713 /* HueSaturationPIX.swift in Sources */,
+				7410AB6923ECA53E009166F3 /* NDIOutPIX.swift in Sources */,
 				743FBC642260C5270009DA97 /* ArrayPIX.swift in Sources */,
 				7471FC8A212843AB00ECF2E2 /* QuantizePIX.swift in Sources */,
 				7452F4C1210A321F001AA523 /* PIXContent.swift in Sources */,
@@ -2483,7 +2493,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2515,7 +2525,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2657,7 +2667,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2702,7 +2712,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2867,7 +2877,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2909,7 +2919,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.3;
+				MARKETING_VERSION = 0.9.4;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;

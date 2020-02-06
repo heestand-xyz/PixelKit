@@ -9,7 +9,7 @@
 import AppKit
 import Metal
 
-public class SyphonOutPIX: NODEOutput {
+public class SyphonOutPIX: PIXOutput {
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!
@@ -21,8 +21,9 @@ public class SyphonOutPIX: NODEOutput {
 
     override public init() {
         super.init()
+        name = "syphonOut"
         setup()
-        if pixelKit.bits != ._8 {
+        if pixelKit.render.bits != ._8 {
             pixelKit.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
         }
     }
