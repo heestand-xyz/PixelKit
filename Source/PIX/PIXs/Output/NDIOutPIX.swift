@@ -9,26 +9,26 @@
 import Foundation
 import CoreGraphics
 import CoreImage
-import UIKit
+//import UIKit
 
-public class NDIOutPIX: PIXOutput {
-    
-    // MARK: - Public Properties
-    
-    
-    // MARK: - Life Cycle
-    
-    override public init() {
-        
-        super.init()
-        
-        name = "NDIOut"
-        
-    }
-    
-//    public override func didRender(texture: MTLTexture, force: Bool = false) {
-//        super.didRender(texture: texture, force: force)
+//public class NDIOutPIX: NODEOutput {
+//
+//    // MARK: - Public Properties
+//
+//
+//    // MARK: - Life Cycle
+//
+//    override public init() {
+//
+//        super.init()
+//
+//        name = "NDIOut"
 //
 //    }
-    
-}
+//
+////    public override func didRender(texture: MTLTexture, force: Bool = false) {
+////        super.didRender(texture: texture, force: force)
+////
+////    }
+//
+//}
