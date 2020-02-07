@@ -18,6 +18,10 @@ public class AirPlayPIX: PIXOutput {
     var window: UIWindow?
     var queueConnect: Bool
     
+    var tempView: UIView?
+    
+    let nilPix: NilPIX
+    
     // MARK: - Life Cycle
     
     override public init() {
@@ -25,6 +29,8 @@ public class AirPlayPIX: PIXOutput {
         isConnected = false
         window = nil
         queueConnect = false
+        
+        nilPix = NilPIX()
         
         super.init()
         
@@ -36,6 +42,28 @@ public class AirPlayPIX: PIXOutput {
         
         name = "airPlay"
         
+        check()
+        
+    }
+    
+    override func connected() {
+        super.connected()
+        #if DEBUG
+        print("AirPlayDebug connected input", input != nil)
+        #endif
+        nilPix.input = input
+        if let bounds: CGRect = window?.screen.bounds {
+            addAirPlayView(bounds: bounds)
+        }
+    }
+    
+    override func disconnected() {
+        super.disconnected()
+        #if DEBUG
+        print("AirPlayDebug disconnected")
+        #endif
+        nilPix.input = nil
+        removeAirPlayView()
     }
     
     // MARK:  Methods
@@ -51,30 +79,48 @@ public class AirPlayPIX: PIXOutput {
             message = "Not enabled (mirroring)."
         }
         pixelKit.logger.log(node: self, .info, nil, slug + " " + message)
+        #if DEBUG
+        print("AirPlayDebug log \(message)")
+        #endif
     }
     
     func addAirPlayView(bounds: CGRect) {
-        view.frame = bounds
-        window?.addSubview(view)
+        #if DEBUG
+        print("AirPlayDebug", "addAirPlayView")
+        #endif
+        nilPix.view.frame = bounds
+        window?.addSubview(nilPix.view)
     }
     
     func connectAirPlay(screen: UIScreen) {
+        #if DEBUG
+        print("AirPlayDebug", "connectAirPlay")
+        #endif
         
         window = UIWindow(frame: screen.bounds)
-        window?.screen = screen
+        window!.screen = screen
         
-        addAirPlayView(bounds: screen.bounds)
+        if connectedIn {
+            addAirPlayView(bounds: screen.bounds)
+        }
         
-        window?.isHidden = false
+        window!.isHidden = false
         
         isConnected = true
         connectionCallback?(true)
         
     }
     
+    func removeAirPlayView() {
+        nilPix.view.removeFromSuperview()
+    }
+    
     func disconnectAirPlay() {
+        #if DEBUG
+        print("AirPlayDebug", "disconnectAirPlay")
+        #endif
         
-        view.removeFromSuperview()
+        removeAirPlayView()
         
         window?.isHidden = true
         window = nil
@@ -85,6 +131,9 @@ public class AirPlayPIX: PIXOutput {
     }
     
     @objc func screenConnect(sender: NSNotification) {
+        #if DEBUG
+        print("AirPlayDebug", "screenConnect", "isConnected:\(isConnected)", "appState:\(UIApplication.shared.applicationState == .active)")
+        #endif
         if !isConnected {
             if UIApplication.shared.applicationState == .active {
                 let new_screen = sender.object as! UIScreen
@@ -97,6 +146,9 @@ public class AirPlayPIX: PIXOutput {
     }
     
     @objc func screenDisconnect() {
+        #if DEBUG
+        print("AirPlayDebug", "screenDisconnect", "isConnected:\(isConnected)")
+        #endif
         if isConnected {
             disconnectAirPlay()
         }
@@ -104,6 +156,9 @@ public class AirPlayPIX: PIXOutput {
     }
     
     @objc func appActive() {
+        #if DEBUG
+        print("AirPlayDebug", "appActive", "queueConnect:\(queueConnect)")
+        #endif
         if queueConnect {
             let second_screen = UIScreen.screens[1]
             connectAirPlay(screen: second_screen)
@@ -113,6 +168,9 @@ public class AirPlayPIX: PIXOutput {
     }
     
     func check() {
+        #if DEBUG
+        print("AirPlayDebug", "check", "isConnected:\(isConnected)")
+        #endif
         if !isConnected {
             if UIScreen.screens.count > 1 {
                 let second_screen = UIScreen.screens[1]
@@ -123,10 +181,18 @@ public class AirPlayPIX: PIXOutput {
     }
     
     func disconnect() {
+        #if DEBUG
+        print("AirPlayDebug", "disconnect", "isConnected:\(isConnected)")
+        #endif
         if isConnected {
             disconnectAirPlay()
         }
         log()
+    }
+    
+    public override func destroy() {
+        super.destroy()
+        disconnect()
     }
     
     required public init(from decoder: Decoder) throws {
