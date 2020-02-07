@@ -24,6 +24,8 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var shaderName: String { return "" }
     
+    open var overrideBits: LiveColor.Bits? { nil }
+    
     open var liveValues: [LiveValue] { return [] }
     open var preUniforms: [CGFloat] { return [] }
     open var postUniforms: [CGFloat] { return [] }
@@ -181,7 +183,7 @@ open class PIX: NODE, Equatable, NODETileable {
         do {
             let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending)
+            pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending, overrideBits: overrideBits)
             #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif

@@ -6,16 +6,28 @@
 //  Open Source - MIT License
 //
 
+import LiveValues
 import RenderKit
 
 public class NilPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "nilPIX" }
     
+    let nilOverrideBits: LiveColor.Bits?
+    public override var overrideBits: LiveColor.Bits? { nilOverrideBits }
+    
     public required init() {
+        nilOverrideBits = nil
         super.init()
         name = "nil"
     }
+    
+    public init(overrideBits: LiveColor.Bits) {
+        nilOverrideBits = overrideBits
+        super.init()
+        name = "nil\(overrideBits.rawValue)"
+    }
+    
 }
 
 public extension NODEOut {
