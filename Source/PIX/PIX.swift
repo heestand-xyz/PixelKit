@@ -206,7 +206,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     // MARK: - Render
     
-    public func setNeedsRender() {
+    open func setNeedsRender() {
         setNeedsRender(first: true)
     }
     public func setNeedsRender(first: Bool = true) {

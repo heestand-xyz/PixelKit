@@ -25,5 +25,6 @@
 - (Boolean) startCapture:(NSString*) p_ndi_name;
 - (Boolean) stopCapture;
 - (unsigned char*) getVideoFrame;
+//- (Boolean) sendPIXTexture;
 @end
 #endif /* NDIWrapper_h */

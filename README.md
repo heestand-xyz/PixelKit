@@ -65,6 +65,8 @@ pod 'PixelKit'
 And import:
 
 ```swift
+import LiveValues
+import RenderKit
 import PixelKit
 ```
 
@@ -85,6 +87,8 @@ import RenderKit
 
 ~~~~swift
 import UIKit
+import LiveValues
+import RenderKit
 import PixelKit
 
 class ViewController: UIViewController {
@@ -111,6 +115,8 @@ class ViewController: UIViewController {
 
 ~~~~swift
 import SwiftUI
+import LiveValues
+import RenderKit
 import PixelKit
 
 struct ContentView: View {
@@ -146,7 +152,9 @@ struct ContentView: View {
 
 ### Example: Camera Effects
 
-`import PixelKit`
+`import LiveValues
+import RenderKit
+import PixelKit`
 
 ~~~~swift
 let camera = CameraPIX()
@@ -220,7 +228,9 @@ Remeber to add `NSCameraUsageDescription` to your info.plist
 
 ### Example: Green Screen
 
-`import PixelKit`
+`import LiveValues
+import RenderKit
+import PixelKit`
 
 ~~~~swift
 let cityImage = ImagePIX()
@@ -272,7 +282,9 @@ This is a representation of the Pixel Nodes [Green Screen](http://pixelnodes.net
 
 ### Example: Depth Camera
 
-`import PixelKit`
+`import LiveValues
+import RenderKit
+import PixelKit`
 
 ~~~~swift
 let cameraPix = CameraPIX()

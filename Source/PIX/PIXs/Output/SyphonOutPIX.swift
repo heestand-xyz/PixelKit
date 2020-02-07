@@ -8,8 +8,10 @@
 
 import AppKit
 import Metal
+import RenderKit
+import PixelKit
 
-public class SyphonOutPIX: NODEOutput {
+public class SyphonOutPIX: PIXOutput {
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!
@@ -21,9 +23,10 @@ public class SyphonOutPIX: NODEOutput {
 
     override public init() {
         super.init()
+        name = "syphonOut"
         setup()
-        if pixelKit.bits != ._8 {
-            pixelKit.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
+        if PixelKit.main.render.bits != ._8 {
+            PixelKit.main.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
         }
     }
     
@@ -47,7 +50,7 @@ public class SyphonOutPIX: NODEOutput {
         context = NSOpenGLContext(format: format, share: nil)
         server = SyphonServer(name: "PixelKit", context: context.cglContextObj, options: nil)
         if server == nil {
-            pixelKit.logger.log(.error, .connection, "Syphon server init failed.")
+            PixelKit.main.logger.log(.error, .connection, "Syphon server init failed.")
         }
     }
     
@@ -91,9 +94,9 @@ public class SyphonOutPIX: NODEOutput {
         }
     }
 
-    public override func destroy() {
-        super.destroy()
-        server.stop()
-    }
+//    public override func destroy() {
+//        super.destroy()
+//        server.stop()
+//    }
 
 }
