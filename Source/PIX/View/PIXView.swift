@@ -16,7 +16,7 @@ public class PIXView: NODEView {
     public let liveMouseView: LiveMouseView
     #endif
     
-    override init(with render: Render) {
+    override init(with render: Render, pixelFormat: MTLPixelFormat) {
         
         #if os(iOS)
         liveTouchView = LiveTouchView()
@@ -24,7 +24,7 @@ public class PIXView: NODEView {
         liveMouseView = LiveMouseView()
         #endif
         
-        super.init(with: render)
+        super.init(with: render, pixelFormat: pixelFormat)
         
         #if os(iOS)
         addSubview(liveTouchView)

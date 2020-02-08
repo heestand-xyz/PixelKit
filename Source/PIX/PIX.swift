@@ -107,7 +107,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var additiveVertexBlending: Bool { return false }
     
-    public let pixView: PIXView
+    public var pixView: PIXView!
     public var view: NODEView { pixView }
 
     
@@ -160,8 +160,9 @@ open class PIX: NODE, Equatable, NODETileable {
     // MARK: - Life Cycle
     
     init() {
-    
-        pixView = PIXView(with: PixelKit.main.render)
+        
+        let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
+        pixView = PIXView(with: PixelKit.main.render, pixelFormat: pixelFormat)
         
         setupShader()
             
