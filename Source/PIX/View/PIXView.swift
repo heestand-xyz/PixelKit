@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import MetalKit
 import RenderKit
 
 public class PIXView: NODEView {

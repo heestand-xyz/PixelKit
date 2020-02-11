@@ -10,6 +10,9 @@ import LiveValues
 import RenderKit
 import AVKit
 
+@available(OSX 10.13, *)
+@available(iOS 11, *)
+@available(tvOS 11, *)
 public class RecordPIX: PIXOutput {
     
     public override var shaderName: String { return "contentResourceBGRPIX" }

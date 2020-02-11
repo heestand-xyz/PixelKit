@@ -6,6 +6,8 @@
 //  Copyright © 2020 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
+
 import RenderKit
 import LiveValues
 import UIKit
@@ -126,3 +128,5 @@ class PaintHelper: NSObject, PKCanvasViewDelegate {
     }
 
 }
+
+#endif

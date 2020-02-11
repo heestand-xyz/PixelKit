@@ -15,6 +15,9 @@ import AppKit
 import WebKit
 import LiveValues
 
+@available(OSX 10.13, *)
+@available(iOS 11, *)
+@available(tvOS 11, *)
 public class VectorPIX: PIXResource {
     
     #if os(iOS) || os(tvOS)
@@ -29,7 +32,7 @@ public class VectorPIX: PIXResource {
     
     public var scale: CGFloat = 1.0 { didSet { load() } }
     public var position: CGPoint = .zero { didSet { load() } }
-    public var bgColor: UIColor = .black { didSet { load() } }
+    public var bgColor: _Color = .black { didSet { load() } }
     
     var svg: String?
     

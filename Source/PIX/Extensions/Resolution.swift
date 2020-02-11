@@ -23,6 +23,9 @@ extension PIX {
                 return (pixIn.inputList.first as? PIX)?.realResolution
             } else { return nil }
         }
+        if let resolution: Resolution = staticResolution {
+            return resolution
+        }
         if let pixContent = self as? PIXContent {
             if let pixResource = pixContent as? PIXResource {
                 if let imagePix = pixResource as? ImagePIX {
@@ -37,8 +40,10 @@ extension PIX {
                     #endif
                 } else {
                     #if !os(tvOS)
-                    if let webPix = pixResource as? WebPIX {
-                        return webPix.resolution
+                    if #available(OSX 10.13, *) {
+                        if let webPix = pixResource as? WebPIX {
+                            return webPix.resolution
+                        }
                     }
                     #endif
                     guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
@@ -65,24 +70,6 @@ extension PIX {
                     resRes = resPix.resolution
                 }
                 return resRes * resPix.resMultiplier
-            }
-            if #available(iOS 13.0, *) {
-                if #available(OSX 10.15, *) {
-                    if #available(tvOS 13.0, *) {
-                        if self is SaliencyPIX {
-                            return SaliencyPIX.saliencyResolution
-                        }
-                    }
-                }
-            }
-            if #available(iOS 12.0, *) {
-                if #available(OSX 10.14, *) {
-                    if #available(tvOS 12.0, *) {
-                        if self is DeepLabPIX {
-                            return DeepLabPIX.deepLabResolution
-                        }
-                    }
-                }
             }
             if let slicePix = self as? SlicePIX {
                 guard let node3d = slicePix.input as? NODE3D else { return nil }

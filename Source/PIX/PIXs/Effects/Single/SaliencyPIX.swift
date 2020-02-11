@@ -9,6 +9,7 @@
 import LiveValues
 import RenderKit
 import Vision
+import CoreImage
 
 @available(iOS 13.0, *)
 @available(OSX 10.15, *)
@@ -17,7 +18,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override open var shaderName: String { return "contentResourceRedToWhitePIX" }
     
-    static let saliencyResolution: Resolution = .square(68)
+    override var staticResolution: Resolution? { .square(68) }
     
     // MARK: - Public Properties
     
@@ -68,7 +69,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
             let saliencyTexture: MTLTexture
             if style == .objectness {
                 let ciImage: CIImage = Texture.ciImage(from: pixelBuffer)
-                let size: CGSize = SaliencyPIX.saliencyResolution.size.cg
+                let size: CGSize = staticResolution!.size.cg
                 saliencyTexture = try Texture.makeTexture(from: ciImage, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, with: commandBuffer, on: pixelKit.render.metalDevice, vFlip: false)
             } else {
                 saliencyTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: pixelKit.render.bits, in: pixelKit.render.textureCache)

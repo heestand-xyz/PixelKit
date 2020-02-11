@@ -6,9 +6,10 @@
 //  Open Source - MIT License
 //
 
+import CoreGraphics
+import MetalKit
 import LiveValues
 import RenderKit
-import CoreGraphics
 
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, NODETileable2D, PIXAutoParent {
     

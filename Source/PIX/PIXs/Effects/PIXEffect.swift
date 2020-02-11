@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import MetalKit
 import RenderKit
 
 open class PIXEffect: PIX, NODEInIO, NODEOutIO, NODETileable2D {

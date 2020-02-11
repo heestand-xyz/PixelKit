@@ -20,7 +20,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override open var shaderName: String { return "nilPIX" }
     
-    static let deepLabResolution: Resolution = .square(513)
+    override var staticResolution: Resolution? { .square(513) }
     
     let deepLab: DeepLabV3Int8LUT
     

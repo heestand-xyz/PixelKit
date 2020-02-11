@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import MetalKit
 import RenderKit
 
 public class PixelKit: EngineDelegate, LoggerDelegate {

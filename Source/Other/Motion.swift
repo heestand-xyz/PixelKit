@@ -5,6 +5,8 @@
 //  Created by Anton Heestand on 2019-05-28.
 //
 
+#if os(iOS)
+
 import CoreMotion
 import CoreGraphics
 
@@ -90,3 +92,5 @@ class PixelMotion {
     }
     
 }
+
+#endif

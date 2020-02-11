@@ -6,6 +6,8 @@
 //  Copyright © 2018 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
+
 import UIKit
 import MultipeerConnectivity
 
@@ -173,3 +175,5 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     }
     
 }
+
+#endif

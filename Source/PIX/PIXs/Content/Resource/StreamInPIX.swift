@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+#if os(iOS)
+
 import RenderKit
 import UIKit
 import CoreGraphics
@@ -81,3 +83,5 @@ public class StreamInPIX: PIXResource {
     }
     
 }
+
+#endif

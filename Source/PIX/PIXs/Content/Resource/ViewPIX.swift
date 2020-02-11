@@ -32,8 +32,12 @@ public struct ViewPIXUI<Content: View>: View, PIXUI {
         let viewPix = ViewPIX()
         viewPix.renderViewContinuously = continuously
         self.viewPix = viewPix
-        let uiView = UIHostingController(rootView: view()).view!
-        viewPix.renderView = uiView
+        #if os(macOS)
+        let _view: NSView = NSHostingController(rootView: view()).view
+        #else
+        let _view: UIView = UIHostingController(rootView: view()).view!
+        #endif
+        viewPix.renderView = _view
         pix = viewPix
 //        PixelKit.main.render.listenToFramesUntil {
 //            let resolution: Resolution = .auto(render: PixelKit.main.render)
@@ -161,13 +165,20 @@ public class ViewPIX: PIXResource {
             pixelKit.logger.log(node: self, .debug, .resource, "View frame not set.")
             return
         }
+        #if os(macOS)
+        let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds)!
+        view.cacheDisplay(in: view.bounds, to: rep)
+        let image: NSImage = NSImage(size: view.bounds.size)
+        image.addRepresentation(rep)
+        #else
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, Resolution.scale.cg)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+        guard let image: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
             pixelKit.logger.log(node: self, .error, .resource, "Image creation failed.")
             return
         }
         UIGraphicsEndImageContext()
+        #endif
         guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return

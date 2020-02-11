@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+#if os(iOS)
+
 import UIKit
 
 public class AirPlayPIX: PIXOutput {
@@ -200,3 +202,5 @@ public class AirPlayPIX: PIXOutput {
     }
     
 }
+
+#endif
