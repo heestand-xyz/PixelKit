@@ -2493,7 +2493,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2525,7 +2525,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2667,7 +2667,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2712,7 +2712,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2877,7 +2877,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2919,7 +2919,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.4;
+				MARKETING_VERSION = 0.9.5;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
