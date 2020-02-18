@@ -2,8 +2,6 @@
 
 xcuserdata/
 
-Package.swift
-
 build/
 
 *.framework
