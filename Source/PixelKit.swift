@@ -9,6 +9,8 @@
 import MetalKit
 import RenderKit
 
+public var pixelKitMetalLibURL: URL?
+
 public class PixelKit: EngineDelegate, LoggerDelegate {
     
     public static let main = PixelKit()
@@ -60,7 +62,11 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     init() {
         
-        render = Render(with: kMetalLibName, in: Bundle(for: type(of: self)))
+        if let url = pixelKitMetalLibURL {
+            render = Render(metalLibURL: url, bundle: Bundle(for: type(of: self)))
+        } else {
+            render = Render(with: kMetalLibName, in: Bundle(for: type(of: self)))
+        }
         logger = Logger(name: "PixelKit")
         
         fallbackResolution = .auto(render: render)
