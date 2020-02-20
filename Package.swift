@@ -5,18 +5,18 @@ import PackageDescription
 let package = Package(
     name: "PixelKit",
     platforms: [
-        .iOS(.v11),
-        .macOS(.v10_12),
-        .tvOS(.v11)
+        .iOS(.v13),
+        .macOS(.v10_15),
+        .tvOS(.v13)
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
     ],
     dependencies: [
-//        .package(path: "../../../Frameworks/Production/LiveValues"),
-        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.1.7"),
-//        .package(path: "../../../Frameworks/Production/RenderKit"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.3.3"),
+        .package(path: "~/Code/Frameworks/Production/LiveValues"),
+//        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.1.7"),
+        .package(path: "~/Code/Frameworks/Production/RenderKit"),
+//        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.3.3"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["LiveValues", "RenderKit"], path: "Source", exclude: [
