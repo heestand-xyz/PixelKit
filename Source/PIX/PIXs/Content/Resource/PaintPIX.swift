@@ -6,7 +6,7 @@
 //  Copyright © 2020 Hexagons. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(macCatalyst)
 
 import RenderKit
 import LiveValues

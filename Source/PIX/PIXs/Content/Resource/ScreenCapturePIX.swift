@@ -6,6 +6,8 @@
 //  Open Source - MIT License
 //
 
+#if os(macOS) && !targetEnvironment(macCatalyst)
+
 import AVKit
 
 public class ScreenCapturePIX: PIXResource {
@@ -143,3 +145,5 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     }
 
 }
+
+#endif
