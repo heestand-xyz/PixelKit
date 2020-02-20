@@ -34,10 +34,14 @@ extension PIX {
                     }
                     guard let image = imagePix.image else { return nil }
                     #if !os(macOS)
-                    return Resolution.cgSize(image.size) * LiveFloat(image.scale)
+                    let scale: CGFloat = image.scale
                     #else
-                    return Resolution.cgSize(image.size)
+                    var scale: CGFloat = 1.0
+                    if let pixelsWide: Int = image.representations.first?.pixelsWide {
+                        scale = CGFloat(pixelsWide) / image.size.width
+                    }
                     #endif
+                    return Resolution.cgSize(image.size) * LiveFloat(scale)
                 } else {
                     #if !os(tvOS)
                     if #available(OSX 10.13, *) {
