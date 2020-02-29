@@ -98,6 +98,12 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         render.engine.logger.logDebug(padding: padding)
     }
     
+    public func disableLogging() {
+        logger.active = false
+        render.logger.active = false
+        render.engine.logger.active = false
+    }
+    
     // MARK: - Texture
     
     public func textures(from node: NODE, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
