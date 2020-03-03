@@ -49,7 +49,96 @@ public class AutoEnumProperty: AutoProperty<String> {
 }
 public class AutoLiveVecProperty: AutoProperty<LiveVec> {}
 
+public extension AutoPIXGenerator {
+
+    func allAutoLivePropertyNames(for pix: PIXGenerator) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
+        return all
+    }
+
+    func allAutoPropertyNames(for pix: PIXGenerator) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: allAutoLivePropertyNames(for: pix))
+        all.append(contentsOf: autoEnums(for: pix).map({ $0.name }))
+        return all
+    }
+        
+}
+
+public extension AutoPIXMultiEffect {
+
+    func allAutoLivePropertyNames(for pix: PIXMultiEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
+        return all
+    }
+
+    func allAutoPropertyNames(for pix: PIXMultiEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: allAutoLivePropertyNames(for: pix))
+        all.append(contentsOf: autoEnums(for: pix).map({ $0.name }))
+        return all
+    }
+        
+}
+
+public extension AutoPIXMergerEffect {
+
+    func allAutoLivePropertyNames(for pix: PIXMergerEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
+        return all
+    }
+
+    func allAutoPropertyNames(for pix: PIXMergerEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: allAutoLivePropertyNames(for: pix))
+        all.append(contentsOf: autoEnums(for: pix).map({ $0.name }))
+        return all
+    }
+        
+}
+
 public extension AutoPIXSingleEffect {
+    
+    func allAutoLivePropertyNames(for pix: PIXSingleEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
+        return all
+    }
+    
+    func allAutoPropertyNames(for pix: PIXSingleEffect) -> [String] {
+        var all: [String] = []
+        all.append(contentsOf: allAutoLivePropertyNames(for: pix))
+        all.append(contentsOf: autoEnums(for: pix).map({ $0.name }))
+        return all
+    }
+    
     func allAutoLivePropertiesAsFloats(for pix: PIXSingleEffect) -> [AutoLiveFloatProperty] {
         var all: [AutoLiveFloatProperty] = []
         all.append(contentsOf: autoLiveFloats(for: pix))
@@ -137,4 +226,5 @@ public extension AutoPIXSingleEffect {
         }
         return all
     }
+    
 }
