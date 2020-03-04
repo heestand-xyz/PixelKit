@@ -13,10 +13,10 @@ let package = Package(
         .library(name: "PixelKit", targets: ["PixelKit"]),
     ],
     dependencies: [
-        .package(path: "~/Code/Frameworks/Production/LiveValues"),
-//        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.1.7"),
-        .package(path: "~/Code/Frameworks/Production/RenderKit"),
-//        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.3.3"),
+//        .package(path: "~/Code/Frameworks/Production/LiveValues"),
+        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.1.7"),
+//        .package(path: "~/Code/Frameworks/Production/RenderKit"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.3.4"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["LiveValues", "RenderKit"], path: "Source", exclude: [
