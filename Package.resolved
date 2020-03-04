@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LiveValues",
+        "repositoryURL": "https://github.com/hexagons/LiveValues.git",
+        "state": {
+          "branch": null,
+          "revision": "330b193cf1aca726501a0d69a38e0e89385c64f6",
+          "version": "1.1.7"
+        }
+      },
+      {
+        "package": "NodeIO",
+        "repositoryURL": "https://github.com/hexagons/NodeIO.git",
+        "state": {
+          "branch": null,
+          "revision": "dccf1dca588ae93a00693742bf08d0427b795701",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "RenderKit",
+        "repositoryURL": "https://github.com/hexagons/RenderKit.git",
+        "state": {
+          "branch": null,
+          "revision": "958f4f144ef8fdf1e7ba6bbd46b73ab4a9ed4338",
+          "version": "0.3.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
