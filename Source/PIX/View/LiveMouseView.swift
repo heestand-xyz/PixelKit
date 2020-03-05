@@ -6,6 +6,8 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+#if os(macOS) && !targetEnvironment(macCatalyst)
+
 import AppKit
 
 public class LiveMouseView: NSView {
@@ -120,3 +122,5 @@ public class LiveMouseView: NSView {
     }
     
 }
+
+#endif

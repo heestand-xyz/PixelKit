@@ -6,6 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
+import Foundation
 import RenderKit
 
 #if os(iOS) && !targetEnvironment(macCatalyst)

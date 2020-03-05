@@ -54,6 +54,20 @@ Info:
 
 ## Install
 
+### Swift Package Manager:
+
+~~~~swift
+.package(url: "https://github.com/hexagons/PixelKit.git", from: "0.9.9")
+~~~~
+
+Note, SwiftPM dose not yet support assets, so you will have to link the Metal library in your app.<br>
+Get the latest Metal library for your platform [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs) and add it to your bundle.<br>
+Then in `AppDelegate.swift`, in the `application didFinishLaunchingWithOptions` func, add the following:
+
+~~~~swift
+pixelKitMetalLibURL = Bundle.main.url(forResource: "PixelKitShaders-<platform>", withExtension: "metallib")!
+~~~~
+
 ### CocoaPods:
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `PixelKit` into your Xcode project using CocoaPods, specify it in your `Podfile`:

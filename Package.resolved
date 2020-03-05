@@ -11,12 +11,21 @@
         }
       },
       {
+        "package": "NodeIO",
+        "repositoryURL": "https://github.com/hexagons/NodeIO.git",
+        "state": {
+          "branch": null,
+          "revision": "dccf1dca588ae93a00693742bf08d0427b795701",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "RenderKit",
         "repositoryURL": "https://github.com/hexagons/RenderKit.git",
         "state": {
           "branch": null,
-          "revision": "7221538a03c3710bbaf4f0db1bb898a4019412a5",
-          "version": "0.3.3"
+          "revision": "958f4f144ef8fdf1e7ba6bbd46b73ab4a9ed4338",
+          "version": "0.3.5"
         }
       }
     ]

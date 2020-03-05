@@ -22,9 +22,9 @@ extension LiveFloat {
                 lastFrame = PixelKit.main.render.finalFrame
                 return value
             }
-            if !self.live.isFrozen {
-                value += 1.0 / CGFloat(PixelKit.main.render.finalFps ?? PixelKit.main.render.fpsMax)
-            }
+//            if !self.live.isFrozen {
+            value += 1.0 / CGFloat(PixelKit.main.render.finalFps ?? PixelKit.main.render.fpsMax)
+//            }
             lastFrame = PixelKit.main.render.finalFrame
             return value
         })
