@@ -67,7 +67,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        print(">>>")
 //        let globalRenderTime = CFAbsoluteTimeGetCurrent()
-        let size: CGSize = DeepLabPIX.deepLabResolution.size.cg
+        let size: CGSize = staticResolution!.size.cg
         do {
             let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
             let output: DeepLabV3Int8LUTOutput = try deepLab.prediction(image: pixelBuffer)
