@@ -90,6 +90,7 @@
 		3A01572C2334FD9D0002B2D9 /* PIXAuto.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D696C225499A600DB7C8C /* PIXAuto.generated.swift */; };
 		3A01572D2334FDA10002B2D9 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A370F6422268C44001B0208 /* Peer.swift */; };
 		3A01572E2334FDA60002B2D9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D2CF821AC9CC0007259E3 /* String.swift */; };
+		3A116B1424163FF300D3327F /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
 		3A1244EB2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */; };
 		3A1244EC2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */; };
 		3A1244ED2338C4B500169E42 /* LumaLevelsPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1244EA2338C4B500169E42 /* LumaLevelsPIX.swift */; };
@@ -131,7 +132,6 @@
 		3A70A64322859EDC00C71B44 /* GradientPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A70A63F22859EDC00C71B44 /* GradientPIX.swift */; };
 		3A76BC3C235F3D210057CA2C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADA0FD0235741D300605B00 /* Extensions.swift */; };
 		3A7BFA81223BA75400140C35 /* LiveMouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7BFA80223BA75400140C35 /* LiveMouseView.swift */; };
-		3A7C2BB523D5F46400F28356 /* libndi_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7C2BB423D5F46400F28356 /* libndi_ios.a */; };
 		3A7EA6DE23191D0F007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
 		3A7EA6E123191D41007BFD8C /* ScenePIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */; };
 		3A7EA6E423191D76007BFD8C /* PIXCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EA6E323191D76007BFD8C /* PIXCustom.swift */; };
@@ -162,43 +162,9 @@
 		3AAFCB3C23D5DBCA00337189 /* PixelKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 74BC39D721011E3A004E9AA0 /* PixelKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AAFCB5E23D5DDC700337189 /* libndi.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; };
 		3AAFCB5F23D5DDD000337189 /* libndi.4.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
-		3AAFCB7223D5E0DF00337189 /* Processing.NDI.compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6423D5E0DF00337189 /* Processing.NDI.compat.h */; };
-		3AAFCB7323D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */; };
-		3AAFCB7423D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6523D5E0DF00337189 /* Processing.NDI.utilities.h */; };
-		3AAFCB7523D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */; };
-		3AAFCB7623D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6623D5E0DF00337189 /* Processing.NDI.Recv.ex.h */; };
-		3AAFCB7723D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */; };
-		3AAFCB7823D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6723D5E0DF00337189 /* Processing.NDI.deprecated.h */; };
-		3AAFCB7923D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */; };
-		3AAFCB7A23D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6823D5E0DF00337189 /* Processing.NDI.Routing.h */; };
-		3AAFCB7B23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */; };
-		3AAFCB7C23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6923D5E0DF00337189 /* Processing.NDI.Send.h */; };
-		3AAFCB7D23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */; };
-		3AAFCB7E23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6A23D5E0DF00337189 /* Processing.NDI.structs.h */; };
-		3AAFCB7F23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */; };
-		3AAFCB8023D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6B23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h */; };
-		3AAFCB8123D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */; };
-		3AAFCB8223D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6C23D5E0DF00337189 /* Processing.NDI.FrameSync.h */; };
-		3AAFCB8323D5E0DF00337189 /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */; };
-		3AAFCB8423D5E0DF00337189 /* Processing.NDI.Find.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6D23D5E0DF00337189 /* Processing.NDI.Find.h */; };
-		3AAFCB8523D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */; };
-		3AAFCB8623D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6E23D5E0DF00337189 /* Processing.NDI.DynamicLoad.h */; };
-		3AAFCB8723D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */; };
-		3AAFCB8823D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB6F23D5E0DF00337189 /* Processing.NDI.Recv.h */; };
-		3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
-		3AAFCB8A23D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AAFCB7023D5E0DF00337189 /* Processing.NDI.Lib.h */; };
 		3AAFCB8B23D5E21600337189 /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
-		3AAFCB8C23D5E25900337189 /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
-		3AAFCB8D23D5E25900337189 /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
-		3AAFCB8E23D5E25900337189 /* NDIWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */; };
-		3AAFCB8F23D5E25900337189 /* NDIWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */; };
 		3AAFCB9223D5E3F300337189 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAFCB9123D5E3F300337189 /* NetworkExtension.framework */; };
 		3AB5EB4F23D5CF18001FBB2C /* NDIPIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0423D5C804001FBB2C /* NDIPIX.swift */; };
-		3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0B23D5C904001FBB2C /* NDIMain.cpp */; };
-		3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0A23D5C904001FBB2C /* NDIMain.h */; };
-		3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5EB0C23D5C904001FBB2C /* NDIWrapper.h */; };
-		3AB5EB5323D5CF64001FBB2C /* NDIWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB0D23D5C904001FBB2C /* NDIWrapper.mm */; };
 		3AB5EB6B23D5DB14001FBB2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6A23D5DB14001FBB2C /* AppDelegate.swift */; };
 		3AB5EB6D23D5DB14001FBB2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6C23D5DB14001FBB2C /* SceneDelegate.swift */; };
 		3AB5EB6F23D5DB14001FBB2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5EB6E23D5DB14001FBB2C /* ContentView.swift */; };
@@ -573,7 +539,6 @@
 		3A6E9D2E2254A946008F36D8 /* PIXAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXAuto.swift; sourceTree = "<group>"; };
 		3A70A63F22859EDC00C71B44 /* GradientPIX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientPIX.swift; sourceTree = "<group>"; };
 		3A7BFA80223BA75400140C35 /* LiveMouseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveMouseView.swift; sourceTree = "<group>"; };
-		3A7C2BB423D5F46400F28356 /* libndi_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libndi_ios.a; sourceTree = "<group>"; };
 		3A7EA6DD23191D0F007BFD8C /* ScenePIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePIX.swift; sourceTree = "<group>"; };
 		3A7EA6E323191D76007BFD8C /* PIXCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXCustom.swift; sourceTree = "<group>"; };
 		3A80C3F42345F25300DE9266 /* PIXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIXView.swift; sourceTree = "<group>"; };
@@ -807,7 +772,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A7C2BB523D5F46400F28356 /* libndi_ios.a in Frameworks */,
 				297680E0E6E4AB216D08DBE2 /* Pods_PixelKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -941,7 +905,6 @@
 			isa = PBXGroup;
 			children = (
 				3AAFCB5D23D5DDC700337189 /* libndi.4.dylib */,
-				3A7C2BB423D5F46400F28356 /* libndi_ios.a */,
 			);
 			path = NDI;
 			sourceTree = "<group>";
@@ -1376,21 +1339,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AAFCB7623D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */,
-				3AAFCB8A23D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */,
-				3AAFCB7C23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */,
-				3AAFCB7A23D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */,
-				3AAFCB7423D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */,
-				3AAFCB8423D5E0DF00337189 /* Processing.NDI.Find.h in Headers */,
-				3AAFCB7E23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */,
-				3AAFCB8223D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */,
-				3AB5EB5223D5CF64001FBB2C /* NDIWrapper.h in Headers */,
-				3AAFCB8023D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */,
-				3AAFCB7223D5E0DF00337189 /* Processing.NDI.compat.h in Headers */,
-				3AAFCB8623D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */,
-				3AAFCB8823D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */,
-				3AAFCB7823D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */,
-				3AB5EB5123D5CF64001FBB2C /* NDIMain.h in Headers */,
+				3A116B1424163FF300D3327F /* Processing.NDI.Lib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1398,21 +1347,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AAFCB8E23D5E25900337189 /* NDIWrapper.h in Headers */,
-				3AAFCB8323D5E0DF00337189 /* Processing.NDI.Find.h in Headers */,
-				3AAFCB7F23D5E0DF00337189 /* Processing.NDI.Lib.cplusplus.h in Headers */,
-				3AAFCB8123D5E0DF00337189 /* Processing.NDI.FrameSync.h in Headers */,
-				3AAFCB7323D5E0DF00337189 /* Processing.NDI.utilities.h in Headers */,
-				3AAFCB7D23D5E0DF00337189 /* Processing.NDI.structs.h in Headers */,
-				3AAFCB7B23D5E0DF00337189 /* Processing.NDI.Send.h in Headers */,
-				3AAFCB8923D5E0DF00337189 /* Processing.NDI.Lib.h in Headers */,
-				3AAFCB8D23D5E25900337189 /* NDIMain.h in Headers */,
-				3AAFCB7123D5E0DF00337189 /* Processing.NDI.compat.h in Headers */,
-				3AAFCB8723D5E0DF00337189 /* Processing.NDI.Recv.h in Headers */,
-				3AAFCB7723D5E0DF00337189 /* Processing.NDI.deprecated.h in Headers */,
-				3AAFCB7523D5E0DF00337189 /* Processing.NDI.Recv.ex.h in Headers */,
-				3AAFCB8523D5E0DF00337189 /* Processing.NDI.DynamicLoad.h in Headers */,
-				3AAFCB7923D5E0DF00337189 /* Processing.NDI.Routing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2150,7 +2084,6 @@
 				3AF28BF6219312F50079FC7A /* PIXSingleEffect.swift in Sources */,
 				741D2CFB21ACA05E007259E3 /* String.swift in Sources */,
 				3AF28BFF219312F50079FC7A /* KaleidoscopePIX.swift in Sources */,
-				3AB5EB5023D5CF64001FBB2C /* NDIMain.cpp in Sources */,
 				3AF28BF4219312EB0079FC7A /* MetalMergerEffectPIX.swift in Sources */,
 				3A17FBC82252398900453079 /* ClampPIX.swift in Sources */,
 				743FBC682260C5E20009DA97 /* ArrayPIX.swift in Sources */,
@@ -2187,7 +2120,6 @@
 				3AF28C0D219312F50079FC7A /* MetalEffectPIX.swift in Sources */,
 				3AF28C1A219313090079FC7A /* PIXResource.swift in Sources */,
 				3AF28BED219312EB0079FC7A /* CrossPIX.swift in Sources */,
-				3AB5EB5323D5CF64001FBB2C /* NDIWrapper.mm in Sources */,
 				7479449A2343D63F006C9F4C /* LiveColorExtension.swift in Sources */,
 				3AF28C0E219312F70079FC7A /* PIXEffect.swift in Sources */,
 				747944992343D63F006C9F4C /* LiveBoolExtension.swift in Sources */,
@@ -2226,7 +2158,6 @@
 				3A1244EF2338C55E00169E42 /* PIXUIs.generated.swift in Sources */,
 				741D2CF921AC9CC0007259E3 /* String.swift in Sources */,
 				746F7472213FF82700C2AE62 /* CropPIX.swift in Sources */,
-				3AAFCB8C23D5E25900337189 /* NDIMain.cpp in Sources */,
 				7421ED3F2231782E00E60A0E /* FreezePIX.swift in Sources */,
 				741510DC212F300B00B251E7 /* ColorPIX.swift in Sources */,
 				749DC6C92124E0DF00AE5F6A /* PIXGenerator.swift in Sources */,
@@ -2235,7 +2166,6 @@
 				3AA4AC20224CFB5D00E894B2 /* ArcPIX.swift in Sources */,
 				7439E9ED212382D0003B0190 /* BlendsPIX.swift in Sources */,
 				74BF5E9022A43978009CB791 /* VectorPIX.swift in Sources */,
-				3AAFCB8F23D5E25900337189 /* NDIWrapper.mm in Sources */,
 				3A80C3F52345F25300DE9266 /* PIXView.swift in Sources */,
 				7424A1B3212F5A8B00401654 /* BlendPIX.swift in Sources */,
 				7443E6B32343D0710084F947 /* LiveRectExtension.swift in Sources */,
@@ -2493,7 +2423,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2525,7 +2455,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.tvos;
 				PRODUCT_NAME = PixelKit;
@@ -2667,7 +2597,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2712,7 +2642,7 @@
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit.macos;
 				PRODUCT_NAME = PixelKit;
@@ -2877,7 +2807,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
@@ -2919,7 +2849,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Resources/Frameworks/NDI",
 				);
-				MARKETING_VERSION = 0.9.5;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.hexagons.pixelkit;
 				PRODUCT_NAME = PixelKit;
 				SKIP_INSTALL = YES;
