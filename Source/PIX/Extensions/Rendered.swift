@@ -28,7 +28,12 @@ public extension PIX {
             pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
             return nil
         }
-        return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: true)
+        #if os(macOS)
+        let vFlip: Bool = true
+        #else
+        let vFlip: Bool = false
+        #endif
+        return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
     }
     
     #if os(iOS) || os(tvOS)
