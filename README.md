@@ -54,7 +54,7 @@ Info:
 
 ## Install
 
-### Swift Package Manager:
+### Swift Package:
 
 ~~~~swift
 .package(url: "https://github.com/hexagons/PixelKit.git", from: "1.0.0")
@@ -79,8 +79,6 @@ pod 'PixelKit', '~> 1.0.0'
 And import:
 
 ```swift
-import LiveValues
-import RenderKit
 import PixelKit
 ```
 
