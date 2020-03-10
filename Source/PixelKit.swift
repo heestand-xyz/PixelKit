@@ -104,6 +104,12 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         render.engine.logger.active = false
     }
     
+//    public func logLess() {
+//        logger.logLess()
+//        render.logger.logLess()
+//        render.engine.logger.logLess()
+//    }
+    
     // MARK: - Texture
     
     public func textures(from node: NODE, with commandBuffer: MTLCommandBuffer) throws -> (a: MTLTexture?, b: MTLTexture?, custom: MTLTexture?) {
