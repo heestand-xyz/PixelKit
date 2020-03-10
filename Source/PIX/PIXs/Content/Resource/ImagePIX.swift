@@ -107,19 +107,14 @@ public class ImagePIX: PIXResource {
             image = Texture.resize(image, to: res.size.cg)
         }
         #endif
-        if pixelKit.render.frame == 0 {
+        if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {
             pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
             pixelKit.render.delay(frames: 1, done: {
                 self.setNeedsBuffer()
             })
             return
         }
-        #if os(macOS)
-        let bits = pixelKit.render.bits
-        #else
-        guard let cgImage = image.cgImage else { return }
-        guard let bits = LiveColor.Bits(rawValue: cgImage.bitsPerPixel) else { return }
-        #endif
+        let bits: LiveColor.Bits = pixelKit.render.bits
         guard let buffer = Texture.buffer(from: image, bits: bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
