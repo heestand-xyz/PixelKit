@@ -29,7 +29,7 @@ target 'PixelKit-macOS' do
 
   # Pods for PixelKit-macOS
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.6'
+  pod 'RenderKit', '~> 0.3.8'
 
 end
 
@@ -39,7 +39,7 @@ target 'PixelKit-tvOS' do
 
   # Pods for PixelKit-tvOS
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.6'
+  pod 'RenderKit', '~> 0.3.8'
 
 end
 
