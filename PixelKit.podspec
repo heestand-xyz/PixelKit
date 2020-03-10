@@ -81,6 +81,6 @@ Pod::Spec.new do |spec|
                    "Source/PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt"
   
   spec.dependency 'LiveValues', '~> 1.1.7'
-  spec.dependency 'RenderKit', '~> 0.3.7'
+  spec.dependency 'RenderKit', '~> 0.3.8'
 
 end

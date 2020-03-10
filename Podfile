@@ -7,7 +7,7 @@ target 'PixelKit' do
 
   # Pods for PixelKit
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.6'
+  pod 'RenderKit', '~> 0.3.8'
 
   target 'PixelKitTests' do
     # Pods for testing
