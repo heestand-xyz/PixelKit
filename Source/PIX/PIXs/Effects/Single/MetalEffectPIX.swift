@@ -30,7 +30,46 @@ public class MetalEffectPIX: PIXSingleEffect, NODEMetal {
     
     // MARK: - Private Properties
 
-    public let metalFileName = "EffectSingleMetalPIX.metal"
+//    public let metalFileName = "EffectSingleMetalPIX.metal"
+    public let metalBaseCode: String =
+    """
+    #include <metal_stdlib>
+    using namespace metal;
+
+    /*<funcs>*/
+
+    struct VertexOut{
+        float4 position [[position]];
+        float2 texCoord;
+    };
+
+    struct Uniforms {
+        /*<uniforms>*/
+        float aspect;
+    };
+
+    fragment float4 effectSingleMetalPIX(VertexOut out [[stage_in]],
+                                         texture2d<float>  inTex [[ texture(0) ]],
+                                         const device Uniforms& in [[ buffer(0) ]],
+                                         sampler s [[ sampler(0) ]]) {
+        float pi = 3.14159265359;
+        float u = out.texCoord[0];
+        float v = out.texCoord[1];
+        float2 uv = float2(u, v);
+        uint w = inTex.get_width();
+        uint h = inTex.get_height();
+        float wu = 1.0 / float(w);
+        float hv = 1.0 / float(h);
+        
+        float4 input = inTex.sample(s, uv);
+        
+        float4 pix = 0.0;
+        
+        /*<code>*/
+        
+        return pix;
+    }
+    """
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -42,7 +81,7 @@ public class MetalEffectPIX: PIXSingleEffect, NODEMetal {
         if isRawCode { return code }
         console = nil
         do {
-            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil

@@ -32,7 +32,52 @@ public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal {
     
     // MARK: - Private Properties
     
-    public let metalFileName = "EffectMergerMetalPIX.metal"
+//    public let metalFileName = "EffectMergerMetalPIX.metal"
+    public let metalBaseCode: String =
+    """
+    #include <metal_stdlib>
+    using namespace metal;
+
+    /*<funcs>*/
+
+    struct VertexOut{
+        float4 position [[position]];
+        float2 texCoord;
+    };
+
+    struct Uniforms{
+        /*<uniforms>*/
+        float aspect;
+    };
+
+    fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],
+                                         texture2d<float>  inTexA [[ texture(0) ]],
+                                         texture2d<float>  inTexB [[ texture(1) ]],
+                                         const device Uniforms& in [[ buffer(0) ]],
+                                         sampler s [[ sampler(0) ]]) {
+        float pi = 3.14159265359;
+        float u = out.texCoord[0];
+        float v = out.texCoord[1];
+        float2 uv = float2(u, v);
+        uint wA = inTexA.get_width();
+        uint hA = inTexA.get_height();
+        uint wB = inTexB.get_width();
+        uint hB = inTexB.get_height();
+        float wuA = 1.0 / float(wA);
+        float hvA = 1.0 / float(hA);
+        float wuB = 1.0 / float(wB);
+        float hvB = 1.0 / float(hB);
+        
+        float4 inputA = inTexA.sample(s, uv);
+        float4 inputB = inTexB.sample(s, uv);
+        
+        float4 pix = 0.0;
+        
+        /*<code>*/
+        
+        return pix;
+    }
+    """
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -44,7 +89,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal {
         if isRawCode { return code }
         console = nil
         do {
-            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+            return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil

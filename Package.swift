@@ -16,7 +16,7 @@ let package = Package(
 //        .package(path: "~/Code/Frameworks/Production/LiveValues"),
         .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.2.0"),
 //        .package(path: "~/Code/Frameworks/Production/RenderKit"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.4.0"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.4.1"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["LiveValues", "RenderKit"], path: "Source", exclude: [

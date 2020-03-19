@@ -28,7 +28,38 @@ public class MetalPIX: PIXGenerator, NODEMetal {
     
     // MARK: - Private Properties
 
-    public let metalFileName = "ContentGeneratorMetalPIX.metal"
+//    public let metalFileName = "ContentGeneratorMetalPIX.metal"
+    public let metalBaseCode: String =
+    """
+    #include <metal_stdlib>
+    using namespace metal;
+
+    /*<funcs>*/
+
+    struct VertexOut{
+        float4 position [[position]];
+        float2 texCoord;
+    };
+
+    struct Uniforms{
+        /*<uniforms>*/
+        float aspect;
+    };
+
+    fragment float4 contentGeneratorMetalPIX(VertexOut out [[stage_in]],
+                                             const device Uniforms& in [[ buffer(0) ]]) {
+        float pi = 3.14159265359;
+        float u = out.texCoord[0];
+        float v = 1.0 - out.texCoord[1];
+        float2 uv = float2(u, v);
+        
+        float4 pix = 0.0;
+        
+        /*<code>*/
+        
+        return pix;
+    }
+    """
     
     public override var shaderNeedsAspect: Bool { return true }
     
@@ -40,7 +71,7 @@ public class MetalPIX: PIXGenerator, NODEMetal {
         if isRawCode { return code }
         console = nil
         do {
-          return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, fileName: metalFileName)
+          return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
         } catch {
             pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil

@@ -4,15 +4,16 @@ import XCTest
 final class PixelKitTests: XCTestCase {
     
     override func setUp() {
-        PixelKit.main.render.engine.renderMode = .manual
+        pixelKitMetalLibURL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Resources/Metal Libs/PixelKitShaders-macOS.metallib")
+//        PixelKit.main.render.engine.renderMode = .manual
     }
     
-    func testPix() {
-        
+    func testMetalPixs() {
+        _ = MetalPIX(code: "")
     }
 
     static var allTests = [
-        ("testPix", testPix),
+        ("testMetalPixs", testMetalPixs),
     ]
     
 }

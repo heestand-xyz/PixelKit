@@ -182,8 +182,8 @@ open class PIX: NODE, Equatable, NODETileable {
             pixelKit.logger.log(node: self, .fatal, nil, "Shader not defined.")
             return
         }
-        let template = false //(contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false) && !(self is NODEMetal)
-        let shaderName = template ? "templatePIX" : self.shaderName
+//        let template = (contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false) && !(self is NODEMetal)
+        let shaderName = /*template ? "templatePIX" :*/ self.shaderName
         do {
             let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
