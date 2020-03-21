@@ -11,6 +11,7 @@ let package = Package(
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
+        .executable(name: "PixelKitLab", targets: ["PixelKitLab"])
     ],
     dependencies: [
 //        .package(path: "~/Code/Frameworks/Production/LiveValues"),
@@ -34,6 +35,7 @@ let package = Package(
             "PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt",
             "Other/NDI",
         ]),
+        .target(name: "PixelKitLab", dependencies: ["PixelKit"], path: "Tests/PixelKitLab"),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
 )

@@ -1,0 +1,1 @@
+pixtools /Users/hexagons/Code/Frameworks/Production/PixelKit/Assets/Tools/lutmap.png /Users/hexagons/Code/Frameworks/Production/PixelKit/Assets/Tools/lutmap_edit.png  -e huesaturation -p saturation:0.5 -e levels -p brightness:1.5 -p gamma:0.5

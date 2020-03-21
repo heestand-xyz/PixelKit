@@ -11,7 +11,7 @@ import RenderKit
 
 public class LUTPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shaderName: String { return "effectMergerDisplacePIX" }
+    override open var shaderName: String { return "" }
     
     // MARK: - Property Helpers
     
@@ -28,9 +28,25 @@ public class LUTPIX: PIXMergerEffect, PIXAuto {
     }
     
     public static func lutMap() -> MetalPIX {
-        MetalPIX(at: .square(256 * Int(sqrt(256.0))), code:
+        let raw: Int = Int(pow(2.0, 8)) // 256
+        let iRes: Int = Int(sqrt(Double(raw))) // 16
+        let count: Int = Int(pow(Double(raw), 3)) // 16 777 216
+        let xyRes: Int = Int(sqrt(Double(count))) // 4 096
+        let res: Resolution = .square(xyRes)
+        let uniIRes = MetalUniform(name: "ires", value: LiveFloat(iRes))
+        return MetalPIX(at: res, uniforms: [uniIRes], code:
             """
-            pix = float4(uv.x, uv.y, 1, 1);
+            int ires = int(in.ires);
+            int res = ires * ires;
+            float qu = u * float(ires);
+            float _u = qu - floor(qu);
+            float qv = v * float(ires);
+            float _v = qv - floor(qv);
+            int ix = int(u * float(ires));
+            int iy = int(v * float(ires));
+            int iw = iy * ires + ix;
+            float _w = float(iw) / float(res - 1);
+            pix = float4(_u, _v, _w, 1.0);
             """
         )
     }
