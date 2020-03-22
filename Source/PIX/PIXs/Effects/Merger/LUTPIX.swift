@@ -27,25 +27,26 @@ public class LUTPIX: PIXMergerEffect, PIXAuto {
         name = "LUT"
     }
     
-    public static func lutMap() -> MetalPIX {
-        let raw: Int = Int(pow(2.0, 8)) // 256
+    public static func lutMap(bitCount: Int = 8) -> MetalPIX {
+        let raw: Int = Int(pow(2.0, Double(bitCount))) // 256
         let iRes: Int = Int(sqrt(Double(raw))) // 16
-        let count: Int = Int(pow(Double(raw), 3)) // 16 777 216
-        let xyRes: Int = Int(sqrt(Double(count))) // 4 096
+        let count: Int = Int(pow(Double(raw), 3)) // 16_777_216
+        let xyRes: Int = Int(sqrt(Double(count))) // 4_096
         let res: Resolution = .square(xyRes)
         let uniIRes = MetalUniform(name: "ires", value: LiveFloat(iRes))
         return MetalPIX(at: res, uniforms: [uniIRes], code:
             """
             int ires = int(in.ires);
-            int res = ires * ires;
-            float qu = u * float(ires);
-            float _u = qu - floor(qu);
-            float qv = v * float(ires);
-            float _v = qv - floor(qv);
+            int raw = ires * ires;
+            int xyres = raw * ires;
+            int x = int(u * float(xyres));
+            int y = int(v * float(xyres));
+            float _u = float(x % raw) / float(raw - 1);
+            float _v = float(y % raw) / float(raw - 1);
             int ix = int(u * float(ires));
             int iy = int(v * float(ires));
             int iw = iy * ires + ix;
-            float _w = float(iw) / float(res - 1);
+            float _w = float(iw) / float(raw - 1);
             pix = float4(_u, _v, _w, 1.0);
             """
         )

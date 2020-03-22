@@ -11,7 +11,9 @@ PixelKit.main.render.engine.renderMode = .manual
 
 // MARK: - PIXs
 
-let finalPix: PIX = LUTPIX.lutMap()
+let bitCount: Int = 8
+let finalPix: PIX = LUTPIX.lutMap(bitCount: bitCount)
+let finalName: String = "lutmap\(bitCount)"
 
 // MARK: - Render
 
@@ -26,7 +28,7 @@ try PixelKit.main.render.engine.manuallyRender {
 }
 group.wait()
 let data: Data = NSBitmapImageRep(data: img.tiffRepresentation!)!.representation(using: .png, properties: [:])!
-let url: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Desktop/pix.png")
+let url: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Desktop/\(finalName).png")
 try data.write(to: url)
 
 print("done!")
