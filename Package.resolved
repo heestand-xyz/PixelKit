@@ -9,15 +9,6 @@
           "revision": "b7a312e3841d8f03389867daa040cfbf9ed00651",
           "version": "1.2.0"
         }
-      },
-      {
-        "package": "RenderKit",
-        "repositoryURL": "https://github.com/hexagons/RenderKit.git",
-        "state": {
-          "branch": null,
-          "revision": "4e147502c01a9488145c2f04351683354a2cea24",
-          "version": "0.4.1"
-        }
       }
     ]
   },

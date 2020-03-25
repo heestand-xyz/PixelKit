@@ -6,25 +6,26 @@
 //
 
 import Foundation
+import CoreGraphics
 import LiveValues
 import RenderKit
 
+// LUT == Lookup Table
+
 public class LUTPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shaderName: String { return "" }
+    override open var shaderName: String { return "effectMergerLUTPIX" }
     
-    // MARK: - Property Helpers
+    // MARK: - Public Properties
     
-    override public var liveValues: [LiveValue] {
-        return [LiveFloat(0), LiveFloat(0)]
-    }
+    public override var uniforms: [CGFloat] { [CGFloat(PixelKit.main.render.bits.rawValue)] }
     
     // MARK: - Life Cycle
     
     public required init() {
         super.init()
-//        extend = .hold
         name = "LUT"
+//        extend = .hold
     }
     
     public static func lutMap(bitCount: Int = 8) -> MetalPIX {
