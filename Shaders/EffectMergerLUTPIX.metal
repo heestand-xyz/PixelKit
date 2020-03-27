@@ -72,22 +72,27 @@ uint3 rgbToXyz(float3 c, uint count, bool bx, bool by, bool bz) {
 //    return float2(lu, lv);
 //}
 
-float2 xyzToUv(uint3 i, uint bcres, uint bires) {
+float2 xyzToUv(uint3 i, uint cres, uint ires) {
     
-    uint wix = i.z % bires;
-    uint wiy = i.z / bires;
+//    return float2(i.z == 251, ires == 16);
     
-    float xx = float(i.x) / float(bcres - 1);
-    float yy = float(i.y) / float(bcres - 1);
+    uint wix = i.z % ires;
+    uint wiy = i.z / ires;
+    
+//    return float2(wix, ires - wiy) / float(ires);
+    
+    float xx = float(i.x) / float(cres - 1);
+    float yy = float(i.y) / float(cres - 1);
+    
     // workaround
-    float cx = uvClamp(xx, bires);
-    float cy = uvClamp(yy, bires);
+//    float cx = uvClamp(xx, ires);
+//    float cy = uvClamp(yy, ires);
     // technically correct
-//    float cx = uvClamp(xx, bcres);
-//    float cy = uvClamp(yy, bcres);
+    float cx = uvClamp(xx, cres);
+    float cy = uvClamp(yy, cres);
 
-    float u = (float(wix) + cx) / float(bires);
-    float v = (float(wiy) + cy) / float(bires);
+    float u = (float(wix) + cx) / float(ires);
+    float v = (float(wiy) + cy) / float(ires);
 
     v = 1.0 - v; // Content Flip Fix
 
@@ -103,23 +108,24 @@ fragment float4 effectMergerLUTPIX(VertexOut out [[stage_in]],
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
-    uint res = inTexB.get_width();                       // 8bit:4_096       4bit:64     2bit:8
-    uint count = uint(pow(float(res), 2));               // 8bit:16_777_216  4bit:4_096  2bit:64
-    uint cres = uint(round(pow(float(count), 1.0 / 3))); // 8bit:256         4bit:16     2bit:4
-    uint ires = uint(sqrt(float(cres)));                 // 8bit:16          4bit:4      2bit:2
+    uint res = inTexB.get_width();                       // 8bit:4_096       6bit:512      4bit:64     2bit:8
+    uint count = uint(pow(float(res), 2));               // 8bit:16_777_216  6bit:262_144  4bit:4_096  2bit:64
+    uint cres = uint(round(pow(float(count), 1.0 / 3))); // 8bit:256         6bit:64       4bit:16     2bit:4
+    uint ires = uint(sqrt(float(cres)));                 // 8bit:16          6bit:8        4bit:4      2bit:2
     
-    uint bits = uint(in.bits);
+    uint bits = uint(in.bits); // 8 or 16
     uint bitscres = uint(pow(2, float(bits)));
     bool bitMatch = bitscres == cres;
 
     float4 ca = inTexA.sample(s, uv);
         
-    float4 c = 0;
+    float3 c = 0;
     if (bitMatch) {
         float3 _rgb = ca.rgb;
         uint3 _xyz = rgbToXyz(_rgb, cres, false, false, false);
         float2 _uv = xyzToUv(_xyz, cres, ires);
-        c = inTexB.sample(s, _uv);
+//        c = float3(_uv.x, _uv.y, 0);
+        c = inTexB.sample(s, _uv).rgb;
     } else {
 //        uint3 i000 = rgbToXyz(ca.rgb, cres, false, false, false);
 //        uint3 i001 = rgbToXyz(ca.rgb, cres, false, false, true);
@@ -167,7 +173,7 @@ fragment float4 effectMergerLUTPIX(VertexOut out [[stage_in]],
     
 //    return float4(!bitMatch, bitMatch, 0, 1);
     
-    return c;
+    return float4(c.r * ca.a, c.g * ca.a, c.b * ca.a, ca.a);
 }
 
 

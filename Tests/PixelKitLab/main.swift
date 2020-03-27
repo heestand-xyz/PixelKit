@@ -27,9 +27,12 @@ lutmap4bit.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurre
 let lutmap8bit = ImagePIX()
 lutmap8bit.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Assets/Tools/lutmaps/lutmap_8bit.png"))!
 
+let lutmap8bitEdit = ImagePIX()
+lutmap8bitEdit.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Assets/Tools/lutmaps/lutmap_8bit_edit.png"))!
+
 let lutPix = LUTPIX()
 lutPix.inputA = combo6bit
-lutPix.inputB = lutmap8bit
+lutPix.inputB = lutmap8bitEdit
 
 let finalPix: PIX = lutPix
 let finalName: String = "lut_test"
