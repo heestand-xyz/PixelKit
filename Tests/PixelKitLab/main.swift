@@ -32,7 +32,7 @@ lutmap8bitEdit.image = NSImage(contentsOf: FileManager.default.homeDirectoryForC
 
 let lutPix = LUTPIX()
 lutPix.inputA = combo6bit
-lutPix.inputB = lutmap8bitEdit
+lutPix.inputB = lutmap8bit//Edit
 
 let finalPix: PIX = lutPix
 let finalName: String = "lut_test"
