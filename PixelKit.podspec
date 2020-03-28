@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "PixelKit"
-  spec.version      = "1.0.3"
+  spec.version      = "1.0.4"
 
   spec.summary      = "a Live Graphics for iOS & macOS."
   spec.description  = <<-DESC
