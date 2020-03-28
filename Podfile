@@ -2,7 +2,7 @@ target 'PixelKit' do
   use_frameworks!
 
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.9'
+  pod 'RenderKit', '~> 0.4.2'
 
   target 'PixelKitTests' do
   end
@@ -14,7 +14,7 @@ target 'PixelKit-macOS' do
   use_frameworks!
 
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.9'
+  pod 'RenderKit', '~> 0.4.2'
 
 end
 
@@ -23,7 +23,7 @@ target 'PixelKit-tvOS' do
   use_frameworks!
 
   pod 'LiveValues', '~> 1.1.7'
-  pod 'RenderKit', '~> 0.3.9'
+  pod 'RenderKit', '~> 0.4.2'
 
 end
 
