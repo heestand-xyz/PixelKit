@@ -132,7 +132,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 do {
                     inputTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: force8bit ? ._8 : render.bits, in: render.textureCache)
                 } catch {
-                    logger.log(node: node, .warning, .resource, "Texture genration failed, using backup method.", e: error)
+                    logger.log(node: node, .detail, .resource, "Texture genration failed, using backup method.", e: error)
                     inputTexture = try Texture.makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: force8bit, on: render.metalDevice)
                 }
             } else if nodeContent is NODEGenerator {
@@ -148,7 +148,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 do {
                     inputTexture = try Texture.makeTextureFromCache(from: spriteBuffer, bits: render.bits, in: render.textureCache)
                 } catch {
-                    logger.log(node: node, .warning, .resource, "Texture genration failed, using backup method.", e: error)
+                    logger.log(node: node, .detail, .resource, "Texture genration failed, using backup method.", e: error)
                     inputTexture = try Texture.makeTexture(from: spriteBuffer, with: commandBuffer, on: render.metalDevice)
                 }
             } else if nodeContent is NODECustom {

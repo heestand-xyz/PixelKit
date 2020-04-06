@@ -597,6 +597,15 @@ open class PIX: NODE, Equatable, NODETileable {
         bypass = true
         destroyed = true
         view.destroy()
+        #if DEBUG
+        if pixelKit.logger.level == .debug {
+            var pix: PIX = self
+            // TODO: - Test
+            if !isKnownUniquelyReferenced(&pix) {
+                fatalError("pix not released")
+            }
+        }
+        #endif
     }
     
 }

@@ -42,6 +42,35 @@ public class RecordPIX: PIXOutput {
     public var realtime: Bool = false
     public var directMode: Bool = true
     
+    public enum Quality {
+        case no
+        case bad
+        case low
+        case mid
+        case good
+        case nice
+        case fine
+        case epic
+        case custom(kbps: Int)
+        var kbps: Int {
+            switch self {
+            case .no: return 0
+            case .bad: return 125
+            case .low: return 250
+            case .mid: return 500
+            case .good: return 1_000
+            case .nice: return 2_000
+            case .fine: return 4_000
+            case .epic: return 8_000
+            case .custom(let kbps):
+                return kbps
+            }
+        }
+    }
+    public var quality: Quality = .fine
+    public var kbps: Int { quality.kbps }
+    public var bps: Int { kbps * 1_000 * 8 }
+    
     public var audioOffset: CMTime = .zero
     
     public var recordAudio: Bool = false {
@@ -221,12 +250,13 @@ public class RecordPIX: PIXOutput {
         
         let name = customName ?? "PixelKit Export \(dateStr)"
         exportUrl = id_url.appendingPathComponent("\(name).mov") // CHECK CLEAN
-
+        
         writer = try AVAssetWriter(outputURL: exportUrl!, fileType: .mov)
         let videoSettings: [String: Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: resolution.w,
-            AVVideoHeightKey: resolution.h
+            AVVideoHeightKey: resolution.h,
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: bps]
         ]
         writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         writerVideoInput!.expectsMediaDataInRealTime = true
