@@ -134,6 +134,7 @@ extension PIX {
                 return
             }
         }
+        print("APPLY RES", res, "!=", view.resolutionSize)
         guard view.resolutionSize == nil || view.resolutionSize! != res.size.cg else {
             applied()
             return
