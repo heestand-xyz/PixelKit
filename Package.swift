@@ -18,7 +18,7 @@ let package = Package(
         .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.4.3"),
     ],
     targets: [
-        .target(name: "PixelKit", dependencies: ["LiveValues", "RenderKit"], path: "Source", exclude: [
+        .target(name: "PixelKit", dependencies: [/*"LiveValues", */"RenderKit"], path: "Source", exclude: [
             "PIX/PIXs/Effects/Single/DeepLabPIX.swift",
             "PIX/PIXs/Output/SyphonOutPIX.swift",
             "PIX/PIXs/Content/Resource/SyphonInPIX.swift",
