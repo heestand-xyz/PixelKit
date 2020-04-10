@@ -18,6 +18,29 @@ import RenderKit
 protocol PIXAutoParent {}
 protocol PIXAuto {}
 
+struct PIXAutoList {
+    static func getAll() -> [PIX] {
+        var pixs: [PIX] = []
+        for auto in AutoPIXGenerator.allCases {
+            let pix: PIX = auto.pixType.init(at: ._1024)
+            pixs.append(pix)
+        }
+        for auto in AutoPIXSingleEffect.allCases {
+            let pix: PIX = auto.pixType.init()
+            pixs.append(pix)
+        }
+        for auto in AutoPIXMergerEffect.allCases {
+            let pix: PIX = auto.pixType.init()
+            pixs.append(pix)
+        }
+        for auto in AutoPIXMultiEffect.allCases {
+            let pix: PIX = auto.pixType.init()
+            pixs.append(pix)
+        }
+        return pixs
+    }
+}
+
 public class AutoProperty<T> {
     public let name: String
     public var value: T {
