@@ -74,6 +74,8 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         render.engine.deleagte = self
         logger.delegate = self
         
+        logger.log(.info, .pixelKit, "PixelKit v\(version ?? "#") Initialized")
+        
     }
     
     // MARK: - Logger
