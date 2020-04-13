@@ -51,7 +51,7 @@ public class PaintPIX: PIXResource {
             toolPicker.setVisible(showTools, forFirstResponder: canvasView)
             if showTools {
                 toolPicker.addObserver(canvasView)
-                canvasView.becomeFirstResponder()                
+                canvasView.becomeFirstResponder()
             }
         }
     }
@@ -74,16 +74,23 @@ public class PaintPIX: PIXResource {
     
     public override var postUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     
+    // MARK: - Interaction
+    
+    let pencilInteraction: UIPencilInteraction
+    
     // MARK: - Life Cycle
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
         canvasView = PKCanvasView()
+        pencilInteraction = UIPencilInteraction()
+        canvasView.addInteraction(pencilInteraction)
         allowsFingerDrawing = canvasView.allowsFingerDrawing
         helper = PaintHelper()
         super.init()
         canvasView.backgroundColor = bgColor.uiColor
         canvasView.delegate = helper
+        pencilInteraction.delegate = helper
         helper.paintedCallback = {
             self.setNeedsBuffer()
         }
@@ -98,6 +105,10 @@ public class PaintPIX: PIXResource {
     
     public func clear() {
         drawing = PKDrawing()
+    }
+    
+    public func listenToInteraction(_ callback: @escaping () -> ()) {
+        helper.pencilInteractionCallback = callback
     }
     
     // MARK: Buffer
@@ -119,16 +130,26 @@ public class PaintPIX: PIXResource {
 }
 
 @available(iOS 13.0, *)
-class PaintHelper: NSObject, PKCanvasViewDelegate {
+class PaintHelper: NSObject, PKCanvasViewDelegate, UIPencilInteractionDelegate {
     
     var paintedCallback: (() -> ())?
+    var pencilInteractionCallback: (() -> ())?
     
+    // MARK: - PKCanvasViewDelegate
+
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         paintedCallback?()
     }
     
     func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
         paintedCallback?()
+    }
+    
+    // MARK: - UIPencilInteractionDelegate
+    
+    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
+//        UIPencilInteraction.preferredTapAction == .
+        pencilInteractionCallback?()
     }
 
 }
