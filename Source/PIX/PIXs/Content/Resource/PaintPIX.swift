@@ -96,6 +96,10 @@ public class PaintPIX: PIXResource {
         canvasView.frame = CGRect(origin: .zero, size: resolution.size.cg)
     }
     
+    public func clear() {
+        drawing = PKDrawing()
+    }
+    
     // MARK: Buffer
     
     func setNeedsBuffer() {
