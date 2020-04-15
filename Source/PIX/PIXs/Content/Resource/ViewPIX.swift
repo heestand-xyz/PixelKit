@@ -89,27 +89,15 @@ public class ViewPIX: PIXResource {
     override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    // MARK: - Private Properties
-    
-//    var containerView: ContainerView? { didSet { setNeedsBuffer() } }
-
     // MARK: - Public Properties
     
     public var renderView: _View? {
         didSet {
             guard renderView != nil else {
-//                containerView = nil
-                pixelBuffer = nil
-                applyResolution {
-                    self.setNeedsRender()
-                }
+                viewNeedsClear()
                 return
             }
             setNeedsBuffer()
-//            containerView = ContainerView(view: view, rendereCallback: {
-//                print("<<<<<<<<<<<<<<")
-//                self.setNeedsBuffer()
-//            })
         }
     }
     
@@ -186,6 +174,13 @@ public class ViewPIX: PIXResource {
         pixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
         applyResolution { self.setNeedsRender() }
+    }
+    
+    func viewNeedsClear() {
+        pixelBuffer = nil
+        texture = nil
+        pixelKit.logger.log(node: self, .info, .resource, "Clear View.")
+        setNeedsRender()
     }
     
 }
