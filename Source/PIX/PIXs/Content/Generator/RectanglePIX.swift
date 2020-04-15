@@ -17,7 +17,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     
     public var position: LivePoint = .zero
 //    public var rotation: LiveFloat = 0.0
-    public var size: LiveSize = LiveSize(w: sqrt(0.75) / 2, h: sqrt(0.75) / 2)
+    public var size: LiveSize = LiveSize(w: 0.5, h: 0.5)
     public var cornerRadius: LiveFloat = LiveFloat(0.0, max: 0.25)
     
     // MARK: - Property Helpers
