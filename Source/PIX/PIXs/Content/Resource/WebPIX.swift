@@ -72,6 +72,10 @@ public class WebPIX: PIXResource, NODEResolution {
         webView.load(request)
     }
     
+    public func render() {
+        setNeedsBuffer()
+    }
+    
     // MARK: - Frame
     
     func setFrame() {
