@@ -52,7 +52,7 @@ public class RecordPIX: PIXOutput {
         case fine
         case epic
         case custom(kbps: Int)
-        var kbps: Int {
+        public var kbps: Int {
             switch self {
             case .no: return 0
             case .bad: return 125
@@ -66,10 +66,36 @@ public class RecordPIX: PIXOutput {
                 return kbps
             }
         }
+        var bps: Int { kbps * 1_000 * 8 }
+        public var title: String {
+            switch self {
+            case .no: return "No"
+            case .bad: return "Bad"
+            case .low: return "Low"
+            case .mid: return "Mid"
+            case .good: return "Good"
+            case .nice: return "Nice"
+            case .fine: return "Fine"
+            case .epic: return "Epic"
+            case .custom(let kbps):
+                return "\(kbps)kbps"
+            }
+        }
+        public init?(title: String) {
+            switch title {
+            case "No": self = .no
+            case "Bad": self = .bad
+            case "Low": self = .low
+            case "Mid": self = .mid
+            case "Good": self = .good
+            case "Nice": self = .nice
+            case "Fine": self = .fine
+            case "Epic": self = .epic
+            default: return nil
+            }
+        }
     }
-    public var quality: Quality = .fine
-    public var kbps: Int { quality.kbps }
-    public var bps: Int { kbps * 1_000 * 8 }
+    public var quality: Quality = .good
     
     public var audioOffset: CMTime = .zero
     
@@ -256,7 +282,7 @@ public class RecordPIX: PIXOutput {
             AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: resolution.w,
             AVVideoHeightKey: resolution.h,
-            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: bps]
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: quality.bps]
         ]
         writerVideoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         writerVideoInput!.expectsMediaDataInRealTime = true
@@ -449,7 +475,14 @@ public class RecordPIX: PIXOutput {
     }
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage, at size: CGSize) {
-        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else { return }
+        guard writer?.status == .some(.writing) else {
+            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceld, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
+            return
+        }
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else {
+            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceld, Texture not Found.")
+            return
+        }
         if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
             guard let writer = self.writer else { return }
             self.pixelKit.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
