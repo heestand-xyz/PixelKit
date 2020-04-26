@@ -15,8 +15,6 @@ import AVKit
 @available(tvOS 11, *)
 public class RecordPIX: PIXOutput {
     
-    public override var shaderName: String { return "contentResourceBGRPIX" }
-    
     // MARK: - Private Properties
     
     var paused: Bool
@@ -290,7 +288,7 @@ public class RecordPIX: PIXOutput {
         
         
         let sourceBufferAttributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.render.bits.osARGB),
+            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.render.bits.os),
             kCVPixelBufferWidthKey as String: resolution.w,
             kCVPixelBufferHeightKey as String: resolution.h,
             kCVPixelBufferMetalCompatibilityKey as String: true,
@@ -476,11 +474,11 @@ public class RecordPIX: PIXOutput {
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage, at size: CGSize) {
         guard writer?.status == .some(.writing) else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceld, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
+            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
             return
         }
-        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size) else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceld, Texture not Found.")
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size, swizzel: true) else {
+            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Texture not Found.")
             return
         }
         if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
