@@ -31,7 +31,7 @@ public extension PIX {
         #if os(macOS)
         let vFlip: Bool = true
         #else
-        let vFlip: Bool = false
+        let vFlip: Bool = true
         #endif
         return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
     }
