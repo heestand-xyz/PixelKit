@@ -15,8 +15,8 @@ public class EdgePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var strength: LiveFloat = LiveFloat(1.0, min: 0.0, max: 10.0)
-    public var distance: LiveFloat = LiveFloat(1.0, min: 0.0, max: 10.0)
+    public var strength: LiveFloat = LiveFloat(10.0, min: 0.0)
+    public var distance: LiveFloat = LiveFloat(1.0, min: 0.0)
     public var colored: LiveBool = false
     public var transparent: LiveBool = false
     public var includeAlpha: LiveBool = false

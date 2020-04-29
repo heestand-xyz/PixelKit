@@ -96,7 +96,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         }
     }
     
-    public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: LiveFloat = 1.0) {
+    public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: LiveFloat = 1.0) { // CRASH: - 2.0.3
         guard scale != 0.0 else { return }
         coordinates = []
         let aspect = renderResolution.aspect.cg
