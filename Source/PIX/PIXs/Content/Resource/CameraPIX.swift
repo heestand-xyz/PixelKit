@@ -289,23 +289,25 @@ public class CameraPIX: PIXResource {
         }
     }
 
-    public var minExposure: CGFloat {
-        return helper?.minExposure ?? 0.0
+    public var minExposure: CGFloat? {
+        return helper?.minExposure
     }
-    public var maxExposure: CGFloat {
-        return helper?.maxExposure ?? 0.0
+    public var maxExposure: CGFloat? {
+        return helper?.maxExposure
     }
     
-    public var minISO: CGFloat {
-        return helper?.minISO ?? 0.0
+    public var minISO: CGFloat? {
+        return helper?.minISO
     }
-    public var maxISO: CGFloat {
-        return helper?.maxISO ?? 0.0
+    public var maxISO: CGFloat? {
+        return helper?.maxISO
     }
     
     #endif
     
     var setup: Bool = false
+    var didSetup: Bool = false
+    var setupCallbacks: [() -> ()]  = []
 
     // MARK: - Property Helpers
     
@@ -415,6 +417,9 @@ public class CameraPIX: PIXResource {
                 }
             }
             #endif
+            self.setupCallbacks.forEach({ $0() })
+            self.setupCallbacks = []
+            self.didSetup = true
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.pixelBuffer = pixelBuffer
@@ -434,6 +439,14 @@ public class CameraPIX: PIXResource {
             self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
             #endif
         })
+    }
+    
+    public func listenToSetup(_ completion: @escaping () -> ()) {
+        guard !didSetup else {
+            completion()
+            return
+        }
+        setupCallbacks.append(completion)
     }
     
     // MARK: - Camera Attatchment
@@ -913,55 +926,75 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     #if os(iOS) && !targetEnvironment(macCatalyst)
     
     func manualExposure(_ active: Bool) {
+        pixelKit.logger.log(.info, .resource, "Manual Exposure active:\(active)")
         do {
             try device?.lockForConfiguration()
             device?.exposureMode = active ? .custom : .continuousAutoExposure
+            device?.unlockForConfiguration()
         } catch {
             pixelKit.logger.log(.error, .resource, "Camera custom setting (exposureMode) failed.", e: error)
         }
     }
     
     func manualFocus(_ active: Bool) {
-        guard device?.isFocusModeSupported(.locked) == true else { return }
+        pixelKit.logger.log(.info, .resource, "Manual Focus active:\(active)")
+        guard device?.isFocusModeSupported(.locked) == true else {
+            pixelKit.logger.log(.info, .resource, "Manual Focus - Failed - Not Supported")
+            return
+        }
         do {
             try device?.lockForConfiguration()
             device?.focusMode = active ? .locked : .continuousAutoFocus
+            device?.unlockForConfiguration()
         } catch {
             pixelKit.logger.log(.error, .resource, "Camera custom setting (focusMode) failed.", e: error)
         }
     }
     
     func manualWhiteBalance(_ active: Bool) {
+        pixelKit.logger.log(.info, .resource, "Manual White Balance active:\(active)")
         do {
             try device?.lockForConfiguration()
             device?.whiteBalanceMode = active ? .locked : .continuousAutoWhiteBalance
+            device?.unlockForConfiguration()
         } catch {
             pixelKit.logger.log(.error, .resource, "Camera custom setting (whiteBalanceMode) failed.", e: error)
         }
     }
     
-    var minExposure: CGFloat {
-        guard let device = device else { return 0.0 }
+    var minExposure: CGFloat? {
+        guard let device = device else { return nil }
         return CGFloat(device.activeFormat.minExposureDuration.seconds)
     }
-    var maxExposure: CGFloat {
-        guard let device = device else { return 1.0 }
+    var maxExposure: CGFloat? {
+        guard let device = device else { return nil }
         return CGFloat(device.activeFormat.maxExposureDuration.seconds)
     }
     
-    var minISO: CGFloat {
-        guard let device = device else { return 0.0 }
+    var minISO: CGFloat? {
+        guard let device = device else { return nil }
         return CGFloat(device.activeFormat.minISO)
     }
-    var maxISO: CGFloat {
-        guard let device = device else { return 1.0 }
+    var maxISO: CGFloat? {
+        guard let device = device else { return nil }
         return CGFloat(device.activeFormat.maxISO)
     }
     
     func setLight(_ exposure: CGFloat, _ iso: CGFloat) {
-        let clampedExposure = min(max(exposure, minExposure), maxExposure)
-        let clampedIso = min(max(iso, minISO), maxISO)
-        device?.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
+        pixelKit.logger.log(.info, .resource, "Camera Light exposure:\(exposure) iso:\(iso)")
+        guard let device = device else {
+            pixelKit.logger.log(.warning, .resource, "Camera Light - Failed - Device is nil")
+            return
+        }
+        let clampedExposure = min(max(exposure, minExposure ?? 0.0), maxExposure ?? 1.0)
+        let clampedIso = min(max(iso, minISO ?? 0), maxISO ?? 1000)
+        do {
+            try device.lockForConfiguration()
+            device.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
+            device.unlockForConfiguration()
+        } catch {
+            pixelKit.logger.log(.error, .resource, "Camera Light - Failed with Error", e: error)
+        }
     }
     func setTorch(_ value: CGFloat) {
         pixelKit.logger.log(.info, .resource, "Camera Torch \(value)")
@@ -970,6 +1003,17 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             return
         }
         let level: Float = Float(min(max(value, 0.0), 1.0))
+        if level > 0.0 {
+            guard device.isTorchModeSupported(.on) else {
+                pixelKit.logger.log(.warning, .resource, "Camera Torch - Failed - Not ON Supported")
+                return
+            }
+        } else {
+            guard device.isTorchModeSupported(.off) else {
+                pixelKit.logger.log(.warning, .resource, "Camera Torch - Failed - Not OFF Supported")
+                return
+            }
+        }
         do {
             try device.lockForConfiguration()
             if level > 0.0 {
@@ -986,13 +1030,17 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func setFocus(_ value: CGFloat) {
         guard let device = device else { return }
         guard device.isFocusModeSupported(.locked) else { return }
+        try? device.lockForConfiguration()
         device.setFocusModeLocked(lensPosition: Float(value))
+        device.unlockForConfiguration()
     }
     
     func setWhiteBalance(_ color: LiveColor) {
         guard let device = device else { return }
         let range = device.maxWhiteBalanceGain - 1.0
+        try? device.lockForConfiguration()
         device.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r.cg) * range, greenGain: 1.0 + Float(color.g.cg) * range, blueGain: 1.0 + Float(color.b.cg) * range))
+        device.unlockForConfiguration()
     }
     
     func getExposure() -> CGFloat {
