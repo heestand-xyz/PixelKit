@@ -82,6 +82,16 @@ public class CameraPIX: PIXResource {
     
     // MARK: - Public Properties
     
+    public var active: Bool = true {
+        didSet {
+            if active {
+                helper?.start()
+            } else {
+                helper?.stop()
+            }
+        }
+    }
+    
     public enum CamRes: String, Codable, CaseIterable {
         case vga = "VGA"
         case sd = "SD"
