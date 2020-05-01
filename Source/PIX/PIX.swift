@@ -81,7 +81,7 @@ open class PIX: NODE, Equatable, NODETileable {
         }
     }
 
-    var _texture: MTLTexture?
+    public var _texture: MTLTexture?
     public var texture: MTLTexture? {
         get {
             guard !bypass else {
@@ -126,7 +126,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     public var pipeline: MTLRenderPipelineState!
     public var sampler: MTLSamplerState!
-    var allGood: Bool {
+    public var allGood: Bool {
         return pipeline != nil && sampler != nil
     }
     
