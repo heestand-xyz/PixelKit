@@ -94,7 +94,7 @@ public class CameraPIX: PIXResource {
     
     public enum CamRes: String, Codable, CaseIterable {
         case vga = "VGA"
-        case sd = "SD"
+        case _540p = "540p"
         case _720p = "720p"
         #if os(iOS) && !targetEnvironment(macCatalyst)
         case _1080p = "1080p"
@@ -104,7 +104,7 @@ public class CameraPIX: PIXResource {
             switch self {
             case .vga:
                 return .vga640x480
-            case .sd:
+            case ._540p:
                 return .iFrame960x540
             case ._720p:
                 return .hd1280x720
@@ -119,7 +119,7 @@ public class CameraPIX: PIXResource {
         public var resolution: Resolution {
             switch self {
             case .vga: return .custom(w: 640, h: 480)
-            case .sd: return .custom(w: 960, h: 540)
+            case ._540p: return .custom(w: 960, h: 540)
             case ._720p: return ._720p
             #if os(iOS) && !targetEnvironment(macCatalyst)
             case ._1080p: return ._1080p
@@ -235,6 +235,7 @@ public class CameraPIX: PIXResource {
             }
         }
     }
+    /// exposure time in seconds
     public var exposure: CGFloat = 0.05 {
         didSet {
             guard manualExposure else { return }
@@ -449,6 +450,10 @@ public class CameraPIX: PIXResource {
         setupCallbacks.append(completion)
     }
     
+    public static func supports(camRes: CameraPIX.CamRes) -> Bool {
+        CameraHelper.supports(camRes: camRes)
+    }
+    
     // MARK: - Camera Attatchment
     
     #if os(macOS) || targetEnvironment(macCatalyst)
@@ -626,7 +631,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         lastUIOrientation = ()
         #endif
         
-        
         if !multi {
             captureSession = AVCaptureSession()
         } else {
@@ -673,8 +677,19 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             let preset: AVCaptureSession.Preset = depth ? .vga640x480 : camRes.sessionPreset
             if captureSession.canSetSessionPreset(preset) {
                 captureSession.sessionPreset = preset
-            } else {
+                pixelKit.logger.log(.info, nil, "Camera preset set to: \(preset)")
+            } else if captureSession.canSetSessionPreset(.high) {
+                pixelKit.logger.log(.warning, nil, "Default camera preset (\(preset)) can't be added. Defaulting to .high.")
                 captureSession.sessionPreset = .high
+            } else if captureSession.canSetSessionPreset(.medium) {
+                pixelKit.logger.log(.warning, nil, "Camera preset .high can't be added. Defaulting to .medium.")
+                captureSession.sessionPreset = .medium
+            } else if captureSession.canSetSessionPreset(.low) {
+                pixelKit.logger.log(.warning, nil, "Camera preset .medium can't be added. Defaulting to .low.")
+                captureSession.sessionPreset = .low
+            } else {
+                pixelKit.logger.log(.error, nil, "No good camera preset found found.")
+                return
             }
         } else {
 //            if #available(iOS 13.0, *) {
@@ -707,6 +722,40 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //                }
 //            }
         }
+
+        pixelKit.logger.log(.info, .resource, "Camera Active Format: \(device!.activeFormat.description)")
+        
+//        print("Active Format: \(device!.activeFormat.description)")
+//
+//        let maxFpsDesired: Double = Double(UIScreen.main.maximumFramesPerSecond)
+//        var finalMaxFps: Double?
+//        var finalFormat: AVCaptureDevice.Format?
+//        for format in device!.formats {
+//            guard let frameRateRange: AVFrameRateRange = format.videoSupportedFrameRateRanges.first else { continue }
+//            print("Format: \(device!.activeFormat.description) fps(min: \(frameRateRange.minFrameRate), max: \(frameRateRange.maxFrameRate))")
+//            let maxFps: Double = frameRateRange.maxFrameRate
+//            if maxFps >= (finalMaxFps ?? 0.0) && maxFps <= maxFpsDesired {
+//                finalMaxFps = maxFps
+//                finalFormat = format
+//            }
+////            finalFormat = ?
+//        }
+//        if let format: AVCaptureDevice.Format = finalFormat, let fps: Double = finalMaxFps {
+//            print("Final Format: \(format.description)")
+//            let timeValue = Int64(1200.0 / fps)
+//            let timeScale: Int64 = 1200
+//            do {
+//                try device!.lockForConfiguration()
+//                device!.activeFormat = format
+//                device!.activeVideoMinFrameDuration = CMTimeMake(value: timeValue, timescale: Int32(timeScale))
+//                device!.activeVideoMaxFrameDuration = CMTimeMake(value: timeValue, timescale: Int32(timeScale))
+//                device!.unlockForConfiguration()
+//                pixelKit.logger.log(.info, nil, "Camera device final format set to: \(format.description) fps: \(fps)")
+//            } catch {
+//                pixelKit.logger.log(.error, nil, "Camera device final format fail", e: error)
+//                return
+//            }
+//        }
         
         if !multi {
             videoOutput!.alwaysDiscardsLateVideoFrames = true
@@ -795,6 +844,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         NotificationCenter.default.addObserver(self, selector: #selector(deviceRotated), name: UIDevice.orientationDidChangeNotification, object: nil)
         #endif
         
+    }
+    
+    static func supports(camRes: CameraPIX.CamRes) -> Bool {
+        AVCaptureSession().canSetSessionPreset(camRes.sessionPreset)
     }
     
     #if os(iOS) && !targetEnvironment(macCatalyst)

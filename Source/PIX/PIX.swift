@@ -597,6 +597,7 @@ open class PIX: NODE, Equatable, NODETileable {
         bypass = true
         destroyed = true
         view.destroy()
+        pixelKit.logger.log(.info, .pixelKit, "Destroyed node(name: \(name ?? "nil"), id: \(id))")
 //        #if DEBUG
 //        if pixelKit.logger.level == .debug {
 //            var pix: PIX = self
