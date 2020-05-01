@@ -232,7 +232,6 @@ public class CameraPIX: PIXResource {
             helper?.manualExposure(manualExposure)
             if manualExposure {
                 helper?.setLight(exposure, iso)
-//                helper?.setTorch(torch)
             }
         }
     }
@@ -248,12 +247,11 @@ public class CameraPIX: PIXResource {
             helper?.setLight(exposure, iso)
         }
     }
-//    public var torch: CGFloat = 0.0 {
-//        didSet {
-//            guard manualExposure else { return }
-//            helper?.setTorch(torch)
-//        }
-//    }
+    public var torch: CGFloat = 0.0 {
+        didSet {
+            helper?.setTorch(torch)
+        }
+    }
     
     public var manualFocus: Bool = false {
         didSet {
@@ -965,9 +963,25 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         let clampedIso = min(max(iso, minISO), maxISO)
         device?.setExposureModeCustom(duration: CMTime(seconds: Double(clampedExposure), preferredTimescale: CMTimeScale(NSEC_PER_SEC)), iso: Float(clampedIso))
     }
-//    func setTorch(_ value: CGFloat) {
-//        try? device?.setTorchModeOn(level: Float(max(value, 0.001)))
-//    }
+    func setTorch(_ value: CGFloat) {
+        pixelKit.logger.log(.info, .resource, "Camera Torch \(value)")
+        guard let device = device else {
+            pixelKit.logger.log(.warning, .resource, "Camera Torch - Failed - Device is nil")
+            return
+        }
+        let level: Float = Float(min(max(value, 0.0), 1.0))
+        do {
+            try device.lockForConfiguration()
+            if level > 0.0 {
+                try device.setTorchModeOn(level: level)
+            } else {
+                device.torchMode = .off
+            }
+            device.unlockForConfiguration()
+        } catch {
+            pixelKit.logger.log(.error, .resource, "Camera Torch - Failed with Error", e: error)
+        }
+    }
     
     func setFocus(_ value: CGFloat) {
         guard let device = device else { return }
