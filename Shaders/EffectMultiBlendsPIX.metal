@@ -26,14 +26,13 @@ fragment float4 effectMultiBlendsPIX(VertexOut out [[stage_in]],
                                       texture2d_array<float>  inTexs [[ texture(0) ]],
                                       const device Uniforms& in [[ buffer(0) ]],
                                       sampler s [[ sampler(0) ]]) {
-    float pi = 3.14159265359;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
     uint count = inTexs.get_array_size();
-    
+        
     // Blend
     float4 c = 0;
     float4 ci;

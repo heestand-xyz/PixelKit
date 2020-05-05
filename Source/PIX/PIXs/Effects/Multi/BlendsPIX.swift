@@ -16,7 +16,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: BlendMode = .add { didSet { print("BLEND", blendMode.rawValue, blendMode.index); setNeedsRender() } }
     
     // MARK: - Property Helpers
     
