@@ -60,7 +60,7 @@ extension PIX {
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.resolution
             } else if let pixSprite = pixContent as? PIXSprite {
-                return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128))
+                return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128)) * Resolution.scale
             } else if let pixCustom = pixContent as? PIXCustom {
                 return pixCustom.resolution
             } else { return nil }
