@@ -11,6 +11,7 @@
 import Foundation
 import CoreGraphics
 import CoreImage
+import RenderKit
 import UIKit
 
 public class StreamOutPIX: PIXOutput {
@@ -57,26 +58,20 @@ public class StreamOutPIX: PIXOutput {
     
     func stream(texture: MTLTexture) {
         guard connected == .connected else { return }
-        let ci_image = CIImage(mtlTexture: texture, options: nil)
-        if ci_image != nil {
-            let context: CIContext = CIContext.init(options: nil)
-            let cg_image: CGImage = context.createCGImage(ci_image!, from: ci_image!.extent)!
-            let size = ci_image!.extent.size
-            UIGraphicsBeginImageContext(size)
-            let bitmap = UIGraphicsGetCurrentContext()
-            bitmap!.draw(cg_image, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            if image != nil {
-                
-                peer.sendImg(img: image!, quality: quality)
-                
-            } else {
-                pixelKit.logger.log(.warning, .resource, "Stream Image Convert B.")
-            }
-        } else {
-            pixelKit.logger.log(.warning, .resource, "Stream Image Convert A.")
+        guard let image: UIImage = Texture.image(from: texture, colorSpace: pixelKit.render.colorSpace, vFlip: false) else {
+            pixelKit.logger.log(.warning, .resource, "Stream Image Convert Failed.")
+            return
         }
+//        let ci_image = CIImage(mtlTexture: texture, options: nil)
+//        let context: CIContext = CIContext.init(options: nil)
+//        let cg_image: CGImage = context.createCGImage(ci_image!, from: ci_image!.extent)!
+//        let size = ci_image!.extent.size
+//        UIGraphicsBeginImageContext(size)
+//        let bitmap = UIGraphicsGetCurrentContext()
+//        bitmap!.draw(cg_image, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+        peer.sendImg(img: image, quality: quality)
     }
     
     public func connect() {
