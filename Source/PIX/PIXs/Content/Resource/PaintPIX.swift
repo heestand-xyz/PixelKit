@@ -111,6 +111,10 @@ public class PaintPIX: PIXResource {
         helper.pencilInteractionCallback = callback
     }
     
+    public func listenToPaint(_ callback: @escaping () -> ()) {
+        helper.paintedExternalCallback = callback
+    }
+    
     // MARK: Buffer
     
     func setNeedsBuffer() {
@@ -133,12 +137,14 @@ public class PaintPIX: PIXResource {
 class PaintHelper: NSObject, PKCanvasViewDelegate, UIPencilInteractionDelegate {
     
     var paintedCallback: (() -> ())?
+    var paintedExternalCallback: (() -> ())?
     var pencilInteractionCallback: (() -> ())?
     
     // MARK: - PKCanvasViewDelegate
 
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         paintedCallback?()
+        paintedExternalCallback?()
     }
     
     func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
