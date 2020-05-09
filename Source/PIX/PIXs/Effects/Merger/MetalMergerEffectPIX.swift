@@ -117,8 +117,7 @@ public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal {
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init()
-        name = "metalMergerEffect"
+        super.init(name: "Metal B", typeName: "pix-effect-merger-metal")
     }
     
     required init() {

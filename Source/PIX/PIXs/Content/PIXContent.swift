@@ -14,8 +14,4 @@ open class PIXContent: PIX, NODEContent, NODEOutIO {
     public var outputPathList: [NODEOutPath] = []
     public var connectedOut: Bool { return !outputPathList.isEmpty }
     
-    override public init() {
-        super.init()
-    }
-    
 }

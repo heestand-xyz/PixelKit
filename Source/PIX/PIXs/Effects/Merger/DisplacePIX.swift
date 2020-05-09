@@ -27,9 +27,8 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Displace", typeName: "pix-effect-merger-displace")
         extend = .hold
-        name = "displace"
     }
     
 }

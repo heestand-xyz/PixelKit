@@ -26,9 +26,8 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Twirl", typeName: "pix-effect-single-twirl")
         extend = .mirror
-        name = "twirl"
     }
     
 }

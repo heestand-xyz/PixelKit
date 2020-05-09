@@ -37,8 +37,7 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "lookup"
+        super.init(name: "Lookup", typeName: "pix-effect-merger-lookup")
     }
     
 }

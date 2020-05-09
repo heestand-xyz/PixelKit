@@ -30,8 +30,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "chromaKey"
+        super.init(name: "Chroma Key", typeName: "pix-effect-single-chroma-key")
     }
     
 }

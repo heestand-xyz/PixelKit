@@ -75,9 +75,8 @@ public class ImagePIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
-        super.init()
-        name = "image"
+    public init() {
+        super.init(name: "Image", typeName: "pix-content-resource-image")
         self.applyResolution {
             self.setNeedsRender()
         }

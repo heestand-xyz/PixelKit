@@ -14,8 +14,12 @@ open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle, PIXAutoPa
     
     // MARK: - Life Cycle
     
-    public required override init() {
-        super.init()
+    public required init() {
+        fatalError("please use init(name:typeName:)")
+    }
+    
+    public override init(name: String, typeName: String) {
+        super.init(name: name, typeName: typeName)
     }
     
     public override func destroy() {

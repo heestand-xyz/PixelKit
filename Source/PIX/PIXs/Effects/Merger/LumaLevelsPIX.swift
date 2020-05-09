@@ -31,8 +31,7 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "lumaLevels"
+        super.init(name: "Luma Levels", typeName: "pix-effect-merger-luma-levels")
     }
     
 }

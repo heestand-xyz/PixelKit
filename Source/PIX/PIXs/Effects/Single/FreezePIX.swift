@@ -27,8 +27,7 @@ public class FreezePIX: PIXSingleEffect {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "freeze"
+        super.init(name: "Freeze", typeName: "pix-effect-single-freeze")
     }
     
     // MARK: Freeze

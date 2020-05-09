@@ -30,8 +30,7 @@ public class TransformPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "transform"
+        super.init(name: "Transform", typeName: "pix-effect-single-transform")
     }
       
 }

@@ -29,8 +29,7 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "circle"
+        super.init(at: resolution, name: "Circle", typeName: "pix-content-generator-circle")
     }
 
     // MARK: Layout

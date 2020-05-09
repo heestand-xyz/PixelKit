@@ -55,8 +55,7 @@ public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "flipFlop"
+        super.init(name: "Flip Flop", typeName: "pix-effect-single-flip-flop")
     }
     
 }

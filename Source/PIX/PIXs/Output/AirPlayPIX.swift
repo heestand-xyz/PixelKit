@@ -26,7 +26,7 @@ public class AirPlayPIX: PIXOutput {
     
     // MARK: - Life Cycle
     
-    override public init() {
+    public init() {
         
         isConnected = false
         window = nil
@@ -34,7 +34,7 @@ public class AirPlayPIX: PIXOutput {
         
         nilPix = NilPIX()
         
-        super.init()
+        super.init(name: "AirPlay", typeName: "pix-output-air-play")
         
         NotificationCenter.default.addObserver(self, selector: #selector(screenConnect), name: UIScreen.didConnectNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenDisconnect), name: UIScreen.didDisconnectNotification, object: nil)

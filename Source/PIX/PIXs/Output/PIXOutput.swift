@@ -19,8 +19,8 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     
     // MARK: - Public Properties
     
-    public override init() {
-        super.init()
+    public override init(name: String, typeName: String) {
+        super.init(name: name, typeName: typeName)
         inputList = []
     }
     

@@ -32,11 +32,9 @@ public class StreamOutPIX: PIXOutput {
     
     // MARK: - Life Cycle
     
-    override public init() {
+    public init() {
         
-        super.init()
-        
-        name = "streamOut"
+        super.init(name: "Stream Out", typeName: "pix-output-stream-out")
         
         peer = Peer(peer: { connect_state, device_name in
             if connect_state == .connected {

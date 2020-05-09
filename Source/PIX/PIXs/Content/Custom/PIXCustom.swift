@@ -22,9 +22,9 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     override open var liveValues: [LiveValue] { return [bgColor] }
     
-    required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
-        super.init()
+        super.init(name: name, typeName: typeName)
         customRenderDelegate = self
         customRenderActive = true
         applyResolution { self.setNeedsRender() }

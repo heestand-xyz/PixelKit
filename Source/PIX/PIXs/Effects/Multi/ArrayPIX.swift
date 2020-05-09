@@ -69,9 +69,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     public required init() {
         
-        super.init()
-        
-        name = "array"
+        super.init(name: "Array", typeName: "pix-effect-multi-array")
         
         buildGrid(xCount: 5, yCount: 5)
         

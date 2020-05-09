@@ -50,9 +50,8 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Luma Blur", typeName: "pix-effect-merger-luma-blur")
         extend = .hold
-        name = "lumaBlur"
     }
     
 }

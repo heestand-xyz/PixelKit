@@ -22,8 +22,7 @@ public class ColorPIX: PIXGenerator, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "color"
+        super.init(at: resolution, name: "Color", typeName: "pix-content-generator-color")
     }
     
 }

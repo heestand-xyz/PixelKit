@@ -22,8 +22,7 @@ public class SyphonOutPIX: PIXOutput {
     // MARK: - Life Cycle
 
     override public init() {
-        super.init()
-        name = "syphonOut"
+        super.init(name: "Syphon Out", typeName: "pix-output-syphon-out")
         setup()
         if PixelKit.main.render.bits != ._8 {
             PixelKit.main.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")

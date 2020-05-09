@@ -48,9 +48,8 @@ public class RainbowLumaBlurPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Rainbow Luma Blur", typeName: "pix-effect-merger-rainbow-luma-blur")
         extend = .hold
-        name = "rainbowLumaBlur"
     }
     
 }

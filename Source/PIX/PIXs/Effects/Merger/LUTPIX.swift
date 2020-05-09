@@ -23,8 +23,7 @@ public class LUTPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "LUT"
+        super.init(name: "LUT", typeName: "pix-effect-merger-lut")
 //        extend = .hold
     }
     

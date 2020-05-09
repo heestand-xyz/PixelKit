@@ -64,9 +64,8 @@ public class MultiCameraPIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
-        super.init()
-        name = "depthCamera"
+    public init() {
+        super.init(name: "Multi Camera", typeName: "pix-content-resource-multi-camera")
         DispatchQueue.main.async {
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")

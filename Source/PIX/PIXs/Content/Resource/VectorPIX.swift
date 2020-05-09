@@ -44,11 +44,10 @@ public class VectorPIX: PIXResource {
         helper = VectorHelper()
         webView = WKWebView()
         self.resolution = resolution
-        super.init()
+        super.init(name: "Vector", typeName: "pix-content-resource-vector")
         webView.navigationDelegate = helper
         helper.loaded = setNeedsBuffer
         setFrame()
-        name = "vector"
     }
     
     // MARK: - Load

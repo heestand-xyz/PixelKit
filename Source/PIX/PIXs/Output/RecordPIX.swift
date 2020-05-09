@@ -119,7 +119,7 @@ public class RecordPIX: PIXOutput {
     
     // MARK: - Life Cycle
     
-    override public init() {
+    public init() {
         
         recording = false
         paused = false
@@ -133,7 +133,7 @@ public class RecordPIX: PIXOutput {
         currentImage = nil
         exportUrl = nil
         
-        super.init()
+        super.init(name: "Record", typeName: "pix-output-record")
 
         realtimeListen()
         

@@ -33,8 +33,7 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "noise"
+        super.init(at: resolution, name: "Noise", typeName: "pix-content-generator-noise")
     }
     
 //    // MARK: - Life Cycle

@@ -26,8 +26,7 @@ public class SharpenPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "sharpen"
+        super.init(name: "Sharpen", typeName: "pix-effect-single-sharpen")
     }
     
 }

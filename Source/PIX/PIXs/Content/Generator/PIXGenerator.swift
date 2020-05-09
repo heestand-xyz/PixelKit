@@ -30,8 +30,12 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, NODETileable
     public var color: LiveColor = .white
 
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        fatalError("please use init(at:name:typeName:)")
+    }
+    
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         _resolution = resolution
-        super.init()
+        super.init(name: name, typeName: typeName)
         applyResolution { self.setNeedsRender() }
     }
     

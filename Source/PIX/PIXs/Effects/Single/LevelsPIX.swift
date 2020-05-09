@@ -31,8 +31,7 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "levels"
+        super.init(name: "Levels", typeName: "pix-effect-single-levels")
     }
     
 }

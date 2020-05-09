@@ -71,9 +71,8 @@ public class ReorderPIX: PIXMergerEffect, PIXAuto {
     }
     
     public required init() {
-        super.init()
+        super.init(name: "Reorder", typeName: "pix-effect-merger-reorder")
         premultiply = false
-        name = "reorder"
     }
     
 }

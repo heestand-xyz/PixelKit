@@ -38,8 +38,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     }
     
     public required init() {
-        super.init()
-        name = "blend"
+        super.init(name: "Blend", typeName: "pix-effect-merger-blend")
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
     }

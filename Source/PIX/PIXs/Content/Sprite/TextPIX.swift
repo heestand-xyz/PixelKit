@@ -49,9 +49,7 @@ public class TextPIX: PIXSprite {
         
         label = SKLabelNode()
         
-        super.init(at: resolution)
-        
-        name = "text"
+        super.init(at: resolution, name: "Text", typeName: "pix-content-sprite-text")
         
         label.verticalAlignmentMode = .center
         if #available(iOS 11, *) {

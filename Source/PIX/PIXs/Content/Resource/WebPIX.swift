@@ -46,9 +46,7 @@ public class WebPIX: PIXResource, NODEResolution {
         
         webView = WKWebView()
         
-        super.init()
-        
-        name = "web"
+        super.init(name: "Web", typeName: "pix-content-resource-web")
         
         webView.navigationDelegate = helper
         helper.refreshCallback = {

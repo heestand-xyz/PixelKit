@@ -45,8 +45,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     public var style: SaliencyStyle = .attention { didSet { setNeedsRender() } }
     
     public required init() {
-        super.init()
-        name = "saliency"
+        super.init(name: "Saliency", typeName: "pix-effect-single-saliency")
         customRenderDelegate = self
         customRenderActive = true
     }

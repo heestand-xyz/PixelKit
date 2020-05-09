@@ -26,8 +26,7 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "cross"
+        super.init(name: "Cross", typeName: "pix-effect-merger-cross")
     }
     
 }

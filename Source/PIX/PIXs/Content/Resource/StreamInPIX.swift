@@ -35,11 +35,9 @@ public class StreamInPIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public init() {
         
-        super.init()
-        
-        name = "streamIn"
+        super.init(name: "Stream In", typeName: "pix-content-resource-stream-in")
         
         peer = Peer(gotImg: { img in
             self.image = img

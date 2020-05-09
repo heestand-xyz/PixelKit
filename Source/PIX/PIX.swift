@@ -16,7 +16,8 @@ import simd
 open class PIX: NODE, Equatable, NODETileable {
    
     public var id = UUID()
-    public var name: String?
+    public var name: String
+    public let typeName: String
     
     public weak var delegate: NODEDelegate?
     
@@ -162,7 +163,10 @@ open class PIX: NODE, Equatable, NODETileable {
     
     // MARK: - Life Cycle
     
-    init() {
+    init(name: String, typeName: String) {
+        
+        self.name = name
+        self.typeName = typeName
         
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
         pixView = PIXView(with: PixelKit.main.render, pixelFormat: pixelFormat)
@@ -597,7 +601,7 @@ open class PIX: NODE, Equatable, NODETileable {
         bypass = true
         destroyed = true
         view.destroy()
-        pixelKit.logger.log(.info, .pixelKit, "Destroyed node(name: \(name ?? "nil"), id: \(id))")
+        pixelKit.logger.log(.info, .pixelKit, "Destroyed node(name: \(name), typeName: \(typeName), id: \(id))")
 //        #if DEBUG
 //        if pixelKit.logger.level == .debug {
 //            var pix: PIX = self

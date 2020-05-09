@@ -31,8 +31,7 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "blends"
+        super.init(name: "Blends", typeName: "pix-effect-multi-blends")
     }
     
 }
@@ -47,7 +46,7 @@ public func loop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero,
     for i in 0..<count {
         let fraction = LiveFloat(i) / LiveFloat(count)
         let pix = loop(LiveInt(i), fraction)
-        pix.name = pix.name != nil ? "\(pix.name!):\(i)" : "\(i)"
+        pix.name = "\(pix.name):\(i)"
         blendsPix.inputs.append(pix)
     }
     return blendsPix

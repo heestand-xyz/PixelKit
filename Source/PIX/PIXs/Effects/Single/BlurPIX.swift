@@ -86,10 +86,9 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
         #else
         style = .box
         #endif
-        super.init()
+        super.init(name: "Blur", typeName: "pix-effect-single-blur")
         extend = .hold
         customRenderDelegate = self
-        name = "blur"
     }
     
     // MARK: Guassian

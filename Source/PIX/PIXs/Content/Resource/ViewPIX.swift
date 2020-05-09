@@ -105,9 +105,8 @@ public class ViewPIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
-        super.init()
-        name = "view"
+    public init() {
+        super.init(name: "View", typeName: "pix-content-resource-view")
         applyResolution {
             self.setNeedsRender()
         }

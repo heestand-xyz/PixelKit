@@ -58,8 +58,7 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
     
     required public init(at resolution: Resolution) {
         self.resolution = resolution
-        super.init()
-        name = "res"
+        super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
     }
     
     required init() {

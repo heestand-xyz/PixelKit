@@ -36,8 +36,7 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "flare"
+        super.init(name: "Flare", typeName: "pix-effect-single-flare")
     }
     
 }

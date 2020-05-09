@@ -27,8 +27,7 @@ public class HueSaturationPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "hueSaturation"
+        super.init(name: "Hue Saturation", typeName: "pix-effect-single-hue-saturation")
     }
     
 }

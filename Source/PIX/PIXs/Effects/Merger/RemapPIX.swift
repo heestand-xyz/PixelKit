@@ -15,8 +15,7 @@ public class RemapPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "remap"
+        super.init(name: "Remap", typeName: "pix-effect-merger-remap")
     }
     
 }

@@ -29,8 +29,12 @@ open class PIXSprite: PIXContent, NODEResolution {
     var sceneView: SKView!
     
     required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        fatalError("Please use PIXSprite Sub Classes.")
+    }
+        
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
-        super.init()
+        super.init(name: name, typeName: typeName)
         setup()
         applyResolution { self.setNeedsRender() }
     }

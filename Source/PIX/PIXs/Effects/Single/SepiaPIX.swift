@@ -27,8 +27,7 @@ public class SepiaPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "sepia"
+        super.init(name: "Sepia", typeName: "pix-effect-single-sepia")
     }
     
 }

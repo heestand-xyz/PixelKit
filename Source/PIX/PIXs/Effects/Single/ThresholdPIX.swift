@@ -27,8 +27,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "threshold"
+        super.init(name: "Threshold", typeName: "pix-effect-single-threshold")
     }
     
 }

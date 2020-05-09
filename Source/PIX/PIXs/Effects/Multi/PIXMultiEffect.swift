@@ -14,14 +14,13 @@ open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti, PIXAutoParen
     
     // MARK: - Life Cycle
     
-    public required override init() {
-        super.init()
+    public required init() {
+        fatalError("please use init(name:typeName:)")
     }
     
-//    required public init(from decoder: Decoder) throws {
-//        super.init()
-////        fatalError("init(from:) has not been implemented")
-//    }
+    public override init(name: String, typeName: String) {
+        super.init(name: name, typeName: typeName)
+    }
     
     public override func destroy() {
         inputs = []

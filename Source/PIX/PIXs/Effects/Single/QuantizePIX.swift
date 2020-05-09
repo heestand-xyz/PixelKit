@@ -26,8 +26,7 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "quantize"
+        super.init(name: "Quantize", typeName: "pix-effect-single-quantize")
     }
     
 }

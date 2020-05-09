@@ -35,8 +35,7 @@ public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "channelMix"
+        super.init(name: "Channel Mix", typeName: "pix-effect-single-channel-mix")
     }
     
 }

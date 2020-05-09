@@ -30,8 +30,7 @@ public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "polygon"
+        super.init(at: resolution, name: "Polygon", typeName: "pix-content-generator-polygon")
     }
     
     // MARK: Layout

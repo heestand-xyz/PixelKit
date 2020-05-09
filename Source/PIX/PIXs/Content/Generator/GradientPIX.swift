@@ -87,8 +87,7 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "gradient"
+        super.init(at: resolution, name: "Gradient", typeName: "pix-content-generator-gradient")
     }
     
     // MARK: - Rainbow

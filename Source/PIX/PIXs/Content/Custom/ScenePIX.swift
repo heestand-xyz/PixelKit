@@ -45,7 +45,7 @@ public class ScenePIX: PIXCustom {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         
-        super.init(at: resolution)
+        super.init(at: resolution, name: "Scene", typeName: "pix-content-custom-scene")
         
         renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
         renderer.autoenablesDefaultLighting = true

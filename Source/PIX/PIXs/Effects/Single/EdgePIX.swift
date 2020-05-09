@@ -30,8 +30,7 @@ public class EdgePIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "edge"
+        super.init(name: "Edge", typeName: "pix-effect-single-edge")
         extend = .hold
     }
     

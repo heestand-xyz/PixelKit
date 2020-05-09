@@ -49,8 +49,7 @@ public class ColorConvertPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "colorConvert"
+        super.init(name: "Color Convert", typeName: "pix-effect-single-color-convert")
     }
     
 }

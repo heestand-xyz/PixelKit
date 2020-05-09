@@ -41,7 +41,6 @@ public class SlicePIX: PIXSingleEffect {
     }
     
     public required init() {
-        super.init()
-        name = "slice"
+        super.init(name: "Slice", typeName: "pix-effect-single-slice")
     }
 }

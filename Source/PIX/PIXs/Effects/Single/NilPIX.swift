@@ -18,14 +18,12 @@ public class NilPIX: PIXSingleEffect {
     
     public required init() {
         nilOverrideBits = nil
-        super.init()
-        name = "nil"
+        super.init(name: "Nil", typeName: "pix-effect-single-nil")
     }
     
     public init(overrideBits: LiveColor.Bits) {
         nilOverrideBits = overrideBits
-        super.init()
-        name = "nil\(overrideBits.rawValue)"
+        super.init(name: "Nil (\(overrideBits.rawValue)bit)", typeName: "pix-effect-single-nil")
     }
     
 }

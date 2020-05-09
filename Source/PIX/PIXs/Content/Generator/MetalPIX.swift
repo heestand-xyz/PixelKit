@@ -91,15 +91,14 @@ public class MetalPIX: PIXGenerator, NODEMetal {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init(at: resolution)
-        name = "metal"
+        super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
 //        bakeFrag()
     }
     
     required init(at resolution: Resolution) {
         metalUniforms = []
         code = ""
-        super.init(at: resolution)
+        super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
     }
     
     func bakeFrag() {

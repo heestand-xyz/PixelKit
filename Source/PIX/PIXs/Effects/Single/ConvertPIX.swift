@@ -63,8 +63,7 @@ public class ConvertPIX: PIXSingleEffect {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "convert"
+        super.init(name: "Convert", typeName: "pix-effect-single-convert")
     }
     
 }

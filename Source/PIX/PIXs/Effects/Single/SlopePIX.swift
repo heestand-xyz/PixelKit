@@ -26,8 +26,7 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "slope"
+        super.init(name: "Slope", typeName: "pix-effect-single-slope")
     }
     
 }

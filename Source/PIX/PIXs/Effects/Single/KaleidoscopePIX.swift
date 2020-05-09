@@ -27,9 +27,8 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     }
     
     public required init() {
-        super.init()
+        super.init(name: "Kaleidoscope", typeName: "pix-effect-single-kaleidoscope")
         extend = .mirror
-        name = "kaleidoscope"
     }
     
 }

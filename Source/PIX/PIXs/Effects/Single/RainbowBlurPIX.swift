@@ -51,9 +51,8 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Rainbow Blur", typeName: "pix-effect-single-rainbow-blur")
         extend = .hold
-        name = "rainbowBlur"
     }
     
 }

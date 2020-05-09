@@ -30,8 +30,7 @@ public class FeedbackPIX: PIXSingleEffect {
     public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
     
     public required init() {
-        super.init()
-        name = "feedback"
+        super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
         pixelKit.render.listenToFramesUntil {
             if self.input?.texture != nil && self.feedTexture != nil {
                 self.setNeedsRender()

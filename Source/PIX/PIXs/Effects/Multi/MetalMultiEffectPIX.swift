@@ -108,8 +108,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init()
-        name = "metalMultiEffect"
+        super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
     }
     
     required init() {

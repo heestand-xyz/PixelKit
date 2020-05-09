@@ -32,8 +32,7 @@ public class RangePIX: PIXSingleEffect, PIXAuto {
     }
     
     public required init() {
-        super.init()
-        name = "range"
+        super.init(name: "Range", typeName: "pix-effect-single-range")
     }
     
 }

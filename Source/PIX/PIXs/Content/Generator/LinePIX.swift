@@ -28,8 +28,7 @@ public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "line"
+        super.init(at: resolution, name: "Line", typeName: "pix-content-generator-line")
     }
     
     // MARK: Layout

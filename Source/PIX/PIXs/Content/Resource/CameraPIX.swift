@@ -322,11 +322,9 @@ public class CameraPIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public init() {
         
-        super.init()
-        
-        name = "camera"
+        super.init(name: "Camera", typeName: "pix-content-resource-camera")
         
         DispatchQueue.main.async {
             self.setupCamera()

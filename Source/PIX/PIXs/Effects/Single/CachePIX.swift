@@ -35,10 +35,9 @@ public class CachePIX: PIXSingleEffect, CustomRenderDelegate {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Cache", typeName: "pix-effect-single-cache")
         customRenderActive = true
         customRenderDelegate = self
-        name = "cache"
     }
     
     // MARK: - Cache

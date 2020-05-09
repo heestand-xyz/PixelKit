@@ -36,7 +36,7 @@ public class SyphonInPIX: PIXResource {
     // MARK: - Public Properties
     
     public override init() {
-        super.init()
+        super.init(name: "Syphon In", typeName: "pix-content-resource-syphon-in")
         RunLoop.current.add(Timer(timeInterval: 1.0, repeats: true, block: { t in
             guard self.clinet == nil else { return }
             self.scan()

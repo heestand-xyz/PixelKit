@@ -99,14 +99,13 @@ public class MetalEffectPIX: PIXSingleEffect, NODEMetal {
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init()
-        name = "metalEffect"
+        super.init(name: "Metal B", typeName: "pix-effect-single-metal")
     }
     
     required init() {
         metalUniforms = []
         code = ""
-        super.init()
+        super.init(name: "Metal B", typeName: "pix-effect-single-metal")
     }
     
     func bakeFrag() {

@@ -19,10 +19,6 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO, NODETileable2D {
 
     public var tileResolution: Resolution { pixelKit.tileResolution }
     public var tileTextures: [[MTLTexture]]?
-        
-    override init() {
-        super.init()
-    }
     
 //    required public init(from decoder: Decoder) throws {
 //        fatalError("PIXEffect Decoder Initializer is not supported.") // CHECK

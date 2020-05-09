@@ -27,8 +27,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     }
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution)
-        name = "rectangle"
+        super.init(at: resolution, name: "Rectangle", typeName: "pix-content-generator-rectangle")
     }
     
     // MARK: Layout

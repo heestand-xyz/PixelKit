@@ -35,8 +35,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "timeMachine"
+        super.init(name: "Time Machine", typeName: "pix-effect-merger-time-machine")
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
         PixelKit.main.render.listenToFrames {

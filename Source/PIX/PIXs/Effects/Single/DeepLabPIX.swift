@@ -58,8 +58,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     public required init() {
         deepLab = DeepLabV3Int8LUT()
-        super.init()
-        name = "deepLab"
+        super.init(name: "Deep Lab", typeName: "pix-effect-single-deep-lab")
         customRenderDelegate = self
         customRenderActive = true
     }

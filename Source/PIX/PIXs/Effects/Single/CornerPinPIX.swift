@@ -34,10 +34,9 @@ public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXAuto {
                           topRight: CGPoint(x: 1, y: 1),
                           bottomLeft: CGPoint(x: 0, y: 0),
                           bottomRight: CGPoint(x: 1, y: 0))
-        super.init()
+        super.init(name: "Corner Pin", typeName: "pix-effect-single-corner-pin")
         customGeometryActive = true
         customGeometryDelegate = self
-        name = "cornerPin"
     }
     
     // MAKR: - Corenr Pin

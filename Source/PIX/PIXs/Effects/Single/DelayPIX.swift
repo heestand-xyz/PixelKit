@@ -32,10 +32,9 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
+        super.init(name: "Delay", typeName: "pix-effect-single-delay")
         customRenderActive = true
         customRenderDelegate = self
-        name = "delay"
         PixelKit.main.render.listenToFrames { [weak self] in
             guard self != nil else { return }
             guard !self!.destroyed else { return }

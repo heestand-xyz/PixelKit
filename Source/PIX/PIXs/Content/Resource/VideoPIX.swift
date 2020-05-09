@@ -102,9 +102,8 @@ public class VideoPIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
-        super.init()
-        name = "video"
+    public init() {
+        super.init(name: "Video", typeName: "pix-content-resource-video")
         helper = VideoHelper(volume: Float(volume), loaded: { resolution in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
             self.loadCallback?(resolution)

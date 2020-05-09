@@ -36,7 +36,7 @@ public class AveragePIX: PIXSingleEffect {
     }
     
     public required init() {
-        super.init()
-        name = "average"
+        super.init(name: "Average", typeName: "")
     }
+    
 }

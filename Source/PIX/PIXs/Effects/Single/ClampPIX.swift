@@ -49,8 +49,7 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "clamp"
+        super.init(name: "Clamp", typeName: "pix-effect-single-clamp")
     }
     
 }

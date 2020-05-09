@@ -40,8 +40,7 @@ public class CropPIX: PIXSingleEffect {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init()
-        name = "crop"
+        super.init(name: "Crop", typeName: "pix-effect-single-crop")
     }
     
 }
