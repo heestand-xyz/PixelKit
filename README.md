@@ -552,9 +552,9 @@ lumUniform.value = 0.5
 
 ## Apps
 
-<img src="http://pixelnodes.net/assets/pixelnodes-logo.png" width="64"/>
+<img src="http://pixelkit.net/resources/pixel-nodes-logo-512px.png" width="64"/>
 
-### [Pixel Nodes](http://pixelnodes.net/)
+### [Pixel Nodes](https://pixelnodes.app/)
 
 a Live Graphics Node Editor for iPad<br>
 powered by PixelKit<br>
