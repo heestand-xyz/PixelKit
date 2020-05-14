@@ -39,6 +39,15 @@ public class ScenePIX: PIXCustom {
     /// if true the scene view delegate will no be highjacked. please call render().
     public var customDelegateRender: Bool = false
     
+    public var clearRender: Bool = true { didSet { setNeedsRender() } }
+    
+    public var wireframe: Bool = false {
+        didSet {
+            renderer.debugOptions = wireframe ? [.renderAsWireframe] : []
+            setNeedsRender()
+        }
+    }
+
     // MARK: - Property Helpers
     
     // MARK: - Life Cycle
@@ -74,21 +83,27 @@ public class ScenePIX: PIXCustom {
     }
     
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        
+        pixelKit.logger.log(node: self, .info, .generator, "Custom Render. [cameraNode:\(cameraNode != nil), scene:\(scene != nil), sceneView:\(sceneView != nil)]")
 
         guard let customTexture: MTLTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice) else {
             pixelKit.logger.log(node: self, .error, .generator, "Make of empty texture faild.")
             return nil
         }
         
-        let viewport = CGRect(x: 0, y: 0, width: resolution.width.cg, height: resolution.height.cg)
-        
-        let renderPassDescriptor = MTLRenderPassDescriptor()
-        renderPassDescriptor.colorAttachments[0].texture = customTexture
-        renderPassDescriptor.colorAttachments[0].loadAction = .clear
-        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r.cg), Double(bgColor.g.cg), Double(bgColor.b.cg), Double(bgColor.a.cg))
-        renderPassDescriptor.colorAttachments[0].storeAction = .store
-
-        renderer.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
+        if !clearRender {
+            
+            let viewport = CGRect(x: 0, y: 0, width: resolution.width.cg, height: resolution.height.cg)
+            
+            let renderPassDescriptor = MTLRenderPassDescriptor()
+            renderPassDescriptor.colorAttachments[0].texture = customTexture
+            renderPassDescriptor.colorAttachments[0].loadAction = .clear
+            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r.cg), Double(bgColor.g.cg), Double(bgColor.b.cg), Double(bgColor.a.cg))
+            renderPassDescriptor.colorAttachments[0].storeAction = .store
+            
+            renderer.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
+            
+        }
         
         return customTexture
     }
@@ -104,6 +119,7 @@ class SceneHelper: NSObject, SCNSceneRendererDelegate {
     }
 
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        PixelKit.main.logger.log(.info, nil, "willRenderScene atTime \(time)")
         renderCallback()
     }
     
