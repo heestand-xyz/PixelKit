@@ -173,12 +173,17 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 }
                 var feed = false
                 if let feedbackNode = nodeIn as? FeedbackPIX {
-                    if feedbackNode.readyToFeed && feedbackNode.feedActive {
-                        guard let feedTexture = feedbackNode.feedTexture else {
-                            throw Engine.RenderError.texture("Feed Texture not avalible.")
+                    if feedbackNode.readyToFeed {
+                        if feedbackNode.feedActive {
+                            guard let feedTexture = feedbackNode.feedTexture else {
+                                throw Engine.RenderError.texture("Feed Texture not avalible.")
+                            }
+                            inputTexture = feedTexture
+                            feed = true
                         }
-                        inputTexture = feedTexture
-                        feed = true
+//                        else if feedbackNode.clearingFeed {
+//                            feedbackNode.willClearFeed()
+//                        }
                     }
                 }
                 if !feed {
@@ -286,12 +291,17 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 }
                 var feed = false
                 if let feedbackNode = nodeIn as? FeedbackPIX {
-                    if feedbackNode.readyToFeed && feedbackNode.feedActive {
-                        guard let feedTexture = feedbackNode.tileFeedTexture(at: tileIndex) else {
-                            throw Engine.RenderError.texture("Tile Feed Texture not avalible.")
+                    if feedbackNode.readyToFeed {
+                        if feedbackNode.feedActive {
+                            guard let feedTexture = feedbackNode.tileFeedTexture(at: tileIndex) else {
+                                throw Engine.RenderError.texture("Tile Feed Texture not avalible.")
+                            }
+                            inputTexture = feedTexture
+                            feed = true
                         }
-                        inputTexture = feedTexture
-                        feed = true
+//                        else if feedbackNode.clearingFeed {
+//                            feedbackNode.willClearFeed()
+//                        }
                     }
                 }
                 if !feed {

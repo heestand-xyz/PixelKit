@@ -17,7 +17,10 @@ public class FeedbackPIX: PIXSingleEffect {
     // MARK: - Private Properties
     
     var readyToFeed: Bool = false
-    var feedReset: Int = 0
+    /// Calling `clearFeed()` will turn `feedActive` to `false` for `n` amount of frames.
+    public var clearFrameCount: Int = 5
+    var clearFrame: Int = 0
+    var clearingFeed: Bool { clearFrame > 0 }
 
     // MARK: - Public Properties
     
@@ -52,14 +55,14 @@ public class FeedbackPIX: PIXSingleEffect {
     
     override public func didRender(texture: MTLTexture, force: Bool) {
         super.didRender(texture: texture)
-        if feedReset == 1 {
-            feedReset = 2
-        } else if feedReset == 2 {
-            feedReset = 3
-        } else if feedReset == 3 {
-            pixelKit.logger.log(node: self, .info, .effect, "Did Reset Feedback")
-            feedActive = true
-            feedReset = 0
+        if clearingFeed {
+            if clearFrame >= clearFrameCount {
+                pixelKit.logger.log(node: self, .info, .effect, "Did Clear Feedback")
+                feedActive = true
+                clearFrame = 0
+            } else {
+                clearFrame += 1
+            }
         }
         readyToFeed = true
         DispatchQueue.main.async {
@@ -67,17 +70,32 @@ public class FeedbackPIX: PIXSingleEffect {
         }
     }
     
+    @available(*, deprecated, renamed: "clearFeed")
     public func resetFeed() {
-        guard feedReset == 0 else { return }
+        clearFeed()
+    }
+    
+    public func clearFeed() {
+        guard !clearingFeed else { return }
         guard feedActive else {
-            pixelKit.logger.log(node: self, .info, .effect, "Feedback Reset Canceled - Not Active.")
+            pixelKit.logger.log(node: self, .info, .effect, "Feedback Clear Canceled - Not Active.")
             return
         }
-        pixelKit.logger.log(node: self, .info, .effect, "Will Reset Feedback")
+        pixelKit.logger.log(node: self, .info, .effect, "Will Clear Feedback")
         feedActive = false
-        feedReset = 1
+        clearFrame = 1
         setNeedsRender()
     }
+    
+//    func willClearFeed() {
+//        pixelKit.logger.log(node: self, .info, .effect, "Will Clear Feedback")
+//        clearingFeed = false
+//        DispatchQueue.main.async {
+//            self.feedActive = true
+//            self.setNeedsRender()
+//            self.pixelKit.logger.log(node: self, .info, .effect, "Did Clear Feedback")
+//        }
+//    }
     
 }
 
