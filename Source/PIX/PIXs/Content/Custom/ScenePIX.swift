@@ -44,6 +44,7 @@ public class ScenePIX: PIXCustom {
     public var wireframe: Bool = false {
         didSet {
             renderer.debugOptions = wireframe ? [.renderAsWireframe] : []
+            renderer.autoenablesDefaultLighting = !wireframe
             setNeedsRender()
         }
     }
@@ -58,7 +59,11 @@ public class ScenePIX: PIXCustom {
         
         renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
         renderer.autoenablesDefaultLighting = true
+//        renderer.delegate = sceneHelper
 //        renderer.isJitteringEnabled = true
+//        if #available(iOS 13.0, *) {
+//            renderer.isTemporalAntialiasingEnabled = true
+//        }
         
         sceneHelper = SceneHelper(render: {
             guard !self.customDelegateRender else { return }
