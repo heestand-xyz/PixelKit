@@ -124,7 +124,7 @@
       "kind" : "blur",
       "pix" : {
         "quality" : 8,
-        "style" : "guassian",
+        "style" : "gaussian",
         "angle" : 0,
         "position" : [
           0,

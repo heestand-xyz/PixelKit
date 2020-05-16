@@ -72,7 +72,7 @@ public class VectorPIX: PIXResource {
     func load() {
         guard let svg = self.svg else { return }
         let html = makeHTML(with: svg)
-        webView.loadHTMLString(html, baseURL: URL(string: "http://pixelnodes.net/")!)
+        webView.loadHTMLString(html, baseURL: URL(string: "https://pixelnodes.app/")!)
     }
     
     // MARK: - Frame

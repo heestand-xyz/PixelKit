@@ -24,7 +24,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     public enum BlurStyle: String, CaseIterable {
         case regular
         #if !os(tvOS) && !targetEnvironment(simulator)
-        case guassian
+        case gaussian
         #endif
         case box
         case angle
@@ -39,7 +39,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
                 return 1
                 #endif
             #if !os(tvOS) && !targetEnvironment(simulator)
-            case .guassian: return 0
+            case .gaussian: return 0
             #endif
             case .box: return 1
             case .angle: return 2
@@ -82,7 +82,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     public required init() {
         #if !os(tvOS) && !targetEnvironment(simulator)
-        style = .guassian
+        style = .gaussian
         #else
         style = .box
         #endif
@@ -95,21 +95,21 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override public func setNeedsRender() {
         #if !os(tvOS) && !targetEnvironment(simulator)
-        customRenderActive = style == .guassian
+        customRenderActive = style == .gaussian
         #endif
         super.setNeedsRender()
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         #if !os(tvOS) && !targetEnvironment(simulator)
-        return guassianBlur(texture, with: commandBuffer)
+        return gaussianBlur(texture, with: commandBuffer)
         #else
         return nil
         #endif
     }
     
     #if !os(tvOS) && !targetEnvironment(simulator)
-    func guassianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+    func gaussianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(OSX 10.13, *) {
             guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")

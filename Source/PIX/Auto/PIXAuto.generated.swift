@@ -1983,7 +1983,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			return [
 				AutoEnumProperty(name: "style", cases: [
 						"´default´",
-						"guassian",
+						"gaussian",
 						"box",
 						"angle",
 						"zoom",
