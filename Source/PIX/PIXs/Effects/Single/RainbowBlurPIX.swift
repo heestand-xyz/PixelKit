@@ -35,15 +35,16 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
     public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
     public var position: LivePoint = .zero
+    public var light: LiveFloat = 1.0
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [radius, angle, position]
+        return [radius, angle, position, light]
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
+        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform, light.uniform]
     }
     
     override open var shaderNeedsAspect: Bool { return true }
