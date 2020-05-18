@@ -23,6 +23,7 @@ struct Uniforms{
     float angle;
     float x;
     float y;
+    float light;
     float aspect;
 };
 
@@ -110,6 +111,7 @@ fragment float4 effectSingleRainbowBlurPIX(VertexOut out [[stage_in]],
     
     c *= 2;
     c /= amounts;
+    c *= in.light;
     
     return c;
 }

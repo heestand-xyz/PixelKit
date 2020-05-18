@@ -23,6 +23,7 @@ struct Uniforms{
     float angle;
     float x;
     float y;
+    float light;
 };
 
 fragment float4 effectMergerRainbowLumaBlurPIX(VertexOut out [[stage_in]],
@@ -115,6 +116,7 @@ fragment float4 effectMergerRainbowLumaBlurPIX(VertexOut out [[stage_in]],
     
     c *= 2;
     c /= amounts;
+    c *= in.light;
     
     return c;
 }
