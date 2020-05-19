@@ -42,8 +42,87 @@ public class PaintPIX: PIXResource {
     public var resolution: Resolution { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
     
     let helper: PaintHelper
-
+    
     public let canvasView: PKCanvasView
+    
+    public var manualToolUpdate: Bool = false
+    
+    public enum ToolType: String, CaseIterable {
+        case inking
+        case eraser
+//        case lasso
+    }
+    public var toolType: ToolType = .inking {
+        didSet {
+            guard !manualToolUpdate else { return }
+            canvasView.tool = tool
+        }
+    }
+    
+    public enum InkType: String, CaseIterable {
+        case marker
+        case pen
+        case pencil
+        public var inkType: PKInkingTool.InkType {
+            switch self {
+            case .marker: return .marker
+            case .pen: return .pen
+            case .pencil: return .pencil
+            }
+        }
+    }
+    public var inkType: InkType = .pen {
+        didSet {
+            guard !manualToolUpdate else { return }
+            canvasView.tool = tool
+        }
+    }
+    public var color: UIColor = .white {
+        didSet {
+            guard !manualToolUpdate else { return }
+            canvasView.tool = tool
+        }
+    }
+    public var width: CGFloat = 10 {
+        didSet {
+            guard !manualToolUpdate else { return }
+            canvasView.tool = tool
+        }
+    }
+    
+    public enum EraserType: String, CaseIterable {
+        case vector
+        case bitmap
+        public var eraserType: PKEraserTool.EraserType {
+            switch self {
+            case .vector: return .vector
+            case .bitmap: return .bitmap
+            }
+        }
+    }
+    public var eraserType: EraserType = .vector {
+        didSet {
+            guard !manualToolUpdate else { return }
+            canvasView.tool = tool
+        }
+    }
+    
+    var tool: PKTool {
+        switch toolType {
+        case .inking:
+            return PKInkingTool(inkType.inkType, color: color, width: width)
+        case .eraser:
+            return PKEraserTool(eraserType.eraserType)
+//        case .lasso:
+//            return PKLassoTool()
+        }
+    }
+
+    public var isRulerActive: Bool {
+        get { canvasView.isRulerActive }
+        set { canvasView.isRulerActive = newValue }
+    }
+    
     public var showTools: Bool = false {
         didSet {
             guard let window: UIWindow = UIApplication.shared.keyWindow else { return }
@@ -128,6 +207,10 @@ public class PaintPIX: PIXResource {
         pixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
         applyResolution { self.setNeedsRender() }
+    }
+    
+    public func updateTool() {
+        canvasView.tool = tool
     }
     
 }
