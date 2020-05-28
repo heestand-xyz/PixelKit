@@ -13,6 +13,7 @@ import MetalPerformanceShaders
 extension PIX {
     
     public enum SampleQualityMode: Int, Codable, CaseIterable {
+        case bad = 2
         case low = 4
         case mid = 8
         case high = 16
