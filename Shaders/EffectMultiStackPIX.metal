@@ -23,6 +23,16 @@ struct Uniforms {
     float bg_g;
     float bg_b;
     float bg_a;
+    float aspect0;
+    float aspect1;
+    float aspect2;
+    float aspect3;
+    float aspect4;
+    float aspect5;
+    float aspect6;
+    float aspect7;
+    float aspect8;
+    float aspect9;
     float aspect;
 };
 
@@ -33,12 +43,12 @@ fragment float4 effectMultiStackPIX(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-        
+    
     int axis = int(in.axis);
     int alignment = int(in.alignment);
     float spacing = min(max(in.spacing, 0.0), 1.0);
     float padding = min(max(in.padding, 0.0), 1.0);
-    float4 bg = float4(in.bg_r, in.bg_g, in.bg_b, in.bg_a);
+    float4 bg = float4(in.bg_r * in.bg_a, in.bg_g * in.bg_a, in.bg_b * in.bg_a, in.bg_a);
     
     uint count = inTexs.get_array_size();
     if (count == 0) {
@@ -53,25 +63,37 @@ fragment float4 effectMultiStackPIX(VertexOut out [[stage_in]],
     bool isVertical = axis == 1;
 
     float fullAspect = in.aspect;
-        
+    float relativeFullAspect = isVertical ? fullAspect : (1.0 / fullAspect);
+
     float4 c = bg;
     float offset = padding;
-    for (uint i = 0; i < count; ++i) {
+    for (uint i = 0; i < count; i++) {
+        
         
         float fullCoordinate = isVertical ? v : u;
         float coordinate = (fullCoordinate - offset) / sizeFraction;
+        offset += sizeFraction + spacing;
         if (coordinate < 0.0 || coordinate > 1.0) { continue; }
-        
-        uint w = inTexs.get_width(i);
-        uint h = inTexs.get_height(i);
-        float aspect = float(w) / float(h);
-        float antiAspect = 1.0 / aspect;
-        float relativeAspect = isVertical ? aspect : antiAspect;
-        float tangentSizeFraction = (sizeFraction * relativeAspect) / fullAspect;
+                
+        float aspect = relativeFullAspect;
+        switch (i) {
+            case 0: aspect = in.aspect0; break;
+            case 1: aspect = in.aspect1; break;
+            case 2: aspect = in.aspect2; break;
+            case 3: aspect = in.aspect3; break;
+            case 4: aspect = in.aspect4; break;
+            case 5: aspect = in.aspect5; break;
+            case 6: aspect = in.aspect6; break;
+            case 7: aspect = in.aspect7; break;
+            case 8: aspect = in.aspect8; break;
+            case 9: aspect = in.aspect9; break;
+        }
+        float relativeAspect = isVertical ? aspect : (1.0 / aspect);
+        float tangentSizeFraction = (sizeFraction * relativeAspect) / relativeFullAspect;
 
         float fullTangentCoordinate = isVertical ? u : v;
         float tangentCoordinate = 0.0;
-        switch (alignment) {
+        switch (isVertical ? alignment : -alignment) {
             case -1: // left / bottom
                 tangentCoordinate = fullTangentCoordinate / tangentSizeFraction;
                 break;
@@ -83,16 +105,14 @@ fragment float4 effectMultiStackPIX(VertexOut out [[stage_in]],
                 break;
         }
         if (tangentCoordinate < 0.0 || tangentCoordinate > 1.0) { continue; }
-        
+                
         float iu = isVertical ? tangentCoordinate : coordinate;
         float iv = isVertical ? coordinate : tangentCoordinate;
         float2 iuv = float2(iu, iv);
         
         float4 ic = inTexs.sample(s, iuv, i);
         c = float4(float3(c) * (1.0 - ic.a) + float3(ic), max(c.a, ic.a));
-        
-        offset += sizeFraction + spacing;
-        
+                        
     }
     
     return c;

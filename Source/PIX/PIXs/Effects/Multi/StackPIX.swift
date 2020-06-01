@@ -15,7 +15,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { setNeedsRender() } }
+    public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
     public enum HorizontalAlignment: Int {
         case left = -1
@@ -72,6 +72,13 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
     public override var liveValues: [LiveValue] { [spacing, padding, backgroundColor] }
     
     public override var preUniforms: [CGFloat] { [CGFloat(axis.index), CGFloat(axis.alignmentIndex)] }
+    
+    public override var postUniforms: [CGFloat] {
+        (0..<10).map { i -> CGFloat in
+            guard i < inputs.count else { return 1.0 }
+            return inputs[i].renderResolution.aspect.cg
+        }
+    }
     
     public override var shaderNeedsAspect: Bool { true }
     
