@@ -1,9 +1,9 @@
 //
-//  EffectSingleHueSaturationPIX.metal
-//  PixelKitShaders
+//  EffectSingleColorShiftPIX.metal
+//  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-11-18.
-//  Copyright © 2017 Hexagons. All rights reserved.
+//  Copyright © 2020 Hexagons. All rights reserved.
 //
 
 #include <metal_stdlib>
@@ -19,17 +19,23 @@ struct VertexOut{
 struct Uniforms{
     float hue;
     float sat;
+    float r;
+    float g;
+    float b;
+    float a;
 };
 
-fragment float4 effectSingleHueSaturationPIX(VertexOut out [[stage_in]],
-                                             texture2d<float>  inTex [[ texture(0) ]],
-                                             const device Uniforms& in [[ buffer(0) ]],
-                                             sampler s [[ sampler(0) ]]) {
+fragment float4 effectSingleColorShiftPIX(VertexOut out [[stage_in]],
+                                          texture2d<float>  inTex [[ texture(0) ]],
+                                          const device Uniforms& in [[ buffer(0) ]],
+                                          sampler s [[ sampler(0) ]]) {
     float u = out.texCoord[0];
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);
+    
+    c *= float4(in.r, in.g, in.b, 1.0);
     
     float3 hsv = rgb2hsv(c.r, c.g, c.b);
     
@@ -37,6 +43,6 @@ fragment float4 effectSingleHueSaturationPIX(VertexOut out [[stage_in]],
     hsv[1] *= in.sat;
     
     float3 cc = hsv2rgb(hsv[0], hsv[1], hsv[2]);
-   
+    
     return float4(cc.r, cc.g, cc.b, c.a);
 }

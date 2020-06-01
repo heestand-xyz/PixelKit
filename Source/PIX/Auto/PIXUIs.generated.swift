@@ -1428,12 +1428,12 @@ public struct FlipFlopPIXUI: View, PIXUI {
 }
 
 
-// MARK: HueSaturationPIXUI
+// MARK: ColorShiftPIXUI
 
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0.0, *)
-public struct HueSaturationPIXUI: View, PIXUI {
+public struct ColorShiftPIXUI: View, PIXUI {
     public var node: NODE { pix }
 
     public let pix: PIX
@@ -1449,19 +1449,19 @@ public struct HueSaturationPIXUI: View, PIXUI {
     }
     // Parent Property Funcs
     // General Property Funcs
-    public func hue(_ hue: Binding<CGFloat>) -> HueSaturationPIXUI {
+    public func hue(_ hue: Binding<CGFloat>) -> ColorShiftPIXUI {
         huesaturationpix.hue = LiveFloat({ hue.wrappedValue })
         return self
     }
-    public func hue(_ hue: LiveFloat) -> HueSaturationPIXUI {
+    public func hue(_ hue: LiveFloat) -> ColorShiftPIXUI {
         huesaturationpix.hue = hue
         return self
     }
-    public func saturation(_ saturation: Binding<CGFloat>) -> HueSaturationPIXUI {
+    public func saturation(_ saturation: Binding<CGFloat>) -> ColorShiftPIXUI {
         huesaturationpix.saturation = LiveFloat({ saturation.wrappedValue })
         return self
     }
-    public func saturation(_ saturation: LiveFloat) -> HueSaturationPIXUI {
+    public func saturation(_ saturation: LiveFloat) -> ColorShiftPIXUI {
         huesaturationpix.saturation = saturation
         return self
     }

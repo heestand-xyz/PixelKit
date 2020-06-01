@@ -42,7 +42,7 @@ Info:
 
 | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_channelMix.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_chromaKey.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_cornerPin.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_hueSat.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_crop.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_flipFlop.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_range.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_sharpen.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_slope.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [Channel Mix](http://pixelkit.net/docs/Classes/ChannelMixPIX.html) | [Chroma Key](http://pixelkit.net/docs/Classes/ChromaKeyPIX.html) | [Corner Pin](http://pixelkit.net/docs/Classes/CornerPinPIX.html) | [Hue Saturation](http://pixelkit.net/docs/Classes/HueSaturationPIX.html) | [Crop](http://pixelkit.net/docs/Classes/CropPIX.html) | [Flip Flop](http://pixelkit.net/docs/Classes/FlipFlopPIX.html) | [Range](http://pixelkit.net/docs/Classes/RangePIX.html) | [Sharpen](http://pixelkit.net/docs/Classes/SharpenPIX.html) | [Slope](http://pixelkit.net/docs/Classes/SlopePIX.html) | [Sepia](http://pixelkit.net/docs/Classes/SepiaPIX.html) | 
+| [Channel Mix](http://pixelkit.net/docs/Classes/ChannelMixPIX.html) | [Chroma Key](http://pixelkit.net/docs/Classes/ChromaKeyPIX.html) | [Corner Pin](http://pixelkit.net/docs/Classes/CornerPinPIX.html) | [Color Shift](http://pixelkit.net/docs/Classes/ColorShiftPIX.html) | [Crop](http://pixelkit.net/docs/Classes/CropPIX.html) | [Flip Flop](http://pixelkit.net/docs/Classes/FlipFlopPIX.html) | [Range](http://pixelkit.net/docs/Classes/RangePIX.html) | [Sharpen](http://pixelkit.net/docs/Classes/SharpenPIX.html) | [Slope](http://pixelkit.net/docs/Classes/SlopePIX.html) | [Sepia](http://pixelkit.net/docs/Classes/SepiaPIX.html) | 
 
 | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_cross.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lookup.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_displace.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_remap.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_reorder.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_res.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_convert.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_clamp.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_freeze.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_flare.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -178,12 +178,12 @@ levels.input = camera
 levels.brightness = 1.5
 levels.gamma = 0.5
 
-let hueSat = HueSaturationPIX()
-hueSat.input = levels
-hueSat.sat = 0.5
+let colorShift = ColorShiftPIX()
+colorShift.input = levels
+colorShift.saturation = 0.5
 
 let blur = BlurPIX()
-blur.input = hueSat
+blur.input = colorShift
 blur.radius = 0.25
 
 let res: Resolution = .custom(w: 1500, h: 1000)
@@ -205,7 +205,7 @@ let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 ```swift
 struct ContentView: View {
     var content: PIXUI {
-        HueSaturationPIXUI {
+        ColorShiftPIXUI {
             LevelsPIXUI {
                 ResPIXUI {
                     CameraPIXUI()
@@ -447,8 +447,8 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - pix.<b>_twirl(0.5)</b> -> TwirlPIX
 - pix.<b>_swap(.red, .blue)</b> -> ChannelMixPIX
 - pix.<b>_key(.green)</b> -> ChromaKeyPIX
-- pix.<b>_hue(0.5)</b> -> HueSaturationPIX
-- pix.<b>_saturation(0.5)</b> -> HueSaturationPIX
+- pix.<b>_hue(0.5)</b> -> ColorShiftPIX
+- pix.<b>_saturation(0.5)</b> -> ColorShiftPIX
 - pix.<b>_crop(CGRect(x: 0.25, y 0.25, width: 0.5, height: 0.5))</b> -> CropPIX
 - pix.<b>_flipX()</b> -> FlipFlopPIX
 - pix.<b>_flipY()</b> -> FlipFlopPIX
