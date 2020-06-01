@@ -92,6 +92,9 @@ extension PIX {
                 case .z: return .custom(w: res3d.x, h: res3d.y)
                 }
             }
+            if let stackPix = self as? StackPIX {
+                return stackPix.resolution
+            }
             if let remapPix = pixIn as? RemapPIX {
                 guard let inResB = (remapPix.inputB as? PIX)?.realResolution else { return nil }
                 return inResB

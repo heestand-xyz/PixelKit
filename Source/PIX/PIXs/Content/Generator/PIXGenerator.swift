@@ -27,6 +27,10 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, NODETileable
     public var tileTextures: [[MTLTexture]]?
     
     public var bgColor: LiveColor = .black
+    public var backgroundColor: LiveColor {
+        get { bgColor }
+        set { bgColor = newValue }
+    }
     public var color: LiveColor = .white
 
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
