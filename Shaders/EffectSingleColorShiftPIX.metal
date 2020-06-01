@@ -44,5 +44,5 @@ fragment float4 effectSingleColorShiftPIX(VertexOut out [[stage_in]],
     
     float3 cc = hsv2rgb(hsv[0], hsv[1], hsv[2]);
     
-    return float4(cc.r, cc.g, cc.b, c.a);
+    return float4(cc.r * in.a, cc.g * in.a, cc.b * in.a, c.a * in.a);
 }

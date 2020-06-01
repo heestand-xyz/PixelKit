@@ -40,7 +40,10 @@ fragment float4 effectMergerLumaColorShiftPIX(VertexOut out [[stage_in]],
     float4 cb = inTexB.sample(s, uv);
     float lum = (cb.r + cb.g + cb.b) / 3;
     
-    c *= float4(in.r, in.g, in.b, 1.0) * lum;
+    c *= float4(1.0 - ((1.0 - in.r) * lum),
+                1.0 - ((1.0 - in.g) * lum),
+                1.0 - ((1.0 - in.b) * lum),
+                1.0);
     
     float3 hsv = rgb2hsv(c.r, c.g, c.b);
     
@@ -49,7 +52,8 @@ fragment float4 effectMergerLumaColorShiftPIX(VertexOut out [[stage_in]],
     
     float3 cc = hsv2rgb(hsv[0], hsv[1], hsv[2]);
     
-    return float4(cc.r, cc.g, cc.b, c.a);
+    float alpha = 1.0 - ((1.0 - in.a) * lum);
+    return float4(cc.r * alpha, cc.g * alpha, cc.b * alpha, c.a * alpha);
 }
 
 
