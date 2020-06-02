@@ -21,6 +21,8 @@ struct Uniforms {
     float darkness;
     float contrast;
     float gamma;
+    float invert;
+    float smooth;
     float opacity;
 };
 
@@ -55,6 +57,17 @@ fragment float4 effectMergerLumaLevelsPIX(VertexOut out [[stage_in]],
     c += 0.5;
     
     c = pow(c, 1 / max(0.001, 1.0 - (1.0 - in.gamma) * lum));
+    
+    if (in.invert) {
+        float4 ci = 1.0 - c;
+        c = c * (1.0 - lum) + ci * lum;
+    }
+    
+    if (in.smooth) {
+        float4 cl = min(max(c, 0.0), 1.0);
+        float4 cs = cos(cl * pi + pi) / 2 + 0.5;
+        c = c * (1.0 - lum) + cs * lum;
+    }
     
     c *= opacity;
     

@@ -20,12 +20,13 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
     public var contrast: LiveFloat = 0.0
     public var gamma: LiveFloat = 1.0
     public var inverted: LiveBool = false
+    public var smooth: LiveBool = false
     public var opacity: LiveFloat = LiveFloat(1.0, limit: true)
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [brightness, darkness, contrast, gamma, inverted, opacity]
+        return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     
     // MARK: - Life Cycle

@@ -20,12 +20,14 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
     public var darkness: LiveFloat = 0.0
     public var contrast: LiveFloat = 0.0
     public var gamma: LiveFloat = 1.0
+    public var inverted: LiveBool = false
+    public var smooth: LiveBool = false
     public var opacity: LiveFloat = 1.0
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [brightness, darkness, contrast, gamma, opacity]
+        return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     
     // MARK: - Life Cycle
