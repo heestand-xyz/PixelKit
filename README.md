@@ -52,6 +52,8 @@ Info:
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | [Blends](http://pixelkit.net/docs/Classes/BlendsPIX.html) | [Luma Levels](http://pixelkit.net/docs/Classes/LumaLevelsPIX.html) | [Luma Blur](http://pixelkit.net/docs/Classes/LumaBlurPIX.html) | [Time Machine](http://pixelkit.net/docs/Classes/TimeMachinePIX.html) | [Array](http://pixelkit.net/docs/Classes/ArrayPIX.html) | [AirPlay](http://pixelkit.net/docs/Classes/AirPlayPIX.html) | [Record](http://pixelkit.net/docs/Classes/RecordPIX.html) | [Stream Out](http://pixelkit.net/docs/Classes/StreamOutPIX.html) |
 
+See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc1f?v=bd4c45ba659f48dfa0ea7ac8bcf7ca9e) in Notion for PIXs in development.
+
 --- 
 
 ## Install
