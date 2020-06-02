@@ -9,8 +9,8 @@
 import LiveValues
 import RenderKit
 
-@available(*, deprecated, message: "New: ColorShiftPIX")
-typealias HueSaturationPIX = ColorShiftPIX
+@available(*, deprecated, message: "New PIX Name: ColorShiftPIX")
+public typealias HueSaturationPIX = ColorShiftPIX
 
 public class ColorShiftPIX: PIXSingleEffect, PIXAuto {
     

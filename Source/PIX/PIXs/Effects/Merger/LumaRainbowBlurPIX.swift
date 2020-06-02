@@ -10,9 +10,12 @@ import LiveValues
 import RenderKit
 import CoreGraphics
 
-public class RainbowLumaBlurPIX: PIXMergerEffect, PIXAuto {
+@available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
+public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
+
+public class LumaRainbowBlurPIX: PIXMergerEffect, PIXAuto {
     
-    override open var shaderName: String { return "effectMergerRainbowLumaBlurPIX" }
+    override open var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     
     // MARK: - Public Properties
     
@@ -49,7 +52,7 @@ public class RainbowLumaBlurPIX: PIXMergerEffect, PIXAuto {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init(name: "Rainbow Luma Blur", typeName: "pix-effect-merger-rainbow-luma-blur")
+        super.init(name: "Luma Rainbow Blur", typeName: "pix-effect-merger-luma-rainbow-blur")
         extend = .hold
     }
     

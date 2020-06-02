@@ -1,5 +1,5 @@
 //
-//  EffectMergerRainbowLumaBlurPIX.metal
+//  EffectMergerLumaRainbowBlurPIX.metal
 //  PixelKit Shaders
 //
 //  Created by Hexagons on 2017-11-26.
@@ -26,7 +26,7 @@ struct Uniforms{
     float light;
 };
 
-fragment float4 effectMergerRainbowLumaBlurPIX(VertexOut out [[stage_in]],
+fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
                                                texture2d<float>  inTexA [[ texture(0) ]],
                                                texture2d<float>  inTexB [[ texture(1) ]],
                                                const device Uniforms& in [[ buffer(0) ]],
