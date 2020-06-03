@@ -17,6 +17,12 @@ import AppKit
 import SwiftUI
 #endif
 
+#if os(iOS) || os(tvOS)
+public typealias _Image = UIImage
+#elseif os(macOS)
+public typealias _Image = NSImage
+#endif
+
 #if canImport(SwiftUI)
 @available(iOS 13.0.0, *)
 @available(OSX 10.15, *)
@@ -28,41 +34,45 @@ public struct ImagePIXUI: View, PIXUI {
     public var body: some View {
         NODERepView(node: pix)
     }
-    #if os(iOS) || os(tvOS)
-    public init(image: UIImage) {
+    public init(image: _Image) {
         imagePix = ImagePIX()
         imagePix.image = image
         pix = imagePix
     }
-    #elseif os(macOS)
-    public init(image: NSImage) {
-        imagePix = ImagePIX()
-        imagePix.image = image
-        pix = imagePix
-    }
-    #endif
 }
 #endif
 
 public class ImagePIX: PIXResource {
+
+//    #if os(iOS) || os(tvOS)
+//    override open var shaderName: String { return "contentResourceFlipPIX" }
+//    #elseif os(macOS)
+//    override open var shaderName: String { return "contentResourceBGRPIX" }
+//    #endif
+    override open var shaderName: String { return "contentResourceImagePIX" }
     
-    #if os(iOS) || os(tvOS)
-    override open var shaderName: String { return "contentResourceFlipPIX" }
-    #elseif os(macOS)
-    override open var shaderName: String { return "contentResourceBGRPIX" }
-    #endif
+    // MARK: - Private Properties
+    
+    var flip: Bool {
+        #if os(iOS) || os(tvOS)
+        return true
+        #elseif os(macOS)
+        return false
+        #endif
+    }
+    
+    var swizzel: Bool {
+        return true
+    }
     
     // MARK: - Public Properties
     
-    #if os(iOS) || os(tvOS)
-    public var image: UIImage? { didSet { setNeedsBuffer() } }
-    #elseif os(macOS)
-    public var image: NSImage? { didSet { setNeedsBuffer() } }
-    #endif
+    public var image: _Image? { didSet { setNeedsBuffer() } }
     
     #if !os(macOS)
     public var resizeToFitResolution: Resolution? = nil
     #endif
+    
     var resizedResolution: Resolution? {
         #if !os(macOS)
         guard let res = resizeToFitResolution else { return nil }
@@ -71,6 +81,20 @@ public class ImagePIX: PIXResource {
         #else
         return nil
         #endif
+    }
+    
+    public var tint: LiveBool = false
+    public var tintColor: LiveColor = .white
+    public var bgColor: LiveColor = .clear
+
+    // MARK: - Property Helpers
+    
+    public override var liveValues: [LiveValue] {
+        [tint, tintColor, bgColor]
+    }
+    
+    public override var postUniforms: [CGFloat] {
+        [flip ? 1 : 0, swizzel ? 1 : 0]
     }
     
     // MARK: - Life Cycle
