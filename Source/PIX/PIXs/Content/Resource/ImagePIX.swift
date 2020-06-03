@@ -62,7 +62,7 @@ public class ImagePIX: PIXResource {
     }
     
     var swizzel: Bool {
-        return true
+        return false
     }
     
     // MARK: - Public Properties
