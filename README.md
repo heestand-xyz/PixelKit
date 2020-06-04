@@ -68,7 +68,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 
 Note, auto support for metal assets will be added soon (Swift 5.3). For now you need to link the Metal libraries in your app.<br>
 Get the latest Metal library for your platform [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs) and add it to your bundle.<br>
-Then in `AppDelegate.swift`, `import PixelKit`, and in the `application didFinishLaunchingWithOptions` func, add the following:
+Then in `AppDelegate.swift`, `import PixelKit`, and in `application(_:didFinishLaunchingWithOptions:)`, add the following:
 
 ~~~~swift
 #if os(iOS)
