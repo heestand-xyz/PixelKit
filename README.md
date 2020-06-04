@@ -10,7 +10,7 @@
 Live Graphics Framework for iOS, macOS and tvOS<br>
 runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal - inspired by TouchDesigner
 
-<a href="https://pixelnodes.app/"><img src="http://pixelkit.net/resources/pixel-nodes-logo-512px.png" width="32"/></a> Demo PixelKit effects in [Pixel Nodes](https://pixelnodes.app/), a Live Graphics Node Editor for iPad.
+<a href="https://pixelnodes.app/"><img src="http://pixelkit.net/resources/pixel-nodes-logo-512px.png" width="32"/></a> Demo PixelKit effects in [Pixel Nodes](https://pixelnodes.app?ref=pixelkit_github&utm_source=pixelkit&utm_medium=github), a Live Graphics Node Editor for iPad.
 
 Examples:
 [Camera Effects](#example-camera-effects) -
