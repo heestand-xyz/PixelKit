@@ -61,7 +61,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 ### Swift Package:
 
 ~~~~swift
-.package(url: "https://github.com/hexagons/PixelKit.git", from: "1.0.0")
+.package(url: "https://github.com/hexagons/PixelKit.git", from: "1.0.10")
 ~~~~
 
 Note, SwiftPM dose not yet support assets, so you will have to link the Metal library in your app.<br>
