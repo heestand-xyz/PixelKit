@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -208,6 +208,7 @@
 		74844E7E234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
 		74844E7F234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
 		74844E80234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
+		74AABA9724896DD900E8757C /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */; platformFilter = ios; };
 		74AD155F248517680027C400 /* EffectMultiStackPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74AD155E248517680027C400 /* EffectMultiStackPIX.metal */; };
 		74AD1560248517680027C400 /* EffectMultiStackPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74AD155E248517680027C400 /* EffectMultiStackPIX.metal */; };
 		74AD1561248517680027C400 /* EffectMultiStackPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74AD155E248517680027C400 /* EffectMultiStackPIX.metal */; };
@@ -226,6 +227,19 @@
 		74F39A93232E700400E3565C /* TemplatePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74F39A92232E700400E3565C /* TemplatePIX.metal */; };
 		74F39A94232E700400E3565C /* TemplatePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74F39A92232E700400E3565C /* TemplatePIX.metal */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		74AABA9624896DC100E8757C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "/Users/hexagons/Code/Frameworks/Swift/PixelKit/Resources/Metal Libs";
+			dstSubfolderSpec = 0;
+			files = (
+				74AABA9724896DD900E8757C /* PixelKitShaders.metallib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3A07AAFA2344A11D00D3F0CE /* QuadVTX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = QuadVTX.metal; sourceTree = "<group>"; };
@@ -470,6 +484,8 @@
 			buildConfigurationList = 7473A671210F4FD0003CF329 /* Build configuration list for PBXNativeTarget "PixelKitShaders" */;
 			buildPhases = (
 				7473A668210F4FD0003CF329 /* Sources */,
+				74AABA9624896DC100E8757C /* CopyFiles */,
+				74AABA9824896E8400E8757C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -533,6 +549,26 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		74AABA9824896E8400E8757C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mv \"/Users/hexagons/Code/Frameworks/Swift/PixelKit/Resources/Metal Libs/PixelKitShaders.metallib\" \"/Users/hexagons/Code/Frameworks/Swift/PixelKit/Resources/Metal Libs/PixelKitShaders-iOS.metallib\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3A3756432334FAE200D90172 /* Sources */ = {

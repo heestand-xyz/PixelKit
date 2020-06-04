@@ -19,12 +19,13 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     public var range: LiveFloat = LiveFloat(0.1, min: 0.0, max: 0.5)
     public var softness: LiveFloat = LiveFloat(0.1, min: 0.0, max: 0.5)
     public var edgeDesaturation: LiveFloat = 0.5
+    public var alphaCrop: LiveFloat = 0.5
     public var premultiply: LiveBool = true
     
     // MARK: - Property Helpers
     
     override public var liveValues: [LiveValue] {
-        return [keyColor, range, softness, edgeDesaturation, premultiply]
+        return [keyColor, range, softness, edgeDesaturation, alphaCrop, premultiply]
     }
     
     // MARK: - Life Cycle

@@ -24,6 +24,7 @@ struct Uniforms {
     float range;
     float softness;
     float edge_desat;
+    float alpha_crop;
     float premultiply;
 };
 
@@ -61,9 +62,14 @@ fragment float4 effectSingleChromaKeyPIX(VertexOut out [[stage_in]],
     
     float3 ck_c = hsv2rgb(c_hsv[0], c_hsv[1], c_hsv[2]);
     
+    float alphaCropInv = 1.0 - min(1.0, max(0.0, in.alpha_crop));
+    ck = min(1.0, max(0.0, 1.0 - ((1.0 - ck) / alphaCropInv)));
+    
     if (in.premultiply) {
         ck_c *= ck;
     }
     
-    return float4(ck_c.r, ck_c.g, ck_c.b, ck);
+    float a = ck * c.a;
+    
+    return float4(ck_c.r, ck_c.g, ck_c.b, a);
 }
