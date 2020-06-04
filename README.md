@@ -66,12 +66,29 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 .package(url: "https://github.com/hexagons/PixelKit.git", .exact("1.0.10")),
 ~~~~
 
-Note, SwiftPM dose not yet support assets, so you will have to link the Metal library in your app.<br>
+Note, auto support for metal assets will be added soon (Swift 5.3). For now you need to link the Metal libraries in your app.<br>
 Get the latest Metal library for your platform [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs) and add it to your bundle.<br>
-Then in `AppDelegate.swift`, in the `application didFinishLaunchingWithOptions` func, add the following:
+Then in `AppDelegate.swift`, `import PixelKit`, and in the `application didFinishLaunchingWithOptions` func, add the following:
 
 ~~~~swift
-pixelKitMetalLibURL = Bundle.main.url(forResource: "PixelKitShaders-<platform>", withExtension: "metallib")!
+#if os(iOS)
+#if targetEnvironment(macCatalyst)
+let platformName: String = "macCatalyst"
+#elseif targetEnvironment(simulator)
+let platformName: String = "iOS-Simulator"
+#else
+let platformName: String = "iOS"
+#endif
+#elseif os(tvOS)
+#if targetEnvironment(simulator)
+let platformName: String = "tvOS-Simulator"
+#else
+let platformName: String = "tvOS"
+#endif
+#elseif os(macOS)
+let platformName: String = "macOS"
+#endif
+pixelKitMetalLibURL = Bundle.main.url(forResource: "PixelKitShaders-\(platformName)", withExtension: "metallib")!
 ~~~~
 
 ### CocoaPods:
