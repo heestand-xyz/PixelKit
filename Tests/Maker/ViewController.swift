@@ -20,9 +20,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(">>>>>>>>> test maker started")
-        
+                
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()

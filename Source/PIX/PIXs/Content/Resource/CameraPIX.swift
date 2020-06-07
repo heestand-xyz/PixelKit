@@ -710,7 +710,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //                            try multiDevice.lockForConfiguration()
 //                            multiDevice.activeFormat = format
 //                            multiDevice.unlockForConfiguration()
-//                            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", multiDevice.deviceType.rawValue, format.formatDescription.dimensions.width, format.formatDescription.dimensions.height)
+//                            print("CAM", multiDevice.deviceType.rawValue, format.formatDescription.dimensions.width, format.formatDescription.dimensions.height)
 //                        } catch {
 //                            pixelKit.logger.log(.error, nil, "Camera Device configuration failed for \"\(multiDevice.deviceType.rawValue)\".")
 //                        }

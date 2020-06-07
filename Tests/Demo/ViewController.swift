@@ -49,17 +49,15 @@ class ViewController: NSViewController, NODEDelegate/*, NDIPIXDelegate*/ {
     
 //    func ndiPIXUpdated(sources: [String]) {
 //        guard let source = sources.first else { return }
-//        print("NDI >>>>>>>>>>", source)
+//        print("NDI Source:", source)
 //        ndiPix.connect(to: source)
 //    }
     
 //    func save() {
-//        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 //        guard let image = self.finalPix.renderedTileImage else { print("xxxxxx"); return }
 //        let desktopUrl = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
 //        let imageUrl = desktopUrl.appendingPathComponent("pix_tiles.png")
 //        guard image.savePNG(to: imageUrl) else { fatalError() }
-//        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 //    }
     
 //    func log() {
