@@ -372,6 +372,11 @@ open class PIX: NODE, Equatable, NODETileable {
         }
     }
     
+    func clearRender() {
+        pixelKit.logger.log(node: self, .info, .render, "Clear Render")
+        removeRes()
+    }
+    
     // MARK: - Out Path
 
 //    class WeakOutPath {
@@ -596,6 +601,7 @@ open class PIX: NODE, Equatable, NODETileable {
     // MARK: Clean
     
     public func destroy() {
+        clearRender()
         pixelKit.render.remove(node: self)
         texture = nil
         bypass = true

@@ -14,4 +14,9 @@ open class PIXResource: PIXContent, NODEResource {
     public var pixelBuffer: CVPixelBuffer?
     var flop: Bool = false
     
+    override func clearRender() {
+        pixelBuffer = nil
+        super.clearRender()
+    }
+    
 }

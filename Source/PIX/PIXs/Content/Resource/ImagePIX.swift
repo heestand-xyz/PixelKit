@@ -122,7 +122,8 @@ public class ImagePIX: PIXResource {
     
     func setNeedsBuffer() {
         guard var image = image else {
-            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
+            pixelKit.logger.log(node: self, .debug, .resource, "Setting Image to Nil")
+            clearRender()
             return
         }
         #if !os(macOS)
@@ -139,11 +140,11 @@ public class ImagePIX: PIXResource {
         }
         let bits: LiveColor.Bits = pixelKit.render.bits
         guard let buffer = Texture.buffer(from: image, bits: bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
+            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
             return
         }
         pixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.", loop: true)
         applyResolution { self.setNeedsRender() }
     }
     
