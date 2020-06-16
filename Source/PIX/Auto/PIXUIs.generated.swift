@@ -1437,32 +1437,32 @@ public struct ColorShiftPIXUI: View, PIXUI {
     public var node: NODE { pix }
 
     public let pix: PIX
-    let huesaturationpix: HueSaturationPIX
+    let colorshiftpix: ColorShiftPIX
     public var body: some View {
         NODERepView(node: pix)
     }
 
     public init(_ uiPix: () -> (PIXUI)) {
-        huesaturationpix = HueSaturationPIX()
-        huesaturationpix.input = uiPix().pix as? (PIX & NODEOut)
-        pix = huesaturationpix
+        colorshiftpix = ColorShiftPIX()
+        colorshiftpix.input = uiPix().pix as? (PIX & NODEOut)
+        pix = colorshiftpix
     }
     // Parent Property Funcs
     // General Property Funcs
     public func hue(_ hue: Binding<CGFloat>) -> ColorShiftPIXUI {
-        huesaturationpix.hue = LiveFloat({ hue.wrappedValue })
+        colorshiftpix.hue = LiveFloat({ hue.wrappedValue })
         return self
     }
     public func hue(_ hue: LiveFloat) -> ColorShiftPIXUI {
-        huesaturationpix.hue = hue
+        colorshiftpix.hue = hue
         return self
     }
     public func saturation(_ saturation: Binding<CGFloat>) -> ColorShiftPIXUI {
-        huesaturationpix.saturation = LiveFloat({ saturation.wrappedValue })
+        colorshiftpix.saturation = LiveFloat({ saturation.wrappedValue })
         return self
     }
     public func saturation(_ saturation: LiveFloat) -> ColorShiftPIXUI {
-        huesaturationpix.saturation = saturation
+        colorshiftpix.saturation = saturation
         return self
     }
     // Enum Property Funcs

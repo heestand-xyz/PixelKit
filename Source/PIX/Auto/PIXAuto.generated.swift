@@ -1168,7 +1168,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 	case edgepix
 	case flarepix
 	case flipfloppix
-	case huesaturationpix
+	case colorshiftpix
 	case kaleidoscopepix
 	case levelspix
 	case quantizepix
@@ -1190,7 +1190,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .edgepix: return "EdgePIX"
 		case .flarepix: return "FlarePIX"
 		case .flipfloppix: return "FlipFlopPIX"
-		case .huesaturationpix: return "HueSaturationPIX"
+		case .colorshiftpix: return "ColorShiftPIX"
 		case .kaleidoscopepix: return "KaleidoscopePIX"
 		case .levelspix: return "LevelsPIX"
 		case .quantizepix: return "QuantizePIX"
@@ -1214,7 +1214,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .edgepix: return EdgePIX.self
 		case .flarepix: return FlarePIX.self
 		case .flipfloppix: return FlipFlopPIX.self
-		case .huesaturationpix: return HueSaturationPIX.self
+        case .colorshiftpix: return ColorShiftPIX.self
 		case .kaleidoscopepix: return KaleidoscopePIX.self
 		case .levelspix: return LevelsPIX.self
 		case .quantizepix: return QuantizePIX.self
@@ -1264,7 +1264,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1350,7 +1350,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1506,17 +1506,17 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 				AutoLiveFloatProperty(name: "hue", getCallback: {
-					return (pix as! HueSaturationPIX).hue
+					return (pix as! ColorShiftPIX).hue
 				}, setCallback: { value in
-					(pix as! HueSaturationPIX).hue = value
+					(pix as! ColorShiftPIX).hue = value
 				}),
 				AutoLiveFloatProperty(name: "saturation", getCallback: {
-					return (pix as! HueSaturationPIX).saturation
+					return (pix as! ColorShiftPIX).saturation
 				}, setCallback: { value in
-					(pix as! HueSaturationPIX).saturation = value
+					(pix as! ColorShiftPIX).saturation = value
 				}),
 			]
 		case .kaleidoscopepix:
@@ -1672,7 +1672,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1743,7 +1743,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1814,7 +1814,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1875,7 +1875,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -1941,7 +1941,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 		case .flipfloppix:
 			return [
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:
@@ -2034,7 +2034,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 					(pix as! FlipFlopPIX).flop = FlipFlopPIX.Flop(rawValue: value) ?? .none
 				}),
 			]
-		case .huesaturationpix:
+		case .colorshiftpix:
 			return [
 			]
 		case .kaleidoscopepix:

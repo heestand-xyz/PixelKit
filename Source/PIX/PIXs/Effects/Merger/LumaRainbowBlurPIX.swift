@@ -1,5 +1,5 @@
 //
-//  RainbowLumaBlurPIX.swift
+//  LumaRainbowBlurPIX.swift
 //  PixelKit
 //
 //  Created by Hexagons on 2018-08-09.
@@ -60,8 +60,13 @@ public class LumaRainbowBlurPIX: PIXMergerEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _rainbowLumaBlur(with pix: PIX & NODEOut, radius: LiveFloat, angle: LiveFloat) -> RainbowLumaBlurPIX {
-        let rainbowLumaBlurPix = RainbowLumaBlurPIX()
+    @available(*, deprecated, renamed: "_lumaRainbowBlur(with:radius:angle:)")
+    func _rainbowLumaBlur(with pix: PIX & NODEOut, radius: LiveFloat, angle: LiveFloat) -> LumaRainbowBlurPIX {
+        _lumaRainbowBlur(with: pix, radius: radius, angle: angle)
+    }
+    
+    func _lumaRainbowBlur(with pix: PIX & NODEOut, radius: LiveFloat, angle: LiveFloat) -> LumaRainbowBlurPIX {
+        let rainbowLumaBlurPix = LumaRainbowBlurPIX()
         rainbowLumaBlurPix.name = ":rainbowLumaBlur:"
         rainbowLumaBlurPix.inputA = self as? PIX & NODEOut
         rainbowLumaBlurPix.inputB = pix
