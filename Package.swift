@@ -11,11 +11,11 @@ let package = Package(
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
-        .executable(name: "PixelKitLab", targets: ["PixelKitLab"])
+        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
 //        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.2.1"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.4.10"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.4.13"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: [/*"LiveValues", */"RenderKit"], path: "Source", exclude: [
@@ -33,7 +33,7 @@ let package = Package(
             "PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt",
             "Other/NDI",
         ]),
-        .target(name: "PixelKitLab", dependencies: ["PixelKit"], path: "Tests/PixelKitLab"),
+        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["main_lut.swift"]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
 )

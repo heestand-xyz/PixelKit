@@ -208,6 +208,10 @@
 		74844E7E234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
 		74844E7F234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
 		74844E80234893D300F99875 /* EffectSingleSlicePIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */; };
+		748CB48E249E443600460A84 /* PixelKitShaders-macOS.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74E9F6C72193813800F541DE /* PixelKitShaders-macOS.metallib */; };
+		748CB490249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 748CB48F249E44B500460A84 /* EffectMultiHDRPIX.metal */; };
+		748CB491249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 748CB48F249E44B500460A84 /* EffectMultiHDRPIX.metal */; };
+		748CB492249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 748CB48F249E44B500460A84 /* EffectMultiHDRPIX.metal */; };
 		74AABA9724896DD900E8757C /* PixelKitShaders.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */; platformFilter = ios; };
 		74AD155F248517680027C400 /* EffectMultiStackPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74AD155E248517680027C400 /* EffectMultiStackPIX.metal */; };
 		74AD1560248517680027C400 /* EffectMultiStackPIX.metal in Sources */ = {isa = PBXBuildFile; fileRef = 74AD155E248517680027C400 /* EffectMultiStackPIX.metal */; };
@@ -229,6 +233,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		748CB48D249E442F00460A84 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "/Users/hexagons/Code/Frameworks/Swift/PixelKit/Resources/Metal Libs";
+			dstSubfolderSpec = 0;
+			files = (
+				748CB48E249E443600460A84 /* PixelKitShaders-macOS.metallib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		74AABA9624896DC100E8757C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -312,6 +326,7 @@
 		7450349B2427822B00B0C864 /* EffectMergerLUTPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectMergerLUTPIX.metal; sourceTree = "<group>"; };
 		7473A66A210F4FD0003CF329 /* PixelKitShaders.metallib */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "archive.metal-library"; path = PixelKitShaders.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		74844E7D234893D300F99875 /* EffectSingleSlicePIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectSingleSlicePIX.metal; sourceTree = "<group>"; };
+		748CB48F249E44B500460A84 /* EffectMultiHDRPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectMultiHDRPIX.metal; sourceTree = "<group>"; };
 		74AD155E248517680027C400 /* EffectMultiStackPIX.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = EffectMultiStackPIX.metal; sourceTree = "<group>"; };
 		74D7E026235F74860000595A /* place.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = place.metal; sourceTree = "<group>"; };
 		74D7E027235F74860000595A /* place_header.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = place_header.metal; sourceTree = "<group>"; };
@@ -409,6 +424,7 @@
 				3A7C227E2285B4640096F53C /* EffectMergerReorderPIX.metal */,
 				3A7C226E2285B4640096F53C /* EffectMergerTimeMachinePIX.metal */,
 				3A7C22752285B4640096F53C /* EffectMultiArrayPIX.metal */,
+				748CB48F249E44B500460A84 /* EffectMultiHDRPIX.metal */,
 				3A7C22882285B4650096F53C /* EffectMultiBlendsPIX.metal */,
 				74AD155E248517680027C400 /* EffectMultiStackPIX.metal */,
 				3AF4235F234F55F40019B4C1 /* EffectSingleAveragePIX.metal */,
@@ -501,6 +517,7 @@
 			buildConfigurationList = 74E9F6CB2193813800F541DE /* Build configuration list for PBXNativeTarget "PixelKitShaders-macOS" */;
 			buildPhases = (
 				74E9F6C52193813800F541DE /* Sources */,
+				748CB48D249E442F00460A84 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -597,6 +614,7 @@
 				3A0156AD2334FB390002B2D9 /* EffectSingleKaleidoscopePIX.metal in Sources */,
 				3A01568F2334FB390002B2D9 /* ContentGeneratorGradientPIX.metal in Sources */,
 				3A0156982334FB390002B2D9 /* EffectMergerBlendPIX.metal in Sources */,
+				748CB492249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */,
 				3A07AB2C2344A72100D3F0CE /* gradient_header.metal in Sources */,
 				3A3DAB7A23D996EF007358A1 /* ContentResourceRedToWhitePIX.metal in Sources */,
 				3A0156AC2334FB390002B2D9 /* EffectSingleColorShiftPIX.metal in Sources */,
@@ -665,6 +683,7 @@
 				3A7C22FA2285B4660096F53C /* EffectMergerLookupPIX.metal in Sources */,
 				3A7C22AA2285B4660096F53C /* EffectMergerTimeMachinePIX.metal in Sources */,
 				3A7C22C42285B4660096F53C /* EffectSingleKaleidoscopePIX.metal in Sources */,
+				748CB490249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */,
 				3A07AB152344A11D00D3F0CE /* random.metal in Sources */,
 				3A7C22BC2285B4660096F53C /* EffectSingleTransformPIX.metal in Sources */,
 				3A7C22B42285B4660096F53C /* ContentResourcePIX.metal in Sources */,
@@ -745,6 +764,7 @@
 				3A7C22FB2285B4660096F53C /* EffectMergerLookupPIX.metal in Sources */,
 				3A7C22AB2285B4660096F53C /* EffectMergerTimeMachinePIX.metal in Sources */,
 				3A7C22C52285B4660096F53C /* EffectSingleKaleidoscopePIX.metal in Sources */,
+				748CB491249E44B500460A84 /* EffectMultiHDRPIX.metal in Sources */,
 				3A07AB162344A11D00D3F0CE /* random.metal in Sources */,
 				3A7C22BD2285B4660096F53C /* EffectSingleTransformPIX.metal in Sources */,
 				3A7C22B52285B4660096F53C /* ContentResourcePIX.metal in Sources */,

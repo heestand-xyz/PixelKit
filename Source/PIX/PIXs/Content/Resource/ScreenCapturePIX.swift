@@ -24,7 +24,7 @@ public class ScreenCapturePIX: PIXResource {
     
     // MARK: - Life Cycle
     
-    public override init() {
+    public init() {
         super.init(name: "Screen Capture", typeName: "pix-content-resource-screen-capture")
         setupScreenCapture()
     }
