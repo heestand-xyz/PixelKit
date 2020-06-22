@@ -16,20 +16,20 @@ PixelKit.main.render.engine.renderMode = .manual
 
 let lowPix = ImagePIX()
 lowPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
-    .appendingPathComponent("Desktop/HDR Source Low.png"))!
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source Low.png"))!
 
 let midPix = ImagePIX()
 midPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
-    .appendingPathComponent("Desktop/HDR Source Mid.png"))!
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source Mid.png"))!
 
 let highPix = ImagePIX()
 highPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
-    .appendingPathComponent("Desktop/HDR Source High.png"))!
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source High.png"))!
 
 let hdrPix = HDRPIX()
 hdrPix.inputs = [lowPix, midPix, highPix]
-hdrPix.lowEV = -0.7
-hdrPix.highEV = 1.25
+hdrPix.lowEV = -1.0 * 0.625
+hdrPix.highEV = 2.0 * 0.625
 
 let finalPix: PIX = hdrPix
 let finalName: String = "HDRPIX"
