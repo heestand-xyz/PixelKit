@@ -46,7 +46,7 @@ Info:
 
 | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_cross.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lookup.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_displace.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_remap.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_reorder.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_res.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_convert.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_clamp.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_freeze.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_flare.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [Blend](http://pixelkit.net/docs/Classes/BlendPIX.html) | [Cross](http://pixelkit.net/docs/Classes/CrossPIX.html) | [Lookup](http://pixelkit.net/docs/Classes/LookupPIX.html) | [Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) | [Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) | [Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) | [Res](http://pixelkit.net/docs/Classes/ResPIX.html) | [Convert](http://pixelkit.net/docs/Classes/ConvertPIX.html) | [Clamp](http://pixelkit.net/docs/Classes/ClampPIX.html) | [Freeze](http://pixelkit.net/docs/Classes/FreezePIX.html) | [Flare](http://pixelkit.net/docs/Classes/FlarePIX.html) |
+| [Blend](http://pixelkit.net/docs/Classes/BlendPIX.html) | [Cross](http://pixelkit.net/docs/Classes/CrossPIX.html) | [Lookup](http://pixelkit.net/docs/Classes/LookupPIX.html) | [Displace](http://pixelkit.net/docs/Classes/DisplacePIX.html) | [Remap](http://pixelkit.net/docs/Classes/RemapPIX.html) | [Reorder](http://pixelkit.net/docs/Classes/ReorderPIX.html) | [Res](http://pixelkit.net/docs/Classes/ResolutionPIX.html) | [Convert](http://pixelkit.net/docs/Classes/ConvertPIX.html) | [Clamp](http://pixelkit.net/docs/Classes/ClampPIX.html) | [Freeze](http://pixelkit.net/docs/Classes/FreezePIX.html) | [Flare](http://pixelkit.net/docs/Classes/FlarePIX.html) |
 
 <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_levels.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_lumaBlur.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_delay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_array.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_airplay.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_rec.png?raw=true" width="32"/> | <img src="https://github.com/hexagons/PixelKit/blob/master/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -58,40 +58,13 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 
 ## Install
 
-### Swift Package:
+### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/hexagons/LiveValues.git", .exact("1.2.1")),
-.package(url: "https://github.com/hexagons/RenderKit.git", .exact("0.4.6")),
-.package(url: "https://github.com/hexagons/PixelKit.git", .exact("1.0.10")),
+.package(url: "https://github.com/hexagons/PixelKit.git", from: "1.1.2")
 ~~~~
 
-Note, auto support for metal assets will be added soon (Swift 5.3). For now you need to link the Metal libraries in your app.<br>
-Get the latest Metal library for your platform [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs) and add it to your bundle.<br>
-Then in `AppDelegate.swift`, `import PixelKit`, and in `application(_:didFinishLaunchingWithOptions:)`, add the following:
-
-~~~~swift
-#if os(iOS)
-#if targetEnvironment(macCatalyst)
-let platformName: String = "macCatalyst"
-#elseif targetEnvironment(simulator)
-let platformName: String = "iOS-Simulator"
-#else
-let platformName: String = "iOS"
-#endif
-#elseif os(tvOS)
-#if targetEnvironment(simulator)
-let platformName: String = "tvOS-Simulator"
-#else
-let platformName: String = "tvOS"
-#endif
-#elseif os(macOS)
-let platformName: String = "macOS"
-#endif
-pixelKitMetalLibURL = Bundle.main.url(forResource: "PixelKitShaders-\(platformName)", withExtension: "metallib")!
-~~~~
-
-### CocoaPods:
+### CocoaPods
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `PixelKit` into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -99,17 +72,13 @@ pixelKitMetalLibURL = Bundle.main.url(forResource: "PixelKitShaders-\(platformNa
 pod 'PixelKit', '~> 1.0.0'
 ```
 
-And import:
+## Import
 
 ```swift
 import PixelKit
 ```
 
-Note that PixelKit only have simulator support in Xcode 11 for iOS 13 on macOS Catalina. Metal for iOS can only run on a physical device in Xcode 10 or below.
-
-To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
-
-To get access to all dependency features:
+To access `LiveColor` and `Resolution` import the dependencies of PixelKit:
 
 ~~~~swift
 import LiveValues
@@ -118,14 +87,23 @@ import RenderKit
 
 ## Setup
 
+### SwiftUI
+
+~~~~swift
+struct ContentView: View {
+    var body: some View {
+        BlurPIXUI {
+            CirclePIXUI()
+        }
+            .radius(0.25)
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+~~~~
+
 ### UIKit
 
 ~~~~swift
-import UIKit
-import LiveValues
-import RenderKit
-import PixelKit
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -146,30 +124,11 @@ class ViewController: UIViewController {
 }
 ~~~~
 
-### SwiftUI
-
-~~~~swift
-import SwiftUI
-import LiveValues
-import RenderKit
-import PixelKit
-
-struct ContentView: View {
-    var body: some View {
-        BlurPIXUI {
-            CirclePIXUI()
-        }
-            .radius(0.25)
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-~~~~
-
 ## Docs
 
-[LiveValues Docs](http://hexagons.se/live-values/)<br>
-[RenderKit Docs](http://renderkit.info)<br>
-[PixelKit Docs](http://pixelkit.net/docs/)
+[LiveValues](http://hexagons.se/live-values/)<br>
+[RenderKit](http://renderkit.info)<br>
+[PixelKit](http://pixelkit.net/docs/)
 
 ## Tutorials
 
@@ -187,9 +146,42 @@ struct ContentView: View {
 
 ### Example: Camera Effects
 
-`import LiveValues
-import RenderKit
-import PixelKit`
+| <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
+| --- | --- | --- | --- | --- |
+
+#### SwiftUI
+```swift
+struct ContentView: View {
+    var content: PIXUI {
+        ColorShiftPIXUI {
+            LevelsPIXUI {
+                ResolutionPIXUI {
+                    CameraPIXUI()
+                }
+            }
+                .gamma(0.5)
+                .brightness(LiveFloat(1.5))
+        }
+            .saturation(LiveFloat(0.5))
+    }
+    var body: some View {
+        BlendsPIXUI {
+            BlurPIXUI {
+                RawPIXUI(pix: content.pix)
+            }
+                .radius(0.25)
+            BlendsPIXUI {
+                CirclePIXUI()
+                    .bgColor(.clear)
+                    .radius(0.25)
+                RawPIXUI(pix: content.pix)
+            }
+                .blendMode(.multiply)
+        }
+            .blendMode(.over)
+    }
+}
+```
 
 ~~~~swift
 let camera = CameraPIX()
@@ -221,43 +213,6 @@ This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs)
 ```swift
 let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
 ```
-
-#### SwiftUI
-```swift
-struct ContentView: View {
-    var content: PIXUI {
-        ColorShiftPIXUI {
-            LevelsPIXUI {
-                ResPIXUI {
-                    CameraPIXUI()
-                }
-            }
-                .gamma(0.5)
-                .brightness(LiveFloat(1.5))
-        }
-            .saturation(LiveFloat(0.5))
-    }
-    var body: some View {
-        BlendsPIXUI {
-            BlurPIXUI {
-                RawPIXUI(pix: content.pix)
-            }
-                .radius(0.25)
-            BlendsPIXUI {
-                CirclePIXUI()
-                    .bgColor(.clear)
-                    .radius(0.25)
-                RawPIXUI(pix: content.pix)
-            }
-                .blendMode(.multiply)
-        }
-            .blendMode(.over)
-    }
-}
-```
-
-| <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
-| --- | --- | --- | --- | --- |
 
 Remeber to add `NSCameraUsageDescription` to your info.plist
 
@@ -449,8 +404,8 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 
 ## Effect Convenience Funcs
 
-- pix.<b>_reRes(to: ._1080p * 0.5)</b> -> ResPIX
-- pix.<b>_reRes(by: 0.5)</b> -> ResPIX
+- pix.<b>_reRes(to: ._1080p * 0.5)</b> -> ResolutionPIX
+- pix.<b>_reRes(by: 0.5)</b> -> ResolutionPIX
 - pix.<b>_brightness(0.5)</b> -> LevelsPIX
 - pix.<b>_darkness(0.5)</b> -> LevelsPIX
 - pix.<b>_contrast(0.5)</b> -> LevelsPIX
@@ -570,6 +525,10 @@ let metalPix = MetalPIX(at: ._1080p, code:
 )
 lumUniform.value = 0.5
 ~~~~
+
+### Notes:
+
+- To gain camera access, on macOS, check Camera in the App Sandbox in your Xcode project settings under Capabilities.
 
 ---
 
