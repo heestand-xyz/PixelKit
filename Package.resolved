@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/hexagons/LiveValues.git",
         "state": {
           "branch": null,
-          "revision": "e50506d53aae285cc09972ddfb1521b846ed0f14",
-          "version": "1.2.1"
+          "revision": "9c046ac1a2f460a965c504a2ccfa07228a62f0d4",
+          "version": "1.3.0"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/hexagons/RenderKit.git",
         "state": {
           "branch": null,
-          "revision": "1e62b428020eaad03a1cf8a200686fe8a848f568",
-          "version": "0.4.13"
+          "revision": "326582749747bbada254497648ac6049ff6d4d6f",
+          "version": "0.5.0"
         }
       }
     ]

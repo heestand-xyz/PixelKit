@@ -64,10 +64,10 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     init() {
         
         if let url = pixelKitMetalLibURL {
-            render = Render(metalLibURL: url, bundle: Bundle(for: type(of: self)))
+            render = Render(metalLibURL: url)
         } else {
             let metalLibURL: URL = Bundle.module.url(forResource: kMetalLibName, withExtension: "metallib", subdirectory: "Metal")!
-            render = Render(metalLibURL: metalLibURL, bundle: .module)
+            render = Render(metalLibURL: metalLibURL)
         }
         logger = Logger(name: "PixelKit")
         
