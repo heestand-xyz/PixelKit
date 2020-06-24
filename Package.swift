@@ -33,7 +33,7 @@ let package = Package(
             "PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt",
             "Other/NDI",
         ]),
-        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["main_lut.swift"]),
+        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["Mains"]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
 )

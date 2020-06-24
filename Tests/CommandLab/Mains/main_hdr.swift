@@ -6,7 +6,7 @@ import PixelKit
 // MARK: - Setup
 
 pixelKitMetalLibURL = FileManager.default.homeDirectoryForCurrentUser
-    .appendingPathComponent("Code/Packages/Swift/")
+    .appendingPathComponent("Code/Frameworks/Swift/")
     .appendingPathComponent("PixelKit/Resources/Metal Libs/")
     .appendingPathComponent("PixelKitShaders-macOS.metallib")
 frameLoopRenderThread = .background
@@ -14,12 +14,25 @@ PixelKit.main.render.engine.renderMode = .manual
 
 // MARK: - PIXs
 
-let polygonPix = PolygonPIX(at: .square(1000))
-polygonPix.radius = 0.5
-polygonPix.cornerRadius = 0.1
+let lowPix = ImagePIX()
+lowPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source Low.png"))!
 
-let finalPix: PIX = polygonPix
-let finalName: String = "pix"
+let midPix = ImagePIX()
+midPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source Mid.png"))!
+
+let highPix = ImagePIX()
+highPix.image = NSImage(contentsOf: FileManager.default.homeDirectoryForCurrentUser
+    .appendingPathComponent("Desktop/HDRPIX/HDR Source High.png"))!
+
+let hdrPix = HDRPIX()
+hdrPix.inputs = [lowPix, midPix, highPix]
+hdrPix.lowEV = -1.0 * 0.625
+hdrPix.highEV = 2.0 * 0.625
+
+let finalPix: PIX = hdrPix
+let finalName: String = "HDRPIX"
 
 // MARK: - Render
 
