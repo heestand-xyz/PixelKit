@@ -5,18 +5,18 @@ import PixelKit
 
 // MARK: - Setup
 
-pixelKitMetalLibURL = FileManager.default.homeDirectoryForCurrentUser
-    .appendingPathComponent("Code/Packages/Swift/")
-    .appendingPathComponent("PixelKit/Resources/Metal Libs/")
-    .appendingPathComponent("PixelKitShaders-macOS.metallib")
+//pixelKitMetalLibURL = FileManager.default.homeDirectoryForCurrentUser
+//    .appendingPathComponent("Code/Packages/Swift/")
+//    .appendingPathComponent("PixelKit/Resources/Metal Libs/")
+//    .appendingPathComponent("PixelKitShaders-macOS.metallib")
 frameLoopRenderThread = .background
 PixelKit.main.render.engine.renderMode = .manual
 
 // MARK: - PIXs
 
 let polygonPix = PolygonPIX(at: .square(1000))
-polygonPix.radius = 0.5
-polygonPix.cornerRadius = 0.1
+polygonPix.radius = 0.1
+//polygonPix.cornerRadius = 0.1
 
 let finalPix: PIX = polygonPix
 let finalName: String = "pix"

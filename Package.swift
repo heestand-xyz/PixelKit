@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -32,6 +32,8 @@ let package = Package(
             "PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
             "PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt",
             "Other/NDI",
+        ], resources: [
+            .copy("Metal/")
         ]),
         .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["Mains"]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])

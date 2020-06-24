@@ -9,6 +9,7 @@
 import MetalKit
 import RenderKit
 
+/// overrides the default metal lib
 public var pixelKitMetalLibURL: URL?
 
 public class PixelKit: EngineDelegate, LoggerDelegate {
@@ -65,7 +66,8 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         if let url = pixelKitMetalLibURL {
             render = Render(metalLibURL: url, bundle: Bundle(for: type(of: self)))
         } else {
-            render = Render(with: kMetalLibName, in: Bundle(for: type(of: self)))
+            let metalLibURL: URL = Bundle.module.url(forResource: kMetalLibName, withExtension: "metallib", subdirectory: "Metal")!
+            render = Render(metalLibURL: metalLibURL, bundle: .module)
         }
         logger = Logger(name: "PixelKit")
         
