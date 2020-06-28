@@ -13,6 +13,30 @@ import MetalKit
 //#if !os(tvOS) && !targetEnvironment(simulator)
 //import MetalPerformanceShaders
 //#endif
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+@available(iOS 13.0.0, *)
+@available(OSX 10.15, *)
+@available(tvOS 13.0.0, *)
+public struct PixBlend: View, PIXUI {
+    public var node: NODE { pix }
+
+    public let pix: PIX
+    let blendpix: BlendPIX
+    public var body: some View {
+        NODERepView(node: pix)
+    }
+
+    public init(mode: RenderKit.BlendMode, _ uiPixA: () -> (PIXUI), with uiPixB: () -> (PIXUI)) {
+        blendpix = BlendPIX()
+        blendpix.blendMode = mode
+        pix = blendpix
+        blendpix.inputA = uiPixA().pix as? (PIX & NODEOut)
+        blendpix.inputB = uiPixB().pix as? (PIX & NODEOut)
+    }
+}
 
 public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMergerRenderDelegate*/ {
     
@@ -20,7 +44,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
+    public var blendMode: RenderKit.BlendMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: LiveBool = false
     public var position: LivePoint = .zero
     public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
@@ -140,7 +164,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     
 }
 
-public func blend(_ mode: BlendMode, _ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut) -> BlendPIX {
+public func blend(_ mode: RenderKit.BlendMode, _ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut) -> BlendPIX {
     let blendPix = BlendPIX()
     blendPix.inputA = pixA
     blendPix.inputB = pixB
