@@ -61,7 +61,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 ### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/hexagons/PixelKit.git", from: "1.1.2")
+.package(url: "https://github.com/hexagons/PixelKit.git", from: "1.1.5")
 ~~~~
 
 ### CocoaPods
