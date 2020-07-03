@@ -23,7 +23,7 @@ extension PIX {
                 return (pixIn.inputList.first as? PIX)?.realResolution
             } else { return nil }
         }
-        if let resolution: Resolution = staticResolution {
+        if let resolution: Resolution = customResolution {
             return resolution
         }
         if let pixContent = self as? PIXContent {

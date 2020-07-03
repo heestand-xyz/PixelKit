@@ -69,7 +69,7 @@ open class PIX: NODE, Equatable, NODETileable {
     public var uniformIndexArrayMaxLimit: Int? { nil }
        
        
-    var staticResolution: Resolution? { nil }
+    var customResolution: Resolution? { nil }
     
     
     open var vertexUniforms: [CGFloat] { return [] }

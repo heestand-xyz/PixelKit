@@ -23,7 +23,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     
     override open var shaderName: String { return "nilPIX" }
     
-    override var staticResolution: Resolution? { .square(513) }
+    override var customResolution: Resolution? { .square(513) }
     
 //    let deepLabModel: DeepLabV3Int8LUT
         
@@ -76,7 +76,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
 
 //    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        pixelKit.logger.log(node: self, .info, .effect, "Custom Render Start")
-//        let size: CGSize = staticResolution!.size.cg
+//        let size: CGSize = customResolution!.size.cg
 //        do {
 //            let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
 //            if !processing {
