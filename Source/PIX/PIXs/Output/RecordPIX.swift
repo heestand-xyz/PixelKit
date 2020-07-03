@@ -27,7 +27,9 @@ public class RecordPIX: PIXOutput {
     var currentImage: CGImage?
     var exportUrl: URL?
     
+    #if !os(tvOS)
     var audioRecHelper: AudioRecHelper?
+    #endif
     var audioStartTime: CMTime?
     var pausedDate: Date?
     var pausedDuration: Double = 0.0
@@ -95,6 +97,8 @@ public class RecordPIX: PIXOutput {
     }
     public var quality: Quality = .good
     
+    #if !os(tvOS)
+    
     public var audioOffset: CMTime = .zero
     
     public var recordAudio: Bool = false {
@@ -106,6 +110,10 @@ public class RecordPIX: PIXOutput {
             }
         }
     }
+    
+    #else
+    let recordAudio: Bool = false
+    #endif
     
     // MARK: - Property Helpers
     
@@ -298,6 +306,7 @@ public class RecordPIX: PIXOutput {
         writerAdoptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerVideoInput!, sourcePixelBufferAttributes: sourceBufferAttributes)
         
         if recordAudio {
+            #if !os(tvOS)
             if let input = audioRecHelper?.writerAudioInput {
                 writer!.add(input)
                 writer!.startWriting()
@@ -319,6 +328,7 @@ public class RecordPIX: PIXOutput {
             } else {
                 throw RecError.audioSetupFailed
             }
+            #endif
         } else {
             writer!.startWriting()
             writer!.startSession(atSourceTime: .zero)
@@ -358,7 +368,12 @@ public class RecordPIX: PIXOutput {
                         let duration = -self.startDate!.timeIntervalSinceNow
                         if self.recordAudio {
                             guard let startTime = self.audioStartTime else { return }
-                            let offsetDuration = CMTimeGetSeconds(startTime) + duration + CMTimeGetSeconds(self.audioOffset) - self.pausedDuration
+                            var offsetDuration = CMTimeGetSeconds(startTime)
+                            offsetDuration += duration
+                            #if !os(tvOS)
+                            offsetDuration += CMTimeGetSeconds(self.audioOffset)
+                            #endif
+                            offsetDuration -= self.pausedDuration
                             time = CMTime(seconds: offsetDuration, preferredTimescale: Int32(NSEC_PER_SEC))
                         } else {
                             time = CMTime(seconds: duration - self.pausedDuration, preferredTimescale: Int32(NSEC_PER_SEC))
@@ -421,12 +436,16 @@ public class RecordPIX: PIXOutput {
     
     func stopRecord(done: @escaping () -> (), didError: @escaping (Error) -> ()) {
         
+        #if !os(tvOS)
         audioRecHelper?.captureSession?.stopRunning()
+        #endif
 
         if let writer = writer, let writerVideoInput = writerVideoInput {
             if writer.status == .writing {
                 writerVideoInput.markAsFinished()
+                #if !os(tvOS)
                 audioRecHelper?.writerAudioInput?.markAsFinished()
+                #endif
                 writer.finishWriting {
                     if writer.status == .completed {
                         DispatchQueue.main.async {
@@ -489,6 +508,7 @@ public class RecordPIX: PIXOutput {
     
 }
 
+#if !os(tvOS)
 class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     
     var captureSession: AVCaptureSession?
@@ -544,3 +564,4 @@ class AudioRecHelper: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     }
     
 }
+#endif

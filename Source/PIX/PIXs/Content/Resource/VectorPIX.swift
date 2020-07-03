@@ -12,12 +12,16 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if !os(tvOS)
 import WebKit
+#endif
 import LiveValues
+
+#if !os(tvOS)
 
 @available(OSX 10.13, *)
 @available(iOS 11, *)
-@available(tvOS 11, *)
+//@available(tvOS 11, *)
 public class VectorPIX: PIXResource {
     
     #if os(iOS) || os(tvOS)
@@ -152,3 +156,5 @@ class VectorHelper: NSObject, WKNavigationDelegate {
     }
     
 }
+
+#endif

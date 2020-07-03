@@ -18,6 +18,8 @@ typealias _Orientation = Void
 import SwiftUI
 #endif
 
+#if !os(tvOS)
+
 public protocol CameraPIXDelegate {
     func cameraSetup(pix: CameraPIX)
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
@@ -1277,4 +1279,6 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
     }
 
 }
+#endif
+
 #endif

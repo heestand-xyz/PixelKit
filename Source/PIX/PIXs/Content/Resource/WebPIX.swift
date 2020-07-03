@@ -12,11 +12,15 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+#if !os(tvOS)
 import WebKit
+#endif
+
+#if !os(tvOS)
 
 @available(OSX 10.13, *)
 @available(iOS 11, *)
-@available(tvOS 11, *)
+//@available(tvOS 11, *)
 public class WebPIX: PIXResource, NODEResolution {
     
     #if os(iOS) || os(tvOS)
@@ -123,3 +127,5 @@ class WebHelper: NSObject, WKNavigationDelegate {
     }
 
 }
+
+#endif
