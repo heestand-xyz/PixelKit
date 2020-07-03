@@ -5,21 +5,35 @@ import PixelKit
 
 // MARK: - Setup
 
-//pixelKitMetalLibURL = FileManager.default.homeDirectoryForCurrentUser
-//    .appendingPathComponent("Code/Packages/Swift/")
-//    .appendingPathComponent("PixelKit/Resources/Metal Libs/")
-//    .appendingPathComponent("PixelKitShaders-macOS.metallib")
 frameLoopRenderThread = .background
 PixelKit.main.render.engine.renderMode = .manual
+PixelKit.main.render.bits = ._16
 
 // MARK: - PIXs
 
-let polygonPix = PolygonPIX(at: .square(1000))
-polygonPix.radius = 0.1
-//polygonPix.cornerRadius = 0.1
+let polygonPix = PolygonPIX(at: ._1024)
+polygonPix.radius = 0.5
 
-let finalPix: PIX = polygonPix
-let finalName: String = "pix"
+let colorPix = ColorPIX(at: ._1024)
+colorPix.color = .red
+var pix: PIX & NODEOut = colorPix
+if #available(OSX 10.13.4, *) {
+    
+    let reducePix = ReducePIX()
+    reducePix.axis = .horizontal
+    reducePix.method = .average
+    reducePix.input = polygonPix
+    pix = reducePix
+    
+}
+
+let resolutionPix = ResolutionPIX(at: .custom(w: 1024, h: 32))
+resolutionPix.input = pix
+resolutionPix.placement = .stretch
+resolutionPix.extend = .hold
+
+var finalPix: PIX = resolutionPix
+let finalName: String = "reduce"
 
 // MARK: - Render
 
