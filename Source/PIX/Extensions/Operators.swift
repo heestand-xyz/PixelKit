@@ -31,7 +31,7 @@ public extension PIX {
     
     class BlendOperators {
         
-        public var globalPlacement: Placement = .aspectFit
+        public var globalPlacement: Placement = .fit
         
         func blend(_ pixA: PIX, _ pixB: PIX & NODEOut, blendingMode: BlendMode) -> BlendPIX {
             let pixA = (pixA as? PIX & NODEOut) ?? ColorPIX(at: ._128) // CHECK

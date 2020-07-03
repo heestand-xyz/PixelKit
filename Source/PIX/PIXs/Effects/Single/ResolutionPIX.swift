@@ -46,7 +46,7 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     public var resMultiplier: CGFloat = 1 { didSet { applyResolution { self.setNeedsRender() } } }
     public var inheritInResolution: Bool = false { didSet { applyResolution { self.setNeedsRender() } } } // CHECK upstream resolution exists
-    public var placement: Placement = .aspectFit { didSet { setNeedsRender() } }
+    public var placement: Placement = .fit { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
