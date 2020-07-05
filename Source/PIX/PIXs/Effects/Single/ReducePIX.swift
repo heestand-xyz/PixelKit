@@ -85,7 +85,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
             return nil
         }
         let reduceKernel: MPSImageReduceUnary = getKernel(with: pixelKit.render.metalDevice)
-        #if !os(tvOS)
+        #if !os(tvOS) && !targetEnvironment(simulator)
         reduceKernel.edgeMode = extend.mps!
         #endif
         reduceKernel.encode(commandBuffer: commandBuffer,

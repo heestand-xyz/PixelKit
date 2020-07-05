@@ -146,7 +146,11 @@ public extension PIX {
         }
     }
     
-    var renderedRaw16: [Float]? {
+    #if !os(macOS) && !targetEnvironment(macCatalyst)
+    @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
+    @available(macOS 11.0, *)
+    var renderedRaw16: [Float16]? {
         guard let texture = dynamicTexture else { return nil }
         do {
             return try Texture.raw16(texture: texture)
@@ -155,6 +159,7 @@ public extension PIX {
             return nil
         }
     }
+    #endif
     
     var renderedRaw32: [SIMD4<Float>]? {
         guard let texture = dynamicTexture else { return nil }
