@@ -9,6 +9,11 @@ import LiveValues
 import RenderKit
 import MetalPerformanceShaders
 
+// FIXME: Crash on iOS Simulator
+// -[MTLDebugComputeCommandEncoder _validateThreadsPerThreadgroup:]:975: failed assertion `(threadsPerThreadgroup.width(32) * threadsPerThreadgroup.height(1) * threadsPerThreadgroup.depth(1))(32) must be multiples of 64.'
+
+#if !targetEnvironment(simulator)
+
 @available(tvOS 11.3, *)
 @available(iOS 11.3, *)
 @available(OSX 10.13.4, *)
@@ -144,3 +149,5 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     }
     
 }
+
+#endif
