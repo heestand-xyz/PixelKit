@@ -11,7 +11,7 @@ let package = Package(
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
-        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
+//        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
 //        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.3.0"),
@@ -36,7 +36,7 @@ let package = Package(
         ], resources: [
             .copy("Metal/")
         ]),
-        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["Mains"]),
+//        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["Mains"]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
 )

@@ -30,18 +30,17 @@ public class NilPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
+    @available(*, deprecated, renamed: "_nil(bypass:)")
     func _node() -> NilPIX {
-        let nilPix = NilPIX()
-        nilPix.name = "node:nil"
-        nilPix.input = self as? PIX & NODEOut
-        nilPix.bypass = true
-        return nilPix
+        _nil(bypass: true)
     }
     
-    func _nil() -> NilPIX {
+    /// bypass is `false` by *default*
+    func _nil(bypass: Bool = false) -> NilPIX {
         let nilPix = NilPIX()
         nilPix.name = ":nil:"
         nilPix.input = self as? PIX & NODEOut
+        nilPix.bypass = bypass
         return nilPix
     }
     

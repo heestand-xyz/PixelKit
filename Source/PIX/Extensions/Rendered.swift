@@ -132,6 +132,7 @@ public extension PIX {
         }
     }
     
+    /// coaints all 4 channels of all pixels in this flat array
     var renderedRaw8: [UInt8]? {
         guard let texture = dynamicTexture else { return nil }
         do {
@@ -147,6 +148,7 @@ public extension PIX {
     }
     
     #if !os(macOS) && !targetEnvironment(macCatalyst)
+    /// coaints all 4 channels of all pixels in this flat array
     @available(iOS 14.0, *)
     @available(tvOS 14.0, *)
     @available(macOS 11.0, *)
@@ -161,7 +163,8 @@ public extension PIX {
     }
     #endif
     
-    var renderedRaw32: [SIMD4<Float>]? {
+    /// coaints all 4 channels of all pixels in this flat array
+    var renderedRaw32: [Float]? {
         guard let texture = dynamicTexture else { return nil }
         do {
             return try Texture.raw32(texture: texture)
@@ -171,6 +174,7 @@ public extension PIX {
         }
     }
     
+    /// coaints all 4 channels of all pixels in this flat array, normalized (0.0...1.0)
     var renderedRawNormalized: [CGFloat]? {
         guard let texture = dynamicTexture else { return nil }
         do {
