@@ -9,9 +9,6 @@ import LiveValues
 import RenderKit
 import MetalPerformanceShaders
 
-// FIXME: Crash on iOS Simulator
-// -[MTLDebugComputeCommandEncoder _validateThreadsPerThreadgroup:]:975: failed assertion `(threadsPerThreadgroup.width(32) * threadsPerThreadgroup.height(1) * threadsPerThreadgroup.depth(1))(32) must be multiples of 64.'
-
 #if !targetEnvironment(simulator)
 
 @available(tvOS 11.3, *)
@@ -19,7 +16,7 @@ import MetalPerformanceShaders
 @available(OSX 10.13.4, *)
 public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
-    override open var shaderName: String { return "effectSingleReducePIX" }
+    override open var shaderName: String { return "nilPIX" }
 
     override var customResolution: Resolution? {
         guard let inputResolution: Resolution = (input as! PIX?)?.realResolution else { return nil }
@@ -29,34 +26,24 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     // MARK: - Public Properties
     
     public enum Axis {
-        case horizontal
-        case vertical
+        case x
+        case y
     }
     
-    /// final output axis of pixels
+    /// the axis that will be sampled
     ///
-    /// to get one pixel row, use `.horizontal` *(default)*
-    public var axis: Axis = .horizontal { didSet { applyResolution { self.setNeedsRender() } } }
+    /// to get one pixel row, use `.y` *(default)*
+    public var axis: Axis = .y { didSet { applyResolution { self.setNeedsRender() } } }
     
     public enum Method {
-        case mean
+        /// average
+        case avg
         case min
         case max
         case sum
-        /// enable 16 bit fore better accuracy: `PixelKit.main.render.bits = ._16`
-        case average
     }
     
-    public var method: Method = .mean {
-        didSet {
-            setNeedsRender()
-            if method == .average && pixelKit.render.bits == ._8 {
-                pixelKit.logger.log(.info, .render, "Reduce with .average is better in 16 bit mode. `PixelKit.main.render.bits = ._16`")
-            }
-        }
-    }
-
-//    public override var overrideBits: LiveColor.Bits? { method == .average ? ._16 : nil }
+    public var method: Method = .avg { didSet { setNeedsRender() } }
 
     public required init() {
         super.init(name: "Reduce", typeName: "pix-effect-single-reduce")
@@ -69,13 +56,6 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     var resolutionCount: Int {
         guard let inputResolution: Resolution = (input as! PIX?)?.realResolution else { return 1 }
         return getResolutionCount(from: inputResolution)
-    }
-    
-    public override var uniforms: [CGFloat] {
-        [
-            method == .average ? 1.0 : 0.0,
-            CGFloat(resolutionCount),
-        ]
     }
     
     // MARK: - Custom Render
@@ -103,18 +83,18 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
     func getCustomResolution(from resolution: Resolution) -> Resolution {
         switch axis {
-        case .horizontal:
+        case .y:
             return .custom(w: resolution.w, h: 1)
-        case .vertical:
+        case .x:
             return .custom(w: 1, h: resolution.h)
         }
     }
     
     func getResolutionCount(from resolution: Resolution) -> Int {
         switch axis {
-        case .horizontal:
+        case .y:
             return resolution.h
-        case .vertical:
+        case .x:
             return resolution.w
         }
     }
@@ -123,26 +103,26 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
     func getKernel(with device: MTLDevice) -> MPSImageReduceUnary {
         switch axis {
-        case .horizontal:
+        case .y:
             switch method {
-            case .mean:
+            case .avg:
                 return MPSImageReduceColumnMean(device: device)
             case .min:
                 return MPSImageReduceColumnMin(device: device)
             case .max:
                 return MPSImageReduceColumnMax(device: device)
-            case .sum, .average:
+            case .sum:
                 return MPSImageReduceColumnSum(device: device)
             }
-        case .vertical:
+        case .x:
             switch method {
-            case .mean:
+            case .avg:
                 return MPSImageReduceRowMean(device: device)
             case .min:
                 return MPSImageReduceRowMin(device: device)
             case .max:
                 return MPSImageReduceRowMax(device: device)
-            case .sum, .average:
+            case .sum:
                 return MPSImageReduceRowSum(device: device)
             }
         }
