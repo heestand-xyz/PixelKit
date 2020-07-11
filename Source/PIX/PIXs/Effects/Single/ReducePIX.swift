@@ -9,8 +9,6 @@ import LiveValues
 import RenderKit
 import MetalPerformanceShaders
 
-#if !targetEnvironment(simulator)
-
 @available(tvOS 11.3, *)
 @available(iOS 11.3, *)
 @available(OSX 10.13.4, *)
@@ -129,5 +127,3 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     }
     
 }
-
-#endif
