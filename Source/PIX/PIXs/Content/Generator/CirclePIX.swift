@@ -11,8 +11,6 @@ import RenderKit
 
 public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     
-    override open var shaderName: String { return "contentGeneratorCirclePIX" }
-    
     // MARK: - Public Properties
     
     public var radius: LiveFloat = LiveFloat(0.25, max: 0.5)

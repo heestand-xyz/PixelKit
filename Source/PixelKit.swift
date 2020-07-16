@@ -64,6 +64,15 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     init() {
         
+//        guard let urlA: URL = Bundle.module.url(forResource: "metaltest", withExtension: "txt") else {
+//            fatalError("yyyyyyyy")
+//        }
+//        guard let urlB: URL = Bundle.module.url(forResource: "metaltest", withExtension: "metal") else {
+//            fatalError("xxxxxxxx")
+//        }
+//        print("Shader:", urlA.path, urlB.path)
+//        fatalError("???????")
+        
         if let url = pixelKitMetalLibURL {
             render = Render(metalLibURL: url)
         } else {

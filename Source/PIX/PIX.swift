@@ -23,7 +23,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     let pixelKit = PixelKit.main
     
-    open var shaderName: String { return "" }
+    open var shaderName: String { generateShaderName() }
     
     open var overrideBits: LiveColor.Bits? { nil }
     
@@ -189,6 +189,17 @@ open class PIX: NODE, Equatable, NODETileable {
 //        let template = (contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false) && !(self is NODEMetal)
         let shaderName = /*template ? "templatePIX" :*/ self.shaderName
         do {
+//            let frag: MTLFunction
+//            do {
+//                frag = try loadShaderFunction()
+//                print(">>>", typeName, name, "<<<")
+//            } catch ShaderError.metalFileNotFound {
+//                print(">>>", typeName, name, "...")
+//                frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
+//            } catch {
+//                print(">>>", typeName, name, "!!!", error)
+//                throw error
+//            }
             let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
             let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
             pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending, overrideBits: overrideBits)
