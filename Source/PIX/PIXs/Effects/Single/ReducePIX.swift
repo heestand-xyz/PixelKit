@@ -1,6 +1,6 @@
 //
 //  ReducePIX.swift
-//  
+//
 //
 //  Created by Anton Heestand on 2020-07-03.
 //
@@ -23,21 +23,25 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
 
     // MARK: - Public Properties
     
+    /// the axis of reduction
     public enum Axis {
-        case x
-        case y
+        case horizontal
+        case vertical
     }
     
     /// the axis that will be sampled
     ///
-    /// to get one pixel row, use `.y` *(default)*
-    public var axis: Axis = .y { didSet { applyResolution { self.setNeedsRender() } } }
+    /// for one pixel row, use `.vertical` *(default)*
+    public var axis: Axis = .vertical { didSet { applyResolution { self.setNeedsRender() } } }
     
     public enum Method {
         /// average
         case avg
+        /// minumum
         case min
+        /// maximum
         case max
+        /// sum of all pixels in axis
         case sum
     }
     
@@ -81,18 +85,18 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
     func getCustomResolution(from resolution: Resolution) -> Resolution {
         switch axis {
-        case .y:
+        case .vertical:
             return .custom(w: resolution.w, h: 1)
-        case .x:
+        case .horizontal:
             return .custom(w: 1, h: resolution.h)
         }
     }
     
     func getResolutionCount(from resolution: Resolution) -> Int {
         switch axis {
-        case .y:
+        case .vertical:
             return resolution.h
-        case .x:
+        case .horizontal:
             return resolution.w
         }
     }
@@ -101,7 +105,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
     func getKernel(with device: MTLDevice) -> MPSImageReduceUnary {
         switch axis {
-        case .y:
+        case .vertical:
             switch method {
             case .avg:
                 return MPSImageReduceColumnMean(device: device)
@@ -112,7 +116,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
             case .sum:
                 return MPSImageReduceColumnSum(device: device)
             }
-        case .x:
+        case .horizontal:
             switch method {
             case .avg:
                 return MPSImageReduceRowMean(device: device)
