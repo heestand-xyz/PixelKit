@@ -117,7 +117,7 @@ class ViewController: UIViewController {
 
         let finalPix: PIX = blurPix
         finalPix.view.frame = view.bounds
-        view.addSubview(finalPix)
+        view.addSubview(finalPix.view)
         
     }
     
