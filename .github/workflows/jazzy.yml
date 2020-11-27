@@ -12,6 +12,5 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
     - name: Jazzy docs
     - run: jazzy
