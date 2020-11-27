@@ -13,6 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
     - name: Jazzy docs
-    run: echo '::jazzy::'
+    - run: jazzy
