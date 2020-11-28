@@ -8,9 +8,7 @@
 <img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
 
 Live Graphics Framework for iOS, macOS and tvOS<br>
-runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal - inspired by TouchDesigner
-
-<a href="https://pixelnodes.app/"><img src="http://pixelkit.net/resources/pixel-nodes-logo-512px.png" width="32"/></a> Demo PixelKit effects in [Pixel Nodes](https://pixelnodes.app?ref=pixelkit_github&utm_source=pixelkit&utm_medium=github), a Live Graphics Node Editor for iPad.
+runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal
 
 Examples:
 [Camera Effects](#example-camera-effects) -
@@ -567,4 +565,5 @@ Assets can be loaded from Photos. Live camera support. AirPlay support.
 
 ---
 
-by Anton Heestand, [Hexagons](http://hexagons.se/)
+inspired by TouchDesigner
+created by Anton Heestand - [heestand xyz](http://heestand.xyz/)
