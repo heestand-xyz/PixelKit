@@ -566,4 +566,4 @@ Assets can be loaded from Photos. Live camera support. AirPlay support.
 ---
 
 inspired by TouchDesigner
-created by Anton Heestand - [heestand xyz](http://heestand.xyz/)
+created by Anton [Heestand XYZ](http://heestand.xyz/)
