@@ -13,13 +13,8 @@ runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen) - 
-[Hello Pixels App](https://github.com/hexagons/Hello-Pixels) - 
-[Code Reference](http://pixelkit.net/reference/) - 
-[Code Examples](http://pixelkit.net/examples/) -
-[Code Demos](http://pixelkit.net/demos/)
 <br>
 Info:
-[Website](http://pixelkit.net/) -
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
