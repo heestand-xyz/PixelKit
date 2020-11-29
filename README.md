@@ -12,7 +12,7 @@ runs on [RenderKit](https://github.com/hexagons/RenderKit) - powered by Metal
 
 Examples:
 [Camera Effects](#example-camera-effects) -
-[Green Screen](#example-green-screen) - 
+[Green Screen](#example-green-screen)
 <br>
 Info:
 [Coordinate Space](#coordinate-space) -
@@ -56,14 +56,6 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 ~~~~swift
 .package(url: "https://github.com/hexagons/PixelKit.git", from: "1.1.5")
 ~~~~
-
-### CocoaPods
-
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `PixelKit` into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-```ruby
-pod 'PixelKit', '~> 1.0.0'
-```
 
 ## Import
 
