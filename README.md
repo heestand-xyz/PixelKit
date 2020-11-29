@@ -104,6 +104,13 @@ class ViewController: UIViewController {
 }
 ~~~~
 
+## Rendered Image
+
+~~~~swift
+.renderedImage [UIImage or NSImage]
+.renderedTexture [MTLTexture]
+~~~~
+
 ## Docs
 
 [LiveValues](http://hexagons.se/live-values/)<br>
