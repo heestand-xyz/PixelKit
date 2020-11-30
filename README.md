@@ -111,26 +111,6 @@ class ViewController: UIViewController {
 .renderedTexture [MTLTexture]
 ~~~~
 
-## Docs
-
-[LiveValues](http://hexagons.se/live-values/)<br>
-[RenderKit](http://renderkit.info)<br>
-[PixelKit](http://pixelkit.net/docs/)
-
-## Tutorials
-
-[Getting started with PixelKit in Swift](http://blog.hexagons.se/uncategorized/getting-started-with-pixels/)<br>
-[Getting started with Metal in PixelKit](http://blog.hexagons.se/uncategorized/getting-started-with-metal-in-pixels/)<br>
-[Green Screen in Swift & PixelKit](http://blog.hexagons.se/blog/green-screen-in-swift-pixelkit/)<br>
-[Particles in VertexKit & PixelKit](http://blog.hexagons.se/blog/particles-in-vertexkit-pixelkit/)
-
-## Examples
-
-[Hello Pixels App](https://github.com/hexagons/Hello-Pixels)<br>
-[Code Reference](http://pixelkit.net/reference/)<br>
-[Code Examples](http://pixelkit.net/examples/)<br>
-[Code Demos](http://pixelkit.net/demos/)
-
 ### Example: Camera Effects
 
 | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-hexagons/pixels/raw/master/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
