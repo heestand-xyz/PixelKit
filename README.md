@@ -360,6 +360,8 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - `LiveFloat.deviceGravityX/Y/X`
 - `LiveFloat.deviceHeading`
 
+`finalPix.pixView.liveTouch(active: true)`
+
 ### Functions:
 - `liveFloat.delay(seconds: 1.0)`
 - `liveFloat.filter(seconds: 1.0)`
