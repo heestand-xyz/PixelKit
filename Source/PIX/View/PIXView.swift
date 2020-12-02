@@ -28,7 +28,7 @@ public class PIXView: NODEView {
         super.init(with: render, pixelFormat: pixelFormat)
         
         #if os(iOS)
-        liveTouchView.isHidden = true
+        liveTouchView.isUserInteractionEnabled = false
         addSubview(liveTouchView)
         #elseif os(macOS)
         liveMouseView.isHidden = true
