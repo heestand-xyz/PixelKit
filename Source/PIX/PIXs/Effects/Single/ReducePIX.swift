@@ -23,16 +23,15 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
 
     // MARK: - Public Properties
     
-    /// the axis of reduction
-    public enum Axis {
-        case horizontal
-        case vertical
+    public enum CellList {
+        case column
+        case row
     }
     
-    /// the axis that will be sampled
+    /// the cell list that will be sampled
     ///
-    /// for one pixel row, use `.vertical` *(default)*
-    public var axis: Axis = .vertical { didSet { applyResolution { self.setNeedsRender() } } }
+    /// one pixel row is *default*
+    public var cellList: CellList = .row { didSet { applyResolution { self.setNeedsRender() } } }
     
     public enum Method {
         /// average
@@ -41,7 +40,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
         case min
         /// maximum
         case max
-        /// sum of all pixels in axis
+        /// sum of all pixels the cell list
         case sum
     }
     
@@ -84,19 +83,19 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     // MARK: - Resolution
     
     func getCustomResolution(from resolution: Resolution) -> Resolution {
-        switch axis {
-        case .vertical:
-            return .custom(w: resolution.w, h: 1)
-        case .horizontal:
+        switch cellList {
+        case .column:
             return .custom(w: 1, h: resolution.h)
+        case .row:
+            return .custom(w: resolution.w, h: 1)
         }
     }
     
     func getResolutionCount(from resolution: Resolution) -> Int {
-        switch axis {
-        case .vertical:
+        switch cellList {
+        case .column:
             return resolution.h
-        case .horizontal:
+        case .row:
             return resolution.w
         }
     }
@@ -104,8 +103,8 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     // MARK: - Kernel
     
     func getKernel(with device: MTLDevice) -> MPSImageReduceUnary {
-        switch axis {
-        case .vertical:
+        switch cellList {
+        case .column:
             switch method {
             case .avg:
                 return MPSImageReduceColumnMean(device: device)
@@ -116,7 +115,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
             case .sum:
                 return MPSImageReduceColumnSum(device: device)
             }
-        case .horizontal:
+        case .row:
             switch method {
             case .avg:
                 return MPSImageReduceRowMean(device: device)
