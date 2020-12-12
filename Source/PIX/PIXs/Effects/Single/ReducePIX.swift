@@ -52,13 +52,6 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
         customRenderDelegate = self
     }
     
-    // MARK: - Property Helpers
-    
-    var resolutionCount: Int {
-        guard let inputResolution: Resolution = (input as! PIX?)?.realResolution else { return 1 }
-        return getResolutionCount(from: inputResolution)
-    }
-    
     // MARK: - Custom Render
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
@@ -91,20 +84,11 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
         }
     }
     
-    func getResolutionCount(from resolution: Resolution) -> Int {
-        switch cellList {
-        case .column:
-            return resolution.h
-        case .row:
-            return resolution.w
-        }
-    }
-    
     // MARK: - Kernel
     
     func getKernel(with device: MTLDevice) -> MPSImageReduceUnary {
         switch cellList {
-        case .column:
+        case .row:
             switch method {
             case .avg:
                 return MPSImageReduceColumnMean(device: device)
@@ -115,7 +99,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
             case .sum:
                 return MPSImageReduceColumnSum(device: device)
             }
-        case .row:
+        case .column:
             switch method {
             case .avg:
                 return MPSImageReduceRowMean(device: device)
