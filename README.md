@@ -1,4 +1,4 @@
-<img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Logo/pixels_logo_1k_bg.png" width="128"/>
+<img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Logo/pixels_logo_1k_bg.png?raw=true" width="128"/>
 
 # PixelKit
 
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
 
 ### Example: Camera Effects
 
-| <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
+| <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
 | --- | --- | --- | --- | --- |
 
 #### SwiftUI
@@ -231,7 +231,7 @@ struct ContentView: View {
 }
 ```
 
-| <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
+| <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
 | --- | --- | --- | --- |
 
 This is a representation of the Pixel Nodes [Green Screen](https://pixelnodes.app/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
@@ -440,7 +440,7 @@ There is currently there is some gamma offset with resources.
 
 ## MetalPIXs
 
-<img src="https://github.com/anton-heestand-xyz/pixels/raw/main/Assets/Renders/uv_1080p.png" width="150"/>
+<img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/uv_1080p.png" width="150"/>
 
 ~~~~swift
 let metalPix = MetalPIX(at: ._1080p, code:
