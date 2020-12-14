@@ -501,24 +501,5 @@ lumUniform.value = 0.5
 
 ---
 
-## Apps
-
-### [Pixel Nodes](https://pixelnodes.app/)
-
-a Live Graphics Node Editor for iPad<br>
-powered by PixelKit<br>
-
-### [Layer Cam](http://hexagons.se/layercam/)
-
-a camera app lets you live layer filters of your choice.<br>
-combine effects to create new cool styles.
-
-### [VJLive](https://itunes.apple.com/us/app/vjlive/id1464372525?mt=8&ign-mpt=uo%3D2)
-
-VJLive is a dual deck asset playback system with effects.<br>
-Assets can be loaded from Photos. Live camera support. AirPlay support.
-
----
-
 inspired by [TouchDesigner](https://derivative.ca)
 created by Anton [Heestand XYZ](http://heestand.xyz/)
