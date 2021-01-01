@@ -63,7 +63,6 @@ import PixelKit
 To access `LiveColor` and `Resolution` import the dependencies of PixelKit:
 
 ~~~~swift
-import LiveValues
 import RenderKit
 ~~~~
 
@@ -187,8 +186,7 @@ Remeber to add `NSCameraUsageDescription` to your info.plist
 
 ### Example: Green Screen
 
-`import LiveValues
-import RenderKit
+`import RenderKit
 import PixelKit`
 
 ~~~~swift
@@ -241,7 +239,7 @@ This is a representation of the Pixel Nodes [Green Screen](https://pixelnodes.ap
 
 ### Example: Depth Camera
 
-`import LiveValues
+`
 import RenderKit
 import PixelKit`
 

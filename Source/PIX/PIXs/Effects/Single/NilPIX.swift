@@ -13,15 +13,15 @@ public class NilPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "nilPIX" }
     
-    let nilOverrideBits: LiveColor.Bits?
-    public override var overrideBits: LiveColor.Bits? { nilOverrideBits }
+    let nilOverrideBits: Bits?
+    public override var overrideBits: Bits? { nilOverrideBits }
     
     public required init() {
         nilOverrideBits = nil
         super.init(name: "Nil", typeName: "pix-effect-single-nil")
     }
     
-    public init(overrideBits: LiveColor.Bits) {
+    public init(overrideBits: Bits) {
         nilOverrideBits = overrideBits
         super.init(name: "Nil (\(overrideBits.rawValue)bit)", typeName: "pix-effect-single-nil")
     }

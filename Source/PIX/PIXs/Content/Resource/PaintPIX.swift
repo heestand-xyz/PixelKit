@@ -199,7 +199,7 @@ public class PaintPIX: PIXResource {
         let frame: CGRect = CGRect(origin: .zero, size: resolution.size.cg)
         let image: UIImage = drawing.image(from: frame, scale: 1.0)
         guard let cgImage: CGImage = image.cgImage else { return }
-        guard let bits = LiveColor.Bits(rawValue: cgImage.bitsPerPixel) else { return }
+        guard let bits = Bits(rawValue: cgImage.bitsPerPixel) else { return }
         guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return

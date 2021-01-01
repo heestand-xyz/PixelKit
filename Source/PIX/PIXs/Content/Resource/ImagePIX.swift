@@ -138,7 +138,7 @@ public class ImagePIX: PIXResource {
             })
             return
         }
-        let bits: LiveColor.Bits = pixelKit.render.bits
+        let bits: Bits = pixelKit.render.bits
         guard let buffer = Texture.buffer(from: image, bits: bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
             return

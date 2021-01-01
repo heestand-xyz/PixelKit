@@ -7,7 +7,7 @@
 //
 
 import RenderKit
-import LiveValues
+
 import RenderKit
 import CoreGraphics
 import Metal
@@ -25,7 +25,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var shaderName: String { generateShaderName() }
     
-    open var overrideBits: LiveColor.Bits? { nil }
+    open var overrideBits: Bits? { nil }
     
     open var values: [CoreValue] { return [] }
     open var preUniforms: [CGFloat] { return [] }

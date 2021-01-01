@@ -416,7 +416,7 @@ public class RecordPIX: PIXOutput {
                 EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: LiveColor.Bits._8.ci, colorSpace: pixelKit.render.colorSpace.cg)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: Bits._8.ci, colorSpace: pixelKit.render.colorSpace.cg)
                 if cg_image != nil {
                     
                     currentImage = cg_image!
