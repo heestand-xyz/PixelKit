@@ -14,12 +14,10 @@ let package = Package(
 //        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
-//        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.3.0"),
-//        .package(path: "~/Code/Packages/Swift/RenderKit/"),
         .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.5.3"),
     ],
     targets: [
-        .target(name: "PixelKit", dependencies: [/*"LiveValues", */"RenderKit"], path: "Source", exclude: [
+        .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [
 //            "PIX/PIXs/Effects/Single/DeepLabPIX.swift",
             "PIX/PIXs/Output/SyphonOutPIX.swift",
             "PIX/PIXs/Content/Resource/SyphonInPIX.swift",
