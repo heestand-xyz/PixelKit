@@ -27,43 +27,43 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var overrideBits: LiveColor.Bits? { nil }
     
-    open var liveValues: [LiveValue] { return [] }
+    open var values: [CoreValue] { return [] }
     open var preUniforms: [CGFloat] { return [] }
     open var postUniforms: [CGFloat] { return [] }
     open var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = []
         uniforms.append(contentsOf: preUniforms)
-        for liveValue in liveValues {
-            if let liveFloat = liveValue as? LiveFloat {
-                uniforms.append(liveFloat.uniform)
-            } else if let liveInt = liveValue as? LiveInt {
-                uniforms.append(CGFloat(liveInt.uniform))
-            } else if let liveBool = liveValue as? LiveBool {
-                uniforms.append(liveBool.uniform ? 1.0 : 0.0)
-            } else if let liveColor = liveValue as? LiveColor {
-                uniforms.append(contentsOf: liveColor.colorCorrect.uniformList)
-            } else if let livePoint = liveValue as? LivePoint {
-                uniforms.append(contentsOf: livePoint.uniformList)
-            } else if let liveSize = liveValue as? LiveSize {
-                uniforms.append(contentsOf: liveSize.uniformList)
-            } else if let liveRect = liveValue as? LiveRect {
-                uniforms.append(contentsOf: liveRect.uniformList)
-            } else if let liveVec = liveValue as? LiveVec {
-                uniforms.append(contentsOf: liveVec.uniformList)
+        for value in values {
+            if let bool: Bool = value as? Bool {
+                uniforms.append(bool ? 1.0 : 0.0)
+            } else if let int: Int = value as? Int {
+                uniforms.append(CGFloat(int))
+            } else if let float: CGFloat = value as? CGFloat {
+                uniforms.append(float)
+            } else if let point: CGPoint = value as? CGPoint {
+                uniforms.append(contentsOf: [point.x, point.y])
+            } else if let size: CGSize = value as? CGSize {
+                uniforms.append(contentsOf: [size.width, size.height])
+            } else if let frame: CGRect = value as? CGRect {
+                uniforms.append(contentsOf: [frame.minX, frame.minY, frame.width, frame.height])
+            } else {
+                #if os(macOS)
+                if let color: NSColor = value as? NSColor {
+                    uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
+                }
+                #else
+                if let color: UIColor = value as? UIColor {
+                    uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
+                }
+                #endif
             }
         }
         uniforms.append(contentsOf: postUniforms)
         return uniforms
     }
     
-    public var liveArray: [[LiveFloat]] { return [] }
-    open var uniformArray: [[CGFloat]] {
-        return liveArray.map({ liveFloats -> [CGFloat] in
-            return liveFloats.map({ liveFloat -> CGFloat in
-                return liveFloat.uniform
-            })
-        })
-    }
+    public var floatArray: [[CGFloat]] { return [] }
+    open var uniformArray: [[CGFloat]] { floatArray }
     public var uniformArrayMaxLimit: Int? { nil }
     public var uniformIndexArray: [[Int]] { [] }
     public var uniformIndexArrayMaxLimit: Int? { nil }
