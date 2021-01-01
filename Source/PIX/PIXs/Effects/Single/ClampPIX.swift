@@ -7,7 +7,7 @@
 //
 
 import CoreGraphics
-import LiveValues
+
 import RenderKit
 
 public class ClampPIX: PIXSingleEffect, PIXAuto {

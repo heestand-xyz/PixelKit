@@ -7,7 +7,7 @@
 //
 
 import CoreGraphics
-import LiveValues
+
 
 public class AveragePIX: PIXSingleEffect {
     

@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-import LiveValues
+
 
 /// The HDR PIX is currently optimized for 3 exposures.
 ///
