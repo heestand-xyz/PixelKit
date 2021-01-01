@@ -75,8 +75,8 @@ public class VideoPIX: PIXResource {
     public var loops: Bool = true { didSet { helper.loops = loops } }
     public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
     var _progressFraction: CGFloat = 0
-    public var progressFraction: LiveFloat { return LiveFloat({ return self._progressFraction }) }
-    public var progressSeconds: LiveFloat { return LiveFloat({ return self._progressFraction * CGFloat(self.duration ?? 0.0) }) }
+    public var progressFraction: CGFloat { return CGFloat({ return self._progressFraction }) }
+    public var progressSeconds: CGFloat { return CGFloat({ return self._progressFraction * CGFloat(self.duration ?? 0.0) }) }
     public var progressFrames: LiveInt { return LiveInt({ return Int(self._progressFraction * CGFloat(self.duration ?? 0.0) * CGFloat(self.fps ?? 1)) }) }
     public var duration: Double? {
         guard let duration = self.helper.player?.currentItem?.duration.seconds else { return nil }
@@ -96,7 +96,7 @@ public class VideoPIX: PIXResource {
         return Int(fps)
     }
     var _rate: CGFloat = 1.0
-    public var rate: LiveFloat { return LiveFloat({ return self._rate }) }
+    public var rate: CGFloat { return CGFloat({ return self._rate }) }
     var _playing: Bool = false
     public var playing: LiveBool { return LiveBool({ return self._playing }) }
     

@@ -38,13 +38,13 @@ public class BlendsPIX: PIXMultiEffect, PIXAuto {
 
 // MARK: - Loop
 
-public func loop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero, loop: (LiveInt, LiveFloat) -> (PIX & NODEOut)) -> BlendsPIX {
+public func loop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero, loop: (LiveInt, CGFloat) -> (PIX & NODEOut)) -> BlendsPIX {
     let blendsPix = BlendsPIX()
     blendsPix.name = "loop:blends"
     blendsPix.blendMode = blendMode
     blendsPix.extend = extend
     for i in 0..<count {
-        let fraction = LiveFloat(i) / LiveFloat(count)
+        let fraction = CGFloat(i) / CGFloat(count)
         let pix = loop(LiveInt(i), fraction)
         pix.name = "\(pix.name):\(i)"
         blendsPix.inputs.append(pix)

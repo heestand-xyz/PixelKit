@@ -33,11 +33,11 @@ public class LumaRainbowBlurPIX: PIXMergerEffect, PIXAuto {
     }
     
     public var style: RainbowLumaBlurStyle = .angle { didSet { setNeedsRender() } }
-    public var radius: LiveFloat = 0.5
+    public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var position: LivePoint = .zero
-    public var light: LiveFloat = 1.0
+    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var position: CGPoint = .zero
+    public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
@@ -61,11 +61,11 @@ public class LumaRainbowBlurPIX: PIXMergerEffect, PIXAuto {
 public extension NODEOut {
     
     @available(*, deprecated, renamed: "_lumaRainbowBlur(with:radius:angle:)")
-    func _rainbowLumaBlur(with pix: PIX & NODEOut, radius: LiveFloat, angle: LiveFloat) -> LumaRainbowBlurPIX {
+    func _rainbowLumaBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
         _lumaRainbowBlur(with: pix, radius: radius, angle: angle)
     }
     
-    func _lumaRainbowBlur(with pix: PIX & NODEOut, radius: LiveFloat, angle: LiveFloat) -> LumaRainbowBlurPIX {
+    func _lumaRainbowBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
         let rainbowLumaBlurPix = LumaRainbowBlurPIX()
         rainbowLumaBlurPix.name = ":rainbowLumaBlur:"
         rainbowLumaBlurPix.inputA = self as? PIX & NODEOut

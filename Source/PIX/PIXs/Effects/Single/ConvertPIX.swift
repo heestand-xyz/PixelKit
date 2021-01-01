@@ -47,8 +47,8 @@ public class ConvertPIX: PIXSingleEffect {
     }
     public var mode: ConvertMode = .squareToCircle
     
-    public var xRotation: LiveFloat = 0.0
-    public var yRotation: LiveFloat = 0.0
+    public var xRotation: CGFloat = 0.0
+    public var yRotation: CGFloat = 0.0
     
     // MARK: - Property Helpers
     

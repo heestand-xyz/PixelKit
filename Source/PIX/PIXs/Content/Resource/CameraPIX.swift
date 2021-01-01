@@ -1114,9 +1114,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func getWhiteBalance() -> LiveColor {
         guard let device = device else { return .clear }
         let range = device.maxWhiteBalanceGain - 1.0
-        return LiveColor(r: LiveFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
-                         g: LiveFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
-                         b: LiveFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
+        return LiveColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
+                         g: CGFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
+                         b: CGFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
     }
     
     #endif

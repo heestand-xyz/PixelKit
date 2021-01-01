@@ -15,7 +15,7 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var strength: LiveFloat = LiveFloat(2.0, min: 0.0, max: 4.0)
+    public var strength: CGFloat = CGFloat(2.0, min: 0.0, max: 4.0)
     
     // MARK: - Property Helpers
     
@@ -34,7 +34,7 @@ public class TwirlPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _twirl(_ strength: LiveFloat) -> TwirlPIX {
+    func _twirl(_ strength: CGFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
         twirlPix.name = ":twirl:"
         twirlPix.input = self as? PIX & NODEOut

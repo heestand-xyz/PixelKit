@@ -20,7 +20,7 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Public Properties
     
-//    public var seconds: LiveFloat = 1.0
+//    public var seconds: CGFloat = 1.0
     public var delayFrames: Int = 10 { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers

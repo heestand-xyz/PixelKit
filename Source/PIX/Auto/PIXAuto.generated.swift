@@ -206,31 +206,31 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLiveFloats(for pix: PIXGenerator) -> [AutoLiveFloatProperty] {
+	public func autoCGFloats(for pix: PIXGenerator) -> [AutoCGFloatProperty] {
 		switch self {
 		case .arcpix:
 			return [
-				AutoLiveFloatProperty(name: "radius", getCallback: {
+				AutoCGFloatProperty(name: "radius", getCallback: {
 					return (pix as! ArcPIX).radius
 				}, setCallback: { value in
 					(pix as! ArcPIX).radius = value
 				}),
-				AutoLiveFloatProperty(name: "angleFrom", getCallback: {
+				AutoCGFloatProperty(name: "angleFrom", getCallback: {
 					return (pix as! ArcPIX).angleFrom
 				}, setCallback: { value in
 					(pix as! ArcPIX).angleFrom = value
 				}),
-				AutoLiveFloatProperty(name: "angleTo", getCallback: {
+				AutoCGFloatProperty(name: "angleTo", getCallback: {
 					return (pix as! ArcPIX).angleTo
 				}, setCallback: { value in
 					(pix as! ArcPIX).angleTo = value
 				}),
-				AutoLiveFloatProperty(name: "angleOffset", getCallback: {
+				AutoCGFloatProperty(name: "angleOffset", getCallback: {
 					return (pix as! ArcPIX).angleOffset
 				}, setCallback: { value in
 					(pix as! ArcPIX).angleOffset = value
 				}),
-				AutoLiveFloatProperty(name: "edgeRadius", getCallback: {
+				AutoCGFloatProperty(name: "edgeRadius", getCallback: {
 					return (pix as! ArcPIX).edgeRadius
 				}, setCallback: { value in
 					(pix as! ArcPIX).edgeRadius = value
@@ -238,12 +238,12 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .circlepix:
 			return [
-				AutoLiveFloatProperty(name: "radius", getCallback: {
+				AutoCGFloatProperty(name: "radius", getCallback: {
 					return (pix as! CirclePIX).radius
 				}, setCallback: { value in
 					(pix as! CirclePIX).radius = value
 				}),
-				AutoLiveFloatProperty(name: "edgeRadius", getCallback: {
+				AutoCGFloatProperty(name: "edgeRadius", getCallback: {
 					return (pix as! CirclePIX).edgeRadius
 				}, setCallback: { value in
 					(pix as! CirclePIX).edgeRadius = value
@@ -254,12 +254,12 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .gradientpix:
 			return [
-				AutoLiveFloatProperty(name: "scale", getCallback: {
+				AutoCGFloatProperty(name: "scale", getCallback: {
 					return (pix as! GradientPIX).scale
 				}, setCallback: { value in
 					(pix as! GradientPIX).scale = value
 				}),
-				AutoLiveFloatProperty(name: "offset", getCallback: {
+				AutoCGFloatProperty(name: "offset", getCallback: {
 					return (pix as! GradientPIX).offset
 				}, setCallback: { value in
 					(pix as! GradientPIX).offset = value
@@ -267,7 +267,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .linepix:
 			return [
-				AutoLiveFloatProperty(name: "scale", getCallback: {
+				AutoCGFloatProperty(name: "scale", getCallback: {
 					return (pix as! LinePIX).scale
 				}, setCallback: { value in
 					(pix as! LinePIX).scale = value
@@ -275,12 +275,12 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .noisepix:
 			return [
-				AutoLiveFloatProperty(name: "zPosition", getCallback: {
+				AutoCGFloatProperty(name: "zPosition", getCallback: {
 					return (pix as! NoisePIX).zPosition
 				}, setCallback: { value in
 					(pix as! NoisePIX).zPosition = value
 				}),
-				AutoLiveFloatProperty(name: "zoom", getCallback: {
+				AutoCGFloatProperty(name: "zoom", getCallback: {
 					return (pix as! NoisePIX).zoom
 				}, setCallback: { value in
 					(pix as! NoisePIX).zoom = value
@@ -288,17 +288,17 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .polygonpix:
 			return [
-				AutoLiveFloatProperty(name: "radius", getCallback: {
+				AutoCGFloatProperty(name: "radius", getCallback: {
 					return (pix as! PolygonPIX).radius
 				}, setCallback: { value in
 					(pix as! PolygonPIX).radius = value
 				}),
-				AutoLiveFloatProperty(name: "rotation", getCallback: {
+				AutoCGFloatProperty(name: "rotation", getCallback: {
 					return (pix as! PolygonPIX).rotation
 				}, setCallback: { value in
 					(pix as! PolygonPIX).rotation = value
 				}),
-				AutoLiveFloatProperty(name: "cornerRadius", getCallback: {
+				AutoCGFloatProperty(name: "cornerRadius", getCallback: {
 					return (pix as! PolygonPIX).cornerRadius
 				}, setCallback: { value in
 					(pix as! PolygonPIX).cornerRadius = value
@@ -306,7 +306,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .rectanglepix:
 			return [
-				AutoLiveFloatProperty(name: "cornerRadius", getCallback: {
+				AutoCGFloatProperty(name: "cornerRadius", getCallback: {
 					return (pix as! RectanglePIX).cornerRadius
 				}, setCallback: { value in
 					(pix as! RectanglePIX).cornerRadius = value
@@ -357,11 +357,11 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLivePoints(for pix: PIXGenerator) -> [AutoLivePointProperty] {
+	public func autoCGPoints(for pix: PIXGenerator) -> [AutoCGPointProperty] {
 		switch self {
 		case .arcpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! ArcPIX).position
 				}, setCallback: { value in
 					(pix as! ArcPIX).position = value
@@ -369,7 +369,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .circlepix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! CirclePIX).position
 				}, setCallback: { value in
 					(pix as! CirclePIX).position = value
@@ -380,7 +380,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .gradientpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! GradientPIX).position
 				}, setCallback: { value in
 					(pix as! GradientPIX).position = value
@@ -388,12 +388,12 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .linepix:
 			return [
-				AutoLivePointProperty(name: "positionFrom", getCallback: {
+				AutoCGPointProperty(name: "positionFrom", getCallback: {
 					return (pix as! LinePIX).positionFrom
 				}, setCallback: { value in
 					(pix as! LinePIX).positionFrom = value
 				}),
-				AutoLivePointProperty(name: "positionTo", getCallback: {
+				AutoCGPointProperty(name: "positionTo", getCallback: {
 					return (pix as! LinePIX).positionTo
 				}, setCallback: { value in
 					(pix as! LinePIX).positionTo = value
@@ -401,7 +401,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .noisepix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! NoisePIX).position
 				}, setCallback: { value in
 					(pix as! NoisePIX).position = value
@@ -409,7 +409,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .polygonpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! PolygonPIX).position
 				}, setCallback: { value in
 					(pix as! PolygonPIX).position = value
@@ -417,7 +417,7 @@ public enum AutoPIXGenerator: String, Codable, CaseIterable {
 			]
 		case .rectanglepix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! RectanglePIX).position
 				}, setCallback: { value in
 					(pix as! RectanglePIX).position = value
@@ -657,16 +657,16 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLiveFloats(for pix: PIXMergerEffect) -> [AutoLiveFloatProperty] {
+	public func autoCGFloats(for pix: PIXMergerEffect) -> [AutoCGFloatProperty] {
 		switch self {
 		case .blendpix:
 			return [
-				AutoLiveFloatProperty(name: "rotation", getCallback: {
+				AutoCGFloatProperty(name: "rotation", getCallback: {
 					return (pix as! BlendPIX).rotation
 				}, setCallback: { value in
 					(pix as! BlendPIX).rotation = value
 				}),
-				AutoLiveFloatProperty(name: "scale", getCallback: {
+				AutoCGFloatProperty(name: "scale", getCallback: {
 					return (pix as! BlendPIX).scale
 				}, setCallback: { value in
 					(pix as! BlendPIX).scale = value
@@ -674,7 +674,7 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		case .crosspix:
 			return [
-				AutoLiveFloatProperty(name: "fraction", getCallback: {
+				AutoCGFloatProperty(name: "fraction", getCallback: {
 					return (pix as! CrossPIX).fraction
 				}, setCallback: { value in
 					(pix as! CrossPIX).fraction = value
@@ -682,12 +682,12 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		case .displacepix:
 			return [
-				AutoLiveFloatProperty(name: "distance", getCallback: {
+				AutoCGFloatProperty(name: "distance", getCallback: {
 					return (pix as! DisplacePIX).distance
 				}, setCallback: { value in
 					(pix as! DisplacePIX).distance = value
 				}),
-				AutoLiveFloatProperty(name: "origin", getCallback: {
+				AutoCGFloatProperty(name: "origin", getCallback: {
 					return (pix as! DisplacePIX).origin
 				}, setCallback: { value in
 					(pix as! DisplacePIX).origin = value
@@ -698,12 +698,12 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		case .lumablurpix:
 			return [
-				AutoLiveFloatProperty(name: "radius", getCallback: {
+				AutoCGFloatProperty(name: "radius", getCallback: {
 					return (pix as! LumaBlurPIX).radius
 				}, setCallback: { value in
 					(pix as! LumaBlurPIX).radius = value
 				}),
-				AutoLiveFloatProperty(name: "angle", getCallback: {
+				AutoCGFloatProperty(name: "angle", getCallback: {
 					return (pix as! LumaBlurPIX).angle
 				}, setCallback: { value in
 					(pix as! LumaBlurPIX).angle = value
@@ -711,27 +711,27 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		case .lumalevelspix:
 			return [
-				AutoLiveFloatProperty(name: "brightness", getCallback: {
+				AutoCGFloatProperty(name: "brightness", getCallback: {
 					return (pix as! LumaLevelsPIX).brightness
 				}, setCallback: { value in
 					(pix as! LumaLevelsPIX).brightness = value
 				}),
-				AutoLiveFloatProperty(name: "darkness", getCallback: {
+				AutoCGFloatProperty(name: "darkness", getCallback: {
 					return (pix as! LumaLevelsPIX).darkness
 				}, setCallback: { value in
 					(pix as! LumaLevelsPIX).darkness = value
 				}),
-				AutoLiveFloatProperty(name: "contrast", getCallback: {
+				AutoCGFloatProperty(name: "contrast", getCallback: {
 					return (pix as! LumaLevelsPIX).contrast
 				}, setCallback: { value in
 					(pix as! LumaLevelsPIX).contrast = value
 				}),
-				AutoLiveFloatProperty(name: "gamma", getCallback: {
+				AutoCGFloatProperty(name: "gamma", getCallback: {
 					return (pix as! LumaLevelsPIX).gamma
 				}, setCallback: { value in
 					(pix as! LumaLevelsPIX).gamma = value
 				}),
-				AutoLiveFloatProperty(name: "opacity", getCallback: {
+				AutoCGFloatProperty(name: "opacity", getCallback: {
 					return (pix as! LumaLevelsPIX).opacity
 				}, setCallback: { value in
 					(pix as! LumaLevelsPIX).opacity = value
@@ -773,11 +773,11 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLivePoints(for pix: PIXMergerEffect) -> [AutoLivePointProperty] {
+	public func autoCGPoints(for pix: PIXMergerEffect) -> [AutoCGPointProperty] {
 		switch self {
 		case .blendpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! BlendPIX).position
 				}, setCallback: { value in
 					(pix as! BlendPIX).position = value
@@ -794,7 +794,7 @@ public enum AutoPIXMergerEffect: String, Codable, CaseIterable {
 			]
 		case .lumablurpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! LumaBlurPIX).position
 				}, setCallback: { value in
 					(pix as! LumaBlurPIX).position = value
@@ -1081,7 +1081,7 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLiveFloats(for pix: PIXMultiEffect) -> [AutoLiveFloatProperty] {
+	public func autoCGFloats(for pix: PIXMultiEffect) -> [AutoCGFloatProperty] {
 		switch self {
 		case .arraypix:
 			return [
@@ -1101,7 +1101,7 @@ public enum AutoPIXMultiEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLivePoints(for pix: PIXMultiEffect) -> [AutoLivePointProperty] {
+	public func autoCGPoints(for pix: PIXMultiEffect) -> [AutoCGPointProperty] {
 		switch self {
 		case .arraypix:
 			return [
@@ -1410,16 +1410,16 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLiveFloats(for pix: PIXSingleEffect) -> [AutoLiveFloatProperty] {
+	public func autoCGFloats(for pix: PIXSingleEffect) -> [AutoCGFloatProperty] {
 		switch self {
 		case .blurpix:
 			return [
-				AutoLiveFloatProperty(name: "radius", getCallback: {
+				AutoCGFloatProperty(name: "radius", getCallback: {
 					return (pix as! BlurPIX).radius
 				}, setCallback: { value in
 					(pix as! BlurPIX).radius = value
 				}),
-				AutoLiveFloatProperty(name: "angle", getCallback: {
+				AutoCGFloatProperty(name: "angle", getCallback: {
 					return (pix as! BlurPIX).angle
 				}, setCallback: { value in
 					(pix as! BlurPIX).angle = value
@@ -1430,17 +1430,17 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .chromakeypix:
 			return [
-				AutoLiveFloatProperty(name: "range", getCallback: {
+				AutoCGFloatProperty(name: "range", getCallback: {
 					return (pix as! ChromaKeyPIX).range
 				}, setCallback: { value in
 					(pix as! ChromaKeyPIX).range = value
 				}),
-				AutoLiveFloatProperty(name: "softness", getCallback: {
+				AutoCGFloatProperty(name: "softness", getCallback: {
 					return (pix as! ChromaKeyPIX).softness
 				}, setCallback: { value in
 					(pix as! ChromaKeyPIX).softness = value
 				}),
-				AutoLiveFloatProperty(name: "edgeDesaturation", getCallback: {
+				AutoCGFloatProperty(name: "edgeDesaturation", getCallback: {
 					return (pix as! ChromaKeyPIX).edgeDesaturation
 				}, setCallback: { value in
 					(pix as! ChromaKeyPIX).edgeDesaturation = value
@@ -1448,12 +1448,12 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .clamppix:
 			return [
-				AutoLiveFloatProperty(name: "low", getCallback: {
+				AutoCGFloatProperty(name: "low", getCallback: {
 					return (pix as! ClampPIX).low
 				}, setCallback: { value in
 					(pix as! ClampPIX).low = value
 				}),
-				AutoLiveFloatProperty(name: "high", getCallback: {
+				AutoCGFloatProperty(name: "high", getCallback: {
 					return (pix as! ClampPIX).high
 				}, setCallback: { value in
 					(pix as! ClampPIX).high = value
@@ -1464,12 +1464,12 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .edgepix:
 			return [
-				AutoLiveFloatProperty(name: "strength", getCallback: {
+				AutoCGFloatProperty(name: "strength", getCallback: {
 					return (pix as! EdgePIX).strength
 				}, setCallback: { value in
 					(pix as! EdgePIX).strength = value
 				}),
-				AutoLiveFloatProperty(name: "distance", getCallback: {
+				AutoCGFloatProperty(name: "distance", getCallback: {
 					return (pix as! EdgePIX).distance
 				}, setCallback: { value in
 					(pix as! EdgePIX).distance = value
@@ -1477,27 +1477,27 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .flarepix:
 			return [
-				AutoLiveFloatProperty(name: "scale", getCallback: {
+				AutoCGFloatProperty(name: "scale", getCallback: {
 					return (pix as! FlarePIX).scale
 				}, setCallback: { value in
 					(pix as! FlarePIX).scale = value
 				}),
-				AutoLiveFloatProperty(name: "angle", getCallback: {
+				AutoCGFloatProperty(name: "angle", getCallback: {
 					return (pix as! FlarePIX).angle
 				}, setCallback: { value in
 					(pix as! FlarePIX).angle = value
 				}),
-				AutoLiveFloatProperty(name: "threshold", getCallback: {
+				AutoCGFloatProperty(name: "threshold", getCallback: {
 					return (pix as! FlarePIX).threshold
 				}, setCallback: { value in
 					(pix as! FlarePIX).threshold = value
 				}),
-				AutoLiveFloatProperty(name: "brightness", getCallback: {
+				AutoCGFloatProperty(name: "brightness", getCallback: {
 					return (pix as! FlarePIX).brightness
 				}, setCallback: { value in
 					(pix as! FlarePIX).brightness = value
 				}),
-				AutoLiveFloatProperty(name: "gamma", getCallback: {
+				AutoCGFloatProperty(name: "gamma", getCallback: {
 					return (pix as! FlarePIX).gamma
 				}, setCallback: { value in
 					(pix as! FlarePIX).gamma = value
@@ -1508,12 +1508,12 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .colorshiftpix:
 			return [
-				AutoLiveFloatProperty(name: "hue", getCallback: {
+				AutoCGFloatProperty(name: "hue", getCallback: {
 					return (pix as! ColorShiftPIX).hue
 				}, setCallback: { value in
 					(pix as! ColorShiftPIX).hue = value
 				}),
-				AutoLiveFloatProperty(name: "saturation", getCallback: {
+				AutoCGFloatProperty(name: "saturation", getCallback: {
 					return (pix as! ColorShiftPIX).saturation
 				}, setCallback: { value in
 					(pix as! ColorShiftPIX).saturation = value
@@ -1521,7 +1521,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .kaleidoscopepix:
 			return [
-				AutoLiveFloatProperty(name: "rotation", getCallback: {
+				AutoCGFloatProperty(name: "rotation", getCallback: {
 					return (pix as! KaleidoscopePIX).rotation
 				}, setCallback: { value in
 					(pix as! KaleidoscopePIX).rotation = value
@@ -1529,27 +1529,27 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .levelspix:
 			return [
-				AutoLiveFloatProperty(name: "brightness", getCallback: {
+				AutoCGFloatProperty(name: "brightness", getCallback: {
 					return (pix as! LevelsPIX).brightness
 				}, setCallback: { value in
 					(pix as! LevelsPIX).brightness = value
 				}),
-				AutoLiveFloatProperty(name: "darkness", getCallback: {
+				AutoCGFloatProperty(name: "darkness", getCallback: {
 					return (pix as! LevelsPIX).darkness
 				}, setCallback: { value in
 					(pix as! LevelsPIX).darkness = value
 				}),
-				AutoLiveFloatProperty(name: "contrast", getCallback: {
+				AutoCGFloatProperty(name: "contrast", getCallback: {
 					return (pix as! LevelsPIX).contrast
 				}, setCallback: { value in
 					(pix as! LevelsPIX).contrast = value
 				}),
-				AutoLiveFloatProperty(name: "gamma", getCallback: {
+				AutoCGFloatProperty(name: "gamma", getCallback: {
 					return (pix as! LevelsPIX).gamma
 				}, setCallback: { value in
 					(pix as! LevelsPIX).gamma = value
 				}),
-				AutoLiveFloatProperty(name: "opacity", getCallback: {
+				AutoCGFloatProperty(name: "opacity", getCallback: {
 					return (pix as! LevelsPIX).opacity
 				}, setCallback: { value in
 					(pix as! LevelsPIX).opacity = value
@@ -1557,7 +1557,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .quantizepix:
 			return [
-				AutoLiveFloatProperty(name: "fraction", getCallback: {
+				AutoCGFloatProperty(name: "fraction", getCallback: {
 					return (pix as! QuantizePIX).fraction
 				}, setCallback: { value in
 					(pix as! QuantizePIX).fraction = value
@@ -1565,22 +1565,22 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .rangepix:
 			return [
-				AutoLiveFloatProperty(name: "inLow", getCallback: {
+				AutoCGFloatProperty(name: "inLow", getCallback: {
 					return (pix as! RangePIX).inLow
 				}, setCallback: { value in
 					(pix as! RangePIX).inLow = value
 				}),
-				AutoLiveFloatProperty(name: "inHigh", getCallback: {
+				AutoCGFloatProperty(name: "inHigh", getCallback: {
 					return (pix as! RangePIX).inHigh
 				}, setCallback: { value in
 					(pix as! RangePIX).inHigh = value
 				}),
-				AutoLiveFloatProperty(name: "outLow", getCallback: {
+				AutoCGFloatProperty(name: "outLow", getCallback: {
 					return (pix as! RangePIX).outLow
 				}, setCallback: { value in
 					(pix as! RangePIX).outLow = value
 				}),
-				AutoLiveFloatProperty(name: "outHigh", getCallback: {
+				AutoCGFloatProperty(name: "outHigh", getCallback: {
 					return (pix as! RangePIX).outHigh
 				}, setCallback: { value in
 					(pix as! RangePIX).outHigh = value
@@ -1591,7 +1591,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .sharpenpix:
 			return [
-				AutoLiveFloatProperty(name: "contrast", getCallback: {
+				AutoCGFloatProperty(name: "contrast", getCallback: {
 					return (pix as! SharpenPIX).contrast
 				}, setCallback: { value in
 					(pix as! SharpenPIX).contrast = value
@@ -1599,7 +1599,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .slopepix:
 			return [
-				AutoLiveFloatProperty(name: "amplitude", getCallback: {
+				AutoCGFloatProperty(name: "amplitude", getCallback: {
 					return (pix as! SlopePIX).amplitude
 				}, setCallback: { value in
 					(pix as! SlopePIX).amplitude = value
@@ -1607,7 +1607,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .thresholdpix:
 			return [
-				AutoLiveFloatProperty(name: "threshold", getCallback: {
+				AutoCGFloatProperty(name: "threshold", getCallback: {
 					return (pix as! ThresholdPIX).threshold
 				}, setCallback: { value in
 					(pix as! ThresholdPIX).threshold = value
@@ -1615,12 +1615,12 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .transformpix:
 			return [
-				AutoLiveFloatProperty(name: "rotation", getCallback: {
+				AutoCGFloatProperty(name: "rotation", getCallback: {
 					return (pix as! TransformPIX).rotation
 				}, setCallback: { value in
 					(pix as! TransformPIX).rotation = value
 				}),
-				AutoLiveFloatProperty(name: "scale", getCallback: {
+				AutoCGFloatProperty(name: "scale", getCallback: {
 					return (pix as! TransformPIX).scale
 				}, setCallback: { value in
 					(pix as! TransformPIX).scale = value
@@ -1628,7 +1628,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .twirlpix:
 			return [
-				AutoLiveFloatProperty(name: "strength", getCallback: {
+				AutoCGFloatProperty(name: "strength", getCallback: {
 					return (pix as! TwirlPIX).strength
 				}, setCallback: { value in
 					(pix as! TwirlPIX).strength = value
@@ -1712,11 +1712,11 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		}	
 	}
-	public func autoLivePoints(for pix: PIXSingleEffect) -> [AutoLivePointProperty] {
+	public func autoCGPoints(for pix: PIXSingleEffect) -> [AutoCGPointProperty] {
 		switch self {
 		case .blurpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! BlurPIX).position
 				}, setCallback: { value in
 					(pix as! BlurPIX).position = value
@@ -1748,7 +1748,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .kaleidoscopepix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! KaleidoscopePIX).position
 				}, setCallback: { value in
 					(pix as! KaleidoscopePIX).position = value
@@ -1777,7 +1777,7 @@ public enum AutoPIXSingleEffect: String, Codable, CaseIterable {
 			]
 		case .transformpix:
 			return [
-				AutoLivePointProperty(name: "position", getCallback: {
+				AutoCGPointProperty(name: "position", getCallback: {
 					return (pix as! TransformPIX).position
 				}, setCallback: { value in
 					(pix as! TransformPIX).position = value

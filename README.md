@@ -5,6 +5,8 @@
 Live Graphics Framework for iOS, macOS and tvOS<br>
 runs on [RenderKit](https://github.com/heestand-xyz/RenderKit) - powered by Metal
 
+*This branch is under development.*
+
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen)
@@ -127,9 +129,9 @@ struct ContentView: View {
                 }
             }
                 .gamma(0.5)
-                .brightness(LiveFloat(1.5))
+                .brightness(CGFloat(1.5))
         }
-            .saturation(LiveFloat(0.5))
+            .saturation(CGFloat(0.5))
     }
     var body: some View {
         BlendsPIXUI {
@@ -298,7 +300,7 @@ A full rotation is defined by 1.0
 <b>Top Right:</b> CGPoint(x: 0.5 * aspectRatio, y: 0.5)<br>
 
 <b>Tip:</b> `Resolution` has an `.aspect` property:<br>
-`let aspectRatio: LiveFloat = Resolution._1080p.aspect`
+`let aspectRatio: CGFloat = Resolution._1080p.aspect`
 
 ## Blend Operators
 
@@ -321,10 +323,10 @@ let blendPix = (CameraPIX() !** NoisePIX(at: .fullHD(.portrait))) * CirclePIX(at
 Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
 
 ```swift
-let a: LiveFloat = 1.0
-let b: LiveFloat = 2.0
+let a: CGFloat = 1.0
+let b: CGFloat = 2.0
 let isOdd: LiveBool = .seconds % 2.0 < 1.0
-let ab: LiveFloat = isOdd <?> a <=> b
+let ab: CGFloat = isOdd <?> a <=> b
 ```
 
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
@@ -336,40 +338,40 @@ Live values can be a constant (`let`) and still have changin values.
 Live values are ease to animate with the `.live` or `.seconds` static properites.
 
 ### The Live Values:
-- `CGFloat` --> `LiveFloat`
+- `CGFloat` --> `CGFloat`
 - `Int` --> `LiveInt`
 - `Bool` --> `LiveBool`
-- `CGPoint` --> `LivePoint`
+- `CGPoint` --> `CGPoint`
 - `CGSize` --> `LiveSize`
 - `CGRect` --> `LiveRect`
 
 ### Static properites:
-- `LiveFloat.live`
-- `LiveFloat.seconds`
-- `LiveFloat.secondsSince1970`
-- `LiveFloat.touch` / `LiveFloat.mouseLeft`
-- `LiveFloat.touchX` / `LiveFloat.mouseX`
-- `LiveFloat.touchY` / `LiveFloat.mouseY`
-- `LivePoint.touchXY` / `LiveFloat.mouseXY`
-- `LiveFloat.gyroX`
-- `LiveFloat.gyroY`
-- `LiveFloat.gyroZ`
-- `LiveFloat.accelerationX/Y/X`
-- `LiveFloat.magneticFieldX/Y/X`
-- `LiveFloat.deviceAttitudeX/Y/X`
-- `LiveFloat.deviceGravityX/Y/X`
-- `LiveFloat.deviceHeading`
+- `CGFloat.live`
+- `CGFloat.seconds`
+- `CGFloat.secondsSince1970`
+- `CGFloat.touch` / `CGFloat.mouseLeft`
+- `CGFloat.touchX` / `CGFloat.mouseX`
+- `CGFloat.touchY` / `CGFloat.mouseY`
+- `CGPoint.touchXY` / `CGFloat.mouseXY`
+- `CGFloat.gyroX`
+- `CGFloat.gyroY`
+- `CGFloat.gyroZ`
+- `CGFloat.accelerationX/Y/X`
+- `CGFloat.magneticFieldX/Y/X`
+- `CGFloat.deviceAttitudeX/Y/X`
+- `CGFloat.deviceGravityX/Y/X`
+- `CGFloat.deviceHeading`
 
 `finalPix.pixView.liveTouch(active: true)`
 
 ### Functions:
-- `liveFloat.delay(seconds: 1.0)`
-- `liveFloat.filter(seconds: 1.0)`
-- `liveFloat.filter(frames: 60)`
+- `CGFloat.delay(seconds: 1.0)`
+- `CGFloat.filter(seconds: 1.0)`
+- `CGFloat.filter(frames: 60)`
 
 ### Static functions:
-- `LiveFloat.noise(range: -1.0...1.0, for: 1.0)`
-- `LiveFloat.wave(range: -1.0...1.0, for: 1.0)`
+- `CGFloat.noise(range: -1.0...1.0, for: 1.0)`
+- `CGFloat.wave(range: -1.0...1.0, for: 1.0)`
 
 ## Effect Convenience Funcs
 

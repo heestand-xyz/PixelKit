@@ -31,11 +31,11 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
     }
     
     public var style: RainbowBlurStyle = .zoom { didSet { setNeedsRender() } }
-    public var radius: LiveFloat = 0.5
+    public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var position: LivePoint = .zero
-    public var light: LiveFloat = 1.0
+    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var position: CGPoint = .zero
+    public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
@@ -60,7 +60,7 @@ public class RainbowBlurPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _rainbowBlur(_ radius: LiveFloat) -> RainbowBlurPIX {
+    func _rainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":rainbowBlur:"
         rainbowBlurPix.input = self as? PIX & NODEOut
@@ -68,7 +68,7 @@ public extension NODEOut {
         return rainbowBlurPix
     }
     
-    func _zoomRainbowBlur(_ radius: LiveFloat) -> RainbowBlurPIX {
+    func _zoomRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":zoom-rainbowBlur:"
         rainbowBlurPix.style = .zoom

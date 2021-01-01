@@ -1,5 +1,5 @@
 //
-//  LiveFloatExtension.swift
+//  CGFloatExtension.swift
 //  PixelKit
 //
 //  Created by Hexagons on 2019-10-01.
@@ -10,14 +10,14 @@ import CoreGraphics
 import LiveValues
 import RenderKit
 
-extension LiveFloat {
+extension CGFloat {
     
     // MARK: - Live Final
     
-    public static var liveFinal: LiveFloat {
+    public static var liveFinal: CGFloat {
         var value: CGFloat = 0.0
         var lastFrame: Int = -1
-        return LiveFloat({ () -> (CGFloat) in
+        return CGFloat({ () -> (CGFloat) in
             guard lastFrame != PixelKit.main.render.finalFrame else {
                 lastFrame = PixelKit.main.render.finalFrame
                 return value
@@ -33,13 +33,13 @@ extension LiveFloat {
     // MARK: - Touch / Mouse
 
     #if os(iOS)
-    public static var touch: LiveFloat {
-        return LiveFloat({ () -> (CGFloat) in
+    public static var touch: CGFloat {
+        return CGFloat({ () -> (CGFloat) in
             return Bool(LiveBool.touch) ? 1.0 : 0.0
         })
     }
-    public static var touchX: LiveFloat {
-        return LiveFloat({ () -> (CGFloat) in
+    public static var touchX: CGFloat {
+        return CGFloat({ () -> (CGFloat) in
             for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
                 return pix.pixView.liveTouchView.touchPointMain.x
@@ -47,8 +47,8 @@ extension LiveFloat {
             return 0.0
         })
     }
-    public static var touchY: LiveFloat {
-        return LiveFloat({ () -> (CGFloat) in
+    public static var touchY: CGFloat {
+        return CGFloat({ () -> (CGFloat) in
             for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
                 return pix.pixView.liveTouchView.touchPointMain.y
@@ -56,8 +56,8 @@ extension LiveFloat {
             return 0.0
         })
     }
-    public static var touchU: LiveFloat {
-        var aspect: LiveFloat = 1.0
+    public static var touchU: CGFloat {
+        var aspect: CGFloat = 1.0
         for pix in PixelKit.main.render.linkedNodes as! [PIX] {
             guard pix.view.superview != nil else { continue }
             aspect = pix.renderResolution.aspect
@@ -65,11 +65,11 @@ extension LiveFloat {
         }
         return touchX / aspect + 0.5
     }
-    public static var touchV: LiveFloat {
+    public static var touchV: CGFloat {
         return touchY + 0.5
     }
-    public static var touchForce: LiveFloat {
-        return LiveFloat({ () -> (CGFloat) in
+    public static var touchForce: CGFloat {
+        return CGFloat({ () -> (CGFloat) in
             for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
                 return pix.pixView.liveTouchView.force
@@ -78,20 +78,20 @@ extension LiveFloat {
         })
     }
     #elseif os(macOS)
-    public static var mouseLeft: LiveFloat {
+    public static var mouseLeft: CGFloat {
         return LiveBool.mouseLeft <?> 1.0 <=> 0.0
     }
-    public static var mouseRight: LiveFloat {
+    public static var mouseRight: CGFloat {
         return LiveBool.mouseRight <?> 1.0 <=> 0.0
     }
-    public static var mouseInView: LiveFloat {
+    public static var mouseInView: CGFloat {
         return LiveBool.mouseInView <?> 1.0 <=> 0.0
     }
-    public static var mouseX: LiveFloat {
-        return LivePoint.mouseXY.x
+    public static var mouseX: CGFloat {
+        return CGPoint.mouseXY.x
     }
-    public static var mouseY: LiveFloat {
-        return LivePoint.mouseXY.y
+    public static var mouseY: CGFloat {
+        return CGPoint.mouseXY.y
     }
     #endif
     

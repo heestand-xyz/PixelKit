@@ -15,7 +15,7 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var amplitude: LiveFloat = 1.0
+    public var amplitude: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
@@ -33,7 +33,7 @@ public class SlopePIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _slope(_ amplitude: LiveFloat = 1.0) -> SlopePIX {
+    func _slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.name = ":slope:"
         slopePix.input = self as? PIX & NODEOut

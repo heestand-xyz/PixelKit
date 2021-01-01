@@ -15,7 +15,7 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var fraction: LiveFloat = LiveFloat(0.125, limit: true)
+    public var fraction: CGFloat = CGFloat(0.125, limit: true)
     
     // MARK: - Property Helpers
     
@@ -33,7 +33,7 @@ public class QuantizePIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _quantize(_ fraction: LiveFloat) -> QuantizePIX {
+    func _quantize(_ fraction: CGFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
         quantizePix.input = self as? PIX & NODEOut

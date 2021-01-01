@@ -15,7 +15,7 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var fraction: LiveFloat = LiveFloat(0.5, limit: true)
+    public var fraction: CGFloat = CGFloat(0.5, limit: true)
     
     // MARK: - Property Helpers
     
@@ -33,7 +33,7 @@ public class CrossPIX: PIXMergerEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _cross(with pix: PIX & NODEOut, fraction: LiveFloat) -> CrossPIX {
+    func _cross(with pix: PIX & NODEOut, fraction: CGFloat) -> CrossPIX {
         let crossPix = CrossPIX()
         crossPix.name = ":cross:"
         crossPix.inputA = self as? PIX & NODEOut
@@ -44,7 +44,7 @@ public extension NODEOut {
     
 }
 
-public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: LiveFloat) -> CrossPIX {
+public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
     crossPix.inputA = pixA

@@ -32,10 +32,10 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
     }
     
     public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
-    public var radius: LiveFloat = 0.5
+    public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var position: LivePoint = .zero
+    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     
@@ -58,7 +58,7 @@ public class LumaBlurPIX: PIXMergerEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _lumaBlur(with pix: PIX & NODEOut, radius: LiveFloat) -> LumaBlurPIX {
+    func _lumaBlur(with pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inputA = self as? PIX & NODEOut
@@ -67,7 +67,7 @@ public extension NODEOut {
         return lumaBlurPix
     }
     
-    func _tiltShift(radius: LiveFloat = 0.5, gamma: LiveFloat = 0.5) -> LumaBlurPIX {
+    func _tiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(at: pix.renderResolution)
         gradientPix.name = "tiltShift:gradient"

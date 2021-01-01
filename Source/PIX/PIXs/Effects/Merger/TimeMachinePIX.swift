@@ -16,7 +16,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var seconds: LiveFloat = LiveFloat(1.0, max: 10.0)
+    public var seconds: CGFloat = CGFloat(1.0, max: 10.0)
     
     // MARK: - Private Properties
     

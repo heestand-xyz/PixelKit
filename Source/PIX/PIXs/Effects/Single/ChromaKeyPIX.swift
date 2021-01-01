@@ -16,10 +16,10 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     // MARK: - Public Properties
     
     public var keyColor: LiveColor = .green
-    public var range: LiveFloat = LiveFloat(0.1, min: 0.0, max: 0.5)
-    public var softness: LiveFloat = LiveFloat(0.1, min: 0.0, max: 0.5)
-    public var edgeDesaturation: LiveFloat = 0.5
-    public var alphaCrop: LiveFloat = 0.5
+    public var range: CGFloat = CGFloat(0.1, min: 0.0, max: 0.5)
+    public var softness: CGFloat = CGFloat(0.1, min: 0.0, max: 0.5)
+    public var edgeDesaturation: CGFloat = 0.5
+    public var alphaCrop: CGFloat = 0.5
     public var premultiply: LiveBool = true
     
     // MARK: - Property Helpers

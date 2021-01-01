@@ -21,12 +21,12 @@ public class HDRPIX: PIXMultiEffect, PIXAuto {
     ///
     /// Example: "low" shutter speed of `1/8000` relative to a "mid" shutter speed of `1/4000` results in an ev of `-1.0`
     /// *default* value is `-1.0`
-    public var lowEV: LiveFloat = -1.0
+    public var lowEV: CGFloat = -1.0
     /// A positive exposure value (ev), relative to the mid exposure.
     ///
     /// Example: "high" shutter speed of `1/1000` relative to a "mid" shutter speed of `1/4000` results in an ev of `2.0`
     /// *default* value is `1.0`
-    public var highEV: LiveFloat = 1.0
+    public var highEV: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

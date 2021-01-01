@@ -6,7 +6,7 @@
 //  Copyright © 2019 Hexagons. All rights reserved.
 //
 
-import LiveValues
+import CoreGraphics
 import RenderKit
 
 public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
@@ -15,12 +15,12 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var position: LivePoint = .zero
-    public var radius: LiveFloat = sqrt(0.75) / 4
-    public var angleFrom: LiveFloat = LiveFloat(-0.125, min: -0.5, max: 0.5)
-    public var angleTo: LiveFloat = LiveFloat(0.125, min: -0.5, max: 0.5)
-    public var angleOffset: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var edgeRadius: LiveFloat = LiveFloat(0.05, max: 0.5)
+    public var position: CGPoint = .zero
+    public var radius: CGFloat = sqrt(0.75) / 4
+    public var angleFrom: CGFloat = CGFloat(-0.125, min: -0.5, max: 0.5)
+    public var angleTo: CGFloat = CGFloat(0.125, min: -0.5, max: 0.5)
+    public var angleOffset: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var edgeRadius: CGFloat = CGFloat(0.05, max: 0.5)
     public var fillColor: LiveColor = .white
     
     // MARK: - Property Helpers
@@ -39,39 +39,39 @@ public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
     
     public var frame: LiveRect {
         get {
-            let positionFrom = LivePoint(x: position.x + cos(angleFrom) * radius, y: position.y + sin(angleFrom) * radius)
-            let positionTo = LivePoint(x: position.x + cos(angleTo) * radius, y: position.y + sin(angleTo) * radius)
-            let minPoint = LivePoint(x: min(positionFrom.x, positionTo.x), y: min(positionFrom.y, positionTo.y))
-            let maxPoint = LivePoint(x: max(positionFrom.x, positionTo.x), y: max(positionFrom.y, positionTo.y))
+            let positionFrom = CGPoint(x: position.x + cos(angleFrom) * radius, y: position.y + sin(angleFrom) * radius)
+            let positionTo = CGPoint(x: position.x + cos(angleTo) * radius, y: position.y + sin(angleTo) * radius)
+            let minPoint = CGPoint(x: min(positionFrom.x, positionTo.x), y: min(positionFrom.y, positionTo.y))
+            let maxPoint = CGPoint(x: max(positionFrom.x, positionTo.x), y: max(positionFrom.y, positionTo.y))
             return LiveRect(origin: minPoint, size: (maxPoint - minPoint).size)
         }
         set {
             reFrame(to: newValue)
         }
     }
-    public var frameRotation: LiveFloat {
+    public var frameRotation: CGFloat {
         get { return angleOffset }
         set { angleOffset = newValue }
     }
     
     public func reFrame(to frame: LiveRect) {}
     
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         anchorX(targetXAnchor, to: layoutable.frame, sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         anchorY(targetYAnchor, to: layoutable.frame, sourceYAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, toBoundAnchor: sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, toBoundAnchor: sourceYAnchor, constant: constant)
     }
     

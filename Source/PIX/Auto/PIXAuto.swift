@@ -56,11 +56,11 @@ public class AutoProperty<T> {
     }
 }
 
-public class AutoLiveFloatProperty: AutoProperty<LiveFloat> {}
+public class AutoCGFloatProperty: AutoProperty<CGFloat> {}
 public class AutoLiveIntProperty: AutoProperty<LiveInt> {}
 public class AutoLiveBoolProperty: AutoProperty<LiveBool> {}
 public class AutoLiveColorProperty: AutoProperty<LiveColor> {}
-public class AutoLivePointProperty: AutoProperty<LivePoint> {}
+public class AutoCGPointProperty: AutoProperty<CGPoint> {}
 public class AutoLiveSizeProperty: AutoProperty<LiveSize> {}
 public class AutoLiveRectProperty: AutoProperty<LiveRect> {}
 public class AutoEnumProperty: AutoProperty<String> {
@@ -76,11 +76,11 @@ public extension AutoPIXGenerator {
 
     func allAutoLivePropertyNames(for pix: PIXGenerator) -> [String] {
         var all: [String] = []
-        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGFloats(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
-        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGPoints(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
         return all
@@ -99,11 +99,11 @@ public extension AutoPIXMultiEffect {
 
     func allAutoLivePropertyNames(for pix: PIXMultiEffect) -> [String] {
         var all: [String] = []
-        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGFloats(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
-        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGPoints(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
         return all
@@ -122,11 +122,11 @@ public extension AutoPIXMergerEffect {
 
     func allAutoLivePropertyNames(for pix: PIXMergerEffect) -> [String] {
         var all: [String] = []
-        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGFloats(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
-        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGPoints(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
         return all
@@ -145,11 +145,11 @@ public extension AutoPIXSingleEffect {
     
     func allAutoLivePropertyNames(for pix: PIXSingleEffect) -> [String] {
         var all: [String] = []
-        all.append(contentsOf: autoLiveFloats(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGFloats(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveInts(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveBools(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveColors(for: pix).map({ $0.name }))
-        all.append(contentsOf: autoLivePoints(for: pix).map({ $0.name }))
+        all.append(contentsOf: autoCGPoints(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveSizes(for: pix).map({ $0.name }))
         all.append(contentsOf: autoLiveRects(for: pix).map({ $0.name }))
         return all
@@ -162,86 +162,86 @@ public extension AutoPIXSingleEffect {
         return all
     }
     
-    func allAutoLivePropertiesAsFloats(for pix: PIXSingleEffect) -> [AutoLiveFloatProperty] {
-        var all: [AutoLiveFloatProperty] = []
-        all.append(contentsOf: autoLiveFloats(for: pix))
-        all.append(contentsOf: autoLiveInts(for: pix).map { auto -> AutoLiveFloatProperty in
-            AutoLiveFloatProperty(name: auto.name, getCallback: {
-                LiveFloat(auto.value)
+    func allAutoLivePropertiesAsFloats(for pix: PIXSingleEffect) -> [AutoCGFloatProperty] {
+        var all: [AutoCGFloatProperty] = []
+        all.append(contentsOf: autoCGFloats(for: pix))
+        all.append(contentsOf: autoLiveInts(for: pix).map { auto -> AutoCGFloatProperty in
+            AutoCGFloatProperty(name: auto.name, getCallback: {
+                CGFloat(auto.value)
             }) { value in
                 auto.value = LiveInt(value)
             }
         })
-        all.append(contentsOf: autoLiveBools(for: pix).map { auto -> AutoLiveFloatProperty in
-            AutoLiveFloatProperty(name: auto.name, getCallback: {
+        all.append(contentsOf: autoLiveBools(for: pix).map { auto -> AutoCGFloatProperty in
+            AutoCGFloatProperty(name: auto.name, getCallback: {
                 auto.value <?> 1.0 <=> 0.0
             }) { value in
                 auto.value = value > 0.0
             }
         })
         for auto in autoLiveColors(for: pix) {
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-red", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-red", getCallback: { () -> (CGFloat) in
                 auto.value.r
             }, setCallback: { value in
                 auto.value.r = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-green", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-green", getCallback: { () -> (CGFloat) in
                 auto.value.r
             }, setCallback: { value in
                 auto.value.r = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-blue", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-blue", getCallback: { () -> (CGFloat) in
                 auto.value.r
             }, setCallback: { value in
                 auto.value.r = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-alpha", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-alpha", getCallback: { () -> (CGFloat) in
                 auto.value.a
             }, setCallback: { value in
                 auto.value.a = value
             }))
         }
-        for auto in autoLivePoints(for: pix) {
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-x", getCallback: { () -> (LiveFloat) in
+        for auto in autoCGPoints(for: pix) {
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-x", getCallback: { () -> (CGFloat) in
                 auto.value.x
             }, setCallback: { value in
                 auto.value.x = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-y", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-y", getCallback: { () -> (CGFloat) in
                 auto.value.y
             }, setCallback: { value in
                 auto.value.y = value
             }))
         }
         for auto in autoLiveSizes(for: pix) {
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-w", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-w", getCallback: { () -> (CGFloat) in
                 auto.value.w
             }, setCallback: { value in
                 auto.value.w = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-h", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-h", getCallback: { () -> (CGFloat) in
                 auto.value.h
             }, setCallback: { value in
                 auto.value.h = value
             }))
         }
         for auto in autoLiveRects(for: pix) {
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-x", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-x", getCallback: { () -> (CGFloat) in
                 auto.value.x
             }, setCallback: { value in
                 auto.value.x = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-y", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-y", getCallback: { () -> (CGFloat) in
                 auto.value.y
             }, setCallback: { value in
                 auto.value.y = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-w", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-w", getCallback: { () -> (CGFloat) in
                 auto.value.w
             }, setCallback: { value in
                 auto.value.w = value
             }))
-            all.append(AutoLiveFloatProperty(name: "\(auto.name)-h", getCallback: { () -> (LiveFloat) in
+            all.append(AutoCGFloatProperty(name: "\(auto.name)-h", getCallback: { () -> (CGFloat) in
                 auto.value.h
             }, setCallback: { value in
                 auto.value.h = value

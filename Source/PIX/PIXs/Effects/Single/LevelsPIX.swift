@@ -15,13 +15,13 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var brightness: LiveFloat = LiveFloat(1.0, max: 2.0)
-    public var darkness: LiveFloat = 0.0
-    public var contrast: LiveFloat = 0.0
-    public var gamma: LiveFloat = 1.0
+    public var brightness: CGFloat = CGFloat(1.0, max: 2.0)
+    public var darkness: CGFloat = 0.0
+    public var contrast: CGFloat = 0.0
+    public var gamma: CGFloat = 1.0
     public var inverted: LiveBool = false
     public var smooth: LiveBool = false
-    public var opacity: LiveFloat = LiveFloat(1.0, limit: true)
+    public var opacity: CGFloat = CGFloat(1.0, limit: true)
     
     // MARK: - Property Helpers
     
@@ -39,7 +39,7 @@ public class LevelsPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _brightness(_ brightness: LiveFloat) -> LevelsPIX {
+    func _brightness(_ brightness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "brightness:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -47,7 +47,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _darkness(_ darkness: LiveFloat) -> LevelsPIX {
+    func _darkness(_ darkness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "darkness:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -55,7 +55,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _contrast(_ contrast: LiveFloat) -> LevelsPIX {
+    func _contrast(_ contrast: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "contrast:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -63,7 +63,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _gamma(_ gamma: LiveFloat) -> LevelsPIX {
+    func _gamma(_ gamma: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "gamma:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -79,7 +79,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _opacity(_ opacity: LiveFloat) -> LevelsPIX {
+    func _opacity(_ opacity: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "opacity:levels"
         levelsPix.input = self as? PIX & NODEOut

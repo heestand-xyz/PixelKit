@@ -16,13 +16,13 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var brightness: LiveFloat = 1.0
-    public var darkness: LiveFloat = 0.0
-    public var contrast: LiveFloat = 0.0
-    public var gamma: LiveFloat = 1.0
+    public var brightness: CGFloat = 1.0
+    public var darkness: CGFloat = 0.0
+    public var contrast: CGFloat = 0.0
+    public var gamma: CGFloat = 1.0
     public var inverted: LiveBool = false
     public var smooth: LiveBool = false
-    public var opacity: LiveFloat = 1.0
+    public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
@@ -40,7 +40,7 @@ public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _lumaLevels(with pix: PIX & NODEOut, brightness: LiveFloat = 1.0, darkness: LiveFloat = 0.0, contrast: LiveFloat = 0.0, gamma: LiveFloat = 1.0, opacity: LiveFloat = 1.0) -> LumaLevelsPIX {
+    func _lumaLevels(with pix: PIX & NODEOut, brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0) -> LumaLevelsPIX {
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = ":lumaLevels:"
         lumaLevelsPix.inputA = self as? PIX & NODEOut
@@ -53,7 +53,7 @@ public extension NODEOut {
         return lumaLevelsPix
     }
     
-    func _vignetting(radius: LiveFloat = 0.5, inset: LiveFloat = 0.25, gamma: LiveFloat = 0.5) -> LumaLevelsPIX {
+    func _vignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & NODEOut
         let rectangle = RectanglePIX(at: pix.renderResolution)
         rectangle.bgColor = .white

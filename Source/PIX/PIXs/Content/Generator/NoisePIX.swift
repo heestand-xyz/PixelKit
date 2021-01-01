@@ -35,9 +35,9 @@ public struct PixNoise: View, PIXUI {
         noisepix.octaves = LiveInt({ octaves.wrappedValue })
         noisepix.colored = LiveBool({ colored.wrappedValue })
         noisepix.random = LiveBool({ random.wrappedValue })
-        noisepix.zPosition = LiveFloat({ zPosition.wrappedValue })
-        noisepix.zoom = LiveFloat({ zoom.wrappedValue })
-        noisepix.position = LivePoint({ position.wrappedValue })
+        noisepix.zPosition = CGFloat({ zPosition.wrappedValue })
+        noisepix.zoom = CGFloat({ zoom.wrappedValue })
+        noisepix.position = CGPoint({ position.wrappedValue })
         pix = noisepix
     }
     // Parent Property Funcs
@@ -83,18 +83,18 @@ public struct PixNoise: View, PIXUI {
         return self
     }
     public func zPosition(_ zPosition: Binding<CGFloat>) -> PixNoise {
-        noisepix.zPosition = LiveFloat({ zPosition.wrappedValue })
+        noisepix.zPosition = CGFloat({ zPosition.wrappedValue })
         return self
     }
-    public func zPosition(_ zPosition: LiveFloat) -> PixNoise {
+    public func zPosition(_ zPosition: CGFloat) -> PixNoise {
         noisepix.zPosition = zPosition
         return self
     }
     public func zoom(_ zoom: Binding<CGFloat>) -> PixNoise {
-        noisepix.zoom = LiveFloat({ zoom.wrappedValue })
+        noisepix.zoom = CGFloat({ zoom.wrappedValue })
         return self
     }
-    public func zoom(_ zoom: LiveFloat) -> PixNoise {
+    public func zoom(_ zoom: CGFloat) -> PixNoise {
         noisepix.zoom = zoom
         return self
     }
@@ -115,10 +115,10 @@ public struct PixNoise: View, PIXUI {
         return self
     }
     public func position(_ position: Binding<CGPoint>) -> PixNoise {
-        noisepix.position = LivePoint({ position.wrappedValue })
+        noisepix.position = CGPoint({ position.wrappedValue })
         return self
     }
-    public func position(_ position: LivePoint) -> PixNoise {
+    public func position(_ position: CGPoint) -> PixNoise {
         noisepix.position = position
         return self
     }
@@ -133,9 +133,9 @@ public class NoisePIX: PIXGenerator, PIXAuto {
     
     public var seed: LiveInt = LiveInt(1, max: 10)
     public var octaves: LiveInt = LiveInt(10, min: 1, max: 10)
-    public var position: LivePoint = .zero
-    public var zPosition: LiveFloat = 0.0
-    public var zoom: LiveFloat = 1.0
+    public var position: CGPoint = .zero
+    public var zPosition: CGFloat = 0.0
+    public var zoom: CGFloat = 1.0
     public var colored: LiveBool = false
     public var random: LiveBool = false
     public var includeAlpha: LiveBool = false

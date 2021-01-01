@@ -15,7 +15,7 @@ public class SlicePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: LiveFloat = 0.5
+    public var fraction: CGFloat = 0.5
     public enum Axis {
         case x
         case y

@@ -18,12 +18,12 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var scale: LiveFloat = 0.25
+    public var scale: CGFloat = 0.25
     public var count: LiveInt = LiveInt(6, min: 3, max: 12)
-    public var angle: LiveFloat = 0.25
-    public var threshold: LiveFloat = 0.95
-    public var brightness: LiveFloat = LiveFloat(1.0, max: 2.0)
-    public var gamma: LiveFloat = 0.25
+    public var angle: CGFloat = 0.25
+    public var threshold: CGFloat = 0.95
+    public var brightness: CGFloat = CGFloat(1.0, max: 2.0)
+    public var gamma: CGFloat = 0.25
     public var color: LiveColor = .orange
     public var rayRes: LiveInt = LiveInt(32, min: 8, max: 64)
     

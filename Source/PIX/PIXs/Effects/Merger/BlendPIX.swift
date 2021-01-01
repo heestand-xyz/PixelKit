@@ -46,9 +46,9 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
     
     public var blendMode: RenderKit.BlendMode = .add { didSet { setNeedsRender() } }
     public var bypassTransform: LiveBool = false
-    public var position: LivePoint = .zero
-    public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var scale: LiveFloat = LiveFloat(1.0, max: 2.0)
+    public var position: CGPoint = .zero
+    public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var scale: CGFloat = CGFloat(1.0, max: 2.0)
     public var size: LiveSize = LiveSize(w: 1.0, h: 1.0)
     
     // MARK: - Property Helpers
@@ -120,7 +120,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
             reFrame(to: newValue)
         }
     }
-    public var frameRotation: LiveFloat {
+    public var frameRotation: CGFloat {
         get { return rotation }
         set { rotation = newValue }
     }
@@ -131,22 +131,22 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
         size = frame.size / (frameSize() * resScale())
     }
     
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         anchorX(targetXAnchor, to: layoutable.frame, sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         anchorY(targetYAnchor, to: layoutable.frame, sourceYAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, toBoundAnchor: sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, toBoundAnchor: sourceYAnchor, constant: constant)
     }
     
@@ -155,7 +155,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMerger
         return LiveSize(w: resB.aspect, h: 1.0)
     }
     
-    func resScale() -> LiveFloat {
+    func resScale() -> CGFloat {
         guard let resA = inputA?.renderResolution else { return 1.0 }
         guard let resB = inputB?.renderResolution else { return 1.0 }
         let resScale = resB.height / resA.height

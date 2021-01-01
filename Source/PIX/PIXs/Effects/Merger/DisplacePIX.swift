@@ -15,8 +15,8 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var distance: LiveFloat = LiveFloat(1.0, max: 2.0)
-    public var origin: LiveFloat = 0.5
+    public var distance: CGFloat = CGFloat(1.0, max: 2.0)
+    public var origin: CGFloat = 0.5
     
     // MARK: - Property Helpers
     
@@ -35,7 +35,7 @@ public class DisplacePIX: PIXMergerEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _displace(with pix: PIX & NODEOut, distance: LiveFloat) -> DisplacePIX {
+    func _displace(with pix: PIX & NODEOut, distance: CGFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
         displacePix.name = ":displace:"
         displacePix.inputA = self as? PIX & NODEOut
@@ -44,7 +44,7 @@ public extension NODEOut {
         return displacePix
     }
     
-    func _noiseDisplace(distance: LiveFloat, zPosition: LiveFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
+    func _noiseDisplace(distance: CGFloat, zPosition: CGFloat = 0.0, octaves: LiveInt = 10) -> DisplacePIX {
         let pix = self as! PIX & NODEOut
         let noisePix = NoisePIX(at: pix.renderResolution)
         noisePix.name = "noiseDisplace:noise"

@@ -53,10 +53,10 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    public var radius: LiveFloat = LiveFloat(0.5, limit: true)
+    public var radius: CGFloat = CGFloat(0.5, limit: true)
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var position: LivePoint = .zero
+    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     
@@ -129,7 +129,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
 
 public extension NODEOut {
     
-    func _blur(_ radius: LiveFloat) -> BlurPIX {
+    func _blur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
         blurPix.input = self as? PIX & NODEOut
@@ -137,7 +137,7 @@ public extension NODEOut {
         return blurPix
     }
     
-    func _zoomBlur(_ radius: LiveFloat) -> BlurPIX {
+    func _zoomBlur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":zoom-blur:"
         blurPix.style = .zoom
@@ -147,7 +147,7 @@ public extension NODEOut {
         return blurPix
     }
     
-    func _bloom(radius: LiveFloat, amount: LiveFloat) -> CrossPIX {
+    func _bloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
         let pix = self as? PIX & NODEOut
         let bloomPix = (pix!._blur(radius) + pix!) / 2
         return cross(pix!, bloomPix, at: amount)

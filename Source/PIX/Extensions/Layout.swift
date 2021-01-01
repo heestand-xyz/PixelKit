@@ -28,17 +28,17 @@ public enum LayoutYAnchor {
 public protocol Layoutable {
     
     var frame: LiveRect { get set }
-    var frameRotation: LiveFloat { get set }
+    var frameRotation: CGFloat { get set }
 
     func reFrame(to frame: LiveRect)
 
-    func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
-    func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat)
     
-    func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat)
-    func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat)
+    func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: CGFloat)
+    func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: CGFloat)
 
 }
 
@@ -51,14 +51,14 @@ public extension PIX {
         return point
     }
     
-    func point(of livePoint: LivePoint) -> LivePoint {
-        return LivePoint(point(of: livePoint.cg))
+    func point(of CGPoint: CGPoint) -> CGPoint {
+        return CGPoint(point(of: CGPoint.cg))
     }
     
     #if os(iOS) || os(tvOS)
-    func point(of touch: UITouch) -> LivePoint {
+    func point(of touch: UITouch) -> CGPoint {
         let location = touch.location(in: view.metalView)
-        return LivePoint(point(of: location))
+        return CGPoint(point(of: location))
     }
     #endif
     
@@ -68,8 +68,8 @@ class Layout {
     
     // MARK: X
     
-    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
-        let sourceValue: LiveFloat
+    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceAnchor: LayoutXAnchor, constant: CGFloat) {
+        let sourceValue: CGFloat
         switch sourceAnchor {
         case .left:
             sourceValue = sourceFrame.x + constant
@@ -81,9 +81,9 @@ class Layout {
         Layout.anchorX(target: layoutable, targetAnchor, to: sourceValue)
     }
     
-    static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor, constant: LiveFloat) {
-        let aspect = LiveFloat({ return layoutablePix.renderResolution.aspect.cg })
-        let sourceValue: LiveFloat
+    static func anchorX(target layoutablePix: PIX & Layoutable, _ targetAnchor: LayoutXAnchor, toBoundAnchor sourceAnchor: LayoutXAnchor, constant: CGFloat) {
+        let aspect = CGFloat({ return layoutablePix.renderResolution.aspect.cg })
+        let sourceValue: CGFloat
         switch sourceAnchor {
         case .left:
             sourceValue = -aspect / 2 + constant
@@ -95,7 +95,7 @@ class Layout {
         Layout.anchorX(target: layoutablePix, targetAnchor, to: sourceValue)
     }
     
-    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceValue: LiveFloat) {
+    static func anchorX(target layoutable: Layoutable, _ targetAnchor: LayoutXAnchor, to sourceValue: CGFloat) {
         var layoutable = layoutable
         switch targetAnchor {
         case .left:
@@ -119,8 +119,8 @@ class Layout {
     // MARK: Y
     
     static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceAnchor:
-        LayoutYAnchor, constant: LiveFloat) {
-        let sourceValue: LiveFloat
+        LayoutYAnchor, constant: CGFloat) {
+        let sourceValue: CGFloat
         switch sourceAnchor {
         case .bottom:
             sourceValue = sourceFrame.y + constant
@@ -132,8 +132,8 @@ class Layout {
         Layout.anchorY(target: layoutable, targetAnchor, to: sourceValue)
     }
     
-    static func anchorY(target layoutablePix: Layoutable, _ targetAnchor: LayoutYAnchor, toBoundAnchor sourceAnchor: LayoutYAnchor, constant: LiveFloat) {
-        let sourceValue: LiveFloat
+    static func anchorY(target layoutablePix: Layoutable, _ targetAnchor: LayoutYAnchor, toBoundAnchor sourceAnchor: LayoutYAnchor, constant: CGFloat) {
+        let sourceValue: CGFloat
         switch sourceAnchor {
         case .bottom:
             sourceValue = -0.5 + constant
@@ -145,7 +145,7 @@ class Layout {
         Layout.anchorY(target: layoutablePix, targetAnchor, to: sourceValue)
     }
     
-    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceValue: LiveFloat) {
+    static func anchorY(target layoutable: Layoutable, _ targetAnchor: LayoutYAnchor, to sourceValue: CGFloat) {
         var layoutable = layoutable
         switch targetAnchor {
         case .bottom:

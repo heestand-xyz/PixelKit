@@ -17,8 +17,8 @@ public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
     
     public var divisions: LiveInt = LiveInt(12, min: 1, max: 24)
     public var mirror: LiveBool = true
-    public var rotation: LiveFloat = LiveFloat(0.0, min: -0.5, max: 0.5)
-    public var position: LivePoint = .zero
+    public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     

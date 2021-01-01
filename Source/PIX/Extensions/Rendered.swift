@@ -220,7 +220,7 @@ public extension PIX {
                     color += px.color
                 }
             }
-            color /= LiveFloat(CGFloat(resolution.count))
+            color /= CGFloat(CGFloat(resolution.count))
             return color
         }
         public var averageLuminance: CGFloat {

@@ -15,10 +15,10 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var position: LivePoint = .zero
-//    public var rotation: LiveFloat = 0.0
+    public var position: CGPoint = .zero
+//    public var rotation: CGFloat = 0.0
     public var size: LiveSize = LiveSize(w: 0.5, h: 0.5)
-    public var cornerRadius: LiveFloat = LiveFloat(0.0, max: 0.25)
+    public var cornerRadius: CGFloat = CGFloat(0.0, max: 0.25)
     
     // MARK: - Property Helpers
     
@@ -40,7 +40,7 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
             reFrame(to: newValue)
         }
     }
-    public var frameRotation: LiveFloat {
+    public var frameRotation: CGFloat {
         get { return 0 }
         set {}
     }
@@ -50,22 +50,22 @@ public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
         size = frame.size
     }
     
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to sourceFrame: LiveRect, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, to: sourceFrame, sourceXAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, to layoutable: Layoutable, _ sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         anchorX(targetXAnchor, to: layoutable.frame, sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to sourceFrame: LiveRect, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, to: sourceFrame, sourceYAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, to layoutable: Layoutable, _ sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         anchorY(targetYAnchor, to: layoutable.frame, sourceYAnchor, constant: constant)
     }
-    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: LiveFloat = 0.0) {
+    public func anchorX(_ targetXAnchor: LayoutXAnchor, toBoundAnchor sourceXAnchor: LayoutXAnchor, constant: CGFloat = 0.0) {
         Layout.anchorX(target: self, targetXAnchor, toBoundAnchor: sourceXAnchor, constant: constant)
     }
-    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: LiveFloat = 0.0) {
+    public func anchorY(_ targetYAnchor: LayoutYAnchor, toBoundAnchor sourceYAnchor: LayoutYAnchor, constant: CGFloat = 0.0) {
         Layout.anchorY(target: self, targetYAnchor, toBoundAnchor: sourceYAnchor, constant: constant)
     }
     

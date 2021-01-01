@@ -1,5 +1,5 @@
 //
-//  LivePointExtension.swift
+//  CGPointExtension.swift
 //  PixelKit
 //
 //  Created by Hexagons on 2019-10-01.
@@ -13,13 +13,13 @@ import RenderKit
 import AppKit
 #endif
 
-extension LivePoint {
+extension CGPoint {
     
     // MARK: - Touch / Mouse
     
     #if os(iOS)
-    public static var touchXY: LivePoint {
-        return LivePoint({ () -> (CGPoint) in
+    public static var touchXY: CGPoint {
+        return CGPoint({ () -> (CGPoint) in
             for pix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard pix.view.superview != nil else { continue }
                 return pix.pixView.liveTouchView.touchPointMain
@@ -27,13 +27,13 @@ extension LivePoint {
             return .zero
         })
     }
-    public static var touchUV: LivePoint {
-        LivePoint(x: .touchU, y: .touchV)
+    public static var touchUV: CGPoint {
+        CGPoint(x: .touchU, y: .touchV)
     }
-//    public static var touchPoints: [LivePoint] {
-//        var points: [LivePoint] = []
+//    public static var touchPoints: [CGPoint] {
+//        var points: [CGPoint] = []
 //        for i in 0..<10 {
-//            let point = LivePoint({ () -> (CGPoint) in
+//            let point = CGPoint({ () -> (CGPoint) in
 //                for pix in Live.main.linkedPixs {
 //                    guard pix.view.superview != nil else { continue }
 //                    let touchPoints = pix.view.liveTouchView.touchPoints
@@ -47,13 +47,13 @@ extension LivePoint {
 //        return points
 //    }
     #elseif os(macOS)
-    public static var mouseXYAbs: LivePoint {
-        return LivePoint({ () -> (CGPoint) in
+    public static var mouseXYAbs: CGPoint {
+        return CGPoint({ () -> (CGPoint) in
             return NSEvent.mouseLocation
         })
     }
-    public static var mouseXY: LivePoint {
-        return LivePoint({ () -> (CGPoint) in
+    public static var mouseXY: CGPoint {
+        return CGPoint({ () -> (CGPoint) in
             for linkedPix in PixelKit.main.render.linkedNodes as! [PIX] {
                 guard linkedPix.view.superview != nil else { continue }
                 if let mousePoint = linkedPix.pixView.liveMouseView.mousePoint {
@@ -67,17 +67,17 @@ extension LivePoint {
     
     // MARK: - Corners
 
-    public static func topLeft(resolution: Resolution) -> LivePoint {
-        return LivePoint(x: -resolution.aspect / 2.0, y: 0.5)
+    public static func topLeft(resolution: Resolution) -> CGPoint {
+        return CGPoint(x: -resolution.aspect / 2.0, y: 0.5)
     }
-    public static func topRight(resolution: Resolution) -> LivePoint {
-        return LivePoint(x: resolution.aspect / 2.0, y: 0.5)
+    public static func topRight(resolution: Resolution) -> CGPoint {
+        return CGPoint(x: resolution.aspect / 2.0, y: 0.5)
     }
-    public static func bottomLeft(resolution: Resolution) -> LivePoint {
-        return LivePoint(x: -resolution.aspect / 2.0, y: -0.5)
+    public static func bottomLeft(resolution: Resolution) -> CGPoint {
+        return CGPoint(x: -resolution.aspect / 2.0, y: -0.5)
     }
-    public static func bottomRight(resolution: Resolution) -> LivePoint {
-        return LivePoint(x: resolution.aspect / 2.0, y: -0.5)
+    public static func bottomRight(resolution: Resolution) -> CGPoint {
+        return CGPoint(x: resolution.aspect / 2.0, y: -0.5)
     }
     
 }

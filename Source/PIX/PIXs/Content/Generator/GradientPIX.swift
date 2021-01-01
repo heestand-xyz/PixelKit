@@ -11,9 +11,9 @@ import RenderKit
 import CoreGraphics
 
 public struct ColorStep {
-    public var step: LiveFloat
+    public var step: CGFloat
     public var color: LiveColor
-    public init(_ step: LiveFloat, _ color: LiveColor) {
+    public init(_ step: CGFloat, _ color: LiveColor) {
         self.step = step
         self.color = color
     }
@@ -43,9 +43,9 @@ open class GradientPIX: PIXGenerator, PIXAuto {
     // MARK: - Public Properties
     
     public var direction: Direction = .horizontal { didSet { setNeedsRender() } }
-    public var scale: LiveFloat = 1.0
-    public var offset: LiveFloat = 0.0
-    public var position: LivePoint = .zero
+    public var scale: CGFloat = 1.0
+    public var offset: CGFloat = 0.0
+    public var position: CGPoint = .zero
     public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
     public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]
     
@@ -62,8 +62,8 @@ open class GradientPIX: PIXGenerator, PIXAuto {
         return [CGFloat(extendRamp.index)]
     }
 
-    override public var liveArray: [[LiveFloat]] {
-        return colorSteps.map({ colorStep -> [LiveFloat] in
+    override public var liveArray: [[CGFloat]] {
+        return colorSteps.map({ colorStep -> [CGFloat] in
             return [colorStep.step, colorStep.color.r, colorStep.color.g, colorStep.color.b, colorStep.color.a]
         })
     }
@@ -78,7 +78,7 @@ open class GradientPIX: PIXGenerator, PIXAuto {
         var colorSteps: [ColorStep] = []
         let count = 7
         for i in 0..<count {
-            let fraction = LiveFloat(i) / LiveFloat(count - 1)
+            let fraction = CGFloat(i) / CGFloat(count - 1)
             colorSteps.append(ColorStep(fraction, LiveColor(h: fraction, s: 1.0, v: 1.0, a: 1.0)))
         }
         return colorSteps

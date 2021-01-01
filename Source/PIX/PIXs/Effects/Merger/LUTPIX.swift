@@ -33,7 +33,7 @@ public class LUTPIX: PIXMergerEffect, PIXAuto {
         let count: Int = Int(pow(Double(raw), 3)) // 16_777_216
         let xyRes: Int = Int(sqrt(Double(count))) // 4_096
         let res: Resolution = .square(xyRes)
-        let uniIRes = MetalUniform(name: "ires", value: LiveFloat(iRes))
+        let uniIRes = MetalUniform(name: "ires", value: CGFloat(iRes))
         return MetalPIX(at: res, uniforms: [uniIRes], code:
             """
             int ires = int(in.ires);

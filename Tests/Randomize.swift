@@ -14,10 +14,10 @@ class Randomize {
     static let randomCount: Int = 10
     
     static func randomizeGenerator(auto: AutoPIXGenerator, with pix: PIXGenerator, at index: Int) {
-        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoLiveInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
-        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoLiveColors(for: pix), at: index)
@@ -25,10 +25,10 @@ class Randomize {
     }
     
     static func randomizeSingleEffect(auto: AutoPIXSingleEffect, with pix: PIXSingleEffect, at index: Int) {
-        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoLiveInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
-        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoLiveColors(for: pix), at: index)
@@ -36,21 +36,21 @@ class Randomize {
     }
     
     static func randomizeMergerEffect(auto: AutoPIXMergerEffect, with pix: PIXMergerEffect, at index: Int) {
-        randomzeFloats(auto.autoLiveFloats(for: pix), at: index)
+        randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoLiveInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
-        randomzePoints(auto.autoLivePoints(for: pix), at: index)
+        randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoLiveColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
     }
     
-    static func randomzeFloats(_ values: [AutoLiveFloatProperty], at index: Int) {
+    static func randomzeFloats(_ values: [AutoCGFloatProperty], at index: Int) {
         var gen = ArbitraryRandomNumberGenerator(seed: 1_000 + UInt64(index))
         for value in values {
             let random: CGFloat = .random(in: value.value.min...value.value.max, using: &gen)
-            value.value = LiveFloat(random, min: value.value.min, max: value.value.max)
+            value.value = CGFloat(random, min: value.value.min, max: value.value.max)
         }
     }
     
@@ -70,13 +70,13 @@ class Randomize {
         }
     }
     
-    static func randomzePoints(_ values: [AutoLivePointProperty], at index: Int) {
+    static func randomzePoints(_ values: [AutoCGPointProperty], at index: Int) {
         var gen1 = ArbitraryRandomNumberGenerator(seed: 4_000 + UInt64(index))
         var gen2 = ArbitraryRandomNumberGenerator(seed: 4_100 + UInt64(index))
         for value in values {
             let randomX: CGFloat = .random(in: -0.5...0.5, using: &gen1)
             let randomY: CGFloat = .random(in: -0.5...0.5, using: &gen2)
-            value.value = LivePoint(CGPoint(x: randomX, y: randomY))
+            value.value = CGPoint(CGPoint(x: randomX, y: randomY))
         }
     }
     

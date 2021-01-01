@@ -62,8 +62,8 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
     }
     public var axis: Axis = .vertical(alignment: .center) { didSet { setNeedsRender() } }
     
-    public var spacing: LiveFloat = 0.0
-    public var padding: LiveFloat = 0.0
+    public var spacing: CGFloat = 0.0
+    public var padding: CGFloat = 0.0
     
     public var backgroundColor: LiveColor = .clear
     
@@ -97,24 +97,24 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
 
 // MARK: - Stack
 
-public func vStack(spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
+public func vStack(spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
     vStack(inputs(), spacing: spacing, padding: padding)
 }
-public func vStack(_ inputs: [PIX & NODEOut], spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0) -> StackPIX {
+public func vStack(_ inputs: [PIX & NODEOut], spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
     stack(inputs, axis: .vertical(alignment: .center), spacing: spacing, padding: padding)
 }
 
-public func hStack(spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
+public func hStack(spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
     hStack(inputs(), spacing: spacing, padding: padding)
 }
-public func hStack(_ inputs: [PIX & NODEOut], spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0) -> StackPIX {
+public func hStack(_ inputs: [PIX & NODEOut], spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
     stack(inputs, axis: .horizontal(alignment: .center), spacing: spacing, padding: padding)
 }
 
-public func stack(axis: StackPIX.Axis, spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
+public func stack(axis: StackPIX.Axis, spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
     stack(inputs(), axis: axis, spacing: spacing, padding: padding)
 }
-public func stack(_ inputs: [PIX & NODEOut], axis: StackPIX.Axis, spacing: LiveFloat = 0.0, padding: LiveFloat = 0.0) -> StackPIX {
+public func stack(_ inputs: [PIX & NODEOut], axis: StackPIX.Axis, spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
     let stackPix = StackPIX()
     stackPix.inputs = inputs
     stackPix.name = ":stack:"

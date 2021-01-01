@@ -16,7 +16,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var threshold: LiveFloat = LiveFloat(0.5, limit: true)
+    public var threshold: CGFloat = CGFloat(0.5, limit: true)
 
     // MARK: - Property Helpers
     
@@ -34,7 +34,7 @@ public class ThresholdPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _threshold(_ threshold: LiveFloat = 0.5) -> ThresholdPIX {
+    func _threshold(_ threshold: CGFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.name = ":threshold:"
         thresholdPix.input = self as? PIX & NODEOut
@@ -43,7 +43,7 @@ public extension NODEOut {
         return thresholdPix
     }
     
-    func _mask(low: LiveFloat, high: LiveFloat) -> BlendPIX {
+    func _mask(low: CGFloat, high: CGFloat) -> BlendPIX {
         let thresholdLowPix = ThresholdPIX()
         thresholdLowPix.name = "mask:threshold:low"
         thresholdLowPix.input = self as? PIX & NODEOut

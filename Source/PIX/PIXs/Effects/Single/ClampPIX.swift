@@ -16,8 +16,8 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var low: LiveFloat = 0.0
-    public var high: LiveFloat = 1.0
+    public var low: CGFloat = 0.0
+    public var high: CGFloat = 1.0
     public var clampAlpha: LiveBool = false
     
     public enum Style: String, CaseIterable {
@@ -56,7 +56,7 @@ public class ClampPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _clamp(low: LiveFloat = 0.0, high: LiveFloat = 1.0) -> ClampPIX {
+    func _clamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> ClampPIX {
         let clampPix = ClampPIX()
         clampPix.name = ":clamp:"
         clampPix.input = self as? PIX & NODEOut

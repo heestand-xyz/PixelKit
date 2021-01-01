@@ -41,7 +41,7 @@ extension PIX {
                         scale = CGFloat(pixelsWide) / image.size.width
                     }
                     #endif
-                    return Resolution.cgSize(image.size) * LiveFloat(scale)
+                    return Resolution.cgSize(image.size) * CGFloat(scale)
                 } else {
                     #if !os(tvOS)
                     if #available(OSX 10.13, *) {
