@@ -6,10 +6,6 @@ build/
 
 *.framework
 
-Pods/*
-*.xcworkspace
-Podfile.lock
-
 docs/*
 
 PixelKitShaders-10.14.metallib
