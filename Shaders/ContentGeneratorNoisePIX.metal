@@ -2,7 +2,7 @@
 //  ContentGeneratorNoisePIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-24.
+//  Created by Anton Heestand on 2017-11-24.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

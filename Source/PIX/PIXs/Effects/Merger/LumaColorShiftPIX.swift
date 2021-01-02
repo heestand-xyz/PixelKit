@@ -2,7 +2,7 @@
 //  LumaColorShiftPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2020-06-01.
+//  Created by Anton Heestand on 2020-06-01.
 //  Open Source - MIT License
 //
 

@@ -2,7 +2,7 @@
 //  PIXResolution.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-13.
+//  Created by Anton Heestand on 2018-08-13.
 //  Open Source - MIT License
 //
 

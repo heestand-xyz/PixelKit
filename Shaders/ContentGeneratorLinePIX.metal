@@ -2,7 +2,7 @@
 //  ContentGeneratorLinePIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-17.
+//  Created by Anton Heestand on 2017-11-17.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

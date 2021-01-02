@@ -2,7 +2,7 @@
 //  EffectSingleChromaKeyPIX.metal
 //  PixelKitShaders
 //
-//  Created by Hexagons on 2017-12-15.
+//  Created by Anton Heestand on 2017-12-15.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

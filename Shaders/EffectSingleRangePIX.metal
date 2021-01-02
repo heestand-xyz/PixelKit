@@ -2,7 +2,7 @@
 //  EffectSingleRangePIX.metal
 //  PixelKitShaders
 //
-//  Created by Hexagons on 2017-12-06.
+//  Created by Anton Heestand on 2017-12-06.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

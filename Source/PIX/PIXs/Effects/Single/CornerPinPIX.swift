@@ -2,7 +2,7 @@
 //  CornerPinPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-27.
+//  Created by Anton Heestand on 2018-08-27.
 //  Open Source - MIT License
 //
 

@@ -2,7 +2,7 @@
 //  PIXRendered.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-12.
+//  Created by Anton Heestand on 2018-08-12.
 //  Open Source - MIT License
 //
 

@@ -2,7 +2,7 @@
 //  PIXMergerEffect.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-07-31.
+//  Created by Anton Heestand on 2018-07-31.
 //  Open Source - MIT License
 //
 

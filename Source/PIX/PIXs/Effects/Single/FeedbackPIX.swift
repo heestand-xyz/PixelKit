@@ -2,7 +2,7 @@
 //  FeedbackPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-21.
+//  Created by Anton Heestand on 2018-08-21.
 //  Open Source - MIT License
 //
 

@@ -2,7 +2,7 @@
 //  EffectSingleKaleidoscopePIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-28.
+//  Created by Anton Heestand on 2017-11-28.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

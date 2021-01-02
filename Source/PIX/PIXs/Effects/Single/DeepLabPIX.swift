@@ -2,7 +2,7 @@
 //  DeepLabPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2020-01-23.
+//  Created by Anton Heestand on 2020-01-23.
 //  Open Source - MIT License
 //
 

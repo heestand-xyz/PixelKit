@@ -2,7 +2,7 @@
 //  ContentResourceBackgroundPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2020-02-04.
+//  Created by Anton Heestand on 2020-02-04.
 //  Open Source - MIT License
 //
 

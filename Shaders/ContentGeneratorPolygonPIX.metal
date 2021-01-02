@@ -2,7 +2,7 @@
 //  ContentGeneratorPolygonPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-21.
+//  Created by Anton Heestand on 2017-11-21.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 //  https://stackoverflow.com/a/2049593/4586652

@@ -2,7 +2,7 @@
 //  CropPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-09-05.
+//  Created by Anton Heestand on 2018-09-05.
 //  Open Source - MIT License
 //
 

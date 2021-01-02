@@ -2,7 +2,7 @@
 //  EffectSingleBlurPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-14.
+//  Created by Anton Heestand on 2017-11-14.
 //  Copyright © 2017 Hexagons. All rights reserved.
 //
 

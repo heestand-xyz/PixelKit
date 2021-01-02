@@ -2,7 +2,7 @@
 //  RecordPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2017-12-15.
+//  Created by Anton Heestand on 2017-12-15.
 //  Open Source - MIT License
 //
 

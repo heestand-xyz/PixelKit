@@ -2,7 +2,7 @@
 //  AirPlayPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2017-12-09.
+//  Created by Anton Heestand on 2017-12-09.
 //  Open Source - MIT License
 //
 
