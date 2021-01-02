@@ -3,7 +3,6 @@
 //  PixelKit
 //
 //  Created by Hexagons on 2019-02-22.
-//  Copyright © 2019 Hexagons. All rights reserved.
 //
 
 #if os(iOS)

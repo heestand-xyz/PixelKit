@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class QuantizePIX: PIXSingleEffect {
@@ -15,11 +15,11 @@ public class QuantizePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = CGFloat(0.125, limit: true)
+    public var fraction: CGFloat = 0.125
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [fraction]
     }
     

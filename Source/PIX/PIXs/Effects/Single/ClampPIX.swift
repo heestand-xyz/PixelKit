@@ -3,7 +3,6 @@
 //  PixelKit
 //
 //  Created by Anton Heestand on 2019-04-01.
-//  Copyright © 2019 Hexagons. All rights reserved.
 //
 
 import CoreGraphics
@@ -18,7 +17,7 @@ public class ClampPIX: PIXSingleEffect {
     
     public var low: CGFloat = 0.0
     public var high: CGFloat = 1.0
-    public var clampAlpha: LiveBool = false
+    public var clampAlpha: Bool = false
     
     public enum Style: String, CaseIterable {
         case hold
@@ -40,7 +39,7 @@ public class ClampPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [low, high, clampAlpha]
     }
     

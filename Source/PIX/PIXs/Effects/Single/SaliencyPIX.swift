@@ -3,7 +3,6 @@
 //  PixelKit
 //
 //  Created by Anton Heestand on 2020-01-23.
-//  Copyright © 2020 Hexagons. All rights reserved.
 //
 
 
@@ -68,7 +67,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
             let saliencyTexture: MTLTexture
             if style == .objectness {
                 let ciImage: CIImage = Texture.ciImage(from: pixelBuffer)
-                let size: CGSize = customResolution!.size.cg
+                let size: CGSize = customResolution!.size
                 saliencyTexture = try Texture.makeTexture(from: ciImage, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, with: commandBuffer, on: pixelKit.render.metalDevice, vFlip: false)
             } else {
                 saliencyTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: pixelKit.render.bits, in: pixelKit.render.textureCache)

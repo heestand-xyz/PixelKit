@@ -255,7 +255,7 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
             return
         }
-        guard progressFraction!= fraction else {
+        guard progressFraction != fraction else {
             pixelKit.logger.log(node: self, .warning, .resource, "Fraction already at seek.")
             return
         }

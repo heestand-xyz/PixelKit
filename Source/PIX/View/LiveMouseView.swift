@@ -3,7 +3,6 @@
 //  PixelKit-macOS
 //
 //  Created by Anton Heestand on 2019-03-15.
-//  Copyright © 2019 Hexagons. All rights reserved.
 //
 
 #if os(macOS) && !targetEnvironment(macCatalyst)

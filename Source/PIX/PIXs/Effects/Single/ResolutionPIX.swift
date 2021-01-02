@@ -12,29 +12,29 @@ import CoreGraphics
 import SwiftUI
 #endif
 
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-@available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-public struct ResolutionPIXUI: View, PIXUI {
-    public var node: NODE { pix }
-    public let pix: PIX
-    let resolutionPix: ResolutionPIX
-    public var body: some View {
-        NODERepView(node: pix)
-    }
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), _ uiPix: () -> (NODEUI)) {
-        resolutionPix = ResolutionPIX(at: resolution)
-        pix = resolutionPix
-        resolutionPix.resolution = resolution
-        resolutionPix.input = uiPix().node as? (PIX & NODEOut)
-    }
-    public func placement(_ placement: Placement) -> ResolutionPIXUI {
-        resolutionPix.placement = placement
-        return self
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//@available(OSX 10.15, *)
+//@available(tvOS 13.0.0, *)
+//public struct ResolutionPIXUI: View, PIXUI {
+//    public var node: NODE { pix }
+//    public let pix: PIX
+//    let resolutionPix: ResolutionPIX
+//    public var body: some View {
+//        NODERepView(node: pix)
+//    }
+//    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), _ uiPix: () -> (NODEUI)) {
+//        resolutionPix = ResolutionPIX(at: resolution)
+//        pix = resolutionPix
+//        resolutionPix.resolution = resolution
+//        resolutionPix.input = uiPix().node as? (PIX & NODEOut)
+//    }
+//    public func placement(_ placement: Placement) -> ResolutionPIXUI {
+//        resolutionPix.placement = placement
+//        return self
+//    }
+//}
+//#endif
 
 public class ResolutionPIX: PIXSingleEffect, NODEResolution {
 

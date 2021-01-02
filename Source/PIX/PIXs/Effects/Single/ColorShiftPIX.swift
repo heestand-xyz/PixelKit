@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 @available(*, deprecated, renamed: "ColorShiftPIX")
@@ -24,7 +24,7 @@ public class ColorShiftPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [hue, saturation, tintColor]
     }
     

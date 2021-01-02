@@ -3,7 +3,6 @@
 //  Pixel Nodes
 //
 //  Created by Hexagons on 2018-01-03.
-//  Copyright © 2018 Hexagons. All rights reserved.
 //
 
 #if os(iOS)

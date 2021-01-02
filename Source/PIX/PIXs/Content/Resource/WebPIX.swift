@@ -3,7 +3,6 @@
 //  PixelKit
 //
 //  Created by Anton Heestand on 2019-07-03.
-//  Copyright © 2019 Hexagons. All rights reserved.
 //
 
 import RenderKit

@@ -3,7 +3,6 @@
 //  PixelKit
 //
 //  Created by Hexagons on 2020-02-02.
-//  Copyright © 2020 Hexagons. All rights reserved.
 //
 
 #if os(iOS) && !targetEnvironment(macCatalyst)

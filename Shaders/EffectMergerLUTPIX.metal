@@ -3,7 +3,6 @@
 //  PixelKitShaders
 //
 //  Created by Hexagons on 2020-03-22.
-//  Copyright © 2020 Hexagons. All rights reserved.
 //
 
 #include <metal_stdlib>

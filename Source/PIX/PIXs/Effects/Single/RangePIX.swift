@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class RangePIX: PIXSingleEffect {
@@ -23,11 +23,11 @@ public class RangePIX: PIXSingleEffect {
     public var inHighColor: PXColor = .white
     public var outLowColor: PXColor = .clear
     public var outHighColor: PXColor = .white
-    public var ignoreAlpha: LiveBool = true
+    public var ignoreAlpha: Bool = true
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     

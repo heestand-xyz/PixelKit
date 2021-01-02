@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class LevelsPIX: PIXSingleEffect {
@@ -15,17 +15,17 @@ public class LevelsPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var brightness: CGFloat = CGFloat(1.0, max: 2.0)
+    public var brightness: CGFloat = 1.0
     public var darkness: CGFloat = 0.0
     public var contrast: CGFloat = 0.0
     public var gamma: CGFloat = 1.0
-    public var inverted: LiveBool = false
-    public var smooth: LiveBool = false
-    public var opacity: CGFloat = CGFloat(1.0, limit: true)
+    public var inverted: Bool = false
+    public var smooth: Bool = false
+    public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     
