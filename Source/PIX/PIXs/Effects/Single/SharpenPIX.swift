@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class SharpenPIX: PIXSingleEffect {
@@ -15,11 +15,11 @@ public class SharpenPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var contrast: CGFloat = CGFloat(1.0, min: 0.0, max: 2.0)
+    public var contrast: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [contrast]
     }
     

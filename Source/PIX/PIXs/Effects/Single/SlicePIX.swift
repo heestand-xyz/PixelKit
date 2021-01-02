@@ -6,7 +6,7 @@
 //
 
 import CoreGraphics
-
+import RenderKit
 
 public class SlicePIX: PIXSingleEffect {
     
@@ -31,7 +31,7 @@ public class SlicePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         [fraction]
     }
     

@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class CrossPIX: PIXMergerEffect {
@@ -15,7 +15,7 @@ public class CrossPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = CGFloat(0.5, limit: true)
+    public var fraction: CGFloat = 0.5
     
     // MARK: - Property Helpers
     

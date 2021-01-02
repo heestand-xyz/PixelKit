@@ -51,12 +51,12 @@ public class ConvertPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    public override var liveValues: [LiveValue] {
+    public override var values: [CoreValue] {
         return [xRotation, yRotation]
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(mode.index), xRotation.uniform, yRotation.uniform]
+        return [CGFloat(mode.index), xRotation, yRotation]
     }
     
     // MARK: - Life Cycle

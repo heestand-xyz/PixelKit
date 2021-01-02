@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class EdgePIX: PIXSingleEffect {
@@ -15,15 +15,15 @@ public class EdgePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var strength: CGFloat = CGFloat(10.0, min: 0.0)
-    public var distance: CGFloat = CGFloat(1.0, min: 0.0)
-    public var colored: LiveBool = false
-    public var transparent: LiveBool = false
-    public var includeAlpha: LiveBool = false
+    public var strength: CGFloat = 10.0
+    public var distance: CGFloat = 1.0
+    public var colored: Bool = false
+    public var transparent: Bool = false
+    public var includeAlpha: Bool = false
 
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var liveValues: [CoreValue] {
         return [strength, distance, colored, transparent, includeAlpha]
     }
     
