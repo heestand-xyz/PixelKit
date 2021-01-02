@@ -20,14 +20,9 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Public Properties
     
-//    public var seconds: CGFloat = 1.0
     public var delayFrames: Int = 10 { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
-    
-//    override public var values: [CoreValue] {
-//        return [seconds]
-//    }
     
     // MARK: - Life Cycle
     
@@ -41,10 +36,6 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
             guard self!.connectedIn else { return }
             self!.setNeedsRender()
         }
-    }
-    
-    deinit {
-        print("±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±± DELAY")
     }
     
     // MARK: Delay
