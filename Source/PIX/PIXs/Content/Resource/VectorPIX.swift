@@ -2,7 +2,7 @@
 //  VectorPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2019-06-02.
+//  Created by Anton Heestand on 2019-06-02.
 //
 
 import RenderKit

@@ -2,7 +2,7 @@
 //  SlicePIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2019-10-05.
+//  Created by Anton Heestand on 2019-10-05.
 //
 
 import CoreGraphics

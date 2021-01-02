@@ -2,7 +2,7 @@
 //  EffectMultiHDRPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2020-06-20.
+//  Created by Anton Heestand on 2020-06-20.
 //
 
 #include <metal_stdlib>

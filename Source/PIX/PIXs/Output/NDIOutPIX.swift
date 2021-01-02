@@ -2,7 +2,7 @@
 //  NDIOutPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2020-02-06.
+//  Created by Anton Heestand on 2020-02-06.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  EffectSingleColorShiftPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2017-11-18.
+//  Created by Anton Heestand on 2017-11-18.
 //
 
 #include <metal_stdlib>

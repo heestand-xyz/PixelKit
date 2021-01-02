@@ -2,7 +2,7 @@
 //  LiveTouchView.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2019-02-22.
+//  Created by Anton Heestand on 2019-02-22.
 //
 
 #if os(iOS)

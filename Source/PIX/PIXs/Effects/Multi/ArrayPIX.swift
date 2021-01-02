@@ -2,7 +2,7 @@
 //  ArrayPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2019-04-12.
+//  Created by Anton Heestand on 2019-04-12.
 //
 
 

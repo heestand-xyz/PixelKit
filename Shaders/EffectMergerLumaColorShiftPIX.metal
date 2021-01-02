@@ -2,7 +2,7 @@
 //  EffectMergerLumaColorShiftPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2020-06-01.
+//  Created by Anton Heestand on 2020-06-01.
 //
 
 #include <metal_stdlib>

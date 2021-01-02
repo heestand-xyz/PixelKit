@@ -2,7 +2,7 @@
 //  PaintPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2020-02-02.
+//  Created by Anton Heestand on 2020-02-02.
 //
 
 #if os(iOS) && !targetEnvironment(macCatalyst)

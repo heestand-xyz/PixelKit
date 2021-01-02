@@ -2,7 +2,7 @@
 //  EffectMergerLUTPIX.metal
 //  PixelKitShaders
 //
-//  Created by Hexagons on 2020-03-22.
+//  Created by Anton Heestand on 2020-03-22.
 //
 
 #include <metal_stdlib>

@@ -2,7 +2,7 @@
 //  TimeMachinePIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2019-03-16.
+//  Created by Anton Heestand on 2019-03-16.
 //
 
 

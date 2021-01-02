@@ -2,7 +2,7 @@
 //  Peer.swift
 //  Pixel Nodes
 //
-//  Created by Hexagons on 2018-01-03.
+//  Created by Anton Heestand on 2018-01-03.
 //
 
 #if os(iOS)

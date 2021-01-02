@@ -2,7 +2,7 @@
 //  ThresholdPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-17.
+//  Created by Anton Heestand on 2018-08-17.
 //  Open Source - MIT License
 //
 

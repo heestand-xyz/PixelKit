@@ -2,7 +2,7 @@
 //  KaleidoscopePIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-18.
+//  Created by Anton Heestand on 2018-08-18.
 //  Open Source - MIT License
 //
 

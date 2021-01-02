@@ -2,7 +2,7 @@
 //  VideoPIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-24.
+//  Created by Anton Heestand on 2018-08-24.
 //  Open Source - MIT License
 //
 

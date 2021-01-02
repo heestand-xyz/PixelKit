@@ -2,7 +2,7 @@
 //  EffectSingleConvertPIX.metal
 //  PixelKitShaders
 //
-//  Created by Hexagons on 2019-04-25.
+//  Created by Anton Heestand on 2019-04-25.
 //
 
 #include <metal_stdlib>

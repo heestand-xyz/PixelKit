@@ -2,7 +2,7 @@
 //  EffectSingleClampPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Hexagons on 2019-04-01.
+//  Created by Anton Heestand on 2019-04-01.
 //
 
 #include <metal_stdlib>

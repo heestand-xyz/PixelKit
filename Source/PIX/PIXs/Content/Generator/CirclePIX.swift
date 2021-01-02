@@ -2,7 +2,7 @@
 //  CirclePIX.swift
 //  PixelKit
 //
-//  Created by Hexagons on 2018-08-07.
+//  Created by Anton Heestand on 2018-08-07.
 //  Open Source - MIT License
 //
 
