@@ -65,7 +65,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
     public var spacing: CGFloat = 0.0
     public var padding: CGFloat = 0.0
     
-    public var backgroundColor: LiveColor = .clear
+    public var backgroundColor: PXColor = .clear
     
     // MARK: - Property Helpers
     
@@ -76,7 +76,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
     public override var postUniforms: [CGFloat] {
         (0..<10).map { i -> CGFloat in
             guard i < inputs.count else { return 1.0 }
-            return inputs[i].renderResolution.aspect.cg
+            return inputs[i].renderResolution.aspect
         }
     }
     

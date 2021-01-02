@@ -21,7 +21,7 @@ public class LookupPIX: PIXMergerEffect, PIXAuto {
     }
     
     var holdEdgeFraction: CGFloat {
-        let axisRes = axis == .x ? renderResolution.width : renderResolution.height.cg
+        let axisRes = axis == .x ? renderResolution.width : renderResolution.height
         return 1 / axisRes
     }
     

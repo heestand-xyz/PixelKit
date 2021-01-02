@@ -77,15 +77,15 @@ public class ImagePIX: PIXResource {
         #if !os(macOS)
         guard let res = resizeToFitResolution else { return nil }
         guard let image = image else { return nil }
-        return Resolution.cgSize(image.size).aspectResolution(to: .fit, in: res)
+        return Resolution.size(image.size).aspectResolution(to: .fit, in: res)
         #else
         return nil
         #endif
     }
     
     public var tint: LiveBool = false
-    public var tintColor: LiveColor = .white
-    public var bgColor: LiveColor = .clear
+    public var tintColor: PXColor = .white
+    public var bgColor: PXColor = .clear
 
     // MARK: - Property Helpers
     
@@ -128,7 +128,7 @@ public class ImagePIX: PIXResource {
         }
         #if !os(macOS)
         if let res = resizedResolution {
-            image = Texture.resize(image, to: res.size.cg)
+            image = Texture.resize(image, to: res.size)
         }
         #endif
         if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {

@@ -56,7 +56,7 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         let resolution: Resolution = getCustomResolution(from: texture.resolution)
-        guard let destinationTexture: MTLTexture = try? Texture.emptyTexture(size: resolution.size.cg,
+        guard let destinationTexture: MTLTexture = try? Texture.emptyTexture(size: resolution.size,
                                                                              bits: pixelKit.render.bits,
                                                                              on: pixelKit.render.metalDevice,
                                                                              write: true) else {

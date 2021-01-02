@@ -18,7 +18,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     public var resolution: Resolution { didSet { reSize(); applyResolution { self.setNeedsRender() } } }
     
-    public var bgColor: LiveColor = .black {
+    public var bgColor: PXColor = .black {
         didSet {
             scene.backgroundColor = bgColor._color
             setNeedsRender()
@@ -40,7 +40,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     }
     
     func setup() {
-        let size = (resolution / Resolution.scale).size.cg
+        let size = (resolution / Resolution.scale).size
         scene = SKScene(size: size)
         scene.backgroundColor = bgColor._color
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
@@ -49,7 +49,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     }
     
     func reSize() {
-        let size = (resolution / Resolution.scale).size.cg
+        let size = (resolution / Resolution.scale).size
         scene.size = size
         sceneView.frame = CGRect(origin: .zero, size: size)
     }

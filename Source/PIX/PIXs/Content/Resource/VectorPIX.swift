@@ -82,7 +82,7 @@ public class VectorPIX: PIXResource {
     // MARK: - Frame
     
     func setFrame() {
-        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size.cg)
+        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size)
     }
     
     // MARK: Buffer
@@ -95,7 +95,7 @@ public class VectorPIX: PIXResource {
 //            })
 //            return
 //        }
-//        UIGraphicsBeginImageContextWithOptions(resolution.size.cg, false, 0)
+//        UIGraphicsBeginImageContextWithOptions(resolution.size, false, 0)
 //        defer { UIGraphicsEndImageContext() }
 //        guard let context = UIGraphicsGetCurrentContext() else {
 //            pixelKit.logger.log(.error, .resource, "Vector context fail.")
@@ -122,8 +122,8 @@ public class VectorPIX: PIXResource {
     }
     
     func makeHTML(with svg: String) -> String {
-        let size: CGSize = (resolution / Resolution.scale).size.cg
-        let bgColorHex: String = LiveColor(bgColor).hex
+        let size: CGSize = (resolution / Resolution.scale).size
+        let bgColorHex: String = PXColor(bgColor).hex
         var svg_html: String = svg
         let svg_html_components = svg_html.components(separatedBy: "<svg")
         let svg_html_splits = svg_html_components.last!.split(separator: ">", maxSplits: 1)

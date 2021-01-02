@@ -41,7 +41,7 @@ extension PIX {
                         scale = CGFloat(pixelsWide) / image.size.width
                     }
                     #endif
-                    return Resolution.cgSize(image.size) * CGFloat(scale)
+                    return Resolution.size(image.size) * scale
                 } else {
                     #if !os(tvOS)
                     if #available(OSX 10.13, *) {
@@ -60,7 +60,7 @@ extension PIX {
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.resolution
             } else if let pixSprite = pixContent as? PIXSprite {
-                return .cgSize(pixSprite.scene?.size ?? CGSize(width: 128, height: 128)) * Resolution.scale
+                return .size(pixSprite.scene?.size ?? CGSize(width: 128, height: 128)) * Resolution.scale
             } else if let pixCustom = pixContent as? PIXCustom {
                 return pixCustom.resolution
             } else { return nil }

@@ -16,19 +16,19 @@ public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var red: LiveColor.Pure = .red { didSet { setNeedsRender() } }
-    public var green: LiveColor.Pure = .green { didSet { setNeedsRender() } }
-    public var blue: LiveColor.Pure = .blue { didSet { setNeedsRender() } }
-    public var alpha: LiveColor.Pure = .alpha { didSet { setNeedsRender() } }
+    public var red: PXColor.Pure = .red { didSet { setNeedsRender() } }
+    public var green: PXColor.Pure = .green { didSet { setNeedsRender() } }
+    public var blue: PXColor.Pure = .blue { didSet { setNeedsRender() } }
+    public var alpha: PXColor.Pure = .alpha { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
     public override var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = []
-        uniforms.append(contentsOf: LiveColor(pure: red).uniformList)
-        uniforms.append(contentsOf: LiveColor(pure: green).uniformList)
-        uniforms.append(contentsOf: LiveColor(pure: blue).uniformList)
-        uniforms.append(contentsOf: LiveColor(pure: alpha).uniformList)
+        uniforms.append(contentsOf: PXColor(pure: red).uniformList)
+        uniforms.append(contentsOf: PXColor(pure: green).uniformList)
+        uniforms.append(contentsOf: PXColor(pure: blue).uniformList)
+        uniforms.append(contentsOf: PXColor(pure: alpha).uniformList)
         return uniforms
     }
     
@@ -42,7 +42,7 @@ public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _swap(_ pureColorA: LiveColor.Pure, _ pureColorB: LiveColor.Pure) -> ChannelMixPIX {
+    func _swap(_ pureColorA: PXColor.Pure, _ pureColorB: PXColor.Pure) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
         channelMixPix.input = self as? PIX & NODEOut

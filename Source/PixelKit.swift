@@ -156,7 +156,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                     throw Engine.RenderError.texture("Sprite Texture fail.")
                 }
                 let spriteImage: CGImage = spriteTexture.cgImage()
-                guard let spriteBuffer = Texture.buffer(from: spriteImage, at: nodeSprite.resolution.size.cg) else {
+                guard let spriteBuffer = Texture.buffer(from: spriteImage, at: nodeSprite.resolution.size) else {
                     throw Engine.RenderError.texture("Sprite Buffer fail.")
                 }
                 do {

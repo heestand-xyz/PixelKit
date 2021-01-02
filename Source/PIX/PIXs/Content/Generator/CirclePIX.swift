@@ -16,7 +16,7 @@ public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
     public var radius: CGFloat = CGFloat(0.25, max: 0.5)
     public var position: CGPoint = .zero
     public var edgeRadius: CGFloat = CGFloat(0.0, max: 0.25)
-    public var edgeColor: LiveColor = .gray
+    public var edgeColor: PXColor = .gray
     
     // MARK: - Property Helpers
     

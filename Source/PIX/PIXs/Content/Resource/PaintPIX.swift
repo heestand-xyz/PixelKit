@@ -143,7 +143,7 @@ public class PaintPIX: PIXResource {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
     }
-    public var bgColor: LiveColor = .black {
+    public var bgColor: PXColor = .black {
         didSet {
             canvasView.backgroundColor = bgColor.uiColor
         }
@@ -178,7 +178,7 @@ public class PaintPIX: PIXResource {
     }
     
     func setFrame() {
-        canvasView.frame = CGRect(origin: .zero, size: resolution.size.cg)
+        canvasView.frame = CGRect(origin: .zero, size: resolution.size)
     }
     
     public func clear() {
@@ -196,7 +196,7 @@ public class PaintPIX: PIXResource {
     // MARK: Buffer
     
     func setNeedsBuffer() {
-        let frame: CGRect = CGRect(origin: .zero, size: resolution.size.cg)
+        let frame: CGRect = CGRect(origin: .zero, size: resolution.size)
         let image: UIImage = drawing.image(from: frame, scale: 1.0)
         guard let cgImage: CGImage = image.cgImage else { return }
         guard let bits = Bits(rawValue: cgImage.bitsPerPixel) else { return }

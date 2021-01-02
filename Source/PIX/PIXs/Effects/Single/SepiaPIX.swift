@@ -16,7 +16,7 @@ public class SepiaPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var color: LiveColor = .orange
+    public var color: PXColor = .orange
     
     // MARK: - Property Helpers
     

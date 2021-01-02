@@ -391,7 +391,7 @@ public class SyphonInPIX: PIXResource {
 //
 //        let provider: CGDataProvider! = CGDataProvider(data: cfdata)
 //
-//        let iref: CGImage? = CGImage(width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: Int(size.width)*4, space: PixelKit.main.colorSpace.cg, bitmapInfo: CGBitmapInfo.byteOrder32Big, provider: provider, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
+//        let iref: CGImage? = CGImage(width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: Int(size.width)*4, space: PixelKit.main.colorSpace, bitmapInfo: CGBitmapInfo.byteOrder32Big, provider: provider, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
 //        UIGraphicsBeginImageContext(size)
 //        let cgcontext: CGContext? = UIGraphicsGetCurrentContext()
 //        cgcontext!.setBlendMode(CGBlendMode.copy)

@@ -15,7 +15,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
     
     // MARK: - Public Properties
     
-    public var keyColor: LiveColor = .green
+    public var keyColor: PXColor = .green
     public var range: CGFloat = CGFloat(0.1, min: 0.0, max: 0.5)
     public var softness: CGFloat = CGFloat(0.1, min: 0.0, max: 0.5)
     public var edgeDesaturation: CGFloat = 0.5
@@ -38,7 +38,7 @@ public class ChromaKeyPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _chromaKey(_ color: LiveColor) -> ChromaKeyPIX {
+    func _chromaKey(_ color: PXColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.name = ":chromaKey:"
         chromaKeyPix.input = self as? PIX & NODEOut

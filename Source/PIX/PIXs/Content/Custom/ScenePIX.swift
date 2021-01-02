@@ -98,12 +98,12 @@ public class ScenePIX: PIXCustom {
         
         if !clearRender {
             
-            let viewport = CGRect(x: 0, y: 0, width: resolution.width.cg, height: resolution.height.cg)
+            let viewport = CGRect(x: 0, y: 0, width: resolution.width, height: resolution.height)
             
             let renderPassDescriptor = MTLRenderPassDescriptor()
             renderPassDescriptor.colorAttachments[0].texture = customTexture
             renderPassDescriptor.colorAttachments[0].loadAction = .clear
-            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r.cg), Double(bgColor.g.cg), Double(bgColor.b.cg), Double(bgColor.a.cg))
+            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(Double(bgColor.r), Double(bgColor.g), Double(bgColor.b), Double(bgColor.a))
             renderPassDescriptor.colorAttachments[0].storeAction = .store
             
             renderer.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)

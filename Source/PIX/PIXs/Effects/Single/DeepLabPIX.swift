@@ -76,7 +76,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
 
 //    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        pixelKit.logger.log(node: self, .info, .effect, "Custom Render Start")
-//        let size: CGSize = customResolution!.size.cg
+//        let size: CGSize = customResolution!.size
 //        do {
 //            let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
 //            if !processing {
@@ -233,7 +233,7 @@ public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
 //            bitsPerComponent: bytesPerComponent * 8,
 //            bitsPerPixel: bytesPerPixel * 8,
 //            bytesPerRow: bytesPerPixel * w,
-//            space: pixelKit.render.colorSpace.cg, //CGColorSpaceCreateDeviceRGB(),
+//            space: pixelKit.render.colorSpace, //CGColorSpaceCreateDeviceRGB(),
 //            bitmapInfo: CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Big.rawValue),
 //            provider: provider,
 //            decode: nil,

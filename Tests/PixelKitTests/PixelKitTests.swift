@@ -54,7 +54,7 @@ final class PixelKitTests: XCTestCase {
 //                    expect.fulfill();
 //                    return
 //                }
-//                let lum = pixels.average.lum.cg
+//                let lum = pixels.average.lum
 //                XCTAssert(lum == average.value, "\(average.key.name) average should be \(average.value) and was \(lum)")
 //                expect.fulfill()
 //            }

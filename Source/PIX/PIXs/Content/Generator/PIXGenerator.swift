@@ -26,12 +26,12 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, NODETileable
     public var tileResolution: Resolution { pixelKit.tileResolution }
     public var tileTextures: [[MTLTexture]]?
     
-    public var bgColor: LiveColor = .black
-    public var backgroundColor: LiveColor {
+    public var bgColor: PXColor = .black
+    public var backgroundColor: PXColor {
         get { bgColor }
         set { bgColor = newValue }
     }
-    public var color: LiveColor = .white
+    public var color: PXColor = .white
 
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         fatalError("please use init(at:name:typeName:)")

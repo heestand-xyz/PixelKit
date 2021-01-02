@@ -278,7 +278,7 @@ public class CameraPIX: PIXResource {
         didSet {
             helper?.manualWhiteBalance(manualWhiteBalance)
             if manualWhiteBalance {
-                helper?.setWhiteBalance(LiveColor(whiteBalance))
+                helper?.setWhiteBalance(PXColor(whiteBalance))
             }
         }
     }
@@ -288,7 +288,7 @@ public class CameraPIX: PIXResource {
         }
         set {
             guard manualWhiteBalance else { return }
-            helper?.setWhiteBalance(LiveColor(newValue))
+            helper?.setWhiteBalance(PXColor(newValue))
         }
     }
 
@@ -1088,11 +1088,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         device.unlockForConfiguration()
     }
     
-    func setWhiteBalance(_ color: LiveColor) {
+    func setWhiteBalance(_ color: PXColor) {
         guard let device = device else { return }
         let range = device.maxWhiteBalanceGain - 1.0
         try? device.lockForConfiguration()
-        device.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r.cg) * range, greenGain: 1.0 + Float(color.g.cg) * range, blueGain: 1.0 + Float(color.b.cg) * range))
+        device.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r) * range, greenGain: 1.0 + Float(color.g) * range, blueGain: 1.0 + Float(color.b) * range))
         device.unlockForConfiguration()
     }
     
@@ -1111,10 +1111,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         return device.focusPointOfInterest
     }
 
-    func getWhiteBalance() -> LiveColor {
+    func getWhiteBalance() -> PXColor {
         guard let device = device else { return .clear }
         let range = device.maxWhiteBalanceGain - 1.0
-        return LiveColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
+        return PXColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
                          g: CGFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
                          b: CGFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
     }

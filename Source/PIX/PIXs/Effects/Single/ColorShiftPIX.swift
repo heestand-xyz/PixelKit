@@ -20,7 +20,7 @@ public class ColorShiftPIX: PIXSingleEffect, PIXAuto {
 
     public var hue: CGFloat = 0.0
     public var saturation: CGFloat = 1.0
-    public var tintColor: LiveColor = .white
+    public var tintColor: PXColor = .white
     
     // MARK: - Property Helpers
     
@@ -38,7 +38,7 @@ public class ColorShiftPIX: PIXSingleEffect, PIXAuto {
 
 public extension NODEOut {
     
-    func _tint(_ tintColor: LiveColor) -> ColorShiftPIX {
+    func _tint(_ tintColor: PXColor) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "tint:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut
@@ -62,7 +62,7 @@ public extension NODEOut {
         return colorShiftPix
     }
     
-    func _monochrome(_ tintColor: LiveColor = .white) -> ColorShiftPIX {
+    func _monochrome(_ tintColor: PXColor = .white) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "monochrome:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut

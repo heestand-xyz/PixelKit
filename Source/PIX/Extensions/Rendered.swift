@@ -81,11 +81,11 @@ public extension PIX {
             pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
             return nil
         }
-        guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
+        guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
             return nil
         }
-        return Texture.image(from: cgImage, at: renderResolution.size.cg)
+        return Texture.image(from: cgImage, at: renderResolution.size)
     }
     
     func renderedTileImage(at tileIndex: TileIndex) -> _Image? {
@@ -209,8 +209,8 @@ public extension PIX {
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
         }
-        public var average: LiveColor {
-            var color: LiveColor!
+        public var average: PXColor {
+            var color: PXColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -227,14 +227,14 @@ public extension PIX {
             var luminance: CGFloat = 0.0
             for row in raw {
                 for px in row {
-                    luminance += px.color.lum.cg
+                    luminance += px.color.lum
                 }
             }
             luminance /= CGFloat(resolution.count)
             return luminance
         }
-        public var maximum: LiveColor {
-            var color: LiveColor!
+        public var maximum: PXColor {
+            var color: PXColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -248,8 +248,8 @@ public extension PIX {
             }
             return color
         }
-        public var minimum: LiveColor {
-            var color: LiveColor!
+        public var minimum: PXColor {
+            var color: PXColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -269,8 +269,8 @@ public extension PIX {
         guard let resolution = realResolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
         var pixels: [[Pixel]] = []
-        let w = Int(resolution.width.cg)
-        let h = Int(resolution.height.cg)
+        let w = Int(resolution.width)
+        let h = Int(resolution.height)
         for y in 0..<h {
             let v = (CGFloat(y) + 0.5) / CGFloat(h)
             var pixelRow: [Pixel] = []
@@ -283,7 +283,7 @@ public extension PIX {
                     let chan = rawPixels[j]
                     c.append(chan)
                 }
-                let color = LiveColor(c)
+                let color = PXColor(c)
                 let uv = CGVector(dx: u, dy: v)
                 let pixel = Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)

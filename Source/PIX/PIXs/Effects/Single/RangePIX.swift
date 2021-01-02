@@ -19,10 +19,10 @@ public class RangePIX: PIXSingleEffect, PIXAuto {
     public var inHigh: CGFloat = 1.0
     public var outLow: CGFloat = 0.0
     public var outHigh: CGFloat = 1.0
-    public var inLowColor: LiveColor = .clear
-    public var inHighColor: LiveColor = .white
-    public var outLowColor: LiveColor = .clear
-    public var outHighColor: LiveColor = .white
+    public var inLowColor: PXColor = .clear
+    public var inHighColor: PXColor = .white
+    public var outLowColor: PXColor = .clear
+    public var outHighColor: PXColor = .white
     public var ignoreAlpha: LiveBool = true
     
     // MARK: - Property Helpers
@@ -50,7 +50,7 @@ public extension NODEOut {
         return rangePix
     }
     
-    func _range(inLow: LiveColor = .clear, inHigh: LiveColor = .white, outLow: LiveColor = .clear, outHigh: LiveColor = .white) -> RangePIX {
+    func _range(inLow: PXColor = .clear, inHigh: PXColor = .white, outLow: PXColor = .clear, outHigh: PXColor = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.input = self as? PIX & NODEOut

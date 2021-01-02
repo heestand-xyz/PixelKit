@@ -81,7 +81,7 @@ public class WebPIX: PIXResource, NODEResolution {
     // MARK: - Frame
     
     func setFrame() {
-        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size.cg)
+        webView.frame = CGRect(origin: .zero, size: (resolution / Resolution.scale).size)
     }
     
     // MARK: - Buffer
@@ -94,7 +94,7 @@ public class WebPIX: PIXResource, NODEResolution {
 ////                config.afterScreenUpdates = false
 //            }
 //        }
-//        config.rect = CGRect(origin: .zero, size: resolution.size.cg)
+//        config.rect = CGRect(origin: .zero, size: resolution.size)
         webView.takeSnapshot(with: nil) { image, error in
             guard error == nil else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)

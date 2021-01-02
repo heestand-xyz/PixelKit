@@ -42,7 +42,7 @@ public struct ViewPIXUI<Content: View>: View, PIXUI {
 //        PixelKit.main.render.listenToFramesUntil {
 //            let resolution: Resolution = .auto(render: PixelKit.main.render)
 //            guard resolution.w != 128 else { return .continue }
-//            let size = (res / Resolution.scale).size.cg
+//            let size = (res / Resolution.scale).size
 //            uiView.frame = CGRect(origin: .zero, size: size)
 //            viewPix.viewNeedsRender()
 //            return .done
@@ -118,8 +118,8 @@ public class ViewPIX: PIXResource {
                     let viewRelSize = self.renderView!.frame.size
                     let viewSize = LiveSize(viewRelSize) * Resolution.scale
                     let res: Resolution = .auto(render: self.pixelKit.render)
-                    let resSize = self.renderResolution.size.cg
-                    let resRelSize = (res / Resolution.scale).size.cg
+                    let resSize = self.renderResolution.size
+                    let resRelSize = (res / Resolution.scale).size
                     if viewSize != resSize {
                         self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
                         self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
@@ -158,7 +158,7 @@ public class ViewPIX: PIXResource {
         let image: NSImage = NSImage(size: view.bounds.size)
         image.addRepresentation(rep)
         #else
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, Resolution.scale.cg)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, Resolution.scale)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         guard let image: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
             pixelKit.logger.log(node: self, .error, .resource, "Image creation failed.")

@@ -33,7 +33,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     
     public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
     public var coordinates: [Coordinate] = []
-    public var bgColor: LiveColor = .black
+    public var bgColor: PXColor = .black
     
     // MARK: - Property Helpers
     
@@ -97,7 +97,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
     public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: CGFloat = 1.0) { // CRASH: - 2.0.3
         guard scale != 0.0 else { return }
         coordinates = []
-        let aspect = renderResolution.aspect.cg
+        let aspect = renderResolution.aspect
         let hexScale: CGFloat = sqrt(0.75)
         let xScale = hexScale * scale
         let yScale = (3 / 4) * scale
@@ -149,7 +149,7 @@ public class ArrayPIX: PIXMultiEffect, PIXAuto {
         coordinates = []
         let pixCount = inputs.isEmpty ? 1 : inputs.count
         for _ in 0..<count {
-            let aspect = renderResolution.aspect.cg
+            let aspect = renderResolution.aspect
             let position = CGPoint(x: CGFloat.random(in: (-aspect / 2)...(aspect / 2)),
                                    y: CGFloat.random(in: -0.5...0.5))
             let rotation = CGFloat.random(in: 0.0...1.0)

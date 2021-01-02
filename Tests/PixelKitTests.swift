@@ -218,7 +218,7 @@ class PixelKitTests: XCTestCase {
                         text += "\n"
                     }
                     for pixel in row {
-                        let c = pixel.color.lum.cg
+                        let c = pixel.color.lum
                         text += c <= 0.0 ? "◾️" : c <= 0.25 ? "▫️" : c <= 0.5 ? "◽️" : c <= 0.75 ? "◻️" : "⬜️"
                     }
                 }
@@ -253,8 +253,8 @@ class PixelKitTests: XCTestCase {
                 return
             }
             let color = pixels.average
-            let hue = color.hue.cg
-            let sat = color.sat.cg
+            let hue = color.hue
+            let sat = color.sat
             let roundHue = round(hue * 100) / 100
             let roundSat = round(sat * 100) / 100
             XCTAssertEqual(roundHue, 0.5)
@@ -296,7 +296,7 @@ class PixelKitTests: XCTestCase {
                     return
                 }
                 
-                let avg = pixels.average.lum.cg
+                let avg = pixels.average.lum
                 XCTAssertEqual(avg, 0.0, auto.name)
 //                if avg != 0.0 {
 //                    let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
@@ -348,7 +348,7 @@ class PixelKitTests: XCTestCase {
                     return
                 }
                 
-                let avg = pixels.average.lum.cg
+                let avg = pixels.average.lum
                 XCTAssertEqual(avg, 0.0, auto.name)
 //                if avg != 0.0 {
 //                    let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
@@ -401,7 +401,7 @@ class PixelKitTests: XCTestCase {
                     return
                 }
                 
-                let avg = pixels.average.lum.cg
+                let avg = pixels.average.lum
                 XCTAssertEqual(avg, 0.0, auto.name)
 //                if avg != 0.0 {
 //                    let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_diff.png")
@@ -458,7 +458,7 @@ class PixelKitTests: XCTestCase {
                         return
                     }
                     
-                    let avg = pixels.average.lum.cg
+                    let avg = pixels.average.lum
                     XCTAssertEqual(avg, 0.0, auto.name)
 //                    if avg != 0.0 {
 //                        let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_\(i)_diff.png")
@@ -517,7 +517,7 @@ class PixelKitTests: XCTestCase {
                         return
                     }
                     
-                    let avg = pixels.average.lum.cg
+                    let avg = pixels.average.lum
                     XCTAssertEqual(avg, 0.0, auto.name)
 //                    if avg != 0.0 {
 //                        let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_\(i)_diff.png")
@@ -577,7 +577,7 @@ class PixelKitTests: XCTestCase {
                         return
                     }
                     
-                    let avg = pixels.average.lum.cg
+                    let avg = pixels.average.lum
                     XCTAssertEqual(avg, 0.0, auto.name)
 //                    if avg != 0.0 {
 //                        let diffUrl = folderUrl.appendingPathComponent("\(auto.name)_\(i)_diff.png")

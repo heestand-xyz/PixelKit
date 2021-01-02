@@ -92,14 +92,14 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsFont() {
-        let size: CGSize = (renderResolution / Resolution.scale).size.cg
+        let size: CGSize = (renderResolution / Resolution.scale).size
         label.fontName = font.fontName
         let x = font.pointSize * size.height
         label.fontSize = x
     }
     
     func setNeedsPosition() {
-        let size: CGSize = (renderResolution / Resolution.scale).size.cg
+        let size: CGSize = (renderResolution / Resolution.scale).size
         let pos = CGPoint(x: position.x * size.height,
                           y: position.y * size.height)
         label.position = CGPoint(x: size.width / 2 + pos.x,

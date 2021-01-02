@@ -24,7 +24,7 @@ public class FlarePIX: PIXSingleEffect, PIXAuto {
     public var threshold: CGFloat = 0.95
     public var brightness: CGFloat = CGFloat(1.0, max: 2.0)
     public var gamma: CGFloat = 0.25
-    public var color: LiveColor = .orange
+    public var color: PXColor = .orange
     public var rayRes: LiveInt = LiveInt(32, min: 8, max: 64)
     
     // MARK: - Property Helpers

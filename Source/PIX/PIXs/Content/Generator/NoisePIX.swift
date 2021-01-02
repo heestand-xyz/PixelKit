@@ -42,18 +42,18 @@ public struct PixNoise: View, PIXUI {
     }
     // Parent Property Funcs
     public func bgColor(_ bgColor: Binding<_Color>) -> PixNoise {
-        noisepix.bgColor = LiveColor({ bgColor.wrappedValue })
+        noisepix.bgColor = PXColor({ bgColor.wrappedValue })
         return self
     }
-    public func bgColor(_ bgColor: LiveColor) -> PixNoise {
+    public func bgColor(_ bgColor: PXColor) -> PixNoise {
         noisepix.bgColor = bgColor
         return self
     }
     public func color(_ color: Binding<_Color>) -> PixNoise {
-        noisepix.color = LiveColor({ color.wrappedValue })
+        noisepix.color = PXColor({ color.wrappedValue })
         return self
     }
-    public func color(_ color: LiveColor) -> PixNoise {
+    public func color(_ color: PXColor) -> PixNoise {
         noisepix.color = color
         return self
     }

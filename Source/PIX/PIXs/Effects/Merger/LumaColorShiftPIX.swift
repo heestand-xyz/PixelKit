@@ -18,7 +18,7 @@ public class LumaColorShiftPIX: PIXMergerEffect, PIXAuto {
     
     public var hue: CGFloat = 0.0
     public var saturation: CGFloat = 1.0
-    public var tintColor: LiveColor = .white
+    public var tintColor: PXColor = .white
     
     // MARK: - Property Helpers
     

@@ -383,7 +383,7 @@ public class RecordPIX: PIXOutput {
                     }
                     
                     self.pixelKit.logger.log(node: self, .detail, nil, "Exporting frame at \(time.seconds).", loop: true)
-                    self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!, at: resolution.size.cg)
+                    self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!, at: resolution.size)
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
@@ -407,7 +407,7 @@ public class RecordPIX: PIXOutput {
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
             let options: [CIImageOption : Any] = [
-                CIImageOption.colorSpace: pixelKit.render.colorSpace.cg
+                CIImageOption.colorSpace: pixelKit.render.colorSpace
             ]
             let ci_image = CIImage(mtlTexture: texture, options: options)
             if ci_image != nil {
@@ -416,7 +416,7 @@ public class RecordPIX: PIXOutput {
                 EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: Bits._8.ci, colorSpace: pixelKit.render.colorSpace.cg)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: Bits._8.ci, colorSpace: pixelKit.render.colorSpace)
                 if cg_image != nil {
                     
                     currentImage = cg_image!
