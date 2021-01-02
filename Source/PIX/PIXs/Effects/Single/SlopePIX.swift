@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class SlopePIX: PIXSingleEffect, PIXAuto {
+public class SlopePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleSlopePIX" }
     

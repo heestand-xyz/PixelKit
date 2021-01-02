@@ -10,7 +10,7 @@
 import RenderKit
 import Foundation
 
-public class FlarePIX: PIXSingleEffect, PIXAuto {
+public class FlarePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleFlarePIX" }
     

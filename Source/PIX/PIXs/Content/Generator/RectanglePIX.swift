@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class RectanglePIX: PIXGenerator, Layoutable, PIXAuto {
+public class RectanglePIX: PIXGenerator, Layoutable {
     
     override open var shaderName: String { return "contentGeneratorRectanglePIX" }
     

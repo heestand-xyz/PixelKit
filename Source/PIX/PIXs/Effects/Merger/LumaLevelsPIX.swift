@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class LumaLevelsPIX: PIXMergerEffect, PIXAuto {
+public class LumaLevelsPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerLumaLevelsPIX" }
     

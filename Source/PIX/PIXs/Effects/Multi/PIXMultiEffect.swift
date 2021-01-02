@@ -8,7 +8,7 @@
 
 import RenderKit
 
-open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti, PIXAutoParent {
+open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMultiParent {
 
     public var inputs: [NODE & NODEOut] = [] { didSet { setNeedsConnectMulti(new: inputs, old: oldValue) } }
     

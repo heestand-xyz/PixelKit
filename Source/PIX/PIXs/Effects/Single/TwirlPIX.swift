@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class TwirlPIX: PIXSingleEffect, PIXAuto {
+public class TwirlPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleTwirlPIX" }
     

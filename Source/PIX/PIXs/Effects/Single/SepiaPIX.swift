@@ -10,7 +10,7 @@
 import RenderKit
 import Foundation
 
-public class SepiaPIX: PIXSingleEffect, PIXAuto {
+public class SepiaPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleSepiaPIX" }
     

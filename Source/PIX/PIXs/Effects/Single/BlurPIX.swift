@@ -15,7 +15,7 @@ import MetalKit
 import MetalPerformanceShaders
 #endif
 
-public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
+public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "effectSingleBlurPIX" }
     

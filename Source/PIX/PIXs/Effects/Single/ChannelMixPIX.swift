@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class ChannelMixPIX: PIXSingleEffect, PIXAuto {
+public class ChannelMixPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleChannelMixPIX" }
     

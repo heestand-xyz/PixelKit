@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class LumaColorShiftPIX: PIXMergerEffect, PIXAuto {
+public class LumaColorShiftPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerLumaColorShiftPIX" }
     

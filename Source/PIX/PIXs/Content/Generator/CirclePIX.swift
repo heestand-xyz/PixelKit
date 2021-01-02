@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class CirclePIX: PIXGenerator, Layoutable, PIXAuto {
+public class CirclePIX: PIXGenerator, Layoutable {
     
     // MARK: - Public Properties
     

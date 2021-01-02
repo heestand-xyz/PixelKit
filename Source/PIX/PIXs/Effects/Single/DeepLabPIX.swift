@@ -19,7 +19,7 @@ import CoreMedia
 @available(iOS 12.0, *)
 @available(OSX 10.14, *)
 @available(tvOS 12.0, *)
-public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
+public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "nilPIX" }
     

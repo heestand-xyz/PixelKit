@@ -125,7 +125,7 @@ public struct PixNoise: View, PIXUI {
     // Enum Property Funcs
 }
 
-public class NoisePIX: PIXGenerator, PIXAuto {
+public class NoisePIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorNoisePIX" }
     

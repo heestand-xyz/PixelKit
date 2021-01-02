@@ -9,7 +9,7 @@
 import RenderKit
 import CoreGraphics
 
-public class FlipFlopPIX: PIXSingleEffect, PIXAuto {
+public class FlipFlopPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleFlipFlopPIX" }
     

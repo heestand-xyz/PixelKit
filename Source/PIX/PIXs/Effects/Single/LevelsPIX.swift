@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class LevelsPIX: PIXSingleEffect, PIXAuto {
+public class LevelsPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleLevelsPIX" }
     

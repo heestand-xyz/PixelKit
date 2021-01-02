@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class PolygonPIX: PIXGenerator, Layoutable, PIXAuto {
+public class PolygonPIX: PIXGenerator, Layoutable {
     
     override open var shaderName: String { return "contentGeneratorPolygonPIX" }
     

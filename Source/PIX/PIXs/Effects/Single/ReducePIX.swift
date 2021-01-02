@@ -12,7 +12,7 @@ import MetalPerformanceShaders
 @available(tvOS 11.3, *)
 @available(iOS 11.3, *)
 @available(OSX 10.13.4, *)
-public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
+public class ReducePIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "nilPIX" }
 

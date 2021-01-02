@@ -11,7 +11,7 @@
 /// The HDR PIX is currently optimized for 3 exposures.
 ///
 /// `.inputs = [lowPix, midPix, highPix]`
-public class HDRPIX: PIXMultiEffect, PIXAuto {
+public class HDRPIX: PIXMultiEffect {
     
     override open var shaderName: String { return "effectMultiHDRPIX" }
     

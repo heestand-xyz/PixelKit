@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class ColorPIX: PIXGenerator, PIXAuto {
+public class ColorPIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorColorPIX" }
     

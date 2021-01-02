@@ -10,7 +10,7 @@ import CoreGraphics
 
 import RenderKit
 
-public class ClampPIX: PIXSingleEffect, PIXAuto {
+public class ClampPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleClampPIX" }
     

@@ -9,7 +9,7 @@
 import RenderKit
 import CoreGraphics
 
-public class ReorderPIX: PIXMergerEffect, PIXAuto {
+public class ReorderPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerReorderPIX" }
     

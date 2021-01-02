@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXAuto {
+public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate {
     
     override open var shaderName: String { return "nilPIX" }
     

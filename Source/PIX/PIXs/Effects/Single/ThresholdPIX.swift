@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class ThresholdPIX: PIXSingleEffect, PIXAuto {
+public class ThresholdPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleThresholdPIX" }
     

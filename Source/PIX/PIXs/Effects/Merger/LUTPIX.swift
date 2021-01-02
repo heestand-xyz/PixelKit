@@ -12,7 +12,7 @@ import RenderKit
 
 // LUT == Lookup Table
 
-public class LUTPIX: PIXMergerEffect, PIXAuto {
+public class LUTPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerLUTPIX" }
     

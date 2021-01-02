@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class RangePIX: PIXSingleEffect, PIXAuto {
+public class RangePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleRangePIX" }
     

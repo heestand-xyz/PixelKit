@@ -23,7 +23,7 @@ public struct Coordinate {
     }
 }
 
-public class ArrayPIX: PIXMultiEffect, PIXAuto {
+public class ArrayPIX: PIXMultiEffect {
     
     override open var shaderName: String { return "effectMultiArrayPIX" }
     

@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class LinePIX: PIXGenerator, Layoutable, PIXAuto {
+public class LinePIX: PIXGenerator, Layoutable {
     
     override open var shaderName: String { return "contentGeneratorLinePIX" }
     

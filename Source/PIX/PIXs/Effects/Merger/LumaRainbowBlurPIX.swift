@@ -13,7 +13,7 @@ import CoreGraphics
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
-public class LumaRainbowBlurPIX: PIXMergerEffect, PIXAuto {
+public class LumaRainbowBlurPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     

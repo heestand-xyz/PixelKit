@@ -8,7 +8,7 @@
 
 import RenderKit
 
-public class RemapPIX: PIXMergerEffect, PIXAuto {
+public class RemapPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerRemapPIX" }
     

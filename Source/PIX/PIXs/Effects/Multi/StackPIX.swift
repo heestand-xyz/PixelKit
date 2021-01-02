@@ -9,7 +9,7 @@
 import RenderKit
 import CoreGraphics
 
-public class StackPIX: PIXMultiEffect, NODEResolution, PIXAuto {
+public class StackPIX: PIXMultiEffect, NODEResolution {
     
     override open var shaderName: String { return "effectMultiStackPIX" }
     

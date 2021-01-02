@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class EdgePIX: PIXSingleEffect, PIXAuto {
+public class EdgePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleEdgePIX" }
     

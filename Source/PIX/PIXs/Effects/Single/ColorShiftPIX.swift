@@ -12,7 +12,7 @@ import RenderKit
 @available(*, deprecated, renamed: "ColorShiftPIX")
 public typealias HueSaturationPIX = ColorShiftPIX
 
-public class ColorShiftPIX: PIXSingleEffect, PIXAuto {
+public class ColorShiftPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleColorShiftPIX" }
     

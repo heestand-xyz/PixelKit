@@ -9,7 +9,7 @@
 import CoreGraphics
 import RenderKit
 
-public class ArcPIX: PIXGenerator, Layoutable, PIXAuto {
+public class ArcPIX: PIXGenerator, Layoutable {
     
     override open var shaderName: String { return "contentGeneratorArcPIX" }
     

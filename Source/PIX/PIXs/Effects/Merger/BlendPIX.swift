@@ -38,7 +38,7 @@ public struct PixBlend: View, PIXUI {
     }
 }
 
-public class BlendPIX: PIXMergerEffect, Layoutable, PIXAuto/*, PixelCustomMergerRenderDelegate*/ {
+public class BlendPIX: PIXMergerEffect, Layoutable/*, PixelCustomMergerRenderDelegate*/ {
     
     override open var shaderName: String { return "effectMergerBlendPIX" }
     

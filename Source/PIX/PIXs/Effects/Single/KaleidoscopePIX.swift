@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class KaleidoscopePIX: PIXSingleEffect, PIXAuto {
+public class KaleidoscopePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleKaleidoscopePIX" }
     

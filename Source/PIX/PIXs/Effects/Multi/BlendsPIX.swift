@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class BlendsPIX: PIXMultiEffect, PIXAuto {
+public class BlendsPIX: PIXMultiEffect {
     
     override open var shaderName: String { return "effectMultiBlendsPIX" }
     

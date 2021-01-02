@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class TransformPIX: PIXSingleEffect, PIXAuto {
+public class TransformPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleTransformPIX" }
     // FIXME: shaderAspect

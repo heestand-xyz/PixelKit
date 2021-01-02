@@ -9,7 +9,7 @@
 import RenderKit
 import CoreGraphics
 
-public class LookupPIX: PIXMergerEffect, PIXAuto {
+public class LookupPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerLookupPIX" }
     

@@ -10,7 +10,7 @@ import CoreGraphics
 
 import RenderKit
 
-public class ColorConvertPIX: PIXSingleEffect, PIXAuto {
+public class ColorConvertPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleColorConvertPIX" }
     

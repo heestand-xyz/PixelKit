@@ -14,7 +14,7 @@ import CoreImage
 @available(iOS 13.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0, *)
-public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXAuto {
+public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
     
     override open var shaderName: String { return "contentResourceRedToWhitePIX" }
     

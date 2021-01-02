@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class DisplacePIX: PIXMergerEffect, PIXAuto {
+public class DisplacePIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerDisplacePIX" }
     

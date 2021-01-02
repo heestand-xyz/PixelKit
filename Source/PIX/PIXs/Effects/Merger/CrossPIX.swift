@@ -9,7 +9,7 @@
 
 import RenderKit
 
-public class CrossPIX: PIXMergerEffect, PIXAuto {
+public class CrossPIX: PIXMergerEffect {
     
     override open var shaderName: String { return "effectMergerCrossPIX" }
     
