@@ -120,7 +120,7 @@ public class ViewPIX: PIXResource {
                     let res: Resolution = .auto(render: self.pixelKit.render)
                     let resSize = self.renderResolution.size.cg
                     let resRelSize = (res / Resolution.scale).size.cg
-                    if viewSize.cg != resSize {
+                    if viewSize != resSize {
                         self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
                         self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
                         self.setNeedsBuffer()

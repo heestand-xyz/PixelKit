@@ -204,7 +204,7 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
         }
-        guard progressSeconds.cg != seconds else {
+        guard progressSeconds != seconds else {
             pixelKit.logger.log(node: self, .warning, .resource, "Time already at seek.")
             return
         }
@@ -255,7 +255,7 @@ public class VideoPIX: PIXResource {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video item not found.")
             return
         }
-        guard progressFraction.cg != fraction else {
+        guard progressFraction!= fraction else {
             pixelKit.logger.log(node: self, .warning, .resource, "Fraction already at seek.")
             return
         }

@@ -7,7 +7,6 @@
 //
 
 import RenderKit
-
 import RenderKit
 import CoreGraphics
 import Metal
@@ -46,24 +45,15 @@ open class PIX: NODE, Equatable, NODETileable {
                 uniforms.append(contentsOf: [size.width, size.height])
             } else if let frame: CGRect = value as? CGRect {
                 uniforms.append(contentsOf: [frame.minX, frame.minY, frame.width, frame.height])
-            } else {
-                #if os(macOS)
-                if let color: NSColor = value as? NSColor {
-                    uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
-                }
-                #else
-                if let color: UIColor = value as? UIColor {
-                    uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
-                }
-                #endif
+            } else if let color: PXColor = value as? PXColor {
+                uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
             }
         }
         uniforms.append(contentsOf: postUniforms)
         return uniforms
     }
     
-    public var floatArray: [[CGFloat]] { return [] }
-    open var uniformArray: [[CGFloat]] { floatArray }
+    open var uniformArray: [[CGFloat]] { [] }
     public var uniformArrayMaxLimit: Int? { nil }
     public var uniformIndexArray: [[Int]] { [] }
     public var uniformIndexArrayMaxLimit: Int? { nil }

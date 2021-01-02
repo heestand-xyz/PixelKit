@@ -196,15 +196,15 @@ public extension PIX {
             return raw[y][x]
         }
         public func pixel(uv: CGVector) -> Pixel {
-            let xMax = resolution.width.cg - 1
-            let yMax = resolution.height.cg - 1
+            let xMax = resolution.width - 1
+            let yMax = resolution.height - 1
             let x = max(0, min(Int(round(uv.dx * xMax + 0.5)), Int(xMax)))
             let y = max(0, min(Int(round(uv.dy * yMax + 0.5)), Int(yMax)))
             return pixel(pos: CGPoint(x: x, y: y))
         }
         public func pixel(pos: CGPoint) -> Pixel {
-            let xMax = resolution.width.cg - 1
-            let yMax = resolution.height.cg - 1
+            let xMax = resolution.width - 1
+            let yMax = resolution.height - 1
             let x = max(0, min(Int(round(pos.x)), Int(xMax)))
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]

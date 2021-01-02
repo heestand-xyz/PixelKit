@@ -137,7 +137,7 @@ extension PIX {
                 return
             }
         }
-        guard view.resolutionSize == nil || view.resolutionSize! != res.size.cg else {
+        guard view.resolutionSize == nil || view.resolutionSize! != res.size else {
             applied()
             return
         }
