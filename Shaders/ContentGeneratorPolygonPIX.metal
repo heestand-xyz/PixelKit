@@ -3,7 +3,7 @@
 //  PixelKit Shaders
 //
 //  Created by Anton Heestand on 2017-11-21.
-//  Copyright © 2017 Hexagons. All rights reserved.
+//  Copyright © 2017 Anton Heestand. All rights reserved.
 //
 //  https://stackoverflow.com/a/2049593/4586652
 //

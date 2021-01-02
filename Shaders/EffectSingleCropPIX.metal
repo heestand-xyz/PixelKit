@@ -3,7 +3,7 @@
 //  PixelKitShaders
 //
 //  Created by Anton Heestand on 2017-11-30.
-//  Copyright © 2017 Hexagons. All rights reserved.
+//  Copyright © 2017 Anton Heestand. All rights reserved.
 //
 
 #include <metal_stdlib>
