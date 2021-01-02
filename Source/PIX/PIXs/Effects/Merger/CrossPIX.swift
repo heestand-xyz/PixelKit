@@ -19,7 +19,7 @@ public class CrossPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [fraction]
     }
     

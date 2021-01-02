@@ -60,7 +60,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [radius, angle, position]
     }
     

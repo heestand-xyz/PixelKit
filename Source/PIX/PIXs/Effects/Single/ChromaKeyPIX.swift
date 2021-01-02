@@ -24,7 +24,7 @@ public class ChromaKeyPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [keyColor, range, softness, edgeDesaturation, alphaCrop, premultiply]
     }
     

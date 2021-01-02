@@ -53,7 +53,7 @@ public class BlendPIX: PIXMergerEffect, Layoutable/*, PixelCustomMergerRenderDel
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [bypassTransform, position, rotation, scale, size]
     }
     

@@ -20,7 +20,7 @@ public class FreezePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [freeze]
     }
     

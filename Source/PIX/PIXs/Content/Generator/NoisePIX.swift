@@ -142,7 +142,7 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
     }
     

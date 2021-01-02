@@ -41,7 +41,7 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [radius, angle, position, light]
     }
     

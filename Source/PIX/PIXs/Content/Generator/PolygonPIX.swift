@@ -23,7 +23,7 @@ public class PolygonPIX: PIXGenerator, Layoutable {
    
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [radius, position, rotation, vertexCount, super.color, super.bgColor, cornerRadius]
     }
     

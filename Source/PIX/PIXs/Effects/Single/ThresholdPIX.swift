@@ -20,7 +20,7 @@ public class ThresholdPIX: PIXSingleEffect {
 
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [threshold]
     }
     

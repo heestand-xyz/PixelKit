@@ -23,7 +23,7 @@ public class LumaTransformPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [position, rotation, scale, size]
     }
     

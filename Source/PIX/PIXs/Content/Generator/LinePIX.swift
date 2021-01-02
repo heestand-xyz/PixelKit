@@ -20,7 +20,7 @@ public class LinePIX: PIXGenerator, Layoutable {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [positionFrom, positionTo, scale, super.color, super.bgColor]
     }
     

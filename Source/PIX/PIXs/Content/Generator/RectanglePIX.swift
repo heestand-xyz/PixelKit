@@ -22,7 +22,7 @@ public class RectanglePIX: PIXGenerator, Layoutable {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
     }
     

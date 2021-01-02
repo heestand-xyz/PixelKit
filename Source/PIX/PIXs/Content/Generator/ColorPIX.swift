@@ -15,7 +15,7 @@ public class ColorPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    override public var liveValues: [LiveValue] {
+    override public var values: [CoreValue] {
         return [super.color]
     }
     
