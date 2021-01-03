@@ -14,7 +14,7 @@ class Randomize {
     
     static func randomizeGenerator(auto: AutoPIXGenerator, with pix: PIXGenerator, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
-        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
@@ -25,7 +25,7 @@ class Randomize {
     
     static func randomizeSingleEffect(auto: AutoPIXSingleEffect, with pix: PIXSingleEffect, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
-        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
@@ -36,7 +36,7 @@ class Randomize {
     
     static func randomizeMergerEffect(auto: AutoPIXMergerEffect, with pix: PIXMergerEffect, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
-        randomzeInts(auto.autoLiveInts(for: pix), at: index)
+        randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoLiveBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
@@ -53,11 +53,11 @@ class Randomize {
         }
     }
     
-    static func randomzeInts(_ values: [AutoLiveIntProperty], at index: Int) {
+    static func randomzeInts(_ values: [AutoIntProperty], at index: Int) {
         var gen = ArbitraryRandomNumberGenerator(seed: 2_000 + UInt64(index))
         for value in values {
             let random: Int = .random(in: value.value.min...value.value.max, using: &gen)
-            value.value = LiveInt(random, min: value.value.min, max: value.value.max)
+            value.value = Int(random, min: value.value.min, max: value.value.max)
         }
     }
     

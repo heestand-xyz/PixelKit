@@ -77,7 +77,7 @@ public class VideoPIX: PIXResource {
     var _progressFraction: CGFloat = 0
     public var progressFraction: CGFloat { return CGFloat({ return self._progressFraction }) }
     public var progressSeconds: CGFloat { return CGFloat({ return self._progressFraction * CGFloat(self.duration ?? 0.0) }) }
-    public var progressFrames: LiveInt { return LiveInt({ return Int(self._progressFraction * CGFloat(self.duration ?? 0.0) * CGFloat(self.fps ?? 1)) }) }
+    public var progressFrames: Int { return Int({ return Int(self._progressFraction * CGFloat(self.duration ?? 0.0) * CGFloat(self.fps ?? 1)) }) }
     public var duration: Double? {
         guard let duration = self.helper.player?.currentItem?.duration.seconds else { return nil }
         guard String(duration) != "nan" else { return nil }

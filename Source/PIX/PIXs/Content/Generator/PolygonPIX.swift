@@ -18,7 +18,7 @@ public class PolygonPIX: PIXGenerator, Layoutable {
     public var position: CGPoint = .zero
     public var radius: CGFloat = CGFloat(0.25, max: 0.5)
     public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
-    public var vertexCount: LiveInt = LiveInt(6, min: 3, max: 12)
+    public var vertexCount: Int = Int(6, min: 3, max: 12)
     public var cornerRadius: CGFloat = CGFloat(0.0, max: 0.25)
    
     // MARK: - Property Helpers

@@ -32,7 +32,7 @@ import SwiftUI
 //                position: Binding<CGPoint> = .constant(.zero),
 //                resolution: Resolution = .auto(render: PixelKit.main.render)) {
 //        noisepix = NoisePIX(at: resolution)
-//        noisepix.octaves = LiveInt({ octaves.wrappedValue })
+//        noisepix.octaves = Int({ octaves.wrappedValue })
 //        noisepix.colored = LiveBool({ colored.wrappedValue })
 //        noisepix.random = LiveBool({ random.wrappedValue })
 //        noisepix.zPosition = CGFloat({ zPosition.wrappedValue })
@@ -99,18 +99,18 @@ import SwiftUI
 //        return self
 //    }
 //    public func seed(_ seed: Binding<Int>) -> PixNoise {
-//        noisepix.seed = LiveInt({ seed.wrappedValue })
+//        noisepix.seed = Int({ seed.wrappedValue })
 //        return self
 //    }
-//    public func seed(_ seed: LiveInt) -> PixNoise {
+//    public func seed(_ seed: Int) -> PixNoise {
 //        noisepix.seed = seed
 //        return self
 //    }
 //    public func octaves(_ octaves: Binding<Int>) -> PixNoise {
-//        noisepix.octaves = LiveInt({ octaves.wrappedValue })
+//        noisepix.octaves = Int({ octaves.wrappedValue })
 //        return self
 //    }
-//    public func octaves(_ octaves: LiveInt) -> PixNoise {
+//    public func octaves(_ octaves: Int) -> PixNoise {
 //        noisepix.octaves = octaves
 //        return self
 //    }
@@ -131,8 +131,8 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var seed: LiveInt = LiveInt(1, max: 10)
-    public var octaves: LiveInt = LiveInt(10, min: 1, max: 10)
+    public var seed: Int = Int(1, max: 10)
+    public var octaves: Int = Int(10, min: 1, max: 10)
     public var position: CGPoint = .zero
     public var zPosition: CGFloat = 0.0
     public var zoom: CGFloat = 1.0

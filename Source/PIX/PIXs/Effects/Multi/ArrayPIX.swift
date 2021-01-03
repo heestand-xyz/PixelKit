@@ -13,8 +13,8 @@ public struct Coordinate {
     public var position: CGPoint
     public var scale: CGFloat
     public var rotation: CGFloat
-    public var textueIndex: LiveInt
-    public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, textueIndex: LiveInt = 0) {
+    public var textueIndex: Int
+    public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, textueIndex: Int = 0) {
         self.position = position
         self.scale = scale
         self.rotation = rotation
@@ -87,7 +87,7 @@ public class ArrayPIX: PIXMultiEffect {
                 let yBounds = CGFloat(yRange.upperBound - yRange.lowerBound)
                 let position = CGPoint(x: CGFloat(xRange.lowerBound) + xBounds * xFraction,
                                        y: CGFloat(yRange.lowerBound) + yBounds * yFraction)
-                let coordinate = Coordinate(position, scale: (yBounds / CGFloat(yCount)) * scaleMultiplier, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
+                let coordinate = Coordinate(position, scale: (yBounds / CGFloat(yCount)) * scaleMultiplier, textueIndex: Int(inputs.count > 0 ? i % inputs.count : 0))
                 coordinates.append(coordinate)
             }
         }
@@ -112,7 +112,7 @@ public class ArrayPIX: PIXMultiEffect {
                 let isOdd = abs(y) % 2 == 1
                 let position = CGPoint(x: CGFloat(x) * CGFloat(xScale) * scaleMultiplier + CGFloat(isOdd ? xScale / 2 : 0) * scaleMultiplier,
                                          y: CGFloat(y) * CGFloat(yScale) * scaleMultiplier)
-                let coordinate = Coordinate(position, scale: CGFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
+                let coordinate = Coordinate(position, scale: CGFloat(scale) /* * sqrt(0.75) */ * scaleMultiplier, textueIndex: Int(inputs.count > 0 ? i % inputs.count : 0))
                 coordinates.append(coordinate)
                 i += 1
             }
@@ -125,7 +125,7 @@ public class ArrayPIX: PIXMultiEffect {
             let fraction = CGFloat(i) / CGFloat(count);
             let position = CGPoint(x: cos(fraction * .pi * 2) * scale,
                                    y: sin(fraction * .pi * 2) * scale)
-            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
+            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * .pi * scaleMultiplier, rotation: fraction + 0.25, textueIndex: Int(inputs.count > 0 ? i % inputs.count : 0))
             coordinates.append(coordinate)
         }
     }
@@ -139,7 +139,7 @@ public class ArrayPIX: PIXMultiEffect {
             let position = CGPoint(x: fromPoint.x + vector.x * fraction,
                                    y: fromPoint.y + vector.y * fraction)
             let rotation: CGFloat = atan2(vector.y, vector.x) / (.pi * 2) + 0.25
-            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * scaleMultiplier, rotation: rotation, textueIndex: LiveInt(inputs.count > 0 ? i % inputs.count : 0))
+            let coordinate = Coordinate(position, scale: (1.0 / CGFloat(count)) * scaleMultiplier, rotation: rotation, textueIndex: Int(inputs.count > 0 ? i % inputs.count : 0))
             coordinates.append(coordinate)
         }
     }
@@ -154,7 +154,7 @@ public class ArrayPIX: PIXMultiEffect {
             let rotation = CGFloat.random(in: 0.0...1.0)
             let scale = CGFloat.random(in: 0.1...0.5)
             let textueIndex = Int.random(in: 0..<pixCount)
-            let coordinate = Coordinate(position, scale: scale, rotation: rotation, textueIndex: LiveInt(textueIndex))
+            let coordinate = Coordinate(position, scale: scale, rotation: rotation, textueIndex: Int(textueIndex))
             coordinates.append(coordinate)
         }
     }
