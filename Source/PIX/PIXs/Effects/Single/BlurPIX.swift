@@ -53,9 +53,9 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    public var radius: CGFloat = CGFloat(0.5, limit: true)
+    public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
@@ -65,17 +65,17 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     }
     
     var relRadius: CGFloat {
-        let radius = self.radius.uniform
+        let radius = self.radius
         let relRes: Resolution = ._4K
         let res: Resolution = renderResolution
-        let relHeight = res.height / relRes.height.cg
+        let relHeight = res.height / relRes.height
         let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
         let maxRadius: CGFloat = 32 * 10
         let mappedRadius = relRadius * maxRadius
-        return mappedRadius //radius.uniform * 32 * 10
+        return mappedRadius //radius * 32 * 10
     }
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
+        return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
     override open var shaderNeedsAspect: Bool { return true }

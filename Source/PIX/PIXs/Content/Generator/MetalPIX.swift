@@ -83,7 +83,7 @@ public class MetalPIX: PIXGenerator, NODEMetal {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
+        return metalUniforms.map({ uniform -> CGFloat in uniform.value })
     }
     
     // MARK: - Life Cycle

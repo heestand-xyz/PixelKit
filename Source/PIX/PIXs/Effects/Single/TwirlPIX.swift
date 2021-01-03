@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class TwirlPIX: PIXSingleEffect {
@@ -15,7 +15,7 @@ public class TwirlPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var strength: CGFloat = CGFloat(2.0, min: 0.0, max: 4.0)
+    public var strength: CGFloat = 2.0
     
     // MARK: - Property Helpers
     

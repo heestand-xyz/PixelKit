@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class KaleidoscopePIX: PIXSingleEffect {
@@ -15,9 +15,9 @@ public class KaleidoscopePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var divisions: Int = Int(12, min: 1, max: 24)
+    public var divisions: Int = 12
     public var mirror: Bool = true
-    public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var rotation: CGFloat = 0.0
     public var position: CGPoint = .zero
     
     // MARK: - Property Helpers

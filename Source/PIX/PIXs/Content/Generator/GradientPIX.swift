@@ -51,7 +51,7 @@ open class GradientPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    override open var liveValues: [LiveValue] {
+    override open var values: [CoreValue] {
         return [scale, offset, position, position] // CHECK
     }
     
@@ -62,9 +62,9 @@ open class GradientPIX: PIXGenerator {
         return [CGFloat(extendRamp.index)]
     }
 
-    override public var liveArray: [[CGFloat]] {
+    override public var values: [[CGFloat]] {
         return colorSteps.map({ colorStep -> [CGFloat] in
-            return [colorStep.step, colorStep.color.r, colorStep.color.g, colorStep.color.b, colorStep.color.a]
+            return [colorStep.step, colorStep.color.red, colorStep.color.green, colorStep.color.blue, colorStep.color.alpha]
         })
     }
     
@@ -100,8 +100,7 @@ open class GradientPIX: PIXGenerator {
 
 public extension NODEOut {
     
-    // FIXME: Create custom shader
-    func _gradientMap(from firstColor: PixelColor, to lastColor: PixelColor) -> LookupPIX {
+    func gradientMap(from firstColor: PixelColor, to lastColor: PixelColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inputA = self as? PIX & NODEOut

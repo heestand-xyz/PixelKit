@@ -8,7 +8,7 @@
 import CoreGraphics
 import RenderKit
 
-public class ArcPIX: PIXGenerator, Layoutable {
+public class ArcPIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorArcPIX" }
     
@@ -16,10 +16,10 @@ public class ArcPIX: PIXGenerator, Layoutable {
     
     public var position: CGPoint = .zero
     public var radius: CGFloat = sqrt(0.75) / 4
-    public var angleFrom: CGFloat = CGFloat(-0.125, min: -0.5, max: 0.5)
-    public var angleTo: CGFloat = CGFloat(0.125, min: -0.5, max: 0.5)
-    public var angleOffset: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
-    public var edgeRadius: CGFloat = CGFloat(0.05, max: 0.5)
+    public var angleFrom: CGFloat = -0.125
+    public var angleTo: CGFloat = 0.125
+    public var angleOffset: CGFloat = 0.0
+    public var edgeRadius: CGFloat = 0.05
     public var fillColor: PixelColor = .white
     
     // MARK: - Property Helpers

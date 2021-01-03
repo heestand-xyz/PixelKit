@@ -5,7 +5,7 @@
 //  Created by Anton Heestand on 2019-03-28.
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class LinePIX: PIXGenerator, Layoutable {

@@ -37,12 +37,12 @@ public class ArrayPIX: PIXMultiEffect {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        var liveValues: [LiveValue] = [bgColor]
+        var values: [CoreValue] = [bgColor]
         for coordinate in coordinates {
-            liveValues.append(coordinate.position)
-            liveValues.append(coordinate.rotation)
-            liveValues.append(coordinate.scale)
-            liveValues.append(coordinate.textueIndex)
+            values.append(coordinate.position)
+            values.append(coordinate.rotation)
+            values.append(coordinate.scale)
+            values.append(coordinate.textueIndex)
         }
         return liveValues
     }

@@ -16,7 +16,7 @@ public class ThresholdPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var threshold: CGFloat = CGFloat(0.5, limit: true)
+    public var threshold: CGFloat = 0.5
 
     // MARK: - Property Helpers
     

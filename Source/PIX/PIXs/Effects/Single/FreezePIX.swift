@@ -33,7 +33,7 @@ public class FreezePIX: PIXSingleEffect {
     // MARK: Freeze
     
     public override func setNeedsRender() {
-        if !freeze.val {
+        if !freeze {
             super.setNeedsRender()
         }
     }
