@@ -20,8 +20,8 @@ public class LumaLevelsPIX: PIXMergerEffect {
     public var darkness: CGFloat = 0.0
     public var contrast: CGFloat = 0.0
     public var gamma: CGFloat = 1.0
-    public var inverted: LiveBool = false
-    public var smooth: LiveBool = false
+    public var inverted: Bool = false
+    public var smooth: Bool = false
     public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers

@@ -98,7 +98,7 @@ public class VideoPIX: PIXResource {
     var _rate: CGFloat = 1.0
     public var rate: CGFloat { return CGFloat({ return self._rate }) }
     var _playing: Bool = false
-    public var playing: LiveBool { return LiveBool({ return self._playing }) }
+    public var playing: Bool { return Bool({ return self._playing }) }
     
     // MARK: - Life Cycle
     

@@ -323,7 +323,7 @@ Note when using Live values, one line if else statments are written with `<?>` &
 ```swift
 let a: CGFloat = 1.0
 let b: CGFloat = 2.0
-let isOdd: LiveBool = .seconds % 2.0 < 1.0
+let isOdd: Bool = .seconds % 2.0 < 1.0
 let ab: CGFloat = isOdd <?> a <=> b
 ```
 
@@ -338,7 +338,7 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 ### The Live Values:
 - `CGFloat` --> `CGFloat`
 - `Int` --> `Int`
-- `Bool` --> `LiveBool`
+- `Bool` --> `Bool`
 - `CGPoint` --> `CGPoint`
 - `CGSize` --> `LiveSize`
 - `CGRect` --> `LiveRect`

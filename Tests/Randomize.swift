@@ -15,7 +15,7 @@ class Randomize {
     static func randomizeGenerator(auto: AutoPIXGenerator, with pix: PIXGenerator, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoInts(for: pix), at: index)
-        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
@@ -26,7 +26,7 @@ class Randomize {
     static func randomizeSingleEffect(auto: AutoPIXSingleEffect, with pix: PIXSingleEffect, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoInts(for: pix), at: index)
-        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
@@ -37,7 +37,7 @@ class Randomize {
     static func randomizeMergerEffect(auto: AutoPIXMergerEffect, with pix: PIXMergerEffect, at index: Int) {
         randomzeFloats(auto.autoCGFloats(for: pix), at: index)
         randomzeInts(auto.autoInts(for: pix), at: index)
-        randomzeBools(auto.autoLiveBools(for: pix), at: index)
+        randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
@@ -61,11 +61,11 @@ class Randomize {
         }
     }
     
-    static func randomzeBools(_ values: [AutoLiveBoolProperty], at index: Int) {
+    static func randomzeBools(_ values: [AutoBoolProperty], at index: Int) {
         var gen = ArbitraryRandomNumberGenerator(seed: 3_000 + UInt64(index))
         for value in values {
             let random: Bool = .random(using: &gen)
-            value.value = LiveBool(random)
+            value.value = Bool(random)
         }
     }
     

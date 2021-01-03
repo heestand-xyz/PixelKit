@@ -16,7 +16,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     public var divisions: Int = Int(12, min: 1, max: 24)
-    public var mirror: LiveBool = true
+    public var mirror: Bool = true
     public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
     public var position: CGPoint = .zero
     
@@ -35,7 +35,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _kaleidoscope(divisions: Int = 12, mirror: LiveBool = true) -> KaleidoscopePIX {
+    func _kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
         kaleidoscopePix.input = self as? PIX & NODEOut

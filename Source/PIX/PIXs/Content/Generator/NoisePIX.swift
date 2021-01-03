@@ -33,8 +33,8 @@ import SwiftUI
 //                resolution: Resolution = .auto(render: PixelKit.main.render)) {
 //        noisepix = NoisePIX(at: resolution)
 //        noisepix.octaves = Int({ octaves.wrappedValue })
-//        noisepix.colored = LiveBool({ colored.wrappedValue })
-//        noisepix.random = LiveBool({ random.wrappedValue })
+//        noisepix.colored = Bool({ colored.wrappedValue })
+//        noisepix.random = Bool({ random.wrappedValue })
 //        noisepix.zPosition = CGFloat({ zPosition.wrappedValue })
 //        noisepix.zoom = CGFloat({ zoom.wrappedValue })
 //        noisepix.position = CGPoint({ position.wrappedValue })
@@ -59,26 +59,26 @@ import SwiftUI
 //    }
 //    // General Property Funcs
 //    public func colored(_ colored: Binding<Bool>) -> PixNoise {
-//        noisepix.colored = LiveBool({ colored.wrappedValue })
+//        noisepix.colored = Bool({ colored.wrappedValue })
 //        return self
 //    }
-//    public func colored(_ colored: LiveBool) -> PixNoise {
+//    public func colored(_ colored: Bool) -> PixNoise {
 //        noisepix.colored = colored
 //        return self
 //    }
 //    public func random(_ random: Binding<Bool>) -> PixNoise {
-//        noisepix.random = LiveBool({ random.wrappedValue })
+//        noisepix.random = Bool({ random.wrappedValue })
 //        return self
 //    }
-//    public func random(_ random: LiveBool) -> PixNoise {
+//    public func random(_ random: Bool) -> PixNoise {
 //        noisepix.random = random
 //        return self
 //    }
 //    public func includeAlpha(_ includeAlpha: Binding<Bool>) -> PixNoise {
-//        noisepix.includeAlpha = LiveBool({ includeAlpha.wrappedValue })
+//        noisepix.includeAlpha = Bool({ includeAlpha.wrappedValue })
 //        return self
 //    }
-//    public func includeAlpha(_ includeAlpha: LiveBool) -> PixNoise {
+//    public func includeAlpha(_ includeAlpha: Bool) -> PixNoise {
 //        noisepix.includeAlpha = includeAlpha
 //        return self
 //    }
@@ -136,9 +136,9 @@ public class NoisePIX: PIXGenerator {
     public var position: CGPoint = .zero
     public var zPosition: CGFloat = 0.0
     public var zoom: CGFloat = 1.0
-    public var colored: LiveBool = false
-    public var random: LiveBool = false
-    public var includeAlpha: LiveBool = false
+    public var colored: Bool = false
+    public var random: Bool = false
+    public var includeAlpha: Bool = false
     
     // MARK: - Property Helpers
     

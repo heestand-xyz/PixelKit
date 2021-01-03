@@ -83,7 +83,7 @@ public class ImagePIX: PIXResource {
         #endif
     }
     
-    public var tint: LiveBool = false
+    public var tint: Bool = false
     public var tintColor: PixelColor = .white
     public var bgColor: PixelColor = .clear
 

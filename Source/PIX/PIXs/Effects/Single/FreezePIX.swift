@@ -16,7 +16,7 @@ public class FreezePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var freeze: LiveBool = false
+    public var freeze: Bool = false
     
     // MARK: - Property Helpers
     
@@ -42,7 +42,7 @@ public class FreezePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _freeze(_ active: LiveBool) -> FreezePIX {
+    func _freeze(_ active: Bool) -> FreezePIX {
         let freezePix = FreezePIX()
         freezePix.name = ":freeze:"
         freezePix.input = self as? PIX & NODEOut

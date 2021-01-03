@@ -20,7 +20,7 @@ public class ChromaKeyPIX: PIXSingleEffect {
     public var softness: CGFloat = CGFloat(0.1, min: 0.0, max: 0.5)
     public var edgeDesaturation: CGFloat = 0.5
     public var alphaCrop: CGFloat = 0.5
-    public var premultiply: LiveBool = true
+    public var premultiply: Bool = true
     
     // MARK: - Property Helpers
     
