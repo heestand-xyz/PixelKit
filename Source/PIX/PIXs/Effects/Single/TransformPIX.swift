@@ -6,20 +6,19 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class TransformPIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleTransformPIX" }
-    // FIXME: shaderAspect
     
     // MARK: - Public Properties
     
     public var position: CGPoint = .zero
     public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
     public var scale: CGFloat = CGFloat(1.0, max: 2.0)
-    public var size: LiveSize = LiveSize(w: 1.0, h: 1.0)
+    public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     
@@ -73,7 +72,7 @@ public extension NODEOut {
         return transformPix
     }
     
-    func _scale(size: LiveSize) -> TransformPIX {
+    func _scale(size: CGSize) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
         transformPix.input = self as? PIX & NODEOut
@@ -82,7 +81,7 @@ public extension NODEOut {
     }
     
     func _scale(x: CGFloat = 1.0, y: CGFloat = 1.0) -> TransformPIX {
-        return _scale(size: LiveSize(w: x, h: y))
+        return _scale(size: CGSize(width: x, height: y))
     }
     
 }

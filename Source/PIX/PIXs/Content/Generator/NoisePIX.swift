@@ -131,8 +131,8 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var seed: Int = Int(1, max: 10)
-    public var octaves: Int = Int(10, min: 1, max: 10)
+    public var seed: Int = 1
+    public var octaves: Int = 10
     public var position: CGPoint = .zero
     public var zPosition: CGFloat = 0.0
     public var zoom: CGFloat = 1.0

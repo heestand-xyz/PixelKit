@@ -34,7 +34,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
     public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
     
     // MARK: - Property Helpers

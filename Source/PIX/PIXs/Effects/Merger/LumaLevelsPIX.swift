@@ -59,7 +59,7 @@ public extension NODEOut {
         rectangle.bgColor = .white
         rectangle.color = .black
         rectangle.name = "vignetting:rectangle"
-        rectangle.size = LiveSize(w: pix.renderResolution.aspect - inset, h: 1.0 - inset)
+        rectangle.size = CGSize(width: pix.renderResolution.aspect - inset, height: 1.0 - inset)
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = "vignetting:lumaLevels"
         lumaLevelsPix.inputA = pix

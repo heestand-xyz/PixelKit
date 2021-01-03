@@ -340,7 +340,7 @@ Live values are ease to animate with the `.live` or `.seconds` static properites
 - `Int` --> `Int`
 - `Bool` --> `Bool`
 - `CGPoint` --> `CGPoint`
-- `CGSize` --> `LiveSize`
+- `CGSize` --> `CGSize`
 - `CGRect` --> `LiveRect`
 
 ### Static properites:

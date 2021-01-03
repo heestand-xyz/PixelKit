@@ -115,7 +115,7 @@ public class ViewPIX: PIXResource {
             } else {
                 if self.renderView != nil {
                     let viewRelSize = self.renderView!.frame.size
-                    let viewSize = LiveSize(viewRelSize) * Resolution.scale
+                    let viewSize = CGSize(viewRelSize) * Resolution.scale
                     let res: Resolution = .auto(render: self.pixelKit.render)
                     let resSize = self.renderResolution.size
                     let resRelSize = (res / Resolution.scale).size

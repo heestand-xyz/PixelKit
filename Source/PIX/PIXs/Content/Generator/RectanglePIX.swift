@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
 public class RectanglePIX: PIXGenerator, Layoutable {
@@ -16,8 +16,7 @@ public class RectanglePIX: PIXGenerator, Layoutable {
     // MARK: - Public Properties
     
     public var position: CGPoint = .zero
-//    public var rotation: CGFloat = 0.0
-    public var size: LiveSize = LiveSize(w: 0.5, h: 0.5)
+    public var size: CGSize = CGSize(width: 0.5, height: 0.5)
     public var cornerRadius: CGFloat = CGFloat(0.0, max: 0.25)
     
     // MARK: - Property Helpers

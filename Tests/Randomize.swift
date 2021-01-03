@@ -17,7 +17,7 @@ class Randomize {
         randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
-        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeSizes(auto.autoCGSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
@@ -28,7 +28,7 @@ class Randomize {
         randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
-        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeSizes(auto.autoCGSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
@@ -39,7 +39,7 @@ class Randomize {
         randomzeInts(auto.autoInts(for: pix), at: index)
         randomzeBools(auto.autoBools(for: pix), at: index)
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
-        randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
+        randomzeSizes(auto.autoCGSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
         randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
@@ -79,13 +79,13 @@ class Randomize {
         }
     }
     
-    static func randomzeSizes(_ values: [AutoLiveSizeProperty], at index: Int) {
+    static func randomzeSizes(_ values: [AutoCGSizeProperty], at index: Int) {
         var gen1 = ArbitraryRandomNumberGenerator(seed: 5_000 + UInt64(index))
         var gen2 = ArbitraryRandomNumberGenerator(seed: 5_100 + UInt64(index))
         for value in values {
             let randomW: CGFloat = .random(in: 0.0...1.0, using: &gen1)
             let randomH: CGFloat = .random(in: 0.0...1.0, using: &gen2)
-            value.value = LiveSize(CGSize(width: randomW, height: randomH))
+            value.value = CGSize(CGSize(width: randomW, height: randomH))
         }
     }
     

@@ -37,7 +37,7 @@ public class PolygonPIX: PIXGenerator, Layoutable {
     
     public var frame: LiveRect {
         get {
-            return LiveRect(center: position, size: LiveSize(scale: radius * 2))
+            return LiveRect(center: position, size: CGSize(scale: radius * 2))
         }
         set {
             reFrame(to: newValue)

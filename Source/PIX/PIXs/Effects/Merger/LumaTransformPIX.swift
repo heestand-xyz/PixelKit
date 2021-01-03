@@ -19,7 +19,7 @@ public class LumaTransformPIX: PIXMergerEffect {
     public var position: CGPoint = .zero
     public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
     public var scale: CGFloat = CGFloat(1.0, max: 2.0)
-    public var size: LiveSize = LiveSize(w: 1.0, h: 1.0)
+    public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     
