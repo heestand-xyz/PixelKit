@@ -19,7 +19,7 @@ class Randomize {
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
-        randomzeColors(auto.autoPXColors(for: pix), at: index)
+        randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
     }
     
@@ -30,7 +30,7 @@ class Randomize {
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
-        randomzeColors(auto.autoPXColors(for: pix), at: index)
+        randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
     }
     
@@ -41,7 +41,7 @@ class Randomize {
         randomzePoints(auto.autoCGPoints(for: pix), at: index)
         randomzeSizes(auto.autoLiveSizes(for: pix), at: index)
         randomzeRects(auto.autoLiveRects(for: pix), at: index)
-        randomzeColors(auto.autoPXColors(for: pix), at: index)
+        randomzeColors(auto.autoPixelColors(for: pix), at: index)
         randomzeEnums(auto.autoEnums(for: pix), at: index)
     }
     
@@ -103,7 +103,7 @@ class Randomize {
         }
     }
     
-    static func randomzeColors(_ values: [AutoPXColorProperty], at index: Int) {
+    static func randomzeColors(_ values: [AutoPixelColorProperty], at index: Int) {
         var gen1 = ArbitraryRandomNumberGenerator(seed: 7_000 + UInt64(index))
         var gen2 = ArbitraryRandomNumberGenerator(seed: 7_100 + UInt64(index))
         var gen3 = ArbitraryRandomNumberGenerator(seed: 7_200 + UInt64(index))
@@ -113,7 +113,7 @@ class Randomize {
             let randomG: CGFloat = .random(in: 0.0...1.0, using: &gen2)
             let randomB: CGFloat = .random(in: 0.0...1.0, using: &gen3)
             let randomA: CGFloat = .random(in: 0.0...1.0, using: &gen4)
-            value.value = PXColor(NSColor(deviceRed: randomR, green: randomG, blue: randomB, alpha: randomA))
+            value.value = PixelColor(NSColor(deviceRed: randomR, green: randomG, blue: randomB, alpha: randomA))
         }
     }
     

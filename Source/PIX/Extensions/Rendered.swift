@@ -209,8 +209,8 @@ public extension PIX {
             let y = max(0, min(Int(round(pos.y)), Int(yMax)))
             return raw[y][x]
         }
-        public var average: PXColor {
-            var color: PXColor!
+        public var average: PixelColor {
+            var color: PixelColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -233,8 +233,8 @@ public extension PIX {
             luminance /= CGFloat(resolution.count)
             return luminance
         }
-        public var maximum: PXColor {
-            var color: PXColor!
+        public var maximum: PixelColor {
+            var color: PixelColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -248,8 +248,8 @@ public extension PIX {
             }
             return color
         }
-        public var minimum: PXColor {
-            var color: PXColor!
+        public var minimum: PixelColor {
+            var color: PixelColor!
             for row in raw {
                 for px in row {
                     guard color != nil else {
@@ -283,7 +283,7 @@ public extension PIX {
                     let chan = rawPixels[j]
                     c.append(chan)
                 }
-                let color = PXColor(c)
+                let color = PixelColor(c)
                 let uv = CGVector(dx: u, dy: v)
                 let pixel = Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)

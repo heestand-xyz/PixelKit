@@ -20,7 +20,7 @@ public class ArcPIX: PIXGenerator, Layoutable {
     public var angleTo: CGFloat = CGFloat(0.125, min: -0.5, max: 0.5)
     public var angleOffset: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
     public var edgeRadius: CGFloat = CGFloat(0.05, max: 0.5)
-    public var fillColor: PXColor = .white
+    public var fillColor: PixelColor = .white
     
     // MARK: - Property Helpers
     

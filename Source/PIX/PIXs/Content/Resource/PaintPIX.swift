@@ -142,7 +142,7 @@ public class PaintPIX: PIXResource {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
     }
-    public var bgColor: PXColor = .black {
+    public var bgColor: PixelColor = .black {
         didSet {
             canvasView.backgroundColor = bgColor.uiColor
         }

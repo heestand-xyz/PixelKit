@@ -23,7 +23,7 @@ public class FlarePIX: PIXSingleEffect {
     public var threshold: CGFloat = 0.95
     public var brightness: CGFloat = 1.0
     public var gamma: CGFloat = 0.25
-    public var color: PXColor = .orange
+    public var color: PixelColor = .orange
     public var rayRes: Int = 32
     
     // MARK: - Property Helpers

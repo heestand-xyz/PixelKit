@@ -122,7 +122,7 @@ public class VectorPIX: PIXResource {
     
     func makeHTML(with svg: String) -> String {
         let size: CGSize = (resolution / Resolution.scale).size
-        let bgColorHex: String = PXColor(bgColor).hex
+        let bgColorHex: String = PixelColor(bgColor).hex
         var svg_html: String = svg
         let svg_html_components = svg_html.components(separatedBy: "<svg")
         let svg_html_splits = svg_html_components.last!.split(separator: ">", maxSplits: 1)

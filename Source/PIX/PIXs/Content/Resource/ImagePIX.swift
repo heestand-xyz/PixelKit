@@ -84,8 +84,8 @@ public class ImagePIX: PIXResource {
     }
     
     public var tint: LiveBool = false
-    public var tintColor: PXColor = .white
-    public var bgColor: PXColor = .clear
+    public var tintColor: PixelColor = .white
+    public var bgColor: PixelColor = .clear
 
     // MARK: - Property Helpers
     

@@ -45,7 +45,7 @@ public extension PIX {
             return blendPix
         }
         
-        func blend(_ pix: PIX, _ color: PXColor, blendingMode: BlendMode) -> BlendPIX {
+        func blend(_ pix: PIX, _ color: PixelColor, blendingMode: BlendMode) -> BlendPIX {
             let colorPix = ColorPIX(at: .custom(w: 1, h: 1))
             colorPix.color = color
             if [.addWithAlpha, .subWithAlpha].contains(blendingMode) {
@@ -57,18 +57,18 @@ public extension PIX {
         }
         
         func blend(_ pix: PIX, _ val: CGFloat, blendingMode: BlendMode) -> BlendPIX {
-            let color: PXColor
+            let color: PixelColor
             switch blendingMode {
             case .addWithAlpha, .subWithAlpha:
-                color = PXColor(lum: val, a: val)
+                color = PixelColor(lum: val, a: val)
             default:
-                color = PXColor(lum: val)
+                color = PixelColor(lum: val)
             }
             return blend(pix, color, blendingMode: blendingMode)
         }
         
         func blend(_ pix: PIX, _ val: CGPoint, blendingMode: BlendMode) -> BlendPIX {
-            return blend(pix, PXColor(r: val.x, g: val.y, b: 0.0, a: 1.0), blendingMode: blendingMode)
+            return blend(pix, PixelColor(r: val.x, g: val.y, b: 0.0, a: 1.0), blendingMode: blendingMode)
         }
         
         public func operatorName(of blendingMode: BlendMode) -> String {
@@ -107,8 +107,8 @@ public extension PIX {
     static func +(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
     }
-    static func +(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs + lhs }
-    static func +(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func +(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs + lhs }
+    static func +(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .add)
     }
     
@@ -119,8 +119,8 @@ public extension PIX {
     static func ++(lhs: PIX, rhs: CGFloat) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .addWithAlpha)
     }
-    static func ++(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs ++ lhs }
-    static func ++(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func ++(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs ++ lhs }
+    static func ++(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .addWithAlpha)
     }
     
@@ -133,7 +133,7 @@ public extension PIX {
     static func -(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .sub)
     }
-    static func -(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func -(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .sub)
     }
     
@@ -146,7 +146,7 @@ public extension PIX {
     static func --(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subWithAlpha)
     }
-    static func --(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func --(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .subWithAlpha)
     }
     
@@ -161,8 +161,8 @@ public extension PIX {
     static func *(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .mult)
     }
-    static func *(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs * lhs }
-    static func *(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func *(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs * lhs }
+    static func *(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .mult)
     }
     
@@ -175,7 +175,7 @@ public extension PIX {
     static func **(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .pow)
     }
-    static func **(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func **(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .pow)
     }
     
@@ -188,7 +188,7 @@ public extension PIX {
     static func !**(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gam)
     }
-    static func !**(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func !**(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .gam)
     }
     
@@ -203,8 +203,8 @@ public extension PIX {
     static func &(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .over)
     }
-    static func &(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs !& lhs }
-    static func &(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func &(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs !& lhs }
+    static func &(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .over)
     }
     
@@ -219,8 +219,8 @@ public extension PIX {
     static func !&(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .under)
     }
-    static func !&(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs & lhs }
-    static func !&(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func !&(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs & lhs }
+    static func !&(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .under)
     }
     
@@ -235,8 +235,8 @@ public extension PIX {
     static func %(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .diff)
     }
-    static func %(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs % lhs }
-    static func %(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func %(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs % lhs }
+    static func %(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .diff)
     }
     
@@ -251,8 +251,8 @@ public extension PIX {
     static func <>(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .min)
     }
-    static func <>(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs <> lhs }
-    static func <>(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func <>(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs <> lhs }
+    static func <>(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .min)
     }
     
@@ -267,8 +267,8 @@ public extension PIX {
     static func ><(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .max)
     }
-    static func ><(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs >< lhs }
-    static func ><(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func ><(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs >< lhs }
+    static func ><(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .max)
     }
     
@@ -283,8 +283,8 @@ public extension PIX {
     static func /(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .div)
     }
-    static func /(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs / lhs }
-    static func /(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func /(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs / lhs }
+    static func /(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .div)
     }
     
@@ -299,8 +299,8 @@ public extension PIX {
     static func ~(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .avg)
     }
-    static func ~(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
-    static func ~(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func ~(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs ~ lhs }
+    static func ~(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .avg)
     }
     
@@ -315,8 +315,8 @@ public extension PIX {
     static func °(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .cos)
     }
-    static func °(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs ° lhs }
-    static func °(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func °(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs ° lhs }
+    static func °(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .cos)
     }
     
@@ -331,8 +331,8 @@ public extension PIX {
     static func <->(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .in)
     }
-    static func <->(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs <-> lhs }
-    static func <->(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func <->(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs <-> lhs }
+    static func <->(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .in)
     }
     
@@ -343,8 +343,8 @@ public extension PIX {
 //    static func <+>(lhs: PIX, rhs: CGFloat) -> BlendPIX {
 //        return blendOperators.blend(lhs, rhs, blendingMode: .insideDestination)
 //    }
-//    static func <+>(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs <+> lhs }
-//    static func <+>(lhs: PIX, rhs: PXColor) -> BlendPIX {
+//    static func <+>(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs <+> lhs }
+//    static func <+>(lhs: PIX, rhs: PixelColor) -> BlendPIX {
 //        return blendOperators.blend(lhs, rhs, blendingMode: .insideDestination)
 //    }
     
@@ -359,8 +359,8 @@ public extension PIX {
     static func >-<(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .out)
     }
-    static func >-<(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs >-< lhs }
-    static func >-<(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func >-<(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs >-< lhs }
+    static func >-<(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .out)
     }
     
@@ -371,8 +371,8 @@ public extension PIX {
 //    static func >+<(lhs: PIX, rhs: CGFloat) -> BlendPIX {
 //        return blendOperators.blend(lhs, rhs, blendingMode: .outsideDestination)
 //    }
-//    static func >+<(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs >+< lhs }
-//    static func >+<(lhs: PIX, rhs: PXColor) -> BlendPIX {
+//    static func >+<(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs >+< lhs }
+//    static func >+<(lhs: PIX, rhs: PixelColor) -> BlendPIX {
 //        return blendOperators.blend(lhs, rhs, blendingMode: .outsideDestination)
 //    }
     
@@ -387,8 +387,8 @@ public extension PIX {
     static func +-+(lhs: PIX, rhs: CGPoint) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .xor)
     }
-    static func +-+(lhs: PXColor, rhs: PIX) -> BlendPIX { return rhs +-+ lhs }
-    static func +-+(lhs: PIX, rhs: PXColor) -> BlendPIX {
+    static func +-+(lhs: PixelColor, rhs: PIX) -> BlendPIX { return rhs +-+ lhs }
+    static func +-+(lhs: PIX, rhs: PixelColor) -> BlendPIX {
         return blendOperators.blend(lhs, rhs, blendingMode: .xor)
     }
     

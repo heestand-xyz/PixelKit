@@ -45,7 +45,7 @@ open class PIX: NODE, Equatable, NODETileable {
                 uniforms.append(contentsOf: [size.width, size.height])
             } else if let frame: CGRect = value as? CGRect {
                 uniforms.append(contentsOf: [frame.minX, frame.minY, frame.width, frame.height])
-            } else if let color: PXColor = value as? PXColor {
+            } else if let color: PixelColor = value as? PixelColor {
                 uniforms.append(contentsOf: [color.red, color.green, color.blue, .alpha])
             }
         }

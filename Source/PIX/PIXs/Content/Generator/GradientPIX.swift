@@ -12,8 +12,8 @@ import CoreGraphics
 
 public struct ColorStep {
     public var step: CGFloat
-    public var color: PXColor
-    public init(_ step: CGFloat, _ color: PXColor) {
+    public var color: PixelColor
+    public init(_ step: CGFloat, _ color: PixelColor) {
         self.step = step
         self.color = color
     }
@@ -79,7 +79,7 @@ open class GradientPIX: PIXGenerator {
         let count = 7
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
-            colorSteps.append(ColorStep(fraction, PXColor(h: fraction, s: 1.0, v: 1.0, a: 1.0)))
+            colorSteps.append(ColorStep(fraction, PixelColor(h: fraction, s: 1.0, v: 1.0, a: 1.0)))
         }
         return colorSteps
     }
@@ -101,7 +101,7 @@ open class GradientPIX: PIXGenerator {
 public extension NODEOut {
     
     // FIXME: Create custom shader
-    func _gradientMap(from firstColor: PXColor, to lastColor: PXColor) -> LookupPIX {
+    func _gradientMap(from firstColor: PixelColor, to lastColor: PixelColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inputA = self as? PIX & NODEOut

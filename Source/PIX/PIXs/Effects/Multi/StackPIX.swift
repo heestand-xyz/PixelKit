@@ -65,7 +65,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
     public var spacing: CGFloat = 0.0
     public var padding: CGFloat = 0.0
     
-    public var backgroundColor: PXColor = .clear
+    public var backgroundColor: PixelColor = .clear
     
     // MARK: - Property Helpers
     

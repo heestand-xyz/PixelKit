@@ -60,7 +60,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 import PixelKit
 ```
 
-To access `PXColor` and `Resolution` import the dependencies of PixelKit:
+To access `PixelColor` and `Resolution` import the dependencies of PixelKit:
 
 ~~~~swift
 import RenderKit

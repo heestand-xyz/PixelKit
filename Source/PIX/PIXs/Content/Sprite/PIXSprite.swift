@@ -18,7 +18,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     public var resolution: Resolution { didSet { reSize(); applyResolution { self.setNeedsRender() } } }
     
-    public var bgColor: PXColor = .black {
+    public var bgColor: PixelColor = .black {
         didSet {
             scene.backgroundColor = bgColor._color
             setNeedsRender()

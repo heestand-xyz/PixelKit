@@ -32,7 +32,7 @@ public class ArrayPIX: PIXMultiEffect {
     
     public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
     public var coordinates: [Coordinate] = []
-    public var bgColor: PXColor = .black
+    public var bgColor: PixelColor = .black
     
     // MARK: - Property Helpers
     

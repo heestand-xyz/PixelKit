@@ -278,7 +278,7 @@ public class CameraPIX: PIXResource {
         didSet {
             helper?.manualWhiteBalance(manualWhiteBalance)
             if manualWhiteBalance {
-                helper?.setWhiteBalance(PXColor(whiteBalance))
+                helper?.setWhiteBalance(PixelColor(whiteBalance))
             }
         }
     }
@@ -288,7 +288,7 @@ public class CameraPIX: PIXResource {
         }
         set {
             guard manualWhiteBalance else { return }
-            helper?.setWhiteBalance(PXColor(newValue))
+            helper?.setWhiteBalance(PixelColor(newValue))
         }
     }
 
@@ -1088,7 +1088,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         device.unlockForConfiguration()
     }
     
-    func setWhiteBalance(_ color: PXColor) {
+    func setWhiteBalance(_ color: PixelColor) {
         guard let device = device else { return }
         let range = device.maxWhiteBalanceGain - 1.0
         try? device.lockForConfiguration()
@@ -1111,10 +1111,10 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         return device.focusPointOfInterest
     }
 
-    func getWhiteBalance() -> PXColor {
+    func getWhiteBalance() -> PixelColor {
         guard let device = device else { return .clear }
         let range = device.maxWhiteBalanceGain - 1.0
-        return PXColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
+        return PixelColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
                          g: CGFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
                          b: CGFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
     }

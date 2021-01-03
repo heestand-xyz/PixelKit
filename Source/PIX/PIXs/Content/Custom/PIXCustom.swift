@@ -17,7 +17,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
-    public var bgColor: PXColor = .black
+    public var bgColor: PixelColor = .black
     
     override open var values: [CoreValue] { return [bgColor] }
     

@@ -42,18 +42,18 @@ import SwiftUI
 //    }
 //    // Parent Property Funcs
 //    public func bgColor(_ bgColor: Binding<_Color>) -> PixNoise {
-//        noisepix.bgColor = PXColor({ bgColor.wrappedValue })
+//        noisepix.bgColor = PixelColor({ bgColor.wrappedValue })
 //        return self
 //    }
-//    public func bgColor(_ bgColor: PXColor) -> PixNoise {
+//    public func bgColor(_ bgColor: PixelColor) -> PixNoise {
 //        noisepix.bgColor = bgColor
 //        return self
 //    }
 //    public func color(_ color: Binding<_Color>) -> PixNoise {
-//        noisepix.color = PXColor({ color.wrappedValue })
+//        noisepix.color = PixelColor({ color.wrappedValue })
 //        return self
 //    }
-//    public func color(_ color: PXColor) -> PixNoise {
+//    public func color(_ color: PixelColor) -> PixNoise {
 //        noisepix.color = color
 //        return self
 //    }

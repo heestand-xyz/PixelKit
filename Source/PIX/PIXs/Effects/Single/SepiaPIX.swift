@@ -15,7 +15,7 @@ public class SepiaPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var color: PXColor = .orange
+    public var color: PixelColor = .orange
     
     // MARK: - Property Helpers
     
