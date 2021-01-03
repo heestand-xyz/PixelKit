@@ -44,7 +44,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform]
+        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
     // MARK: - Life Cycle

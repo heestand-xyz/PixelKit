@@ -35,7 +35,7 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
     public var style: RainbowLumaBlurStyle = .angle { didSet { setNeedsRender() } }
     public var radius: CGFloat = 0.5
     public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
+    public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
     public var light: CGFloat = 1.0
     
@@ -46,7 +46,7 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius.uniform * 32 * 10, CGFloat(quality.rawValue), angle.uniform, position.x.uniform, position.y.uniform, light.uniform]
+        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
     }
     
     // MARK: - Life Cycle

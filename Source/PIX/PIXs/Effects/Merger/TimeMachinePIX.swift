@@ -5,7 +5,7 @@
 //  Created by Anton Heestand on 2019-03-16.
 //
 
-
+import CoreGraphics
 import RenderKit
 import Metal
 
@@ -15,7 +15,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var seconds: CGFloat = CGFloat(1.0, max: 10.0)
+    public var seconds: CGFloat = 1.0
     
     // MARK: - Private Properties
     
@@ -57,7 +57,7 @@ public class TimeMachinePIX: PIXMergerEffect {
         let count = textureCache.count
         for i in 0..<count {
             let ir = count - i - 1
-            if -textureCache[ir].date.timeIntervalSinceNow > Double(seconds.uniform) {
+            if -textureCache[ir].date.timeIntervalSinceNow > Double(seconds) {
                 textureCache.remove(at: ir)
             }
         }
