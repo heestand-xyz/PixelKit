@@ -25,13 +25,18 @@ public class FeedbackPIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     var feedTexture: MTLTexture? {
-        guard let texture = feedPix?.texture else { return nil }
+        guard let texture = inputFeed?.texture else { return nil }
         return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
     public var feedActive: Bool = true { didSet { setNeedsRender() } }
-    public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
-    
+    @available(*, deprecated, renamed: "inputFeed")
+    public var feedPix: (PIX & NODEOut)? {
+        get { inputFeed }
+        set { inputFeed = newValue }
+    }
+    public var inputFeed: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
+
     public required init() {
         super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
         pixelKit.render.listenToFramesUntil {
@@ -45,7 +50,7 @@ public class FeedbackPIX: PIXSingleEffect {
     }
     
     func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
-        guard let tileFeedPix = feedPix as? PIX & NODETileable2D else {
+        guard let tileFeedPix = inputFeed as? PIX & NODETileable2D else {
             pixelKit.logger.log(node: self, .error, .texture, "Feed Input PIX Not Tileable.")
             return nil
         }
@@ -110,7 +115,7 @@ public extension NODEOut {
         crossPix.inputA = self as? PIX & NODEOut
         crossPix.inputB = loop?(feedbackPix) ?? feedbackPix
         crossPix.fraction = fraction
-        feedbackPix.feedPix = crossPix
+        feedbackPix.inputFeed = crossPix
         return feedbackPix
     }
     
@@ -119,7 +124,7 @@ public extension NODEOut {
 //        feedbackPix.name = "feed:feedback"
 //        let pix = self as! PIX & NODEOut
 //        feedbackPix.input = pix
-//        feedbackPix.feedPix = pix + (loop?(feedbackPix) ?? feedbackPix)
+//        feedbackPix.inputFeed = pix + (loop?(feedbackPix) ?? feedbackPix)
 //        return feedbackPix
 //    }
     
