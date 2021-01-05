@@ -23,16 +23,6 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
 
     // MARK: - Public Properties
     
-    public enum CellList {
-        case column
-        case row
-    }
-    
-    /// the cell list that will be sampled
-    ///
-    /// one pixel row is *default*
-    public var cellList: CellList = .row { didSet { applyResolution { self.setNeedsRender() } } }
-    
     public enum Method {
         /// average
         case avg
@@ -76,40 +66,21 @@ public class ReducePIX: PIXSingleEffect, PIXAuto, CustomRenderDelegate {
     // MARK: - Resolution
     
     func getCustomResolution(from resolution: Resolution) -> Resolution {
-        switch cellList {
-        case .column:
-            return .custom(w: 1, h: resolution.h)
-        case .row:
-            return .custom(w: resolution.w, h: 1)
-        }
+        return .custom(w: 1, h: resolution.h)
     }
     
     // MARK: - Kernel
     
     func getKernel(with device: MTLDevice) -> MPSImageReduceUnary {
-        switch cellList {
-        case .row:
-            switch method {
-            case .avg:
-                return MPSImageReduceColumnMean(device: device)
-            case .min:
-                return MPSImageReduceColumnMin(device: device)
-            case .max:
-                return MPSImageReduceColumnMax(device: device)
-            case .sum:
-                return MPSImageReduceColumnSum(device: device)
-            }
-        case .column:
-            switch method {
-            case .avg:
-                return MPSImageReduceRowMean(device: device)
-            case .min:
-                return MPSImageReduceRowMin(device: device)
-            case .max:
-                return MPSImageReduceRowMax(device: device)
-            case .sum:
-                return MPSImageReduceRowSum(device: device)
-            }
+       switch method {
+        case .avg:
+            return MPSImageReduceRowMean(device: device)
+        case .min:
+            return MPSImageReduceRowMin(device: device)
+        case .max:
+            return MPSImageReduceRowMax(device: device)
+        case .sum:
+            return MPSImageReduceRowSum(device: device)
         }
     }
     
