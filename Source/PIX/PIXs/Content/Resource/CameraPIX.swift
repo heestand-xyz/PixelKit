@@ -1092,7 +1092,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         guard let device = device else { return }
         let range = device.maxWhiteBalanceGain - 1.0
         try? device.lockForConfiguration()
-        device.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.r) * range, greenGain: 1.0 + Float(color.g) * range, blueGain: 1.0 + Float(color.b) * range))
+        device.setWhiteBalanceModeLocked(with: AVCaptureDevice.WhiteBalanceGains(redGain: 1.0 + Float(color.red) * range, greenGain: 1.0 + Float(color.green) * range, blueGain: 1.0 + Float(color.blue) * range))
         device.unlockForConfiguration()
     }
     
@@ -1114,9 +1114,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func getWhiteBalance() -> PixelColor {
         guard let device = device else { return .clear }
         let range = device.maxWhiteBalanceGain - 1.0
-        return PixelColor(r: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
-                         g: CGFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
-                         b: CGFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
+        return PixelColor(red: CGFloat((device.deviceWhiteBalanceGains.redGain - 1.0) / range),
+                          green: CGFloat((device.deviceWhiteBalanceGains.greenGain - 1.0) / range),
+                          blue: CGFloat((device.deviceWhiteBalanceGains.blueGain - 1.0) / range))
     }
     
     #endif

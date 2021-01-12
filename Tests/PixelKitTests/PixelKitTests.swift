@@ -21,12 +21,6 @@ final class PixelKitTests: XCTestCase {
         _ = MetalPIX(code: "")
     }
     
-    func testNames() {
-        for pix in PIXAutoList.getAll() {
-            XCTAssertNotNil(pix.name)
-        }
-    }
-    
 //    func testAveragePixGenerators() {
 //
 //        setUpManual()

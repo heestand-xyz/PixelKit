@@ -20,7 +20,11 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     public var bgColor: PixelColor = .black {
         didSet {
-            scene.backgroundColor = bgColor._color
+            #if os(macOS)
+            scene.backgroundColor = bgColor.nsColor
+            #else
+            scene.backgroundColor = bgColor.uiColor
+            #endif
             setNeedsRender()
         }
     }
@@ -42,7 +46,11 @@ open class PIXSprite: PIXContent, NODEResolution {
     func setup() {
         let size = (resolution / Resolution.scale).size
         scene = SKScene(size: size)
-        scene.backgroundColor = bgColor._color
+        #if os(macOS)
+        scene.backgroundColor = bgColor.nsColor
+        #else
+        scene.backgroundColor = bgColor.uiColor
+        #endif
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)

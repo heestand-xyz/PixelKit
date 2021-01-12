@@ -565,40 +565,6 @@ open class PIX: NODE, Equatable, NODETileable {
         self.id == node.id
     }
     
-    // MARK: Live
-    
-    public func checkLive() {
-        
-        guard !bypass else { return }
-        
-        let needsInTexture = self is NODEInIO
-        let hasInTexture = needsInTexture && (self as! NODEInIO).inputList.first?.texture != nil
-        let needsContent = self.contentLoaded != nil
-        let hasContent = self.contentLoaded == true
-        let needsGenerated = self is NODEGenerator
-        let hasGenerated = !self.bypass
-        let template = ((needsInTexture && !hasInTexture) || (needsContent && !hasContent) || (needsGenerated && !hasGenerated)) && !(self is NODE3D)
-        
-        guard !template else { return }
-        
-        for liveValue in liveValues {
-            if liveValue.uniformIsNew {
-                setNeedsRender()
-                break
-            }
-        }
-        
-        for liveValues in liveArray {
-            for liveValue in liveValues {
-                if liveValue.uniformIsNew {
-                    setNeedsRender()
-                    break
-                }
-            }
-        }
-        
-    }
-    
     // MARK: Clean
     
     public func destroy() {

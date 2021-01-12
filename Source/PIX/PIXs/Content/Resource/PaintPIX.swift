@@ -15,21 +15,21 @@ import SwiftUI
 #endif
 import PencilKit
 
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-public struct PaintPIXUI: View, PIXUI {
-    public var node: NODE { pix }
-    public let pix: PIX
-    let paintPix: PaintPIX
-    public var body: some View {
-        NODERepView(node: pix)
-    }
-    public init() {
-        paintPix = PaintPIX()
-        pix = paintPix
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//public struct PaintPIXUI: View, PIXUI {
+//    public var node: NODE { pix }
+//    public let pix: PIX
+//    let paintPix: PaintPIX
+//    public var body: some View {
+//        NODERepView(node: pix)
+//    }
+//    public init() {
+//        paintPix = PaintPIX()
+//        pix = paintPix
+//    }
+//}
+//#endif
 
 @available(iOS 13.0, *)
 public class PaintPIX: PIXResource {
@@ -148,7 +148,7 @@ public class PaintPIX: PIXResource {
         }
     }
     
-    public override var liveValues: [LiveValue] { [bgColor] }
+    public override var values: [CoreValue] { [bgColor] }
     
     public override var postUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     

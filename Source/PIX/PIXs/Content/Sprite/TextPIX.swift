@@ -20,7 +20,7 @@ public class TextPIX: PIXSprite {
     // MARK: - Public Properties
     
     public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); setNeedsRender() } }
-    public var color: _Color = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
+    public var color: PixelColor = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
     
     #if os(iOS) || os(tvOS)
     typealias _Font = UIFont
@@ -88,7 +88,11 @@ public class TextPIX: PIXSprite {
     }
     
     func setNeedsTextColor() {
-        label.fontColor = color
+        #if os(macOS)
+        label.fontColor = color.nsColor
+        #else
+        label.fontColor = color.uiColor
+        #endif
     }
     
     func setNeedsFont() {

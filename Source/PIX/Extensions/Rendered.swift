@@ -250,7 +250,7 @@ public extension PIX {
                         color = px.color
                         continue
                     }
-                    if Bool(px.color > color!) {
+                    if px.color.brightness > color!.brightness {
                         color = px.color
                     }
                 }
@@ -265,7 +265,7 @@ public extension PIX {
                         color = px.color
                         continue
                     }
-                    if Bool(px.color < color!) {
+                    if px.color.brightness < color!.brightness {
                         color = px.color
                     }
                 }
@@ -292,7 +292,7 @@ public extension PIX {
                     let chan = rawPixels[j]
                     c.append(chan)
                 }
-                let color = PixelColor(c)
+                let color = PixelColor(red: c[0], green: c[1], blue: c[2], alpha: c[3])
                 let uv = CGVector(dx: u, dy: v)
                 let pixel = Pixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)

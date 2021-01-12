@@ -101,9 +101,11 @@ extension PIX {
             }
             guard let inRes = (pixIn.inputList.first as? PIX)?.realResolution else { return nil }
             if let cropPix = self as? CropPIX {
-                return .size(inRes.size * CGSize(cropPix.resScale))
+                return .size(CGSize(width: inRes.size.width * cropPix.resScale.width,
+                                    height: inRes.size.height * cropPix.resScale.height))
             } else if let convertPix = self as? ConvertPIX {
-                return .size(inRes.size * CGSize(convertPix.resScale))
+                return .size(CGSize(width: inRes.size.width * convertPix.resScale.width,
+                                    height: inRes.size.height * convertPix.resScale.height))
             } else if let flipFlopPix = self as? FlipFlopPIX {
                 return flipFlopPix.flop != .none ? Resolution(inRes.raw.flopped) : inRes
             }

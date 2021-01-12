@@ -35,7 +35,7 @@ public class VectorPIX: PIXResource {
     
     public var scale: CGFloat = 1.0 { didSet { load() } }
     public var position: CGPoint = .zero { didSet { load() } }
-    public var bgColor: _Color = .black { didSet { load() } }
+    public var bgColor: PixelColor = .black { didSet { load() } }
     
     var svg: String?
     
@@ -122,7 +122,7 @@ public class VectorPIX: PIXResource {
     
     func makeHTML(with svg: String) -> String {
         let size: CGSize = (resolution / Resolution.scale).size
-        let bgColorHex: String = PixelColor(bgColor).hex
+        let bgColorHex: String = bgColor.hex
         var svg_html: String = svg
         let svg_html_components = svg_html.components(separatedBy: "<svg")
         let svg_html_splits = svg_html_components.last!.split(separator: ">", maxSplits: 1)

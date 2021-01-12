@@ -16,39 +16,39 @@ import AppKit
 import SwiftUI
 #endif
 
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-@available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-public struct ViewPIXUI<Content: View>: View, PIXUI {
-    public var node: NODE { pix }
-    public let pix: PIX
-    let viewPix: ViewPIX
-    public var body: some View {
-        NODERepView(node: pix)
-    }
-    public init(continuously: Bool = false, _ view: () -> (Content)) {
-        let viewPix = ViewPIX()
-        viewPix.renderViewContinuously = continuously
-        self.viewPix = viewPix
-        #if os(macOS)
-        let _view: NSView = NSHostingController(rootView: view()).view
-        #else
-        let _view: UIView = UIHostingController(rootView: view()).view!
-        #endif
-        viewPix.renderView = _view
-        pix = viewPix
-//        PixelKit.main.render.listenToFramesUntil {
-//            let resolution: Resolution = .auto(render: PixelKit.main.render)
-//            guard resolution.w != 128 else { return .continue }
-//            let size = (res / Resolution.scale).size
-//            uiView.frame = CGRect(origin: .zero, size: size)
-//            viewPix.viewNeedsRender()
-//            return .done
-//        }
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//@available(OSX 10.15, *)
+//@available(tvOS 13.0.0, *)
+//public struct ViewPIXUI<Content: View>: View, PIXUI {
+//    public var node: NODE { pix }
+//    public let pix: PIX
+//    let viewPix: ViewPIX
+//    public var body: some View {
+//        NODERepView(node: pix)
+//    }
+//    public init(continuously: Bool = false, _ view: () -> (Content)) {
+//        let viewPix = ViewPIX()
+//        viewPix.renderViewContinuously = continuously
+//        self.viewPix = viewPix
+//        #if os(macOS)
+//        let _view: NSView = NSHostingController(rootView: view()).view
+//        #else
+//        let _view: UIView = UIHostingController(rootView: view()).view!
+//        #endif
+//        viewPix.renderView = _view
+//        pix = viewPix
+////        PixelKit.main.render.listenToFramesUntil {
+////            let resolution: Resolution = .auto(render: PixelKit.main.render)
+////            guard resolution.w != 128 else { return .continue }
+////            let size = (res / Resolution.scale).size
+////            uiView.frame = CGRect(origin: .zero, size: size)
+////            viewPix.viewNeedsRender()
+////            return .done
+////        }
+//    }
+//}
+//#endif
 
 #if os(iOS) || os(tvOS)
 typealias _ViewController = UIViewController
@@ -115,7 +115,8 @@ public class ViewPIX: PIXResource {
             } else {
                 if self.renderView != nil {
                     let viewRelSize = self.renderView!.frame.size
-                    let viewSize = CGSize(viewRelSize) * Resolution.scale
+                    let viewSize = CGSize(width: viewRelSize.width * Resolution.scale,
+                                          height: viewRelSize.height * Resolution.scale)
                     let res: Resolution = .auto(render: self.pixelKit.render)
                     let resSize = self.renderResolution.size
                     let resRelSize = (res / Resolution.scale).size
