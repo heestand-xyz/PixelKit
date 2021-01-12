@@ -44,22 +44,22 @@ public class ArrayPIX: PIXMultiEffect {
             values.append(coordinate.scale)
             values.append(coordinate.textueIndex)
         }
-        return liveValues
+        return values
     }
     
     open override var uniforms: [CGFloat] {
         var uniforms = [CGFloat(blendMode.index), CGFloat(coordinates.count)]
-        uniforms.append(contentsOf: bgColor.uniformList)
+        uniforms.append(contentsOf: bgColor.components)
         return uniforms
     }
     
     public override var uniformArray: [[CGFloat]] {
         return coordinates.map({ coordinate -> [CGFloat] in
             var uniforms: [CGFloat] = []
-            uniforms.append(contentsOf: coordinate.position.uniformList)
-            uniforms.append(coordinate.scale.uniform)
-            uniforms.append(coordinate.rotation.uniform)
-            uniforms.append(CGFloat(coordinate.textueIndex.uniform))
+            uniforms.append(contentsOf: [coordinate.position.x, coordinate.position.y])
+            uniforms.append(coordinate.scale)
+            uniforms.append(coordinate.rotation)
+            uniforms.append(CGFloat(coordinate.textueIndex))
             return uniforms
         })
     }
@@ -93,7 +93,7 @@ public class ArrayPIX: PIXMultiEffect {
         }
     }
     
-    public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: CGFloat = 1.0) { // CRASH: - 2.0.3
+    public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: CGFloat = 1.0) { 
         guard scale != 0.0 else { return }
         coordinates = []
         let aspect = renderResolution.aspect

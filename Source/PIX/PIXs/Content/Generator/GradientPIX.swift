@@ -62,14 +62,14 @@ open class GradientPIX: PIXGenerator {
         return [CGFloat(extendRamp.index)]
     }
 
-    override public var values: [[CGFloat]] {
+    override public var uniformArray: [[CGFloat]] {
         return colorSteps.map({ colorStep -> [CGFloat] in
             return [colorStep.step, colorStep.color.red, colorStep.color.green, colorStep.color.blue, colorStep.color.alpha]
         })
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(direction.index), scale.uniform, offset.uniform, position.x.uniform, position.y.uniform, CGFloat(extendRamp.index)]
+        return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendRamp.index)]
     }
     
     // MARK: - Rainbow
@@ -79,7 +79,7 @@ open class GradientPIX: PIXGenerator {
         let count = 7
         for i in 0..<count {
             let fraction = CGFloat(i) / CGFloat(count - 1)
-            colorSteps.append(ColorStep(fraction, PixelColor(h: fraction, s: 1.0, v: 1.0, a: 1.0)))
+            colorSteps.append(ColorStep(fraction, PixelColor(hue: fraction, saturation: 1.0, brightness: 1.0, alpha: 1.0)))
         }
         return colorSteps
     }

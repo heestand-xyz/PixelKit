@@ -33,7 +33,7 @@ public extension PIX {
         #else
         let vFlip: Bool = true
         #endif
-        return Texture.cgImage(from: ciImage, at: renderResolution.size.cg, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
+        return Texture.cgImage(from: ciImage, at: renderResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
     }
     
     #if os(iOS) || os(tvOS)
@@ -46,7 +46,7 @@ public extension PIX {
             pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
             return nil
         }
-        return Texture.image(from: cgImage, at: renderResolution.size.cg)
+        return Texture.image(from: cgImage, at: renderResolution.size)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {
@@ -217,17 +217,26 @@ public extension PIX {
                         color = px.color
                         continue
                     }
-                    color += px.color
+                    color = PixelColor(red: color.red + px.color.red,
+                                       green: color.green + px.color.green,
+                                       blue: color.blue + px.color.blue,
+                                       alpha: color.alpha + px.color.alpha)
                 }
             }
-            color /= CGFloat(CGFloat(resolution.count))
+            let count = CGFloat(resolution.count)
+            color = PixelColor(red: color.red / count,
+                               green: color.green / count,
+                               blue: color.blue / count,
+                               alpha: color.alpha / count)
             return color
         }
-        public var averageLuminance: CGFloat {
+        @available(*, deprecated, renamed: "averageBrightness")
+        public var averageLuminance: CGFloat { averageBrightness }
+        public var averageBrightness: CGFloat {
             var luminance: CGFloat = 0.0
             for row in raw {
                 for px in row {
-                    luminance += px.color.lum
+                    luminance += px.color.brightness
                 }
             }
             luminance /= CGFloat(resolution.count)

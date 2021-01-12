@@ -9,7 +9,7 @@
 import CoreGraphics
 import RenderKit
 
-public class RectanglePIX: PIXGenerator, Layoutable {
+public class RectanglePIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorRectanglePIX" }
     
@@ -17,7 +17,7 @@ public class RectanglePIX: PIXGenerator, Layoutable {
     
     public var position: CGPoint = .zero
     public var size: CGSize = CGSize(width: 0.5, height: 0.5)
-    public var cornerRadius: CGFloat = CGFloat(0.0, max: 0.25)
+    public var cornerRadius: CGFloat = 0.0
     
     // MARK: - Property Helpers
     

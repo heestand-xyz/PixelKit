@@ -69,7 +69,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
     
     // MARK: - Property Helpers
     
-    public override var liveValues: [LiveValue] { [spacing, padding, backgroundColor] }
+    public override var values: [CoreValue] { [spacing, padding, backgroundColor] }
     
     public override var preUniforms: [CGFloat] { [CGFloat(axis.index), CGFloat(axis.alignmentIndex)] }
     

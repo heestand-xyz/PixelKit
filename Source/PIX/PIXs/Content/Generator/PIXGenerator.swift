@@ -11,7 +11,7 @@ import MetalKit
 
 import RenderKit
 
-open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution, NODETileable2DParent {
+open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     var _resolution: Resolution
     public var resolution: Resolution {

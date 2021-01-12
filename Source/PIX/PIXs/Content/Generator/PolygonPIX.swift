@@ -6,20 +6,20 @@
 //  Open Source - MIT License
 //
 
-
+import CoreGraphics
 import RenderKit
 
-public class PolygonPIX: PIXGenerator, Layoutable {
+public class PolygonPIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorPolygonPIX" }
     
     // MARK: - Public Properties
     
     public var position: CGPoint = .zero
-    public var radius: CGFloat = CGFloat(0.25, max: 0.5)
-    public var rotation: CGFloat = CGFloat(0.0, min: -0.5, max: 0.5)
-    public var vertexCount: Int = Int(6, min: 3, max: 12)
-    public var cornerRadius: CGFloat = CGFloat(0.0, max: 0.25)
+    public var radius: CGFloat = 0.25
+    public var rotation: CGFloat = 0.0
+    public var vertexCount: Int = 6
+    public var cornerRadius: CGFloat = 0.0
    
     // MARK: - Property Helpers
     

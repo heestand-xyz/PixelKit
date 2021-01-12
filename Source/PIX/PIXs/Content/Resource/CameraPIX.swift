@@ -25,42 +25,42 @@ public protocol CameraPIXDelegate {
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-@available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-public struct CameraPIXUI: View, PIXUI {
-    public var node: NODE { pix }
-    public let pix: PIX
-    let cameraPix: CameraPIX
-    public var body: some View {
-        NODERepView(node: pix)
-    }
-    #if os(iOS) && !targetEnvironment(macCatalyst)
-    public init(camera: CameraPIX.Camera = .back, camRes: CameraPIX.CamRes = ._1080p) {
-        cameraPix = CameraPIX()
-        cameraPix.camera = camera
-        cameraPix.camRes = camRes
-        pix = cameraPix
-    }
-    #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public init(camera: CameraPIX.Camera = .front, camRes: CameraPIX.CamRes = ._720p) {
-        cameraPix = CameraPIX()
-        cameraPix.camera = camera
-        cameraPix.camRes = camRes
-        pix = cameraPix
-    }
-    #endif
-    public func camRes(_ camRes: CameraPIX.CamRes) -> CameraPIXUI {
-        cameraPix.camRes = camRes
-        return self
-    }
-    public func camera(_ camera: CameraPIX.Camera) -> CameraPIXUI {
-        cameraPix.camera = camera
-        return self
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//@available(OSX 10.15, *)
+//@available(tvOS 13.0.0, *)
+//public struct CameraPIXUI: View, PIXUI {
+//    public var node: NODE { pix }
+//    public let pix: PIX
+//    let cameraPix: CameraPIX
+//    public var body: some View {
+//        NODERepView(node: pix)
+//    }
+//    #if os(iOS) && !targetEnvironment(macCatalyst)
+//    public init(camera: CameraPIX.Camera = .back, camRes: CameraPIX.CamRes = ._1080p) {
+//        cameraPix = CameraPIX()
+//        cameraPix.camera = camera
+//        cameraPix.camRes = camRes
+//        pix = cameraPix
+//    }
+//    #elseif os(macOS) || targetEnvironment(macCatalyst)
+//    public init(camera: CameraPIX.Camera = .front, camRes: CameraPIX.CamRes = ._720p) {
+//        cameraPix = CameraPIX()
+//        cameraPix.camera = camera
+//        cameraPix.camRes = camRes
+//        pix = cameraPix
+//    }
+//    #endif
+//    public func camRes(_ camRes: CameraPIX.CamRes) -> CameraPIXUI {
+//        cameraPix.camRes = camRes
+//        return self
+//    }
+//    public func camera(_ camera: CameraPIX.Camera) -> CameraPIXUI {
+//        cameraPix.camera = camera
+//        return self
+//    }
+//}
+//#endif
 
 public class CameraPIX: PIXResource {
         

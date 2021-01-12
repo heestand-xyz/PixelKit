@@ -152,14 +152,4 @@ public class NoisePIX: PIXGenerator {
         super.init(at: resolution, name: "Noise", typeName: "pix-content-generator-noise")
     }
     
-//    // MARK: - Life Cycle
-//
-//    public init(at resolution: Resolution, seed: Int = Int.random(in: 0...1000), octaves: Int = 7, colored: Bool = false, random: Bool = false) {
-//        self.seed = seed
-//        self.octaves = octaves
-//        self.colored = colored
-//        self.random = random
-//        super.init(at: resolution)
-//    }
-    
 }

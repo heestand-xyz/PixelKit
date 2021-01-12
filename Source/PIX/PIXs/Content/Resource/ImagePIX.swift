@@ -23,24 +23,24 @@ public typealias _Image = UIImage
 public typealias _Image = NSImage
 #endif
 
-#if canImport(SwiftUI)
-@available(iOS 13.0.0, *)
-@available(OSX 10.15, *)
-@available(tvOS 13.0.0, *)
-public struct ImagePIXUI: View, PIXUI {
-    public var node: NODE { pix }
-    public let pix: PIX
-    let imagePix: ImagePIX
-    public var body: some View {
-        NODERepView(node: pix)
-    }
-    public init(image: _Image) {
-        imagePix = ImagePIX()
-        imagePix.image = image
-        pix = imagePix
-    }
-}
-#endif
+//#if canImport(SwiftUI)
+//@available(iOS 13.0.0, *)
+//@available(OSX 10.15, *)
+//@available(tvOS 13.0.0, *)
+//public struct ImagePIXUI: View, PIXUI {
+//    public var node: NODE { pix }
+//    public let pix: PIX
+//    let imagePix: ImagePIX
+//    public var body: some View {
+//        NODERepView(node: pix)
+//    }
+//    public init(image: _Image) {
+//        imagePix = ImagePIX()
+//        imagePix.image = image
+//        pix = imagePix
+//    }
+//}
+//#endif
 
 public class ImagePIX: PIXResource {
 
@@ -89,7 +89,7 @@ public class ImagePIX: PIXResource {
 
     // MARK: - Property Helpers
     
-    public override var liveValues: [LiveValue] {
+    public override var values: [CoreValue] {
         [tint, tintColor, bgColor]
     }
     

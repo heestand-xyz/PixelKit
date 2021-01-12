@@ -8,7 +8,7 @@
 import CoreGraphics
 import RenderKit
 
-public class LinePIX: PIXGenerator, Layoutable {
+public class LinePIX: PIXGenerator {
     
     override open var shaderName: String { return "contentGeneratorLinePIX" }
     
@@ -16,7 +16,7 @@ public class LinePIX: PIXGenerator, Layoutable {
     
     public var positionFrom: CGPoint = CGPoint(x: -0.25, y: -0.25)
     public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.25)
-    public var scale: CGFloat = CGFloat(0.01, max: 0.1)
+    public var scale: CGFloat = 0.01
     
     // MARK: - Property Helpers
     
