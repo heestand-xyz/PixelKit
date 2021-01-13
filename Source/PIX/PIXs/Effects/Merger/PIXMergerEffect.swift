@@ -8,7 +8,7 @@
 
 import RenderKit
 
-open class PIXMergerEffect: PIXEffect, NODEMergerEffect {
+open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     
     public var inputA: (NODE & NODEOut)? { didSet { setNeedsConnectMerger(new: inputA, old: oldValue, second: false) } }
     public var inputB: (NODE & NODEOut)? { didSet { setNeedsConnectMerger(new: inputB, old: oldValue, second: true) } }

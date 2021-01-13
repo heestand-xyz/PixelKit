@@ -8,7 +8,7 @@
 
 import RenderKit
 
-open class PIXSingleEffect: PIXEffect, NODESingleEffect {
+open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle {
     
     public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
     
