@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
 //        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.3.0"),
 //        .package(path: "~/Code/Packages/Swift/RenderKit/"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.5.3"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.5.4"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: [/*"LiveValues", */"RenderKit"], path: "Source", exclude: [
