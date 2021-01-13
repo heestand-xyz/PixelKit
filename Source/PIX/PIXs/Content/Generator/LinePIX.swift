@@ -21,7 +21,7 @@ public class LinePIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return [positionFrom, positionTo, scale, super.color, super.bgColor]
+        return [positionFrom, positionTo, scale, super.color, super.backgroundColor]
     }
     
     // MARK: - Life Cycle

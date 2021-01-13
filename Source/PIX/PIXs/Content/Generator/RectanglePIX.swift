@@ -22,7 +22,7 @@ public class RectanglePIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return [size, position/*, rotation*/, cornerRadius, super.color, super.bgColor]
+        return [size, position/*, rotation*/, cornerRadius, super.color, super.backgroundColor]
     }
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {

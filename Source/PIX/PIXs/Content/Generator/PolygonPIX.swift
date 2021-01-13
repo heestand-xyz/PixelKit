@@ -24,7 +24,7 @@ public class PolygonPIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return [radius, position, rotation, vertexCount, super.color, super.bgColor, cornerRadius]
+        return [radius, position, rotation, vertexCount, super.color, super.backgroundColor, cornerRadius]
     }
     
     // MARK: - Life Cycle

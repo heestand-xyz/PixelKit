@@ -25,7 +25,7 @@ public class ArcPIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.bgColor]
+        return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.backgroundColor]
     }
     
     // MARK: - Life Cycle

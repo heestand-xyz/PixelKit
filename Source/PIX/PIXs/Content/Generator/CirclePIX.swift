@@ -21,7 +21,7 @@ public class CirclePIX: PIXGenerator {
     // MARK: - Property Helpers
     
     override public var values: [CoreValue] {
-        return [radius, position, edgeRadius, super.color, edgeColor, super.bgColor]
+        return [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
     }
     
     // MARK: - Life Cycle

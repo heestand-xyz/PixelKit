@@ -395,7 +395,7 @@ public extension PIX {
     prefix static func ! (operand: PIX) -> PIX & NODEOut {
         guard let pix = operand as? NODEOut else {
             let black = ColorPIX(at: ._128)
-            black.bgColor = .black
+            black.backgroundColor = .black
             return black
         }
         return pix._invert()

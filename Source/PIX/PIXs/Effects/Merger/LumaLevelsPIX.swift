@@ -56,7 +56,7 @@ public extension NODEOut {
     func _vignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & NODEOut
         let rectangle = RectanglePIX(at: pix.renderResolution)
-        rectangle.bgColor = .white
+        rectangle.backgroundColor = .white
         rectangle.color = .black
         rectangle.name = "vignetting:rectangle"
         rectangle.size = CGSize(width: pix.renderResolution.aspect - inset, height: 1.0 - inset)
