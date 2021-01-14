@@ -22,7 +22,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [divisions, mirror, rotation, position]
     }
     

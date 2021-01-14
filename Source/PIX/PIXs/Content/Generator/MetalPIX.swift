@@ -82,7 +82,7 @@ public class MetalPIX: PIXGenerator, NODEMetal {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return metalUniforms.map({ uniform -> CGFloat in uniform.value })
     }
     

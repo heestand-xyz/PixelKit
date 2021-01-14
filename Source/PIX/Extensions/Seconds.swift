@@ -29,4 +29,8 @@ public extension CGFloat {
         CGFloat(Date().timeIntervalSince1970)
     }
     
+    static func % (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
+        lhs.truncatingRemainder(dividingBy: rhs)
+    }
+    
 }

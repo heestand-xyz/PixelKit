@@ -148,7 +148,7 @@ public class PaintPIX: PIXResource {
         }
     }
     
-    public override var values: [CoreValue] { [bgColor] }
+    public override var values: [Floatable] { [bgColor] }
     
     public override var postUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     

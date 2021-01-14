@@ -10,13 +10,19 @@
 import RenderKit
 import CoreGraphics
 
-public struct ColorStep {
+public class ColorStep: Floatable {
     public var step: CGFloat
     public var color: PixelColor
     public init(_ step: CGFloat, _ color: PixelColor) {
         self.step = step
         self.color = color
     }
+    public var floats: [CGFloat] {
+        [step, color.red, color.green, color.blue, color.alpha]
+    }
+}
+extension Array: Floatable where Element == ColorStep {
+    public var floats: [CGFloat] { flatMap(\.floats) }
 }
 
 open class GradientPIX: PIXGenerator {
@@ -25,7 +31,7 @@ open class GradientPIX: PIXGenerator {
     
     // MARK: - Public Types
     
-    public enum Direction: String, Codable, CaseIterable {
+    public enum Direction: String, Codable, CaseIterable, Floatable {
         case horizontal
         case vertical
         case radial
@@ -38,62 +44,42 @@ open class GradientPIX: PIXGenerator {
             case .angle: return 3
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
     // MARK: - Public Properties
     
-    public var direction: Direction = .horizontal { didSet { setNeedsRender() } }
-    public var scale: CGFloat = 1.0
-    public var offset: CGFloat = 0.0
-    public var position: CGPoint = .zero
-    public var extendRamp: ExtendMode = .hold { didSet { setNeedsRender() } }
-    public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]
+    @Live public var direction: Direction = .horizontal
+    @Live public var scale: CGFloat = 1.0
+    @Live public var offset: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
+    @Live public var extendRamp: ExtendMode = .hold
+    @Live public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)] {
+        didSet { setNeedsRender() }
+    }
     
     // MARK: - Property Helpers
     
-    override open var values: [CoreValue] {
-        return [scale, offset, position, position] // CHECK
+    public override var liveList: [LiveProp] {
+        super.liveList + [_direction, _scale, _offset, _position, _extendRamp, _colorSteps]
     }
     
-    override open var preUniforms: [CGFloat] {
-        return [CGFloat(direction.index)]
-    }
-    override open var postUniforms: [CGFloat] {
-        return [CGFloat(extendRamp.index)]
+    override open var values: [Floatable] {
+        return [direction, scale, offset, position, position, extendRamp]
     }
 
     override public var uniformArray: [[CGFloat]] {
-        return colorSteps.map({ colorStep -> [CGFloat] in
-            return [colorStep.step, colorStep.color.red, colorStep.color.green, colorStep.color.blue, colorStep.color.alpha]
-        })
+        colorSteps.map(\.floats)
     }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendRamp.index)]
     }
     
-    // MARK: - Rainbow
-    
-    public static var rainbowColorSteps: [ColorStep] {
-        var colorSteps: [ColorStep] = []
-        let count = 7
-        for i in 0..<count {
-            let fraction = CGFloat(i) / CGFloat(count - 1)
-            colorSteps.append(ColorStep(fraction, PixelColor(hue: fraction, saturation: 1.0, brightness: 1.0, alpha: 1.0)))
-        }
-        return colorSteps
-    }
-    
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Gradient", typeName: "pix-content-generator-gradient")
-    }
-    
-    // MARK: - Rainbow
-    
-    public func rainbow() {
-        colorSteps = GradientPIX.rainbowColorSteps
     }
     
 }

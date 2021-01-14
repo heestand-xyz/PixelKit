@@ -19,7 +19,7 @@ public class ClampPIX: PIXSingleEffect {
     public var high: CGFloat = 1.0
     public var clampAlpha: Bool = false
     
-    public enum Style: String, CaseIterable {
+    public enum Style: String, CaseIterable, Floatable {
         case hold
         case relative
         case loop
@@ -34,17 +34,16 @@ public class ClampPIX: PIXSingleEffect {
             case .relative: return 4
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     public var style: Style = .hold { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
-        return [low, high, clampAlpha]
+    override public var values: [Floatable] {
+        return [low, high, clampAlpha, style]
     }
-    
-    public override var postUniforms: [CGFloat] { [CGFloat(style.index)] }
-    
+        
     // MARK: - Life Cycle
     
     public required init() {

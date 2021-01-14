@@ -28,7 +28,7 @@ public class ArcPIX: PIXGenerator {
         super.liveList + [_position, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _fillColor]
     }
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.backgroundColor]
     }
     

@@ -26,7 +26,7 @@ public class LumaLevelsPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     

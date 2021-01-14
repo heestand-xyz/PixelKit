@@ -19,7 +19,7 @@ public class SepiaPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [color]
     }
     

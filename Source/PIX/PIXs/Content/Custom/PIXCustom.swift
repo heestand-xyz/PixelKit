@@ -19,7 +19,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     public var bgColor: PixelColor = .black
     
-    override open var values: [CoreValue] { return [bgColor] }
+    override open var values: [Floatable] { return [bgColor] }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution

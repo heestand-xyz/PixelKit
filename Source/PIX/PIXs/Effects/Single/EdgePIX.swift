@@ -23,7 +23,7 @@ public class EdgePIX: PIXSingleEffect {
 
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [strength, distance, colored, transparent, includeAlpha]
     }
     

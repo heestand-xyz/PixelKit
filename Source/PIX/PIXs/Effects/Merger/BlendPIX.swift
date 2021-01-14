@@ -53,7 +53,7 @@ public class BlendPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [bypassTransform, position, rotation, scale, size]
     }
     

@@ -22,7 +22,7 @@ public class LumaColorShiftPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [hue, saturation, tintColor]
     }
     

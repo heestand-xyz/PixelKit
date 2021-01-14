@@ -91,7 +91,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     

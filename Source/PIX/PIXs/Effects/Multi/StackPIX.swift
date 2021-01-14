@@ -28,7 +28,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
         case top = 1
     }
     
-    public enum Axis {
+    public enum Axis: Floatable {
         case horizontal(alignment: VerticalAlignment)
         case vertical(alignment: HorizontalAlignment)
         public init?(index: Int, alignmentIndex: Int) {
@@ -59,6 +59,7 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
                 return alignment.rawValue
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index), CGFloat(alignmentIndex)] }
     }
     public var axis: Axis = .vertical(alignment: .center) { didSet { setNeedsRender() } }
     
@@ -69,11 +70,9 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
     
     // MARK: - Property Helpers
     
-    public override var values: [CoreValue] { [spacing, padding, backgroundColor] }
-    
-    public override var preUniforms: [CGFloat] { [CGFloat(axis.index), CGFloat(axis.alignmentIndex)] }
-    
-    public override var postUniforms: [CGFloat] {
+    public override var values: [Floatable] { [axis, spacing, padding, backgroundColor] }
+        
+    public override var extraUniforms: [CGFloat] {
         (0..<10).map { i -> CGFloat in
             guard i < inputs.count else { return 1.0 }
             return inputs[i].renderResolution.aspect

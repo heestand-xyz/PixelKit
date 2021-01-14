@@ -15,7 +15,7 @@ public class SlicePIX: PIXSingleEffect {
     // MARK: - Public Properties
     
     public var fraction: CGFloat = 0.5
-    public enum Axis {
+    public enum Axis: Floatable {
         case x
         case y
         case z
@@ -26,17 +26,14 @@ public class SlicePIX: PIXSingleEffect {
             case .z: return 2
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     public var axis: Axis = .z { didSet { setNeedsRender() } }
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
-        [fraction]
-    }
-    
-    public override var postUniforms: [CGFloat] {
-        [CGFloat(axis.index)]
+    override public var values: [Floatable] {
+        [fraction, axis]
     }
     
     public required init() {

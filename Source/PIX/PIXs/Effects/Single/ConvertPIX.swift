@@ -51,7 +51,7 @@ public class ConvertPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    public override var values: [CoreValue] {
+    public override var values: [Floatable] {
         return [xRotation, yRotation]
     }
     

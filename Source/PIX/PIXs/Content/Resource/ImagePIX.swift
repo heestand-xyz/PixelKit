@@ -89,12 +89,8 @@ public class ImagePIX: PIXResource {
 
     // MARK: - Property Helpers
     
-    public override var values: [CoreValue] {
-        [tint, tintColor, bgColor]
-    }
-    
-    public override var postUniforms: [CGFloat] {
-        [flip ? 1 : 0, swizzel ? 1 : 0]
+    public override var values: [Floatable] {
+        [tint, tintColor, bgColor, flip, swizzel]
     }
     
     // MARK: - Life Cycle

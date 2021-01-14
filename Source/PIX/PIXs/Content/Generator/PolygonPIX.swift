@@ -23,7 +23,7 @@ public class PolygonPIX: PIXGenerator {
    
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [radius, position, rotation, vertexCount, super.color, super.backgroundColor, cornerRadius]
     }
     

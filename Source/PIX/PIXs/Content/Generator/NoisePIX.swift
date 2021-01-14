@@ -142,7 +142,7 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
     }
     

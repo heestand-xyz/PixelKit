@@ -39,7 +39,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [radius, angle, position]
     }
     

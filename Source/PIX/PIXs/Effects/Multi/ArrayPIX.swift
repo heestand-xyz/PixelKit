@@ -36,8 +36,8 @@ public class ArrayPIX: PIXMultiEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
-        var values: [CoreValue] = [bgColor]
+    override public var values: [Floatable] {
+        var values: [Floatable] = [bgColor]
         for coordinate in coordinates {
             values.append(coordinate.position)
             values.append(coordinate.rotation)

@@ -28,7 +28,7 @@ public class FlarePIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [scale, count, angle, threshold, brightness, gamma, color, rayRes]
     }
     

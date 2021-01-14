@@ -20,7 +20,7 @@ public class LinePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    override public var values: [CoreValue] {
+    override public var values: [Floatable] {
         return [positionFrom, positionTo, scale, super.color, super.backgroundColor]
     }
     
