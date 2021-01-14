@@ -10,7 +10,7 @@
 import RenderKit
 import CoreGraphics
 
-public class ColorStep: Floatable {
+public struct ColorStep: Floatable {
     public var step: CGFloat
     public var color: PixelColor
     public init(_ step: CGFloat, _ color: PixelColor) {
@@ -54,9 +54,7 @@ open class GradientPIX: PIXGenerator {
     @Live public var offset: CGFloat = 0.0
     @Live public var position: CGPoint = .zero
     @Live public var extendRamp: ExtendMode = .hold
-    @Live public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)] {
-        didSet { setNeedsRender() }
-    }
+    @Live public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]
     
     // MARK: - Property Helpers
     

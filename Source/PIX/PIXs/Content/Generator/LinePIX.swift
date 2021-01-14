@@ -14,11 +14,15 @@ public class LinePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var positionFrom: CGPoint = CGPoint(x: -0.25, y: -0.25)
-    public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.25)
-    public var scale: CGFloat = 0.01
+    @Live public var positionFrom: CGPoint = CGPoint(x: -0.25, y: -0.25)
+    @Live public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.25)
+    @Live public var scale: CGFloat = 0.01
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveProp] {
+        super.liveList + [_positionFrom, _positionTo, _scale]
+    }
     
     override public var values: [Floatable] {
         return [positionFrom, positionTo, scale, super.color, super.backgroundColor]
