@@ -28,8 +28,6 @@ open class PIX: NODE, Equatable, NODETileable {
     
     public var liveList: [LiveProp] { [] }
     open var values: [Floatable] { [] }
-//        liveList.map(\.floatable)
-//    }
     open var extraUniforms: [CGFloat] { [] }
     open var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = values.flatMap(\.floats)
