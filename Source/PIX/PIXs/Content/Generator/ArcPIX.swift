@@ -15,7 +15,7 @@ public class ArcPIX: PIXGenerator {
     // MARK: - Public Properties
     
     public var position: CGPoint = .zero
-    public var radius: CGFloat = sqrt(0.75) / 4
+    @Live public var radius: CGFloat = sqrt(0.75) / 4
     public var angleFrom: CGFloat = -0.125
     public var angleTo: CGFloat = 0.125
     public var angleOffset: CGFloat = 0.0
@@ -23,6 +23,8 @@ public class ArcPIX: PIXGenerator {
     public var fillColor: PixelColor = .white
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveProp] { [_radius] }
     
     override public var values: [CoreValue] {
         return [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.backgroundColor]

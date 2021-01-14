@@ -21,7 +21,7 @@ public class CirclePIX: PIXGenerator {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveProp] {
-        [_radius, _position, _edgeRadius, _edgeColor]
+        super.liveList + [_radius, _position, _edgeRadius, _edgeColor]
     }
     override public var values: [CoreValue] {
         return [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]

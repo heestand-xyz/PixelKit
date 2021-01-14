@@ -33,7 +33,11 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     }
     @Live public var backgroundColor: PixelColor = .black
     @Live public var color: PixelColor = .white
-
+    
+    public override var liveList: [LiveProp] {
+        [_backgroundColor, _color]
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         fatalError("please use init(at:name:typeName:)")
     }

@@ -27,9 +27,11 @@ open class PIX: NODE, Equatable, NODETileable {
     open var overrideBits: Bits? { nil }
     
     public var liveList: [LiveProp] { [] }
-    open var values: [CoreValue] { return [] }
-    open var preUniforms: [CGFloat] { return [] }
-    open var postUniforms: [CGFloat] { return [] }
+    open var values: [CoreValue] {
+        liveList.map(\.coreValue)
+    }
+    open var preUniforms: [CGFloat] { [] }
+    open var postUniforms: [CGFloat] { [] }
     open var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = []
         uniforms.append(contentsOf: preUniforms)
