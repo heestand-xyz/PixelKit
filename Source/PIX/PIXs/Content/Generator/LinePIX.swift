@@ -25,7 +25,7 @@ public class LinePIX: PIXGenerator {
     }
     
     override public var values: [Floatable] {
-        return [positionFrom, positionTo, scale, super.color, super.backgroundColor]
+        [positionFrom, positionTo, scale, super.color, super.backgroundColor]
     }
     
     // MARK: - Life Cycle

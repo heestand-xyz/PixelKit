@@ -131,19 +131,23 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    public var seed: Int = 1
-    public var octaves: Int = 10
-    public var position: CGPoint = .zero
-    public var zPosition: CGFloat = 0.0
-    public var zoom: CGFloat = 1.0
-    public var colored: Bool = false
-    public var random: Bool = false
-    public var includeAlpha: Bool = false
+    @Live public var seed: Int = 1
+    @Live public var octaves: Int = 10
+    @Live public var position: CGPoint = .zero
+    @Live public var zPosition: CGFloat = 0.0
+    @Live public var zoom: CGFloat = 1.0
+    @Live public var colored: Bool = false
+    @Live public var random: Bool = false
+    @Live public var includeAlpha: Bool = false
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveProp] {
+        [_seed, _octaves, _position, _zPosition, _zoom, _colored, _random, _includeAlpha]
+    }
+    
     override public var values: [Floatable] {
-        return [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
+        [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
     }
     
     // MARK: - Life Cycle
