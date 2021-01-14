@@ -60,6 +60,10 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     public let render: Render
     public let logger: Logger
     
+    // MARK: - Date
+    
+    let startDate: Date = .init()
+    
     // MARK: - Life Cycle
     
     init() {
