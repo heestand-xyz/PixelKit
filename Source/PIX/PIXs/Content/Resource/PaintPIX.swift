@@ -142,13 +142,19 @@ public class PaintPIX: PIXResource {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
     }
-    public var bgColor: PixelColor = .black {
+    
+    @available(*, deprecated, renamed: "backgroundColor")
+    public var bgColor: PixelColor {
+        get { backgroundColor }
+        set { backgroundColor = newValue }
+    }
+    public var backgroundColor: PixelColor = .black {
         didSet {
-            canvasView.backgroundColor = bgColor.uiColor
+            canvasView.backgroundColor = backgroundColor.uiColor
         }
     }
     
-    public override var values: [Floatable] { [bgColor] }
+    public override var values: [Floatable] { [backgroundColor] }
     
     public override var postUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     

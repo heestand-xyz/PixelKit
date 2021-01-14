@@ -17,9 +17,18 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
-    public var bgColor: PixelColor = .black
+    @available(*, deprecated, renamed: "backgroundColor")
+    public var bgColor: PixelColor {
+        get { backgroundColor }
+        set { backgroundColor = newValue }
+    }
+    @Live public var backgroundColor: PixelColor = .black
     
-    override open var values: [Floatable] { return [bgColor] }
+    public override var liveList: [LiveProp] {
+        [_backgroundColor]
+    }
+    
+    override open var values: [Floatable] { return [backgroundColor] }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
