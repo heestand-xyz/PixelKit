@@ -29,6 +29,10 @@ public extension CGFloat {
         CGFloat(Date().timeIntervalSince1970)
     }
     
+    static func wave(time: CGFloat) -> CGFloat {
+        cos(.pi + time) / 2 + 0.5
+    }
+    
     static func % (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
         lhs.truncatingRemainder(dividingBy: rhs)
     }
