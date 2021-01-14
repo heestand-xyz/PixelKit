@@ -588,7 +588,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         
         if !useExternalCamera {
-            print(":::::::::::::", AVCaptureDevice.devices())
             device = AVCaptureDevice.default(for: .video)
         } else {
             var firstFound = false

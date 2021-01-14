@@ -26,7 +26,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var overrideBits: Bits? { nil }
     
-//    public var liveList: [Live<AnyCoreValue>] { [] }
+    public var liveList: [LiveProp] { [] }
     open var values: [CoreValue] { return [] }
     open var preUniforms: [CGFloat] { return [] }
     open var postUniforms: [CGFloat] { return [] }
@@ -153,6 +153,10 @@ open class PIX: NODE, Equatable, NODETileable {
         pixelKit.render.add(node: self)
         
         pixelKit.logger.log(node: self, .detail, nil, "Linked with PixelKit.", clean: true)
+        
+        for liveProp in liveList {
+            liveProp.node = self
+        }
     
     }
     

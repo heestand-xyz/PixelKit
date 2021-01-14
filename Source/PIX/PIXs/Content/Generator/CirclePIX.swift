@@ -13,16 +13,16 @@ public class CirclePIX: PIXGenerator {
     
     // MARK: - Public Properties
     
-    /*@Live*/ public var radius: CGFloat = 0.25
-    /*@Live*/ public var position: CGPoint = .zero
-    /*@Live*/ public var edgeRadius: CGFloat = 0.0
-    /*@Live*/ public var edgeColor: PixelColor = .gray
+    @Live public var radius: CGFloat = 0.25
+    @Live public var position: CGPoint = .zero
+    @Live public var edgeRadius: CGFloat = 0.0
+    @Live public var edgeColor: PixelColor = .gray
     
     // MARK: - Property Helpers
     
-//    public override var liveList: [Live<AnyCoreValue>] {
-//        [_radius, _position, _edgeRadius, super._color, _edgeColor, super._backgroundColor]
-//    }
+    public override var liveList: [LiveProp] {
+        [_radius, _position, _edgeRadius, _edgeColor]
+    }
     override public var values: [CoreValue] {
         return [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
     }
