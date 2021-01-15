@@ -14,7 +14,7 @@ let package = Package(
 //        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.5.3"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", .branch("lite")),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [
