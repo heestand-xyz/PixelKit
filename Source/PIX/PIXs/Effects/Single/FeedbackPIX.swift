@@ -29,9 +29,17 @@ public class FeedbackPIX: PIXSingleEffect {
         return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
-    public var feedActive: Bool = true { didSet { setNeedsRender() } }
+    @Live public var feedActive: Bool = true
     public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
     
+    // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_feedActive]
+    }
+    
+    // MARK: - Life Cycle
+
     public required init() {
         super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
         pixelKit.render.listenToFramesUntil {
@@ -87,21 +95,11 @@ public class FeedbackPIX: PIXSingleEffect {
         setNeedsRender()
     }
     
-//    func willClearFeed() {
-//        pixelKit.logger.log(node: self, .info, .effect, "Will Clear Feedback")
-//        clearingFeed = false
-//        DispatchQueue.main.async {
-//            self.feedActive = true
-//            self.setNeedsRender()
-//            self.pixelKit.logger.log(node: self, .info, .effect, "Did Clear Feedback")
-//        }
-//    }
-    
 }
 
 public extension NODEOut {
     
-    func _feed(_ fraction: CGFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
+    func feedback(_ fraction: CGFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
         feedbackPix.input = self as? PIX & NODEOut
@@ -113,14 +111,5 @@ public extension NODEOut {
         feedbackPix.feedPix = crossPix
         return feedbackPix
     }
-    
-//    func _feedAdd(loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
-//        let feedbackPix = FeedbackPIX()
-//        feedbackPix.name = "feed:feedback"
-//        let pix = self as! PIX & NODEOut
-//        feedbackPix.input = pix
-//        feedbackPix.feedPix = pix + (loop?(feedbackPix) ?? feedbackPix)
-//        return feedbackPix
-//    }
     
 }
