@@ -15,7 +15,7 @@ public class FlipFlopPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
         
-    public enum Flip: String, Codable, CaseIterable {
+    public enum Flip: String, Codable, CaseIterable, Floatable {
         case none
         case x
         case y
@@ -28,9 +28,10 @@ public class FlipFlopPIX: PIXSingleEffect {
             case .xy: return 3
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public enum Flop: String, Codable, CaseIterable {
+    public enum Flop: String, Codable, CaseIterable, Floatable {
         case none
         case left
         case right
@@ -41,12 +42,17 @@ public class FlipFlopPIX: PIXSingleEffect {
             case .right: return 2
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var flip: Flip = .none { didSet { setNeedsRender() } }
-    public var flop: Flop = .none { didSet { applyResolution { self.setNeedsRender() } } }
+    @Live public var flip: Flip = .none
+    @LiveResolution public var flop: Flop = .none
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_flip, _flop]
+    }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(flip.index), CGFloat(flop.index)]
