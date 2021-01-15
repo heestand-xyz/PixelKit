@@ -32,7 +32,7 @@ public class AveragePIX: PIXSingleEffect {
 
     // MARK: - Property Helpers
 
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_axis]
     }
 

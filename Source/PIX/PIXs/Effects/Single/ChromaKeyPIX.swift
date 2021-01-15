@@ -15,17 +15,21 @@ public class ChromaKeyPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var keyColor: PixelColor = .green
-    public var range: CGFloat = 0.1
-    public var softness: CGFloat = 0.1
-    public var edgeDesaturation: CGFloat = 0.5
-    public var alphaCrop: CGFloat = 0.5
-    public var premultiply: Bool = true
+    @Live public var keyColor: PixelColor = .green
+    @Live public var range: CGFloat = 0.1
+    @Live public var softness: CGFloat = 0.1
+    @Live public var edgeDesaturation: CGFloat = 0.5
+    @Live public var alphaCrop: CGFloat = 0.5
+    @Live public var premultiply: Bool = true
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_keyColor, _range, _softness, _edgeDesaturation, _alphaCrop, _premultiply]
+    }
+    
     override public var values: [Floatable] {
-        return [keyColor, range, softness, edgeDesaturation, alphaCrop, premultiply]
+        [keyColor, range, softness, edgeDesaturation, alphaCrop, premultiply]
     }
     
     // MARK: - Life Cycle

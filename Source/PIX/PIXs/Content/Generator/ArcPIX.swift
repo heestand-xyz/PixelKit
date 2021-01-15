@@ -24,7 +24,7 @@ public class ArcPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         super.liveList + [_position, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _fillColor]
     }
     

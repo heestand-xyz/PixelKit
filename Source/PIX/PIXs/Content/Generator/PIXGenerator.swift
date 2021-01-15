@@ -34,7 +34,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     @Live public var backgroundColor: PixelColor = .black
     @Live public var color: PixelColor = .white
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_backgroundColor, _color]
     }
     

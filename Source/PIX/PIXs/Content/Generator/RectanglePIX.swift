@@ -21,7 +21,7 @@ public class RectanglePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         super.liveList + [_position, _size, _cornerRadius]
     }
     

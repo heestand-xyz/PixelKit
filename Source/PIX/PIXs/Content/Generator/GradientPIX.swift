@@ -58,7 +58,7 @@ open class GradientPIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         super.liveList + [_direction, _scale, _offset, _position, _extendRamp, _colorSteps]
     }
     

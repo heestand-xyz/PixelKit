@@ -142,7 +142,7 @@ public class NoisePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_seed, _octaves, _position, _zPosition, _zoom, _colored, _random, _includeAlpha]
     }
     

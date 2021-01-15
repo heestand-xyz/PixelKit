@@ -20,7 +20,7 @@ public class LinePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         super.liveList + [_positionFrom, _positionTo, _scale]
     }
     

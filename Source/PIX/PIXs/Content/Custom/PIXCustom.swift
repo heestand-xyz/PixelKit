@@ -24,7 +24,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     }
     @Live public var backgroundColor: PixelColor = .black
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_backgroundColor]
     }
     

@@ -61,7 +61,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_style, _radius, _quality, _angle, _position]
     }
     

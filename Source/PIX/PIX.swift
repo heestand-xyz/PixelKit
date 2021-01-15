@@ -26,7 +26,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     open var overrideBits: Bits? { nil }
     
-    public var liveList: [LiveProp] { [] }
+    public var liveList: [LiveWrap] { [] }
     open var values: [Floatable] { [] }
     open var extraUniforms: [CGFloat] { [] }
     open var uniforms: [CGFloat] {

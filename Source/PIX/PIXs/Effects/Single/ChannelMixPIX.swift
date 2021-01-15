@@ -23,7 +23,7 @@ public class ChannelMixPIX: PIXSingleEffect {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         [_red, _green, _blue, _alpha]
     }
     

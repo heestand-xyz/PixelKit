@@ -20,7 +20,7 @@ public class CirclePIX: PIXGenerator {
     
     // MARK: - Property Helpers
     
-    public override var liveList: [LiveProp] {
+    public override var liveList: [LiveWrap] {
         super.liveList + [_radius, _position, _edgeRadius, _edgeColor]
     }
     override public var values: [Floatable] {
