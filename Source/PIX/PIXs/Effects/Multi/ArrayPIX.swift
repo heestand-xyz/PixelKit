@@ -5,9 +5,8 @@
 //  Created by Anton Heestand on 2019-04-12.
 //
 
-
-import RenderKit
 import CoreGraphics
+import RenderKit
 
 public struct Coordinate {
     public var position: CGPoint
@@ -30,14 +29,18 @@ public class ArrayPIX: PIXMultiEffect {
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
+    @Live public var blendMode: BlendMode = .add
     public var coordinates: [Coordinate] = []
-    public var bgColor: PixelColor = .black
+    @Live public var backgroundColor: PixelColor = .black
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_blendMode, _backgroundColor]
+    }
+    
     override public var values: [Floatable] {
-        var values: [Floatable] = [bgColor]
+        var values: [Floatable] = [backgroundColor]
         for coordinate in coordinates {
             values.append(coordinate.position)
             values.append(coordinate.rotation)
@@ -49,7 +52,7 @@ public class ArrayPIX: PIXMultiEffect {
     
     open override var uniforms: [CGFloat] {
         var uniforms = [CGFloat(blendMode.index), CGFloat(coordinates.count)]
-        uniforms.append(contentsOf: bgColor.components)
+        uniforms.append(contentsOf: backgroundColor.components)
         return uniforms
     }
     

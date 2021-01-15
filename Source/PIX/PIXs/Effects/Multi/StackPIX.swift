@@ -61,14 +61,18 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
         }
         public var floats: [CGFloat] { [CGFloat(index), CGFloat(alignmentIndex)] }
     }
-    public var axis: Axis = .vertical(alignment: .center) { didSet { setNeedsRender() } }
+    @Live public var axis: Axis = .vertical(alignment: .center)
     
-    public var spacing: CGFloat = 0.0
-    public var padding: CGFloat = 0.0
+    @Live public var spacing: CGFloat = 0.0
+    @Live public var padding: CGFloat = 0.0
     
-    public var backgroundColor: PixelColor = .clear
+    @Live public var backgroundColor: PixelColor = .clear
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_axis, _spacing, _padding, _backgroundColor]
+    }
     
     public override var values: [Floatable] { [axis, spacing, padding, backgroundColor] }
         

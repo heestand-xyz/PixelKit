@@ -35,18 +35,18 @@ public class CrossPIX: PIXMergerEffect {
     
 }
 
-public extension NODEOut {
-    
-    func cross(with pix: PIX & NODEOut, fraction: CGFloat) -> CrossPIX {
-        let crossPix = CrossPIX()
-        crossPix.name = ":cross:"
-        crossPix.inputA = self as? PIX & NODEOut
-        crossPix.inputB = pix
-        crossPix.fraction = fraction
-        return crossPix
-    }
-    
-}
+//public extension NODEOut {
+//    
+//    func cross(with pix: PIX & NODEOut, fraction: CGFloat) -> CrossPIX {
+//        let crossPix = CrossPIX()
+//        crossPix.name = ":cross:"
+//        crossPix.inputA = self as? PIX & NODEOut
+//        crossPix.inputB = pix
+//        crossPix.fraction = fraction
+//        return crossPix
+//    }
+//    
+//}
 
 public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat) -> CrossPIX {
     let crossPix = CrossPIX()

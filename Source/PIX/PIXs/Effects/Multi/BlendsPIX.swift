@@ -16,13 +16,13 @@ public class BlendsPIX: PIXMultiEffect {
     
     // MARK: - Public Properties
     
-    public var blendMode: BlendMode = .add { didSet { setNeedsRender() } }
+    @Live public var blendMode: BlendMode = .add
     
     // MARK: - Property Helpers
     
-//    enum BlendsCodingKeys: String, CodingKey {
-//        case blendingMode
-//    }
+    public override var liveList: [LiveWrap] {
+        [_blendMode]
+    }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(blendMode.index)]

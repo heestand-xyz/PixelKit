@@ -55,7 +55,7 @@ public extension NODEOut {
         noisePix.colored = true
         noisePix.zPosition = zPosition
         noisePix.octaves = octaves
-        return pix._displace(with: noisePix, distance: distance)
+        return pix.displace(with: noisePix, distance: distance)
     }
     
 }
