@@ -172,7 +172,7 @@ public class PaintPIX: PIXResource {
         allowsFingerDrawing = canvasView.allowsFingerDrawing
         helper = PaintHelper()
         super.init(name: "Paint", typeName: "pix-content-resource-paint")
-        canvasView.backgroundColor = bgColor.uiColor
+        canvasView.backgroundColor = backgroundColor.uiColor
         canvasView.delegate = helper
         pencilInteraction.delegate = helper
         helper.paintedCallback = {

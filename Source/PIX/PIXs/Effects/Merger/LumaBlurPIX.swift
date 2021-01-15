@@ -29,7 +29,7 @@ public class LumaBlurPIX: PIXMergerEffect {
             case .random: return 4
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
     @Live public var style: LumaBlurStyle = .box

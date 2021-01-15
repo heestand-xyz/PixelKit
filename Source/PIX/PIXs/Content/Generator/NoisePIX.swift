@@ -125,9 +125,11 @@ import SwiftUI
 //    // Enum Property Funcs
 //}
 
-public class NoisePIX: PIXGenerator {
+final public class NoisePIX: PIXGenerator, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentGeneratorNoisePIX" }
+    override public var shaderName: String { return "contentGeneratorNoisePIX" }
+    
+    var bodyView: MultiView { pixView }
     
     // MARK: - Public Properties
     

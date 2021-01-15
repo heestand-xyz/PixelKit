@@ -7,10 +7,10 @@
 //
 
 import RenderKit
+import SwiftUI
 
 open class PIXContent: PIX, NODEContent, NODEOutIO {
     
-//    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
     public var outputPathList: [NODEOutPath] = []
     public var connectedOut: Bool { return !outputPathList.isEmpty }
     
