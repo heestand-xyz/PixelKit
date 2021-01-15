@@ -43,12 +43,16 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
-    public var resMultiplier: CGFloat = 1 { didSet { applyResolution { self.setNeedsRender() } } }
-    public var inheritInResolution: Bool = false { didSet { applyResolution { self.setNeedsRender() } } } // CHECK upstream resolution exists
-    public var placement: Placement = .fit { didSet { setNeedsRender() } }
+    @LiveResolution public var resolution: Resolution
+    @LiveResolution public var resMultiplier: CGFloat = 1
+    @LiveResolution public var inheritInResolution: Bool = false
+    @Live public var placement: Placement = .fit
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_resolution, _resMultiplier, _inheritInResolution, _placement]
+    }
     
     open override var uniforms: [CGFloat] {
         return [CGFloat(placement.index)]
@@ -70,14 +74,22 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
 
 public extension NODEOut {
     
-    func _reRes(to resolution: Resolution) -> ResolutionPIX {
-        let resPix = ResolutionPIX(at: resolution)
+    @available(*, deprecated, renamed: "resolution(_:)")
+    func _reRes(to res: Resolution) -> ResolutionPIX {
+        resolution(res)
+    }
+    func resolution(_ res: Resolution) -> ResolutionPIX {
+        let resPix = ResolutionPIX(at: res)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
         return resPix
     }
     
+    @available(*, deprecated, renamed: "scaleResolution(by:)")
     func _reRes(by resMultiplier: CGFloat) -> ResolutionPIX {
+        scaleResolution(by: resMultiplier)
+    }
+    func scaleResolution(by resMultiplier: CGFloat) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: ._128)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut

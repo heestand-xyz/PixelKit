@@ -21,7 +21,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Public Properties
     
-    public enum SaliencyStyle: String, CaseIterable {
+    public enum SaliencyStyle: String, CaseIterable, Floatable {
         case attention
         case objectness
         var revision: Int {
@@ -32,6 +32,7 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
                 return VNGenerateObjectnessBasedSaliencyImageRequestRevision1
             }
         }
+        public var floats: [CGFloat] { [CGFloat(revision)] }
         func request() -> VNImageBasedRequest {
             switch self {
             case .attention:
@@ -41,7 +42,15 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
             }
         }
     }
-    public var style: SaliencyStyle = .attention { didSet { setNeedsRender() } }
+    @Live public var style: SaliencyStyle = .attention
+    
+    // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_style]
+    }
+    
+    // MARK: - Life Cycle
     
     public required init() {
         super.init(name: "Saliency", typeName: "pix-effect-single-saliency")

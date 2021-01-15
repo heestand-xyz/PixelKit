@@ -21,7 +21,7 @@ public class FreezePIX: PIXSingleEffect {
     // MARK: - Property Helpers
     
     override public var values: [Floatable] {
-        return [freeze]
+        [freeze]
     }
     
     // MARK: - Life Cycle
@@ -42,7 +42,7 @@ public class FreezePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _freeze(_ active: Bool) -> FreezePIX {
+    func freeze(_ active: Bool) -> FreezePIX {
         let freezePix = FreezePIX()
         freezePix.name = ":freeze:"
         freezePix.input = self as? PIX & NODEOut

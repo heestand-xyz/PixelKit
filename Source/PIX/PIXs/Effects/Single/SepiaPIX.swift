@@ -15,12 +15,16 @@ public class SepiaPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var color: PixelColor = .orange
+    @Live public var color: PixelColor = .orange
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_color]
+    }
+    
     override public var values: [Floatable] {
-        return [color]
+        [color]
     }
     
     // MARK: - Life Cycle
@@ -30,3 +34,16 @@ public class SepiaPIX: PIXSingleEffect {
     }
     
 }
+
+public extension NODEOut {
+    
+    func sepia(_ color: PixelColor) -> SepiaPIX {
+        let sepiaPix = SepiaPIX()
+        sepiaPix.name = ":sepia:"
+        sepiaPix.input = self as? PIX & NODEOut
+        sepiaPix.color = color
+        return sepiaPix
+    }
+    
+}
+

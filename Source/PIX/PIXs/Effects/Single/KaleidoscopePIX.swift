@@ -15,15 +15,19 @@ public class KaleidoscopePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var divisions: Int = 12
-    public var mirror: Bool = true
-    public var rotation: CGFloat = 0.0
-    public var position: CGPoint = .zero
+    @Live public var divisions: Int = 12
+    @Live public var mirror: Bool = true
+    @Live public var rotation: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_divisions, _mirror, _rotation, _position]
+    }
+    
     override public var values: [Floatable] {
-        return [divisions, mirror, rotation, position]
+        [divisions, mirror, rotation, position]
     }
     
     public required init() {
@@ -35,7 +39,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
+    func kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
         kaleidoscopePix.input = self as? PIX & NODEOut

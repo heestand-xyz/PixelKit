@@ -17,7 +17,7 @@ public class RainbowBlurPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public enum RainbowBlurStyle: String, CaseIterable {
+    public enum RainbowBlurStyle: String, CaseIterable, Floatable {
         case circle
         case angle
         case zoom
@@ -28,23 +28,28 @@ public class RainbowBlurPIX: PIXSingleEffect {
             case .zoom: return 3
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var style: RainbowBlurStyle = .zoom { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 0.5
-    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0
-    public var position: CGPoint = .zero
-    public var light: CGFloat = 1.0
+    @Live public var style: RainbowBlurStyle = .zoom
+    @Live public var radius: CGFloat = 0.5
+    @Live public var quality: SampleQualityMode = .mid
+    @Live public var angle: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
+    @Live public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_style, _radius, _quality, _angle, _position, _light]
+    }
+    
     override public var values: [Floatable] {
-        return [radius, angle, position, light]
+        [radius, angle, position, light]
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
+        [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
     }
     
     override open var shaderNeedsAspect: Bool { return true }
@@ -60,7 +65,7 @@ public class RainbowBlurPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _rainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
+    func rainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":rainbowBlur:"
         rainbowBlurPix.input = self as? PIX & NODEOut
@@ -68,7 +73,7 @@ public extension NODEOut {
         return rainbowBlurPix
     }
     
-    func _zoomRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
+    func zoomRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":zoom-rainbowBlur:"
         rainbowBlurPix.style = .zoom

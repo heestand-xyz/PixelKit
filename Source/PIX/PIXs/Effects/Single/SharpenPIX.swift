@@ -15,12 +15,16 @@ public class SharpenPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var contrast: CGFloat = 1.0
+    @Live public var contrast: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_contrast]
+    }
+    
     override public var values: [Floatable] {
-        return [contrast]
+        [contrast]
     }
     
     // MARK: - Life Cycle
@@ -33,7 +37,7 @@ public class SharpenPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
+    func sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
         let sharpenPix = SharpenPIX()
         sharpenPix.name = ":sharpen:"
         sharpenPix.input = self as? PIX & NODEOut

@@ -15,9 +15,13 @@ public class TwirlPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var strength: CGFloat = 2.0
+    @Live public var strength: CGFloat = 2.0
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_strength]
+    }
     
     override public var values: [Floatable] {
         return [strength]
@@ -34,7 +38,7 @@ public class TwirlPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _twirl(_ strength: CGFloat) -> TwirlPIX {
+    func twirl(_ strength: CGFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
         twirlPix.name = ":twirl:"
         twirlPix.input = self as? PIX & NODEOut

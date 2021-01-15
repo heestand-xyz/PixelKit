@@ -15,18 +15,22 @@ public class LevelsPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var brightness: CGFloat = 1.0
-    public var darkness: CGFloat = 0.0
-    public var contrast: CGFloat = 0.0
-    public var gamma: CGFloat = 1.0
-    public var inverted: Bool = false
-    public var smooth: Bool = false
-    public var opacity: CGFloat = 1.0
+    @Live public var brightness: CGFloat = 1.0
+    @Live public var darkness: CGFloat = 0.0
+    @Live public var contrast: CGFloat = 0.0
+    @Live public var gamma: CGFloat = 1.0
+    @Live public var inverted: Bool = false
+    @Live public var smooth: Bool = false
+    @Live public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity]
+    }
+    
     override public var values: [Floatable] {
-        return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
+        [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     
     // MARK: - Life Cycle
@@ -39,7 +43,7 @@ public class LevelsPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _brightness(_ brightness: CGFloat) -> LevelsPIX {
+    func brightness(_ brightness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "brightness:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -47,7 +51,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _darkness(_ darkness: CGFloat) -> LevelsPIX {
+    func darkness(_ darkness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "darkness:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -55,7 +59,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _contrast(_ contrast: CGFloat) -> LevelsPIX {
+    func contrast(_ contrast: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "contrast:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -63,7 +67,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _gamma(_ gamma: CGFloat) -> LevelsPIX {
+    func gamma(_ gamma: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "gamma:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -71,7 +75,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _invert() -> LevelsPIX {
+    func invert() -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "invert:levels"
         levelsPix.input = self as? PIX & NODEOut
@@ -79,7 +83,15 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func _opacity(_ opacity: CGFloat) -> LevelsPIX {
+    func smooth() -> LevelsPIX {
+        let levelsPix = LevelsPIX()
+        levelsPix.name = "smooth:levels"
+        levelsPix.input = self as? PIX & NODEOut
+        levelsPix.smooth = true
+        return levelsPix
+    }
+    
+    func opacity(_ opacity: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "opacity:levels"
         levelsPix.input = self as? PIX & NODEOut

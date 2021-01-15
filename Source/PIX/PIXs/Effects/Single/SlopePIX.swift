@@ -15,9 +15,13 @@ public class SlopePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var amplitude: CGFloat = 1.0
+    @Live public var amplitude: CGFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_amplitude]
+    }
     
     override public var values: [Floatable] {
         return [amplitude]

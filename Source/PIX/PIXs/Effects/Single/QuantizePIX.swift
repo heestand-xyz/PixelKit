@@ -15,12 +15,16 @@ public class QuantizePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = 0.125
+    @Live public var fraction: CGFloat = 0.125
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_fraction]
+    }
+    
     override public var values: [Floatable] {
-        return [fraction]
+        [fraction]
     }
     
     // MARK: - Life Cycle
@@ -33,7 +37,7 @@ public class QuantizePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _quantize(_ fraction: CGFloat) -> QuantizePIX {
+    func quantize(_ fraction: CGFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
         quantizePix.input = self as? PIX & NODEOut

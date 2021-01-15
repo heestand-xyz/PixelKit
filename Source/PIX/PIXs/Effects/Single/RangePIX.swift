@@ -15,20 +15,24 @@ public class RangePIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var inLow: CGFloat = 0.0
-    public var inHigh: CGFloat = 1.0
-    public var outLow: CGFloat = 0.0
-    public var outHigh: CGFloat = 1.0
-    public var inLowColor: PixelColor = .clear
-    public var inHighColor: PixelColor = .white
-    public var outLowColor: PixelColor = .clear
-    public var outHighColor: PixelColor = .white
-    public var ignoreAlpha: Bool = true
+    @Live public var inLow: CGFloat = 0.0
+    @Live public var inHigh: CGFloat = 1.0
+    @Live public var outLow: CGFloat = 0.0
+    @Live public var outHigh: CGFloat = 1.0
+    @Live public var inLowColor: PixelColor = .clear
+    @Live public var inHighColor: PixelColor = .white
+    @Live public var outLowColor: PixelColor = .clear
+    @Live public var outHighColor: PixelColor = .white
+    @Live public var ignoreAlpha: Bool = true
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_inLow, _inHigh, _outLow, _outHigh, _inLowColor, _inHighColor, _outLowColor, _outHighColor, _ignoreAlpha]
+    }
+    
     override public var values: [Floatable] {
-        return [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
+        [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     
     public required init() {
@@ -39,7 +43,7 @@ public class RangePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
+    func range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.input = self as? PIX & NODEOut
@@ -50,7 +54,7 @@ public extension NODEOut {
         return rangePix
     }
     
-    func _range(inLow: PixelColor = .clear, inHigh: PixelColor = .white, outLow: PixelColor = .clear, outHigh: PixelColor = .white) -> RangePIX {
+    func range(inLow: PixelColor = .clear, inHigh: PixelColor = .white, outLow: PixelColor = .clear, outHigh: PixelColor = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.input = self as? PIX & NODEOut

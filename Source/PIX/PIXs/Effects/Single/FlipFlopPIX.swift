@@ -68,7 +68,7 @@ public class FlipFlopPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _flipX() -> FlipFlopPIX {
+    func flipX() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipX:flipFlop"
         flipFlopPix.input = self as? PIX & NODEOut
@@ -76,7 +76,7 @@ public extension NODEOut {
         return flipFlopPix
     }
     
-    func _flipY() -> FlipFlopPIX {
+    func flipY() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flipY:flipFlop"
         flipFlopPix.input = self as? PIX & NODEOut
@@ -84,7 +84,7 @@ public extension NODEOut {
         return flipFlopPix
     }
     
-    func _flopLeft() -> FlipFlopPIX {
+    func flopLeft() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopLeft:flipFlop"
         flipFlopPix.input = self as? PIX & NODEOut
@@ -92,7 +92,7 @@ public extension NODEOut {
         return flipFlopPix
     }
     
-    func _flopRight() -> FlipFlopPIX {
+    func flopRight() -> FlipFlopPIX {
         let flipFlopPix = FlipFlopPIX()
         flipFlopPix.name = "flopRight:flipFlop"
         flipFlopPix.input = self as? PIX & NODEOut

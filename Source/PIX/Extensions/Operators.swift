@@ -398,7 +398,7 @@ public extension PIX {
             black.backgroundColor = .black
             return black
         }
-        return pix._invert()
+        return pix.invert()
     }
     
     prefix static func ° (operand: PIX) -> PIX & NODEOut {

@@ -8,13 +8,14 @@
 import CoreGraphics
 import RenderKit
 
+/// Useful with **VoxelKit** to sample depth images.
 public class SlicePIX: PIXSingleEffect {
     
     override open var shaderName: String { return "effectSingleSlicePIX" }
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = 0.5
+    @Live public var fraction: CGFloat = 0.5
     public enum Axis: Floatable {
         case x
         case y
@@ -28,9 +29,13 @@ public class SlicePIX: PIXSingleEffect {
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
     }
-    public var axis: Axis = .z { didSet { setNeedsRender() } }
+    @Live public var axis: Axis = .z
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_fraction, _axis]
+    }
     
     override public var values: [Floatable] {
         [fraction, axis]
