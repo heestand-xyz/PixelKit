@@ -15,15 +15,19 @@ public class LumaTransformPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var position: CGPoint = .zero
-    public var rotation: CGFloat = 0.0
-    public var scale: CGFloat = 1.0
-    public var size: CGSize = CGSize(width: 1.0, height: 1.0)
+    @Live public var position: CGPoint = .zero
+    @Live public var rotation: CGFloat = 0.0
+    @Live public var scale: CGFloat = 1.0
+    @Live public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_position, _rotation, _scale, _size] + super.liveList
+    }
+    
     override public var values: [Floatable] {
-        return [position, rotation, scale, size]
+        [position, rotation, scale, size]
     }
     
     // MARK: - Life Cycle

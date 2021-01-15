@@ -22,7 +22,7 @@ public class RemapPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _remap(with pix: PIX & NODEOut) -> RemapPIX {
+    func remap(with pix: PIX & NODEOut) -> RemapPIX {
         let remapPix = RemapPIX()
         remapPix.name = ":remap:"
         remapPix.inputA = self as? PIX & NODEOut

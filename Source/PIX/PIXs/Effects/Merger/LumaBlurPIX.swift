@@ -16,7 +16,7 @@ public class LumaBlurPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum LumaBlurStyle: String, CaseIterable {
+    public enum LumaBlurStyle: String, CaseIterable, Floatable {
         case box
         case angle
         case zoom
@@ -29,15 +29,20 @@ public class LumaBlurPIX: PIXMergerEffect {
             case .random: return 4
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var style: LumaBlurStyle = .box { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 0.5
-    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0
-    public var position: CGPoint = .zero
+    @Live public var style: LumaBlurStyle = .box
+    @Live public var radius: CGFloat = 0.5
+    @Live public var quality: SampleQualityMode = .mid
+    @Live public var angle: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_style, _radius, _quality, _angle, _position] + super.liveList
+    }
     
     override public var values: [Floatable] {
         return [radius, angle, position]
@@ -58,7 +63,7 @@ public class LumaBlurPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _lumaBlur(with pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
+    func lumaBlur(with pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inputA = self as? PIX & NODEOut
@@ -67,7 +72,7 @@ public extension NODEOut {
         return lumaBlurPix
     }
     
-    func _tiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
+    func tiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(at: pix.renderResolution)
         gradientPix.name = "tiltShift:gradient"

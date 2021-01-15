@@ -19,7 +19,7 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum RainbowLumaBlurStyle: String, CaseIterable {
+    public enum RainbowLumaBlurStyle: String, CaseIterable, Floatable {
         case circle
         case angle
         case zoom
@@ -30,16 +30,21 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
             case .zoom: return 3
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var style: RainbowLumaBlurStyle = .angle { didSet { setNeedsRender() } }
-    public var radius: CGFloat = 0.5
-    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0
-    public var position: CGPoint = .zero
-    public var light: CGFloat = 1.0
+    @Live public var style: RainbowLumaBlurStyle = .angle
+    @Live public var radius: CGFloat = 0.5
+    @Live public var quality: SampleQualityMode = .mid
+    @Live public var angle: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
+    @Live public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_style, _radius, _quality, _angle, _position, _light] + super.liveList
+    }
     
     override public var values: [Floatable] {
         return [radius, angle, position, light]
@@ -61,11 +66,11 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
 public extension NODEOut {
     
     @available(*, deprecated, renamed: "_lumaRainbowBlur(with:radius:angle:)")
-    func _rainbowLumaBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
-        _lumaRainbowBlur(with: pix, radius: radius, angle: angle)
+    func rainbowLumaBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
+        lumaRainbowBlur(with: pix, radius: radius, angle: angle)
     }
     
-    func _lumaRainbowBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
+    func lumaRainbowBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
         let rainbowLumaBlurPix = LumaRainbowBlurPIX()
         rainbowLumaBlurPix.name = ":rainbowLumaBlur:"
         rainbowLumaBlurPix.inputA = self as? PIX & NODEOut

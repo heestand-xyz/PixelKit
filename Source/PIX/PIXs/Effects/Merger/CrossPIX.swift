@@ -15,12 +15,16 @@ public class CrossPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var fraction: CGFloat = 0.5
+    @Live public var fraction: CGFloat = 0.5
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_fraction] + super.liveList
+    }
+    
     override public var values: [Floatable] {
-        return [fraction]
+        [fraction]
     }
     
     // MARK: - Life Cycle
@@ -33,7 +37,7 @@ public class CrossPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _cross(with pix: PIX & NODEOut, fraction: CGFloat) -> CrossPIX {
+    func cross(with pix: PIX & NODEOut, fraction: CGFloat) -> CrossPIX {
         let crossPix = CrossPIX()
         crossPix.name = ":cross:"
         crossPix.inputA = self as? PIX & NODEOut

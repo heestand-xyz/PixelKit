@@ -16,18 +16,22 @@ public class LumaLevelsPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var brightness: CGFloat = 1.0
-    public var darkness: CGFloat = 0.0
-    public var contrast: CGFloat = 0.0
-    public var gamma: CGFloat = 1.0
-    public var inverted: Bool = false
-    public var smooth: Bool = false
-    public var opacity: CGFloat = 1.0
+    @Live public var brightness: CGFloat = 1.0
+    @Live public var darkness: CGFloat = 0.0
+    @Live public var contrast: CGFloat = 0.0
+    @Live public var gamma: CGFloat = 1.0
+    @Live public var inverted: Bool = false
+    @Live public var smooth: Bool = false
+    @Live public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity] + super.liveList
+    }
+    
     override public var values: [Floatable] {
-        return [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
+        [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
     }
     
     // MARK: - Life Cycle
@@ -40,7 +44,7 @@ public class LumaLevelsPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _lumaLevels(with pix: PIX & NODEOut, brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0) -> LumaLevelsPIX {
+    func lumaLevels(with pix: PIX & NODEOut, brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0) -> LumaLevelsPIX {
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = ":lumaLevels:"
         lumaLevelsPix.inputA = self as? PIX & NODEOut
@@ -53,7 +57,7 @@ public extension NODEOut {
         return lumaLevelsPix
     }
     
-    func _vignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
+    func vignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & NODEOut
         let rectangle = RectanglePIX(at: pix.renderResolution)
         rectangle.backgroundColor = .white

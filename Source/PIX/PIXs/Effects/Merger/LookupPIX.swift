@@ -15,9 +15,10 @@ public class LookupPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum Axis: String, CaseIterable {
+    public enum Axis: Int, CaseIterable, Floatable {
         case x
         case y
+        public var floats: [CGFloat] { [CGFloat(rawValue)] }
     }
     
     var holdEdgeFraction: CGFloat {
@@ -25,10 +26,14 @@ public class LookupPIX: PIXMergerEffect {
         return 1 / axisRes
     }
     
-    public var axis: Axis = .x { didSet { setNeedsRender() } }
-    public var holdEdge: Bool = true { didSet { setNeedsRender() } }
+    @Live public var axis: Axis = .x
+    @Live public var holdEdge: Bool = true
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_axis, _holdEdge] + super.liveList
+    }
     
     open override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
@@ -44,7 +49,7 @@ public class LookupPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _lookup(with pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
+    func lookup(with pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = ":lookup:"
         lookupPix.inputA = self as? PIX & NODEOut

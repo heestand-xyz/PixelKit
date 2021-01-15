@@ -15,9 +15,10 @@ public class ReorderPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public enum Input: String, CaseIterable {
-        case a = "A"
-        case b = "B"
+    public enum Input: Int, CaseIterable, Floatable {
+        case a
+        case b
+        public var floats: [CGFloat] { [CGFloat(rawValue)] }
     }
     
     public enum RawChannel {
@@ -26,7 +27,7 @@ public class ReorderPIX: PIXMergerEffect {
         case blue
         case alpha
     }
-    public enum Channel: String, CaseIterable {
+    public enum Channel: String, CaseIterable, Floatable {
         case red = "R"
         case green = "G"
         case blue = "B"
@@ -45,19 +46,24 @@ public class ReorderPIX: PIXMergerEffect {
             case .lum: return 6
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var redInput: Input = .a { didSet { setNeedsRender() } }
-    public var redChannel: Channel = .red { didSet { setNeedsRender() } }
-    public var greenInput: Input = .a { didSet { setNeedsRender() } }
-    public var greenChannel: Channel = .green { didSet { setNeedsRender() } }
-    public var blueInput: Input = .a { didSet { setNeedsRender() } }
-    public var blueChannel: Channel = .blue { didSet { setNeedsRender() } }
-    public var alphaInput: Input = .a { didSet { setNeedsRender() } }
-    public var alphaChannel: Channel = .alpha { didSet { setNeedsRender() } }
-    public var premultiply: Bool = true { didSet { setNeedsRender() } }
+    @Live public var redInput: Input = .a
+    @Live public var redChannel: Channel = .red
+    @Live public var greenInput: Input = .a
+    @Live public var greenChannel: Channel = .green
+    @Live public var blueInput: Input = .a
+    @Live public var blueChannel: Channel = .blue
+    @Live public var alphaInput: Input = .a
+    @Live public var alphaChannel: Channel = .alpha
+    @Live public var premultiply: Bool = true
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_redInput, _redChannel, _greenInput, _greenChannel, _blueInput, _blueChannel, _alphaInput, _alphaChannel, _premultiply] + super.liveList
+    }
     
     open override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
@@ -79,7 +85,7 @@ public class ReorderPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func _reorder(with pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
+    func reorder(with pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
         reorderPix.inputA = self as? PIX & NODEOut
@@ -101,7 +107,7 @@ public extension NODEOut {
         return reorderPix
     }
     
-    func _replace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
+    func replace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
         reorderPix.inputA = self as? PIX & NODEOut
@@ -116,18 +122,6 @@ public extension NODEOut {
         case .alpha:
             reorderPix.alphaChannel = channel
         }
-        return reorderPix
-    }
-    
-    func _RGtoBA(with pix: PIX & NODEOut) -> ReorderPIX {
-        let reorderPix = ReorderPIX()
-        reorderPix.name = "BAtoRG:reorder"
-        reorderPix.inputA = self as? PIX & NODEOut
-        reorderPix.inputB = pix
-        reorderPix.blueInput = .b
-        reorderPix.alphaInput = .b
-        reorderPix.blueChannel = .red
-        reorderPix.alphaChannel = .green
         return reorderPix
     }
     

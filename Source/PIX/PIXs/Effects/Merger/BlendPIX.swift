@@ -44,21 +44,25 @@ public class BlendPIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var blendMode: RenderKit.BlendMode = .add { didSet { setNeedsRender() } }
-    public var bypassTransform: Bool = false
-    public var position: CGPoint = .zero
-    public var rotation: CGFloat = 0.0
-    public var scale: CGFloat = 1.0
-    public var size: CGSize = CGSize(width: 1.0, height: 1.0)
+    @Live public var blendMode: RenderKit.BlendMode = .add
+    @Live public var bypassTransform: Bool = false
+    @Live public var position: CGPoint = .zero
+    @Live public var rotation: CGFloat = 0.0
+    @Live public var scale: CGFloat = 1.0
+    @Live public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_blendMode, _bypassTransform, _position, _rotation, _scale, _size] + super.liveList
+    }
+    
     override public var values: [Floatable] {
-        return [bypassTransform, position, rotation, scale, size]
+        [bypassTransform, position, rotation, scale, size]
     }
     
     open override var uniforms: [CGFloat] {
-        return [CGFloat(blendMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
+        [CGFloat(blendMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
     }
     
     public required init() {

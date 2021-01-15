@@ -69,11 +69,11 @@ public extension NODEOut {
     }
     
     func rotatate(by360 rotation: CGFloat) -> TransformPIX {
-        return (self as! PIX & NODEOut)._rotatate(by: rotation / 360)
+        return (self as! PIX & NODEOut).rotatate(by: rotation / 360)
     }
     
     func rotatate(by2pi rotation: CGFloat) -> TransformPIX {
-        return (self as! PIX & NODEOut)._rotatate(by: rotation / (.pi * 2))
+        return (self as! PIX & NODEOut).rotatate(by: rotation / (.pi * 2))
     }
     
     func scale(by scale: CGFloat) -> TransformPIX {
@@ -97,7 +97,7 @@ public extension NODEOut {
     }
     
     func scale(x: CGFloat = 1.0, y: CGFloat = 1.0) -> TransformPIX {
-        return _scale(size: CGSize(width: x, height: y))
+        return resize(by: CGSize(width: x, height: y))
     }
     
 }
