@@ -16,12 +16,16 @@ public class ChannelMixPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var red: PixelColor.Channel = .red { didSet { setNeedsRender() } }
-    public var green: PixelColor.Channel = .green { didSet { setNeedsRender() } }
-    public var blue: PixelColor.Channel = .blue { didSet { setNeedsRender() } }
-    public var alpha: PixelColor.Channel = .alpha { didSet { setNeedsRender() } }
+    @Live public var red: PixelColor.Channel = .red
+    @Live public var green: PixelColor.Channel = .green
+    @Live public var blue: PixelColor.Channel = .blue
+    @Live public var alpha: PixelColor.Channel = .alpha
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveProp] {
+        [_red, _green, _blue, _alpha]
+    }
     
     public override var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = []
