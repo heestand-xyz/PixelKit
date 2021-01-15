@@ -21,7 +21,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Public Properties
     
-    public enum BlurStyle: String, CaseIterable {
+    public enum BlurStyle: String, CaseIterable, Floatable {
         case regular
         #if !os(tvOS) && !targetEnvironment(simulator)
         case gaussian
@@ -47,21 +47,22 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
             case .random: return 4
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
     
-    public var style: BlurStyle = .regular { didSet { setNeedsRender() } }
+    @Live public var style: BlurStyle = .regular
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    public var radius: CGFloat = 0.5
-    public var quality: SampleQualityMode = .mid { didSet { setNeedsRender() } }
-    public var angle: CGFloat = 0.0
-    public var position: CGPoint = .zero
+    @Live public var radius: CGFloat = 0.5
+    @Live public var quality: SampleQualityMode = .mid
+    @Live public var angle: CGFloat = 0.0
+    @Live public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     
-    override public var values: [Floatable] {
-        return [radius, angle, position]
+    public override var liveList: [LiveProp] {
+        [_style, _radius, _quality, _angle, _position]
     }
     
     var relRadius: CGFloat {
@@ -69,10 +70,10 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
         let relRes: Resolution = ._4K
         let res: Resolution = renderResolution
         let relHeight = res.height / relRes.height
-        let relRadius = radius * relHeight //min(radius * relHeight, 1.0)
+        let relRadius = radius * relHeight
         let maxRadius: CGFloat = 32 * 10
         let mappedRadius = relRadius * maxRadius
-        return mappedRadius //radius * 32 * 10
+        return mappedRadius
     }
     open override var uniforms: [CGFloat] {
         return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle, position.x, position.y]
