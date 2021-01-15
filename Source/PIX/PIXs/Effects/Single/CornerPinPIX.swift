@@ -16,16 +16,25 @@ public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate {
     
     // MARK: - Public Properties
     
-    public struct Corners/*: Codable*/ {
+    public struct Corners: Floatable {
         public var topLeft: CGPoint
         public var topRight: CGPoint
         public var bottomLeft: CGPoint
         public var bottomRight: CGPoint
+        public var floats: [CGFloat] {
+            topLeft.floats + topRight.floats + bottomLeft.floats + bottomRight.floats
+        }
     }
-    public var corners: Corners { didSet { setNeedsRender() } }
+    @Live public var corners: Corners
     
-    public var perspective: Bool = false { didSet { setNeedsRender() } }
-    public var subdivisions: Int = 16  { didSet { setNeedsRender() } }
+    @Live public var perspective: Bool = false
+    @Live public var subdivisions: Int = 16
+    
+    // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_corners, _perspective, _subdivisions]
+    }
     
     // MARK: - Life Cycle
     
@@ -158,7 +167,7 @@ public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate {
 
 public extension NODEOut {
     
-    func _cornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
+    func cornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
                     topRight: CGPoint = CGPoint(x: 1, y: 1),
                     bottomLeft: CGPoint = CGPoint(x: 0, y: 0),
                     bottomRight: CGPoint = CGPoint(x: 1, y: 0)) -> CornerPinPIX {

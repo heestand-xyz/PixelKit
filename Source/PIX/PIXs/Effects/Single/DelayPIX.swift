@@ -20,9 +20,13 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
     
     // MARK: - Public Properties
     
-    public var delayFrames: Int = 10 { didSet { setNeedsRender() } }
+    @Live public var delayFrames: Int = 10
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_delayFrames]
+    }
     
     // MARK: - Life Cycle
     
@@ -60,7 +64,7 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
 
 public extension NODEOut {
     
-    func _delay(frames: Int) -> DelayPIX {
+    func delay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
         delayPix.name = ":delay:"
         delayPix.input = self as? PIX & NODEOut

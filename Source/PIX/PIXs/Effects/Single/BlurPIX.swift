@@ -130,7 +130,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
 
 public extension NODEOut {
     
-    func _blur(_ radius: CGFloat) -> BlurPIX {
+    func blur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
         blurPix.input = self as? PIX & NODEOut
@@ -138,7 +138,7 @@ public extension NODEOut {
         return blurPix
     }
     
-    func _zoomBlur(_ radius: CGFloat) -> BlurPIX {
+    func zoomBlur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":zoom-blur:"
         blurPix.style = .zoom
@@ -148,9 +148,9 @@ public extension NODEOut {
         return blurPix
     }
     
-    func _bloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
+    func bloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
         let pix = self as? PIX & NODEOut
-        let bloomPix = (pix!._blur(radius) + pix!) / 2
+        let bloomPix = (pix!.blur(radius) + pix!) / 2
         return cross(pix!, bloomPix, at: amount)
     }
     

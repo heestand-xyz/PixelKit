@@ -26,12 +26,16 @@ public class CropPIX: PIXSingleEffect {
             cropTop = newValue.maxY
         }
     }
-    public var cropLeft: CGFloat = 0.0 { didSet { applyResolution { self.setNeedsRender() } } }
-    public var cropRight: CGFloat = 1.0 { didSet { applyResolution { self.setNeedsRender() } } }
-    public var cropBottom: CGFloat = 0.0 { didSet { applyResolution { self.setNeedsRender() } } }
-    public var cropTop: CGFloat = 1.0 { didSet { applyResolution { self.setNeedsRender() } } }
+    @LiveResolution public var cropLeft: CGFloat = 0.0
+    @LiveResolution public var cropRight: CGFloat = 1.0
+    @LiveResolution public var cropBottom: CGFloat = 0.0
+    @LiveResolution public var cropTop: CGFloat = 1.0
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_cropLeft, _cropRight, _cropBottom, _cropTop]
+    }
     
     open override var uniforms: [CGFloat] {
         return [cropLeft, cropRight, cropBottom, cropTop]
@@ -47,7 +51,7 @@ public class CropPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _crop(_ cropFrame: CGRect) -> CropPIX {
+    func crop(_ cropFrame: CGRect) -> CropPIX {
         let cropPix = CropPIX()
         cropPix.name = ":crop:"
         cropPix.input = self as? PIX & NODEOut
@@ -55,20 +59,20 @@ public extension NODEOut {
         return cropPix
     }
     
-    func _cropLeft(_ cropFraction: CGFloat) -> CropPIX {
-        return _crop(CGRect(x: cropFraction, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
+    func cropLeft(_ cropFraction: CGFloat) -> CropPIX {
+        crop(CGRect(x: cropFraction, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
     }
     
-    func _cropRight(_ cropFraction: CGFloat) -> CropPIX {
-       return _crop(CGRect(x: 0.0, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
+    func cropRight(_ cropFraction: CGFloat) -> CropPIX {
+        crop(CGRect(x: 0.0, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
     }
     
-    func _cropTop(_ cropFraction: CGFloat) -> CropPIX {
-       return _crop(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0 - cropFraction))
+    func cropTop(_ cropFraction: CGFloat) -> CropPIX {
+        crop(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0 - cropFraction))
     }
     
-    func _cropBottom(_ cropFraction: CGFloat) -> CropPIX {
-        return _crop(CGRect(x: 0.0, y: cropFraction, width: 1.0, height: 1.0 - cropFraction))
+    func cropBottom(_ cropFraction: CGFloat) -> CropPIX {
+        crop(CGRect(x: 0.0, y: cropFraction, width: 1.0, height: 1.0 - cropFraction))
     }
     
 }

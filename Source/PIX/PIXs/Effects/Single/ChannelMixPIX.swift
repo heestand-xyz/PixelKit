@@ -46,7 +46,7 @@ public class ChannelMixPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _swap(_ pureColorA: PixelColor.Channel, _ pureColorB: PixelColor.Channel) -> ChannelMixPIX {
+    func swap(_ pureColorA: PixelColor.Channel, _ pureColorB: PixelColor.Channel) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
         channelMixPix.input = self as? PIX & NODEOut

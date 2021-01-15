@@ -42,7 +42,7 @@ public class ChromaKeyPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _chromaKey(_ color: PixelColor) -> ChromaKeyPIX {
+    func chromaKey(_ color: PixelColor) -> ChromaKeyPIX {
         let chromaKeyPix = ChromaKeyPIX()
         chromaKeyPix.name = ":chromaKey:"
         chromaKeyPix.input = self as? PIX & NODEOut

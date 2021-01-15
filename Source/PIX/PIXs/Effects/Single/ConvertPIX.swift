@@ -26,7 +26,7 @@ public class ConvertPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public enum ConvertMode: String, CaseIterable {
+    public enum ConvertMode: String, CaseIterable, Floatable {
         case domeToEqui
         case equiToDome
         case cubeToEqui
@@ -43,20 +43,21 @@ public class ConvertPIX: PIXSingleEffect {
             case .circleToSquare: return 5
             }
         }
+        public var floats: [CGFloat] { [CGFloat(index)] }
     }
-    public var mode: ConvertMode = .squareToCircle
+    @Live public var mode: ConvertMode = .squareToCircle
     
-    public var xRotation: CGFloat = 0.0
-    public var yRotation: CGFloat = 0.0
+    @Live public var xRotation: CGFloat = 0.0
+    @Live public var yRotation: CGFloat = 0.0
     
     // MARK: - Property Helpers
     
-    public override var values: [Floatable] {
-        return [xRotation, yRotation]
+    public override var liveList: [LiveWrap] {
+        [_mode, _xRotation, _yRotation]
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(mode.index), xRotation, yRotation]
+        [CGFloat(mode.index), xRotation, yRotation]
     }
     
     // MARK: - Life Cycle

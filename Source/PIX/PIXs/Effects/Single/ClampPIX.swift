@@ -15,9 +15,9 @@ public class ClampPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
     
-    public var low: CGFloat = 0.0
-    public var high: CGFloat = 1.0
-    public var clampAlpha: Bool = false
+    @Live public var low: CGFloat = 0.0
+    @Live public var high: CGFloat = 1.0
+    @Live public var clampAlpha: Bool = false
     
     public enum Style: String, CaseIterable, Floatable {
         case hold
@@ -36,12 +36,16 @@ public class ClampPIX: PIXSingleEffect {
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
     }
-    public var style: Style = .hold { didSet { setNeedsRender() } }
+    @Live public var style: Style = .hold
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_low, _high, _clampAlpha, _style]
+    }
+    
     override public var values: [Floatable] {
-        return [low, high, clampAlpha, style]
+        [low, high, clampAlpha, style]
     }
         
     // MARK: - Life Cycle
@@ -54,7 +58,7 @@ public class ClampPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _clamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> ClampPIX {
+    func clamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> ClampPIX {
         let clampPix = ClampPIX()
         clampPix.name = ":clamp:"
         clampPix.input = self as? PIX & NODEOut

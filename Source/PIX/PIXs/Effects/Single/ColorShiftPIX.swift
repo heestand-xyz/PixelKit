@@ -18,11 +18,15 @@ public class ColorShiftPIX: PIXSingleEffect {
     
     // MARK: - Public Properties
 
-    public var hue: CGFloat = 0.0
-    public var saturation: CGFloat = 1.0
-    public var tintColor: PixelColor = .white
+    @Live public var hue: CGFloat = 0.0
+    @Live public var saturation: CGFloat = 1.0
+    @Live public var tintColor: PixelColor = .white
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_hue, _saturation, _tintColor]
+    }
     
     override public var values: [Floatable] {
         return [hue, saturation, tintColor]
@@ -38,7 +42,7 @@ public class ColorShiftPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _tint(_ tintColor: PixelColor) -> ColorShiftPIX {
+    func tint(_ tintColor: PixelColor) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "tint:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut
@@ -46,7 +50,7 @@ public extension NODEOut {
         return colorShiftPix
     }
     
-    func _hue(_ hue: CGFloat) -> ColorShiftPIX {
+    func hue(_ hue: CGFloat) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "hue:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut
@@ -54,7 +58,7 @@ public extension NODEOut {
         return colorShiftPix
     }
     
-    func _saturation(_ saturation: CGFloat) -> ColorShiftPIX {
+    func saturation(_ saturation: CGFloat) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "saturation:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut
@@ -62,7 +66,7 @@ public extension NODEOut {
         return colorShiftPix
     }
     
-    func _monochrome(_ tintColor: PixelColor = .white) -> ColorShiftPIX {
+    func monochrome(_ tintColor: PixelColor = .white) -> ColorShiftPIX {
         let colorShiftPix = ColorShiftPIX()
         colorShiftPix.name = "monochrome:colorShift"
         colorShiftPix.input = self as? PIX & NODEOut
