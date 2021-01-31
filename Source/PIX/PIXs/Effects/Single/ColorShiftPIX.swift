@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import RenderKit
+import PixelColor
 
 @available(*, deprecated, renamed: "ColorShiftPIX")
 public typealias HueSaturationPIX = ColorShiftPIX

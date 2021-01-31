@@ -8,7 +8,7 @@
 
 import CoreGraphics
 import MetalKit
-
+import PixelColor
 import RenderKit
 
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {

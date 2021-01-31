@@ -8,12 +8,12 @@
 #if os(iOS) && !targetEnvironment(macCatalyst)
 
 import RenderKit
-
 import UIKit
 #if canImport(SwiftUI)
 import SwiftUI
 #endif
 import PencilKit
+import PixelColor
 
 //#if canImport(SwiftUI)
 //@available(iOS 13.0.0, *)

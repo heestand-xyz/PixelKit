@@ -40,7 +40,9 @@ extension BodyViewRepresentable {
     public func makeView(context: Context) -> MultiView {
         bodyView
     }
-    public func updateView(_ view: MultiView, context: Context) {}
+    public func updateView(_ view: MultiView, context: Context) {
+        print("<<< PixelKit SwiftUI Update >>>")
+    }
     
     #if os(macOS)
     public func makeNSView(context: Context) -> MultiView {

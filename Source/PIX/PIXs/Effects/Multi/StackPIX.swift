@@ -5,9 +5,9 @@
 //  Created by Anton Heestand on 2020-06-01.
 //
 
-
 import RenderKit
 import CoreGraphics
+import PixelColor
 
 public class StackPIX: PIXMultiEffect, NODEResolution {
     

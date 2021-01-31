@@ -7,6 +7,7 @@
 
 import CoreGraphics
 import RenderKit
+import PixelColor
 
 public class ArcPIX: PIXGenerator {
     

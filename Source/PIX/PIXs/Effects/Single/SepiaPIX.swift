@@ -8,6 +8,7 @@
 
 import RenderKit
 import Foundation
+import PixelColor
 
 public class SepiaPIX: PIXSingleEffect {
     

@@ -10,6 +10,7 @@
 import RenderKit
 import CoreGraphics
 import SpriteKit
+import PixelColor
 
 public class TextPIX: PIXSprite {
     

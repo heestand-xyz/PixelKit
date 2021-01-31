@@ -8,8 +8,13 @@
 
 import CoreGraphics
 import RenderKit
+import PixelColor
 
-public class CirclePIX: PIXGenerator {
+final public class CirclePIX: PIXGenerator, BodyViewRepresentable {
+    
+    override public var shaderName: String { "contentGeneratorCirclePIX" }
+    
+    var bodyView: MultiView { pixView }
     
     // MARK: - Public Properties
     
@@ -31,6 +36,13 @@ public class CirclePIX: PIXGenerator {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Circle", typeName: "pix-content-generator-circle")
+    }
+    
+    // MARK: - SwiftUI
+    
+    public func radius(_ value: CGFloat) -> CirclePIX {
+        radius = value
+        return self
     }
     
 }

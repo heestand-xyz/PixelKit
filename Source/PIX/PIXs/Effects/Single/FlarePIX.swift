@@ -8,6 +8,7 @@
 import CoreGraphics
 import RenderKit
 import Foundation
+import PixelColor
 
 public class FlarePIX: PIXSingleEffect {
     

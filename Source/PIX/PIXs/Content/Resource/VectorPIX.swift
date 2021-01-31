@@ -14,7 +14,7 @@ import AppKit
 #if !os(tvOS)
 import WebKit
 #endif
-
+import PixelColor
 
 #if !os(tvOS)
 

@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import RenderKit
+import PixelColor
 
 public class RangePIX: PIXSingleEffect {
     

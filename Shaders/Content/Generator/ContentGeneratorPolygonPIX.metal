@@ -175,7 +175,7 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
         float r = in.rad;
         if (r <= 0) {
             
-            float pit = pointInTriangle(uv, p1, p2, p3);
+            bool pit = pointInTriangle(uv, p1, p2, p3);
             
             if (pit) {
                 c = ac;
@@ -208,9 +208,9 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
             float2 cc2c1 = float2(cc2.c1.x / in.aspect + 0.5, cc2.c1.y + 0.5);
             float2 cc2c2 = float2(cc2.c2.x / in.aspect + 0.5, cc2.c2.y + 0.5);
             
-            float pit = pointInTriangle(uv, p1, cc1p, cc2p);
-            float pit1 = pointInTriangle(uv, cc1p, cc1c2, cc2c1);
-            float pit2 = pointInTriangle(uv, cc2p, cc1p, cc2c1);
+            bool pit = pointInTriangle(uv, p1, cc1p, cc2p);
+            bool pit1 = pointInTriangle(uv, cc1p, cc1c2, cc2c1);
+            bool pit2 = pointInTriangle(uv, cc2p, cc1p, cc2c1);
             
             if (p12d < r || p13d < r || pit || pit1 || pit2) {
                 c = ac;

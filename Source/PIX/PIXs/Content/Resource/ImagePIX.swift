@@ -16,6 +16,7 @@ import AppKit
 #if canImport(SwiftUI)
 import SwiftUI
 #endif
+import PixelColor
 
 #if os(iOS) || os(tvOS)
 public typealias _Image = UIImage

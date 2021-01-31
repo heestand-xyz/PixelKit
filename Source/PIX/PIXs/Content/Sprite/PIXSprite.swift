@@ -9,6 +9,7 @@
 
 import RenderKit
 import SpriteKit
+import PixelColor
 
 open class PIXSprite: PIXContent, NODEResolution {
     

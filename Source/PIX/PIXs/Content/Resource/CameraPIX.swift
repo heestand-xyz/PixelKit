@@ -17,6 +17,7 @@ typealias _Orientation = Void
 #if canImport(SwiftUI)
 import SwiftUI
 #endif
+import PixelColor
 
 #if !os(tvOS)
 

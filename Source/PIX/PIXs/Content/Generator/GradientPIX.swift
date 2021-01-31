@@ -9,6 +9,7 @@
 
 import RenderKit
 import CoreGraphics
+import PixelColor
 
 public struct ColorStep: Floatable {
     public var step: CGFloat

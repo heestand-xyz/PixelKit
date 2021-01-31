@@ -5,9 +5,9 @@
 //  Created by Anton Heestand on 2019-08-30.
 //
 
-
 import RenderKit
 import Metal
+import PixelColor
 
 open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelegate {
     

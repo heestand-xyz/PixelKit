@@ -7,6 +7,7 @@
 
 import Foundation
 import RenderKit
+import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 public class DepthCameraPIX: PIXResource {

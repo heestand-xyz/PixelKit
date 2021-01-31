@@ -6,9 +6,9 @@
 //  Open Source - MIT License
 //
 
-
 import RenderKit
 import CoreGraphics
+import PixelColor
 
 public class LumaLevelsPIX: PIXMergerEffect {
     
