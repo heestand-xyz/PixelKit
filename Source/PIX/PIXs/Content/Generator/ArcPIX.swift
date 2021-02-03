@@ -18,27 +18,59 @@ final public class ArcPIX: PIXGenerator, BodyViewRepresentable {
     // MARK: - Public Properties
     
     @Live public var position: CGPoint = .zero
-    @Live public var radius: CGFloat = sqrt(0.75) / 4
+    @Live public var radius: CGFloat = 0.25
     @Live public var angleFrom: CGFloat = -0.125
     @Live public var angleTo: CGFloat = 0.125
     @Live public var angleOffset: CGFloat = 0.0
-    @Live public var edgeRadius: CGFloat = 0.05
-    @Live public var fillColor: PixelColor = .white
+    @Live public var edgeRadius: CGFloat = 0.0
+    @Live public var edgeColor: PixelColor = .gray
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_position, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _fillColor]
+        super.liveList + [_position, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _edgeColor]
     }
     
     override public var values: [Floatable] {
-        [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, fillColor, super.color, super.backgroundColor]
+        [radius, angleFrom, angleTo, angleOffset, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
     }
     
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Arc", typeName: "pix-content-generator-arc")
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            radius: CGFloat = 0.25,
+                            angleFrom: CGFloat = -0.125,
+                            angleTo: CGFloat = 0.125) {
+        self.init(at: resolution)
+        self.radius = radius
+        self.angleFrom = angleFrom
+        self.angleTo = angleTo
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixPosition(_ value: CGPoint) -> Self {
+        position = value
+        return self
+    }
+    
+    public func pixAngleOffset(_ value: CGFloat) -> Self {
+        angleOffset = value
+        return self
+    }
+    
+    public func pixEdgeRadius(_ value: CGFloat) -> Self {
+        edgeRadius = value
+        return self
+    }
+    
+    public func pixEdgeColor(_ value: PixelColor) -> Self {
+        edgeColor = value
+        return self
     }
     
 }
