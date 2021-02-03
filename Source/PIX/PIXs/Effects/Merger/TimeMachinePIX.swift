@@ -15,7 +15,7 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     // MARK: - Public Properties
     
-    public var seconds: CGFloat = 1.0
+    @Live public var seconds: CGFloat = 1.0
     
     // MARK: - Private Properties
     
@@ -27,8 +27,12 @@ public class TimeMachinePIX: PIXMergerEffect {
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        [_seconds] + super.liveList
+    }
+    
     override public var values: [Floatable] {
-        return [seconds]
+        [seconds]
     }
     
     // MARK: - Life Cycle
@@ -74,5 +78,21 @@ public class TimeMachinePIX: PIXMergerEffect {
     }
     
     // FIXME: Dissconnect: Empty array
+    
+}
+
+public extension NODEOut {
+    
+    func pixTimeMachine(seconds: CGFloat = 1.0, pix: () -> (PIX & NODEOut)) -> TimeMachinePIX {
+        pixTimeMachine(pix: pix(), seconds: seconds)
+    }
+    func pixTimeMachine(pix: PIX & NODEOut, seconds: CGFloat = 1.0) -> TimeMachinePIX {
+        let timeMachinePix = TimeMachinePIX()
+        timeMachinePix.name = ":timeMachine:"
+        timeMachinePix.inputA = self as? PIX & NODEOut
+        timeMachinePix.inputB = pix
+        timeMachinePix.seconds = seconds
+        return timeMachinePix
+    }
     
 }

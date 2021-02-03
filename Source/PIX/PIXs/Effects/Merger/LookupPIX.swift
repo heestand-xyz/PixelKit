@@ -49,7 +49,10 @@ public class LookupPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func lookup(with pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
+    func pixLookup(axis: LookupPIX.Axis, pix: () -> (PIX & NODEOut)) -> LookupPIX {
+        pixLookup(pix: pix(), axis: axis)
+    }
+    func pixLookup(pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = ":lookup:"
         lookupPix.inputA = self as? PIX & NODEOut

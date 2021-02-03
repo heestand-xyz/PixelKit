@@ -63,7 +63,10 @@ public class LumaBlurPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func lumaBlur(with pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
+    func pixLumaBlur(radius: CGFloat, pix: () -> (PIX & NODEOut)) -> LumaBlurPIX {
+        pixLumaBlur(pix: pix(), radius: radius)
+    }
+    func pixLumaBlur(pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inputA = self as? PIX & NODEOut
@@ -72,7 +75,7 @@ public extension NODEOut {
         return lumaBlurPix
     }
     
-    func tiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
+    func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(at: pix.renderResolution)
         gradientPix.name = "tiltShift:gradient"
@@ -80,7 +83,7 @@ public extension NODEOut {
         gradientPix.offset = 0.5
         gradientPix.scale = 0.5
         gradientPix.extendRamp = .mirror
-        return pix.lumaBlur(with: gradientPix !** gamma, radius: radius)
+        return pix.pixLumaBlur(pix: gradientPix !** gamma, radius: radius)
     }
     
 }

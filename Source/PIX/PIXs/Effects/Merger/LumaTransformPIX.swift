@@ -37,3 +37,28 @@ public class LumaTransformPIX: PIXMergerEffect {
     }
     
 }
+
+public extension NODEOut {
+    
+    func pixLumaTranform(position: CGPoint = .zero,
+                         rotation: CGFloat = 0.0,
+                         scale: CGFloat = 1.0,
+                         size: CGSize = CGSize(width: 1.0, height: 1.0),
+                         pix: () -> (PIX & NODEOut)) -> LumaTransformPIX {
+        pixLumaTranform(pix: pix(), position: position, rotation: rotation, scale: scale, size: size)
+    }
+    func pixLumaTranform(pix: PIX & NODEOut,
+                         position: CGPoint = .zero,
+                         rotation: CGFloat = 0.0,
+                         scale: CGFloat = 1.0,
+                         size: CGSize = CGSize(width: 1.0, height: 1.0)) -> LumaTransformPIX {
+        let lumaTranformPix = LumaTransformPIX()
+        lumaTranformPix.name = ":lumaTranformPix:"
+        lumaTranformPix.inputA = self as? PIX & NODEOut
+        lumaTranformPix.inputB = pix
+        
+        return lumaTranformPix
+    }
+    
+}
+

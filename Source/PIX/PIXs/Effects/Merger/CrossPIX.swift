@@ -48,7 +48,7 @@ public class CrossPIX: PIXMergerEffect {
 //    
 //}
 
-public func cross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat) -> CrossPIX {
+public func pixCross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
     crossPix.inputA = pixA

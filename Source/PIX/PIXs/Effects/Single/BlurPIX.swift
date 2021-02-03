@@ -155,7 +155,7 @@ public extension NODEOut {
     func pixBloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
         let pix = self as? PIX & NODEOut
         let bloomPix = (pix!.pixBlur(radius) + pix!) / 2
-        return cross(pix!, bloomPix, at: amount)
+        return pixCross(pix!, bloomPix, at: amount)
     }
     
 }

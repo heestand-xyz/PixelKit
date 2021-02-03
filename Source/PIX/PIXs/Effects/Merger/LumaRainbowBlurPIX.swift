@@ -65,19 +65,33 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    @available(*, deprecated, renamed: "_lumaRainbowBlur(with:radius:angle:)")
-    func rainbowLumaBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
-        lumaRainbowBlur(with: pix, radius: radius, angle: angle)
+    func pixLumaRainbowBlur(style: LumaRainbowBlurPIX.RainbowLumaBlurStyle = .zoom,
+                            radius: CGFloat,
+                            angle: CGFloat = 0.0,
+                            position: CGPoint = .zero,
+                            light: CGFloat = 1.0,
+                            quality: PIX.SampleQualityMode = .mid,
+                            pix: () -> (PIX & NODEOut)) -> LumaRainbowBlurPIX {
+        pixLumaRainbowBlur(pix: pix(), style: style, radius: radius, angle: angle, position: position, light: light, quality: quality)
     }
-    
-    func lumaRainbowBlur(with pix: PIX & NODEOut, radius: CGFloat, angle: CGFloat) -> LumaRainbowBlurPIX {
-        let rainbowLumaBlurPix = LumaRainbowBlurPIX()
-        rainbowLumaBlurPix.name = ":rainbowLumaBlur:"
-        rainbowLumaBlurPix.inputA = self as? PIX & NODEOut
-        rainbowLumaBlurPix.inputB = pix
-        rainbowLumaBlurPix.radius = radius
-        rainbowLumaBlurPix.angle = angle
-        return rainbowLumaBlurPix
+    func pixLumaRainbowBlur(pix: PIX & NODEOut,
+                            style: LumaRainbowBlurPIX.RainbowLumaBlurStyle = .zoom,
+                            radius: CGFloat,
+                            angle: CGFloat = 0.0,
+                            position: CGPoint = .zero,
+                            light: CGFloat = 1.0,
+                            quality: PIX.SampleQualityMode = .mid) -> LumaRainbowBlurPIX {
+        let lumaRainbowBlurPix = LumaRainbowBlurPIX()
+        lumaRainbowBlurPix.name = ":lumaRainbowBlur:"
+        lumaRainbowBlurPix.inputA = self as? PIX & NODEOut
+        lumaRainbowBlurPix.inputB = pix
+        lumaRainbowBlurPix.style = style
+        lumaRainbowBlurPix.radius = radius
+        lumaRainbowBlurPix.angle = angle
+        lumaRainbowBlurPix.position = position
+        lumaRainbowBlurPix.light = light
+        lumaRainbowBlurPix.quality = quality
+        return lumaRainbowBlurPix
     }
     
 }

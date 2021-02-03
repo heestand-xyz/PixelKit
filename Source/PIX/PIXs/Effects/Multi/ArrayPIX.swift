@@ -30,7 +30,7 @@ public class ArrayPIX: PIXMultiEffect {
     
     // MARK: - Public Properties
     
-    @Live public var blendMode: BlendMode = .add
+    @Live public var blendMode: BlendMode = .over
     public var coordinates: [Coordinate] = []
     @Live public var backgroundColor: PixelColor = .black
     
@@ -164,3 +164,66 @@ public class ArrayPIX: PIXMultiEffect {
     }
     
 }
+
+public extension NODEOut {
+
+    func pixArrayGrid(xCount: Int, xRange: ClosedRange<CGFloat> = -0.5...0.5,
+                      yCount: Int, yRange: ClosedRange<CGFloat> = -0.5...0.5,
+                      scaleMultiplier: CGFloat = 1.0,
+                      blendMode: BlendMode = .over) -> ArrayPIX {
+        let arrayPix = ArrayPIX()
+        arrayPix.name = ":array:"
+        arrayPix.inputs = self is PIX & NODEOut ? [self as! PIX & NODEOut] : []
+        arrayPix.blendMode = blendMode
+        arrayPix.buildGrid(xCount: xCount, xRange: xRange, yCount: yCount, yRange: yRange, scaleMultiplier: scaleMultiplier)
+        return arrayPix
+    }
+    
+    func pixArrayHexagonalGrid(scale: CGFloat = 0.4,
+                               scaleMultiplier: CGFloat = 1.0,
+                               blendMode: BlendMode = .over) -> ArrayPIX {
+        let arrayPix = ArrayPIX()
+        arrayPix.name = ":array:"
+        arrayPix.inputs = self is PIX & NODEOut ? [self as! PIX & NODEOut] : []
+        arrayPix.blendMode = blendMode
+        arrayPix.buildHexagonalGrid(scale: scale, scaleMultiplier: scaleMultiplier)
+        return arrayPix
+    }
+    
+    func pixArrayCircle(count: Int,
+                        scale: CGFloat = 0.5,
+                        scaleMultiplier: CGFloat = 1.0,
+                        blendMode: BlendMode = .over) -> ArrayPIX {
+        let arrayPix = ArrayPIX()
+        arrayPix.name = ":array:"
+        arrayPix.inputs = self is PIX & NODEOut ? [self as! PIX & NODEOut] : []
+        arrayPix.blendMode = blendMode
+        arrayPix.buildCircle(count: count, scale: scale, scaleMultiplier: scaleMultiplier)
+        return arrayPix
+    }
+    
+    func pixArrayLine(count: Int,
+                      from fromPoint: CGPoint,
+                      to toPoint: CGPoint,
+                      scaleMultiplier: CGFloat = 1.0,
+                      blendMode: BlendMode = .over) -> ArrayPIX {
+        let arrayPix = ArrayPIX()
+        arrayPix.name = ":array:"
+        arrayPix.inputs = self is PIX & NODEOut ? [self as! PIX & NODEOut] : []
+        arrayPix.blendMode = blendMode
+        arrayPix.buildLine(count: count, from: fromPoint, to: toPoint, scaleMultiplier: scaleMultiplier)
+        return arrayPix
+    }
+    
+    func pixArrayRadom(count: Int,
+                       blendMode: BlendMode = .over) -> ArrayPIX {
+        let arrayPix = ArrayPIX()
+        arrayPix.name = ":array:"
+        arrayPix.inputs = self is PIX & NODEOut ? [self as! PIX & NODEOut] : []
+        arrayPix.blendMode = blendMode
+        arrayPix.buildRandom(count: count)
+        return arrayPix
+    }
+    
+}
+

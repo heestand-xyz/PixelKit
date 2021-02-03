@@ -44,7 +44,10 @@ public class LumaLevelsPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func lumaLevels(with pix: PIX & NODEOut, brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0) -> LumaLevelsPIX {
+    func pixLumaLevels(brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0, pix: () -> (PIX & NODEOut)) -> LumaLevelsPIX {
+        pixLumaLevels(pix: pix(), brightness: brightness, darkness: darkness, contrast: contrast, gamma: gamma, opacity: opacity)
+    }
+    func pixLumaLevels(pix: PIX & NODEOut, brightness: CGFloat = 1.0, darkness: CGFloat = 0.0, contrast: CGFloat = 0.0, gamma: CGFloat = 1.0, opacity: CGFloat = 1.0) -> LumaLevelsPIX {
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = ":lumaLevels:"
         lumaLevelsPix.inputA = self as? PIX & NODEOut
@@ -57,7 +60,7 @@ public extension NODEOut {
         return lumaLevelsPix
     }
     
-    func vignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
+    func pixVignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & NODEOut
         let rectangle = RectanglePIX(at: pix.renderResolution)
         rectangle.backgroundColor = .white

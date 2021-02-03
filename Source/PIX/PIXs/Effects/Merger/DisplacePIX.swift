@@ -38,8 +38,11 @@ public class DisplacePIX: PIXMergerEffect {
 }
 
 public extension NODEOut {
-    
-    func displace(with pix: PIX & NODEOut, distance: CGFloat) -> DisplacePIX {
+
+    func pixDisplace(distance: CGFloat, with pix: () -> (PIX & NODEOut)) -> DisplacePIX {
+        pixDisplace(pix: pix(), distance: distance)
+    }
+    func pixDisplace(pix: PIX & NODEOut, distance: CGFloat) -> DisplacePIX {
         let displacePix = DisplacePIX()
         displacePix.name = ":displace:"
         displacePix.inputA = self as? PIX & NODEOut
@@ -48,14 +51,14 @@ public extension NODEOut {
         return displacePix
     }
     
-    func noiseDisplace(distance: CGFloat, zPosition: CGFloat = 0.0, octaves: Int = 10) -> DisplacePIX {
+    func pixNoiseDisplace(distance: CGFloat, zPosition: CGFloat = 0.0, octaves: Int = 10) -> DisplacePIX {
         let pix = self as! PIX & NODEOut
         let noisePix = NoisePIX(at: pix.renderResolution)
         noisePix.name = "noiseDisplace:noise"
         noisePix.colored = true
         noisePix.zPosition = zPosition
         noisePix.octaves = octaves
-        return pix.displace(with: noisePix, distance: distance)
+        return pix.pixDisplace(pix: noisePix, distance: distance)
     }
     
 }

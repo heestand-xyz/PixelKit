@@ -85,7 +85,10 @@ public class ReorderPIX: PIXMergerEffect {
 
 public extension NODEOut {
     
-    func reorder(with pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
+    func pixReorder(from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel, pix: () -> (PIX & NODEOut)) -> ReorderPIX {
+        pixReorder(pix: pix(), from: channel, to: rawChannel)
+    }
+    func pixReorder(pix: PIX & NODEOut, from channel: ReorderPIX.Channel, to rawChannel: ReorderPIX.RawChannel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
         reorderPix.inputA = self as? PIX & NODEOut
@@ -107,7 +110,7 @@ public extension NODEOut {
         return reorderPix
     }
     
-    func replace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
+    func pixReplace(_ rawChannel: ReorderPIX.RawChannel, with channel: ReorderPIX.Channel) -> ReorderPIX {
         let reorderPix = ReorderPIX()
         reorderPix.name = ":reorder:"
         reorderPix.inputA = self as? PIX & NODEOut

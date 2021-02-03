@@ -47,7 +47,7 @@ final public class BlendsPIX: PIXMultiEffect, BodyViewRepresentable {
 
 // MARK: - Loop
 
-public func loop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero, loop: (Int, CGFloat) -> (PIX & NODEOut)) -> BlendsPIX {
+public func pixLoop(_ count: Int, blendMode: BlendMode, extend: ExtendMode = .zero, loop: (Int, CGFloat) -> (PIX & NODEOut)) -> BlendsPIX {
     let blendsPix = BlendsPIX()
     blendsPix.name = "loop:blends"
     blendsPix.blendMode = blendMode
