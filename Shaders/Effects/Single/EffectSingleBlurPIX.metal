@@ -42,7 +42,7 @@ fragment float4 effectSingleBlurPIX(VertexOut out [[stage_in]],
     
     uint iw = inTex.get_width();
     uint ih = inTex.get_height();
-    float aspect = iw / ih;
+    float aspect = float(iw) / float(ih);
     
     int res = int(in.res);
     
