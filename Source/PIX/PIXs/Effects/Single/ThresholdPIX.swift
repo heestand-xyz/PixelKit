@@ -14,7 +14,7 @@ final public class ThresholdPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleThresholdPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

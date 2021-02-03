@@ -17,7 +17,7 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, BodyViewRepre
     override public var shaderName: String { return "effectSingleResPIX" }
     override public var shaderNeedsAspect: Bool { return true }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -15,7 +15,7 @@ final public class ChannelMixPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleChannelMixPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

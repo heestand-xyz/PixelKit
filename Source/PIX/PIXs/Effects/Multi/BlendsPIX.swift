@@ -14,7 +14,7 @@ final public class BlendsPIX: PIXMultiEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMultiBlendsPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -15,7 +15,7 @@ import AVKit
 @available(tvOS 11, *)
 final public class RecordPIX: PIXOutput, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

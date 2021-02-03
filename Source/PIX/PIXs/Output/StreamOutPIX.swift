@@ -15,7 +15,7 @@ import UIKit
 
 final public class StreamOutPIX: PIXOutput, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     enum Connected {
         case disconnected

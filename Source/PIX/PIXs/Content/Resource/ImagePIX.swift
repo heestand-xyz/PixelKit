@@ -33,7 +33,7 @@ final public class ImagePIX: PIXResource, BodyViewRepresentable {
 //    #endif
     override public var shaderName: String { return "contentResourceImagePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

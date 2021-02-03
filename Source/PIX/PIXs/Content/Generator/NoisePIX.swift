@@ -16,7 +16,7 @@ final public class NoisePIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorNoisePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -60,8 +60,8 @@ final public class NoisePIX: PIXGenerator, BodyViewRepresentable {
         return self
     }
     
-    public func pixPosition(_ value: CGPoint) -> NoisePIX {
-        position = value
+    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> NoisePIX {
+        position = CGPoint(x: x, y: y)
         return self
     }
     

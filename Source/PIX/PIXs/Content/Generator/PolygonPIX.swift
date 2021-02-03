@@ -14,7 +14,7 @@ final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorPolygonPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -52,8 +52,8 @@ final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(_ value: CGPoint) -> PolygonPIX {
-        position = value
+    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> PolygonPIX {
+        position = CGPoint(x: x, y: y)
         return self
     }
     

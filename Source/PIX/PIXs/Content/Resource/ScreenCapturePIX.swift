@@ -14,7 +14,7 @@ final public class ScreenCapturePIX: PIXResource, BodyViewRepresentable {
         
     override public var shaderName: String { return "contentResourcePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

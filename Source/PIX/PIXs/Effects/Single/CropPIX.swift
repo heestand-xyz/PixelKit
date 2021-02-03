@@ -13,7 +13,7 @@ final public class CropPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleCropPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

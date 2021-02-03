@@ -30,7 +30,7 @@ final public class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Types
     
@@ -102,8 +102,8 @@ final public class GradientPIX: PIXGenerator, BodyViewRepresentable {
         return self
     }
     
-    public func pixPosition(_ value: CGPoint) -> GradientPIX {
-        position = value
+    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> GradientPIX {
+        position = CGPoint(x: x, y: y)
         return self
     }
     

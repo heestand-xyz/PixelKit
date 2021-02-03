@@ -28,7 +28,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, BodyViewRepresent
     
     override public var shaderName: String { return "effectSingleMetalPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
 

@@ -12,7 +12,7 @@ final public class RemapPIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Life Cycle
     

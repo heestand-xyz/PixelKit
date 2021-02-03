@@ -12,7 +12,7 @@ import PixelKit
 
 final public class SyphonOutPIX: PIXOutput, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!

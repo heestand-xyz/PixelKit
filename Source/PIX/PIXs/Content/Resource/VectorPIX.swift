@@ -29,7 +29,7 @@ final public class VectorPIX: PIXResource, BodyViewRepresentable {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     public var resolution: Resolution { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
     
@@ -53,6 +53,18 @@ final public class VectorPIX: PIXResource, BodyViewRepresentable {
         webView.navigationDelegate = helper
         helper.loaded = setNeedsBuffer
         setFrame()
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            named name: String) {
+        self.init(at: resolution)
+        load(named: name)
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            url: URL) {
+        self.init(at: resolution)
+        load(url: url)
     }
     
     // MARK: - Load

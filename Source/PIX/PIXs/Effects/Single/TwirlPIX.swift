@@ -13,7 +13,7 @@ final public class TwirlPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleTwirlPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

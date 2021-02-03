@@ -17,7 +17,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

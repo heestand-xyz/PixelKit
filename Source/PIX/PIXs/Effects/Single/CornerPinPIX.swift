@@ -14,7 +14,7 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, BodyVi
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

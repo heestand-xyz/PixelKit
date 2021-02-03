@@ -13,11 +13,11 @@ final public class DisplacePIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerDisplacePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
-    @Live public var distance: CGFloat = 1.0
+    @Live public var distance: CGFloat = 0.1
     @Live public var origin: CGFloat = 0.5
     
     // MARK: - Property Helpers
@@ -35,6 +35,22 @@ final public class DisplacePIX: PIXMergerEffect, BodyViewRepresentable {
     public required init() {
         super.init(name: "Displace", typeName: "pix-effect-merger-displace")
         extend = .hold
+    }
+    
+    public convenience init(distance: CGFloat = 0.1,
+                            _ inputA: () -> (PIX & NODEOut),
+                            with inputB: () -> (PIX & NODEOut)) {
+        self.init()
+        super.inputA = inputA()
+        super.inputB = inputB()
+        self.distance = distance
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixOrigin(_ value: CGFloat) -> DisplacePIX {
+        origin = value
+        return self
     }
     
 }

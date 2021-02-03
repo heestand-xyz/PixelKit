@@ -13,7 +13,7 @@ final public class CrossPIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerCrossPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -33,6 +33,15 @@ final public class CrossPIX: PIXMergerEffect, BodyViewRepresentable {
     
     public required init() {
         super.init(name: "Cross", typeName: "pix-effect-merger-cross")
+    }
+    
+    public convenience init(fraction: CGFloat = 0.5,
+                            _ inputA: () -> (PIX & NODEOut),
+                            with inputB: () -> (PIX & NODEOut)) {
+        self.init()
+        super.inputA = inputA()
+        super.inputB = inputB()
+        self.fraction = fraction
     }
     
 }

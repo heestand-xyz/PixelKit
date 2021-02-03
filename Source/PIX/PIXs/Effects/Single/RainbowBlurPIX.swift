@@ -15,7 +15,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -31,7 +31,7 @@ public typealias UINSViewRepresentable = UIViewRepresentable
 #endif
 
 
-protocol BodyViewRepresentable: UINSViewRepresentable {
+public protocol BodyViewRepresentable: UINSViewRepresentable {
     var bodyView: UINSView { get }
 }
 

@@ -26,7 +26,7 @@ final public class ArrayPIX: PIXMultiEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMultiArrayPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     override public var shaderNeedsAspect: Bool { return true }
     

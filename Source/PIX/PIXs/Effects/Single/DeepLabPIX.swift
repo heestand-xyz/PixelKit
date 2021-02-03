@@ -23,7 +23,7 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRe
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     override var customResolution: Resolution? { .square(513) }
     

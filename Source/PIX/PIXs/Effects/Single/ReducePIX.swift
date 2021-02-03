@@ -16,7 +16,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRep
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
 
     override var customResolution: Resolution? {
         guard let inputResolution: Resolution = (input as! PIX?)?.realResolution else { return nil }

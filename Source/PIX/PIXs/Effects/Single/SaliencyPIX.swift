@@ -17,7 +17,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewR
     
     override public var shaderName: String { return "contentResourceRedToWhitePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     override var customResolution: Resolution? { .square(68) }
     

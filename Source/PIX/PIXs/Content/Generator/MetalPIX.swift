@@ -26,7 +26,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
 

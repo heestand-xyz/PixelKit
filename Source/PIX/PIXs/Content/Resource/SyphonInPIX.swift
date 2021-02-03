@@ -13,7 +13,7 @@ final public class SyphonInPIX: PIXResource, BodyViewRepresentable {
     
     override open var shaderName: String { return "contentResourcePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     var context: NSOpenGLContext?
     var clinet: SyphonClient?

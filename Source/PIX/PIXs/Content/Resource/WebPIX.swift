@@ -28,7 +28,7 @@ final public class WebPIX: PIXResource, NODEResolution, BodyViewRepresentable {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     
@@ -65,6 +65,13 @@ final public class WebPIX: PIXResource, NODEResolution, BodyViewRepresentable {
         
         applyResolution { self.setNeedsRender() }
         
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            url: URL) {
+        self.init(at: resolution)
+        self.url = url
+        self.refresh()
     }
     
     // MARK: - Load

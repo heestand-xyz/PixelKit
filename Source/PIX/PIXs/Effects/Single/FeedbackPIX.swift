@@ -14,7 +14,7 @@ final public class FeedbackPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

@@ -13,7 +13,7 @@ final public class LumaTransformPIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerLumaTransformPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

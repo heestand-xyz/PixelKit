@@ -15,7 +15,7 @@ final public class MultiCameraPIX: PIXResource, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -13,7 +13,7 @@ final public class ColorPIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorColorPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Property Helpers
     

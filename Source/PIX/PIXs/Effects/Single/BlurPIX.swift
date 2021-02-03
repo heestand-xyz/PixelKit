@@ -19,7 +19,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepre
     
     override public var shaderName: String { return "effectSingleBlurPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

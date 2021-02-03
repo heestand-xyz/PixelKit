@@ -14,7 +14,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepr
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

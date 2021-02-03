@@ -13,7 +13,7 @@ final public class NilPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     let nilOverrideBits: Bits?
     public override var overrideBits: Bits? { nilOverrideBits }

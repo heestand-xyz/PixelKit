@@ -11,16 +11,17 @@ import RenderKit
 import CoreGraphics
 import MetalKit
 import SwiftUI
+import PixelColor
 
 final public class BlendPIX: PIXMergerEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectMergerBlendPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
-    @Live public var blendMode: RenderKit.BlendMode = .add
+    @Live public var blendMode: RenderKit.BlendMode = .average
     @Live public var bypassTransform: Bool = false
     @Live public var position: CGPoint = .zero
     @Live public var rotation: CGFloat = 0.0
@@ -47,7 +48,39 @@ final public class BlendPIX: PIXMergerEffect, BodyViewRepresentable {
 //        customMergerRenderDelegate = self
     }
     
+    public convenience init(blendMode: RenderKit.BlendMode = .average,
+                            _ inputA: () -> (PIX & NODEOut),
+                            with inputB: () -> (PIX & NODEOut)) {
+        self.init()
+        super.inputA = inputA()
+        super.inputB = inputB()
+        self.blendMode = blendMode
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> BlendPIX {
+        position = CGPoint(x: x, y: y)
+        return self
+    }
+    
+    public func pixRotation(_ value: CGFloat) -> BlendPIX {
+        rotation = value
+        return self
+    }
+    
+    public func pixScale(_ value: CGFloat) -> BlendPIX {
+        scale = value
+        return self
+    }
+    
+    public func pixSize(width: CGFloat, height: CGFloat) -> BlendPIX {
+        size = CGSize(width: width, height: height)
+        return self
+    }
+    
     // MARK - Custom Render
+    
 //    public func customRender(a textureA: MTLTexture, b textureB: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
 //        switch blendMode {
 //        case .add, .multiply, .subtract:
@@ -98,4 +131,25 @@ public func pixBlend(_ mode: RenderKit.BlendMode, _ pixA: PIX & NODEOut, _ pixB:
     blendPix.inputB = pixB
     blendPix.blendMode = mode
     return blendPix
+}
+
+public extension NODEOut {
+
+    func pixMultiply(color: PixelColor) -> BlendPIX {
+        pixBlend(color: color, blendMode: .multiply)
+    }
+    
+    func pixAdd(color: PixelColor) -> BlendPIX {
+        pixBlend(color: color, blendMode: .add)
+    }
+    
+    func pixBlend(color: PixelColor, blendMode: RenderKit.BlendMode) -> BlendPIX {
+        let blendPix = BlendPIX()
+        blendPix.name = ":blend:"
+        blendPix.inputA = self as? PIX & NODEOut
+        blendPix.inputB = ColorPIX(color: color)
+        blendPix.blendMode = blendMode
+        return blendPix
+    }
+    
 }

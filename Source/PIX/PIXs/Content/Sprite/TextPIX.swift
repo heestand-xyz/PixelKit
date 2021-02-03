@@ -14,7 +14,7 @@ import PixelColor
 
 final public class TextPIX: PIXSprite, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     
@@ -70,6 +70,14 @@ final public class TextPIX: PIXSprite, BodyViewRepresentable {
         
         setNeedsRender()
         
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            text: String) {
+        self.init(at: resolution)
+        self.text = text
+        setNeedsText()
+        setNeedsRender()
     }
     
     override func reSize() {

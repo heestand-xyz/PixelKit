@@ -14,7 +14,7 @@ final public class FlarePIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleFlarePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     override public var shaderNeedsAspect: Bool { return true }
     

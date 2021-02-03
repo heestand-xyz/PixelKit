@@ -18,7 +18,7 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepr
     
     override public var shaderName: String { return "nilPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

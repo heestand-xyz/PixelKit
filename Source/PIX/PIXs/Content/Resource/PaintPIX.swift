@@ -36,7 +36,7 @@ final public class PaintPIX: PIXResource, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentResourceBackgroundPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
 
     // MARK: - Public Properties
     

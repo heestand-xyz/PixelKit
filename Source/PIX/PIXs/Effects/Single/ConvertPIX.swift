@@ -13,7 +13,7 @@ final public class ConvertPIX: PIXSingleEffect, BodyViewRepresentable {
     
     override public var shaderName: String { return "effectSingleConvertPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     var resScale: CGSize {
         switch mode {

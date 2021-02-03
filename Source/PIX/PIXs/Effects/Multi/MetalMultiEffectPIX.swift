@@ -30,7 +30,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, BodyViewRepre
     
     override public var shaderName: String { return "effectMultiMetalPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

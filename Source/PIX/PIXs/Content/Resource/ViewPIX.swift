@@ -24,7 +24,7 @@ final public class ViewPIX: PIXResource, BodyViewRepresentable {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -76,7 +76,11 @@ final public class ViewPIX: PIXResource, BodyViewRepresentable {
     
     public convenience init<Content: View>(content: () -> (Content)) {
         self.init()
+        #if os(macOS)
+        renderView = NSHostingController(rootView: content()).view
+        #else
         renderView = UIHostingController(rootView: content()).view
+        #endif
         setNeedsBuffer()
     }
     

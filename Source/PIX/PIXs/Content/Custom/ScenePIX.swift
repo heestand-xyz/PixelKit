@@ -10,7 +10,7 @@ import SceneKit
 
 final public class ScenePIX: PIXCustom, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

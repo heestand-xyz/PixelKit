@@ -13,7 +13,7 @@ final public class AveragePIX: PIXSingleEffect, BodyViewRepresentable {
 
     override public var shaderName: String { return "effectSingleAveragePIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
 
     // MARK: - Public Properties
 

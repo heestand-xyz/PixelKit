@@ -15,7 +15,7 @@ final public class StreamInPIX: PIXResource, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentResourceBGRPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     enum Connected {
         case disconnected

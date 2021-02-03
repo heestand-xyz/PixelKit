@@ -13,7 +13,7 @@ import RenderKit
 
 final public class AirPlayPIX: PIXOutput, BodyViewRepresentable {
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

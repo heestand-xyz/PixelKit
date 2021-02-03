@@ -30,7 +30,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, BodyViewRep
     
     override public var shaderName: String { return "effectMergerMetalPIX" }
     
-    var bodyView: UINSView { pixView }
+    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     
