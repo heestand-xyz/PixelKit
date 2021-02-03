@@ -15,9 +15,11 @@ import MetalKit
 import MetalPerformanceShaders
 #endif
 
-public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
+final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleBlurPIX" }
+    override public var shaderName: String { return "effectSingleBlurPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -75,11 +77,13 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
         let mappedRadius = relRadius * maxRadius
         return mappedRadius
     }
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
-    override open var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsAspect: Bool { return true }
+    
+    // MARK: - Life Cycle
     
     public required init() {
         #if !os(tvOS) && !targetEnvironment(simulator)
@@ -130,7 +134,7 @@ public class BlurPIX: PIXSingleEffect, CustomRenderDelegate {
 
 public extension NODEOut {
     
-    func blur(_ radius: CGFloat) -> BlurPIX {
+    func pixBlur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":blur:"
         blurPix.input = self as? PIX & NODEOut
@@ -138,7 +142,7 @@ public extension NODEOut {
         return blurPix
     }
     
-    func zoomBlur(_ radius: CGFloat) -> BlurPIX {
+    func pixZoomBlur(_ radius: CGFloat) -> BlurPIX {
         let blurPix = BlurPIX()
         blurPix.name = ":zoom-blur:"
         blurPix.style = .zoom
@@ -148,9 +152,9 @@ public extension NODEOut {
         return blurPix
     }
     
-    func bloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
+    func pixBloom(radius: CGFloat, amount: CGFloat) -> CrossPIX {
         let pix = self as? PIX & NODEOut
-        let bloomPix = (pix!.blur(radius) + pix!) / 2
+        let bloomPix = (pix!.pixBlur(radius) + pix!) / 2
         return cross(pix!, bloomPix, at: amount)
     }
     

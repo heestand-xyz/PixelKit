@@ -85,7 +85,7 @@ open class GradientPIX: PIXGenerator {
 
 public extension NODEOut {
     
-    func gradientMap(from firstColor: PixelColor, to lastColor: PixelColor) -> LookupPIX {
+    func pixGradientMap(from firstColor: PixelColor, to lastColor: PixelColor) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = "gradientMap:lookup"
         lookupPix.inputA = self as? PIX & NODEOut

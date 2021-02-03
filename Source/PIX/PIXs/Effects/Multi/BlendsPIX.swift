@@ -10,9 +10,11 @@
 import RenderKit
 import CoreGraphics
 
-public class BlendsPIX: PIXMultiEffect {
+final public class BlendsPIX: PIXMultiEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMultiBlendsPIX" }
+    override public var shaderName: String { return "effectMultiBlendsPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -24,7 +26,7 @@ public class BlendsPIX: PIXMultiEffect {
         [_blendMode]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(blendMode.index)]
     }
     
@@ -32,6 +34,13 @@ public class BlendsPIX: PIXMultiEffect {
     
     public required init() {
         super.init(name: "Blends", typeName: "pix-effect-multi-blends")
+    }
+    
+    public convenience init(blendMode: BlendMode = .add,
+                            @PIXBuilder inputs: () -> ([PIX & NODEOut]) = { [] }) {
+        self.init()
+        self.blendMode = blendMode
+        super.inputs = inputs()
     }
     
 }

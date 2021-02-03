@@ -47,7 +47,7 @@ public class FlarePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func flare() -> FlarePIX {
+    func pixFlare() -> FlarePIX {
         let flarePix = FlarePIX()
         flarePix.name = ":flare:"
         flarePix.input = self as? PIX & NODEOut

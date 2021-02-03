@@ -99,7 +99,7 @@ public class FeedbackPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func feedback(_ fraction: CGFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
+    func pixFeedback(_ fraction: CGFloat = 1.0, loop: ((FeedbackPIX) -> (PIX & NODEOut))? = nil) -> FeedbackPIX {
         let feedbackPix = FeedbackPIX()
         feedbackPix.name = "feed:feedback"
         feedbackPix.input = self as? PIX & NODEOut

@@ -10,6 +10,7 @@
 import MetalPerformanceShaders
 #endif
 import RenderKit
+import CoreGraphics
 
 extension PIX {
     

@@ -67,7 +67,7 @@ public extension NODEOut {
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = "vignetting:lumaLevels"
         lumaLevelsPix.inputA = pix
-        lumaLevelsPix.inputB = rectangle.blur(radius)
+        lumaLevelsPix.inputB = rectangle.pixBlur(radius)
         lumaLevelsPix.gamma = gamma
         return lumaLevelsPix
     }

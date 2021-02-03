@@ -37,7 +37,7 @@ public class QuantizePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func quantize(_ fraction: CGFloat) -> QuantizePIX {
+    func pixQuantize(_ fraction: CGFloat) -> QuantizePIX {
         let quantizePix = QuantizePIX()
         quantizePix.name = ":quantize:"
         quantizePix.input = self as? PIX & NODEOut

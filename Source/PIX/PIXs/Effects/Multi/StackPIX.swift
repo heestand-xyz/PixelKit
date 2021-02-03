@@ -9,28 +9,29 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-public class StackPIX: PIXMultiEffect, NODEResolution {
+final public class StackPIX: PIXMultiEffect, NODEResolution, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMultiStackPIX" }
+    override public var shaderName: String { return "effectMultiStackPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
-    public enum HorizontalAlignment: Int {
-        case left = -1
-        case center = 0
-        case right = 1
-    }
-    public enum VerticalAlignment: Int {
-        case bottom = -1
-        case center = 0
-        case top = 1
-    }
-    
     public enum Axis: Floatable {
-        case horizontal(alignment: VerticalAlignment)
-        case vertical(alignment: HorizontalAlignment)
+        public enum VerticalAlignment: Int {
+            case bottom = -1
+            case center = 0
+            case top = 1
+        }
+        case horizontal(alignment: VerticalAlignment = .center)
+        public enum HorizontalAlignment: Int {
+            case left = -1
+            case center = 0
+            case right = 1
+        }
+        case vertical(alignment: HorizontalAlignment = .center)
         public init?(index: Int, alignmentIndex: Int) {
             switch index {
             case 0:
@@ -92,8 +93,32 @@ public class StackPIX: PIXMultiEffect, NODEResolution {
         super.init(name: "Stack", typeName: "pix-effect-multi-stack")
     }
     
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            axis: Axis = .vertical(alignment: .center),
+                            spacing: CGFloat = 0.0,
+                            padding: CGFloat = 0.0,
+                            @PIXBuilder inputs: () -> ([PIX & NODEOut]) = { [] }) {
+        self.init(at: resolution)
+        self.axis = axis
+        self.spacing = spacing
+        self.padding = padding
+        super.inputs = inputs()
+    }
+    
     public required init() {
-        fatalError("please init with resolution")
+        fatalError("Please create StackPIX with a Resolution")
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixResolution(_ value: Resolution) -> Self {
+        resolution = value
+        return self
+    }
+    
+    public func pixBackgroundColor(_ value: PixelColor) -> Self {
+        backgroundColor = value
+        return self
     }
     
 }

@@ -15,47 +15,47 @@ import UIKit
 import SwiftUI
 
 #if os(macOS)
-public typealias MultiView = NSView
+public typealias UINSView = NSView
 #else
-public typealias MultiView = UIView
+public typealias UINSView = UIView
 #endif
 
 #if os(macOS)
-public typealias MultiViewController = NSViewController
-public typealias MultiHostingView = NSHostingView
-public typealias MultiViewRepresentable = NSViewRepresentable
+public typealias UINSViewController = NSViewController
+public typealias UINSHostingView = NSHostingView
+public typealias UINSViewRepresentable = NSViewRepresentable
 #else
-public typealias MultiViewController = UIViewController
-public typealias MultiHostingView = UIHostingController
-public typealias MultiViewRepresentable = UIViewRepresentable
+public typealias UINSViewController = UIViewController
+public typealias UINSHostingView = UIHostingController
+public typealias UINSViewRepresentable = UIViewRepresentable
 #endif
 
 
-protocol BodyViewRepresentable: MultiViewRepresentable {
-    var bodyView: MultiView { get }
+protocol BodyViewRepresentable: UINSViewRepresentable {
+    var bodyView: UINSView { get }
 }
 
 extension BodyViewRepresentable {
     
-    public func makeView(context: Context) -> MultiView {
+    public func makeView(context: Context) -> UINSView {
         bodyView
     }
-    public func updateView(_ view: MultiView, context: Context) {
+    public func updateView(_ view: UINSView, context: Context) {
         print("<<< PixelKit SwiftUI Update >>>")
     }
     
     #if os(macOS)
-    public func makeNSView(context: Context) -> MultiView {
+    public func makeNSView(context: Context) -> UINSView {
         makeView(context: context)
     }
-    public func updateNSView(_ nsView: MultiView, context: Context) {
+    public func updateNSView(_ nsView: UINSView, context: Context) {
         updateView(nsView, context: context)
     }
     #else
-    public func makeUIView(context: Context) -> MultiView {
+    public func makeUIView(context: Context) -> UINSView {
         makeView(context: context)
     }
-    public func updateUIView(_ uiView: MultiView, context: Context) {
+    public func updateUIView(_ uiView: UINSView, context: Context) {
         updateView(uiView, context: context)
     }
     #endif

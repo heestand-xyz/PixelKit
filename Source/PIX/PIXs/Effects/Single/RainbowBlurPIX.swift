@@ -65,7 +65,7 @@ public class RainbowBlurPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func rainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
+    func pixRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":rainbowBlur:"
         rainbowBlurPix.input = self as? PIX & NODEOut
@@ -73,7 +73,7 @@ public extension NODEOut {
         return rainbowBlurPix
     }
     
-    func zoomRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
+    func pixZoomRainbowBlur(_ radius: CGFloat) -> RainbowBlurPIX {
         let rainbowBlurPix = RainbowBlurPIX()
         rainbowBlurPix.name = ":zoom-rainbowBlur:"
         rainbowBlurPix.style = .zoom

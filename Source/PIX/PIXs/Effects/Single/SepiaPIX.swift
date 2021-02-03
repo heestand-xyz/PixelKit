@@ -38,7 +38,7 @@ public class SepiaPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func sepia(_ color: PixelColor) -> SepiaPIX {
+    func pixSepia(_ color: PixelColor) -> SepiaPIX {
         let sepiaPix = SepiaPIX()
         sepiaPix.name = ":sepia:"
         sepiaPix.input = self as? PIX & NODEOut

@@ -8,10 +8,13 @@
 
 import CoreGraphics
 import RenderKit
+import SwiftUI
 
-public class PolygonPIX: PIXGenerator {
+final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentGeneratorPolygonPIX" }
+    override public var shaderName: String { return "contentGeneratorPolygonPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -35,6 +38,28 @@ public class PolygonPIX: PIXGenerator {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Polygon", typeName: "pix-content-generator-polygon")
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            radius: CGFloat = 0.25,
+                            vertexCount: Int = 6,
+                            cornerRadius: CGFloat = 0.0) {
+        self.init(at: resolution)
+        self.radius = radius
+        self.vertexCount = vertexCount
+        self.cornerRadius = cornerRadius
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixPosition(_ value: CGPoint) -> Self {
+        position = value
+        return self
+    }
+    
+    public func pixRotation(_ value: CGFloat) -> Self {
+        rotation = value
+        return self
     }
     
 }

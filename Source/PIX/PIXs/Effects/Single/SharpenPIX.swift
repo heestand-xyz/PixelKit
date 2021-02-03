@@ -37,7 +37,7 @@ public class SharpenPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func sharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
+    func pixSharpen(_ contrast: CGFloat = 1.0) -> SharpenPIX {
         let sharpenPix = SharpenPIX()
         sharpenPix.name = ":sharpen:"
         sharpenPix.input = self as? PIX & NODEOut

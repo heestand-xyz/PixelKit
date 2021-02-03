@@ -62,7 +62,7 @@ public class ColorConvertPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func rgbToHsv() -> ColorConvertPIX {
+    func pixRgbToHsv() -> ColorConvertPIX {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToHsv:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
@@ -70,7 +70,7 @@ public extension NODEOut {
         return colorConvertPix
     }
     
-    func rgbToHue() -> ColorConvertPIX {
+    func pixRgbToHue() -> ColorConvertPIX {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToHue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
@@ -79,7 +79,7 @@ public extension NODEOut {
         return colorConvertPix
     }
     
-    func rgbToSaturation() -> ColorConvertPIX {
+    func pixRgbToSaturation() -> ColorConvertPIX {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToSaturation:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
@@ -88,7 +88,7 @@ public extension NODEOut {
         return colorConvertPix
     }
     
-    func rgbToValue() -> ColorConvertPIX {
+    func pixRgbToValue() -> ColorConvertPIX {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToValue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
@@ -97,7 +97,7 @@ public extension NODEOut {
         return colorConvertPix
     }
     
-    func hsvToRgb() -> ColorConvertPIX {
+    func pixRsvToRgb() -> ColorConvertPIX {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "hsvToRgb:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut

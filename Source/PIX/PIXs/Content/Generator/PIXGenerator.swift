@@ -48,9 +48,21 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         applyResolution { self.setNeedsRender() }
     }
     
-//    required convenience public init(from decoder: Decoder) throws {
-//        self.init(resolution: ._128) // CHECK
-////        fatalError("init(from:) has not been implemented")
-//    }
+    // MARK: - Property Funcs
+    
+    public func pixResolution(_ value: Resolution) -> Self {
+        resolution = value
+        return self
+    }
+    
+    public func pixColor(_ value: PixelColor) -> Self {
+        color = value
+        return self
+    }
+    
+    public func pixBackgroundColor(_ value: PixelColor) -> Self {
+        backgroundColor = value
+        return self
+    }
     
 }

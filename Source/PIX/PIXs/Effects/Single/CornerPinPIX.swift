@@ -167,10 +167,10 @@ public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate {
 
 public extension NODEOut {
     
-    func cornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
-                    topRight: CGPoint = CGPoint(x: 1, y: 1),
-                    bottomLeft: CGPoint = CGPoint(x: 0, y: 0),
-                    bottomRight: CGPoint = CGPoint(x: 1, y: 0)) -> CornerPinPIX {
+    func pixCornerPin(topLeft: CGPoint = CGPoint(x: 0, y: 1),
+                      topRight: CGPoint = CGPoint(x: 1, y: 1),
+                      bottomLeft: CGPoint = CGPoint(x: 0, y: 0),
+                      bottomRight: CGPoint = CGPoint(x: 1, y: 0)) -> CornerPinPIX {
         let cornerPixPix = CornerPinPIX()
         cornerPixPix.name = ":cornerPin:"
         cornerPixPix.input = self as? PIX & NODEOut

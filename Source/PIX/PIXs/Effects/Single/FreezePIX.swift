@@ -42,7 +42,7 @@ public class FreezePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func freeze(_ active: Bool) -> FreezePIX {
+    func pixFreeze(_ active: Bool) -> FreezePIX {
         let freezePix = FreezePIX()
         freezePix.name = ":freeze:"
         freezePix.input = self as? PIX & NODEOut

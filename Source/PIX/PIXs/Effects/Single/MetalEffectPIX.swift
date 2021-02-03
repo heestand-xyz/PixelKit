@@ -141,7 +141,7 @@ public class MetalEffectPIX: PIXSingleEffect, NODEMetal {
 
 public extension NODEOut {
     
-    func _lumaToAlpha() -> MetalEffectPIX {
+    func pixLumaToAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
             float luma = (input.r + input.g + input.b) / 3;
@@ -153,7 +153,7 @@ public extension NODEOut {
         return metalEffectPix
     }
     
-    func _ignoreAlpha() -> MetalEffectPIX {
+    func pixIgnoreAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
             pix = float4(input.r, input.g, input.b, 1.0);
@@ -164,7 +164,7 @@ public extension NODEOut {
         return metalEffectPix
     }
     
-    func _premultiply() -> MetalEffectPIX {
+    func pixPremultiply() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
             float4 c = input;

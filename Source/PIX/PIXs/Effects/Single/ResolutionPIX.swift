@@ -74,22 +74,22 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
 
 public extension NODEOut {
     
-    @available(*, deprecated, renamed: "resolution(_:)")
+    @available(*, deprecated, renamed: "pixScaleResolution(to:)")
     func _reRes(to res: Resolution) -> ResolutionPIX {
-        resolution(res)
+        pixScaleResolution(to: res)
     }
-    func resolution(_ res: Resolution) -> ResolutionPIX {
+    func pixScaleResolution(to res: Resolution) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: res)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
         return resPix
     }
     
-    @available(*, deprecated, renamed: "scaleResolution(by:)")
+    @available(*, deprecated, renamed: "pixScaleResolution(by:)")
     func _reRes(by resMultiplier: CGFloat) -> ResolutionPIX {
-        scaleResolution(by: resMultiplier)
+        pixScaleResolution(by: resMultiplier)
     }
-    func scaleResolution(by resMultiplier: CGFloat) -> ResolutionPIX {
+    func pixScaleResolution(by resMultiplier: CGFloat) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: ._128)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut

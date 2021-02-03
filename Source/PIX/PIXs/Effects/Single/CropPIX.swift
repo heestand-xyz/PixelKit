@@ -51,7 +51,7 @@ public class CropPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func crop(_ cropFrame: CGRect) -> CropPIX {
+    func pixCrop(_ cropFrame: CGRect) -> CropPIX {
         let cropPix = CropPIX()
         cropPix.name = ":crop:"
         cropPix.input = self as? PIX & NODEOut
@@ -59,20 +59,20 @@ public extension NODEOut {
         return cropPix
     }
     
-    func cropLeft(_ cropFraction: CGFloat) -> CropPIX {
-        crop(CGRect(x: cropFraction, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
+    func pixCropLeft(_ cropFraction: CGFloat) -> CropPIX {
+        pixCrop(CGRect(x: cropFraction, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
     }
     
-    func cropRight(_ cropFraction: CGFloat) -> CropPIX {
-        crop(CGRect(x: 0.0, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
+    func pixCropRight(_ cropFraction: CGFloat) -> CropPIX {
+        pixCrop(CGRect(x: 0.0, y: 0.0, width: 1.0 - cropFraction, height: 1.0))
     }
     
-    func cropTop(_ cropFraction: CGFloat) -> CropPIX {
-        crop(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0 - cropFraction))
+    func pixCropTop(_ cropFraction: CGFloat) -> CropPIX {
+        pixCrop(CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0 - cropFraction))
     }
     
-    func cropBottom(_ cropFraction: CGFloat) -> CropPIX {
-        crop(CGRect(x: 0.0, y: cropFraction, width: 1.0, height: 1.0 - cropFraction))
+    func pixCropBottom(_ cropFraction: CGFloat) -> CropPIX {
+        pixCrop(CGRect(x: 0.0, y: cropFraction, width: 1.0, height: 1.0 - cropFraction))
     }
     
 }

@@ -37,7 +37,7 @@ public class SlopePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func _slope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
+    func pixSlope(_ amplitude: CGFloat = 1.0) -> SlopePIX {
         let slopePix = SlopePIX()
         slopePix.name = ":slope:"
         slopePix.input = self as? PIX & NODEOut

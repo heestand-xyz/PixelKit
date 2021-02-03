@@ -64,7 +64,7 @@ public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
 
 public extension NODEOut {
     
-    func delay(frames: Int) -> DelayPIX {
+    func pixDelay(frames: Int) -> DelayPIX {
         let delayPix = DelayPIX()
         delayPix.name = ":delay:"
         delayPix.input = self as? PIX & NODEOut

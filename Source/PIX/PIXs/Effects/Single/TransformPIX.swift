@@ -40,11 +40,7 @@ public class TransformPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    @available(*, deprecated, renamed: "translate(by:)")
-    func move(by position: CGPoint) -> TransformPIX {
-        translate(by: position)
-    }
-    func translate(by position: CGPoint) -> TransformPIX {
+    func pixTranslate(by position: CGPoint) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "position:transform"
         transformPix.input = self as? PIX & NODEOut
@@ -52,15 +48,11 @@ public extension NODEOut {
         return transformPix
     }
     
-    @available(*, deprecated, renamed: "translate(x:y:)")
-    func move(x: CGFloat = 0.0, y: CGFloat = 0.0) -> TransformPIX {
-        return (self as! PIX & NODEOut).move(by: CGPoint(x: x, y: y))
-    }
-    func translate(x: CGFloat = 0.0, y: CGFloat = 0.0) -> TransformPIX {
-        return (self as! PIX & NODEOut).translate(by: CGPoint(x: x, y: y))
+    func pixTranslate(x: CGFloat = 0.0, y: CGFloat = 0.0) -> TransformPIX {
+        (self as! PIX & NODEOut).pixTranslate(by: CGPoint(x: x, y: y))
     }
     
-    func rotatate(by rotation: CGFloat) -> TransformPIX {
+    func pixRotatate(by rotation: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "rotatate:transform"
         transformPix.input = self as? PIX & NODEOut
@@ -68,15 +60,15 @@ public extension NODEOut {
         return transformPix
     }
     
-    func rotatate(by360 rotation: CGFloat) -> TransformPIX {
-        return (self as! PIX & NODEOut).rotatate(by: rotation / 360)
+    func pixRotatate(by360 rotation: CGFloat) -> TransformPIX {
+        (self as! PIX & NODEOut).pixRotatate(by: rotation / 360)
     }
     
-    func rotatate(by2pi rotation: CGFloat) -> TransformPIX {
-        return (self as! PIX & NODEOut).rotatate(by: rotation / (.pi * 2))
+    func pixRotatate(byRadian rotation: CGFloat) -> TransformPIX {
+        (self as! PIX & NODEOut).pixRotatate(by: rotation / (.pi * 2))
     }
     
-    func scale(by scale: CGFloat) -> TransformPIX {
+    func pixScale(by scale: CGFloat) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
         transformPix.input = self as? PIX & NODEOut
@@ -84,11 +76,7 @@ public extension NODEOut {
         return transformPix
     }
     
-    @available(*, deprecated, renamed: "resize(by:)")
-    func scale(size: CGSize) -> TransformPIX {
-        resize(by: size)
-    }
-    func resize(by size: CGSize) -> TransformPIX {
+    func pixResize(by size: CGSize) -> TransformPIX {
         let transformPix = TransformPIX()
         transformPix.name = "scale:transform"
         transformPix.input = self as? PIX & NODEOut
@@ -96,8 +84,8 @@ public extension NODEOut {
         return transformPix
     }
     
-    func scale(x: CGFloat = 1.0, y: CGFloat = 1.0) -> TransformPIX {
-        return resize(by: CGSize(width: x, height: y))
+    func pixScale(x: CGFloat = 1.0, y: CGFloat = 1.0) -> TransformPIX {
+        pixResize(by: CGSize(width: x, height: y))
     }
     
 }

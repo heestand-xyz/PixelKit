@@ -42,7 +42,7 @@ public class EdgePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func edge(_ strength: CGFloat = 1.0) -> EdgePIX {
+    func pixEdge(_ strength: CGFloat = 1.0) -> EdgePIX {
         let edgePix = EdgePIX()
         edgePix.name = ":edge:"
         edgePix.input = self as? PIX & NODEOut

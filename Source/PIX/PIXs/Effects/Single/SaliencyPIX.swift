@@ -90,3 +90,16 @@ public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate {
     }
     
 }
+
+public extension NODEOut {
+    
+    func pixRange(style: SaliencyPIX.SaliencyStyle) -> SaliencyPIX {
+        let saliencyPix = SaliencyPIX()
+        saliencyPix.name = ":saliency:"
+        saliencyPix.input = self as? PIX & NODEOut
+        saliencyPix.style = style
+        return saliencyPix
+    }
+    
+}
+

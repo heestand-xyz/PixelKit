@@ -38,7 +38,7 @@ public class TwirlPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func twirl(_ strength: CGFloat) -> TwirlPIX {
+    func pixTwirl(_ strength: CGFloat) -> TwirlPIX {
         let twirlPix = TwirlPIX()
         twirlPix.name = ":twirl:"
         twirlPix.input = self as? PIX & NODEOut

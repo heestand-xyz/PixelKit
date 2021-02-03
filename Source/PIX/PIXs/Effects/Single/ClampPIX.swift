@@ -58,7 +58,7 @@ public class ClampPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func clamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> ClampPIX {
+    func pixClamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> ClampPIX {
         let clampPix = ClampPIX()
         clampPix.name = ":clamp:"
         clampPix.input = self as? PIX & NODEOut

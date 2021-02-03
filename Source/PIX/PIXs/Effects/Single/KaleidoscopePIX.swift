@@ -39,7 +39,7 @@ public class KaleidoscopePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func kaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
+    func pixKaleidoscope(divisions: Int = 12, mirror: Bool = true) -> KaleidoscopePIX {
         let kaleidoscopePix = KaleidoscopePIX()
         kaleidoscopePix.name = ":kaleidoscope:"
         kaleidoscopePix.input = self as? PIX & NODEOut

@@ -44,7 +44,7 @@ public class RangePIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func range(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
+    func pixRange(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.input = self as? PIX & NODEOut
@@ -55,7 +55,7 @@ public extension NODEOut {
         return rangePix
     }
     
-    func range(inLow: PixelColor = .clear, inHigh: PixelColor = .white, outLow: PixelColor = .clear, outHigh: PixelColor = .white) -> RangePIX {
+    func pixRange(inLow: PixelColor = .clear, inHigh: PixelColor = .white, outLow: PixelColor = .clear, outHigh: PixelColor = .white) -> RangePIX {
         let rangePix = RangePIX()
         rangePix.name = ":range:"
         rangePix.input = self as? PIX & NODEOut

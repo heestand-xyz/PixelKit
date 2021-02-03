@@ -38,7 +38,7 @@ public class ThresholdPIX: PIXSingleEffect {
 
 public extension NODEOut {
     
-    func threshold(_ threshold: CGFloat = 0.5) -> ThresholdPIX {
+    func pixThreshold(_ threshold: CGFloat = 0.5) -> ThresholdPIX {
         let thresholdPix = ThresholdPIX()
         thresholdPix.name = ":threshold:"
         thresholdPix.input = self as? PIX & NODEOut
@@ -47,7 +47,7 @@ public extension NODEOut {
         return thresholdPix
     }
     
-    func threshold(low: CGFloat, high: CGFloat) -> BlendPIX {
+    func pixThreshold(low: CGFloat, high: CGFloat) -> BlendPIX {
         let thresholdLowPix = ThresholdPIX()
         thresholdLowPix.name = "mask:threshold:low"
         thresholdLowPix.input = self as? PIX & NODEOut

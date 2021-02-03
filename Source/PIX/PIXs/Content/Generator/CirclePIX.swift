@@ -14,7 +14,7 @@ final public class CirclePIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { "contentGeneratorCirclePIX" }
     
-    var bodyView: MultiView { pixView }
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -38,10 +38,26 @@ final public class CirclePIX: PIXGenerator, BodyViewRepresentable {
         super.init(at: resolution, name: "Circle", typeName: "pix-content-generator-circle")
     }
     
-    // MARK: - SwiftUI
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            radius: CGFloat = 0.25) {
+        self.init(at: resolution)
+        self.radius = radius
+    }
     
-    public func radius(_ value: CGFloat) -> CirclePIX {
-        radius = value
+    // MARK: - Property Funcs
+    
+    public func pixPosition(_ value: CGPoint) -> Self {
+        position = value
+        return self
+    }
+    
+    public func pixEdgeRadius(_ value: CGFloat) -> Self {
+        edgeRadius = value
+        return self
+    }
+    
+    public func pixEdgeColor(_ value: PixelColor) -> Self {
+        edgeColor = value
         return self
     }
     
