@@ -593,7 +593,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         } else {
             var firstFound = false
             var secondFound = false
-            for iDevice in AVCaptureDevice.devices() {
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            for iDevice in discoverySession.devices {
                 if iDevice.hasMediaType(.video) {
                     if firstFound {
                         device = iDevice
