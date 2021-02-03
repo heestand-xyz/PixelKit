@@ -10,9 +10,11 @@ import RenderKit
 import RenderKit
 import Metal
 
-public class DelayPIX: PIXSingleEffect, CustomRenderDelegate {
+final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
     
-    override open var shaderName: String { return "nilPIX" }
+    override public var shaderName: String { return "nilPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

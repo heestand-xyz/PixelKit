@@ -13,9 +13,11 @@ import PixelColor
 @available(*, deprecated, renamed: "ColorShiftPIX")
 public typealias HueSaturationPIX = ColorShiftPIX
 
-public class ColorShiftPIX: PIXSingleEffect {
+final public class ColorShiftPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleColorShiftPIX" }
+    override public var shaderName: String { return "effectSingleColorShiftPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
 

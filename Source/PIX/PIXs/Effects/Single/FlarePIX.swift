@@ -10,9 +10,11 @@ import RenderKit
 import Foundation
 import PixelColor
 
-public class FlarePIX: PIXSingleEffect {
+final public class FlarePIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleFlarePIX" }
+    override public var shaderName: String { return "effectSingleFlarePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     override public var shaderNeedsAspect: Bool { return true }
     

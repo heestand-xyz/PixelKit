@@ -9,9 +9,11 @@ import CoreGraphics
 import RenderKit
 import Metal
 
-public class TimeMachinePIX: PIXMergerEffect {
+final public class TimeMachinePIX: PIXMergerEffect, BodyViewRepresentable {
    
-    override open var shaderName: String { return "effectMergerTimeMachinePIX" }
+    override public var shaderName: String { return "effectMergerTimeMachinePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

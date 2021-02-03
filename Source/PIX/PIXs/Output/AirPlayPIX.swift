@@ -9,8 +9,11 @@
 #if os(iOS)
 
 import UIKit
+import RenderKit
 
-public class AirPlayPIX: PIXOutput {
+final public class AirPlayPIX: PIXOutput, BodyViewRepresentable {
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     
@@ -199,6 +202,17 @@ public class AirPlayPIX: PIXOutput {
     
     required public init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
+    }
+    
+}
+
+public extension NODEOut {
+    
+    func pixAirPlay() -> AirPlayPIX {
+        let airPlayPix = AirPlayPIX()
+        airPlayPix.name = ":airplay:"
+        airPlayPix.input = self as? PIX & NODEOut
+        return airPlayPix
     }
     
 }

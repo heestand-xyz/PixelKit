@@ -11,9 +11,11 @@ import RenderKit
 import CoreGraphics
 import MetalKit
 
-public class RainbowBlurPIX: PIXSingleEffect {
+final public class RainbowBlurPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleRainbowBlurPIX" }
+    override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -48,11 +50,11 @@ public class RainbowBlurPIX: PIXSingleEffect {
         [radius, angle, position, light]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
     }
     
-    override open var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsAspect: Bool { return true }
     
     // MARK: - Life Cycle
     

@@ -11,9 +11,11 @@ import RenderKit
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)
-public class MultiCameraPIX: PIXResource {
+final public class MultiCameraPIX: PIXResource, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentResourceCameraPIX" }
+    override public var shaderName: String { return "contentResourceCameraPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -53,7 +55,7 @@ public class MultiCameraPIX: PIXResource {
     
     // MARK: - Property Helpers
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         #if os(iOS) && !targetEnvironment(macCatalyst)
         return [CGFloat(orientation?.rawValue ?? 0), camera.mirrored ? 1 : 0, camera.flipFlop ? 1 : 0]
         #elseif os(macOS) || targetEnvironment(macCatalyst)

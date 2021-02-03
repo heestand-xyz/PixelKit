@@ -19,9 +19,11 @@ import CoreMedia
 @available(iOS 12.0, *)
 @available(OSX 10.14, *)
 @available(tvOS 12.0, *)
-public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate {
+final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
     
-    override open var shaderName: String { return "nilPIX" }
+    override public var shaderName: String { return "nilPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     override var customResolution: Resolution? { .square(513) }
     

@@ -9,9 +9,11 @@
 import RenderKit
 import CoreGraphics
 
-public class FlipFlopPIX: PIXSingleEffect {
+final public class FlipFlopPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleFlipFlopPIX" }
+    override public var shaderName: String { return "effectSingleFlipFlopPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
         
@@ -54,7 +56,7 @@ public class FlipFlopPIX: PIXSingleEffect {
         [_flip, _flop]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(flip.index), CGFloat(flop.index)]
     }
     

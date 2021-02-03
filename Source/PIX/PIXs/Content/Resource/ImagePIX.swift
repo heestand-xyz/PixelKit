@@ -43,14 +43,16 @@ public typealias _Image = NSImage
 //}
 //#endif
 
-public class ImagePIX: PIXResource {
+final public class ImagePIX: PIXResource, BodyViewRepresentable {
 
 //    #if os(iOS) || os(tvOS)
 //    override open var shaderName: String { return "contentResourceFlipPIX" }
 //    #elseif os(macOS)
 //    override open var shaderName: String { return "contentResourceBGRPIX" }
 //    #endif
-    override open var shaderName: String { return "contentResourceImagePIX" }
+    override public var shaderName: String { return "contentResourceImagePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

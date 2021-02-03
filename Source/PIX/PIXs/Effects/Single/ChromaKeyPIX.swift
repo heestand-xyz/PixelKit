@@ -10,9 +10,11 @@ import CoreGraphics
 import RenderKit
 import PixelColor
 
-public class ChromaKeyPIX: PIXSingleEffect {
+final public class ChromaKeyPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleChromaKeyPIX" }
+    override public var shaderName: String { return "effectSingleChromaKeyPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

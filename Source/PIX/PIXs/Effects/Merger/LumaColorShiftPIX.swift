@@ -11,9 +11,11 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-public class LumaColorShiftPIX: PIXMergerEffect {
+final public class LumaColorShiftPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerLumaColorShiftPIX" }
+    override public var shaderName: String { return "effectMergerLumaColorShiftPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

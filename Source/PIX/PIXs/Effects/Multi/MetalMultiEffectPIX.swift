@@ -26,9 +26,11 @@ import Metal
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 /// ~~~~
-public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
+final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMultiMetalPIX" }
+    override public var shaderName: String { return "effectMultiMetalPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     
@@ -60,7 +62,7 @@ public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
         float2 uv = float2(u, v);
         
         uint pixCount = inTexs.get_array_size();
-    //    float4 inputN = inTexs.sample(s, uv, n);
+        // float4 inputN = inTexs.sample(s, uv, n);
         
         float4 pix = 0.0;
         
@@ -109,6 +111,12 @@ public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal {
         metalUniforms = uniforms
         self.code = code
         super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
+    }
+    
+    public convenience init(uniforms: [MetalUniform] = [], code: String,
+                            @PIXBuilder inputs: () -> ([PIX & NODEOut])) {
+        self.init(uniforms: uniforms, code: code)
+        super.inputs = inputs()
     }
     
     required init() {

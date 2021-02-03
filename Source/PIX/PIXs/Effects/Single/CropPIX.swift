@@ -9,9 +9,11 @@
 import RenderKit
 import CoreGraphics
 
-public class CropPIX: PIXSingleEffect {
+final public class CropPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleCropPIX" }
+    override public var shaderName: String { return "effectSingleCropPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -37,7 +39,7 @@ public class CropPIX: PIXSingleEffect {
         [_cropLeft, _cropRight, _cropBottom, _cropTop]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [cropLeft, cropRight, cropBottom, cropTop]
     }
     

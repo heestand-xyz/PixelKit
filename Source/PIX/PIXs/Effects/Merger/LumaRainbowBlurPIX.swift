@@ -13,9 +13,11 @@ import CoreGraphics
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
-public class LumaRainbowBlurPIX: PIXMergerEffect {
+final public class LumaRainbowBlurPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
+    override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -50,7 +52,7 @@ public class LumaRainbowBlurPIX: PIXMergerEffect {
         return [radius, angle, position, light]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
     }
     

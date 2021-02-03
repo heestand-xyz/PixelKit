@@ -32,9 +32,11 @@ import PixelColor
 //#endif
 
 @available(iOS 13.0, *)
-public class PaintPIX: PIXResource {
+final public class PaintPIX: PIXResource, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentResourceBackgroundPIX" }
+    override public var shaderName: String { return "contentResourceBackgroundPIX" }
+    
+    var bodyView: UINSView { pixView }
 
     // MARK: - Public Properties
     

@@ -14,9 +14,11 @@ import UIKit
 import AppKit
 #endif
 
-public class CachePIX: PIXSingleEffect, CustomRenderDelegate {
+final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
     
-    override open var shaderName: String { return "nilPIX" }
+    override public var shaderName: String { return "nilPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

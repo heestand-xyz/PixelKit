@@ -9,9 +9,11 @@
 import RenderKit
 import CoreGraphics
 
-public class ReorderPIX: PIXMergerEffect {
+final public class ReorderPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerReorderPIX" }
+    override public var shaderName: String { return "effectMergerReorderPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -65,7 +67,7 @@ public class ReorderPIX: PIXMergerEffect {
         [_redInput, _redChannel, _greenInput, _greenChannel, _blueInput, _blueChannel, _alphaInput, _alphaChannel, _premultiply] + super.liveList
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
         vals.append(contentsOf: [redInput == .a ? 0 : 1, CGFloat(redChannel.index)])
         vals.append(contentsOf: [greenInput == .a ? 0 : 1, CGFloat(greenChannel.index)])

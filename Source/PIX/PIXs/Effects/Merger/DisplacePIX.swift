@@ -9,9 +9,11 @@
 import CoreGraphics
 import RenderKit
 
-public class DisplacePIX: PIXMergerEffect {
+final public class DisplacePIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerDisplacePIX" }
+    override public var shaderName: String { return "effectMergerDisplacePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

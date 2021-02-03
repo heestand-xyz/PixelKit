@@ -13,7 +13,9 @@ import AVKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 @available(tvOS 11, *)
-public class RecordPIX: PIXOutput {
+final public class RecordPIX: PIXOutput, BodyViewRepresentable {
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

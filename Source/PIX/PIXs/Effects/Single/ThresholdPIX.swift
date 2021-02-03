@@ -10,9 +10,11 @@
 import RenderKit
 import CoreGraphics
 
-public class ThresholdPIX: PIXSingleEffect {
+final public class ThresholdPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleThresholdPIX" }
+    override public var shaderName: String { return "effectSingleThresholdPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

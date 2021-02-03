@@ -9,9 +9,11 @@
 import CoreGraphics
 import RenderKit
 
-public class EdgePIX: PIXSingleEffect {
+final public class EdgePIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleEdgePIX" }
+    override public var shaderName: String { return "effectSingleEdgePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -10,7 +10,9 @@ import Metal
 import RenderKit
 import PixelKit
 
-public class SyphonOutPIX: PIXOutput {
+final public class SyphonOutPIX: PIXOutput, BodyViewRepresentable {
+    
+    var bodyView: UINSView { pixView }
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!

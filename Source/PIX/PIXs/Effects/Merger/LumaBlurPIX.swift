@@ -10,9 +10,11 @@
 import RenderKit
 import CoreGraphics
 
-public class LumaBlurPIX: PIXMergerEffect {
+final public class LumaBlurPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerLumaBlurPIX" }
+    override public var shaderName: String { return "effectMergerLumaBlurPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -48,7 +50,7 @@ public class LumaBlurPIX: PIXMergerEffect {
         return [radius, angle, position]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     

@@ -12,9 +12,11 @@ import MetalPerformanceShaders
 @available(tvOS 11.3, *)
 @available(iOS 11.3, *)
 @available(OSX 10.13.4, *)
-public class ReducePIX: PIXSingleEffect, CustomRenderDelegate {
+final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
     
-    override open var shaderName: String { return "nilPIX" }
+    override public var shaderName: String { return "nilPIX" }
+    
+    var bodyView: UINSView { pixView }
 
     override var customResolution: Resolution? {
         guard let inputResolution: Resolution = (input as! PIX?)?.realResolution else { return nil }

@@ -12,34 +12,12 @@ import CoreGraphics
 import SwiftUI
 #endif
 
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//@available(OSX 10.15, *)
-//@available(tvOS 13.0.0, *)
-//public struct ResolutionPIXUI: View, PIXUI {
-//    public var node: NODE { pix }
-//    public let pix: PIX
-//    let resolutionPix: ResolutionPIX
-//    public var body: some View {
-//        NODERepView(node: pix)
-//    }
-//    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), _ uiPix: () -> (NODEUI)) {
-//        resolutionPix = ResolutionPIX(at: resolution)
-//        pix = resolutionPix
-//        resolutionPix.resolution = resolution
-//        resolutionPix.input = uiPix().node as? (PIX & NODEOut)
-//    }
-//    public func placement(_ placement: Placement) -> ResolutionPIXUI {
-//        resolutionPix.placement = placement
-//        return self
-//    }
-//}
-//#endif
+final public class ResolutionPIX: PIXSingleEffect, NODEResolution, BodyViewRepresentable {
 
-public class ResolutionPIX: PIXSingleEffect, NODEResolution {
-
-    override open var shaderName: String { return "effectSingleResPIX" }
-    override open var shaderNeedsAspect: Bool { return true }
+    override public var shaderName: String { return "effectSingleResPIX" }
+    override public var shaderNeedsAspect: Bool { return true }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -54,7 +32,7 @@ public class ResolutionPIX: PIXSingleEffect, NODEResolution {
         [_resolution, _resMultiplier, _inheritInResolution, _placement]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(placement.index)]
     }
     

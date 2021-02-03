@@ -9,9 +9,11 @@
 import CoreGraphics
 import RenderKit
 
-public class TwirlPIX: PIXSingleEffect {
+final public class TwirlPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleTwirlPIX" }
+    override public var shaderName: String { return "effectSingleTwirlPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

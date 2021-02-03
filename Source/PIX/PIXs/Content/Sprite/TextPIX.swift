@@ -12,7 +12,9 @@ import CoreGraphics
 import SpriteKit
 import PixelColor
 
-public class TextPIX: PIXSprite {
+final public class TextPIX: PIXSprite, BodyViewRepresentable {
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

@@ -10,9 +10,11 @@
 
 import AVKit
 
-public class ScreenCapturePIX: PIXResource {
+final public class ScreenCapturePIX: PIXResource, BodyViewRepresentable {
         
     override open var shaderName: String { return "contentResourcePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

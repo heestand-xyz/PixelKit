@@ -12,9 +12,11 @@ import CoreGraphics
 import MetalKit
 import SwiftUI
 
-public class BlendPIX: PIXMergerEffect {
+final public class BlendPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerBlendPIX" }
+    override public var shaderName: String { return "effectMergerBlendPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -35,7 +37,7 @@ public class BlendPIX: PIXMergerEffect {
         [bypassTransform, position, rotation, scale, size]
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         [CGFloat(blendMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
     }
     

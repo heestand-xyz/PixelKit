@@ -10,9 +10,11 @@ import RenderKit
 import Foundation
 import PixelColor
 
-public class SepiaPIX: PIXSingleEffect {
+final public class SepiaPIX: PIXSingleEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectSingleSepiaPIX" }
+    override public var shaderName: String { return "effectSingleSepiaPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

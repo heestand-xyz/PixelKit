@@ -8,9 +8,11 @@
 import CoreGraphics
 import RenderKit
 
-public class LinePIX: PIXGenerator {
+final public class LinePIX: PIXGenerator, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentGeneratorLinePIX" }
+    override public var shaderName: String { return "contentGeneratorLinePIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

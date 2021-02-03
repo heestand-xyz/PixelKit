@@ -26,9 +26,11 @@ extension Array: Floatable where Element == ColorStep {
     public var floats: [CGFloat] { flatMap(\.floats) }
 }
 
-open class GradientPIX: PIXGenerator {
+final class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentGeneratorGradientPIX" }
+    override public var shaderName: String { return "contentGeneratorGradientPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Types
     
@@ -63,7 +65,7 @@ open class GradientPIX: PIXGenerator {
         super.liveList + [_direction, _scale, _offset, _position, _extendRamp, _colorSteps]
     }
     
-    override open var values: [Floatable] {
+    override public var values: [Floatable] {
         return [direction, scale, offset, position, position, extendRamp]
     }
 
@@ -71,7 +73,7 @@ open class GradientPIX: PIXGenerator {
         colorSteps.map(\.floats)
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendRamp.index)]
     }
     

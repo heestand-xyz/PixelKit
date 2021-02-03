@@ -11,9 +11,11 @@ import RenderKit
 import UIKit
 import CoreGraphics
 
-public class StreamInPIX: PIXResource {
+final public class StreamInPIX: PIXResource, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentResourceBGRPIX" }
+    override public var shaderName: String { return "contentResourceBGRPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     enum Connected {
         case disconnected

@@ -42,9 +42,11 @@ import SwiftUI
 //}
 //#endif
 
-public class VideoPIX: PIXResource {
+final public class VideoPIX: PIXResource, BodyViewRepresentable {
     
-    override open var shaderName: String { return "nilPIX" }
+    override public var shaderName: String { return "nilPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

@@ -13,7 +13,9 @@ import CoreImage
 import RenderKit
 import UIKit
 
-public class StreamOutPIX: PIXOutput {
+final public class StreamOutPIX: PIXOutput, BodyViewRepresentable {
+    
+    var bodyView: UINSView { pixView }
     
     enum Connected {
         case disconnected

@@ -22,9 +22,11 @@ public struct Coordinate {
     }
 }
 
-public class ArrayPIX: PIXMultiEffect {
+final public class ArrayPIX: PIXMultiEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMultiArrayPIX" }
+    override public var shaderName: String { return "effectMultiArrayPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     override public var shaderNeedsAspect: Bool { return true }
     
@@ -51,7 +53,7 @@ public class ArrayPIX: PIXMultiEffect {
         return values
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         var uniforms = [CGFloat(blendMode.index), CGFloat(coordinates.count)]
         uniforms.append(contentsOf: backgroundColor.components)
         return uniforms

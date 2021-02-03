@@ -9,9 +9,11 @@
 
 import RenderKit
 
-public class ColorPIX: PIXGenerator {
+final public class ColorPIX: PIXGenerator, BodyViewRepresentable {
     
-    override open var shaderName: String { return "contentGeneratorColorPIX" }
+    override public var shaderName: String { return "contentGeneratorColorPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Property Helpers
     

@@ -9,9 +9,11 @@
 import RenderKit
 import CoreGraphics
 
-public class LookupPIX: PIXMergerEffect {
+final public class LookupPIX: PIXMergerEffect, BodyViewRepresentable {
     
-    override open var shaderName: String { return "effectMergerLookupPIX" }
+    override public var shaderName: String { return "effectMergerLookupPIX" }
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
@@ -35,7 +37,7 @@ public class LookupPIX: PIXMergerEffect {
         [_axis, _holdEdge] + super.liveList
     }
     
-    open override var uniforms: [CGFloat] {
+    public override var uniforms: [CGFloat] {
         return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
     }
     

@@ -56,7 +56,7 @@ typealias _ViewController = UIViewController
 typealias _ViewController = NSViewController
 #endif
 
-public class ViewPIX: PIXResource {
+final public class ViewPIX: PIXResource, BodyViewRepresentable {
     
 //    class ContainerView: _View {
 //        let rendereCallback: () -> ()
@@ -83,10 +83,12 @@ public class ViewPIX: PIXResource {
 //    }
     
     #if os(iOS) || os(tvOS)
-    override open var shaderName: String { return "contentResourceFlipPIX" }
+    override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override open var shaderName: String { return "contentResourceBGRPIX" }
     #endif
+    
+    var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     
