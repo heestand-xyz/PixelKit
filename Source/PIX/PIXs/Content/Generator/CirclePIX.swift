@@ -46,17 +46,17 @@ final public class CirclePIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(_ value: CGPoint) -> Self {
+    public func pixPosition(_ value: CGPoint) -> CirclePIX {
         position = value
         return self
     }
     
-    public func pixEdgeRadius(_ value: CGFloat) -> Self {
+    public func pixEdgeRadius(_ value: CGFloat) -> CirclePIX {
         edgeRadius = value
         return self
     }
     
-    public func pixEdgeColor(_ value: PixelColor) -> Self {
+    public func pixEdgeColor(_ value: PixelColor) -> CirclePIX {
         edgeColor = value
         return self
     }

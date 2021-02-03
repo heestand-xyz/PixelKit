@@ -50,17 +50,17 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     // MARK: - Property Funcs
     
-    public func pixResolution(_ value: Resolution) -> Self {
+    public func pixResolution(_ value: Resolution) -> PIXGenerator {
         resolution = value
         return self
     }
     
-    public func pixColor(_ value: PixelColor) -> Self {
+    public func pixColor(_ value: PixelColor) -> PIXGenerator {
         color = value
         return self
     }
     
-    public func pixBackgroundColor(_ value: PixelColor) -> Self {
+    public func pixBackgroundColor(_ value: PixelColor) -> PIXGenerator {
         backgroundColor = value
         return self
     }

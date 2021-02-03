@@ -26,7 +26,7 @@ extension Array: Floatable where Element == ColorStep {
     public var floats: [CGFloat] { flatMap(\.floats) }
 }
 
-final class GradientPIX: PIXGenerator, BodyViewRepresentable {
+final public class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
     
@@ -52,7 +52,7 @@ final class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Public Properties
     
-    @Live public var direction: Direction = .horizontal
+    @Live public var direction: Direction = .vertical
     @Live public var scale: CGFloat = 1.0
     @Live public var offset: CGFloat = 0.0
     @Live public var position: CGPoint = .zero
@@ -81,6 +81,35 @@ final class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Gradient", typeName: "pix-content-generator-gradient")
+    }
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            direction: Direction = .vertical,
+                            colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]) {
+        self.init(at: resolution)
+        self.direction = direction
+        self.colorSteps = colorSteps
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixScale(_ value: CGFloat) -> GradientPIX {
+        scale = value
+        return self
+    }
+    
+    public func pixOffset(_ value: CGFloat) -> GradientPIX {
+        offset = value
+        return self
+    }
+    
+    public func pixPosition(_ value: CGPoint) -> GradientPIX {
+        position = value
+        return self
+    }
+    
+    public func pixExtendRamp(_ value: ExtendMode) -> GradientPIX {
+        extendRamp = value
+        return self
     }
     
 }

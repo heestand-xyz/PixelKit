@@ -16,76 +16,12 @@ import AppKit
 import SwiftUI
 #endif
 
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//@available(OSX 10.15, *)
-//@available(tvOS 13.0.0, *)
-//public struct ViewPIXUI<Content: View>: View, PIXUI {
-//    public var node: NODE { pix }
-//    public let pix: PIX
-//    let viewPix: ViewPIX
-//    public var body: some View {
-//        NODERepView(node: pix)
-//    }
-//    public init(continuously: Bool = false, _ view: () -> (Content)) {
-//        let viewPix = ViewPIX()
-//        viewPix.renderViewContinuously = continuously
-//        self.viewPix = viewPix
-//        #if os(macOS)
-//        let _view: NSView = NSHostingController(rootView: view()).view
-//        #else
-//        let _view: UIView = UIHostingController(rootView: view()).view!
-//        #endif
-//        viewPix.renderView = _view
-//        pix = viewPix
-////        PixelKit.main.render.listenToFramesUntil {
-////            let resolution: Resolution = .auto(render: PixelKit.main.render)
-////            guard resolution.w != 128 else { return .continue }
-////            let size = (res / Resolution.scale).size
-////            uiView.frame = CGRect(origin: .zero, size: size)
-////            viewPix.viewNeedsRender()
-////            return .done
-////        }
-//    }
-//}
-//#endif
-
-#if os(iOS) || os(tvOS)
-typealias _ViewController = UIViewController
-#elseif os(macOS)
-typealias _ViewController = NSViewController
-#endif
-
 final public class ViewPIX: PIXResource, BodyViewRepresentable {
-    
-//    class ContainerView: _View {
-//        let rendereCallback: () -> ()
-//        init(view: UIView, rendereCallback: @escaping () -> ()) {
-//            self.rendereCallback = rendereCallback
-//            super.init(frame: view.bounds)
-//            addSubview(view)
-//        }
-//        override func setNeedsDisplay() {
-//            super.setNeedsDisplay()
-//            rendereCallback()
-//        }
-//        override func layoutSubviews() {
-//            super.layoutSubviews()
-//            rendereCallback()
-//        }
-//        override func layoutIfNeeded() {
-//            super.layoutIfNeeded()
-//            rendereCallback()
-//        }
-//        required init?(coder: NSCoder) {
-//            fatalError("init(coder:) has not been implemented")
-//        }
-//    }
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shaderName: String { return "contentResourceBGRPIX" }
+    override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
     var bodyView: UINSView { pixView }
@@ -130,6 +66,18 @@ final public class ViewPIX: PIXResource, BodyViewRepresentable {
                 }
             }
         }
+    }
+    
+    public convenience init(view: _View) {
+        self.init()
+        renderView = view
+        setNeedsBuffer()
+    }
+    
+    public convenience init<Content: View>(content: () -> (Content)) {
+        self.init()
+        renderView = UIHostingController(rootView: content()).view
+        setNeedsBuffer()
     }
     
     public func viewNeedsRender() {

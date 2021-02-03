@@ -314,6 +314,18 @@ final public class CameraPIX: PIXResource, BodyViewRepresentable {
         
     }
     
+    public convenience init(at camRes: CamRes? = nil, camera: Camera? = nil) {
+        self.init()
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        self.camera = camera ?? .back
+        self.camRes = camRes ?? ._1080p
+        #elseif os(macOS) || targetEnvironment(macCatalyst)
+        self.camera = camera ?? .front
+        self.camRes = camRes ?? ._720p
+        #endif
+        setupCamera()
+    }
+    
     deinit {
         helper!.stop()
     }

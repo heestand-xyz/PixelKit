@@ -26,7 +26,7 @@ final public class VectorPIX: PIXResource, BodyViewRepresentable {
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
-    override open var shaderName: String { return "contentResourceBGRPIX" }
+    override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
     var bodyView: UINSView { pixView }

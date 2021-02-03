@@ -12,7 +12,7 @@ import AVKit
 
 final public class ScreenCapturePIX: PIXResource, BodyViewRepresentable {
         
-    override open var shaderName: String { return "contentResourcePIX" }
+    override public var shaderName: String { return "contentResourcePIX" }
     
     var bodyView: UINSView { pixView }
     

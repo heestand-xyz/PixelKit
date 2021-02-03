@@ -573,3 +573,46 @@ open class PIX: NODE, Equatable, NODETileable {
     }
     
 }
+
+public extension NODEOut {
+    
+    func pixTransparentBackground() -> PIX & NODEOut {
+        guard let pix = self as? PIX & NODEOut else { return ColorPIX(color: .clear) }
+        pix.pixView.checker = false
+        return pix
+    }
+    
+    func pixCheckerBackground() -> PIX & NODEOut {
+        guard let pix = self as? PIX & NODEOut else { return ColorPIX(color: .clear) }
+        pix.pixView.checker = true
+        return pix
+    }
+    
+    /// Placement of the view.
+    ///
+    /// Default is `.fit`
+    func pixPlacement(_ placement: NODEView.Placement) -> PIX & NODEOut {
+        guard let pix = self as? PIX & NODEOut else { return ColorPIX(color: .clear) }
+        pix.view.placement = placement
+        return pix
+    }
+    
+    /// Interpolate determins what happens inbetween scaled pixels.
+    ///
+    /// Default is `.linear`
+    func pixInterpolate(_ interpolate: InterpolateMode) -> PIX & NODEOut {
+        guard let pix = self as? PIX & NODEOut else { return ColorPIX(color: .clear) }
+        pix.interpolate = interpolate
+        return pix
+    }
+    
+    /// Extend determins what happens to pixels outside of zero to one bounds.
+    ///
+    /// Default is `.zero`
+    func pixExtend(_ extend: ExtendMode) -> PIX & NODEOut {
+        guard let pix = self as? PIX & NODEOut else { return ColorPIX(color: .clear) }
+        pix.extend = extend
+        return pix
+    }
+    
+}

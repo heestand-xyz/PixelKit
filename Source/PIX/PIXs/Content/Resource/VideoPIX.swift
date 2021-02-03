@@ -142,6 +142,25 @@ final public class VideoPIX: PIXResource, BodyViewRepresentable {
 //        }
     }
     
+    public convenience init(url: URL) {
+        self.init()
+        helper.load(from: url)
+        play()
+    }
+    
+    public convenience init(named fullName: String) {
+        self.init()
+        let parts = fullName.split(separator: ".")
+        let name: String = String(parts.first ?? "")
+        let ext: String = String(parts.count >= 2 ? parts.last! : "mov")
+        if let url: URL = Bundle.main.url(forResource: name, withExtension: ext) {
+            helper.load(from: url)
+            play()
+        } else {
+            pixelKit.logger.log(node: self, .error, .resource, "Video File \"\(fullName)\" Not Found")
+        }
+    }
+    
     // MARK: - Load
     
     public func load(fileNamed name: String, withExtension ext: String, done: ((Resolution) -> ())? = nil) {

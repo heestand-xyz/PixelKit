@@ -35,4 +35,19 @@ final public class RectanglePIX: PIXGenerator, BodyViewRepresentable {
         super.init(at: resolution, name: "Rectangle", typeName: "pix-content-generator-rectangle")
     }
     
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            size: CGSize = CGSize(width: 0.5, height: 0.5),
+                            cornerRadius: CGFloat = 0.0) {
+        self.init(at: resolution)
+        self.size = size
+        self.cornerRadius = cornerRadius
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixPosition(_ value: CGPoint) -> RectanglePIX {
+        position = value
+        return self
+    }
+    
 }

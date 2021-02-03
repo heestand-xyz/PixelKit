@@ -19,29 +19,10 @@ import SwiftUI
 import PixelColor
 
 #if os(iOS) || os(tvOS)
-public typealias _Image = UIImage
+public typealias UINSImage = UIImage
 #elseif os(macOS)
-public typealias _Image = NSImage
+public typealias UINSImage = NSImage
 #endif
-
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//@available(OSX 10.15, *)
-//@available(tvOS 13.0.0, *)
-//public struct ImagePIXUI: View, PIXUI {
-//    public var node: NODE { pix }
-//    public let pix: PIX
-//    let imagePix: ImagePIX
-//    public var body: some View {
-//        NODERepView(node: pix)
-//    }
-//    public init(image: _Image) {
-//        imagePix = ImagePIX()
-//        imagePix.image = image
-//        pix = imagePix
-//    }
-//}
-//#endif
 
 final public class ImagePIX: PIXResource, BodyViewRepresentable {
 
@@ -70,7 +51,7 @@ final public class ImagePIX: PIXResource, BodyViewRepresentable {
     
     // MARK: - Public Properties
     
-    public var image: _Image? { didSet { setNeedsBuffer() } }
+    public var image: UINSImage? { didSet { setNeedsBuffer() } }
     
     #if !os(macOS)
     public var resizeToFitResolution: Resolution? = nil
@@ -115,6 +96,25 @@ final public class ImagePIX: PIXResource, BodyViewRepresentable {
             }
             return .continue
         }
+    }
+    
+    #if os(macOS)
+    public convenience init(image: NSImage) {
+        self.init()
+        self.image = image
+        setNeedsBuffer()
+    }
+    #else
+    public convenience init(image: UIImage) {
+        self.init()
+        self.image = image
+        setNeedsBuffer()
+    }
+    #endif
+    public convenience init(named name: String) {
+        self.init()
+        self.image = UINSImage(named: name)
+        setNeedsBuffer()
     }
     
     // MARK: Buffer

@@ -6,8 +6,8 @@
 //  Open Source - MIT License
 //
 
-
 import RenderKit
+import PixelColor
 
 final public class ColorPIX: PIXGenerator, BodyViewRepresentable {
     
@@ -25,6 +25,12 @@ final public class ColorPIX: PIXGenerator, BodyViewRepresentable {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Color", typeName: "pix-content-generator-color")
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            color: PixelColor) {
+        self.init(at: resolution)
+        super.color = color
     }
     
 }
