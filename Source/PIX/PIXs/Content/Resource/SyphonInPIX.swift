@@ -9,11 +9,9 @@ import AppKit
 import GLKit
 import OpenGL
 
-final public class SyphonInPIX: PIXResource, BodyViewRepresentable {
+final public class SyphonInPIX: PIXResource, PIXViewable {
     
     override open var shaderName: String { return "contentResourcePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     var context: NSOpenGLContext?
     var clinet: SyphonClient?

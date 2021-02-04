@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class QuantizePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class QuantizePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleQuantizePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

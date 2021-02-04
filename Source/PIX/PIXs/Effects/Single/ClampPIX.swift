@@ -9,11 +9,9 @@ import CoreGraphics
 
 import RenderKit
 
-final public class ClampPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class ClampPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleClampPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

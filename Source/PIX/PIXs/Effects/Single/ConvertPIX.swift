@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class ConvertPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class ConvertPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleConvertPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     var resScale: CGSize {
         switch mode {

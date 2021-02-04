@@ -11,11 +11,9 @@ import RenderKit
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)
-final public class MultiCameraPIX: PIXResource, BodyViewRepresentable {
+final public class MultiCameraPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourceCameraPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

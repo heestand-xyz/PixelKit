@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class TransformPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class TransformPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleTransformPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

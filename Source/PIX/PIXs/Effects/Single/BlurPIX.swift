@@ -15,11 +15,9 @@ import MetalKit
 import MetalPerformanceShaders
 #endif
 
-final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
+final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "effectSingleBlurPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

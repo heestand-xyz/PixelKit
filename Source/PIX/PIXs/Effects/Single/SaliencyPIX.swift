@@ -13,11 +13,9 @@ import CoreImage
 @available(iOS 13.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0, *)
-final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, BodyViewRepresentable {
+final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "contentResourceRedToWhitePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     override var customResolution: Resolution? { .square(68) }
     

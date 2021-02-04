@@ -10,11 +10,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class BlendsPIX: PIXMultiEffect, BodyViewRepresentable {
+final public class BlendsPIX: PIXMultiEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMultiBlendsPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

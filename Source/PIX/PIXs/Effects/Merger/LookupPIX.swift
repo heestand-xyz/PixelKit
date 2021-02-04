@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class LookupPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class LookupPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLookupPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

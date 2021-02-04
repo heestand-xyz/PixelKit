@@ -26,11 +26,9 @@ import Metal
 /// metalMergerEffectPix.inputA = CameraPIX()
 /// metalMergerEffectPix.inputB = ImagePIX("img_name")
 /// ~~~~
-final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, BodyViewRepresentable {
+final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectMergerMetalPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

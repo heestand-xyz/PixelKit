@@ -12,12 +12,10 @@ import CoreGraphics
 import SwiftUI
 #endif
 
-final public class ResolutionPIX: PIXSingleEffect, NODEResolution, BodyViewRepresentable {
+final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "effectSingleResPIX" }
     override public var shaderNeedsAspect: Bool { return true }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

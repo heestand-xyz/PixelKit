@@ -26,11 +26,9 @@ import Metal
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 /// ~~~~
-final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, BodyViewRepresentable {
+final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectMultiMetalPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

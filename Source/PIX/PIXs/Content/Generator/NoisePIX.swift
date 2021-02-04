@@ -12,11 +12,9 @@ import RenderKit
 import SwiftUI
 #endif
 
-final public class NoisePIX: PIXGenerator, BodyViewRepresentable {
+final public class NoisePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorNoisePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

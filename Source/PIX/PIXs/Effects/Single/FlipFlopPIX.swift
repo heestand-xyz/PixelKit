@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class FlipFlopPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleFlipFlopPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
         

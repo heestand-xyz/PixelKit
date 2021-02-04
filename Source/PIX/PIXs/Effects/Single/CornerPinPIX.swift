@@ -10,11 +10,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, BodyViewRepresentable {
+final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

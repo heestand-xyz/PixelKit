@@ -26,11 +26,9 @@ extension Array: Floatable where Element == ColorStep {
     public var floats: [CGFloat] { flatMap(\.floats) }
 }
 
-final public class GradientPIX: PIXGenerator, BodyViewRepresentable {
+final public class GradientPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Types
     

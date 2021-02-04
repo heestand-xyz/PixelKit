@@ -141,7 +141,7 @@ open class PIX: NODE, Equatable, NODETileable {
         self.typeName = typeName
         
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
-        pixView = PIXView(with: PixelKit.main.render, pixelFormat: pixelFormat)
+        pixView = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
         
         setupShader()
             
@@ -565,7 +565,7 @@ open class PIX: NODE, Equatable, NODETileable {
 //        if pixelKit.logger.level == .debug {
 //            var pix: PIX = self
 //            // TODO: - Test
-//            if !isKnownUniquelyReferenced(&pix) { // 💧
+//            if !isKnownUniquelyReferenced(&pix) { // leak?
 //                fatalError("pix not released")
 //            }
 //        }
@@ -574,7 +574,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
 }
 
-public extension NODEOut where Self: PIX & NODEOut & BodyViewRepresentable {
+public extension NODEOut where Self: PIX & NODEOut & PIXViewable {
     
     func pixBypass(_ value: Bool) -> PIX & NODEOut {
         bypass = value

@@ -16,7 +16,11 @@ public class PIXView: NODEView {
     public let liveMouseView: LiveMouseView
     #endif
     
-    override init(with render: Render, pixelFormat: MTLPixelFormat) {
+    weak var pix: PIX?
+    
+    init(pix: PIX, with render: Render, pixelFormat: MTLPixelFormat) {
+        
+        self.pix = pix
         
         #if os(iOS)
         liveTouchView = LiveTouchView()

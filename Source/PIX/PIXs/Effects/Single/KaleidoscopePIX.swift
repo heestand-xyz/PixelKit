@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class KaleidoscopePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleKaleidoscopePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

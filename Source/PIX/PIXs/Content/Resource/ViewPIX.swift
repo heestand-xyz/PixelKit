@@ -16,15 +16,13 @@ import AppKit
 import SwiftUI
 #endif
 
-final public class ViewPIX: PIXResource, BodyViewRepresentable {
+final public class ViewPIX: PIXResource, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

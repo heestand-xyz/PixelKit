@@ -8,11 +8,9 @@
 
 import RenderKit
 
-final public class RemapPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class RemapPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Life Cycle
     

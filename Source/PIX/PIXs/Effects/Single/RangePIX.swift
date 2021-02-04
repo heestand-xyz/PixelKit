@@ -10,11 +10,9 @@ import CoreGraphics
 import RenderKit
 import PixelColor
 
-final public class RangePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class RangePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleRangePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

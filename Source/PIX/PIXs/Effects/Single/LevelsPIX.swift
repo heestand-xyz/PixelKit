@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class LevelsPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class LevelsPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleLevelsPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

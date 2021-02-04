@@ -10,11 +10,9 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class LumaLevelsPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaLevelsPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

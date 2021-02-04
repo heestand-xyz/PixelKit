@@ -10,11 +10,9 @@ import RenderKit
 
 // TODO: Square Caps
 
-final public class LinePIX: PIXGenerator, BodyViewRepresentable {
+final public class LinePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorLinePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

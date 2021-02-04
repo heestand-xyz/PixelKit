@@ -13,11 +13,9 @@ import CoreGraphics
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
-final public class LumaRainbowBlurPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

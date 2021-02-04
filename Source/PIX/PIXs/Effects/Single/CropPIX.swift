@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class CropPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class CropPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleCropPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

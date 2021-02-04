@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class SharpenPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class SharpenPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSharpenPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

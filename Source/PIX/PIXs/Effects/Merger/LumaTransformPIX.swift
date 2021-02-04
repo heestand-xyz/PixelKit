@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class LumaTransformPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaTransformPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -8,9 +8,7 @@
 import RenderKit
 import SceneKit
 
-final public class ScenePIX: PIXCustom, BodyViewRepresentable {
-    
-    public var bodyView: UINSView { pixView }
+final public class ScenePIX: PIXCustom, PIXViewable {
     
     // MARK: - Private Properties
     

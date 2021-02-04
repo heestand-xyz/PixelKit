@@ -10,11 +10,9 @@ import RenderKit
 import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
-final public class DepthCameraPIX: PIXResource, BodyViewRepresentable {
+final public class DepthCameraPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourcePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -9,11 +9,9 @@ import CoreGraphics
 import RenderKit
 
 /// Useful with **VoxelKit** to downsample depth images.
-final public class AveragePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class AveragePIX: PIXSingleEffect, PIXViewable {
 
     override public var shaderName: String { return "effectSingleAveragePIX" }
-    
-    public var bodyView: UINSView { pixView }
 
     // MARK: - Public Properties
 

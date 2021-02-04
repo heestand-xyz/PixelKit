@@ -11,11 +11,9 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class ChannelMixPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleChannelMixPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

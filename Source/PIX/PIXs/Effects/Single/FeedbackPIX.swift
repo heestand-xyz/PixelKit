@@ -10,11 +10,9 @@ import CoreGraphics
 import RenderKit
 import Metal
 
-final public class FeedbackPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

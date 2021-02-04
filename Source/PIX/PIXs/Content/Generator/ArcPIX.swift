@@ -9,11 +9,9 @@ import CoreGraphics
 import RenderKit
 import PixelColor
 
-final public class ArcPIX: PIXGenerator, BodyViewRepresentable {
+final public class ArcPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorArcPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

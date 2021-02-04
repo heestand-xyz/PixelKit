@@ -10,11 +10,9 @@
 import RenderKit
 import Metal
 
-final public class FreezePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class FreezePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -13,9 +13,7 @@ import CoreImage
 import RenderKit
 import UIKit
 
-final public class StreamOutPIX: PIXOutput, BodyViewRepresentable {
-    
-    public var bodyView: UINSView { pixView }
+final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     enum Connected {
         case disconnected

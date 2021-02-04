@@ -24,11 +24,9 @@ import Metal
 /// )
 /// metalEffectPix.input = CameraPIX()
 /// ~~~~
-final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, BodyViewRepresentable {
+final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectSingleMetalPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
 

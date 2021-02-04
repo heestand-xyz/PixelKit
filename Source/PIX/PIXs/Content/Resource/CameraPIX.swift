@@ -26,11 +26,9 @@ public protocol CameraPIXDelegate {
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
-final public class CameraPIX: PIXResource, BodyViewRepresentable {
+final public class CameraPIX: PIXResource, PIXViewable {
         
     override public var shaderName: String { return "contentResourceCameraPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     public var cameraDelegate: CameraPIXDelegate?
     

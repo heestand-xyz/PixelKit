@@ -9,11 +9,9 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class StackPIX: PIXMultiEffect, NODEResolution, BodyViewRepresentable {
+final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     override public var shaderName: String { return "effectMultiStackPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

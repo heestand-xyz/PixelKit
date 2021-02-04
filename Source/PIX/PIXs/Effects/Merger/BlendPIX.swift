@@ -13,11 +13,9 @@ import MetalKit
 import SwiftUI
 import PixelColor
 
-final public class BlendPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class BlendPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerBlendPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

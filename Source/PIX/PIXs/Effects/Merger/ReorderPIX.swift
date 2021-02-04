@@ -9,11 +9,9 @@
 import RenderKit
 import CoreGraphics
 
-final public class ReorderPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class ReorderPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerReorderPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

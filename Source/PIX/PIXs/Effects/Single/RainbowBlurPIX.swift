@@ -11,11 +11,9 @@ import RenderKit
 import CoreGraphics
 import MetalKit
 
-final public class RainbowBlurPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

@@ -9,11 +9,9 @@ import CoreGraphics
 import RenderKit
 
 /// Useful with **VoxelKit** to sample depth images.
-final public class SlicePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class SlicePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSlicePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

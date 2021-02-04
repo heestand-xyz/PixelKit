@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class RectanglePIX: PIXGenerator, BodyViewRepresentable {
+final public class RectanglePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorRectanglePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

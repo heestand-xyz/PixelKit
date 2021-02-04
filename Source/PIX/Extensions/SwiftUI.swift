@@ -31,31 +31,33 @@ public typealias UINSViewRepresentable = UIViewRepresentable
 #endif
 
 
-public protocol BodyViewRepresentable: UINSViewRepresentable {
-    var bodyView: UINSView { get }
+public protocol PIXViewable: UINSViewRepresentable {
+    var pixView: PIXView! { get }
 }
 
-extension BodyViewRepresentable {
+extension PIXViewable {
     
-    public func makeView(context: Context) -> UINSView {
-        bodyView
+    public func makeView(context: Context) -> PIXView {
+        pixView
     }
-    public func updateView(_ view: UINSView, context: Context) {
+    public func updateView(_ pixView: PIXView, context: Context) {
         print("<<< PixelKit SwiftUI Update >>>")
+        guard let pix: PIX = pixView.pix else { return }
+        pix.setNeedsRender()
     }
     
     #if os(macOS)
-    public func makeNSView(context: Context) -> UINSView {
+    public func makeNSView(context: Context) -> PIXView {
         makeView(context: context)
     }
-    public func updateNSView(_ nsView: UINSView, context: Context) {
+    public func updateNSView(_ nsView: PIXView, context: Context) {
         updateView(nsView, context: context)
     }
     #else
-    public func makeUIView(context: Context) -> UINSView {
+    public func makeUIView(context: Context) -> PIXView {
         makeView(context: context)
     }
-    public func updateUIView(_ uiView: UINSView, context: Context) {
+    public func updateUIView(_ uiView: PIXView, context: Context) {
         updateView(uiView, context: context)
     }
     #endif

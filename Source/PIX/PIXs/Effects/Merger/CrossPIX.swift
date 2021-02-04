@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class CrossPIX: PIXMergerEffect, BodyViewRepresentable {
+final public class CrossPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerCrossPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

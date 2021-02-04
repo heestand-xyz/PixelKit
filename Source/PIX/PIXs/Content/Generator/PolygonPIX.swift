@@ -10,11 +10,9 @@ import CoreGraphics
 import RenderKit
 import SwiftUI
 
-final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
+final public class PolygonPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorPolygonPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

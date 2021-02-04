@@ -9,11 +9,9 @@
 import CoreGraphics
 import RenderKit
 
-final public class SlopePIX: PIXSingleEffect, BodyViewRepresentable {
+final public class SlopePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSlopePIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Public Properties
     

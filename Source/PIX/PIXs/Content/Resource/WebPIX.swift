@@ -20,15 +20,13 @@ import WebKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class WebPIX: PIXResource, NODEResolution, BodyViewRepresentable {
+final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
     

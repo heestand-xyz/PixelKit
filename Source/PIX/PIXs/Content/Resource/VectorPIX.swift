@@ -21,15 +21,13 @@ import PixelColor
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class VectorPIX: PIXResource, BodyViewRepresentable {
+final public class VectorPIX: PIXResource, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
-    
-    public var bodyView: UINSView { pixView }
     
     public var resolution: Resolution { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
     

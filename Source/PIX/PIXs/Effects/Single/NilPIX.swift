@@ -9,11 +9,9 @@
 
 import RenderKit
 
-final public class NilPIX: PIXSingleEffect, BodyViewRepresentable {
+final public class NilPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     let nilOverrideBits: Bits?
     public override var overrideBits: Bits? { nilOverrideBits }

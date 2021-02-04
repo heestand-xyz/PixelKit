@@ -22,11 +22,9 @@ public struct Coordinate {
     }
 }
 
-final public class ArrayPIX: PIXMultiEffect, BodyViewRepresentable {
+final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMultiArrayPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     override public var shaderNeedsAspect: Bool { return true }
     

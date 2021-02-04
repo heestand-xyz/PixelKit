@@ -22,11 +22,9 @@ import Metal
 ///     """
 /// )
 /// ~~~~
-final public class MetalPIX: PIXGenerator, NODEMetal, BodyViewRepresentable {
+final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
-    
-    public var bodyView: UINSView { pixView }
     
     // MARK: - Private Properties
 
