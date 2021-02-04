@@ -53,22 +53,22 @@ final public class ArcPIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> ArcPIX {
+    public func pixArcPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> ArcPIX {
         position = CGPoint(x: x, y: y)
         return self
     }
     
-    public func pixAngleOffset(_ value: CGFloat) -> ArcPIX {
+    public func pixArcAngleOffset(_ value: CGFloat) -> ArcPIX {
         angleOffset = value
         return self
     }
     
-    public func pixEdgeRadius(_ value: CGFloat) -> ArcPIX {
+    public func pixArcEdgeRadius(_ value: CGFloat) -> ArcPIX {
         edgeRadius = value
         return self
     }
     
-    public func pixEdgeColor(_ value: PixelColor) -> ArcPIX {
+    public func pixArcEdgeColor(_ value: PixelColor) -> ArcPIX {
         edgeColor = value
         return self
     }

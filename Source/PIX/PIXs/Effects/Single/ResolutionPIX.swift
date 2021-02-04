@@ -52,16 +52,19 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, BodyViewRepre
 
 public extension NODEOut {
     
-    func pixScaleResolution(to res: Resolution,
+    func pixScaleResolution(to res: Resolution = .auto(render: PixelKit.main.render),
+                            placement: Placement = .fit,
                             interpolate: InterpolateMode = .linear) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: res)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
         resPix.interpolate = interpolate
+        resPix.placement = placement
         return resPix
     }
     
     func pixScaleResolution(by resMultiplier: CGFloat,
+                            placement: Placement = .fit,
                             interpolate: InterpolateMode = .linear) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: ._128)
         resPix.name = "reRes:res"
@@ -69,6 +72,7 @@ public extension NODEOut {
         resPix.inheritInResolution = true
         resPix.resMultiplier = resMultiplier
         resPix.interpolate = interpolate
+        resPix.placement = placement
         return resPix
     }
     

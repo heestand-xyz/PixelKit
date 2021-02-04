@@ -92,22 +92,22 @@ final public class GradientPIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixScale(_ value: CGFloat) -> GradientPIX {
+    public func pixGradientScale(_ value: CGFloat) -> GradientPIX {
         scale = value
         return self
     }
     
-    public func pixOffset(_ value: CGFloat) -> GradientPIX {
+    public func pixGradientOffset(_ value: CGFloat) -> GradientPIX {
         offset = value
         return self
     }
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> GradientPIX {
+    public func pixGradientPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> GradientPIX {
         position = CGPoint(x: x, y: y)
         return self
     }
     
-    public func pixExtendRamp(_ value: ExtendMode) -> GradientPIX {
+    public func pixGradientExtendRamp(_ value: ExtendMode) -> GradientPIX {
         extendRamp = value
         return self
     }

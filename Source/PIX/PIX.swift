@@ -576,6 +576,11 @@ open class PIX: NODE, Equatable, NODETileable {
 
 public extension NODEOut where Self: PIX & NODEOut & BodyViewRepresentable {
     
+    func pixBypass(_ value: Bool) -> PIX & NODEOut {
+        bypass = value
+        return self
+    }
+    
     func pixTransparentBackground() -> PIX & NODEOut {
         pixView.checker = false
         return self

@@ -18,17 +18,17 @@ final public class LookupPIX: PIXMergerEffect, BodyViewRepresentable {
     // MARK: - Public Properties
     
     public enum Axis: Int, CaseIterable, Floatable {
-        case x
-        case y
+        case horizontal
+        case vertical
         public var floats: [CGFloat] { [CGFloat(rawValue)] }
     }
     
     var holdEdgeFraction: CGFloat {
-        let axisRes = axis == .x ? renderResolution.width : renderResolution.height
-        return 1 / axisRes
+        let axisRes = axis == .horizontal ? renderResolution.width : renderResolution.height
+        return 1.0 / axisRes
     }
     
-    @Live public var axis: Axis = .x
+    @Live public var axis: Axis = .vertical
     @Live public var holdEdge: Bool = true
     
     // MARK: - Property Helpers
@@ -38,7 +38,7 @@ final public class LookupPIX: PIXMergerEffect, BodyViewRepresentable {
     }
     
     public override var uniforms: [CGFloat] {
-        return [axis == .x ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
+        return [axis == .horizontal ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
     }
     
     // MARK: - Life Cycle
@@ -47,14 +47,30 @@ final public class LookupPIX: PIXMergerEffect, BodyViewRepresentable {
         super.init(name: "Lookup", typeName: "pix-effect-merger-lookup")
     }
     
+    public convenience init(axis: Axis = .vertical,
+                            _ inputA: () -> (PIX & NODEOut),
+                            with inputB: () -> (PIX & NODEOut)) {
+        self.init()
+        super.inputA = inputA()
+        super.inputB = inputB()
+        self.axis = axis
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixLookupHoldEdge() -> LookupPIX {
+        holdEdge = true
+        return self
+    }
+    
 }
 
 public extension NODEOut {
     
-    func pixLookup(axis: LookupPIX.Axis, pix: () -> (PIX & NODEOut)) -> LookupPIX {
+    func pixLookup(axis: LookupPIX.Axis = .vertical, pix: () -> (PIX & NODEOut)) -> LookupPIX {
         pixLookup(pix: pix(), axis: axis)
     }
-    func pixLookup(pix: PIX & NODEOut, axis: LookupPIX.Axis) -> LookupPIX {
+    func pixLookup(pix: PIX & NODEOut, axis: LookupPIX.Axis = .vertical) -> LookupPIX {
         let lookupPix = LookupPIX()
         lookupPix.name = ":lookup:"
         lookupPix.inputA = self as? PIX & NODEOut

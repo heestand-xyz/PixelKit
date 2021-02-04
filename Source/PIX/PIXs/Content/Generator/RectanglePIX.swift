@@ -45,7 +45,7 @@ final public class RectanglePIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> RectanglePIX {
+    public func pixRectanglePosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> RectanglePIX {
         position = CGPoint(x: x, y: y)
         return self
     }

@@ -48,7 +48,7 @@ final public class DisplacePIX: PIXMergerEffect, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixOrigin(_ value: CGFloat) -> DisplacePIX {
+    public func pixDisplaceOrigin(_ value: CGFloat) -> DisplacePIX {
         origin = value
         return self
     }

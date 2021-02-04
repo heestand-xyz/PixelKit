@@ -450,7 +450,74 @@ final public class CameraPIX: PIXResource, BodyViewRepresentable {
     
     #endif
     
+    // MARK: - Property Funcs
+    
+    public func pixCameraActive(_ value: Bool) -> CameraPIX {
+        active = value
+        return self
+    }
+    
+    public func pixCameraManualExposure(_ value: Bool = true) -> CameraPIX {
+        manualExposure = value
+        return self
+    }
+    
+    public func pixCameraExposure(_ value: CGFloat) -> CameraPIX {
+        if !manualExposure {
+            manualExposure = true
+        }
+        exposure = value
+        return self
+    }
+    
+    public func pixCameraISO(_ value: CGFloat) -> CameraPIX {
+        if !manualExposure {
+            manualExposure = true
+        }
+        iso = value
+        return self
+    }
+    
+    public func pixCameraTorch(_ value: CGFloat) -> CameraPIX {
+        torch = value
+        return self
+    }
+    
+    public func pixCameraManualFocus(_ value: Bool = true) -> CameraPIX {
+        manualFocus = value
+        return self
+    }
+    
+    public func pixCameraFocus(_ value: CGFloat) -> CameraPIX {
+        if !manualFocus {
+            manualFocus = true
+        }
+        focus = value
+        return self
+    }
+    
+    public func pixCameraManualWhiteBalance(_ value: Bool = true) -> CameraPIX {
+        manualWhiteBalance = value
+        return self
+    }
+    
+    public func pixCameraWhiteBalance(_ value: UIColor) -> CameraPIX {
+        if !manualFocus {
+            manualFocus = true
+        }
+        whiteBalance = value
+        return self
+    }
+    
 }
+
+
+
+
+
+
+
+
 
 
 

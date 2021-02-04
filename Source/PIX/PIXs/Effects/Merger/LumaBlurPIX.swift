@@ -61,31 +61,63 @@ final public class LumaBlurPIX: PIXMergerEffect, BodyViewRepresentable {
         extend = .hold
     }
     
+    public convenience init(radius: CGFloat = 0.5,
+                            _ inputA: () -> (PIX & NODEOut),
+                            with inputB: () -> (PIX & NODEOut)) {
+        self.init()
+        super.inputA = inputA()
+        super.inputB = inputB()
+        self.radius = radius
+    }
+    
+    // MARK: - Property Funcs
+    
+    public func pixLumaBlurStyle(_ value: LumaBlurStyle) -> LumaBlurPIX {
+        style = value
+        return self
+    }
+    
+    public func pixLumaBlurQuality(_ value: SampleQualityMode) -> LumaBlurPIX {
+        quality = value
+        return self
+    }
+    
+    public func pixLumaBlurAngle(_ value: CGFloat) -> LumaBlurPIX {
+        angle = value
+        return self
+    }
+    
+    public func pixLumaBlurPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> LumaBlurPIX {
+        position = CGPoint(x: x, y: y)
+        return self
+    }
+    
 }
 
 public extension NODEOut {
     
-    func pixLumaBlur(radius: CGFloat, pix: () -> (PIX & NODEOut)) -> LumaBlurPIX {
-        pixLumaBlur(pix: pix(), radius: radius)
+    func pixLumaBlur(radius: CGFloat, quality: PIX.SampleQualityMode = .mid, pix: () -> (PIX & NODEOut)) -> LumaBlurPIX {
+        pixLumaBlur(pix: pix(), radius: radius, quality: quality)
     }
-    func pixLumaBlur(pix: PIX & NODEOut, radius: CGFloat) -> LumaBlurPIX {
+    func pixLumaBlur(pix: PIX & NODEOut, radius: CGFloat, quality: PIX.SampleQualityMode = .mid) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inputA = self as? PIX & NODEOut
         lumaBlurPix.inputB = pix
         lumaBlurPix.radius = radius
+        lumaBlurPix.quality = quality
         return lumaBlurPix
     }
     
-    func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5) -> LumaBlurPIX {
+    func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5, offset: CGFloat = 0.0, scale: CGFloat = 1.0, quality: PIX.SampleQualityMode = .high) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(at: pix.renderResolution)
         gradientPix.name = "tiltShift:gradient"
         gradientPix.direction = .vertical
-        gradientPix.offset = 0.5
-        gradientPix.scale = 0.5
+        gradientPix.offset = 0.5 + offset
+        gradientPix.scale = 0.5 * scale
         gradientPix.extendRamp = .mirror
-        return pix.pixLumaBlur(pix: gradientPix !** gamma, radius: radius)
+        return pix.pixLumaBlur(pix: gradientPix !** gamma, radius: radius, quality: quality)
     }
     
 }

@@ -55,32 +55,32 @@ final public class NoisePIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixSeed(_ value: Int) -> NoisePIX {
+    public func pixNoiseSeed(_ value: Int) -> NoisePIX {
         seed = value
         return self
     }
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> NoisePIX {
+    public func pixNoisePosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> NoisePIX {
         position = CGPoint(x: x, y: y)
         return self
     }
     
-    public func pixZPosition(_ value: CGFloat) -> NoisePIX {
+    public func pixNoiseZPosition(_ value: CGFloat) -> NoisePIX {
         zPosition = value
         return self
     }
     
-    public func pixColored() -> NoisePIX {
+    public func pixNoiseColored() -> NoisePIX {
         colored = true
         return self
     }
     
-    public func pixRandom() -> NoisePIX {
+    public func pixNoiseRandom() -> NoisePIX {
         random = true
         return self
     }
     
-    public func pixIncludeAlpha() -> NoisePIX {
+    public func pixNoiseIncludeAlpha() -> NoisePIX {
         includeAlpha = true
         return self
     }

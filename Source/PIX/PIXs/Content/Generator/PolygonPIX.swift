@@ -42,7 +42,7 @@ final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             radius: CGFloat = 0.25,
-                            vertexCount: Int = 6,
+                            count vertexCount: Int = 6,
                             cornerRadius: CGFloat = 0.0) {
         self.init(at: resolution)
         self.radius = radius
@@ -52,12 +52,12 @@ final public class PolygonPIX: PIXGenerator, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> PolygonPIX {
+    public func pixPolygonPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> PolygonPIX {
         position = CGPoint(x: x, y: y)
         return self
     }
     
-    public func pixRotation(_ value: CGFloat) -> PolygonPIX {
+    public func pixPolygonRotation(_ value: CGFloat) -> PolygonPIX {
         rotation = value
         return self
     }

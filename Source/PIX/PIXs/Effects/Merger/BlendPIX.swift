@@ -59,22 +59,22 @@ final public class BlendPIX: PIXMergerEffect, BodyViewRepresentable {
     
     // MARK: - Property Funcs
     
-    public func pixPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> BlendPIX {
+    public func pixBlendPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> BlendPIX {
         position = CGPoint(x: x, y: y)
         return self
     }
     
-    public func pixRotation(_ value: CGFloat) -> BlendPIX {
+    public func pixBlendRotation(_ value: CGFloat) -> BlendPIX {
         rotation = value
         return self
     }
     
-    public func pixScale(_ value: CGFloat) -> BlendPIX {
+    public func pixBlendScale(_ value: CGFloat) -> BlendPIX {
         scale = value
         return self
     }
     
-    public func pixSize(width: CGFloat, height: CGFloat) -> BlendPIX {
+    public func pixBlendSize(width: CGFloat, height: CGFloat) -> BlendPIX {
         size = CGSize(width: width, height: height)
         return self
     }
@@ -135,6 +135,19 @@ public func pixBlend(_ mode: RenderKit.BlendMode, _ pixA: PIX & NODEOut, _ pixB:
 
 public extension NODEOut {
 
+    func pixMask(pix: () -> (PIX & NODEOut)) -> BlendPIX {
+        pixMask(pix: pix())
+    }
+    
+    func pixMask(pix: PIX & NODEOut) -> BlendPIX {
+        let blendPix = BlendPIX()
+        blendPix.name = ":blend:"
+        blendPix.inputA = self as? PIX & NODEOut
+        blendPix.inputB = pix
+        blendPix.blendMode = .multiply
+        return blendPix
+    }
+    
     func pixMultiply(color: PixelColor) -> BlendPIX {
         pixBlend(color: color, blendMode: .multiply)
     }
