@@ -48,6 +48,9 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     @Live public var style: BlurStyle = .regular

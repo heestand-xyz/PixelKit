@@ -33,6 +33,9 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
         public var floats: [CGFloat] { [CGFloat(revision)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.revision == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
         func request() -> VNImageBasedRequest {
             switch self {
             case .attention:

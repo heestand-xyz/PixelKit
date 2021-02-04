@@ -29,6 +29,9 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     public enum Flop: String, Codable, CaseIterable, Floatable {
@@ -43,6 +46,9 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     @Live public var flip: Flip = .none

@@ -25,6 +25,9 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     @Live public var ccWay: ColorConvertWay = .rgbToHsv
 
@@ -34,6 +37,9 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
         case second = 2
         case third = 3
         public var floats: [CGFloat] { [CGFloat(rawValue)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     /// Color Convert Index
     ///

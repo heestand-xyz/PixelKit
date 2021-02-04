@@ -59,6 +59,15 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index), CGFloat(alignmentIndex)] }
+        public init(floats: [CGFloat]) {
+            guard floats.count == 2 else {
+                self = .horizontal(alignment: .center)
+                return
+            }
+            let index: Int = Int(floats[0])
+            let alignmentIndex: Int = Int(floats[1])
+            self = Axis(index: index, alignmentIndex: alignmentIndex) ?? .horizontal(alignment: .center)
+        }
     }
     @Live public var axis: Axis = .vertical(alignment: .center)
     

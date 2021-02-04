@@ -19,6 +19,9 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
         case horizontal
         case vertical
         public var floats: [CGFloat] { [CGFloat(rawValue)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     var holdEdgeFraction: CGFloat {

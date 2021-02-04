@@ -19,6 +19,9 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
         case a
         case b
         public var floats: [CGFloat] { [CGFloat(rawValue)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     public enum RawChannel {
@@ -47,6 +50,9 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     @Live public var redInput: Input = .a

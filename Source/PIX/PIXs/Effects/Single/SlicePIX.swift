@@ -28,6 +28,19 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            let index: Int = Int(floats.first ?? 0.0)
+            switch index {
+            case 0:
+                self = .x
+            case 1:
+                self = .y
+            case 2:
+                self = .z
+            default:
+                self = .x
+            }
+        }
     }
     @Live public var axis: Axis = .z
     

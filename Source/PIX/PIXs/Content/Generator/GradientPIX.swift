@@ -11,19 +11,34 @@ import RenderKit
 import CoreGraphics
 import PixelColor
 
-public struct ColorStep: Floatable {
-    public var step: CGFloat
+public struct ColorStop: Floatable {
+    public var stop: CGFloat
     public var color: PixelColor
-    public init(_ step: CGFloat, _ color: PixelColor) {
-        self.step = step
+    public init(_ stop: CGFloat, _ color: PixelColor) {
+        self.stop = stop
         self.color = color
     }
     public var floats: [CGFloat] {
-        [step, color.red, color.green, color.blue, color.alpha]
+        [stop, color.red, color.green, color.blue, color.alpha]
+    }
+    public init(floats: [CGFloat]) {
+        guard floats.count == 5 else { self = ColorStop(0.0, .clear); return }
+        self = ColorStop(floats[0], PixelColor(red: floats[1], green: floats[2], blue: floats[3], alpha: floats[4]))
     }
 }
-extension Array: Floatable where Element == ColorStep {
+extension Array: Floatable where Element == ColorStop {
     public var floats: [CGFloat] { flatMap(\.floats) }
+    public init(floats: [CGFloat]) {
+        guard floats.count % 5 == 0 else { self = []; return }
+        let count: Int = floats.count / 5
+        var colorStops: [ColorStop] = []
+        for i in 0..<count {
+            let subFloats: [CGFloat] = Array<CGFloat>(floats[(i * 5)..<((i + 1) * 5)])
+            let colorStop: ColorStop = ColorStop(floats: subFloats)
+            colorStops.append(colorStop)
+        }
+        self = colorStops
+    }
 }
 
 final public class GradientPIX: PIXGenerator, PIXViewable {
@@ -46,6 +61,9 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
             }
         }
         public var floats: [CGFloat] { [CGFloat(index)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
     // MARK: - Public Properties
@@ -55,7 +73,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     @Live public var offset: CGFloat = 0.0
     @Live public var position: CGPoint = .zero
     @Live public var extendRamp: ExtendMode = .hold
-    @Live public var colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]
+    @Live public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
     
     // MARK: - Property Helpers
     
@@ -82,7 +100,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     }
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             direction: Direction = .vertical,
-                            colorSteps: [ColorStep] = [ColorStep(0.0, .black), ColorStep(1.0, .white)]) {
+                            colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]) {
         self.init(at: resolution)
         self.direction = direction
         self.colorSteps = colorSteps
@@ -121,7 +139,7 @@ public extension NODEOut {
         let resolution: Resolution = PixelKit.main.render.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(at: .custom(w: resolution.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
-        gradientPix.colorSteps = [ColorStep(0.0, firstColor), ColorStep(1.0, lastColor)]
+        gradientPix.colorSteps = [ColorStop(0.0, firstColor), ColorStop(1.0, lastColor)]
         lookupPix.inputB = gradientPix
         return lookupPix
     }

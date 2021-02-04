@@ -23,6 +23,9 @@ extension PIX {
         case insane = 64
         case epic = 128
         public var floats: [CGFloat] { [CGFloat(rawValue)] }
+        public init(floats: [CGFloat]) {
+            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        }
     }
     
 }

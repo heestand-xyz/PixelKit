@@ -21,8 +21,27 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
         public var topRight: CGPoint
         public var bottomLeft: CGPoint
         public var bottomRight: CGPoint
+        init(topLeft: CGPoint,
+             topRight: CGPoint,
+             bottomLeft: CGPoint,
+             bottomRight: CGPoint) {
+            self.topLeft = topLeft
+            self.topRight = topRight
+            self.bottomLeft = bottomLeft
+            self.bottomRight = bottomRight
+        }
         public var floats: [CGFloat] {
             topLeft.floats + topRight.floats + bottomLeft.floats + bottomRight.floats
+        }
+        public init(floats: [CGFloat]) {
+            guard floats.count == 8 else { self = Corners(topLeft: CGPoint(x: 0, y: 1),
+                                                          topRight: CGPoint(x: 1, y: 1),
+                                                          bottomLeft: CGPoint(x: 0, y: 0),
+                                                          bottomRight: CGPoint(x: 1, y: 0)); return }
+            self = Corners(topLeft: CGPoint(x: floats[0], y: floats[1]),
+                           topRight: CGPoint(x: floats[2], y: floats[3]),
+                           bottomLeft: CGPoint(x: floats[4], y: floats[5]),
+                           bottomRight: CGPoint(x: floats[6], y: floats[7]))
         }
     }
     @Live public var corners: Corners
