@@ -6,18 +6,21 @@ import SwiftUI
 import RenderKit
 import PixelColor
 
+//public struct CircleX: View {
+//    @State var circlePix: CirclePIX = .init()
+//    public init(radius: CGFloat) {
+//        circlePix.radius = radius
+//    }
+//    public var body: some View { circlePix }
+//}
+
+@available(iOS 14.0, *)
 public struct CirclePX: PXOut, UINSViewRepresentable {
         
-    @State public var id: UUID?
-    
-//    @State public var pix: PIX = CirclePIX()
-//    public var pixOut: PIX & NODEOut { pix as! PIX & NODEOut }
-//    var circlePix: CirclePIX { pix as! CirclePIX }
-    
+//    @State public var coordinator: PXCoordinator = Coordinator()
 //    @State public var pixId: UUID?
-//    var pix: PIX? {
-//        PixelKit.main.render.linkedNodes.first(where: { $0.id == pixId }) as? PIX
-//    }
+    
+    @StateObject public var host: PXHost = PXHost(pix: CirclePIX())
     
     let radius: CGFloat
     @State var position: CGPoint = .zero
@@ -30,18 +33,25 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
         print(".: Circle Init")
         self.resolution = resolution
         self.radius = radius
+//        let pix = CirclePIX()
+//        pixId = pix.id
+//        PXHub.shared.add(pix: pix)
     }
     
     public func makeUIView(context: Context) -> PIXView {
         print(".: Circle Make")
-        return context.coordinator.pix.pixView
+        return host.pix.pixView
+    }
+    
+    public static func dismantleUIView(_ uiView: PIXView, coordinator: Coordinator) {
+        print(".: Circle Dismantle")
     }
     
     public func updateUIView(_ uiView: PIXView, context: Context) {
-        print(".: Circle Update")
-        let circlePix: CirclePIX = context.coordinator.pix
+        let circlePix: CirclePIX = host.pix as! CirclePIX
         if !context.transaction.disablesAnimations,
            let animation: Animation = context.transaction.animation {
+            print(".: Circle Update Animation")
             PXHelper.animate(animation: animation, timer: &context.coordinator.timer) { fraction in
                 PXHelper.motion(pxKeyPath: \.radius, pixKeyPath: \.radius, px: self, pix: circlePix, at: fraction)
                 PXHelper.motion(pxKeyPath: \.position, pixKeyPath: \.position, px: self, pix: circlePix, at: fraction)
@@ -49,6 +59,7 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
                 PXHelper.motion(pxKeyPath: \.edgeColor, pixKeyPath: \.edgeColor, px: self, pix: circlePix, at: fraction)
             }
         } else {
+            print(".: Circle Update")
             circlePix.radius = radius
             circlePix.position = position
             circlePix.edgeRadius = edgeRadius
@@ -64,14 +75,19 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
     
     public func makeCoordinator() -> Coordinator {
         print(".: Circle Coordinator")
-        let coordinator = Coordinator()
-//        id = UUID()
-        return coordinator
+//        let id: UUID = pixId!
+//        let pix: CirclePIX = PXHub.shared.pix(id: id) as! CirclePIX
+//        let coordinator = Coordinator(pix: pix)
+//        return coordinator
+        return Coordinator()
     }
     
     public class Coordinator {
-        var timer: Timer?
-        var pix: CirclePIX = .init()
+        public var timer: Timer?
+//        public var pix: PIX = CirclePIX()
+//        init(pix: CirclePIX) {
+//            self.pix = pix
+//        }
     }
     
     // MARK: - Property Funcs

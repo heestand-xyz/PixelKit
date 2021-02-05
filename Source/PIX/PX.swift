@@ -9,19 +9,63 @@ import SwiftUI
 import RenderKit
 
 public protocol PX {
-    var id: UUID? { get set }
+    var host: PXHost { get }
 //    var pix: PIX { get }
-//    var pixId: UUID? { get set }
 }
 
-public protocol PXOut: PX {
-//    var pixOut: PIX & NODEOut { get }
-}
+public protocol PXOut: PX {}
 
 protocol PXIn: PX {
-    var inPx: PXOut { get }
-    init(inPx: PXOut)
+    var inPix: () -> (PIX) { get }
+    init(inPix: @escaping () -> (PIX))
 }
+
+public class PXHost: ObservableObject {
+    let pix: PIX
+    init(pix: PIX) {
+        print(".. Host of \(pix.name)")
+        self.pix = pix
+    }
+}
+
+//extension PX {
+//
+//    func pixRender() -> some View {
+//        PXRenderView()
+//    }
+//
+//}
+
+//struct PXRenderView: UINSViewRepresentable {
+//
+//    func makeUIView(context: Context) -> PIXView {
+//
+//    }
+//
+//    func updateUIView(_ uiView: PIXView, context: Context) {
+//
+//    }
+//
+//}
+
+
+//class PXHub {
+//
+//    static let shared: PXHub = .init()
+//
+//    private var pixs: [PIX] = []
+//
+//    func add(pix: PIX) {
+//        print(".. PXHub Add", pix.name, pix.id)
+//        pixs.append(pix)
+//    }
+//
+//    func pix(id: UUID) -> PIX? {
+//        print(".. PXHub PIX", id)
+//        return pixs.first(where: { $0.id == id })
+//    }
+//
+//}
 
 //class PXConnector {
 //    static let shared: PXConnector = .init()

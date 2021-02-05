@@ -63,3 +63,32 @@ extension PIXViewable {
     #endif
     
 }
+
+//public struct PIXRender: UINSViewRepresentable {
+//    
+//    let pix: () -> (PIX)
+//    
+//    public init(pix: @escaping () -> (PIX)) {
+//        self.pix = pix
+//    }
+//
+//    public func makeUIView(context: Context) -> PIXView {
+//        context.coordinator.pix.pixView
+//    }
+//
+//    public func updateUIView(_ uiView: PIXView, context: Context) {
+//        print("{{{ PixelKit SwiftUI Update }}}")
+//    }
+//    
+//    public func makeCoordinator() -> Coordinator {
+//        Coordinator(pix: pix())
+//    }
+//    
+//    public class Coordinator {
+//        let pix: PIX
+//        public init(pix: PIX) {
+//            self.pix = pix
+//        }
+//    }
+//
+//}
