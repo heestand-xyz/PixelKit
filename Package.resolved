@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
-        "package": "LiveValues",
-        "repositoryURL": "https://github.com/hexagons/LiveValues.git",
+        "package": "PixelColor",
+        "repositoryURL": "https://github.com/heestand-xyz/PixelColor.git",
         "state": {
           "branch": null,
-          "revision": "9c046ac1a2f460a965c504a2ccfa07228a62f0d4",
-          "version": "1.3.0"
+          "revision": "dd52d2bb6c8fd4f2c10051133600a0a620520336",
+          "version": "1.1.2"
         }
       },
       {
         "package": "RenderKit",
-        "repositoryURL": "https://github.com/hexagons/RenderKit.git",
+        "repositoryURL": "https://github.com/heestand-xyz/RenderKit.git",
         "state": {
-          "branch": null,
-          "revision": "48b4ec8eaf8e1f15262f6c2b66c99af105337104",
-          "version": "0.5.3"
+          "branch": "lite",
+          "revision": "e47191b184266f6d4770058cdcbbae82681d4153",
+          "version": null
         }
       }
     ]

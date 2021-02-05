@@ -8,7 +8,15 @@
 import SwiftUI
 import RenderKit
 
-protocol PX {}
+public protocol PX {
+    var pixId: UUID? { get set }
+}
+
+public protocol PXOut: PX {}
+
+protocol PXIn: PX {
+    var inPx: PXOut? { get set }
+}
 
 struct PXHelper {
     
