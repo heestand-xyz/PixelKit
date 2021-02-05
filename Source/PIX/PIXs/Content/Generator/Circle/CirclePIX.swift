@@ -35,6 +35,7 @@ final public class CirclePIX: PIXGenerator, PIXViewable {
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Circle", typeName: "pix-content-generator-circle")
+        print(":: CirclePIX Init", id)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),

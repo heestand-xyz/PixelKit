@@ -9,14 +9,48 @@ import SwiftUI
 import RenderKit
 
 public protocol PX {
-    var pixId: UUID? { get set }
+    var id: UUID? { get set }
+//    var pix: PIX { get }
+//    var pixId: UUID? { get set }
 }
 
-public protocol PXOut: PX {}
+public protocol PXOut: PX {
+//    var pixOut: PIX & NODEOut { get }
+}
 
 protocol PXIn: PX {
-    var inPx: PXOut? { get set }
+    var inPx: PXOut { get }
+    init(inPx: PXOut)
 }
+
+//class PXConnector {
+//    static let shared: PXConnector = .init()
+//    var waitList: [(pxOut: PXOut, pxIn: PXIn)] = []
+//    var connectList: [(pxOut: PXOut, pixOut: PIX & NODEOut, pxIn: PXIn)] = []
+//    func add(_ pxOut: PXOut, to pxIn: PXIn) {
+//        print("PXConnector Add from \(type(of: pxOut)) to \(type(of: pxIn))")
+//        waitList.append((pxOut: pxOut, pxIn: pxIn))
+//    }
+//    func check(pxOut: PXOut, pixOut: PIX & NODEOut) {
+//        print("PXConnector Check \(type(of: pxOut))")
+//        if let index: Int = waitList.firstIndex(where: { $0.pxOut.id == pxOut.id }) {
+//            print("PXConnector Check Success")
+//            let item = waitList[index]
+//            waitList.remove(at: index)
+//            connectList.append((pxOut: pxOut, pixOut: pixOut, pxIn: item.pxIn))
+//        }
+//    }
+//    func fetch(pxIn: PXIn) -> (PIX & NODEOut)? {
+//        print("PXConnector Fetch \(type(of: pxIn))")
+//        if let index: Int = connectList.firstIndex(where: { $0.pxIn.id == pxIn.id }) {
+//            print("PXConnector Fetch Success")
+//            let item = connectList[index]
+//            connectList.remove(at: index)
+//            return item.pixOut
+//        }
+//        return nil
+//    }
+//}
 
 struct PXHelper {
     
