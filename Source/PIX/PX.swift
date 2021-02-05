@@ -16,8 +16,9 @@ public protocol PX {
 public protocol PXOut: PX {}
 
 protocol PXIn: PX {
-    var inPix: () -> (PIX) { get }
-    init(inPix: @escaping () -> (PIX))
+    associatedtype PXB = PX & UINSViewRepresentable
+    var inPx: () -> (PXB) { get }
+    init(inPx: @escaping () -> (PXB))
 }
 
 public class PXHost: ObservableObject {

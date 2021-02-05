@@ -14,25 +14,26 @@ import PixelColor
 //}
 
 @available(iOS 14.0, *)
-public struct BlurPX: PXIn, PXOut, UINSViewRepresentable {
+public struct BlurPX<X: PX & UINSViewRepresentable>: PXIn, PXOut, UINSViewRepresentable {
     
 //    @State public var coordinator: PXCoordinator = Coordinator()
 //    @State public var pixId: UUID?
     
     @StateObject public var host: PXHost = PXHost(pix: BlurPIX())
 
-    let inPix: () -> (PIX)
+//    let inPix: () -> (PIX)
 
+    var inPx: () -> (X)
+    
     @State var radius: CGFloat = 0.5
-
     @State var style: BlurPIX.BlurStyle = .regular
     @State var quality: PIX.SampleQualityMode = .mid
     @State var angle: CGFloat = 0.0
     @State var position: CGPoint = .zero
     
-    init(inPix: @escaping () -> (PIX)) {
+    init(inPx: @escaping () -> (X)) {
         print(".: Blur Init")
-        self.inPix = inPix
+        self.inPx = inPx
 //        let pix = BlurPIX()
 //        pixId = pix.id
 //        PXHub.shared.add(pix: pix)
@@ -41,7 +42,8 @@ public struct BlurPX: PXIn, PXOut, UINSViewRepresentable {
     public func makeUIView(context: Context) -> PIXView {
         print(".: Blur Make")
         let blurPix: BlurPIX = host.pix as! BlurPIX
-        if let inPix: PIX & NODEOut = self.inPix() as? PIX & NODEOut {        
+        let x: X = inPx()
+        if let inPix: PIX & NODEOut = x.host.pix as? PIX & NODEOut {
             if blurPix.input?.id != inPix.id {
                 print(".: Blur Make Connect!")
                 blurPix.input = inPix
@@ -69,7 +71,7 @@ public struct BlurPX: PXIn, PXOut, UINSViewRepresentable {
                 PXHelper.motion(pxKeyPath: \.position, pixKeyPath: \.position, px: self, pix: blurPix, at: fraction)
             }
         } else {
-            print(".: Blur Update")
+            print(".: Blur Update Direct")
             blurPix.style = style
             blurPix.radius = radius
             blurPix.quality = quality
@@ -128,21 +130,21 @@ public struct BlurPX: PXIn, PXOut, UINSViewRepresentable {
 
 @available(iOS 14.0, *)
 public extension PXOut {
-    
-    func pxBlur(radius: CGFloat) -> BlurPX {
+        
+    func pxBlur<X: PX & UINSViewRepresentable>(radius: CGFloat) -> BlurPX<X> {
         print(".: Blur Func")
-        let px = BlurPX(inPix: { host.pix })
+        let px = BlurPX<X>(inPx: { self as! X })
         px.radius = radius
         return px
     }
     
-    func pxZoomBlur(radius: CGFloat) -> BlurPX {
-        let px = BlurPX(inPix: { host.pix })
-        px.style = .zoom
-        px.quality = .epic
-        px.radius = radius
-        return px
-    }
+//    func pxZoomBlur(radius: CGFloat) -> BlurPX {
+//        let px = BlurPX(inPx: { self })
+//        px.style = .zoom
+//        px.quality = .epic
+//        px.radius = radius
+//        return px
+//    }
     
 }
 
