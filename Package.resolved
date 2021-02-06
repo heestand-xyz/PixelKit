@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/hexagons/RenderKit.git",
         "state": {
           "branch": null,
-          "revision": "48b4ec8eaf8e1f15262f6c2b66c99af105337104",
-          "version": "0.5.3"
+          "revision": "a4f2bc4eb179df3f41012bd8fe10b3be8c83e534",
+          "version": "0.6.0"
         }
       }
     ]

@@ -5,9 +5,9 @@ import PackageDescription
 let package = Package(
     name: "PixelKit",
     platforms: [
-        .iOS(.v11),
-        .macOS(.v10_13),
-        .tvOS(.v11)
+        .iOS(.v13),
+        .macOS(.v10_15),
+        .tvOS(.v13)
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
 //        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.3.0"),
 //        .package(path: "~/Code/Packages/Swift/RenderKit/"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.5.4"),
+        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.6.0"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: [/*"LiveValues", */"RenderKit"], path: "Source", exclude: [
