@@ -49,7 +49,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 ### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/heestand-xyz/PixelKit.git", from: "1.1.6")
+.package(url: "https://github.com/heestand-xyz/PixelKit.git", from: "1.2.0")
 ~~~~
 
 ## Import
