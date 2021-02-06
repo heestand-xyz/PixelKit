@@ -13,21 +13,29 @@
 ////    }
 ////}
 //
-//public struct BlurPX: PXIn, PXOut, UINSViewRepresentable {
+//@available(iOS 14.0, *)
+//public struct BlurPX<PXO: PXOut>: PXIn, PXOut, UINSViewRepresentable {
 //
 ////    @State public var coordinator: PXCoordinator = Coordinator()
 ////    @State public var pixId: UUID?
 //
-//    let inPx: PXOut
+//    @StateObject public var host: PXHost = PXHost(pix: BlurPIX())
+//
+//    public func getPix() -> PIX {
+//        host.pix
+//    }
+//
+////    let inPix: () -> (PIX)
+//
+//    var inPx: () -> (PXO)
 //
 //    @State var radius: CGFloat = 0.5
-//
 //    @State var style: BlurPIX.BlurStyle = .regular
 //    @State var quality: PIX.SampleQualityMode = .mid
 //    @State var angle: CGFloat = 0.0
 //    @State var position: CGPoint = .zero
 //
-//    init(inPx: PXOut) {
+//    init(inPx: @escaping () -> (PXO)) {
 //        print(".: Blur Init")
 //        self.inPx = inPx
 ////        let pix = BlurPIX()
@@ -37,13 +45,24 @@
 //
 //    public func makeUIView(context: Context) -> PIXView {
 //        print(".: Blur Make")
-//        let blurPix: BlurPIX = context.coordinator.pix as! BlurPIX
-////        if blurPix.input?.id != inPx.coordinator.pix.id {
-////            print(".: Blur Make Connect!")
-////            blurPix.input = inPx.coordinator.pix as? PIX & NODEOut
+//
+//        let px: PXO = inPx()
+//
+//        let pixView: PIXView = host.pix.pixView
+//
+////        let hostingController = UINSHostingView(rootView: ZStack { px })
+////        let inPxView: UINSView = hostingController.view
+////        inPxView.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
+////        pixView.addSubview(inPxView)
+//
+////        let blurPix: BlurPIX = host.pix as! BlurPIX
+////        if let inPix: PIX & NODEOut = px.getPix() as? PIX & NODEOut {
+////            if blurPix.input?.id != inPix.id {
+////                print(".: Blur Make Connect!")
+////                blurPix.input = inPix
+////            }
 ////        }
-//        let pixView: PIXView = context.coordinator.pix.pixView
-////        let inPxView = UINSHostingView(rootView: inPx)
+//
 //        return pixView
 //    }
 //
@@ -52,7 +71,7 @@
 //    }
 //
 //    public func updateUIView(_ uiView: PIXView, context: Context) {
-//        let blurPix: BlurPIX = context.coordinator.pix as! BlurPIX
+//        let blurPix: BlurPIX = host.pix as! BlurPIX
 //        if !context.transaction.disablesAnimations,
 //           let animation: Animation = context.transaction.animation {
 //            print(".: Blur Update Animation")
@@ -64,7 +83,7 @@
 //                PXHelper.motion(pxKeyPath: \.position, pixKeyPath: \.position, px: self, pix: blurPix, at: fraction)
 //            }
 //        } else {
-//            print(".: Blur Update")
+//            print(".: Blur Update Direct")
 //            blurPix.style = style
 //            blurPix.radius = radius
 //            blurPix.quality = quality
@@ -89,9 +108,9 @@
 //        return Coordinator()
 //    }
 //
-//    public class Coordinator: PXCoordinator {
+//    public class Coordinator {
 //        public var timer: Timer?
-//        public var pix: PIX = BlurPIX()
+////        public var pix: PIX = BlurPIX()
 ////        init(pix: BlurPIX) {
 ////            self.pix = pix
 ////        }
@@ -121,22 +140,23 @@
 //
 //}
 //
+//@available(iOS 14.0, *)
 //public extension PXOut {
 //
-//    func pxBlur(radius: CGFloat) -> BlurPX {
+//    func pxBlur(radius: CGFloat) -> BlurPX<Self> {
 //        print(".: Blur Func")
-//        let px = BlurPX(inPx: self)
+//        let px = BlurPX(inPx: { self })
 //        px.radius = radius
 //        return px
 //    }
 //
-//    func pxZoomBlur(radius: CGFloat) -> BlurPX {
-//        let px = BlurPX(inPx: self)
-//        px.style = .zoom
-//        px.quality = .epic
-//        px.radius = radius
-//        return px
-//    }
+////    func pxZoomBlur(radius: CGFloat) -> BlurPX {
+////        let px = BlurPX(inPx: { self })
+////        px.style = .zoom
+////        px.quality = .epic
+////        px.radius = radius
+////        return px
+////    }
 //
 //}
 //

@@ -6,21 +6,17 @@ import SwiftUI
 import RenderKit
 import PixelColor
 
-//public struct CircleX: View {
-//    @State var circlePix: CirclePIX = .init()
-//    public init(radius: CGFloat) {
-//        circlePix.radius = radius
-//    }
-//    public var body: some View { circlePix }
-//}
-
 @available(iOS 14.0, *)
-public struct CirclePX: PXOut, UINSViewRepresentable {
-        
-//    @State public var coordinator: PXCoordinator = Coordinator()
-//    @State public var pixId: UUID?
+public struct CirclePX: PXOut {
     
-    @StateObject public var host: PXHost = PXHost(pix: CirclePIX())
+    @StateObject public var object: PXObject = PXObject(pix: CirclePIX())
+//    @State var pix = { () -> PIX in
+//        print("PolygonPIX <----")
+//        return PolygonPIX()
+//    }()
+    public func getPix() -> PIX {
+        object.pix
+    }
     
     let radius: CGFloat
     @State var position: CGPoint = .zero
@@ -33,14 +29,11 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
         print(".: Circle Init")
         self.resolution = resolution
         self.radius = radius
-//        let pix = CirclePIX()
-//        pixId = pix.id
-//        PXHub.shared.add(pix: pix)
     }
     
     public func makeUIView(context: Context) -> PIXView {
         print(".: Circle Make")
-        return host.pix.pixView
+        return object.pix.pixView
     }
     
     public static func dismantleUIView(_ uiView: PIXView, coordinator: Coordinator) {
@@ -48,7 +41,7 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
     }
     
     public func updateUIView(_ uiView: PIXView, context: Context) {
-        let circlePix: CirclePIX = host.pix as! CirclePIX
+        let circlePix: CirclePIX = object.pix as! CirclePIX
         if !context.transaction.disablesAnimations,
            let animation: Animation = context.transaction.animation {
             print(".: Circle Update Animation")
@@ -68,17 +61,12 @@ public struct CirclePX: PXOut, UINSViewRepresentable {
         if circlePix.resolution != resolution {
             circlePix.resolution = resolution
         }
-//        PXConnector.shared.check(pxOut: self, pixOut: circlePix)
     }
     
     // MARK: - Coordinator
     
     public func makeCoordinator() -> Coordinator {
         print(".: Circle Coordinator")
-//        let id: UUID = pixId!
-//        let pix: CirclePIX = PXHub.shared.pix(id: id) as! CirclePIX
-//        let coordinator = Coordinator(pix: pix)
-//        return coordinator
         return Coordinator()
     }
     

@@ -64,6 +64,14 @@ extension PIXViewable {
     
 }
 
+struct UINSViewView: UINSViewRepresentable {
+    let view: UINSView
+    func makeUIView(context: Context) -> UINSView {
+        view
+    }
+    func updateUIView(_ uiView: UINSView, context: Context) {}
+}
+
 //public struct PIXRender: UINSViewRepresentable {
 //    
 //    let pix: () -> (PIX)

@@ -14,10 +14,17 @@
 ////    public var body: some View { circlePix }
 ////}
 //
+//@available(iOS 14.0, *)
 //public struct CirclePX: PXOut, UINSViewRepresentable {
 //        
 ////    @State public var coordinator: PXCoordinator = Coordinator()
 ////    @State public var pixId: UUID?
+//    
+//    @StateObject public var host: PXHost = PXHost(pix: CirclePIX())
+//    
+//    public func getPix() -> PIX {
+//        host.pix
+//    }
 //    
 //    let radius: CGFloat
 //    @State var position: CGPoint = .zero
@@ -37,7 +44,7 @@
 //    
 //    public func makeUIView(context: Context) -> PIXView {
 //        print(".: Circle Make")
-//        return context.coordinator.pix.pixView
+//        return host.pix.pixView
 //    }
 //    
 //    public static func dismantleUIView(_ uiView: PIXView, coordinator: Coordinator) {
@@ -45,7 +52,7 @@
 //    }
 //    
 //    public func updateUIView(_ uiView: PIXView, context: Context) {
-//        let circlePix: CirclePIX = context.coordinator.pix as! CirclePIX
+//        let circlePix: CirclePIX = host.pix as! CirclePIX
 //        if !context.transaction.disablesAnimations,
 //           let animation: Animation = context.transaction.animation {
 //            print(".: Circle Update Animation")
@@ -79,9 +86,9 @@
 //        return Coordinator()
 //    }
 //    
-//    public class Coordinator: PXCoordinator {
+//    public class Coordinator {
 //        public var timer: Timer?
-//        public var pix: PIX = CirclePIX()
+////        public var pix: PIX = CirclePIX()
 ////        init(pix: CirclePIX) {
 ////            self.pix = pix
 ////        }

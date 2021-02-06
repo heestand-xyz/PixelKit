@@ -8,23 +8,24 @@
 import SwiftUI
 import RenderKit
 
-public protocol PX {
-    var host: PXHost { get }
+public protocol PX: UINSViewRepresentable {
+    var object: PXObject { get }
+    func getPix() -> PIX
 //    var pix: PIX { get }
 }
 
 public protocol PXOut: PX {}
 
 protocol PXIn: PX {
-    associatedtype PXB = PX & UINSViewRepresentable
+    associatedtype PXB = PX
     var inPx: () -> (PXB) { get }
-    init(inPx: @escaping () -> (PXB))
+//    init(inPx: @escaping () -> (PXB))
 }
 
-public class PXHost: ObservableObject {
+public class PXObject: ObservableObject {
     let pix: PIX
     init(pix: PIX) {
-        print(".. Host of \(pix.name)")
+        print(".. Object of \(pix.name)")
         self.pix = pix
     }
 }

@@ -93,7 +93,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         style = .box
         #endif
         super.init(name: "Blur", typeName: "pix-effect-single-blur")
-        print(":: BlurPIX Init", id)
+        print(":: BlurPIX Init", id, "<---")
         extend = .hold
         customRenderDelegate = self
     }
