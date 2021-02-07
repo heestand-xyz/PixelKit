@@ -14,7 +14,7 @@ let package = Package(
 //        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
-        .package(url: "https://github.com/heestand-xyz/RenderKit.git", .branch("lite")),
+        .package(url: "https://github.com/heestand-xyz/RenderKit.git", .branch("swiftui")),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [

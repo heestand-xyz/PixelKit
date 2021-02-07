@@ -14,8 +14,8 @@
         "package": "RenderKit",
         "repositoryURL": "https://github.com/heestand-xyz/RenderKit.git",
         "state": {
-          "branch": "lite",
-          "revision": "e47191b184266f6d4770058cdcbbae82681d4153",
+          "branch": "swiftui",
+          "revision": "c656d9252da736db77a67250e6f6b2b1fdc75b65",
           "version": null
         }
       }
