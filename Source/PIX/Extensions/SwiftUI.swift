@@ -30,6 +30,31 @@ public typealias UINSHostingView = UIHostingController
 public typealias UINSViewRepresentable = UIViewRepresentable
 #endif
 
+public protocol ViewRepresentable: UINSViewRepresentable {
+    func makeView(context: Self.Context) -> UINSView
+    func updateView(_ view: UINSView, context: Self.Context)
+}
+
+#if os(macOS)
+extension ViewRepresentable {
+    public func makeNSView(context: Self.Context) -> NSView {
+        makeView(context: context)
+    }
+    public func updateNSView(_ nsView: NSView, context: Self.Context) {
+        updateView(nsView, context: context)
+    }
+}
+#else
+extension ViewRepresentable {
+    public func makeUIView(context: Self.Context) -> UIView {
+        makeView(context: context)
+    }
+    public func updateUIView(_ uiView: UIView, context: Self.Context) {
+        updateView(uiView, context: context)
+    }
+}
+#endif
+
 
 public protocol PIXViewable: UINSViewRepresentable {
     var pixView: PIXView! { get }
@@ -62,14 +87,6 @@ extension PIXViewable {
     }
     #endif
     
-}
-
-struct UINSViewView: UINSViewRepresentable {
-    let view: UINSView
-    func makeUIView(context: Context) -> UINSView {
-        view
-    }
-    func updateUIView(_ uiView: UINSView, context: Context) {}
 }
 
 //public struct PIXRender: UINSViewRepresentable {

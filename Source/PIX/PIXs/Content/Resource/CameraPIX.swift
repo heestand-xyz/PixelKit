@@ -455,6 +455,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         return self
     }
     
+    #if os(iOS) && !targetEnvironment(macCatalyst)
     public func pixCameraManualExposure(_ value: Bool = true) -> CameraPIX {
         manualExposure = value
         return self
@@ -506,6 +507,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         whiteBalance = value
         return self
     }
+    #endif
     
 }
 

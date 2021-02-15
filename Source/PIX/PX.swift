@@ -8,7 +8,7 @@
 import SwiftUI
 import RenderKit
 
-public protocol PX: UINSViewRepresentable {
+public protocol PX: ViewRepresentable {
     var object: PXObject { get }
     func getPix() -> PIX
 //    var pix: PIX { get }
