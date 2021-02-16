@@ -10,7 +10,7 @@ import RenderKit
 import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
-final public class DepthCameraPIX: PIXResource, PIXViewable {
+final public class DepthCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentResourcePIX" }
     
@@ -20,8 +20,8 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         didSet {
             cameraPix?.depthCallback = { depthPixelBuffer in
                 self.pixelKit.logger.log(node: self, .info, .resource, "Depth Camera frame captured.", loop: true)
-                self.pixelBuffer = depthPixelBuffer
-                if self.view.resolution == nil || self.view.resolution! != self.renderResolution {
+                self.resourcePixelBuffer = depthPixelBuffer
+                if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
                     self.applyResolution { self.setNeedsRender() }
                 } else {
                     self.setNeedsRender()

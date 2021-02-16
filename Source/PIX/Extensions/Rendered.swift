@@ -33,7 +33,7 @@ public extension PIX {
         #else
         let vFlip: Bool = true
         #endif
-        return Texture.cgImage(from: ciImage, at: renderResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
+        return Texture.cgImage(from: ciImage, at: finalResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits, vFlip: vFlip)
     }
     
     #if os(iOS) || os(tvOS)
@@ -46,7 +46,7 @@ public extension PIX {
             pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
             return nil
         }
-        return Texture.image(from: cgImage, at: renderResolution.size)
+        return Texture.image(from: cgImage, at: finalResolution.size)
     }
     func nextRenderedImage(callback: @escaping (_Image) -> ()) {
         if let image = renderedImage {
@@ -81,11 +81,11 @@ public extension PIX {
             pixelKit.logger.log(.error, .texture, "CIImage could not be generated.")
             return nil
         }
-        guard let cgImage = Texture.cgImage(from: ciImage, at: renderResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
+        guard let cgImage = Texture.cgImage(from: ciImage, at: finalResolution.size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(.error, .texture, "CGImage could not be generated.")
             return nil
         }
-        return Texture.image(from: cgImage, at: renderResolution.size)
+        return Texture.image(from: cgImage, at: finalResolution.size)
     }
     
     func renderedTileImage(at tileIndex: TileIndex) -> _Image? {
@@ -275,7 +275,7 @@ public extension PIX {
     }
     
     var renderedPixels: PixelPack? {
-        guard let resolution = realResolution else { return nil }
+        guard let resolution = derivedResolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
         var pixels: [[Pixel]] = []
         let w = Int(resolution.width)

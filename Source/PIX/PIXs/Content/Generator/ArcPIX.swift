@@ -5,11 +5,12 @@
 //  Created by Anton Heestand on 2019-03-28.
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 import PixelColor
 
-final public class ArcPIX: PIXGenerator, PIXViewable {
+final public class ArcPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorArcPIX" }
     

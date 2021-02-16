@@ -5,6 +5,7 @@
 //  Created by Anton Heestand on 2019-04-12.
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 import PixelColor
@@ -22,7 +23,7 @@ public struct Coordinate {
     }
 }
 
-final public class ArrayPIX: PIXMultiEffect, PIXViewable {
+final public class ArrayPIX: PIXMultiEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMultiArrayPIX" }
     
@@ -100,7 +101,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     public func buildHexagonalGrid(scale: CGFloat = 0.4, scaleMultiplier: CGFloat = 1.0) { 
         guard scale != 0.0 else { return }
         coordinates = []
-        let aspect = renderResolution.aspect
+        let aspect = finalResolution.aspect
         let hexScale: CGFloat = sqrt(0.75)
         let xScale = hexScale * scale
         let yScale = (3 / 4) * scale
@@ -152,7 +153,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
         coordinates = []
         let pixCount = inputs.isEmpty ? 1 : inputs.count
         for _ in 0..<count {
-            let aspect = renderResolution.aspect
+            let aspect = finalResolution.aspect
             let position = CGPoint(x: CGFloat.random(in: (-aspect / 2)...(aspect / 2)),
                                    y: CGFloat.random(in: -0.5...0.5))
             let rotation = CGFloat.random(in: 0.0...1.0)

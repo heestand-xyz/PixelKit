@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
-final public class SharpenPIX: PIXSingleEffect, PIXViewable {
+final public class SharpenPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleSharpenPIX" }
     

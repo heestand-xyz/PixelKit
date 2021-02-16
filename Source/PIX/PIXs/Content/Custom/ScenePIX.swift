@@ -8,7 +8,7 @@
 import RenderKit
 import SceneKit
 
-final public class ScenePIX: PIXCustom, PIXViewable {
+final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
     
     // MARK: - Private Properties
     

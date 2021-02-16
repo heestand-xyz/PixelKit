@@ -5,11 +5,12 @@
 //  Created by Anton Heestand on 2020-06-01.
 //
 
+import Foundation
 import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
+final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMultiStackPIX" }
     
@@ -87,7 +88,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     public override var extraUniforms: [CGFloat] {
         (0..<10).map { i -> CGFloat in
             guard i < inputs.count else { return 1.0 }
-            return inputs[i].renderResolution.aspect
+            return inputs[i].finalResolution.aspect
         }
     }
     

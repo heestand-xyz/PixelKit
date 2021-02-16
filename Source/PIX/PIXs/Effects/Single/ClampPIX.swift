@@ -5,11 +5,11 @@
 //  Created by Anton Heestand on 2019-04-01.
 //
 
+import Foundation
 import CoreGraphics
-
 import RenderKit
 
-final public class ClampPIX: PIXSingleEffect, PIXViewable {
+final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleClampPIX" }
     

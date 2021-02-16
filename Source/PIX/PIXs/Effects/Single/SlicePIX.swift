@@ -5,11 +5,12 @@
 //  Created by Anton Heestand on 2019-10-05.
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
 /// Useful with **VoxelKit** to sample depth images.
-final public class SlicePIX: PIXSingleEffect, PIXViewable {
+final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleSlicePIX" }
     

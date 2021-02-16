@@ -6,11 +6,11 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable {
+final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

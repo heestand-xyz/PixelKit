@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
-final public class CrossPIX: PIXMergerEffect, PIXViewable {
+final public class CrossPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerCrossPIX" }
     
@@ -57,7 +58,7 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
 //    
 //}
 
-public func pixCross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat) -> CrossPIX {
+public func pixCross(_ pixA: PIX & NODEOut, _ pixB: PIX & NODEOut, at fraction: CGFloat = 0.5) -> CrossPIX {
     let crossPix = CrossPIX()
     crossPix.name = ":cross:"
     crossPix.inputA = pixA

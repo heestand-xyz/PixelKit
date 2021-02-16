@@ -13,7 +13,7 @@ import AVKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 @available(tvOS 11, *)
-final public class RecordPIX: PIXOutput, PIXViewable {
+final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
     
     // MARK: - Private Properties
     
@@ -217,7 +217,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         guard connectedIn else {
             throw RecordError.noInPix
         }
-        guard let res = realResolution else {
+        guard let res = derivedResolution else {
             throw RecordError.noRes
         }
 

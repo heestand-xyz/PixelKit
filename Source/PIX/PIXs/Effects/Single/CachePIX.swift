@@ -14,7 +14,7 @@ import UIKit
 import AppKit
 #endif
 
-final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
+final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 import PixelColor
 
-final public class ColorPIX: PIXGenerator, PIXViewable {
+final public class ColorPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorColorPIX" }
     

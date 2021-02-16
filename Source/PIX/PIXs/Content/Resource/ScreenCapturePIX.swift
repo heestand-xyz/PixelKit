@@ -10,7 +10,7 @@
 
 import AVKit
 
-final public class ScreenCapturePIX: PIXResource, PIXViewable {
+final public class ScreenCapturePIX: PIXResource, PIXViewable, ObservableObject {
         
     override public var shaderName: String { return "contentResourcePIX" }
     
@@ -41,8 +41,8 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture setup.")
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
-            self.pixelBuffer = pixelBuffer
-            if self.view.resolution == nil || self.view.resolution! != self.renderResolution {
+            self.resourcePixelBuffer = pixelBuffer
+            if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
                 self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()

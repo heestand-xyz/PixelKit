@@ -6,7 +6,7 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 import PixelColor
@@ -41,7 +41,7 @@ extension Array: Floatable where Element == ColorStop {
     }
 }
 
-final public class GradientPIX: PIXGenerator, PIXViewable {
+final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
     

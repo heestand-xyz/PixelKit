@@ -42,7 +42,7 @@ import SwiftUI
 //}
 //#endif
 
-final public class VideoPIX: PIXResource, PIXViewable {
+final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -59,6 +59,9 @@ final public class VideoPIX: PIXResource, PIXViewable {
             helper?.bypass = bypass
         }
     }
+    
+    @Published public var isLoading: Bool = false
+    @Published public var isLoaded: Bool = false
     
     // MARK: - Public Properties
     
@@ -108,10 +111,15 @@ final public class VideoPIX: PIXResource, PIXViewable {
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
             self.loadCallback?(resolution)
             self.loadCallback = nil
+            self.isLoading = false
+            self.isLoaded = true
         }, updated: { pixelBuffer, fraction in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video pixel buffer available.")
-            self.pixelBuffer = pixelBuffer
-            let res = self.renderResolution
+            self.resourcePixelBuffer = pixelBuffer
+            guard let res = self.derivedResolution else {
+                self.pixelKit.logger.log(node: self, .error, .resource, "Video resolution not found.")
+                return
+            }
             if self.view.resolution == nil || self.view.resolution! != res {
                 self.applyResolution { self.setNeedsRender() }
             } else {
@@ -164,11 +172,13 @@ final public class VideoPIX: PIXResource, PIXViewable {
     public func load(fileNamed name: String, withExtension ext: String, done: ((Resolution) -> ())? = nil) {
         guard let url = find(video: name, withExtension: ext) else { return }
         self.url = url
+        isLoading = true
         loadCallback = done
     }
     
     public func load(url: URL, done: ((Resolution) -> ())? = nil) {
         self.url = url
+        isLoading = true
         loadCallback = done
     }
     
@@ -177,13 +187,15 @@ final public class VideoPIX: PIXResource, PIXViewable {
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixelKit_temp_video.mov")
         FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         self.url = url
+        isLoading = true
         loadCallback = done
     }
     
     public func unload() {
         url = nil
-        pixelBuffer = nil
+        resourcePixelBuffer = nil
         setNeedsRender()
+        isLoaded = false
     }
     
     func find(video named: String, withExtension ext: String?) -> URL? {

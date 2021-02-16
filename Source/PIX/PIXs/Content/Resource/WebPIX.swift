@@ -20,7 +20,7 @@ import WebKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
+final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableObject {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -114,7 +114,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
                 return
             }
-            self.pixelBuffer = buffer
+            self.resourcePixelBuffer = buffer
             self.pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
             self.setNeedsRender()
         }

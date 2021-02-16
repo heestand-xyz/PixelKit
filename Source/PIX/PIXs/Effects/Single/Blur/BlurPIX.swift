@@ -15,7 +15,7 @@ import MetalKit
 import MetalPerformanceShaders
 #endif
 
-final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
+final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleBlurPIX" }
     
@@ -71,7 +71,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     var relRadius: CGFloat {
         let radius = self.radius
         let relRes: Resolution = ._4K
-        let res: Resolution = renderResolution
+        let res: Resolution = finalResolution
         let relHeight = res.height / relRes.height
         let relRadius = radius * relHeight
         let maxRadius: CGFloat = 32 * 10

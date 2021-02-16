@@ -11,7 +11,7 @@ import RenderKit
 import PixelColor
 import SwiftUI
 
-final public class CirclePIX: PIXGenerator, PIXViewable {
+final public class CirclePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { "contentGeneratorCirclePIX" }
     

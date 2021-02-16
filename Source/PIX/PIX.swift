@@ -40,7 +40,9 @@ open class PIX: NODE, Equatable, NODETileable {
     public var uniformIndexArray: [[Int]] { [] }
     public var uniformIndexArrayMaxLimit: Int? { nil }
        
-       
+    
+    @Published public var finalResolution: Resolution = PixelKit.main.fallbackResolution
+    
     var customResolution: Resolution? { nil }
     
     
@@ -243,7 +245,7 @@ open class PIX: NODE, Equatable, NODETileable {
     
     func checkSetup() {
         if let pixResource = self as? PIXResource {
-            if pixResource.pixelBuffer != nil {
+            if pixResource.resourcePixelBuffer != nil || pixResource.resourceTexture != nil {
                 if contentLoaded != true {
                     let wasBad = contentLoaded == false
                     contentLoaded = true

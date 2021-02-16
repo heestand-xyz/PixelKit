@@ -10,7 +10,7 @@ import RenderKit
 import RenderKit
 import Metal
 
-final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
+final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

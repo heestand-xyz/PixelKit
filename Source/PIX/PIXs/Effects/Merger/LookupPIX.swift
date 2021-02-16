@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class LookupPIX: PIXMergerEffect, PIXViewable {
+final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerLookupPIX" }
     
@@ -25,7 +26,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
     }
     
     var holdEdgeFraction: CGFloat {
-        let axisRes = axis == .horizontal ? renderResolution.width : renderResolution.height
+        let axisRes = axis == .horizontal ? finalResolution.width : finalResolution.height
         return 1.0 / axisRes
     }
     

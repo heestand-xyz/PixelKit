@@ -6,6 +6,7 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 import PixelColor
@@ -13,7 +14,7 @@ import PixelColor
 @available(*, deprecated, renamed: "ColorShiftPIX")
 public typealias HueSaturationPIX = ColorShiftPIX
 
-final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
+final public class ColorShiftPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleColorShiftPIX" }
     

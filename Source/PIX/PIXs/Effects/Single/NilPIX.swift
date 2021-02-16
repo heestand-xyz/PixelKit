@@ -6,10 +6,10 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 
-final public class NilPIX: PIXSingleEffect, PIXViewable {
+final public class NilPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

@@ -26,7 +26,7 @@ public protocol CameraPIXDelegate {
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
-final public class CameraPIX: PIXResource, PIXViewable {
+final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
@@ -399,8 +399,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self.didSetup = true
         }, captured: { pixelBuffer in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
-            self.pixelBuffer = pixelBuffer
-            if self.view.resolution == nil || self.view.resolution! != self.renderResolution {
+            self.resourcePixelBuffer = pixelBuffer
+            if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
                 self.applyResolution { self.setNeedsRender() }
             } else {
                 self.setNeedsRender()

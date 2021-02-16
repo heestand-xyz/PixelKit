@@ -6,11 +6,12 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 import PixelColor
 
-final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
+final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleChromaKeyPIX" }
     

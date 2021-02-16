@@ -12,7 +12,7 @@ import CoreGraphics
 import SpriteKit
 import PixelColor
 
-final public class TextPIX: PIXSprite, PIXViewable {
+final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
     
     // MARK: - Private Properties
     
@@ -105,14 +105,14 @@ final public class TextPIX: PIXSprite, PIXViewable {
     }
     
     func setNeedsFont() {
-        let size: CGSize = (renderResolution / Resolution.scale).size
+        let size: CGSize = (finalResolution / Resolution.scale).size
         label.fontName = font.fontName
         let x = font.pointSize * size.height
         label.fontSize = x
     }
     
     func setNeedsPosition() {
-        let size: CGSize = (renderResolution / Resolution.scale).size
+        let size: CGSize = (finalResolution / Resolution.scale).size
         let pos = CGPoint(x: position.x * size.height,
                           y: position.y * size.height)
         label.position = CGPoint(x: size.width / 2 + pos.x,

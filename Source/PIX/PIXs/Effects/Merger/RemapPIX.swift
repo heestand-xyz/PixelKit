@@ -6,9 +6,10 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 
-final public class RemapPIX: PIXMergerEffect, PIXViewable {
+final public class RemapPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
     

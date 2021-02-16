@@ -11,7 +11,7 @@
 import UIKit
 import RenderKit
 
-final public class AirPlayPIX: PIXOutput, PIXViewable {
+final public class AirPlayPIX: PIXOutput, PIXViewable, ObservableObject {
     
     // MARK: - Private Properties
     

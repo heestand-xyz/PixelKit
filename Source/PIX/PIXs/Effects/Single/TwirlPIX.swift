@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
-final public class TwirlPIX: PIXSingleEffect, PIXViewable {
+final public class TwirlPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleTwirlPIX" }
     

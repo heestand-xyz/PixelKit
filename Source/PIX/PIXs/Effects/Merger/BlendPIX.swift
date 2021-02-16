@@ -13,7 +13,7 @@ import MetalKit
 import SwiftUI
 import PixelColor
 
-final public class BlendPIX: PIXMergerEffect, PIXViewable {
+final public class BlendPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerBlendPIX" }
     
@@ -141,7 +141,7 @@ public extension NODEOut {
         let blendPix = BlendPIX()
         blendPix.name = ":blend:"
         blendPix.inputA = self as? PIX & NODEOut
-        blendPix.inputB = pix
+        blendPix.inputB = pix.pixLumaToAlpha()
         blendPix.blendMode = .multiply
         return blendPix
     }

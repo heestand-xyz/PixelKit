@@ -10,7 +10,7 @@ import RenderKit
 import Foundation
 import PixelColor
 
-final public class FlarePIX: PIXSingleEffect, PIXViewable {
+final public class FlarePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleFlarePIX" }
     

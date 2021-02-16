@@ -16,7 +16,7 @@ import AppKit
 import SwiftUI
 #endif
 
-final public class ViewPIX: PIXResource, PIXViewable {
+final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -54,7 +54,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
                     let viewSize = CGSize(width: viewRelSize.width * Resolution.scale,
                                           height: viewRelSize.height * Resolution.scale)
                     let res: Resolution = .auto(render: self.pixelKit.render)
-                    let resSize = self.renderResolution.size
+                    let resSize = self.finalResolution.size
                     let resRelSize = (res / Resolution.scale).size
                     if viewSize != resSize {
                         self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
@@ -122,13 +122,13 @@ final public class ViewPIX: PIXResource, PIXViewable {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
-        pixelBuffer = buffer
+        resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
         applyResolution { self.setNeedsRender() }
     }
     
     func viewNeedsClear() {
-        pixelBuffer = nil
+        resourcePixelBuffer = nil
         texture = nil
         pixelKit.logger.log(node: self, .info, .resource, "Clear View.")
         setNeedsRender()

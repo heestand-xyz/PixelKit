@@ -9,7 +9,7 @@ import CoreGraphics
 import RenderKit
 import Metal
 
-final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
+final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObject {
    
     override public var shaderName: String { return "effectMergerTimeMachinePIX" }
     

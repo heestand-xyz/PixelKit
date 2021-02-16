@@ -11,7 +11,7 @@ import RenderKit
 import CoreGraphics
 import MetalKit
 
-final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
+final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
     

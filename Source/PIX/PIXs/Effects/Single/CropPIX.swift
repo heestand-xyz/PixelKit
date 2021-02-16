@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class CropPIX: PIXSingleEffect, PIXViewable {
+final public class CropPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleCropPIX" }
     

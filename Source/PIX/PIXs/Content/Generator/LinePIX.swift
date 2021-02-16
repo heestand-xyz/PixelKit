@@ -5,12 +5,13 @@
 //  Created by Anton Heestand on 2019-03-28.
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
 // TODO: Square Caps
 
-final public class LinePIX: PIXGenerator, PIXViewable {
+final public class LinePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorLinePIX" }
     

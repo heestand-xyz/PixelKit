@@ -10,7 +10,7 @@ import CoreGraphics
 import RenderKit
 import SwiftUI
 
-final public class PolygonPIX: PIXGenerator, PIXViewable {
+final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorPolygonPIX" }
     

@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class ReorderPIX: PIXMergerEffect, PIXViewable {
+final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerReorderPIX" }
     

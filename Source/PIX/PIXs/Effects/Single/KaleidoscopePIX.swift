@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
-final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
+final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleKaleidoscopePIX" }
     

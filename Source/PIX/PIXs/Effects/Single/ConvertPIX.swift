@@ -5,11 +5,11 @@
 //  Created by Anton Heestand on 2019-04-25.
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class ConvertPIX: PIXSingleEffect, PIXViewable {
+final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleConvertPIX" }
     

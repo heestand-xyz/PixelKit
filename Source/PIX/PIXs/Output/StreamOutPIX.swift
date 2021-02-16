@@ -13,7 +13,7 @@ import CoreImage
 import RenderKit
 import UIKit
 
-final public class StreamOutPIX: PIXOutput, PIXViewable {
+final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
     
     enum Connected {
         case disconnected

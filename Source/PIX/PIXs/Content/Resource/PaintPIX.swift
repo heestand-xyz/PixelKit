@@ -32,7 +32,7 @@ import PixelColor
 //#endif
 
 @available(iOS 13.0, *)
-final public class PaintPIX: PIXResource, PIXViewable {
+final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentResourceBackgroundPIX" }
 
@@ -209,7 +209,7 @@ final public class PaintPIX: PIXResource, PIXViewable {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
-        pixelBuffer = buffer
+        resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
         applyResolution { self.setNeedsRender() }
     }

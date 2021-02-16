@@ -6,10 +6,11 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 
-final public class DisplacePIX: PIXMergerEffect, PIXViewable {
+final public class DisplacePIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerDisplacePIX" }
     
@@ -69,7 +70,7 @@ public extension NODEOut {
     
     func pixNoiseDisplace(distance: CGFloat, zPosition: CGFloat = 0.0, octaves: Int = 10) -> DisplacePIX {
         let pix = self as! PIX & NODEOut
-        let noisePix = NoisePIX(at: pix.renderResolution)
+        let noisePix = NoisePIX(at: pix.finalResolution)
         noisePix.name = "noiseDisplace:noise"
         noisePix.colored = true
         noisePix.zPosition = zPosition

@@ -24,7 +24,7 @@ public typealias UINSImage = UIImage
 public typealias UINSImage = NSImage
 #endif
 
-final public class ImagePIX: PIXResource, PIXViewable {
+final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
 
 //    #if os(iOS) || os(tvOS)
 //    override open var shaderName: String { return "contentResourceFlipPIX" }
@@ -44,7 +44,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
     }
     
     var swizzel: Bool {
-        return false
+        PixelKit.main.render.bits == ._16
     }
     
     // MARK: - Public Properties
@@ -83,10 +83,10 @@ final public class ImagePIX: PIXResource, PIXViewable {
             self.setNeedsRender()
         }
         pixelKit.render.listenToFramesUntil {
-            if self.realResolution != nil {
+            if self.derivedResolution != nil {
                 return .done
             }
-            if self.renderResolution != ._128 {
+            if self.derivedResolution != ._128 {
                 self.applyResolution {
                     self.setNeedsRender()
                 }
@@ -136,11 +136,20 @@ final public class ImagePIX: PIXResource, PIXViewable {
             return
         }
         let bits: Bits = pixelKit.render.bits
-        guard let buffer = Texture.buffer(from: image, bits: bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
-            return
+        if bits == ._16 {
+            do {
+                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)
+                resourceTexture = texture
+            } catch {
+                pixelKit.logger.log(node: self, .error, .resource, "Float16 requres iOS 14 or macOS 11.", loop: true, e: error)
+            }
+        } else {
+            guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
+                pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
+                return
+            }
+            resourcePixelBuffer = buffer
         }
-        pixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.", loop: true)
         applyResolution { self.setNeedsRender() }
     }

@@ -10,7 +10,7 @@ import CoreGraphics
 import RenderKit
 import Metal
 
-final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
+final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

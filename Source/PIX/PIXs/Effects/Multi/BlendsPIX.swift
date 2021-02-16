@@ -6,11 +6,11 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class BlendsPIX: PIXMultiEffect, PIXViewable {
+final public class BlendsPIX: PIXMultiEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMultiBlendsPIX" }
     

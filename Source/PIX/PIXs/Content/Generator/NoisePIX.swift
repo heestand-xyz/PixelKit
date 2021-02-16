@@ -12,7 +12,7 @@ import RenderKit
 import SwiftUI
 #endif
 
-final public class NoisePIX: PIXGenerator, PIXViewable {
+final public class NoisePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentGeneratorNoisePIX" }
     

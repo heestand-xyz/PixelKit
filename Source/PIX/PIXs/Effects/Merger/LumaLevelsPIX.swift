@@ -6,11 +6,12 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
+final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerLumaLevelsPIX" }
     
@@ -62,11 +63,11 @@ public extension NODEOut {
     
     func pixVignetting(radius: CGFloat = 0.5, inset: CGFloat = 0.25, gamma: CGFloat = 0.5) -> LumaLevelsPIX {
         let pix = self as! PIX & NODEOut
-        let rectangle = RectanglePIX(at: pix.renderResolution)
+        let rectangle = RectanglePIX(at: pix.finalResolution)
         rectangle.backgroundColor = .white
         rectangle.color = .black
         rectangle.name = "vignetting:rectangle"
-        rectangle.size = CGSize(width: pix.renderResolution.aspect - inset, height: 1.0 - inset)
+        rectangle.size = CGSize(width: pix.finalResolution.aspect - inset, height: 1.0 - inset)
         let lumaLevelsPix = LumaLevelsPIX()
         lumaLevelsPix.name = "vignetting:lumaLevels"
         lumaLevelsPix.inputA = pix

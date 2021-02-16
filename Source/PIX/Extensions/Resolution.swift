@@ -13,14 +13,10 @@ import CoreGraphics
 
 extension PIX {
     
-    public var renderResolution: Resolution {
-        realResolution ?? PixelKit.main.fallbackResolution
-    }
-    
-    public var realResolution: Resolution? {
+    public var derivedResolution: Resolution? {
         guard !bypass else {
             if let pixIn = self as? NODEInIO {
-                return (pixIn.inputList.first as? PIX)?.realResolution
+                return (pixIn.inputList.first as? PIX)?.derivedResolution
             } else { return nil }
         }
         if let resolution: Resolution = customResolution {
@@ -50,12 +46,11 @@ extension PIX {
                         }
                     }
                     #endif
-                    guard let pixelBuffer = pixResource.pixelBuffer else { return nil }
-                    var bufferRes = Resolution(pixelBuffer: pixelBuffer)
+                    guard var resourceResolution: Resolution = pixResource.resourceResolution else { return nil }
                     if pixResource.flop {
-                        bufferRes = Resolution(bufferRes.raw.flopped)
+                        resourceResolution = Resolution(resourceResolution.raw.flopped)
                     }
-                    return bufferRes
+                    return resourceResolution
                 }
             } else if let pixGenerator = pixContent as? PIXGenerator {
                 return pixGenerator.resolution
@@ -68,7 +63,7 @@ extension PIX {
             if let resPix = self as? ResolutionPIX {
                 let resRes: Resolution
                 if resPix.inheritInResolution {
-                    guard let inResolution = (resPix.inputList.first as? PIX)?.realResolution else { return nil }
+                    guard let inResolution = (resPix.inputList.first as? PIX)?.derivedResolution else { return nil }
                     resRes = inResolution
                 } else {
                     resRes = resPix.resolution
@@ -96,10 +91,10 @@ extension PIX {
                 return stackPix.resolution
             }
             if let remapPix = pixIn as? RemapPIX {
-                guard let inResB = (remapPix.inputB as? PIX)?.realResolution else { return nil }
+                guard let inResB = (remapPix.inputB as? PIX)?.derivedResolution else { return nil }
                 return inResB
             }
-            guard let inRes = (pixIn.inputList.first as? PIX)?.realResolution else { return nil }
+            guard let inRes = (pixIn.inputList.first as? PIX)?.derivedResolution else { return nil }
             if let cropPix = self as? CropPIX {
                 return .size(CGSize(width: inRes.size.width * cropPix.resScale.width,
                                     height: inRes.size.height * cropPix.resScale.height))
@@ -114,8 +109,8 @@ extension PIX {
     }
     
     public func nextRealResolution(callback: @escaping (Resolution) -> ()) {
-        if let res = realResolution {
-            callback(res)
+        if let resolution: Resolution = derivedResolution {
+            callback(resolution)
             return
         }
         PixelKit.main.render.delay(frames: 1, done: {
@@ -124,7 +119,7 @@ extension PIX {
     }
     
     public func applyResolution(applied: @escaping () -> ()) {
-        let res = renderResolution
+        finalResolution = derivedResolution ?? PixelKit.main.fallbackResolution
         if !pixelKit.render.engine.renderMode.isManual {
             if pixelKit.render.frame == 0 {
                 #if os(macOS)
@@ -139,12 +134,12 @@ extension PIX {
                 return
             }
         }
-        guard view.resolutionSize == nil || view.resolutionSize! != res.size else {
+        guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else {
             applied()
             return
         }
-        view.setResolution(res)
-        pixelKit.logger.log(node: self, .info, .res, "Applied: \(res) [\(res.w)x\(res.h)]")
+        view.setResolution(finalResolution)
+        pixelKit.logger.log(node: self, .info, .res, "Applied: \(finalResolution) [\(finalResolution.w)x\(finalResolution.h)]")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

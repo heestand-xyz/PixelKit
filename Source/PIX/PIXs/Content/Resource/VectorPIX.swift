@@ -21,7 +21,7 @@ import PixelColor
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class VectorPIX: PIXResource, PIXViewable {
+final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -126,7 +126,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
                 return
             }
-            self.pixelBuffer = buffer
+            self.resourcePixelBuffer = buffer
             self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
             self.applyResolution { self.setNeedsRender() }
         }

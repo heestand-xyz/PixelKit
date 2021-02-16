@@ -10,7 +10,7 @@ import Metal
 import RenderKit
 import PixelKit
 
-final public class SyphonOutPIX: PIXOutput, PIXViewable {
+final public class SyphonOutPIX: PIXOutput, PIXViewable, ObservableObject {
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!

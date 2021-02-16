@@ -6,12 +6,12 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 import PixelColor
 
-final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
+final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerLumaColorShiftPIX" }
     

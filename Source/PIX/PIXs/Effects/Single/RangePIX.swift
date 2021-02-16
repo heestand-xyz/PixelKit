@@ -6,11 +6,12 @@
 //  Open Source - MIT License
 //
 
+import Foundation
 import CoreGraphics
 import RenderKit
 import PixelColor
 
-final public class RangePIX: PIXSingleEffect, PIXViewable {
+final public class RangePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectSingleRangePIX" }
     

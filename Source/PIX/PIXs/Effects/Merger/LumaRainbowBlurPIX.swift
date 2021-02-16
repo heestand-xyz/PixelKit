@@ -6,14 +6,14 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
-final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
+final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     

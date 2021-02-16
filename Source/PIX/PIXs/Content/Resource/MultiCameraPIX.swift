@@ -11,7 +11,7 @@ import RenderKit
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)
-final public class MultiCameraPIX: PIXResource, PIXViewable {
+final public class MultiCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
@@ -38,8 +38,8 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
                     },
                     frameLoop: { pixelBuffer in
                         self.pixelKit.logger.log(node: self, .info, .resource, "Multi Camera frame captured.", loop: true)
-                        self.pixelBuffer = pixelBuffer
-                        if self.view.resolution == nil || self.view.resolution! != self.renderResolution {
+                        self.resourcePixelBuffer = pixelBuffer
+                        if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
                             self.applyResolution { self.setNeedsRender() }
                         } else {
                             self.setNeedsRender()

@@ -138,21 +138,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         var secondInputTexture: MTLTexture? = nil
         if let nodeContent = node as? NODEContent {
             if let nodeResource = nodeContent as? NODEResource {
-                guard let pixelBuffer = nodeResource.pixelBuffer else {
-                    throw Engine.RenderError.texture("Pixel Buffer is nil.")
-                }
-                let force8bit: Bool
-                #if os(tvOS)
-                force8bit = false
-                #else
-                force8bit = node is CameraPIX
-                #endif
-                do {
-                    inputTexture = try Texture.makeTextureFromCache(from: pixelBuffer, bits: force8bit ? ._8 : render.bits, in: render.textureCache)
-                } catch {
-                    logger.log(node: node, .detail, .resource, "Texture genration failed, using backup method.", e: error)
-                    inputTexture = try Texture.makeTexture(from: pixelBuffer, with: commandBuffer, force8bit: force8bit, on: render.metalDevice)
-                }
+                inputTexture = try nodeResource.getResourceTexture(commandBuffer: commandBuffer)
             } else if nodeContent is NODEGenerator {
                 generator = true
             } else if let nodeSprite = nodeContent as? PIXSprite {

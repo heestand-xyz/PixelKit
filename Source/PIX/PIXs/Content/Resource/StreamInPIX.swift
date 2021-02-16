@@ -11,7 +11,7 @@ import RenderKit
 import UIKit
 import CoreGraphics
 
-final public class StreamInPIX: PIXResource, PIXViewable {
+final public class StreamInPIX: PIXResource, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "contentResourceBGRPIX" }
     
@@ -74,7 +74,7 @@ final public class StreamInPIX: PIXResource, PIXViewable {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
-        pixelBuffer = buffer
+        resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { self.setNeedsRender() }
     }

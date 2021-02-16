@@ -10,7 +10,7 @@
 import RenderKit
 import Metal
 
-final public class FreezePIX: PIXSingleEffect, PIXViewable {
+final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "nilPIX" }
     

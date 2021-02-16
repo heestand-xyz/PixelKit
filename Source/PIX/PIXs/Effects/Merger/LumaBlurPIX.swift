@@ -6,11 +6,11 @@
 //  Open Source - MIT License
 //
 
-
+import Foundation
 import RenderKit
 import CoreGraphics
 
-final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
+final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     override public var shaderName: String { return "effectMergerLumaBlurPIX" }
     
@@ -112,7 +112,7 @@ public extension NODEOut {
     
     func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5, offset: CGFloat = 0.0, scale: CGFloat = 1.0, quality: PIX.SampleQualityMode = .high) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
-        let gradientPix = GradientPIX(at: pix.renderResolution)
+        let gradientPix = GradientPIX(at: pix.finalResolution)
         gradientPix.name = "tiltShift:gradient"
         gradientPix.direction = .vertical
         gradientPix.offset = 0.5 + offset
