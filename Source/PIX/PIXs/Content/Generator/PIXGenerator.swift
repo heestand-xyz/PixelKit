@@ -38,7 +38,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         [_backgroundColor, _color]
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution) {
         fatalError("please use init(at:name:typeName:)")
     }
     
