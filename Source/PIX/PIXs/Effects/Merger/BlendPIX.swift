@@ -47,11 +47,11 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     }
     
     public convenience init(blendMode: RenderKit.BlendMode = .average,
-                            _ inputA: () -> (PIX & NODEOut),
-                            with inputB: () -> (PIX & NODEOut)) {
+                            _ inputA: (() -> (PIX & NODEOut))? = nil,
+                            with inputB: (() -> (PIX & NODEOut))? = nil) {
         self.init()
-        super.inputA = inputA()
-        super.inputB = inputB()
+        super.inputA = inputA?()
+        super.inputB = inputB?()
         self.blendMode = blendMode
     }
     
