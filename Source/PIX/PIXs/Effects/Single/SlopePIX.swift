@@ -16,7 +16,7 @@ final public class SlopePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var amplitude: CGFloat = 1.0
+    @Live(name: "Amplitude") public var amplitude: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

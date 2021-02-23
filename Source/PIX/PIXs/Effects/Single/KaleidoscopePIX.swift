@@ -16,10 +16,10 @@ final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable, ObservableObje
     
     // MARK: - Public Properties
     
-    @Live public var divisions: Int = 12
-    @Live public var mirror: Bool = true
-    @Live public var rotation: CGFloat = 0.0
-    @Live public var position: CGPoint = .zero
+    @Live(name: "Divisions") public var divisions: Int = 12
+    @Live(name: "Mirror") public var mirror: Bool = true
+    @Live(name: "Rotation") public var rotation: CGFloat = 0.0
+    @Live(name: "Position") public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     

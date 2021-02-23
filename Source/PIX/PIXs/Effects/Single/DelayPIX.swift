@@ -20,7 +20,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
     
     // MARK: - Public Properties
     
-    @Live public var delayFrames: Int = 10
+    @Live(name: "Delay Frames") public var delayFrames: Int = 10
     
     // MARK: - Property Helpers
     

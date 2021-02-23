@@ -16,11 +16,11 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var strength: CGFloat = 10.0
-    @Live public var distance: CGFloat = 1.0
-    @Live public var colored: Bool = false
-    @Live public var transparent: Bool = false
-    @Live public var includeAlpha: Bool = false
+    @Live(name: "Strength") public var strength: CGFloat = 10.0
+    @Live(name: "Distance") public var distance: CGFloat = 1.0
+    @Live(name: "Colored") public var colored: Bool = false
+    @Live(name: "Transparent") public var transparent: Bool = false
+    @Live(name: "Include Alpha") public var includeAlpha: Bool = false
 
     // MARK: - Property Helpers
     

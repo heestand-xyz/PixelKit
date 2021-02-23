@@ -16,7 +16,7 @@ final public class QuantizePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var fraction: CGFloat = 0.125
+    @Live(name: "Fraction") public var fraction: CGFloat = 0.125
     
     // MARK: - Property Helpers
     

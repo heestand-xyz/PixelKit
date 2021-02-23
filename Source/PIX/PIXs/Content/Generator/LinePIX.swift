@@ -17,9 +17,9 @@ final public class LinePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var positionFrom: CGPoint = CGPoint(x: -0.25, y: 0.0)
-    @Live public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.0)
-    @Live public var scale: CGFloat = 0.01
+    @LivePoint(name: "Position From") public var positionFrom: CGPoint = CGPoint(x: -0.25, y: 0.0)
+    @LivePoint(name: "Position To") public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.0)
+    @LiveFloat(name: "Scale", range: 0.0...0.1) public var scale: CGFloat = 0.01
     
     // MARK: - Property Helpers
     

@@ -68,21 +68,21 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var direction: Direction = .vertical
-    @Live public var scale: CGFloat = 1.0
-    @Live public var offset: CGFloat = 0.0
-    @Live public var position: CGPoint = .zero
-    @Live public var extendRamp: ExtendMode = .hold
-    @Live public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
+    @Live(name: "Direction") public var direction: Direction = .vertical
+    @LiveFloat(name: "Scale", range: 0.0...1.0) public var scale: CGFloat = 1.0
+    @LiveFloat(name: "Offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
+    @Live(name: "Extend Mode") public var extendMode: ExtendMode = .hold
+    @Live(name: "Color Steps") public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_direction, _scale, _offset, _position, _extendRamp, _colorSteps]
+        super.liveList + [_direction, _scale, _offset, _position, _extendMode, _colorSteps]
     }
     
     override public var values: [Floatable] {
-        return [direction, scale, offset, position, position, extendRamp]
+        return [direction, scale, offset, position, position, extendMode]
     }
 
     override public var uniformArray: [[CGFloat]] {
@@ -90,7 +90,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendRamp.index)]
+        return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendMode.index)]
     }
     
     // MARK: - Life Cycle
@@ -124,7 +124,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     }
     
     public func pixGradientExtendRamp(_ value: ExtendMode) -> GradientPIX {
-        extendRamp = value
+        extendMode = value
         return self
     }
     

@@ -62,13 +62,13 @@ extension PIX {
         } else if let pixIn = self as? PIX & NODEInIO {
             if let resPix = self as? ResolutionPIX {
                 let resRes: Resolution
-                if resPix.inheritInResolution {
+                if resPix.inheritResolution {
                     guard let inResolution = (resPix.inputList.first as? PIX)?.derivedResolution else { return nil }
                     resRes = inResolution
                 } else {
                     resRes = resPix.resolution
                 }
-                return resRes * resPix.resMultiplier
+                return resRes * resPix.resolutionMultiplier
             }
             if let slicePix = self as? SlicePIX {
                 guard let node3d = slicePix.input as? NODE3D else { return nil }

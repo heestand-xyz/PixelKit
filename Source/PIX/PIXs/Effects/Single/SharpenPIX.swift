@@ -16,7 +16,7 @@ final public class SharpenPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var contrast: CGFloat = 1.0
+    @Live(name: "Contrast") public var contrast: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

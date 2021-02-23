@@ -27,10 +27,10 @@ final public class CropPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             cropTop = newValue.maxY
         }
     }
-    @LiveResolution public var cropLeft: CGFloat = 0.0
-    @LiveResolution public var cropRight: CGFloat = 1.0
-    @LiveResolution public var cropBottom: CGFloat = 0.0
-    @LiveResolution public var cropTop: CGFloat = 1.0
+    @LiveResolution(name: "Crop Left") public var cropLeft: CGFloat = 0.0
+    @LiveResolution(name: "Crop Right") public var cropRight: CGFloat = 1.0
+    @LiveResolution(name: "Crop Bottom") public var cropBottom: CGFloat = 0.0
+    @LiveResolution(name: "Crop Top") public var cropTop: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

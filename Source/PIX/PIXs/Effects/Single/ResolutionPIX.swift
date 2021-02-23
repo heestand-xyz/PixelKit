@@ -19,15 +19,15 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, 
     
     // MARK: - Public Properties
     
-    @LiveResolution public var resolution: Resolution
-    @LiveResolution public var resMultiplier: CGFloat = 1
-    @LiveResolution public var inheritInResolution: Bool = false
-    @Live public var placement: Placement = .fit
+    @LiveResolution(name: "Resolution") public var resolution: Resolution = ._128 /* TODO: Remove 128 */
+    @LiveResolution(name: "Resolution Multiplier") public var resolutionMultiplier: CGFloat = 1
+    @LiveResolution(name: "Inherit Resolution") public var inheritResolution: Bool = false
+    @Live(name: "Placement") public var placement: Placement = .fit
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_resolution, _resMultiplier, _inheritInResolution, _placement]
+        [_resolution, _resolutionMultiplier, _inheritResolution, _placement]
     }
     
     public override var uniforms: [CGFloat] {
@@ -67,8 +67,8 @@ public extension NODEOut {
         let resPix = ResolutionPIX(at: ._128)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
-        resPix.inheritInResolution = true
-        resPix.resMultiplier = resMultiplier
+        resPix.inheritResolution = true
+        resPix.resolutionMultiplier = resMultiplier
         resPix.interpolate = interpolate
         resPix.placement = placement
         return resPix

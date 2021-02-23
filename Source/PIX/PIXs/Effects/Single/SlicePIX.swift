@@ -16,7 +16,7 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var fraction: CGFloat = 0.5
+    @Live(name: "Fraction") public var fraction: CGFloat = 0.5
     public enum Axis: Floatable {
         case x
         case y
@@ -43,7 +43,7 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @Live public var axis: Axis = .z
+    @Live(name: "Axis") public var axis: Axis = .z
     
     // MARK: - Property Helpers
     

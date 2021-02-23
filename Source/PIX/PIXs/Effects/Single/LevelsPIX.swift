@@ -16,13 +16,13 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var brightness: CGFloat = 1.0
-    @Live public var darkness: CGFloat = 0.0
-    @Live public var contrast: CGFloat = 0.0
-    @Live public var gamma: CGFloat = 1.0
-    @Live public var inverted: Bool = false
-    @Live public var smooth: Bool = false
-    @Live public var opacity: CGFloat = 1.0
+    @Live(name: "Brightness", min: 0.0, max: 2.0) public var brightness: CGFloat = 1.0
+    @Live(name: "Darkness", min: 0.0, max: 1.0) public var darkness: CGFloat = 0.0
+    @Live(name: "Contrast", min: 0.0, max: 1.0) public var contrast: CGFloat = 0.0
+    @Live(name: "Gamma", min: 0.0, max: 2.0) public var gamma: CGFloat = 1.0
+    @Live(name: "Inverted") public var inverted: Bool = false
+    @Live(name: "Smooth") public var smooth: Bool = false
+    @Live(name: "Opacity", min: 0.0, max: 1.0) public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

@@ -16,20 +16,20 @@ final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var position: CGPoint = .zero
-    @Live public var radius: CGFloat = 0.25
-    @Live public var rotation: CGFloat = 0.0
-    @Live public var vertexCount: Int = 3
-    @Live public var cornerRadius: CGFloat = 0.0
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
+    @LiveFloat(name: "Radius", range: 0.0...0.5) public var radius: CGFloat = 0.25
+    @LiveFloat(name: "Rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
+    @LiveInt(name: "Count", range: 3...12) public var count: Int = 3
+    @LiveFloat(name: "Corner Radius", range: 0.0...0.1) public var cornerRadius: CGFloat = 0.0
    
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_position, _radius, _rotation, _vertexCount, _cornerRadius]
+        super.liveList + [_position, _radius, _rotation, _count, _cornerRadius]
     }
     
     override public var values: [Floatable] {
-        [radius, position, rotation, vertexCount, super.color, super.backgroundColor, cornerRadius]
+        [radius, position, rotation, count, super.color, super.backgroundColor, cornerRadius]
     }
     
     // MARK: - Life Cycle
@@ -40,11 +40,11 @@ final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             radius: CGFloat = 0.25,
-                            count vertexCount: Int = 6,
+                            count: Int = 6,
                             cornerRadius: CGFloat = 0.0) {
         self.init(at: resolution)
         self.radius = radius
-        self.vertexCount = vertexCount
+        self.count = count
         self.cornerRadius = cornerRadius
     }
     
