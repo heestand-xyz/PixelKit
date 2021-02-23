@@ -16,22 +16,28 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public enum Axis: Int, CaseIterable, Floatable {
-        case horizontal
-        case vertical
-        public var floats: [CGFloat] { [CGFloat(rawValue)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+    public enum Axis: String, Enumable {
+        case horizontal = "Horizontal"
+        case vertical = "Vertical"
+        public var index: Int {
+            switch self {
+            case .horizontal:
+                return 0
+            case .vertical:
+                return 1
+            }
+        }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    
+    @LiveEnum(name: "Axis") public var axis: Axis = .vertical
+
     var holdEdgeFraction: CGFloat {
         let axisRes = axis == .horizontal ? finalResolution.width : finalResolution.height
         return 1.0 / axisRes
     }
-    
-    @Live public var axis: Axis = .vertical
-    @Live public var holdEdge: Bool = true
+    @LiveBool(name: "Hold Edge") public var holdEdge: Bool = true
     
     // MARK: - Property Helpers
     

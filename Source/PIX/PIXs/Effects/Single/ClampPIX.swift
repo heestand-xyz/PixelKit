@@ -19,13 +19,13 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     @LiveFloat(name: "High", range: 0.0...1.0) public var high: CGFloat = 1.0
     @LiveBool(name: "Clamp Alpha") public var clampAlpha: Bool = false
     
-    public enum Style: String, CaseIterable, Floatable {
-        case hold
-        case relative
-        case loop
-        case mirror
-        case zero
-        var index: Int {
+    public enum Style: String, Enumable {
+        case hold = "Hold"
+        case relative = "Relative"
+        case loop = "Loop"
+        case mirror = "Mirror"
+        case zero = "Zero"
+        public var index: Int {
             switch self {
             case .hold: return 0
             case .loop: return 1
@@ -34,12 +34,11 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .relative: return 4
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    @Live(name: "Style") public var style: Style = .hold
+    @LiveEnum(name: "Style") public var style: Style = .hold
     
     // MARK: - Property Helpers
     

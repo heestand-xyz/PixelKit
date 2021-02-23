@@ -21,7 +21,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
     
     // MARK: - Public Properties
     
-    public enum BlurStyle: String, CaseIterable, Floatable {
+    public enum BlurStyle: String, Enumable {
         case regular
         #if !os(tvOS) && !targetEnvironment(simulator)
         case gaussian
@@ -30,7 +30,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
         case angle
         case zoom
         case random
-        var index: Int {
+        public var index: Int {
             switch self {
             case .regular:
                 #if !os(tvOS) && !targetEnvironment(simulator)
@@ -47,18 +47,17 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
             case .random: return 4
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     
-    @Live(name: "Style") public var style: BlurStyle = .regular
+    @LiveEnum(name: "Style") public var style: BlurStyle = .regular
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
     @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
-    @Live(name: "Quality") public var quality: SampleQualityMode = .mid
+    @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
     @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero
     

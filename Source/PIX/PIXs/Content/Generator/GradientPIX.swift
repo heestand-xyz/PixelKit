@@ -47,12 +47,12 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Types
     
-    public enum Direction: String, Codable, CaseIterable, Floatable {
-        case horizontal
-        case vertical
-        case radial
-        case angle
-        var index: Int {
+    public enum Direction: String, Enumable {
+        case horizontal = "Horizontal"
+        case vertical = "Vertical"
+        case radial = "Radial"
+        case angle = "Angle"
+        public var index: Int {
             switch self {
             case .horizontal: return 0
             case .vertical: return 1
@@ -60,19 +60,18 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
             case .angle: return 3
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     
     // MARK: - Public Properties
     
-    @Live(name: "Direction") public var direction: Direction = .vertical
+    @LiveEnum(name: "Direction") public var direction: Direction = .vertical
     @LiveFloat(name: "Scale") public var scale: CGFloat = 1.0
     @LiveFloat(name: "Offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @Live(name: "Extend Mode") public var extendMode: ExtendMode = .hold
+    @LiveEnum(name: "Extend Mode") public var extendMode: ExtendMode = .hold
     @Live(name: "Color Steps") public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
     
     // MARK: - Property Helpers

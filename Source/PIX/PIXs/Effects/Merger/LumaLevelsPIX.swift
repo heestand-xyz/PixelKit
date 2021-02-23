@@ -17,13 +17,13 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable, ObservableObject
     
     // MARK: - Public Properties
     
-    @Live public var brightness: CGFloat = 1.0
-    @Live public var darkness: CGFloat = 0.0
-    @Live public var contrast: CGFloat = 0.0
-    @Live public var gamma: CGFloat = 1.0
-    @Live public var inverted: Bool = false
-    @Live public var smooth: Bool = false
-    @Live public var opacity: CGFloat = 1.0
+    @LiveFloat(name: "Brightness", range: 0.0...2.0) public var brightness: CGFloat = 1.0
+    @LiveFloat(name: "Darkness") public var darkness: CGFloat = 0.0
+    @LiveFloat(name: "Contrast") public var contrast: CGFloat = 0.0
+    @LiveFloat(name: "Gamma", range: 0.0...2.0) public var gamma: CGFloat = 1.0
+    @LiveBool(name: "Inverted") public var inverted: Bool = false
+    @LiveBool(name: "Smooth") public var smooth: Bool = false
+    @LiveFloat(name: "Opacity") public var opacity: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

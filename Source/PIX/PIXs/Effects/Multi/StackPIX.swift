@@ -18,31 +18,9 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
-    public enum Axis: Floatable {
-        public enum VerticalAlignment: Int {
-            case bottom = -1
-            case center = 0
-            case top = 1
-        }
-        case horizontal(alignment: VerticalAlignment = .center)
-        public enum HorizontalAlignment: Int {
-            case left = -1
-            case center = 0
-            case right = 1
-        }
-        case vertical(alignment: HorizontalAlignment = .center)
-        public init?(index: Int, alignmentIndex: Int) {
-            switch index {
-            case 0:
-                guard let alignment = VerticalAlignment(rawValue: alignmentIndex) else { return nil }
-                self = .horizontal(alignment: alignment)
-            case 1:
-                guard let alignment = HorizontalAlignment(rawValue: alignmentIndex) else { return nil }
-                self = .vertical(alignment: alignment)
-            default:
-                return nil
-            }
-        }
+    public enum Axis: String, Enumable {
+        case horizontal = "Horizontal"
+        case vertical = "Vertical"
         public var index: Int {
             switch self {
             case .horizontal:
@@ -51,39 +29,44 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
                 return 1
             }
         }
-        public var alignmentIndex: Int {
-            switch self {
-            case .horizontal(alignment: let alignment):
-                return alignment.rawValue
-            case .vertical(alignment: let alignment):
-                return alignment.rawValue
-            }
-        }
-        public var floats: [CGFloat] { [CGFloat(index), CGFloat(alignmentIndex)] }
-        public init(floats: [CGFloat]) {
-            guard floats.count == 2 else {
-                self = .horizontal(alignment: .center)
-                return
-            }
-            let index: Int = Int(floats[0])
-            let alignmentIndex: Int = Int(floats[1])
-            self = Axis(index: index, alignmentIndex: alignmentIndex) ?? .horizontal(alignment: .center)
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    @Live public var axis: Axis = .vertical(alignment: .center)
+    @LiveEnum(name: "Axis") public var axis: Axis = .vertical
     
-    @Live public var spacing: CGFloat = 0.0
-    @Live public var padding: CGFloat = 0.0
+    public enum Alignment: String, Enumable {
+        case leading = "Leading"
+        case center = "Center"
+        case trailing = "Trailing"
+        public var index: Int {
+            switch self {
+            case .leading:
+                return -1
+            case .center:
+                return 0
+            case .trailing:
+                return 1
+            }
+        }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
+        }
+    }
+    @LiveEnum(name: "Alignment") public var alignment: Alignment = .center
     
-    @Live public var backgroundColor: PixelColor = .clear
+    @LiveFloat(name: "Spacing", range: 0.0...0.25) public var spacing: CGFloat = 0.0
+    @LiveFloat(name: "Padding", range: 0.0...0.25) public var padding: CGFloat = 0.0
+    
+    @LiveColor(name: "Background Color") public var backgroundColor: PixelColor = .clear
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_axis, _spacing, _padding, _backgroundColor]
+        [_axis, _alignment, _spacing, _padding, _backgroundColor]
     }
     
-    public override var values: [Floatable] { [axis, spacing, padding, backgroundColor] }
+    public override var values: [Floatable] { [axis, alignment, spacing, padding, backgroundColor] }
         
     public override var extraUniforms: [CGFloat] {
         (0..<10).map { i -> CGFloat in
@@ -102,12 +85,14 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
-                            axis: Axis = .vertical(alignment: .center),
+                            axis: Axis = .vertical,
+                            alignment: Alignment = .center,
                             spacing: CGFloat = 0.0,
                             padding: CGFloat = 0.0,
                             @PIXBuilder inputs: () -> ([PIX & NODEOut]) = { [] }) {
         self.init(at: resolution)
         self.axis = axis
+        self.alignment = alignment
         self.spacing = spacing
         self.padding = padding
         super.inputs = inputs()
@@ -137,24 +122,25 @@ public func pixVStack(spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: ()
     pixVStack(inputs(), spacing: spacing, padding: padding)
 }
 public func pixVStack(_ inputs: [PIX & NODEOut], spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
-    pixStack(inputs, axis: .vertical(alignment: .center), spacing: spacing, padding: padding)
+    pixStack(inputs, axis: .vertical, alignment: .center, spacing: spacing, padding: padding)
 }
 
 public func pixHStack(spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
     pixHStack(inputs(), spacing: spacing, padding: padding)
 }
 public func pixHStack(_ inputs: [PIX & NODEOut], spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
-    pixStack(inputs, axis: .horizontal(alignment: .center), spacing: spacing, padding: padding)
+    pixStack(inputs, axis: .horizontal, alignment: .center, spacing: spacing, padding: padding)
 }
 
-public func pixStack(axis: StackPIX.Axis, spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
-    pixStack(inputs(), axis: axis, spacing: spacing, padding: padding)
+public func pixStack(axis: StackPIX.Axis, alignment: StackPIX.Alignment, spacing: CGFloat = 0.0, padding: CGFloat = 0.0, inputs: () -> ([PIX & NODEOut])) -> StackPIX {
+    pixStack(inputs(), axis: axis, alignment: alignment, spacing: spacing, padding: padding)
 }
-public func pixStack(_ inputs: [PIX & NODEOut], axis: StackPIX.Axis, spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
+public func pixStack(_ inputs: [PIX & NODEOut], axis: StackPIX.Axis, alignment: StackPIX.Alignment, spacing: CGFloat = 0.0, padding: CGFloat = 0.0) -> StackPIX {
     let stackPix = StackPIX()
     stackPix.inputs = inputs
     stackPix.name = ":stack:"
     stackPix.axis = axis
+    stackPix.alignment = alignment
     stackPix.spacing = spacing
     stackPix.padding = padding
     return stackPix

@@ -16,12 +16,12 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public enum LumaBlurStyle: String, CaseIterable, Floatable {
-        case box
-        case angle
-        case zoom
-        case random
-        var index: Int {
+    public enum LumaBlurStyle: String, Enumable {
+        case box = "Box"
+        case angle = "Angle"
+        case zoom = "Zoom"
+        case random = "Random"
+        public var index: Int {
             switch self {
             case .box: return 0
             case .angle: return 1
@@ -29,17 +29,16 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .random: return 4
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     
-    @Live public var style: LumaBlurStyle = .box
-    @Live public var radius: CGFloat = 0.5
-    @Live public var quality: SampleQualityMode = .mid
-    @Live public var angle: CGFloat = 0.0
-    @Live public var position: CGPoint = .zero
+    @LiveEnum(name: "Style") public var style: LumaBlurStyle = .box
+    @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
+    @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
+    @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     
@@ -117,7 +116,7 @@ public extension NODEOut {
         gradientPix.direction = .vertical
         gradientPix.offset = 0.5 + offset
         gradientPix.scale = 0.5 * scale
-        gradientPix.extendRamp = .mirror
+        gradientPix.extendMode = .mirror
         return pix.pixLumaBlur(pix: gradientPix !** gamma, radius: radius, quality: quality)
     }
     

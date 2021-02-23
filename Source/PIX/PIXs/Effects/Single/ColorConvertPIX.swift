@@ -15,30 +15,36 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     
     // MARK: - Public Properties
     
-    public enum Direction: String, CaseIterable, Floatable {
+    public enum Direction: String, Enumable {
         case rgbToHsv = "RGB to HSV"
         case hsvToRgb = "HSV to RGB"
-        var index: Int {
+        public var index: Int {
             switch self {
             case .rgbToHsv: return 0
             case .hsvToRgb: return 1
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    @Live(name: "Direction") public var direction: Direction = .rgbToHsv
+    @LiveEnum(name: "Direction") public var direction: Direction = .rgbToHsv
 
-    public enum Filter: Int, CaseIterable, Floatable {
-        case all = 0
-        case first = 1
-        case second = 2
-        case third = 3
-        public var floats: [CGFloat] { [CGFloat(rawValue)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+    public enum Filter: String, Enumable {
+        case all = "All"
+        case first = "First"
+        case second = "Second"
+        case third = "Third"
+        public var index: Int {
+            switch self {
+            case .all: return 0
+            case .first: return 1
+            case .second: return 2
+            case .third: return 3
+            }
+        }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     /// Filter
@@ -46,7 +52,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     /// RGB to HSV - First is Hue, Second is Saturation, Third is Value
     ///
     /// HSV to RGB - First is Red, Second is Green, Third is Blue
-    @Live(name: "Filter") public var filter: Filter = .all
+    @LiveEnum(name: "Filter") public var filter: Filter = .all
     
     // MARK: - Property Helpers
     
@@ -55,7 +61,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     }
     
     public override var uniforms: [CGFloat] {
-        [CGFloat(direction.index), CGFloat(filter.rawValue)]
+        [CGFloat(direction.index), CGFloat(filter.index)]
     }
     
     // MARK: - Life Cycle

@@ -16,45 +16,17 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     
     // MARK: - Public Properties
     
-    public struct Corners: Floatable {
-        public var topLeft: CGPoint
-        public var topRight: CGPoint
-        public var bottomLeft: CGPoint
-        public var bottomRight: CGPoint
-        init(topLeft: CGPoint,
-             topRight: CGPoint,
-             bottomLeft: CGPoint,
-             bottomRight: CGPoint) {
-            self.topLeft = topLeft
-            self.topRight = topRight
-            self.bottomLeft = bottomLeft
-            self.bottomRight = bottomRight
-        }
-        public var floats: [CGFloat] {
-            topLeft.floats + topRight.floats + bottomLeft.floats + bottomRight.floats
-        }
-        public init(floats: [CGFloat]) {
-            guard floats.count == 8 else { self = Corners(topLeft: CGPoint(x: 0, y: 1),
-                                                          topRight: CGPoint(x: 1, y: 1),
-                                                          bottomLeft: CGPoint(x: 0, y: 0),
-                                                          bottomRight: CGPoint(x: 1, y: 0)); return }
-            self = Corners(topLeft: CGPoint(x: floats[0], y: floats[1]),
-                           topRight: CGPoint(x: floats[2], y: floats[3]),
-                           bottomLeft: CGPoint(x: floats[4], y: floats[5]),
-                           bottomRight: CGPoint(x: floats[6], y: floats[7]))
-        }
-    }
-    @Live(name: "Corners") public var corners: Corners = Corners(topLeft: CGPoint(x: 0, y: 1),
-                                                                 topRight: CGPoint(x: 1, y: 1),
-                                                                 bottomLeft: CGPoint(x: 0, y: 0),
-                                                                 bottomRight: CGPoint(x: 1, y: 0))
+    @LivePoint(name: "Top Left") public var topLeft: CGPoint = CGPoint(x: 0, y: 1)
+    @LivePoint(name: "Top Right") public var topRight: CGPoint = CGPoint(x: 1, y: 1)
+    @LivePoint(name: "Bottom Left") public var bottomLeft: CGPoint = CGPoint(x: 0, y: 0)
+    @LivePoint(name: "Bottom Right") public var bottomRight: CGPoint = CGPoint(x: 1, y: 0)
     @LiveBool(name: "Perspective") public var perspective: Bool = false
     @LiveInt(name: "Subdivisions", range: 8...32) public var subdivisions: Int = 16
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_corners, _perspective, _subdivisions]
+        [_topLeft, _topRight, _bottomLeft, _bottomRight, _perspective, _subdivisions]
     }
     
     // MARK: - Life Cycle
@@ -95,8 +67,8 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     
     func cornerPin() -> [[Vertex]] {
         
-        let cx = [corners.bottomLeft.x, corners.bottomRight.x, corners.topRight.x, corners.topLeft.x]
-        let cy = [corners.bottomLeft.y, corners.bottomRight.y, corners.topRight.y, corners.topLeft.y]
+        let cx = [bottomLeft.x, bottomRight.x, topRight.x, topLeft.x]
+        let cy = [bottomLeft.y, bottomRight.y, topRight.y, topLeft.y]
         
         let sX = cx[0]-cx[1]+cx[2]-cx[3]
         let sY = cy[0]-cy[1]+cy[2]-cy[3]
@@ -147,8 +119,8 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
                 if perspective {
                     pos = CGPoint(x: (a*u + b*v + c)/(g*u+h*v+1), y: (d*u + e*v + f)/(g*u+h*v+1))
                 } else {
-                    let bottom = add(scale(corners.bottomLeft, by: 1.0 - u), scale(corners.bottomRight, by: u))
-                    let top = add(scale(corners.topLeft, by: 1.0 - u), scale(corners.topRight, by: u))
+                    let bottom = add(scale(bottomLeft, by: 1.0 - u), scale(bottomRight, by: u))
+                    let top = add(scale(topLeft, by: 1.0 - u), scale(topRight, by: u))
                     pos = add(scale(bottom, by: 1.0 - v), scale(top, by: v))
                 }
                 let vert = Vertex(x: CGFloat(pos.x * 2 - 1), y: CGFloat(pos.y * 2 - 1), s: CGFloat(u), t: CGFloat(1.0 - v))
@@ -191,7 +163,10 @@ public extension NODEOut {
         let cornerPixPix = CornerPinPIX()
         cornerPixPix.name = ":cornerPin:"
         cornerPixPix.input = self as? PIX & NODEOut
-        cornerPixPix.corners = CornerPinPIX.Corners(topLeft: topLeft, topRight: topRight, bottomLeft: bottomLeft, bottomRight: bottomRight)
+        cornerPixPix.topLeft = topLeft
+        cornerPixPix.topRight = topRight
+        cornerPixPix.bottomLeft = bottomLeft
+        cornerPixPix.bottomRight = bottomRight
         return cornerPixPix
     }
     

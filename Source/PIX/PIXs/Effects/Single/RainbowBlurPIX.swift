@@ -17,26 +17,25 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
     
     // MARK: - Public Properties
     
-    public enum RainbowBlurStyle: String, CaseIterable, Floatable {
-        case circle
-        case angle
-        case zoom
-        var index: Int {
+    public enum RainbowBlurStyle: String, Enumable {
+        case circle = "Circle"
+        case angle = "Angle"
+        case zoom = "Zoom"
+        public var index: Int {
             switch self {
             case .circle: return 1
             case .angle: return 2
             case .zoom: return 3
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     
-    @Live(name: "Style") public var style: RainbowBlurStyle = .zoom
+    @LiveEnum(name: "Style") public var style: RainbowBlurStyle = .zoom
     @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
-    @Live(name: "Quality") public var quality: SampleQualityMode = .mid
+    @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
     @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero
     @LiveFloat(name: "Light", range: 0.0...2.0) public var light: CGFloat = 1.0

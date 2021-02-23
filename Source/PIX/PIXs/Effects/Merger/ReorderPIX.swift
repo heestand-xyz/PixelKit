@@ -16,14 +16,25 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public enum Input: Int, CaseIterable, Floatable {
-        case a
-        case b
-        public var floats: [CGFloat] { [CGFloat(rawValue)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+    public enum Input: String, Enumable {
+        case first = "First"
+        case second = "Second"
+        public var index: Int {
+            switch self {
+            case .first:
+                return 0
+            case .second:
+                return 1
+            }
+        }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
+    @LiveEnum(name: "Red Input") public var redInput: Input = .first
+    @LiveEnum(name: "Green Input") public var greenInput: Input = .first
+    @LiveEnum(name: "Blue Input") public var blueInput: Input = .first
+    @LiveEnum(name: "Alpha Input") public var alphaInput: Input = .first
     
     public enum RawChannel {
         case red
@@ -31,15 +42,15 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         case blue
         case alpha
     }
-    public enum Channel: String, CaseIterable, Floatable {
-        case red = "R"
-        case green = "G"
-        case blue = "B"
-        case alpha = "A"
+    public enum Channel: String, Enumable {
+        case red = "Red"
+        case green = "Greeb"
+        case blue = "Blue"
+        case alpha = "Alpha"
         case zero = "Zero"
         case one = "One"
-        case lum = "Lum"
-        var index: Int {
+        case luma = "Luma"
+        public var index: Int {
             switch self {
             case .red: return 0
             case .green: return 1
@@ -47,24 +58,19 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .alpha: return 3
             case .zero: return 4
             case .one: return 5
-            case .lum: return 6
+            case .luma: return 6
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
+    @LiveEnum(name: "Red Channel") public var redChannel: Channel = .red
+    @LiveEnum(name: "Green Channel") public var greenChannel: Channel = .green
+    @LiveEnum(name: "Blue Channel") public var blueChannel: Channel = .blue
+    @LiveEnum(name: "Alpha Channel") public var alphaChannel: Channel = .alpha
     
-    @Live public var redInput: Input = .a
-    @Live public var redChannel: Channel = .red
-    @Live public var greenInput: Input = .a
-    @Live public var greenChannel: Channel = .green
-    @Live public var blueInput: Input = .a
-    @Live public var blueChannel: Channel = .blue
-    @Live public var alphaInput: Input = .a
-    @Live public var alphaChannel: Channel = .alpha
-    @Live public var premultiply: Bool = true
+    @LiveBool(name: "Premultiply") public var premultiply: Bool = true
     
     // MARK: - Property Helpers
     
@@ -74,10 +80,10 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     public override var uniforms: [CGFloat] {
         var vals: [CGFloat] = []
-        vals.append(contentsOf: [redInput == .a ? 0 : 1, CGFloat(redChannel.index)])
-        vals.append(contentsOf: [greenInput == .a ? 0 : 1, CGFloat(greenChannel.index)])
-        vals.append(contentsOf: [blueInput == .a ? 0 : 1, CGFloat(blueChannel.index)])
-        vals.append(contentsOf: [alphaInput == .a ? 0 : 1, CGFloat(alphaChannel.index)])
+        vals.append(contentsOf: [redInput == .first ? 0 : 1, CGFloat(redChannel.index)])
+        vals.append(contentsOf: [greenInput == .first ? 0 : 1, CGFloat(greenChannel.index)])
+        vals.append(contentsOf: [blueInput == .first ? 0 : 1, CGFloat(blueChannel.index)])
+        vals.append(contentsOf: [alphaInput == .first ? 0 : 1, CGFloat(alphaChannel.index)])
         vals.append(premultiply ? 1 : 0)
         vals.append(CGFloat(placement.index))
         return vals
@@ -102,16 +108,16 @@ public extension NODEOut {
         reorderPix.inputB = pix
         switch rawChannel {
         case .red:
-            reorderPix.redInput = .b
+            reorderPix.redInput = .second
             reorderPix.redChannel = channel
         case .green:
-            reorderPix.greenInput = .b
+            reorderPix.greenInput = .second
             reorderPix.greenChannel = channel
         case .blue:
-            reorderPix.blueInput = .b
+            reorderPix.blueInput = .second
             reorderPix.blueChannel = channel
         case .alpha:
-            reorderPix.alphaInput = .b
+            reorderPix.alphaInput = .second
             reorderPix.alphaChannel = channel
         }
         return reorderPix

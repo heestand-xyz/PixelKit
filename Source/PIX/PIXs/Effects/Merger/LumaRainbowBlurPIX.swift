@@ -19,29 +19,28 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableO
     
     // MARK: - Public Properties
     
-    public enum RainbowLumaBlurStyle: String, CaseIterable, Floatable {
-        case circle
-        case angle
-        case zoom
-        var index: Int {
+    public enum RainbowLumaBlurStyle: String, Enumable {
+        case circle = "Circle"
+        case angle = "Angle"
+        case zoom = "Zoom"
+        public var index: Int {
             switch self {
             case .circle: return 1
             case .angle: return 2
             case .zoom: return 3
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
     
-    @Live public var style: RainbowLumaBlurStyle = .angle
-    @Live public var radius: CGFloat = 0.5
-    @Live public var quality: SampleQualityMode = .mid
-    @Live public var angle: CGFloat = 0.0
-    @Live public var position: CGPoint = .zero
-    @Live public var light: CGFloat = 1.0
+    @LiveEnum(name: "Style") public var style: RainbowLumaBlurStyle = .angle
+    @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
+    @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
+    @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
+    @LiveFloat(name: "Light", range: 0.0...2.0) public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
     

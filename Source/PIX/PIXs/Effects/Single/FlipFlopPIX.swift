@@ -16,12 +16,12 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
         
-    public enum Flip: String, Codable, CaseIterable, Floatable {
-        case none
-        case x
-        case y
-        case xy
-        var index: Int {
+    public enum Flip: String, Enumable {
+        case none = "None"
+        case x = "X"
+        case y = "Y"
+        case xy = "XY"
+        public var index: Int {
             switch self {
             case .none: return 0
             case .x: return 1
@@ -29,31 +29,28 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .xy: return 3
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
+    @LiveEnum(name: "Flip") public var flip: Flip = .none
     
-    public enum Flop: String, Codable, CaseIterable, Floatable {
-        case none
-        case left
-        case right
-        var index: Int {
+    public enum Flop: String, Enumable {
+        case none = "None"
+        case left = "Left"
+        case right = "Right"
+        public var index: Int {
             switch self {
             case .none: return 0
             case .left: return 1
             case .right: return 2
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    
-    @Live(name: "Flip") public var flip: Flip = .none
-    @Live(name: "Flop", updateResolution: true) public var flop: Flop = .none
+    @LiveEnum(name: "Flop", updateResolution: true) public var flop: Flop = .none
     
     // MARK: - Property Helpers
     

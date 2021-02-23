@@ -17,10 +17,10 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable, ObservableObject
     
     // MARK: - Public Properties
     
-    @Live(name: "Red") public var red: PixelColor.Channel = .red
-    @Live(name: "Green") public var green: PixelColor.Channel = .green
-    @Live(name: "Blue") public var blue: PixelColor.Channel = .blue
-    @Live(name: "Alpha") public var alpha: PixelColor.Channel = .alpha
+    @LiveEnum(name: "Red") public var red: PixelColor.Channel = .red
+    @LiveEnum(name: "Green") public var green: PixelColor.Channel = .green
+    @LiveEnum(name: "Blue") public var blue: PixelColor.Channel = .blue
+    @LiveEnum(name: "Alpha") public var alpha: PixelColor.Channel = .alpha
     
     // MARK: - Property Helpers
     

@@ -19,12 +19,12 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var blendMode: RenderKit.BlendMode = .average
-    @Live public var bypassTransform: Bool = false
-    @Live public var position: CGPoint = .zero
-    @Live public var rotation: CGFloat = 0.0
-    @Live public var scale: CGFloat = 1.0
-    @Live public var size: CGSize = CGSize(width: 1.0, height: 1.0)
+    @LiveEnum(name: "Blend Mode") public var blendMode: RenderKit.BlendMode = .average
+    @LiveBool(name: "Bypass Transform") public var bypassTransform: Bool = false
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
+    @LiveFloat(name: "Rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
+    @LiveFloat(name: "Scale", range: 0.0...2.0) public var scale: CGFloat = 1.0
+    @LiveSize(name: "Size") public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     

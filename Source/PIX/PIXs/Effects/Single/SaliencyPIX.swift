@@ -21,9 +21,9 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
     // MARK: - Public Properties
     
-    public enum SaliencyStyle: String, CaseIterable, Floatable {
-        case attention
-        case objectness
+    public enum SaliencyStyle: String, Enumable {
+        case attention = "Attention"
+        case objectness = "Objectness"
         var revision: Int {
             switch self {
             case .attention:
@@ -32,9 +32,9 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
                 return VNGenerateObjectnessBasedSaliencyImageRequestRevision1
             }
         }
-        public var floats: [CGFloat] { [CGFloat(revision)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.revision == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var index: Int { revision }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
         func request() -> VNImageBasedRequest {
             switch self {
@@ -45,7 +45,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
     }
-    @Live(name: "Style") public var style: SaliencyStyle = .attention
+    @LiveEnum(name: "Style") public var style: SaliencyStyle = .attention
     
     // MARK: - Property Helpers
     

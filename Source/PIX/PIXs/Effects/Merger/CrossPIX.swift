@@ -16,7 +16,7 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var fraction: CGFloat = 0.5
+    @LiveFloat(name: "Fraction") public var fraction: CGFloat = 0.5
     
     // MARK: - Property Helpers
     

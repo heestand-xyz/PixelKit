@@ -14,7 +14,7 @@ import CoreGraphics
 
 extension PIX {
     
-    public enum SampleQualityMode: Int, Codable, CaseIterable, Floatable {
+    public enum SampleQualityMode: Int, Codable, Enumable {
         case bad = 2
         case low = 4
         case mid = 8
@@ -22,9 +22,11 @@ extension PIX {
         case extreme = 32
         case insane = 64
         case epic = 128
-        public var floats: [CGFloat] { [CGFloat(rawValue)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var index: Int {
+            rawValue
+        }
+        public var names: [String] {
+            Self.allCases.map { "\($0.rawValue)" }
         }
     }
     

@@ -17,33 +17,22 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     @LiveFloat(name: "Fraction") public var fraction: CGFloat = 0.5
-    public enum Axis: Floatable {
-        case x
-        case y
-        case z
-        var index: Int {
+    public enum Axis: String, Enumable {
+        case x = "X"
+        case y = "Y"
+        case z = "Z"
+        public var index: Int {
             switch self {
             case .x: return 0
             case .y: return 1
             case .z: return 2
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            let index: Int = Int(floats.first ?? 0.0)
-            switch index {
-            case 0:
-                self = .x
-            case 1:
-                self = .y
-            case 2:
-                self = .z
-            default:
-                self = .x
-            }
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    @Live(name: "Axis") public var axis: Axis = .z
+    @LiveEnum(name: "Axis") public var axis: Axis = .z
     
     // MARK: - Property Helpers
     

@@ -26,14 +26,14 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public enum ConvertMode: String, CaseIterable, Floatable {
-        case domeToEqui
-        case equiToDome
-        case cubeToEqui
+    public enum ConvertMode: String, Enumable {
+        case domeToEqui = "Dome to Equi"
+        case equiToDome = "Equi to Dome"
+        case cubeToEqui = "Cube to Equi"
 //        case equiToCube
-        case squareToCircle
-        case circleToSquare
-        var index: Int {
+        case squareToCircle = "Square to Circle"
+        case circleToSquare = "Circle to Square"
+        public var index: Int {
             switch self {
             case .domeToEqui: return 0
             case .equiToDome: return 1
@@ -43,12 +43,11 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .circleToSquare: return 5
             }
         }
-        public var floats: [CGFloat] { [CGFloat(index)] }
-        public init(floats: [CGFloat]) {
-            self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
+        public var names: [String] {
+            Self.allCases.map(\.rawValue)
         }
     }
-    @Live(name: "Mode") public var mode: ConvertMode = .squareToCircle
+    @LiveEnum(name: "Mode") public var mode: ConvertMode = .squareToCircle
     
     @LiveFloat(name: "X Rotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
     @LiveFloat(name: "Y Rotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
