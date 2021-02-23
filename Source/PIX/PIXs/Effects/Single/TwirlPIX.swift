@@ -16,7 +16,7 @@ final public class TwirlPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var strength: CGFloat = 2.0
+    @LiveFloat(name: "Strength", range: 0.0...5.0) public var strength: CGFloat = 2.0
     
     // MARK: - Property Helpers
     

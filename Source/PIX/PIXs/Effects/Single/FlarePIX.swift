@@ -18,14 +18,14 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live public var scale: CGFloat = 0.25
-    @Live public var count: Int = 6
-    @Live public var angle: CGFloat = 0.25
-    @Live public var threshold: CGFloat = 0.95
-    @Live public var brightness: CGFloat = 1.0
-    @Live public var gamma: CGFloat = 0.25
-    @Live public var color: PixelColor = .orange
-    @Live public var rayRes: Int = 32
+    @LiveFloat(name: "Scale") public var scale: CGFloat = 0.25
+    @LiveInt(name: "Count", range: 2...12) public var count: Int = 6
+    @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.25
+    @LiveFloat(name: "Threshold", range: 0.5...1.0) public var threshold: CGFloat = 0.95
+    @LiveFloat(name: "Brightness") public var brightness: CGFloat = 1.0
+    @LiveFloat(name: "Gamma") public var gamma: CGFloat = 0.25
+    @LiveColor(name: "Color") public var color: PixelColor = .orange
+    @LiveInt(name: "Ray Res", range: 8...64) public var rayRes: Int = 32
     
     // MARK: - Property Helpers
     

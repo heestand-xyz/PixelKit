@@ -52,8 +52,8 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
         }
     }
     
-    @Live public var flip: Flip = .none
-    @LiveResolution public var flop: Flop = .none
+    @Live(name: "Flip") public var flip: Flip = .none
+    @Live(name: "Flop", updateResolution: true) public var flop: Flop = .none
     
     // MARK: - Property Helpers
     

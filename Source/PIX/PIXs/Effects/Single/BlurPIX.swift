@@ -53,14 +53,14 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
         }
     }
     
-    @Live public var style: BlurStyle = .regular
+    @Live(name: "Style") public var style: BlurStyle = .regular
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    @Live public var radius: CGFloat = 0.5
-    @Live public var quality: SampleQualityMode = .mid
-    @Live public var angle: CGFloat = 0.0
-    @Live public var position: CGPoint = .zero
+    @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
+    @Live(name: "Quality") public var quality: SampleQualityMode = .mid
+    @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
+    @LivePoint(name: "Position") public var position: CGPoint = .zero
     
     // MARK: - Property Helpers
     

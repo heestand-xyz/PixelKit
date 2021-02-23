@@ -48,10 +48,10 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
         }
     }
-    @Live public var mode: ConvertMode = .squareToCircle
+    @Live(name: "Mode") public var mode: ConvertMode = .squareToCircle
     
-    @Live public var xRotation: CGFloat = 0.0
-    @Live public var yRotation: CGFloat = 0.0
+    @LiveFloat(name: "X Rotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
+    @LiveFloat(name: "Y Rotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
     
     // MARK: - Property Helpers
     

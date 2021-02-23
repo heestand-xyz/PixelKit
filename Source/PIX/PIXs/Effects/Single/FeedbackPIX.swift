@@ -29,7 +29,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
         return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
-    @Live(name: "Feed Active") public var feedActive: Bool = true
+    @LiveBool(name: "Feed Active") public var feedActive: Bool = true
     public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
     
     // MARK: - Property Helpers

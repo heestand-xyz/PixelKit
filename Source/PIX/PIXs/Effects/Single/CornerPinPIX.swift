@@ -44,10 +44,12 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
                            bottomRight: CGPoint(x: floats[6], y: floats[7]))
         }
     }
-    @Live public var corners: Corners
-    
-    @Live public var perspective: Bool = false
-    @Live public var subdivisions: Int = 16
+    @Live(name: "Corners") public var corners: Corners = Corners(topLeft: CGPoint(x: 0, y: 1),
+                                                                 topRight: CGPoint(x: 1, y: 1),
+                                                                 bottomLeft: CGPoint(x: 0, y: 0),
+                                                                 bottomRight: CGPoint(x: 1, y: 0))
+    @LiveBool(name: "Perspective") public var perspective: Bool = false
+    @LiveInt(name: "Subdivisions", range: 8...32) public var subdivisions: Int = 16
     
     // MARK: - Property Helpers
     
@@ -58,10 +60,6 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     // MARK: - Life Cycle
     
     public required init() {
-        corners = Corners(topLeft: CGPoint(x: 0, y: 1),
-                          topRight: CGPoint(x: 1, y: 1),
-                          bottomLeft: CGPoint(x: 0, y: 0),
-                          bottomRight: CGPoint(x: 1, y: 0))
         super.init(name: "Corner Pin", typeName: "pix-effect-single-corner-pin")
         customGeometryActive = true
         customGeometryDelegate = self

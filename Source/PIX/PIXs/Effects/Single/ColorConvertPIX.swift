@@ -15,7 +15,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     
     // MARK: - Public Properties
     
-    public enum ColorConvertWay: String, CaseIterable, Floatable {
+    public enum Direction: String, CaseIterable, Floatable {
         case rgbToHsv = "RGB to HSV"
         case hsvToRgb = "HSV to RGB"
         var index: Int {
@@ -29,9 +29,9 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             self = Self.allCases.first(where: { $0.index == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
         }
     }
-    @Live public var ccWay: ColorConvertWay = .rgbToHsv
+    @Live(name: "Direction") public var direction: Direction = .rgbToHsv
 
-    public enum ColorConvertIndex: Int, CaseIterable, Floatable {
+    public enum Filter: Int, CaseIterable, Floatable {
         case all = 0
         case first = 1
         case second = 2
@@ -41,21 +41,21 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             self = Self.allCases.first(where: { $0.rawValue == Int(floats.first ?? 0.0) }) ?? Self.allCases.first!
         }
     }
-    /// Color Convert Index
+    /// Filter
     ///
     /// RGB to HSV - First is Hue, Second is Saturation, Third is Value
     ///
     /// HSV to RGB - First is Red, Second is Green, Third is Blue
-    @Live public var ccIndex: ColorConvertIndex = .all
+    @Live(name: "Filter") public var filter: Filter = .all
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_ccWay, _ccIndex]
+        [_direction, _filter]
     }
     
     public override var uniforms: [CGFloat] {
-        [CGFloat(ccWay.index), CGFloat(ccIndex.rawValue)]
+        [CGFloat(direction.index), CGFloat(filter.rawValue)]
     }
     
     // MARK: - Life Cycle
@@ -72,7 +72,7 @@ public extension NODEOut {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToHsv:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
-        colorConvertPix.ccWay = .rgbToHsv
+        colorConvertPix.direction = .rgbToHsv
         return colorConvertPix
     }
     
@@ -80,8 +80,8 @@ public extension NODEOut {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToHue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
-        colorConvertPix.ccWay = .rgbToHsv
-        colorConvertPix.ccIndex = .first
+        colorConvertPix.direction = .rgbToHsv
+        colorConvertPix.filter = .first
         return colorConvertPix
     }
     
@@ -89,8 +89,8 @@ public extension NODEOut {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToSaturation:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
-        colorConvertPix.ccWay = .rgbToHsv
-        colorConvertPix.ccIndex = .second
+        colorConvertPix.direction = .rgbToHsv
+        colorConvertPix.filter = .second
         return colorConvertPix
     }
     
@@ -98,8 +98,8 @@ public extension NODEOut {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "rgbToValue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
-        colorConvertPix.ccWay = .rgbToHsv
-        colorConvertPix.ccIndex = .third
+        colorConvertPix.direction = .rgbToHsv
+        colorConvertPix.filter = .third
         return colorConvertPix
     }
     
@@ -107,7 +107,7 @@ public extension NODEOut {
         let colorConvertPix = ColorConvertPIX()
         colorConvertPix.name = "hsvToRgb:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
-        colorConvertPix.ccWay = .hsvToRgb
+        colorConvertPix.direction = .hsvToRgb
         return colorConvertPix
     }
     

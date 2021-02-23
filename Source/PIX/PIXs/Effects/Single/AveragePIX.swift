@@ -42,7 +42,7 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @Live public var axis: Axis = .z
+    @Live(name: "Axis") public var axis: Axis = .z
 
     // MARK: - Property Helpers
 

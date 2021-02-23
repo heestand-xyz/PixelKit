@@ -69,7 +69,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     @Live(name: "Direction") public var direction: Direction = .vertical
-    @LiveFloat(name: "Scale", range: 0.0...1.0) public var scale: CGFloat = 1.0
+    @LiveFloat(name: "Scale") public var scale: CGFloat = 1.0
     @LiveFloat(name: "Offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero
     @Live(name: "Extend Mode") public var extendMode: ExtendMode = .hold

@@ -17,15 +17,15 @@ final public class RangePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live(name: "In Low") public var inLow: CGFloat = 0.0
-    @Live(name: "In High") public var inHigh: CGFloat = 1.0
-    @Live(name: "Out Low") public var outLow: CGFloat = 0.0
-    @Live(name: "Out High") public var outHigh: CGFloat = 1.0
-    @Live(name: "In Low Color") public var inLowColor: PixelColor = .clear
-    @Live(name: "In High Color") public var inHighColor: PixelColor = .white
-    @Live(name: "Out Low Color") public var outLowColor: PixelColor = .clear
-    @Live(name: "Out High Color") public var outHighColor: PixelColor = .white
-    @Live(name: "Ignore Alpha") public var ignoreAlpha: Bool = true
+    @LiveFloat(name: "In Low") public var inLow: CGFloat = 0.0
+    @LiveFloat(name: "In High") public var inHigh: CGFloat = 1.0
+    @LiveFloat(name: "Out Low") public var outLow: CGFloat = 0.0
+    @LiveFloat(name: "Out High") public var outHigh: CGFloat = 1.0
+    @LiveColor(name: "In Low Color") public var inLowColor: PixelColor = .clear
+    @LiveColor(name: "In High Color") public var inHighColor: PixelColor = .white
+    @LiveColor(name: "Out Low Color") public var outLowColor: PixelColor = .clear
+    @LiveColor(name: "Out High Color") public var outHighColor: PixelColor = .white
+    @LiveBool(name: "Ignore Alpha") public var ignoreAlpha: Bool = true
     
     // MARK: - Property Helpers
     

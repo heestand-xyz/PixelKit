@@ -16,7 +16,7 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @Live(name: "Color") public var color: PixelColor = .orange
+    @LiveColor(name: "Color") public var color: PixelColor = .orange
     
     // MARK: - Property Helpers
     

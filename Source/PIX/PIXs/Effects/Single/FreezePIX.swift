@@ -16,9 +16,13 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public var freeze: Bool = false
+    @LiveBool(name: "Freeze") public var freeze: Bool = false
     
     // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_freeze]
+    }
     
     override public var values: [Floatable] {
         [freeze]
