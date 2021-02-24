@@ -1,5 +1,7 @@
 
-public enum PIXSingleEffectType: String, Codable, CaseIterable {
+public enum PIXSingleEffectType: String, Codable, CaseIterable, Identifiable {
+    
+    public var id: String { rawValue }
     
     case average
     case blur
