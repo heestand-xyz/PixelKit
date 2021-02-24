@@ -79,21 +79,21 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
     
     public init() {
         super.init(name: "Image", typeName: "pix-content-resource-image")
-        self.applyResolution {
-            self.setNeedsRender()
-        }
-        pixelKit.render.listenToFramesUntil {
-            if self.derivedResolution != nil {
-                return .done
-            }
-            if self.derivedResolution != ._128 {
-                self.applyResolution {
-                    self.setNeedsRender()
-                }
-                return .done
-            }
-            return .continue
-        }
+//        self.applyResolution {
+//            self.setNeedsRender()
+//        }
+//        pixelKit.render.listenToFramesUntil {
+//            if self.derivedResolution != nil {
+//                return .done
+//            }
+//            if self.derivedResolution != ._128 {
+//                self.applyResolution {
+//                    self.setNeedsRender()
+//                }
+//                return .done
+//            }
+//            return .continue
+//        }
     }
     
     #if os(macOS)
@@ -150,9 +150,14 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
             }
             resourcePixelBuffer = buffer
         }
-        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.", loop: true)
-        print(">>>>>>>>>>>> >>", derivedResolution)
-        applyResolution { self.setNeedsRender() }
+        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        applyResolution {
+            self.setNeedsRender()
+            #warning("Image set Needs Render after 5 Frame Delay Fix")
+            PixelKit.main.render.delay(frames: 5, done: {
+                self.setNeedsRender()
+            })
+        }
     }
     
 }

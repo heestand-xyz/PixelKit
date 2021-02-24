@@ -43,9 +43,7 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .circleToSquare: return 5
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Mode") public var mode: ConvertMode = .squareToCircle
     

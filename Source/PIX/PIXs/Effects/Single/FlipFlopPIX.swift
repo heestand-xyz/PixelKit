@@ -29,9 +29,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .xy: return 3
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Flip") public var flip: Flip = .none
     
@@ -46,9 +44,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .right: return 2
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Flop", updateResolution: true) public var flop: Flop = .none
     

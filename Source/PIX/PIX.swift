@@ -596,7 +596,7 @@ public extension NODEOut where Self: PIX & NODEOut & PIXViewable {
     /// Placement of the view.
     ///
     /// Default is `.fit`
-    func pixPlacement(_ placement: NODEView.Placement) -> PIX & NODEOut {
+    func pixPlacement(_ placement: Placement) -> PIX & NODEOut {
         view.placement = placement
         return self
     }

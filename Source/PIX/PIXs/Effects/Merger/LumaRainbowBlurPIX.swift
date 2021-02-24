@@ -30,9 +30,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableO
             case .zoom: return 3
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     
     @LiveEnum(name: "Style") public var style: RainbowLumaBlurStyle = .angle

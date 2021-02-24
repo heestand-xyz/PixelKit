@@ -28,9 +28,7 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .z: return 2
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .z
     

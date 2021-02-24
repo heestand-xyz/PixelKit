@@ -33,9 +33,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
         public var index: Int { revision }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
         func request() -> VNImageBasedRequest {
             switch self {
             case .attention:

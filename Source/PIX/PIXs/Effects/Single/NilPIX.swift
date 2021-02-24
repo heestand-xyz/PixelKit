@@ -16,6 +16,11 @@ final public class NilPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     let nilOverrideBits: Bits?
     public override var overrideBits: Bits? { nilOverrideBits }
     
+    public required init(name: String = "Nil") {
+        nilOverrideBits = nil
+        super.init(name: name, typeName: "pix-effect-single-nil")
+    }
+    
     public required init() {
         nilOverrideBits = nil
         super.init(name: "Nil", typeName: "pix-effect-single-nil")

@@ -119,6 +119,9 @@ extension PIX {
     }
     
     public func applyResolution(applied: @escaping () -> ()) {
+        if derivedResolution == nil {
+            pixelKit.logger.log(node: self, .warning, .resolution, "Apply Resolution - Derived Resolution not found. Using fallback resolution of \(PixelKit.main.fallbackResolution).")
+        }
         finalResolution = derivedResolution ?? PixelKit.main.fallbackResolution
         if !pixelKit.render.engine.renderMode.isManual {
             if pixelKit.render.frame == 0 {
@@ -127,7 +130,7 @@ extension PIX {
                 #else
                 let delayFrames = 1
                 #endif
-                pixelKit.logger.log(node: self, .detail, .res, "Waiting for potential layout, delayed \(delayFrames) frames.")
+                pixelKit.logger.log(node: self, .detail, .resolution, "Waiting for potential layout, delayed \(delayFrames) frames.")
                 pixelKit.render.delay(frames: delayFrames, done: {
                     self.applyResolution(applied: applied)
                 })
@@ -135,11 +138,12 @@ extension PIX {
             }
         }
         guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else {
+            pixelKit.logger.log(node: self, .detail, .resolution, "Apply Resolution - Size not new.")
             applied()
             return
         }
         view.setResolution(finalResolution)
-        pixelKit.logger.log(node: self, .info, .res, "Applied: \(finalResolution) [\(finalResolution.w)x\(finalResolution.h)]")
+        pixelKit.logger.log(node: self, .info, .resolution, "Apply Resolution: \(finalResolution) [\(finalResolution.w)x\(finalResolution.h)]")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

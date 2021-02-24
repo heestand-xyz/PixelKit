@@ -28,9 +28,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
             case .zoom: return 3
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     
     @LiveEnum(name: "Style") public var style: RainbowBlurStyle = .zoom

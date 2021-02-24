@@ -24,9 +24,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             case .hsvToRgb: return 1
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Direction") public var direction: Direction = .rgbToHsv
 
@@ -43,9 +41,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             case .third: return 3
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     /// Filter
     ///

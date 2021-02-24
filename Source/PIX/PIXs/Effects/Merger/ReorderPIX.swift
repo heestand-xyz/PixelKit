@@ -27,9 +27,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
                 return 1
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Red Input") public var redInput: Input = .first
     @LiveEnum(name: "Green Input") public var greenInput: Input = .first
@@ -61,9 +59,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .luma: return 6
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Red Channel") public var redChannel: Channel = .red
     @LiveEnum(name: "Green Channel") public var greenChannel: Channel = .green

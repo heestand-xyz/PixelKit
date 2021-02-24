@@ -34,9 +34,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .relative: return 4
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Style") public var style: Style = .hold
     

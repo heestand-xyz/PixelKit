@@ -25,9 +25,7 @@ extension PIX {
         public var index: Int {
             rawValue
         }
-        public var names: [String] {
-            Self.allCases.map { "\($0.rawValue)" }
-        }
+        public var name: String { "\(rawValue)" }
     }
     
 }

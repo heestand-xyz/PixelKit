@@ -60,9 +60,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
             case .angle: return 3
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     
     // MARK: - Public Properties

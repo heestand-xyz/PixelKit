@@ -27,9 +27,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
                 return 1
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .vertical
 

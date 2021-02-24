@@ -29,9 +29,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
                 return 1
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .vertical
     
@@ -49,9 +47,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
                 return 1
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     @LiveEnum(name: "Alignment") public var alignment: Alignment = .center
     

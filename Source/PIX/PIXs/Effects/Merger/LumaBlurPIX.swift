@@ -29,9 +29,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .random: return 4
             }
         }
-        public var names: [String] {
-            Self.allCases.map(\.rawValue)
-        }
+        public var name: String { rawValue }
     }
     
     @LiveEnum(name: "Style") public var style: LumaBlurStyle = .box
