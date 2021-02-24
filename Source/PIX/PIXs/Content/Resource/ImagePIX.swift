@@ -151,6 +151,7 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
             resourcePixelBuffer = buffer
         }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.", loop: true)
+        print(">>>>>>>>>>>> >>", derivedResolution)
         applyResolution { self.setNeedsRender() }
     }
     
