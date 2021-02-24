@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [
 //            "PIX/PIXs/Effects/Single/DeepLabPIX.swift",
-            "PIX/PIXs/Output/SyphonOutPIX.swift",
+            "PIX/PIXs/Output/Output/SyphonOutPIX.swift",
             "PIX/PIXs/Content/Resource/SyphonInPIX.swift",
 //            "Other/Bridging-Header-iOS.h",
 //            "Other/Bridging-Header-macOS.h",

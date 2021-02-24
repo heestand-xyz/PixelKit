@@ -17,7 +17,6 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     // MARK: - Public Properties
     
-    #warning("ChromaKeyPIX - Double Check Ranges")
     @LiveColor(name: "Key Color") public var keyColor: PixelColor = .green
     @LiveFloat(name: "Range", range: 0.0...0.5) public var range: CGFloat = 0.1
     @LiveFloat(name: "Softness", range: 0.0...0.5) public var softness: CGFloat = 0.1

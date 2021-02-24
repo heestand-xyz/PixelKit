@@ -42,8 +42,8 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, 
     }
     
     required init() {
-        self.resolution = ._128
-        super.init()
+        self.resolution = .square(1_000)
+        super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
     }
     
 }
