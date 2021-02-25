@@ -17,10 +17,10 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     public enum LumaBlurStyle: String, Enumable {
-        case box = "Box"
-        case angle = "Angle"
-        case zoom = "Zoom"
-        case random = "Random"
+        case box
+        case angle
+        case zoom
+        case random
         public var index: Int {
             switch self {
             case .box: return 0
@@ -29,7 +29,14 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .random: return 4
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .box: return "Box"
+            case .angle: return "Angle"
+            case .zoom: return "Zoom"
+            case .random: return "Random"
+            }
+        }
     }
     
     @LiveEnum(name: "Style") public var style: LumaBlurStyle = .box

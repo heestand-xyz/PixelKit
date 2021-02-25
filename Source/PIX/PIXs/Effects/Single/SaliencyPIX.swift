@@ -22,8 +22,8 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     // MARK: - Public Properties
     
     public enum SaliencyStyle: String, Enumable {
-        case attention = "Attention"
-        case objectness = "Objectness"
+        case attention
+        case objectness
         var revision: Int {
             switch self {
             case .attention:
@@ -33,7 +33,12 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
         public var index: Int { revision }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .attention: return "Attention"
+            case .objectness: return "Objectness"
+            }
+        }
         func request() -> VNImageBasedRequest {
             switch self {
             case .attention:

@@ -17,8 +17,8 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     public enum Axis: String, Enumable {
-        case horizontal = "Horizontal"
-        case vertical = "Vertical"
+        case horizontal
+        case vertical
         public var index: Int {
             switch self {
             case .horizontal:
@@ -27,7 +27,12 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
                 return 1
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .horizontal: return "Horizontal"
+            case .vertical: return "Vertical"
+            }
+        }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .vertical
 

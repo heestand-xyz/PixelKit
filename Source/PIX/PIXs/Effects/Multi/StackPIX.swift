@@ -19,8 +19,8 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
     
     public enum Axis: String, Enumable {
-        case horizontal = "Horizontal"
-        case vertical = "Vertical"
+        case horizontal
+        case vertical
         public var index: Int {
             switch self {
             case .horizontal:
@@ -29,14 +29,21 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
                 return 1
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .horizontal:
+                return "Horizontal"
+            case .vertical:
+                return "Vertical"
+            }
+        }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .vertical
     
     public enum Alignment: String, Enumable {
-        case leading = "Leading"
-        case center = "Center"
-        case trailing = "Trailing"
+        case leading
+        case center
+        case trailing
         public var index: Int {
             switch self {
             case .leading:
@@ -47,7 +54,16 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
                 return 1
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .leading:
+                return "Leading"
+            case .center:
+                return "Center"
+            case .trailing:
+                return "Trailing"
+            }
+        }
     }
     @LiveEnum(name: "Alignment") public var alignment: Alignment = .center
     

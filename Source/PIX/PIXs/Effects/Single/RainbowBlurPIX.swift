@@ -18,9 +18,9 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
     // MARK: - Public Properties
     
     public enum RainbowBlurStyle: String, Enumable {
-        case circle = "Circle"
-        case angle = "Angle"
-        case zoom = "Zoom"
+        case circle
+        case angle
+        case zoom
         public var index: Int {
             switch self {
             case .circle: return 1
@@ -28,7 +28,13 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
             case .zoom: return 3
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .circle: return "Circle"
+            case .angle: return "Angle"
+            case .zoom: return "Zoom"
+            }
+        }
     }
     
     @LiveEnum(name: "Style") public var style: RainbowBlurStyle = .zoom

@@ -48,10 +48,10 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     // MARK: - Public Types
     
     public enum Direction: String, Enumable {
-        case horizontal = "Horizontal"
-        case vertical = "Vertical"
-        case radial = "Radial"
-        case angle = "Angle"
+        case horizontal
+        case vertical
+        case radial
+        case angle
         public var index: Int {
             switch self {
             case .horizontal: return 0
@@ -60,7 +60,14 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
             case .angle: return 3
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .horizontal: return "Horizontal"
+            case .vertical: return "Vertical"
+            case .radial: return "Radial"
+            case .angle: return "Angle"
+            }
+        }
     }
     
     // MARK: - Public Properties

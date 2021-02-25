@@ -17,8 +17,8 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     public enum Input: String, Enumable {
-        case first = "First"
-        case second = "Second"
+        case first
+        case second
         public var index: Int {
             switch self {
             case .first:
@@ -27,7 +27,14 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
                 return 1
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .first:
+                return "First"
+            case .second:
+                return "Second"
+            }
+        }
     }
     @LiveEnum(name: "Red Input") public var redInput: Input = .first
     @LiveEnum(name: "Green Input") public var greenInput: Input = .first
@@ -41,13 +48,13 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         case alpha
     }
     public enum Channel: String, Enumable {
-        case red = "Red"
-        case green = "Greeb"
-        case blue = "Blue"
-        case alpha = "Alpha"
-        case zero = "Zero"
-        case one = "One"
-        case luma = "Luma"
+        case red
+        case green
+        case blue
+        case alpha
+        case zero
+        case one
+        case luma
         public var index: Int {
             switch self {
             case .red: return 0
@@ -59,7 +66,17 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             case .luma: return 6
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .red: return "Red"
+            case .green: return "Greeb"
+            case .blue: return "Blue"
+            case .alpha: return "Alpha"
+            case .zero: return "Zero"
+            case .one: return "One"
+            case .luma: return "Luma"
+            }
+        }
     }
     @LiveEnum(name: "Red Channel") public var redChannel: Channel = .red
     @LiveEnum(name: "Green Channel") public var greenChannel: Channel = .green

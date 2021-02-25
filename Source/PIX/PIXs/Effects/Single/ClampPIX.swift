@@ -20,11 +20,11 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     @LiveBool(name: "Clamp Alpha") public var clampAlpha: Bool = false
     
     public enum Style: String, Enumable {
-        case hold = "Hold"
-        case relative = "Relative"
-        case loop = "Loop"
-        case mirror = "Mirror"
-        case zero = "Zero"
+        case hold
+        case relative
+        case loop
+        case mirror
+        case zero
         public var index: Int {
             switch self {
             case .hold: return 0
@@ -34,7 +34,15 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .relative: return 4
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .hold: return "Hold"
+            case .relative: return "Relative"
+            case .loop: return "Loop"
+            case .mirror: return "Mirror"
+            case .zero: return "Zero"
+            }
+        }
     }
     @LiveEnum(name: "Style") public var style: Style = .hold
     

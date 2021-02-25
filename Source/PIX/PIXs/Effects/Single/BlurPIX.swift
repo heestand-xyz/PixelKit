@@ -47,7 +47,19 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
             case .random: return 4
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .regular:
+                return "Regular"
+            #if !os(tvOS) && !targetEnvironment(simulator)
+            case .gaussian: return "Guassian"
+            #endif
+            case .box: return "Box"
+            case .angle: return "Angle"
+            case .zoom: return "Zoom"
+            case .random: return "Random"
+            }
+        }
     }
     
     @LiveEnum(name: "Style") public var style: BlurStyle = .regular

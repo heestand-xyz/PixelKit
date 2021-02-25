@@ -20,9 +20,9 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableO
     // MARK: - Public Properties
     
     public enum RainbowLumaBlurStyle: String, Enumable {
-        case circle = "Circle"
-        case angle = "Angle"
-        case zoom = "Zoom"
+        case circle
+        case angle
+        case zoom
         public var index: Int {
             switch self {
             case .circle: return 1
@@ -30,7 +30,13 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableO
             case .zoom: return 3
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .circle: return "Circle"
+            case .angle: return "Angle"
+            case .zoom: return "Zoom"
+            }
+        }
     }
     
     @LiveEnum(name: "Style") public var style: RainbowLumaBlurStyle = .angle

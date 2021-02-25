@@ -17,10 +17,10 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
         
     public enum Flip: String, Enumable {
-        case none = "None"
-        case x = "X"
-        case y = "Y"
-        case xy = "XY"
+        case none
+        case x
+        case y
+        case xy
         public var index: Int {
             switch self {
             case .none: return 0
@@ -29,14 +29,21 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .xy: return 3
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .none: return "None"
+            case .x: return "X"
+            case .y: return "Y"
+            case .xy: return "XY"
+            }
+        }
     }
     @LiveEnum(name: "Flip") public var flip: Flip = .none
     
     public enum Flop: String, Enumable {
-        case none = "None"
-        case left = "Left"
-        case right = "Right"
+        case none
+        case left
+        case right
         public var index: Int {
             switch self {
             case .none: return 0
@@ -44,7 +51,13 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .right: return 2
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .none: return "None"
+            case .left: return "Left"
+            case .right: return "Right"
+            }
+        }
     }
     @LiveEnum(name: "Flop", updateResolution: true) public var flop: Flop = .none
     

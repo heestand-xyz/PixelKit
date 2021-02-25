@@ -27,12 +27,12 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     // MARK: - Public Properties
     
     public enum ConvertMode: String, Enumable {
-        case domeToEqui = "Dome to Equi"
-        case equiToDome = "Equi to Dome"
-        case cubeToEqui = "Cube to Equi"
+        case domeToEqui
+        case equiToDome
+        case cubeToEqui
 //        case equiToCube
-        case squareToCircle = "Square to Circle"
-        case circleToSquare = "Circle to Square"
+        case squareToCircle
+        case circleToSquare
         public var index: Int {
             switch self {
             case .domeToEqui: return 0
@@ -43,7 +43,16 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .circleToSquare: return 5
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .domeToEqui: return "Dome to Equi"
+            case .equiToDome: return "Equi to Dome"
+            case .cubeToEqui: return "Cube to Equi"
+//            case .equiToCube: return "Equi to Cube"
+            case .squareToCircle: return "Square to Circle"
+            case .circleToSquare: return "Circle to Square"
+            }
+        }
     }
     @LiveEnum(name: "Mode") public var mode: ConvertMode = .squareToCircle
     

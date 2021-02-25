@@ -16,23 +16,28 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     // MARK: - Public Properties
     
     public enum Direction: String, Enumable {
-        case rgbToHsv = "RGB to HSV"
-        case hsvToRgb = "HSV to RGB"
+        case rgbToHsv
+        case hsvToRgb
         public var index: Int {
             switch self {
             case .rgbToHsv: return 0
             case .hsvToRgb: return 1
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .rgbToHsv: return "RGB to HSV"
+            case .hsvToRgb: return "HSV to RGB"
+            }
+        }
     }
     @LiveEnum(name: "Direction") public var direction: Direction = .rgbToHsv
 
     public enum Filter: String, Enumable {
-        case all = "All"
-        case first = "First"
-        case second = "Second"
-        case third = "Third"
+        case all
+        case first
+        case second
+        case third
         public var index: Int {
             switch self {
             case .all: return 0
@@ -41,7 +46,14 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             case .third: return 3
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .all: return "All"
+            case .first: return "First"
+            case .second: return "Second"
+            case .third: return "Third"
+            }
+        }
     }
     /// Filter
     ///

@@ -18,9 +18,9 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     @LiveFloat(name: "Fraction") public var fraction: CGFloat = 0.5
     public enum Axis: String, Enumable {
-        case x = "X"
-        case y = "Y"
-        case z = "Z"
+        case x
+        case y
+        case z
         public var index: Int {
             switch self {
             case .x: return 0
@@ -28,7 +28,13 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
             case .z: return 2
             }
         }
-        public var name: String { rawValue }
+        public var name: String {
+            switch self {
+            case .x: return "X"
+            case .y: return "Y"
+            case .z: return "Z"
+            }
+        }
     }
     @LiveEnum(name: "Axis") public var axis: Axis = .z
     
