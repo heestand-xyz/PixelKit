@@ -20,6 +20,7 @@ public typealias UINSView = NSView
 public typealias UINSView = UIView
 #endif
 
+#if canImport(SwiftUI)
 #if os(macOS)
 public typealias UINSViewController = NSViewController
 public typealias UINSHostingView = NSHostingView
@@ -28,6 +29,7 @@ public typealias UINSViewRepresentable = NSViewRepresentable
 public typealias UINSViewController = UIViewController
 public typealias UINSHostingView = UIHostingController
 public typealias UINSViewRepresentable = UIViewRepresentable
+#endif
 #endif
 
 public protocol ViewRepresentable: UINSViewRepresentable {

@@ -97,6 +97,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
 }
 
+@available(macOS 10.15, *)
 public extension NODEOut {
     
     func pixRange(style: SaliencyPIX.SaliencyStyle) -> SaliencyPIX {
