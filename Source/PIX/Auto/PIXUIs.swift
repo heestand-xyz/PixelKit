@@ -8,6 +8,7 @@
 
 import RenderKit
 
+@available(macOS 10.15, *)
 public protocol PIXUI: NODEUI {
     var pix: PIX { get }
 }
