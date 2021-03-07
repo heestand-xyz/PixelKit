@@ -5,6 +5,8 @@
 Live Graphics Framework for iOS, macOS and tvOS<br>
 runs on [RenderKit](https://github.com/heestand-xyz/RenderKit) - powered by Metal
 
+New development on [lite](https://github.com/heestand-xyz/PixelKit/tree/lite) branch.
+
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen)
