@@ -8,6 +8,6 @@
       location = "group:../RenderKit">
    </FileRef>
    <FileRef
-      location = "group:../PixelColor">
+      location = "group:../../PixelColor">
    </FileRef>
 </Workspace>

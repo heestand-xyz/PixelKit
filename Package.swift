@@ -6,8 +6,8 @@ let package = Package(
     name: "PixelKit",
     platforms: [
         .iOS(.v13),
-        .macOS(.v10_15),
-        .tvOS(.v13)
+        .tvOS(.v13),
+        .macOS(.v10_14),
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
