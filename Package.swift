@@ -11,19 +11,14 @@ let package = Package(
     ],
     products: [
         .library(name: "PixelKit", targets: ["PixelKit"]),
-//        .executable(name: "PixelKit CommandLab", targets: ["PixelKitCommandLab"])
     ],
     dependencies: [
         .package(url: "https://github.com/heestand-xyz/RenderKit.git", .branch("lite")),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [
-//            "PIX/PIXs/Effects/Single/DeepLabPIX.swift",
             "PIX/PIXs/Output/Output/SyphonOutPIX.swift",
             "PIX/PIXs/Content/Resource/SyphonInPIX.swift",
-//            "Other/Bridging-Header-iOS.h",
-//            "Other/Bridging-Header-macOS.h",
-//            "Other/BridgingHeader.h",
             "PIX/Auto/PIXUIs.stencil",
             "PIX/Auto/PIXAuto.stencil",
             "PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
@@ -36,7 +31,6 @@ let package = Package(
             .process("metaltest.metal"),
             .copy("Metal/"),
         ]),
-//        .target(name: "PixelKitCommandLab", dependencies: ["PixelKit"], path: "Tests/CommandLab", exclude: ["Mains"]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
 )
