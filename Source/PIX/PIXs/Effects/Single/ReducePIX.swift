@@ -31,7 +31,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
     /// the cell list that will be sampled
     ///
     /// one pixel row is *default*
-    public var cellList: CellList = .row { didSet { applyResolution { self.setNeedsRender() } } }
+    public var cellList: CellList = .row { didSet { applyResolution { self.render() } } }
     
     public enum Method {
         /// average
@@ -44,7 +44,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
         case sum
     }
     
-    public var method: Method = .avg { didSet { setNeedsRender() } }
+    public var method: Method = .avg { didSet { render() } }
 
     public required init() {
         super.init(name: "Reduce", typeName: "pix-effect-single-reduce")

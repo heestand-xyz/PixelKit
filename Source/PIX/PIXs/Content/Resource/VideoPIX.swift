@@ -121,9 +121,9 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
                 return
             }
             if self.view.resolution == nil || self.view.resolution! != res {
-                self.applyResolution { self.setNeedsRender() }
+                self.applyResolution { self.render() }
             } else {
-                self.setNeedsRender()
+                self.render()
             }
             self._progressFraction = fraction
             self.seekCallback?()
@@ -132,7 +132,7 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
             self.frameCallback = nil
         })
         self.applyResolution {
-            self.setNeedsRender()
+            self.render()
         }
 //        pixelKit.listenToFramesUntil {
 //            if self.realResolution != nil {
@@ -140,7 +140,7 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
 //            }
 //            if self.resolution != ._128 {
 //                self.applyResolution {
-//                    self.setNeedsRender()
+//                    self.render()
 //                }
 //                return .done
 //            }
@@ -194,7 +194,7 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
     public func unload() {
         url = nil
         resourcePixelBuffer = nil
-        setNeedsRender()
+        render()
         isLoaded = false
     }
     

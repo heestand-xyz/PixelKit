@@ -43,7 +43,7 @@ final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
     public init() {
         super.init(name: "View", typeName: "pix-content-resource-view")
         applyResolution {
-            self.setNeedsRender()
+            self.render()
         }
         pixelKit.render.listenToFrames {
             if self.renderViewContinuously {
@@ -89,13 +89,13 @@ final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
     // MARK: Buffer
     
     func setNeedsBuffer() {
-        if pixelKit.render.frame == 0 {
-            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.setNeedsBuffer()
-            })
-            return
-        }
+//        if pixelKit.render.frame == 0 {
+//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
+//            pixelKit.render.delay(frames: 1, done: {
+//                self.setNeedsBuffer()
+//            })
+//            return
+//        }
         guard let view = renderView else {
             pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported.")
             return
@@ -124,14 +124,14 @@ final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
     }
     
     func viewNeedsClear() {
         resourcePixelBuffer = nil
         texture = nil
         pixelKit.logger.log(node: self, .info, .resource, "Clear View.")
-        setNeedsRender()
+        render()
     }
     
 }

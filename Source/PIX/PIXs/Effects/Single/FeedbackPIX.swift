@@ -30,7 +30,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     }
     
     @LiveBool(name: "Feed Active") public var feedActive: Bool = true
-    public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { setNeedsRender() } } }
+    public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { render() } } }
     
     // MARK: - Property Helpers
     
@@ -42,9 +42,10 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
 
     public required init() {
         super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
-        pixelKit.render.listenToFramesUntil {
+        pixelKit.render.listenToFramesUntil { [weak self] in
+            guard let self = self else { return .done }
             if self.input?.texture != nil && self.feedTexture != nil {
-                self.setNeedsRender()
+                self.render()
                 return .done
             } else {
                 return .continue
@@ -61,8 +62,8 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
         return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
-    override public func didRender(texture: MTLTexture, force: Bool) {
-        super.didRender(texture: texture)
+    override public func didRender(renderPack: RenderPack) {
+        super.didRender(renderPack: renderPack)
         if clearingFeed {
             if clearFrame >= clearFrameCount {
                 pixelKit.logger.log(node: self, .info, .effect, "Did Clear Feedback")
@@ -74,7 +75,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
         }
         readyToFeed = true
         DispatchQueue.main.async {
-            self.setNeedsRender()
+            self.render()
         }
     }
     
@@ -92,7 +93,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
         pixelKit.logger.log(node: self, .info, .effect, "Will Clear Feedback")
         feedActive = false
         clearFrame = 1
-        setNeedsRender()
+        render()
     }
     
 }

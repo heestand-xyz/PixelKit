@@ -13,9 +13,9 @@ final class PixelKitTests: XCTestCase {
         
     }
     
-    func setUpManual() {
-        PixelKit.main.render.engine.renderMode = .manual
-    }
+//    func setUpManual() {
+//        PixelKit.main.render.engine.renderMode = .manual
+//    }
     
     func testMetalPixs() {
         _ = MetalPIX(code: "")

@@ -38,13 +38,13 @@ final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
     /// if true the scene view delegate will no be highjacked. please call render().
     public var customDelegateRender: Bool = false
     
-    public var clearRender: Bool = true { didSet { setNeedsRender() } }
+    public var clearRender: Bool = true { didSet { render() } }
     
     public var wireframe: Bool = false {
         didSet {
             renderer.debugOptions = wireframe ? [.renderAsWireframe] : []
             renderer.autoenablesDefaultLighting = !wireframe
-            setNeedsRender()
+            render()
         }
     }
 
@@ -66,7 +66,7 @@ final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
         
         sceneHelper = SceneHelper(render: {
             guard !self.customDelegateRender else { return }
-            self.setNeedsRender()
+            self.render()
         })
         
     }
@@ -75,15 +75,15 @@ final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
         self.cameraNode = cameraNode
         self.scene = scene
         self.sceneView = sceneView
-        setNeedsRender()
+        render()
     }
     
-    public func render() {
+    public func renderScene() {
         guard customDelegateRender else {
             pixelKit.logger.log(node: self, .warning, nil, "customDelegateRender not enabled.")
             return
         }
-        self.setNeedsRender()
+        self.render()
     }
     
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

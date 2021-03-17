@@ -80,7 +80,7 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
     public init() {
         super.init(name: "Image", typeName: "pix-content-resource-image")
 //        self.applyResolution {
-//            self.setNeedsRender()
+//            self.render()
 //        }
 //        pixelKit.render.listenToFramesUntil {
 //            if self.derivedResolution != nil {
@@ -88,7 +88,7 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
 //            }
 //            if self.derivedResolution != ._128 {
 //                self.applyResolution {
-//                    self.setNeedsRender()
+//                    self.render()
 //                }
 //                return .done
 //            }
@@ -128,13 +128,13 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
             image = Texture.resize(image, to: res.size)
         }
         #endif
-        if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {
-            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.setNeedsBuffer()
-            })
-            return
-        }
+//        if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {
+//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
+//            pixelKit.render.delay(frames: 1, done: {
+//                self.setNeedsBuffer()
+//            })
+//            return
+//        }
         let bits: Bits = pixelKit.render.bits
         if bits == ._16 {
             do {
@@ -152,11 +152,11 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
         }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution {
-            self.setNeedsRender()
-            #warning("Image set Needs Render after 5 Frame Delay Fix")
-            PixelKit.main.render.delay(frames: 5, done: {
-                self.setNeedsRender()
-            })
+            self.render()
+//            #warning("PixelKit - Image set Needs Render after 5 Frame Delay Fix")
+//            PixelKit.main.render.delay(frames: 5, done: {
+//                self.render()
+//            })
         }
     }
     

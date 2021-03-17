@@ -133,7 +133,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable, Obse
     func makePipeline(with frag: MTLFunction) throws {
         let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
         pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
-        setNeedsRender()
+        render()
     }
     
 }

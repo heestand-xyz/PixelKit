@@ -97,7 +97,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     // MARK: - Logger
     
     public func loggerFrameIndex() -> Int {
-        render.frame
+        render.frameIndex
     }
     
     public func loggerLinkIndex(of node: NODE) -> Int? {

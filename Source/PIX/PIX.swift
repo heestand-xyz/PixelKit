@@ -11,9 +11,10 @@ import RenderKit
 import CoreGraphics
 import Metal
 import simd
+import Combine
 
-open class PIX: NODE, Equatable, NODETileable {
-   
+open class PIX: NODE, Equatable/*, NODETileable*/ {
+    
     public var id = UUID()
     public var name: String
     public let typeName: String
@@ -51,8 +52,8 @@ open class PIX: NODE, Equatable, NODETileable {
     
     public var bypass: Bool = false {
         didSet {
-            guard !bypass || self is PIXGenerator else { return }
-            setNeedsRender()
+            guard !bypass else { return }
+            render()
         }
     }
 
@@ -117,23 +118,25 @@ open class PIX: NODE, Equatable, NODETileable {
     open var customVertexNodeIn: (NODE & NODEOut)? { return nil }
 //    open var customVertexNodeIn: (NODE & NODEOut)?
     open var customMatrices: [matrix_float4x4] { return [] }
-    public var customLinkedNodes: [NODE] = []
+//    public var customLinkedNodes: [NODE] = []
     
-    public var inRender = false
-    public var rendering = false
-    public var needsRender = false {
-        didSet {
-            guard needsRender else { return }
-            guard pixelKit.render.engine.renderMode == .direct else { return }
-            pixelKit.render.engine.renderNODE(self, done: { _ in })
-        }
-    }
+    public var renderInProgress = false
+//    let passthroughRender: PassthroughSubject = PassthroughSubject<RenderRequest, Never>()
+    private var renderQueue: [RenderRequest] = []
+//    public var needsRender = false {
+//        didSet {
+//            guard needsRender else { return }
+//            guard pixelKit.render.engine.renderMode == .direct else { return }
+//            pixelKit.render.engine.renderNODE(self, done: { _ in })
+//        }
+//    }
     public var renderIndex: Int = 0
     public var contentLoaded: Bool?
     var inputTextureAvalible: Bool?
     var generatorNotBypassed: Bool?
     
     public var destroyed = false
+    var cancellables: [AnyCancellable] = []
     
     // MARK: - Life Cycle
     
@@ -154,6 +157,8 @@ open class PIX: NODE, Equatable, NODETileable {
         for liveProp in liveList {
             liveProp.node = self
         }
+        
+//        registerForRender()
     
     }
     
@@ -197,7 +202,7 @@ open class PIX: NODE, Equatable, NODETileable {
             sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
             pixelKit.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
-            setNeedsRender()
+            render()
         } catch {
             pixelKit.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
         }
@@ -205,148 +210,269 @@ open class PIX: NODE, Equatable, NODETileable {
     
     // MARK: - Render
     
-    open func setNeedsRender() {
-        setNeedsRender(first: true)
-    }
-    public func setNeedsRender(first: Bool = true) {
-        guard !bypass || self is PIXGenerator else {
-            renderOuts()
-            return
-        }
-//        checkSetup()
-        guard !needsRender else {
-//            pixelKit.logger.log(node: self, .warning, .render, "Already requested.", loop: true)
-            return
-        }
-        guard !rendering && !inRender else {
-            pixelKit.logger.log(node: self, .debug, .render, "No need to render. Render in progress.", loop: true)
-            return
-        }
-//        guard resolution != nil else {
-//            pixelKit.logger.log(node: self, .warning, .render, "Resolution unknown.", loop: true)
-//            return
-//        }
-        guard view.metalView.resolution != nil else {
-            guard first else {
-                pixelKit.logger.log(node: self, .debug, .render, "Metal View could not be set with applyResolution.", loop: true)
-                return
-            }
-            pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.")//, loop: true)
-            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...")//, loop: true)
-            applyResolution {
-                self.setNeedsRender(first: false)
-            }
-            return
-        }
-        pixelKit.logger.log(node: self, .detail, .render, "Requested.", loop: true)
-//        delegate?.pixWillRender(self)
-        needsRender = true
+    public func render() {
+        PixelKit.main.render.logger.log(node: self, .detail, .render, "Render Requested", loop: true)
+        let frameIndex = PixelKit.main.render.frameIndex
+        let renderRequest = RenderRequest(frameIndex: frameIndex, node: self, completion: nil)
+//        passthroughRender.send(renderRequest)
+        queueRender(renderRequest)
     }
     
-    func checkSetup() {
-        if let pixResource = self as? PIXResource {
-            if pixResource.resourcePixelBuffer != nil || pixResource.resourceTexture != nil {
-                if contentLoaded != true {
-                    let wasBad = contentLoaded == false
-                    contentLoaded = true
-                    if wasBad {
-                        setupShader()
+    public func render(completion: ((Result<RenderResponse, Error>) -> ())? = nil,
+                       via upstreamRenderRequest: RenderRequest) {
+        PixelKit.main.render.logger.log(node: self, .detail, .render, "Render Requested with Completion Handler", loop: true)
+        let frameIndex = PixelKit.main.render.frameIndex
+        let renderRequest = RenderRequest(frameIndex: frameIndex, node: self, completion: completion, via: upstreamRenderRequest)
+//        passthroughRender.send(renderRequest)
+        queueRender(renderRequest)
+    }
+    
+//    private func registerForRender() {
+//        var willRenderFromFrameIndex: Int?
+////        var willRenderTimer: Timer?
+//        passthroughRender
+////            .removeDuplicates(by: { a, b in
+////                a.frameIndex == b.frameIndex
+////            })
+//            .sink { renderRequest in
+//                print("Combine \"\(self.name)\" [[Register for Render]] Requested at \(renderRequest.frameIndex)")
+//                self.promiseRender(renderRequest)
+//                if let frameIndex: Int = willRenderFromFrameIndex {
+//                    if frameIndex == renderRequest.frameIndex {
+//                        return
+//                    } else {
+//                        print("Combine \"\(self.name)\" [[Register for Render]] Direct at \(renderRequest.frameIndex) >=>=>")
+//                        self.queueRender(renderRequest)
+//                    }
+//                }
+//                willRenderFromFrameIndex = renderRequest.frameIndex
+////                willRenderTimer?.invalidate()
+////                willRenderTimer = Timer(timeInterval: PixelKit.main.render.maxSecondsPerFrame, repeats: false, block: { _ in
+//                DispatchQueue.main.async {
+//                    willRenderFromFrameIndex = nil
+////                    willRenderTimer = nil
+//                    print("Combine \"\(self.name)\" [[Register for Render]] Delay at \(renderRequest.frameIndex) >->->")
+//                    self.queueRender(renderRequest)
+//                }
+////                })
+////                RunLoop.current.add(willRenderTimer!, forMode: .common)
+//            }
+//            .store(in: &cancellables)
+//    }
+    
+    private func promiseRender(_ renderRequest: RenderRequest) {
+        if let nodeOut: NODEOut = self as? NODEOut {
+            nodeOut.renderPromisePublisher.send(renderRequest)
+        }
+    }
+    
+    func promisedRender(_ renderRequest: RenderRequest) {
+        promiseRender(renderRequest)
+    }
+    
+    private func queueRender(_ renderRequest: RenderRequest) {
+        
+        guard !bypass else {
+            #warning("Bypass should Render Outs")
+            PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Render Bypassed", loop: true)
+            return
+        }
+
+        guard !renderInProgress else {
+            renderQueue.append(renderRequest)
+            PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Render in Progress", loop: true)
+            return
+        }
+        
+        PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Request Render", loop: true)
+        
+        PixelKit.main.render.queuer.add(request: renderRequest) { queueResult in
+            switch queueResult {
+            case .success:
+    
+                PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Will Render", loop: true)
+                
+                PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { result in
+                    
+                    switch result {
+                    case .success(let renderPack):
+                        self.didRender(renderPack: renderPack)
+                    case .failure(let error):
+                        PixelKit.main.logger.log(node: self, .error, .render, "Render Failed", loop: true, e: error)
+                    }
+                    
+                    renderRequest.completion?(result.map(\.response))
+                    
+                    if !self.renderQueue.isEmpty {
+                        let firstRequestFrameIndex: Int = self.renderQueue.map(\.frameIndex).sorted().first!
+                        let completions = self.renderQueue.compactMap(\.completion)
+                        self.renderQueue = []
+                        #warning("Merge of Many Render Requests")
+                        let renderRequest = RenderRequest(frameIndex: firstRequestFrameIndex, node: self, completion: { result in
+                            completions.forEach { completion in
+                                completion(result)
+                            }
+                        })
+                        self.queueRender(renderRequest)
                     }
                 }
-            } else {
-                if contentLoaded != false {
-                    contentLoaded = false
-                    setupShader()
-                }
-                contentLoaded = false
-                pixelKit.logger.log(node: self, .warning, .render, "Content not loaded.", loop: true)
+                
+            case .failure(let error):
+                PixelKit.main.render.logger.log(node: self, .warning, .render, "Queue Can't Render", loop: true, e: error)
+                renderRequest.completion?(.failure(error))
             }
         }
-        if let input = self as? NODEInIO, !(self is NODEMetal) {
-            let hasInTexture: Bool
-            if pixelKit.render.engine.renderMode.isTile {
-                if self is NODE3D {
-                    hasInTexture = (input.inputList.first as? NODETileable3D)?.tileTextures != nil
-                } else {
-                    hasInTexture = (input.inputList.first as? NODETileable2D)?.tileTextures != nil
-                }
-            } else {
-                hasInTexture = input.inputList.first?.texture != nil
-            }
-            if hasInTexture {
-                let wasBad = inputTextureAvalible == false
-                if inputTextureAvalible != true {
-                    inputTextureAvalible = true
-                    if wasBad {
-                        setupShader()
-                    }
-                }
-            } else {
-                if inputTextureAvalible != false {
-                    inputTextureAvalible = false
-                    setupShader()
-                }
-            }
-        }
-        if self is PIXGenerator {
-            if !bypass {
-                let wasBad = generatorNotBypassed == false
-                if generatorNotBypassed != true {
-                    generatorNotBypassed = true
-                    if wasBad {
-                        setupShader()
-                    }
-                }
-            } else {
-                if generatorNotBypassed != false {
-                    generatorNotBypassed = false
-                    setupShader()
-                }
-            }
-        }
+        
     }
         
-    func renderOuts() {
-        if let pixOut = self as? NODEOutIO {
-            for pixOutPath in pixOut.outputPathList {
-//                guard let pix = pixOutPath?.pixIn else { continue }
-                let pix = pixOutPath.nodeIn
-                guard !pix.destroyed else { continue }
-                guard pix.id != self.id else {
-                    pixelKit.logger.log(node: self, .error, .render, "Connected to self.")
-                    continue
-                }
-                pix.setNeedsRender()
-            }
-        }
-    }
+//        private func sendToRender((Result<RenderedTexture, Error>) -> ())) {
+//
+//        }
     
-    open func didRender(texture: MTLTexture, force: Bool = false) {
+//    open func setNeedsRender() {
+//        setNeedsRender(first: true)
+//    }
+//    public func setNeedsRender(first: Bool = true) {
+//        guard !bypass || self is PIXGenerator else {
+//            #warning("Func renderOuts() will send self.texture even on bypass")
+//            renderOuts()
+//            return
+//        }
+////        checkSetup()
+//        guard !needsRender else {
+////            pixelKit.logger.log(node: self, .warning, .render, "Already requested.", loop: true)
+//            return
+//        }
+//        guard !rendering && !inRender else {
+//            pixelKit.logger.log(node: self, .debug, .render, "No need to render. Render in progress.", loop: true)
+//            return
+//        }
+////        guard resolution != nil else {
+////            pixelKit.logger.log(node: self, .warning, .render, "Resolution unknown.", loop: true)
+////            return
+////        }
+//        guard view.metalView.resolution != nil else {
+//            guard first else {
+//                pixelKit.logger.log(node: self, .debug, .render, "Metal View could not be set with applyResolution.", loop: true)
+//                return
+//            }
+//            pixelKit.logger.log(node: self, .warning, .render, "Metal View res not set.")//, loop: true)
+//            pixelKit.logger.log(node: self, .debug, .render, "Auto applying Resolution...")//, loop: true)
+//            applyResolution {
+//                self.setNeedsRender(first: false)
+//            }
+//            return
+//        }
+//        pixelKit.logger.log(node: self, .detail, .render, "Requested.", loop: true)
+////        delegate?.pixWillRender(self)
+//        needsRender = true
+//    }
+    
+//    func checkSetup() {
+//        if let pixResource = self as? PIXResource {
+//            if pixResource.resourcePixelBuffer != nil || pixResource.resourceTexture != nil {
+//                if contentLoaded != true {
+//                    let wasBad = contentLoaded == false
+//                    contentLoaded = true
+//                    if wasBad {
+//                        setupShader()
+//                    }
+//                }
+//            } else {
+//                if contentLoaded != false {
+//                    contentLoaded = false
+//                    setupShader()
+//                }
+//                contentLoaded = false
+//                pixelKit.logger.log(node: self, .warning, .render, "Content not loaded.", loop: true)
+//            }
+//        }
+//        if let input = self as? NODEInIO, !(self is NODEMetal) {
+//            let hasInTexture: Bool
+//            if pixelKit.render.engine.renderMode.isTile {
+//                if self is NODE3D {
+//                    hasInTexture = (input.inputList.first as? NODETileable3D)?.tileTextures != nil
+//                } else {
+//                    hasInTexture = (input.inputList.first as? NODETileable2D)?.tileTextures != nil
+//                }
+//            } else {
+//                hasInTexture = input.inputList.first?.texture != nil
+//            }
+//            if hasInTexture {
+//                let wasBad = inputTextureAvalible == false
+//                if inputTextureAvalible != true {
+//                    inputTextureAvalible = true
+//                    if wasBad {
+//                        setupShader()
+//                    }
+//                }
+//            } else {
+//                if inputTextureAvalible != false {
+//                    inputTextureAvalible = false
+//                    setupShader()
+//                }
+//            }
+//        }
+//        if self is PIXGenerator {
+//            if !bypass {
+//                let wasBad = generatorNotBypassed == false
+//                if generatorNotBypassed != true {
+//                    generatorNotBypassed = true
+//                    if wasBad {
+//                        setupShader()
+//                    }
+//                }
+//            } else {
+//                if generatorNotBypassed != false {
+//                    generatorNotBypassed = false
+//                    setupShader()
+//                }
+//            }
+//        }
+//    }
+    
+    open func didRender(renderPack: RenderPack) {
         let firstRender = self.texture == nil
-        self.texture = texture
-        didRender(force: force)
-        if firstRender {
-            // FIXME: Temp double render fix.
-            setNeedsRender()
-        }
-    }
-    
-    public func didRenderTiles(force: Bool) {
-        didRender(force: force)
-    }
-    
-    func didRender(force: Bool = false) {
+        self.texture = renderPack.response.texture
         renderIndex += 1
         delegate?.nodeDidRender(self)
-        if pixelKit.render.engine.renderMode != .frameTree {
-            for customLinkedPix in customLinkedNodes {
-                customLinkedPix.setNeedsRender()
-            }
-            if !force { // CHECK the force!
-                renderOuts()
-                renderCustomVertexTexture()
-            }
+//        if pixelKit.render.engine.renderMode != .frameTree {
+//            for customLinkedPix in customLinkedNodes {
+//                customLinkedPix.render()
+//            }
+        renderOuts(renderPack: renderPack)
+        renderCustomVertexTexture()
+//        }
+//        if firstRender {
+//            // FIXME: Temp double render fix.
+//            render()
+//        }
+    }
+        
+//    public func didRenderTiles(force: Bool) {
+//        didRender(force: force)
+//    }
+    
+    func renderOuts(renderPack: RenderPack) {
+        guard let texture: MTLTexture = texture else {
+            PixelKit.main.logger.log(node: self, .warning, .connection, "Can't render out, texture is nil.", loop: true)
+            return
         }
+        if let nodeOut: NODEOut = self as? NODEOut {
+            nodeOut.renderPublisher.send(renderPack)
+        }
+//        if let pixOut = self as? NODEOutIO {
+//            for pixOutPath in pixOut.outputPathList {
+////                guard let pix = pixOutPath?.pixIn else { continue }
+//                let pix = pixOutPath.nodeIn
+//                guard !pix.destroyed else { continue }
+//                guard pix.id != self.id else {
+//                    pixelKit.logger.log(node: self, .error, .render, "Connected to self.")
+//                    continue
+//                }
+//                pix.render()
+//            }
+//        }
     }
     
     func renderCustomVertexTexture() {
@@ -354,7 +480,7 @@ open class PIX: NODE, Equatable, NODETileable {
             if pix.customVertexTextureActive {
                 if let input = pix.customVertexNodeIn {
                     if input.id == self.id {
-                        pix.setNeedsRender()
+                        pix.render()
                     }
                 }
             }
@@ -416,7 +542,7 @@ open class PIX: NODE, Equatable, NODETileable {
                 }
             }
             pixInIO.inputList = []
-            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Single: \(pixOut)")
+            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Single: \(pixOut.name)")
         }
         if let newPixOut = newInPix {
             guard newPixOut.id != self.id else {
@@ -426,7 +552,7 @@ open class PIX: NODE, Equatable, NODETileable {
             var pixOut = newPixOut as! (NODE & NODEOutIO)
             pixInIO.inputList = [pixOut]
             pixOut.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
-            pixelKit.logger.log(node: self, .info, .connection, "Connected Single: \(pixOut)")
+            pixelKit.logger.log(node: self, .info, .connection, "Connected Single: \(pixOut.name)")
             connected()
         } else {
             disconnected()
@@ -445,7 +571,7 @@ open class PIX: NODE, Equatable, NODETileable {
                 }
             }
             pixInIO.inputList = []
-            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Merger: \(pixOut)")
+            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Merger: \(pixOut.name)")
         }
         if let newPixOut = newInPix {
             if var pixOutA = (!second ? newPixOut : pixInMerger.inputA) as? (NODE & NODEOutIO),
@@ -453,7 +579,7 @@ open class PIX: NODE, Equatable, NODETileable {
                 pixInIO.inputList = [pixOutA, pixOutB]
                 pixOutA.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
                 pixOutB.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
-                pixelKit.logger.log(node: self, .info, .connection, "Connected Merger: \(pixOutA), \(pixOutB)")
+                pixelKit.logger.log(node: self, .info, .connection, "Connected Merger: \(pixOutA.name), \(pixOutB.name)")
                 connected()
             }
         } else {
@@ -480,7 +606,7 @@ open class PIX: NODE, Equatable, NODETileable {
             }
         }
         if !newInPixs.isEmpty {
-            pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs)")
+            pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs.map(\.name))")
             connected()
         } else {
             disconnected()
@@ -488,36 +614,42 @@ open class PIX: NODE, Equatable, NODETileable {
     }
     
     func connected() {
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
+        if let nodeIn: NODEIn = self as? NODEIn {
+            nodeIn.didUpdateInputConnections()
+        }
     }
     
     func disconnected() {
         pixelKit.logger.log(node: self, .info, .connection, "Disconnected")
         removeRes()
         texture = nil
+        if let nodeIn: NODEIn = self as? NODEIn {
+            nodeIn.didUpdateInputConnections()
+        }
     }
     
     // MARK: - Other
     
-    // MARL: Custom Linking
-    
-    public func customLink(to pix: PIX) {
-        for customLinkedPix in customLinkedNodes {
-            if customLinkedPix.id == pix.id {
-                return
-            }
-        }
-        customLinkedNodes.append(pix)
-    }
-    
-    public func customDelink(from pix: PIX) {
-        for (i, customLinkedPix) in customLinkedNodes.enumerated() {
-            if customLinkedPix.id == pix.id {
-                customLinkedNodes.remove(at: i)
-                return
-            }
-        }
-    }
+//    // MARK: Custom Linking
+//
+//    public func customLink(to pix: PIX) {
+//        for customLinkedPix in customLinkedNodes {
+//            if customLinkedPix.id == pix.id {
+//                return
+//            }
+//        }
+//        customLinkedNodes.append(pix)
+//    }
+//
+//    public func customDelink(from pix: PIX) {
+//        for (i, customLinkedPix) in customLinkedNodes.enumerated() {
+//            if customLinkedPix.id == pix.id {
+//                customLinkedNodes.remove(at: i)
+//                return
+//            }
+//        }
+//    }
     
     // MARK: Equals
     

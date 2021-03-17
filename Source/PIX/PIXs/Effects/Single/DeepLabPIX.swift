@@ -61,7 +61,7 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewabl
             DeepLabTarget.allCases.firstIndex(of: self)!
         }
     }
-    public var deepLabTarget: DeepLabTarget = .person { didSet { setNeedsRender() } }
+    public var deepLabTarget: DeepLabTarget = .person { didSet { render() } }
     
     // MARK: - Life Cycle
     
@@ -86,7 +86,7 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewabl
 //                    case .success(let image):
 //                        self.pixelKit.logger.log(node: self, .info, .effect, "Custom Render Done")
 //                        self.lastDeepCGImage = image
-//                        self.setNeedsRender() // loop?
+//                        self.render() // loop?
 //                        self.processing = false
 //                    case .failure(let error):
 //                        self.pixelKit.logger.log(node: self, .error, .effect, "Deep Fail", e: error)

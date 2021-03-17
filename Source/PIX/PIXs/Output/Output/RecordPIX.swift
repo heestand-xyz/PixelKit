@@ -145,8 +145,6 @@ final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
 
         realtimeListen()
         
-        name = "record"
-        
     }
     
     // MARK: - Record
@@ -198,13 +196,13 @@ final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
         }
     }
     
-    override public func didRender(texture: MTLTexture, force: Bool) {
+    override public func didRender(renderPack: RenderPack) {
         if !directMode && recording && !realtime {
             DispatchQueue.global(qos: .background).async {
-                self.recordFrame(texture: texture)
+                self.recordFrame(texture: renderPack.response.texture)
             }
         }
-        super.didRender(texture: texture)
+        super.didRender(renderPack: renderPack)
     }
     
     enum RecordError: Error {

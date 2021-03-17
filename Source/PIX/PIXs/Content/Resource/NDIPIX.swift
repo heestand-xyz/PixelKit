@@ -149,7 +149,7 @@ public protocol NDIPIXDelegate {
 //                self.ndiProcessing = false
 //                self.pixelBuffer = pixelBuffer
 //                self.pixelKit.logger.log(node: self, .info, .resource, "NDI Frame Captured.", loop: true)
-//                self.applyResolution { self.setNeedsRender() }
+//                self.applyResolution { self.render() }
 //            }
 //        }
 //    }

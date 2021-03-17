@@ -41,9 +41,10 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObjec
         super.init(name: "Time Machine", typeName: "pix-effect-merger-time-machine")
 //        customMergerRenderActive = true
 //        customMergerRenderDelegate = self
-        PixelKit.main.render.listenToFrames {
+        PixelKit.main.render.listenToFrames { [weak self] in
+            guard let self = self else { return }
             self.frameLoop()
-            self.setNeedsRender()
+            self.render()
         }
     }
     

@@ -17,7 +17,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { reSize(); applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { reSize(); applyResolution { self.render() } } }
     
     @available(*, deprecated, renamed: "backgroundColor")
     public var bgColor: PixelColor {
@@ -31,7 +31,7 @@ open class PIXSprite: PIXContent, NODEResolution {
             #else
             scene.backgroundColor = backgroundColor.uiColor
             #endif
-            setNeedsRender()
+            render()
         }
     }
     
@@ -46,7 +46,7 @@ open class PIXSprite: PIXContent, NODEResolution {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
         setup()
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
     }
     
     func setup() {

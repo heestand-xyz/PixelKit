@@ -16,7 +16,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { applyResolution { self.render() } } }
     
     public enum Axis: String, Enumable {
         case horizontal

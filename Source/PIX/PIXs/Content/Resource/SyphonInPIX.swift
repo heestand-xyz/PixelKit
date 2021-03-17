@@ -400,7 +400,7 @@ final public class SyphonInPIX: PIXResource, PIXViewable, ObservableObject {
 
 //        pixelBuffer = cvPixelBuffer
         
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
         
         firstFrame = false
         

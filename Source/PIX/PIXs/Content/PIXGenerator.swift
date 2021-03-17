@@ -15,12 +15,12 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     var _resolution: Resolution
     public var resolution: Resolution {
-        set { _resolution = newValue; applyResolution { self.setNeedsRender() } }
+        set { _resolution = newValue; applyResolution { self.render() } }
         get { return _resolution * PIXGenerator.globalResMultiplier }
     }
     public static var globalResMultiplier: CGFloat = 1
     
-    public var premultiply: Bool = true { didSet { setNeedsRender() } }
+    public var premultiply: Bool = true { didSet { render() } }
     override open var shaderNeedsAspect: Bool { return true }
     
     public var tileResolution: Resolution { pixelKit.tileResolution }
@@ -45,7 +45,12 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         _resolution = resolution
         super.init(name: name, typeName: typeName)
-        applyResolution { self.setNeedsRender() }
+        applyResolution {
+            #warning("Delay on Init")
+            PixelKit.main.render.delay(frames: 1) {
+                self.render()
+            }
+        }
     }
     
     // MARK: - Property Funcs

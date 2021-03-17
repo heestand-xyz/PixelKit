@@ -15,7 +15,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { applyResolution { self.setNeedsRender() } } }
+    public var resolution: Resolution { didSet { applyResolution { self.render() } } }
     
     @available(*, deprecated, renamed: "backgroundColor")
     public var bgColor: PixelColor {
@@ -35,7 +35,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
         super.init(name: name, typeName: typeName)
         customRenderDelegate = self
         customRenderActive = true
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { return nil }

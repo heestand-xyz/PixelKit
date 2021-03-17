@@ -48,15 +48,15 @@ public extension PIX {
         }
         return Texture.image(from: cgImage, at: finalResolution.size)
     }
-    func nextRenderedImage(callback: @escaping (_Image) -> ()) {
-        if let image = renderedImage {
-            callback(image)
-            return
-        }
-        pixelKit.render.delay(frames: 1, done: {
-            self.nextRenderedImage(callback: callback)
-        })
-    }
+//    func nextRenderedImage(callback: @escaping (_Image) -> ()) {
+//        if let image = renderedImage {
+//            callback(image)
+//            return
+//        }
+//        pixelKit.render.delay(frames: 1, done: {
+//            self.nextRenderedImage(callback: callback)
+//        })
+//    }
     
     var renderedTileTexture: MTLTexture? {
         guard let nodeTileable2d = self as? NODETileable2D else {
@@ -124,17 +124,17 @@ public extension PIX {
         }
     }
     
-    var dynamicTexture: MTLTexture? {
-        if PixelKit.main.render.engine.renderMode.isTile {
-            return renderedTileTexture
-        } else {
-            return renderedTexture
-        }
-    }
+//    var dynamicTexture: MTLTexture? {
+//        if PixelKit.main.render.engine.renderMode.isTile {
+//            return renderedTileTexture
+//        } else {
+//            return renderedTexture
+//        }
+//    }
     
     /// coaints all 4 channels of all pixels in this flat array
     var renderedRaw8: [UInt8]? {
-        guard let texture = dynamicTexture else { return nil }
+        guard let texture: MTLTexture = texture else { return nil }
         do {
             #if os(macOS)
             return try Texture.rawCopy8(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
@@ -153,7 +153,7 @@ public extension PIX {
     @available(tvOS 14.0, *)
     @available(macOS 11.0, *)
     var renderedRaw16: [Float16]? {
-        guard let texture = dynamicTexture else { return nil }
+        guard let texture: MTLTexture = texture else { return nil }
         do {
             return try Texture.raw16(texture: texture)
         } catch {
@@ -165,7 +165,7 @@ public extension PIX {
     
     /// coaints all 4 channels of all pixels in this flat array
     var renderedRaw32: [Float]? {
-        guard let texture = dynamicTexture else { return nil }
+        guard let texture: MTLTexture = texture else { return nil }
         do {
             return try Texture.raw32(texture: texture)
         } catch {
@@ -176,7 +176,7 @@ public extension PIX {
     
     /// coaints all 4 channels of all pixels in this flat array, normalized (0.0...1.0)
     var renderedRawNormalized: [CGFloat]? {
-        guard let texture = dynamicTexture else { return nil }
+        guard let texture: MTLTexture = texture else { return nil }
         do {
             #if os(macOS) || targetEnvironment(macCatalyst)
             return try Texture.rawNormalizedCopy(texture: texture, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)

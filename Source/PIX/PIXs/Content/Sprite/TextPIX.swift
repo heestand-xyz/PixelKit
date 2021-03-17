@@ -20,20 +20,20 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); setNeedsRender() } }
-    public var color: PixelColor = .white { didSet { setNeedsTextColor(); setNeedsRender() } }
+    public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); render() } }
+    public var color: PixelColor = .white { didSet { setNeedsTextColor(); render() } }
     
     #if os(iOS) || os(tvOS)
     typealias _Font = UIFont
-    public var font: UIFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
+    public var font: UIFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); render() } }
     #elseif os(macOS)
     typealias _Font = NSFont
-    public var font: NSFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); setNeedsRender() } }
+    public var font: NSFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); render() } }
     #endif
     
-    public var position: CGPoint = .zero { didSet { setNeedsPosition(); setNeedsRender() } }
-//    public var fontWeight: CGFloat = 1.0 { didSet { setNeedsFont(); setNeedsRender() } }
-//    public var fontSize: CGFloat = 100.0 { didSet { setNeedsFont(); setNeedsRender() } }
+    public var position: CGPoint = .zero { didSet { setNeedsPosition(); render() } }
+//    public var fontWeight: CGFloat = 1.0 { didSet { setNeedsFont(); render() } }
+//    public var fontSize: CGFloat = 100.0 { didSet { setNeedsFont(); render() } }
     
     // MARK: - Property Helpers
     
@@ -66,7 +66,7 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
 
         scene.addChild(label)
         
-        setNeedsRender()
+        render()
         
     }
     
@@ -75,7 +75,7 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
         self.init(at: resolution)
         self.text = text
         setNeedsText()
-        setNeedsRender()
+        render()
     }
     
     override func reSize() {
@@ -86,7 +86,7 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
         setNeedsFont()
         setNeedsPosition()
         
-        setNeedsRender()
+        render()
         
     }
     

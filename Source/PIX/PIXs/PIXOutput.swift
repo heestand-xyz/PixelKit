@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Combine
 
 open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     
@@ -16,6 +17,8 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
     
     open override var shaderName: String { return "nilPIX" }
+
+    public var cancellableIns: [AnyCancellable] = []
     
     // MARK: - Public Properties
     
@@ -31,6 +34,15 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     public override func destroy() {
         input = nil
         super.destroy()
+    }
+    
+    public func didUpdateInputConnections() {
+        cancellableIns = []
+        Publishers.MergeMany(inputList.map(\.renderPublisher))
+            .sink { textures in
+                self.render()
+            }
+            .store(in: &cancellableIns)
     }
     
 }

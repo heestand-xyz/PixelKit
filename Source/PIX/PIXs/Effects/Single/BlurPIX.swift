@@ -80,7 +80,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
     var relRadius: CGFloat {
         let radius = self.radius
         let relRes: Resolution = ._4K
-        let res: Resolution = finalResolution
+        let res: Resolution = finalResolution ?? ._1024
         let relHeight = res.height / relRes.height
         let relRadius = radius * relHeight
         let maxRadius: CGFloat = 32 * 10
@@ -102,18 +102,17 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
         style = .box
         #endif
         super.init(name: "Blur", typeName: "pix-effect-single-blur")
-        print(":: BlurPIX Init", id, "<---")
         extend = .hold
         customRenderDelegate = self
     }
     
     // MARK: Guassian
     
-    override public func setNeedsRender() {
+    override public func render() {
         #if !os(tvOS) && !targetEnvironment(simulator)
         customRenderActive = style == .gaussian
         #endif
-        super.setNeedsRender()
+        super.render()
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

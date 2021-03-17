@@ -28,14 +28,13 @@ final public class CirclePIX: PIXGenerator, PIXViewable, ObservableObject {
         super.liveList + [_radius, _position, _edgeRadius, _edgeColor]
     }
     override public var values: [Floatable] {
-        return [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
+        [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
     }
     
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Circle", typeName: "pix-content-generator-circle")
-        print(":: CirclePIX Init", id, "<---")
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),

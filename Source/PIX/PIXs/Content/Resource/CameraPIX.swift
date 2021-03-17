@@ -401,9 +401,9 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
             if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
-                self.applyResolution { self.setNeedsRender() }
+                self.applyResolution { self.render() }
             } else {
-                self.setNeedsRender()
+                self.render()
             }
             self.cameraDelegate?.cameraFrame(pix: self, pixelBuffer: pixelBuffer)
         }, capturedDepth: { depthPixelBuffer in

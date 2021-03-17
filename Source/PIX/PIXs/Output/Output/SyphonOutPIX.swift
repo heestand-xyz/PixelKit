@@ -52,8 +52,8 @@ final public class SyphonOutPIX: PIXOutput, PIXViewable, ObservableObject {
         }
     }
     
-    public override func setNeedsRender() {
-        super.setNeedsRender()
+    public override func render() {
+        super.render()
         if let texture = input?.texture {
             stream(texture: texture)
         }

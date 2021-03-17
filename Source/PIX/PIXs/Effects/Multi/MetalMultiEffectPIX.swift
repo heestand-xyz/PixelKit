@@ -129,7 +129,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable, 
 //        self.init(code: "") // CHECK
 //        let container = try decoder.container(keyedBy: CodingKeys.self)
 //        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        setNeedsRender()
+//        render()
 //    }
 //    
 //    override public func encode(to encoder: Encoder) throws {
@@ -162,7 +162,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable, 
     func makePipeline(with frag: MTLFunction) throws {
         let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
         pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
-        setNeedsRender()
+        render()
     }
     
 }

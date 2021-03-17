@@ -128,7 +128,7 @@ final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
             }
             self.resourcePixelBuffer = buffer
             self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
-            self.applyResolution { self.setNeedsRender() }
+            self.applyResolution { self.render() }
         }
     }
     

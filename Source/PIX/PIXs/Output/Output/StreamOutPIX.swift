@@ -48,9 +48,9 @@ final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
         
     }
     
-    public override func didRender(texture: MTLTexture, force: Bool = false) {
-        super.didRender(texture: texture, force: force)
-        stream(texture: texture)
+    public override func didRender(renderPack: RenderPack) {
+        super.didRender(renderPack: renderPack)
+        stream(texture: renderPack.response.texture)
     }
     
     func stream(texture: MTLTexture) {

@@ -63,20 +63,20 @@ final public class StreamInPIX: PIXResource, PIXViewable, ObservableObject {
             pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        if pixelKit.render.frame == 0 {
-            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-            pixelKit.render.delay(frames: 1, done: {
-                self.setNeedsBuffer()
-            })
-            return
-        }
+//        if pixelKit.render.frame == 0 {
+//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
+//            pixelKit.render.delay(frames: 1, done: {
+//                self.setNeedsBuffer()
+//            })
+//            return
+//        }
         guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
     }
     
 }

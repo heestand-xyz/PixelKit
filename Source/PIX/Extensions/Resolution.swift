@@ -108,37 +108,38 @@ extension PIX {
         } else { return nil }
     }
     
-    public func nextRealResolution(callback: @escaping (Resolution) -> ()) {
-        if let resolution: Resolution = derivedResolution {
-            callback(resolution)
-            return
-        }
-        PixelKit.main.render.delay(frames: 1, done: {
-            self.nextRealResolution(callback: callback)
-        })
-    }
+//    public func nextRealResolution(callback: @escaping (Resolution) -> ()) {
+//        if let resolution: Resolution = derivedResolution {
+//            callback(resolution)
+//            return
+//        }
+//        PixelKit.main.render.delay(frames: 1, done: {
+//            self.nextRealResolution(callback: callback)
+//        })
+//    }
     
+    #warning("PixelKit - Apply Resolution without closure")
     public func applyResolution(applied: @escaping () -> ()) {
         if derivedResolution == nil {
             pixelKit.logger.log(node: self, .warning, .resolution, "Apply Resolution - Derived Resolution not found. Using fallback resolution of \(PixelKit.main.fallbackResolution).")
         }
         finalResolution = derivedResolution ?? PixelKit.main.fallbackResolution
-        if !pixelKit.render.engine.renderMode.isManual {
-            if pixelKit.render.frame == 0 {
-                #if os(macOS)
-                let delayFrames = 2
-                #else
-                let delayFrames = 1
-                #endif
-                pixelKit.logger.log(node: self, .detail, .resolution, "Waiting for potential layout, delayed \(delayFrames) frames.")
-                pixelKit.render.delay(frames: delayFrames, done: {
-                    self.applyResolution(applied: applied)
-                })
-                return
-            }
-        }
+//        if !pixelKit.render.engine.renderMode.isManual {
+//            if pixelKit.render.frame == 0 {
+//                #if os(macOS)
+//                let delayFrames = 2
+//                #else
+//                let delayFrames = 1
+//                #endif
+//                pixelKit.logger.log(node: self, .detail, .resolution, "Waiting for potential layout, delayed \(delayFrames) frames.")
+//                pixelKit.render.delay(frames: delayFrames, done: {
+//                    self.applyResolution(applied: applied)
+//                })
+//                return
+//            }
+//        }
         guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else {
-            pixelKit.logger.log(node: self, .detail, .resolution, "Apply Resolution - Size not new.")
+//            pixelKit.logger.log(node: self, .detail, .resolution, "Apply Resolution - Size not new.")
             applied()
             return
         }

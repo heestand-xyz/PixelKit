@@ -4,7 +4,7 @@ import CoreGraphics
 public extension Int {
     
     static var frameIndex: Int {
-        PixelKit.main.render.frame
+        PixelKit.main.render.frameIndex
     }
     
     static var seconds: Int {

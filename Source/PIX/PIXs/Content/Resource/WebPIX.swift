@@ -61,7 +61,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
         
         setFrame()
         
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.renderWeb() }
         
     }
     
@@ -80,7 +80,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
         webView.load(request)
     }
     
-    public func render() {
+    public func renderWeb() {
         setNeedsBuffer()
     }
     
@@ -116,7 +116,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
             }
             self.resourcePixelBuffer = buffer
             self.pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
-            self.setNeedsRender()
+            self.render()
         }
     }
     

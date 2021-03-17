@@ -43,9 +43,9 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable, ObservableObject 
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
             if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
-                self.applyResolution { self.setNeedsRender() }
+                self.applyResolution { self.render() }
             } else {
-                self.setNeedsRender()
+                self.render()
             }
         })
     }

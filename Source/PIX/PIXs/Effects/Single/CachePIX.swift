@@ -22,11 +22,11 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
     
     public var cachedInfo: [(id: UUID, date: Date)] = []
     public var cachedTextures: [UUID: MTLTexture] = [:]
-    public var cacheActive: Bool = false { didSet { setNeedsRender() } }
+    public var cacheActive: Bool = false { didSet { render() } }
     public var cacheId: UUID? = nil {
         didSet {
             guard cacheId != nil else { return }
-            setNeedsRender()
+            render()
         }
     }
     public var lastCacheId: UUID?

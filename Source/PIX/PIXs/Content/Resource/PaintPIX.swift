@@ -211,7 +211,7 @@ final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
-        applyResolution { self.setNeedsRender() }
+        applyResolution { self.render() }
     }
     
     public func updateTool() {

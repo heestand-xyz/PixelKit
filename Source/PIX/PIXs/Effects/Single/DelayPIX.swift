@@ -35,10 +35,10 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
         customRenderActive = true
         customRenderDelegate = self
         PixelKit.main.render.listenToFrames { [weak self] in
-            guard self != nil else { return }
-            guard !self!.destroyed else { return }
-            guard self!.connectedIn else { return }
-            self!.setNeedsRender()
+            guard let self = self else { return }
+            guard !self.destroyed else { return }
+            guard self.connectedIn else { return }
+            self.render()
         }
     }
     

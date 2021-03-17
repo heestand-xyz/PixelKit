@@ -36,9 +36,9 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: Freeze
     
-    public override func setNeedsRender() {
+    public override func render() {
         if !freeze {
-            super.setNeedsRender()
+            super.render()
         }
     }
     
