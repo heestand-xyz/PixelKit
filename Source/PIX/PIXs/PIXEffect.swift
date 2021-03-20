@@ -37,7 +37,8 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
         
         let manyRenderPromisePublisher = Publishers.MergeMany(inputList.map(\.renderPromisePublisher))
         manyRenderPromisePublisher
-            .sink { renderRequest in
+            .sink { [weak self] renderRequest in
+                guard let self = self else { return }
                 print("Combine \"\(self.name)\" Promise +++", renderRequest.frameIndex)
                 promisedRenderRequests.append(renderRequest)
                 self.promisedRender(renderRequest)
@@ -48,7 +49,8 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
         var willRenderFromFrameIndex: Int?
         var willRenderTimer: Timer?
         manyRenderPublisher
-            .sink { renderPack in
+            .sink {  [weak self] renderPack in
+                guard let self = self else { return }
                 defer {
                     promisedRenderRequests.removeAll(where: { promisedRenderRequest in
                         renderPack.request.fullSourceChain.map(\.id).contains(promisedRenderRequest.id)

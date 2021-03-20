@@ -39,8 +39,8 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     public func didUpdateInputConnections() {
         cancellableIns = []
         Publishers.MergeMany(inputList.map(\.renderPublisher))
-            .sink { textures in
-                self.render()
+            .sink { [weak self] textures in
+                self?.render()
             }
             .store(in: &cancellableIns)
     }
