@@ -284,7 +284,7 @@ open class PIX: NODE, Equatable/*, NODETileable*/ {
             return
         }
         
-        PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Request Render", loop: true)
+//        PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Request Render", loop: true)
         
         PixelKit.main.render.queuer.add(request: renderRequest) { queueResult in
             switch queueResult {
@@ -318,7 +318,9 @@ open class PIX: NODE, Equatable/*, NODETileable*/ {
                 }
                 
             case .failure(let error):
-                PixelKit.main.render.logger.log(node: self, .warning, .render, "Queue Can't Render", loop: true, e: error)
+                if error as? Queuer.QueuerError != Queuer.QueuerError.duplicate {
+                    PixelKit.main.render.logger.log(node: self, .warning, .render, "Queue Can't Render", loop: true, e: error)
+                }
                 renderRequest.completion?(.failure(error))
             }
         }
