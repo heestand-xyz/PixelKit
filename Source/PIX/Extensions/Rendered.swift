@@ -48,15 +48,15 @@ public extension PIX {
         }
         return Texture.image(from: cgImage, at: finalResolution.size)
     }
-//    func nextRenderedImage(callback: @escaping (_Image) -> ()) {
-//        if let image = renderedImage {
-//            callback(image)
-//            return
-//        }
-//        pixelKit.render.delay(frames: 1, done: {
-//            self.nextRenderedImage(callback: callback)
-//        })
-//    }
+    func nextRenderedImage(callback: @escaping (_Image) -> ()) {
+        if let image = renderedImage {
+            callback(image)
+            return
+        }
+        pixelKit.render.delay(frames: 1, done: {
+            self.nextRenderedImage(callback: callback)
+        })
+    }
     
     var renderedTileTexture: MTLTexture? {
         guard let nodeTileable2d = self as? NODETileable2D else {
