@@ -40,7 +40,7 @@ final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "View", typeName: "pix-content-resource-view")
         applyResolution {
             self.render()

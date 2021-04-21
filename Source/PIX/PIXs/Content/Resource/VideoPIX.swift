@@ -105,7 +105,7 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "Video", typeName: "pix-content-resource-video")
         helper = VideoHelper(volume: Float(volume), loaded: { resolution in
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")

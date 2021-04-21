@@ -63,7 +63,7 @@ final public class MultiCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "Multi Camera", typeName: "pix-content-resource-multi-camera")
         DispatchQueue.main.async {
             if self.cameraPix == nil {

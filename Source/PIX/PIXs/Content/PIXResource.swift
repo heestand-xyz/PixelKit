@@ -32,6 +32,14 @@ open class PIXResource: PIXContent, NODEResource {
         super.clearRender()
     }
     
+    public required init() {
+        fatalError("please use init(name:typeName:)")
+    }
+    
+    public override init(name: String, typeName: String) {
+        super.init(name: name, typeName: typeName)
+    }
+    
     public func getResourceTexture(commandBuffer: MTLCommandBuffer) throws -> MTLTexture {
         if let texture: MTLTexture = resourceTexture {
             return texture

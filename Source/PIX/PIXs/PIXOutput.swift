@@ -27,9 +27,9 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
         inputList = []
     }
     
-//    required public init(from decoder: Decoder) throws {
-//        fatalError("NODEOutput Decoder Initializer is not supported.") // CHECK
-//    }
+    public required init() {
+        fatalError("please use init(name:typeName:)")
+    }
     
     public override func destroy() {
         input = nil

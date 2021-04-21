@@ -127,7 +127,7 @@ final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         
         recording = false
         paused = false

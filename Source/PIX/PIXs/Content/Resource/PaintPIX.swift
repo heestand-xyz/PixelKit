@@ -182,6 +182,10 @@ final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
         setNeedsBuffer()
     }
     
+    public required convenience init() {
+        self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
     func setFrame() {
         canvasView.frame = CGRect(origin: .zero, size: resolution.size)
     }

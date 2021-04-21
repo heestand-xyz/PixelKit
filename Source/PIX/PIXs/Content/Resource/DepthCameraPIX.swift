@@ -32,7 +32,7 @@ final public class DepthCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "Depth Camera", typeName: "pix-content-resource-depth-camera")
         DispatchQueue.main.async {
             if self.cameraPix == nil {

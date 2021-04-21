@@ -65,6 +65,10 @@ final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
         load(url: url)
     }
     
+    public required convenience init() {
+        self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
     // MARK: - Load
     
     public func load(named name: String) {

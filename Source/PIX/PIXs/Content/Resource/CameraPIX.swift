@@ -288,7 +288,7 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         
         super.init(name: "Camera", typeName: "pix-content-resource-camera")
         

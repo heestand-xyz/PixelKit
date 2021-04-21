@@ -72,6 +72,10 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
         self.refresh()
     }
     
+    public required convenience init() {
+        self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
     // MARK: - Load
     
     public func refresh() {

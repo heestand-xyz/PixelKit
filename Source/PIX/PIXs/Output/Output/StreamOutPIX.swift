@@ -31,7 +31,7 @@ final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         
         super.init(name: "Stream Out", typeName: "pix-output-stream-out")
         

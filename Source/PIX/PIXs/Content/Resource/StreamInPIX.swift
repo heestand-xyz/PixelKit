@@ -34,7 +34,7 @@ final public class StreamInPIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         
         super.init(name: "Stream In", typeName: "pix-content-resource-stream-in")
         

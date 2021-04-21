@@ -77,7 +77,7 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "Image", typeName: "pix-content-resource-image")
 //        self.applyResolution {
 //            self.render()

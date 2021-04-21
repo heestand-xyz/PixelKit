@@ -27,7 +27,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable, ObservableObject {
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         
         isConnected = false
         window = nil
