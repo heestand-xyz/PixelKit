@@ -24,7 +24,7 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable, ObservableObject 
     
     // MARK: - Life Cycle
     
-    public init() {
+    public required init() {
         super.init(name: "Screen Capture", typeName: "pix-content-resource-screen-capture")
         setupScreenCapture()
     }

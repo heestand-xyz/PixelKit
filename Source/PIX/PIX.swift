@@ -136,7 +136,7 @@ open class PIX: NODE, Equatable/*, NODETileable*/ {
     var generatorNotBypassed: Bool?
     
     public var destroyed = false
-    var cancellables: [AnyCancellable] = []
+    public var cancellables: [AnyCancellable] = []
     
     // MARK: - Life Cycle
     
