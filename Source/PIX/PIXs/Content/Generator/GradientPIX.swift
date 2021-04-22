@@ -72,12 +72,12 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveEnum(name: "Direction") public var direction: Direction = .vertical
-    @LiveFloat(name: "Scale") public var scale: CGFloat = 1.0
-    @LiveFloat(name: "Offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
-    @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @LiveEnum(name: "Extend Mode") public var extendMode: ExtendMode = .hold
-    @Live(name: "Color Steps") public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
+    @LiveEnum("direction") public var direction: Direction = .vertical
+    @LiveFloat("scale") public var scale: CGFloat = 1.0
+    @LiveFloat("offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
+    @LivePoint("position") public var position: CGPoint = .zero
+    @LiveEnum("extendMode") public var extendMode: ExtendMode = .hold
+    @Live("colorSteps") public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
     
     // MARK: - Property Helpers
     

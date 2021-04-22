@@ -15,9 +15,9 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveFloat(name: "Low", range: 0.0...1.0) public var low: CGFloat = 0.0
-    @LiveFloat(name: "High", range: 0.0...1.0) public var high: CGFloat = 1.0
-    @LiveBool(name: "Clamp Alpha") public var clampAlpha: Bool = false
+    @LiveFloat("low", range: 0.0...1.0) public var low: CGFloat = 0.0
+    @LiveFloat("high", range: 0.0...1.0) public var high: CGFloat = 1.0
+    @LiveBool("clampAlpha") public var clampAlpha: Bool = false
     
     public enum Style: String, Enumable {
         case hold
@@ -44,7 +44,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Style") public var style: Style = .hold
+    @LiveEnum("style") public var style: Style = .hold
     
     // MARK: - Property Helpers
     

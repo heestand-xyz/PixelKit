@@ -20,7 +20,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
     
     // MARK: - Public Properties
     
-    @LiveInt(name: "Delay Frames", range: 0...60) public var delayFrames: Int = 10
+    @LiveInt("delayFrames", range: 0...60) public var delayFrames: Int = 10
     
     // MARK: - Property Helpers
     

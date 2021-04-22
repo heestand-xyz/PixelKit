@@ -16,7 +16,7 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     // MARK: - Public Properties
     
-    @LiveFloat(name: "Threshold") public var threshold: CGFloat = 0.5
+    @LiveFloat("threshold") public var threshold: CGFloat = 0.5
 
     // MARK: - Property Helpers
     

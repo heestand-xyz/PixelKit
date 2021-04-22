@@ -16,10 +16,10 @@ final public class TransformPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     // MARK: - Public Properties
     
-    @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @LiveFloat(name: "Rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
-    @LiveFloat(name: "Scale") public var scale: CGFloat = 1.0
-    @LiveSize(name: "Size") public var size: CGSize = CGSize(width: 1.0, height: 1.0)
+    @LivePoint("position") public var position: CGPoint = .zero
+    @LiveFloat("rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
+    @LiveFloat("scale") public var scale: CGFloat = 1.0
+    @LiveSize("size") public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
     // MARK: - Property Helpers
     

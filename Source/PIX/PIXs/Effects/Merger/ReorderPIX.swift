@@ -36,10 +36,10 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Red Input") public var redInput: Input = .first
-    @LiveEnum(name: "Green Input") public var greenInput: Input = .first
-    @LiveEnum(name: "Blue Input") public var blueInput: Input = .first
-    @LiveEnum(name: "Alpha Input") public var alphaInput: Input = .first
+    @LiveEnum("redInput") public var redInput: Input = .first
+    @LiveEnum("greenInput") public var greenInput: Input = .first
+    @LiveEnum("blueInput") public var blueInput: Input = .first
+    @LiveEnum("alphaInput") public var alphaInput: Input = .first
     
     public enum RawChannel {
         case red
@@ -78,12 +78,12 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Red Channel") public var redChannel: Channel = .red
-    @LiveEnum(name: "Green Channel") public var greenChannel: Channel = .green
-    @LiveEnum(name: "Blue Channel") public var blueChannel: Channel = .blue
-    @LiveEnum(name: "Alpha Channel") public var alphaChannel: Channel = .alpha
+    @LiveEnum("redChannel") public var redChannel: Channel = .red
+    @LiveEnum("greenChannel") public var greenChannel: Channel = .green
+    @LiveEnum("blueChannel") public var blueChannel: Channel = .blue
+    @LiveEnum("alphaChannel") public var alphaChannel: Channel = .alpha
     
-    @LiveBool(name: "Premultiply") public var premultiply: Bool = true
+    @LiveBool("premultiply") public var premultiply: Bool = true
     
     // MARK: - Property Helpers
     

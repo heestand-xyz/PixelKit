@@ -34,13 +34,13 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Axis") public var axis: Axis = .vertical
+    @LiveEnum("axis") public var axis: Axis = .vertical
 
     var holdEdgeFraction: CGFloat {
         let axisRes = axis == .horizontal ? finalResolution.width : finalResolution.height
         return 1.0 / axisRes
     }
-    @LiveBool(name: "Hold Edge") public var holdEdge: Bool = true
+    @LiveBool("holdEdge") public var holdEdge: Bool = true
     
     // MARK: - Property Helpers
     

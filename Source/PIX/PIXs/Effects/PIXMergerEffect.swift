@@ -14,7 +14,7 @@ open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     public var inputB: (NODE & NODEOut)? { didSet { setNeedsConnectMerger(new: inputB, old: oldValue, second: true) } }
     public override var connectedIn: Bool { return inputList.count == 2 }
     
-    @LiveEnum(name: "Placement") public var placement: Placement = .fit
+    @LiveEnum("placement") public var placement: Placement = .fit
     
     public override var liveList: [LiveWrap] {
         [_placement]

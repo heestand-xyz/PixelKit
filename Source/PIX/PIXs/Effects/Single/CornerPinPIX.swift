@@ -16,12 +16,12 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     
     // MARK: - Public Properties
     
-    @LivePoint(name: "Top Left") public var topLeft: CGPoint = CGPoint(x: 0, y: 1)
-    @LivePoint(name: "Top Right") public var topRight: CGPoint = CGPoint(x: 1, y: 1)
-    @LivePoint(name: "Bottom Left") public var bottomLeft: CGPoint = CGPoint(x: 0, y: 0)
-    @LivePoint(name: "Bottom Right") public var bottomRight: CGPoint = CGPoint(x: 1, y: 0)
-    @LiveBool(name: "Perspective") public var perspective: Bool = false
-    @LiveInt(name: "Subdivisions", range: 8...32) public var subdivisions: Int = 16
+    @LivePoint("topLeft") public var topLeft: CGPoint = CGPoint(x: 0, y: 1)
+    @LivePoint("topRight") public var topRight: CGPoint = CGPoint(x: 1, y: 1)
+    @LivePoint("bottomLeft") public var bottomLeft: CGPoint = CGPoint(x: 0, y: 0)
+    @LivePoint("bottomRight") public var bottomRight: CGPoint = CGPoint(x: 1, y: 0)
+    @LiveBool("perspective") public var perspective: Bool = false
+    @LiveInt("subdivisions", range: 8...32) public var subdivisions: Int = 16
     
     // MARK: - Property Helpers
     

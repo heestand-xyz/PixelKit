@@ -17,12 +17,12 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     // MARK: - Public Properties
     
-    @LiveColor(name: "Key Color") public var keyColor: PixelColor = .green
-    @LiveFloat(name: "Range", range: 0.0...0.5) public var range: CGFloat = 0.1
-    @LiveFloat(name: "Softness", range: 0.0...0.5) public var softness: CGFloat = 0.1
-    @LiveFloat(name: "Edge Desaturation") public var edgeDesaturation: CGFloat = 0.5
-    @LiveFloat(name: "Alpha Crop") public var alphaCrop: CGFloat = 0.5
-    @LiveBool(name: "Premultiply") public var premultiply: Bool = true
+    @LiveColor("keyColor") public var keyColor: PixelColor = .green
+    @LiveFloat("range", range: 0.0...0.5) public var range: CGFloat = 0.1
+    @LiveFloat("softness", range: 0.0...0.5) public var softness: CGFloat = 0.1
+    @LiveFloat("edgeDesaturation") public var edgeDesaturation: CGFloat = 0.5
+    @LiveFloat("alphaCrop") public var alphaCrop: CGFloat = 0.5
+    @LiveBool("premultiply") public var premultiply: Bool = true
     
     // MARK: - Property Helpers
     

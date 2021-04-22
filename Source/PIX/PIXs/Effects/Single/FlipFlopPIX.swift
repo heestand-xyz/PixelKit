@@ -38,7 +38,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Flip") public var flip: Flip = .none
+    @LiveEnum("flip") public var flip: Flip = .none
     
     public enum Flop: String, Enumable {
         case none
@@ -59,7 +59,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Flop", updateResolution: true) public var flop: Flop = .none
+    @LiveEnum("flop", updateResolution: true) public var flop: Flop = .none
     
     // MARK: - Property Helpers
     

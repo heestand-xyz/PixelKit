@@ -54,10 +54,10 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Mode") public var mode: ConvertMode = .squareToCircle
+    @LiveEnum("mode") public var mode: ConvertMode = .squareToCircle
     
-    @LiveFloat(name: "X Rotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
-    @LiveFloat(name: "Y Rotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
+    @LiveFloat("xRotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
+    @LiveFloat("yRotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
     
     // MARK: - Property Helpers
     

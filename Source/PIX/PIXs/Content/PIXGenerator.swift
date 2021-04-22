@@ -31,8 +31,8 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         get { backgroundColor }
         set { backgroundColor = newValue }
     }
-    @LiveColor(name: "Background Color") public var backgroundColor: PixelColor = .black
-    @LiveColor(name: "Color") public var color: PixelColor = .white
+    @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
+    @LiveColor("color") public var color: PixelColor = .white
     
     open override var liveList: [LiveWrap] {
         [_backgroundColor, _color]

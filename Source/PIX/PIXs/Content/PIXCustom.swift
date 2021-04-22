@@ -22,7 +22,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
         get { backgroundColor }
         set { backgroundColor = newValue }
     }
-    @LiveColor(name: "Background Color") public var backgroundColor: PixelColor = .black
+    @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
     
     public override var liveList: [LiveWrap] {
         [_backgroundColor]

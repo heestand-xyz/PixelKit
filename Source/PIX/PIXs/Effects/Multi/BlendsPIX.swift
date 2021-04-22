@@ -16,7 +16,7 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveEnum(name: "Blend Mode") public var blendMode: BlendMode = .add
+    @LiveEnum("blendMode") public var blendMode: BlendMode = .add
     
     // MARK: - Property Helpers
     

@@ -17,9 +17,9 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable, ObservableOb
     
     // MARK: - Public Properties
     
-    @LiveFloat(name: "Hue", range: -0.5...0.5) public var hue: CGFloat = 0.0
-    @LiveFloat(name: "Saturation", range: 0.0...2.0) public var saturation: CGFloat = 1.0
-    @LiveColor(name: "Tint Color") public var tintColor: PixelColor = .white
+    @LiveFloat("hue", range: -0.5...0.5) public var hue: CGFloat = 0.0
+    @LiveFloat("saturation", range: 0.0...2.0) public var saturation: CGFloat = 1.0
+    @LiveColor("tintColor") public var tintColor: PixelColor = .white
     
     // MARK: - Property Helpers
     

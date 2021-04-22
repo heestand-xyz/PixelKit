@@ -35,7 +35,7 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable, ObservableObject {
             }
         }
     }
-    @LiveEnum(name: "Axis") public var axis: Axis = .z
+    @LiveEnum("axis") public var axis: Axis = .z
 
     // MARK: - Property Helpers
 

@@ -15,7 +15,7 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObjec
     
     // MARK: - Public Properties
     
-    @LiveFloat(name: "Seconds", range: 0.0...2.0) public var seconds: CGFloat = 1.0
+    @LiveFloat("seconds", range: 0.0...2.0) public var seconds: CGFloat = 1.0
     
     // MARK: - Private Properties
     

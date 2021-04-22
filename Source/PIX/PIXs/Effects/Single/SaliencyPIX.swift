@@ -48,7 +48,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
     }
-    @LiveEnum(name: "Style") public var style: SaliencyStyle = .attention
+    @LiveEnum("style") public var style: SaliencyStyle = .attention
     
     // MARK: - Property Helpers
     

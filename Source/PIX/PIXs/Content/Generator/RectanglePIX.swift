@@ -16,9 +16,9 @@ final public class RectanglePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @LiveSize(name: "Size") public var size: CGSize = CGSize(width: 0.5, height: 0.5)
-    @LiveFloat(name: "Corner Radius", range: 0.0...0.1) public var cornerRadius: CGFloat = 0.0
+    @LivePoint("position") public var position: CGPoint = .zero
+    @LiveSize("size") public var size: CGSize = CGSize(width: 0.5, height: 0.5)
+    @LiveFloat("cornerRadius", range: 0.0...0.1) public var cornerRadius: CGFloat = 0.0
     
     // MARK: - Property Helpers
     

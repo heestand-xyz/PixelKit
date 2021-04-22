@@ -31,9 +31,9 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveEnum(name: "Blend Mode") public var blendMode: BlendMode = .over
+    @LiveEnum("blendMode") public var blendMode: BlendMode = .over
     public var coordinates: [Coordinate] = []
-    @LiveColor(name: "Background Color") public var backgroundColor: PixelColor = .black
+    @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
     
     // MARK: - Property Helpers
     

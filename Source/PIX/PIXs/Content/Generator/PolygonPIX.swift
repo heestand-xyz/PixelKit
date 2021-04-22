@@ -16,11 +16,11 @@ final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @LiveFloat(name: "Radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
-    @LiveFloat(name: "Rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
-    @LiveInt(name: "Count", range: 3...12) public var count: Int = 3
-    @LiveFloat(name: "Corner Radius", range: 0.0...0.1, increment: 0.025) public var cornerRadius: CGFloat = 0.0
+    @LivePoint("position") public var position: CGPoint = .zero
+    @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
+    @LiveFloat("rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
+    @LiveInt("count", range: 3...12) public var count: Int = 3
+    @LiveFloat("cornerRadius", range: 0.0...0.1, increment: 0.025) public var cornerRadius: CGFloat = 0.0
    
     // MARK: - Property Helpers
     

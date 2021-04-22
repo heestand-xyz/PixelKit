@@ -16,7 +16,7 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveBool(name: "Freeze") public var freeze: Bool = false
+    @LiveBool("freeze") public var freeze: Bool = false
     
     // MARK: - Property Helpers
     

@@ -31,7 +31,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
             }
         }
     }
-    @LiveEnum(name: "Direction") public var direction: Direction = .rgbToHsv
+    @LiveEnum("direction") public var direction: Direction = .rgbToHsv
 
     public enum Filter: String, Enumable {
         case all
@@ -60,7 +60,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     /// RGB to HSV - First is Hue, Second is Saturation, Third is Value
     ///
     /// HSV to RGB - First is Red, Second is Green, Third is Blue
-    @LiveEnum(name: "Filter") public var filter: Filter = .all
+    @LiveEnum("filter") public var filter: Filter = .all
     
     // MARK: - Property Helpers
     
