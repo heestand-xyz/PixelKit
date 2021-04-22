@@ -22,7 +22,7 @@ final public class NoisePIX: PIXGenerator, PIXViewable, ObservableObject {
     @LiveInt(name: "Octaves", range: 1...10) public var octaves: Int = 10
     @LivePoint(name: "Position") public var position: CGPoint = .zero
     @LiveFloat(name: "Z Position", range: -1.0...1.0) public var zPosition: CGFloat = 0.0
-    @LiveFloat(name: "Zoom", range: 0.5...2.0) public var zoom: CGFloat = 1.0
+    @LiveFloat(name: "Zoom", range: 0.5...2.0, increment: 0.5) public var zoom: CGFloat = 1.0
     @LiveBool(name: "Colored") public var colored: Bool = false
     @LiveBool(name: "Random") public var random: Bool = false
     @LiveBool(name: "Include Alpha") public var includeAlpha: Bool = false

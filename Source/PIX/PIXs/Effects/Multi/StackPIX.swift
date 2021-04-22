@@ -67,8 +67,8 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     }
     @LiveEnum(name: "Alignment") public var alignment: Alignment = .center
     
-    @LiveFloat(name: "Spacing", range: 0.0...0.25) public var spacing: CGFloat = 0.0
-    @LiveFloat(name: "Padding", range: 0.0...0.25) public var padding: CGFloat = 0.0
+    @LiveFloat(name: "Spacing", range: 0.0...0.25, increment: 0.05) public var spacing: CGFloat = 0.0
+    @LiveFloat(name: "Padding", range: 0.0...0.25, increment: 0.05) public var padding: CGFloat = 0.0
     
     @LiveColor(name: "Background Color") public var backgroundColor: PixelColor = .clear
     

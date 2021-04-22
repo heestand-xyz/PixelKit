@@ -17,9 +17,9 @@ final public class CirclePIX: PIXGenerator, PIXViewable, ObservableObject {
     
     // MARK: - Public Properties
     
-    @LiveFloat(name: "Radius", range: 0.0...0.5) public var radius: CGFloat = 0.25
+    @LiveFloat(name: "Radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
     @LivePoint(name: "Position") public var position: CGPoint = .zero
-    @LiveFloat(name: "Edge Radius", range: 0.0...0.5) public var edgeRadius: CGFloat = 0.0
+    @LiveFloat(name: "Edge Radius", range: 0.0...0.5, increment: 0.125) public var edgeRadius: CGFloat = 0.0
     @LiveColor(name: "Edge Color") public var edgeColor: PixelColor = .gray
     
     // MARK: - Property Helpers

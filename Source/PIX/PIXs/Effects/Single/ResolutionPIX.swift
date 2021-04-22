@@ -20,7 +20,7 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, 
     // MARK: - Public Properties
     
     @LiveResolution(name: "Resolution") public var resolution: Resolution = ._128
-    @LiveFloat(name: "Resolution Multiplier", updateResolution: true) public var resolutionMultiplier: CGFloat = 1
+    @LiveFloat(name: "Resolution Multiplier", range: 0.5...2.0, updateResolution: true) public var resolutionMultiplier: CGFloat = 1
     @LiveBool(name: "Inherit Resolution", updateResolution: true) public var inheritResolution: Bool = false
     @LiveEnum(name: "Placement") public var placement: Placement = .fit
     

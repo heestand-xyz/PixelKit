@@ -38,7 +38,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
     }
     
     @LiveEnum(name: "Style") public var style: RainbowBlurStyle = .zoom
-    @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
+    @LiveFloat(name: "Radius", increment: 0.125) public var radius: CGFloat = 0.5
     @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
     @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero

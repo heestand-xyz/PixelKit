@@ -66,7 +66,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
-    @LiveFloat(name: "Radius") public var radius: CGFloat = 0.5
+    @LiveFloat(name: "Radius", increment: 0.125) public var radius: CGFloat = 0.5
     @LiveEnum(name: "Quality") public var quality: SampleQualityMode = .mid
     @LiveFloat(name: "Angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint(name: "Position") public var position: CGPoint = .zero
