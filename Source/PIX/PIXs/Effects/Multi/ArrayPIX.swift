@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 import PixelColor
 
 public struct Coordinate {

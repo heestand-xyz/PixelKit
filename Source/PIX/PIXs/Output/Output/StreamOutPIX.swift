@@ -11,6 +11,7 @@ import Foundation
 import CoreGraphics
 import CoreImage
 import RenderKit
+import Resolution
 import UIKit
 
 final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {

@@ -7,6 +7,7 @@
 
 import MetalKit
 import RenderKit
+import Resolution
 
 public class PIXView: NODEView {
     

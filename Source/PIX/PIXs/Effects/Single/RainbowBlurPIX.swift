@@ -8,6 +8,7 @@
 
 
 import RenderKit
+import Resolution
 import CoreGraphics
 import MetalKit
 

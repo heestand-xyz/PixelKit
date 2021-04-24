@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 /// Useful with **VoxelKit** to sample depth images.
 final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {

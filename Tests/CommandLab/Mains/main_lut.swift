@@ -1,6 +1,7 @@
 import Foundation
 import Cocoa
 import RenderKit
+import Resolution
 import PixelKit
 
 // MARK: - Setup

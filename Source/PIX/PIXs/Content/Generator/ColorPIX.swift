@@ -8,6 +8,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 import PixelColor
 
 final public class ColorPIX: PIXGenerator, PIXViewable, ObservableObject {

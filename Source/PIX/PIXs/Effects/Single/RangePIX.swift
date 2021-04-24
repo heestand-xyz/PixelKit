@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 import PixelColor
 
 final public class RangePIX: PIXSingleEffect, PIXViewable, ObservableObject {

@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import RenderKit
+import Resolution
 import Metal
 
 final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {

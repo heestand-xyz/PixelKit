@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 final public class QuantizePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     

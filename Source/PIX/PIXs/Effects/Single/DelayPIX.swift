@@ -7,7 +7,9 @@
 //
 
 import RenderKit
+import Resolution
 import RenderKit
+import Resolution
 import Metal
 
 final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {

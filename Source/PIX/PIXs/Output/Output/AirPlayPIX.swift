@@ -10,6 +10,7 @@
 
 import UIKit
 import RenderKit
+import Resolution
 
 final public class AirPlayPIX: PIXOutput, PIXViewable, ObservableObject {
     

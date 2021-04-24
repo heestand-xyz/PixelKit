@@ -8,6 +8,7 @@
 
 
 import RenderKit
+import Resolution
 import Metal
 
 final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {

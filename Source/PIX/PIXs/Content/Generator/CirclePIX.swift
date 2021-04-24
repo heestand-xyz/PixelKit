@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import RenderKit
+import Resolution
 import PixelColor
 import SwiftUI
 

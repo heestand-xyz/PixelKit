@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 import PixelColor
 
 final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject {

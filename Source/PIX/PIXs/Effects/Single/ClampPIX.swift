@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     

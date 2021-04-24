@@ -8,6 +8,7 @@
 
 
 import RenderKit
+import Resolution
 import AVKit
 
 @available(OSX 10.13, *)

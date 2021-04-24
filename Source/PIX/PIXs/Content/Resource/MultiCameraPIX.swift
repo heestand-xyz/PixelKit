@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)

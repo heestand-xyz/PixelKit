@@ -6,6 +6,7 @@
 //
 
 import RenderKit
+import Resolution
 import PixelKit_macOS
 
 class Files {

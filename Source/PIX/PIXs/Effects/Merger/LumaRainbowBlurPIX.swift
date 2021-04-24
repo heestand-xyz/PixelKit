@@ -8,6 +8,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 import CoreGraphics
 
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")

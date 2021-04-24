@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 import CoreGraphics
 #if canImport(SwiftUI)
 import SwiftUI

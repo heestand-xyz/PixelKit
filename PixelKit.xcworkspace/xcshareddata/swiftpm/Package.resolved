@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "PixelColor",
-        "repositoryURL": "https://github.com/heestand-xyz/PixelColor.git",
+        "package": "Resolution",
+        "repositoryURL": "https://github.com/heestand-xyz/Resolution",
         "state": {
           "branch": null,
-          "revision": "25ece121e6251baa9882a301e6880a693ee8b6d6",
-          "version": "1.1.4"
+          "revision": "3c3dc0cde53f26518b8de90be8df55a4f67bb0e5",
+          "version": "1.0.0"
         }
       }
     ]

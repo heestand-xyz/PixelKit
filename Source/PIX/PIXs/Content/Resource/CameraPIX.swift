@@ -8,6 +8,7 @@
 
 
 import RenderKit
+import Resolution
 import AVKit
 #if os(iOS) && !targetEnvironment(macCatalyst)
 typealias _Orientation = UIInterfaceOrientation

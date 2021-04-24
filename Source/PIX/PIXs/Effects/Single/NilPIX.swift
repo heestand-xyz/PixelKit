@@ -8,6 +8,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 
 final public class NilPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     

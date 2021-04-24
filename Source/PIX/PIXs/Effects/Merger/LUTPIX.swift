@@ -8,6 +8,7 @@
 //import Foundation
 //import CoreGraphics
 //import RenderKit
+import Resolution
 
 //// LUT == Lookup Table
 //

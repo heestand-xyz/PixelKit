@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 
 open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti {
 

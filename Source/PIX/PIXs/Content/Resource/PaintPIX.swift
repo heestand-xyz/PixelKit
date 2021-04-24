@@ -8,6 +8,7 @@
 #if os(iOS) && !targetEnvironment(macCatalyst)
 
 import RenderKit
+import Resolution
 import UIKit
 #if canImport(SwiftUI)
 import SwiftUI

@@ -8,6 +8,7 @@
 import AppKit
 import Metal
 import RenderKit
+import Resolution
 import PixelKit
 
 final public class SyphonOutPIX: PIXOutput, PIXViewable, ObservableObject {

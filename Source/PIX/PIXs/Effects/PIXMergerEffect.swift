@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 
 open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     

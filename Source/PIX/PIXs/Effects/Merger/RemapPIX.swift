@@ -8,6 +8,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 
 final public class RemapPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     

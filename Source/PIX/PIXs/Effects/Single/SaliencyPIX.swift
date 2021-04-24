@@ -7,6 +7,7 @@
 
 
 import RenderKit
+import Resolution
 import Vision
 import CoreImage
 

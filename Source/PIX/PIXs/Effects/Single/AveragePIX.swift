@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 /// Useful with **VoxelKit** to downsample depth images.
 final public class AveragePIX: PIXSingleEffect, PIXViewable, ObservableObject {

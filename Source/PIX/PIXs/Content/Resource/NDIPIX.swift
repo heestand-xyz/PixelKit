@@ -9,6 +9,7 @@
 // https://github.com/lizhming/NDI-recording-swift
 
 import RenderKit
+import Resolution
 
 
 public protocol NDIPIXDelegate {

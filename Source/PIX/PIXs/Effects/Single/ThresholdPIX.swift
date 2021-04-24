@@ -8,6 +8,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 import CoreGraphics
 
 final public class ThresholdPIX: PIXSingleEffect, PIXViewable, ObservableObject {

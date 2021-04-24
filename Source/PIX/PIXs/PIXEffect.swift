@@ -8,6 +8,7 @@
 
 import MetalKit
 import RenderKit
+import Resolution
 import Combine
 
 open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {

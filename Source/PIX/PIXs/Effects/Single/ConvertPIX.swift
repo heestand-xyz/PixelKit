@@ -7,6 +7,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 import CoreGraphics
 
 final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {

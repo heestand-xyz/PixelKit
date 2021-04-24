@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 
 #if os(iOS) || os(tvOS)
 import UIKit

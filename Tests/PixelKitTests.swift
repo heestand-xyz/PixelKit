@@ -9,6 +9,7 @@ import XCTest
 import Cocoa
 
 import RenderKit
+import Resolution
 import PixelKit_macOS
 
 class PixelKitTests: XCTestCase {

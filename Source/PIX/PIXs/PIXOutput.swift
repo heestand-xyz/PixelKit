@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 import Combine
 
 open class PIXOutput: PIX, NODEInIO, NODEInSingle {

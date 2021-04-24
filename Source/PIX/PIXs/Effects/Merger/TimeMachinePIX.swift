@@ -7,6 +7,7 @@
 
 import CoreGraphics
 import RenderKit
+import Resolution
 import Metal
 
 final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObject {

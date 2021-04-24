@@ -6,6 +6,7 @@
 //
 
 import RenderKit
+import Resolution
 import SceneKit
 
 final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {

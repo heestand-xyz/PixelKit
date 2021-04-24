@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 import CoreVideo
 
 open class PIXResource: PIXContent, NODEResource {

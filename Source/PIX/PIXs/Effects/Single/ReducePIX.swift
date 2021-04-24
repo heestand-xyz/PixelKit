@@ -7,6 +7,7 @@
 
 
 import RenderKit
+import Resolution
 import MetalPerformanceShaders
 
 @available(tvOS 11.3, *)

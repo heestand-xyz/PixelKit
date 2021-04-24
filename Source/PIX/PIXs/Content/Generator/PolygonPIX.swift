@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import RenderKit
+import Resolution
 import SwiftUI
 
 final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {

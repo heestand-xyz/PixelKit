@@ -8,6 +8,7 @@
 
 
 import RenderKit
+import Resolution
 #if canImport(SwiftUI)
 import SwiftUI
 #endif

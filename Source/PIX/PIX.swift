@@ -7,7 +7,9 @@
 //
 
 import RenderKit
+import Resolution
 import RenderKit
+import Resolution
 import CoreGraphics
 import Metal
 import simd

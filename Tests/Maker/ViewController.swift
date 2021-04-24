@@ -8,6 +8,7 @@
 import Cocoa
 
 import RenderKit
+import Resolution
 import PixelKit_macOS
 
 class ViewController: NSViewController {

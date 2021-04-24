@@ -7,6 +7,7 @@
 //
 
 import RenderKit
+import Resolution
 import MetalKit
 import simd
 import PixelColor

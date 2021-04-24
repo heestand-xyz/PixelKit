@@ -8,6 +8,7 @@
 
 import MetalKit
 import RenderKit
+import Resolution
 
 
 /// overrides the default metal lib

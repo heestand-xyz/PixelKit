@@ -7,8 +7,9 @@
 //
 
 import RenderKit
-
+import Resolution
 import RenderKit
+import Resolution
 import CoreGraphics
 
 extension PIX {

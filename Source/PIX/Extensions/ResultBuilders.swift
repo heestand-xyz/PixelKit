@@ -6,6 +6,7 @@
 //
 
 import RenderKit
+import Resolution
 
 @resultBuilder
 public struct PIXBuilder {

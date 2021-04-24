@@ -8,6 +8,7 @@
 #if os(iOS)
 
 import RenderKit
+import Resolution
 import UIKit
 import CoreGraphics
 

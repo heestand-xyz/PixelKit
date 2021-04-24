@@ -7,6 +7,7 @@
 
 import Foundation
 import RenderKit
+import Resolution
 import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)

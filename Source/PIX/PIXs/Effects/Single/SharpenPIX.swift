@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 import RenderKit
+import Resolution
 
 final public class SharpenPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     

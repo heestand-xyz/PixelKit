@@ -7,6 +7,7 @@
 
 import CoreGraphics
 import RenderKit
+import Resolution
 import Foundation
 import PixelColor
 
