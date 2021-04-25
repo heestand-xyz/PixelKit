@@ -14,12 +14,7 @@ import Resolution
 
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
-    var _resolution: Resolution
-    public var resolution: Resolution {
-        set { _resolution = newValue; applyResolution { self.render() } }
-        get { return _resolution * PIXGenerator.globalResMultiplier }
-    }
-    public static var globalResMultiplier: CGFloat = 1
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     public var premultiply: Bool = true { didSet { render() } }
     override open var shaderNeedsAspect: Bool { return true }
@@ -36,7 +31,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     @LiveColor("color") public var color: PixelColor = .white
     
     open override var liveList: [LiveWrap] {
-        [_backgroundColor, _color]
+        [_backgroundColor, _color, _resolution]
     }
     
     public required init(at resolution: Resolution) {
@@ -44,7 +39,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
-        _resolution = resolution
+        self.resolution = resolution
         super.init(name: name, typeName: typeName)
         applyResolution {
             #warning("Delay on Init")
