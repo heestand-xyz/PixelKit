@@ -15,7 +15,7 @@ import Metal
 import simd
 import Combine
 
-open class PIX: NODE, Equatable/*, NODETileable*/ {
+open class PIX: NODE, Equatable {
     
     public var id = UUID()
     public var name: String
