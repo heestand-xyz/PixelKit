@@ -90,7 +90,7 @@ open class PIX: NODE, Equatable {
     
     public var pixView: PIXView!
     public var view: NODEView { pixView }
-
+    public var additionalViews: [NODEView] = []
     
     public var viewInterpolation: ViewInterpolation = .linear {
         didSet {
@@ -708,6 +708,30 @@ open class PIX: NODE, Equatable {
 //            }
 //        }
 //        #endif
+    }
+    
+}
+
+public extension PIX {
+    
+    func addView() -> NODEView {
+        addPixView()
+    }
+    
+    func addPixView() -> PIXView {
+        let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
+        let view = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
+        additionalViews.append(view)
+        applyResolution {
+            self.render()
+        }
+        return view
+    }
+    
+    func removeView(_ view: NODEView) {
+        additionalViews.removeAll { nodeView in
+            nodeView == view
+        }
     }
     
 }

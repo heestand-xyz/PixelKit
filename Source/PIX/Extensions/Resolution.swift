@@ -139,6 +139,10 @@ extension PIX {
 //                return
 //            }
 //        }
+        additionalViews.forEach { view in
+            guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else { return }
+            view.setResolution(finalResolution)
+        }
         guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else {
 //            pixelKit.logger.log(node: self, .detail, .resolution, "Apply Resolution - Size not new.")
             applied()
@@ -158,6 +162,9 @@ extension PIX {
     
     func removeRes() {
         view.setResolution(nil)
+        additionalViews.forEach { view in
+            view.setResolution(nil)
+        }
     }
     
 }
