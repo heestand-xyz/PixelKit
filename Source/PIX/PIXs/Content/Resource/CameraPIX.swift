@@ -350,7 +350,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self.setup = true
         
             #if os(macOS) || targetEnvironment(macCatalyst)
-            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { autoDetect = value }
+            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { self.autoDetect = value }
             #endif
             
             #if os(iOS) && !targetEnvironment(macCatalyst)
