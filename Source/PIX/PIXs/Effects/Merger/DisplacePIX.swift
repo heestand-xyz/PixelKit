@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class DisplacePIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerDisplacePIX" }
     
@@ -44,6 +44,10 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable, ObservableObject {
         super.inputA = inputA()
         super.inputB = inputB()
         self.distance = distance
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

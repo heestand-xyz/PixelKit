@@ -10,7 +10,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ClampPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleClampPIX" }
     
@@ -61,6 +61,10 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Clamp", typeName: "pix-effect-single-clamp")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

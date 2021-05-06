@@ -16,7 +16,7 @@ import MetalKit
 import MetalPerformanceShaders
 #endif
 
-final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "effectSingleBlurPIX" }
     
@@ -103,6 +103,17 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, 
         style = .box
         #endif
         super.init(name: "Blur", typeName: "pix-effect-single-blur")
+        extend = .hold
+        customRenderDelegate = self
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        #if !os(tvOS) && !targetEnvironment(simulator)
+        style = .gaussian
+        #else
+        style = .box
+        #endif
+        try super.init(from: decoder)
         extend = .hold
         customRenderDelegate = self
     }

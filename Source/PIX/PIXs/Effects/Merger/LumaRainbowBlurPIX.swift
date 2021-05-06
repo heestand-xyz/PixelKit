@@ -14,7 +14,7 @@ import CoreGraphics
 @available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
-final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     
@@ -66,6 +66,10 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable, ObservableO
     public required init() {
         super.init(name: "Luma Rainbow Blur", typeName: "pix-effect-merger-luma-rainbow-blur")
         extend = .hold
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

@@ -15,7 +15,7 @@ import Metal
 import simd
 import Combine
 
-open class PIX: NODE, Equatable {
+open class PIX: NODE, ObservableObject, Equatable {
     
     public var id = UUID()
     public var name: String
@@ -86,7 +86,7 @@ open class PIX: NODE, Equatable {
         }
     }
     
-    open var additiveVertexBlending: Bool { return false }
+    open var additiveVertexBlending: Bool { false }
     
     public var pixView: PIXView!
     public var view: NODEView { pixView }
@@ -97,7 +97,12 @@ open class PIX: NODE, Equatable {
             view.metalView.viewInterpolation = viewInterpolation
         }
     }
-    public var interpolate: InterpolateMode = .linear { didSet { updateSampler() } }
+    @available(*, deprecated, renamed: "interpolation")
+    public var interpolate: PixelInterpolation {
+        get { interpolation }
+        set { interpolation = newValue }
+    }
+    public var interpolation: PixelInterpolation = .linear { didSet { updateSampler() } }
     public var extend: ExtendMode = .zero { didSet { updateSampler() } }
     public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
     var compare: MTLCompareFunction = .never
@@ -108,6 +113,7 @@ open class PIX: NODE, Equatable {
         return pipeline != nil && sampler != nil
     }
     
+    #warning("Check if Codable")
     public var customRenderActive: Bool = false
     public var customRenderDelegate: CustomRenderDelegate?
     public var customMergerRenderActive: Bool = false
@@ -710,6 +716,46 @@ open class PIX: NODE, Equatable {
 //        #endif
     }
     
+    // MARK: - Codable
+    
+    enum PIXCodingKeys: CodingKey {
+        case id
+        case name
+        case typeName
+        case bypass
+        case viewInterpolation
+        case interpolation
+        case extend
+        case mipmap
+        case compare
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: PIXCodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        typeName = try container.decode(String.self, forKey: .typeName)
+        bypass = try container.decode(Bool.self, forKey: .bypass)
+        viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
+        interpolation = try container.decode(PixelInterpolation.self, forKey: .interpolation)
+        extend = try container.decode(ExtendMode.self, forKey: .extend)
+        mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
+        compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: PIXCodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(typeName, forKey: .typeName)
+        try container.encode(bypass, forKey: .bypass)
+        try container.encode(viewInterpolation, forKey: .viewInterpolation)
+        try container.encode(interpolation, forKey: .interpolation)
+        try container.encode(extend, forKey: .extend)
+        try container.encode(mipmap.rawValue, forKey: .mipmap)
+        try container.encode(compare.rawValue, forKey: .compare)
+    }
+    
 }
 
 public extension PIX {
@@ -764,8 +810,8 @@ public extension NODEOut where Self: PIX & NODEOut & PIXViewable {
     /// Interpolate determins what happens inbetween scaled pixels.
     ///
     /// Default is `.linear`
-    func pixInterpolate(_ interpolate: InterpolateMode) -> PIX & NODEOut {
-        self.interpolate = interpolate
+    func pixInterpolate(_ interpolation: PixelInterpolation) -> PIX & NODEOut {
+        self.interpolation = interpolation
         return self
     }
     

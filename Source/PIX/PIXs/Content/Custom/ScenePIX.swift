@@ -9,7 +9,7 @@ import RenderKit
 import Resolution
 import SceneKit
 
-final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
+final public class ScenePIX: PIXCustom, PIXViewable {
     
     // MARK: - Private Properties
     
@@ -54,8 +54,16 @@ final public class ScenePIX: PIXCustom, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        
         super.init(at: resolution, name: "Scene", typeName: "pix-content-custom-scene")
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         
         renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
         renderer.autoenablesDefaultLighting = true

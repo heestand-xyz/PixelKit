@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LookupPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLookupPIX" }
     
@@ -66,6 +66,10 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         super.inputA = inputA()
         super.inputB = inputB()
         self.axis = axis
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

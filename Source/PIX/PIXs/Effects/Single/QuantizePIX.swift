@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class QuantizePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class QuantizePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleQuantizePIX" }
     
@@ -33,6 +33,10 @@ final public class QuantizePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Quantize", typeName: "pix-effect-single-quantize")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

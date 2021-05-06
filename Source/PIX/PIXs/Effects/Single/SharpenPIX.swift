@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class SharpenPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class SharpenPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSharpenPIX" }
     
@@ -33,6 +33,10 @@ final public class SharpenPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Sharpen", typeName: "pix-effect-single-sharpen")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

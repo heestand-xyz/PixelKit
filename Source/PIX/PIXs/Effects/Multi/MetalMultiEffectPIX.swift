@@ -27,7 +27,7 @@ import Metal
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
 /// ~~~~
-final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable, ObservableObject {
+final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectMultiMetalPIX" }
     
@@ -124,19 +124,28 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable, 
         super.init()
     }
     
-//    // MARK: - JSON
-//    
-//    required convenience init(from decoder: Decoder) throws {
-//        self.init(code: "") // CHECK
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        render()
-//    }
-//    
-//    override public func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(metalUniforms, forKey: .metalUniforms)
-//    }
+    // MARK: Codable
+    
+    enum CodingKeys: CodingKey {
+        case metalUniforms
+        case code
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
+        code = try container.decode(String.self, forKey: .code)
+        try super.init(from: decoder)
+    }
+    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(metalUniforms, forKey: .metalUniforms)
+        try container.encode(code, forKey: .code)
+        try super.encode(to: encoder)
+    }
+    
+    // MARK: Bake Frag
     
     func bakeFrag() {
         console = nil

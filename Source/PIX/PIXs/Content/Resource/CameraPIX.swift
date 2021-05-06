@@ -27,7 +27,7 @@ public protocol CameraPIXDelegate {
     func cameraFrame(pix: CameraPIX, pixelBuffer: CVPixelBuffer)
 }
 
-final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
+final public class CameraPIX: PIXResource, PIXViewable {
         
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
@@ -59,7 +59,7 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         }
     }
     
-    public enum CamRes: String, Codable, CaseIterable {
+    public enum CameraResolution: String, Codable, CaseIterable {
         case vga = "VGA"
         case _540p = "540p"
         case _720p = "720p"
@@ -96,9 +96,9 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         }
     }
     #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var camRes: CamRes = ._1080p { didSet { if setup { setupCamera() } } }
+    public var cameraResolution: CameraResolution = ._1080p { didSet { if setup { setupCamera() } } }
     #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public var camRes: CamRes = ._720p { didSet { if setup { setupCamera() } } }
+    public var cameraResolution: CameraResolution = ._720p { didSet { if setup { setupCamera() } } }
     #endif
     
     public enum Camera: String, Codable, CaseIterable {
@@ -189,10 +189,6 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         let frameLoop: (CVPixelBuffer) -> ()
     }
     var multiCallbacks: [MultiCallback] = []
-    
-    #endif
-    
-    #if os(iOS) && !targetEnvironment(macCatalyst)
     
     public var manualExposure: Bool = false {
         didSet {
@@ -290,43 +286,118 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init() {
-        
         super.init(name: "Camera", typeName: "pix-content-resource-camera")
-        
         DispatchQueue.main.async {
             self.setupCamera()
             self.setup = true
         }
-        
-        #if os(macOS)
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
-            self.camAttatched(device: notif.object! as! AVCaptureDevice)
-        }
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
-            self.camDeattatched(device: notif.object! as! AVCaptureDevice)
-        }
-        #endif
-        
-//        #if os(iOS)
-//        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceSubjectAreaDidChange, object: nil, queue: nil) { (notif) -> Void in }
-//        #endif
-        
-    }
+        setupNotifications()    }
     
-    public convenience init(at camRes: CamRes? = nil, camera: Camera? = nil) {
+    public convenience init(at cameraResolution: CameraResolution? = nil, camera: Camera? = nil) {
         self.init()
         #if os(iOS) && !targetEnvironment(macCatalyst)
         self.camera = camera ?? .back
-        self.camRes = camRes ?? ._1080p
+        self.cameraResolution = cameraResolution ?? ._1080p
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         self.camera = camera ?? .front
-        self.camRes = camRes ?? ._720p
+        self.cameraResolution = cameraResolution ?? ._720p
         #endif
         setupCamera()
     }
     
     deinit {
         helper!.stop()
+    }
+    
+    // MARK: Codable
+    
+    enum CodingKeys: CodingKey {
+        case active
+        case cameraResolution
+        case camera
+        case autoDetect
+        case depth
+        case filterDepth
+        case multi
+        case manualExposure
+        case exposure
+        case iso
+        case torch
+        case manualFocus
+        case focus
+        case focusPoint
+        case manualWhiteBalance
+        case whiteBalance
+        case minExposure
+        case maxExposure
+        case minISO
+        case maxISO
+    }
+    
+    required init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        active = try container.decode(Bool.self, forKey: .active)
+        cameraResolution = try container.decode(CameraResolution.self, forKey: .cameraResolution)
+        camera = try container.decode(Camera.self, forKey: .camera)
+        
+        try super.init(from: decoder)
+        
+        DispatchQueue.main.async {
+            
+            self.setupCamera()
+            self.setup = true
+        
+            #if os(macOS) || targetEnvironment(macCatalyst)
+            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { autoDetect = value }
+            #endif
+            
+            #if os(iOS) && !targetEnvironment(macCatalyst)
+            if let value = try? container.decode(Bool.self, forKey: .depth) { self.depth = value }
+            if let value = try? container.decode(Bool.self, forKey: .filterDepth) { self.filterDepth = value }
+            if let value = try? container.decode(Bool.self, forKey: .multi) { self.multi = value }
+            if let value = try? container.decode(Bool.self, forKey: .manualExposure) { self.manualExposure = value }
+            if let value = try? container.decode(CGFloat.self, forKey: .exposure) { self.exposure = value }
+            if let value = try? container.decode(CGFloat.self, forKey: .iso) { self.iso = value }
+            if let value = try? container.decode(CGFloat.self, forKey: .torch) { self.torch = value }
+            if let value = try? container.decode(Bool.self, forKey: .manualFocus) { self.manualFocus = value }
+            if let value = try? container.decode(CGFloat.self, forKey: .focus) { self.focus = value }
+            if let value = try? container.decode(Bool.self, forKey: .manualWhiteBalance) { self.manualWhiteBalance = value }
+            if let value = try? container.decode(PixelColor.self, forKey: .whiteBalance) { self.whiteBalance = value.uiColor }
+            #endif
+            
+        }
+        setupNotifications()
+    }
+    
+    public override func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(active, forKey: .active)
+        try container.encode(cameraResolution, forKey: .cameraResolution)
+        try container.encode(camera, forKey: .camera)
+        
+        #if os(macOS) || targetEnvironment(macCatalyst)
+        try container.encode(autoDetect, forKey: .autoDetect)
+        #endif
+        
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        try container.encode(depth, forKey: .depth)
+        try container.encode(filterDepth, forKey: .filterDepth)
+        try container.encode(multi, forKey: .multi)
+        try container.encode(manualExposure, forKey: .manualExposure)
+        try container.encode(exposure, forKey: .exposure)
+        try container.encode(iso, forKey: .iso)
+        try container.encode(torch, forKey: .torch)
+        try container.encode(manualFocus, forKey: .manualFocus)
+        try container.encode(focus, forKey: .focus)
+        try container.encode(manualWhiteBalance, forKey: .manualWhiteBalance)
+        try container.encode(PixelColor(whiteBalance), forKey: .whiteBalance)
+        #endif
+        
+        try super.encode(to: encoder)
     }
     
     // MARK: Access
@@ -348,6 +419,17 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
     }
     
     // MARK: Setup
+    
+    func setupNotifications() {
+        #if os(macOS)
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
+            self.camAttatched(device: notif.object! as! AVCaptureDevice)
+        }
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
+            self.camDeattatched(device: notif.object! as! AVCaptureDevice)
+        }
+        #endif
+    }
     
     func setupCamera() {
         if !access {
@@ -380,7 +462,7 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let multiCameras: [Camera]? = nil
         #endif
-        helper = CameraHelper(camRes: camRes, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { _, orientation in
+        helper = CameraHelper(cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { _, orientation in
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -427,8 +509,8 @@ final public class CameraPIX: PIXResource, PIXViewable, ObservableObject {
         setupCallbacks.append(completion)
     }
     
-    public static func supports(camRes: CameraPIX.CamRes) -> Bool {
-        CameraHelper.supports(camRes: camRes)
+    public static func supports(cameraResolution: CameraPIX.CameraResolution) -> Bool {
+        CameraHelper.supports(cameraResolution: cameraResolution)
     }
     
     // MARK: - Camera Attatchment
@@ -574,7 +656,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let capturedDepthCallback: (CVPixelBuffer) -> ()
     let capturedMultiCallback: (Int, CVPixelBuffer) -> ()
 
-    init(camRes: CameraPIX.CamRes, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
+    init(cameraResolution: CameraPIX.CameraResolution, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
         
         var multi: Bool = false
         
@@ -720,7 +802,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         
         if !multi {
-            let preset: AVCaptureSession.Preset = depth ? .vga640x480 : camRes.sessionPreset
+            let preset: AVCaptureSession.Preset = depth ? .vga640x480 : cameraResolution.sessionPreset
             if captureSession.canSetSessionPreset(preset) {
                 captureSession.sessionPreset = preset
                 pixelKit.logger.log(.info, nil, "Camera preset set to: \(preset)")
@@ -740,8 +822,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         } else {
 //            if #available(iOS 13.0, *) {
 //                multiDevices.forEach { multiDevice in
-//                    let targetWidth: Int = camRes.resolution.w
-//                    let targetHeight: Int = camRes.resolution.h
+//                    let targetWidth: Int = cameraResolution.resolution.w
+//                    let targetHeight: Int = cameraResolution.resolution.h
 //                    var deviceFormat: AVCaptureDevice.Format?
 //                    for format in multiDevice.formats {
 //                        let dimensions = format.formatDescription.dimensions
@@ -763,7 +845,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //                            pixelKit.logger.log(.error, nil, "Camera Device configuration failed for \"\(multiDevice.deviceType.rawValue)\".")
 //                        }
 //                    } else {
-//                        pixelKit.logger.log(.error, nil, "CamRes not supported for \"\(multiDevice.deviceType.rawValue)\".")
+//                        pixelKit.logger.log(.error, nil, "CameraResolution not supported for \"\(multiDevice.deviceType.rawValue)\".")
 //                    }
 //                }
 //            }
@@ -892,8 +974,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
     }
     
-    static func supports(camRes: CameraPIX.CamRes) -> Bool {
-        AVCaptureSession().canSetSessionPreset(camRes.sessionPreset)
+    static func supports(cameraResolution: CameraPIX.CameraResolution) -> Bool {
+        AVCaptureSession().canSetSessionPreset(cameraResolution.sessionPreset)
     }
     
     #if os(iOS) && !targetEnvironment(macCatalyst)

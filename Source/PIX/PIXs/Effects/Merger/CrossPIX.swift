@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class CrossPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class CrossPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerCrossPIX" }
     
@@ -42,6 +42,10 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         super.inputA = inputA()
         super.inputB = inputB()
         self.fraction = fraction
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

@@ -43,7 +43,7 @@ import SwiftUI
 //}
 //#endif
 
-final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
+final public class VideoPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -166,6 +166,10 @@ final public class VideoPIX: PIXResource, PIXViewable, ObservableObject {
         } else {
             pixelKit.logger.log(node: self, .error, .resource, "Video File \"\(fullName)\" Not Found")
         }
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Load

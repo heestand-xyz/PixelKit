@@ -23,7 +23,7 @@ import Metal
 ///     """
 /// )
 /// ~~~~
-final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable, ObservableObject {
+final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
     
@@ -101,6 +101,29 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable, ObservableObj
         code = ""
         super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
     }
+    
+    // MARK: Codable
+    
+    enum CodingKeys: CodingKey {
+        case metalUniforms
+        case code
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
+        code = try container.decode(String.self, forKey: .code)
+        try super.init(from: decoder)
+    }
+    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(metalUniforms, forKey: .metalUniforms)
+        try container.encode(code, forKey: .code)
+        try super.encode(to: encoder)
+    }
+    
+    // MARK: Bake Frag
     
     func bakeFrag() {
         console = nil

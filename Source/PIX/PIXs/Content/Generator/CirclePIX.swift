@@ -12,7 +12,7 @@ import Resolution
 import PixelColor
 import SwiftUI
 
-final public class CirclePIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class CirclePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { "contentGeneratorCirclePIX" }
     
@@ -42,6 +42,10 @@ final public class CirclePIX: PIXGenerator, PIXViewable, ObservableObject {
                             radius: CGFloat = 0.25) {
         self.init(at: resolution)
         self.radius = radius
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

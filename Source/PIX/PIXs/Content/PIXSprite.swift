@@ -18,7 +18,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { reSize(); applyResolution { self.render() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { reSize(); applyResolution { self.render() } } }
     
     @available(*, deprecated, renamed: "backgroundColor")
     public var bgColor: PixelColor {
@@ -39,6 +39,10 @@ open class PIXSprite: PIXContent, NODEResolution {
     var scene: SKScene!
     var sceneView: SKView!
     
+    open override var liveList: [LiveWrap] {
+        [_resolution] + super.liveList
+    }
+    
     required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         fatalError("Please use PIXSprite Sub Classes.")
     }
@@ -46,11 +50,15 @@ open class PIXSprite: PIXContent, NODEResolution {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
-        setup()
-        applyResolution { self.render() }
+        setupSprite()
     }
     
-    func setup() {
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setupSprite()
+    }
+    
+    func setupSprite() {
         let size = (resolution / Resolution.scale).size
         scene = SKScene(size: size)
         #if os(macOS)
@@ -61,6 +69,7 @@ open class PIXSprite: PIXContent, NODEResolution {
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)
+        applyResolution { self.render() }
     }
     
     func reSize() {

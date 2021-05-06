@@ -10,7 +10,7 @@ import RenderKit
 import Resolution
 import Metal
 
-final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
    
     override public var shaderName: String { return "effectMergerTimeMachinePIX" }
     
@@ -40,8 +40,15 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, ObservableObjec
     
     public required init() {
         super.init(name: "Time Machine", typeName: "pix-effect-merger-time-machine")
-//        customMergerRenderActive = true
-//        customMergerRenderDelegate = self
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         PixelKit.main.render.listenToFrames { [weak self] in
             guard let self = self else { return }
             self.frameLoop()

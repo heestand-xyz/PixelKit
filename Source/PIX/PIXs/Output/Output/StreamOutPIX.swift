@@ -14,7 +14,7 @@ import RenderKit
 import Resolution
 import UIKit
 
-final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
+final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     enum Connected {
         case disconnected
@@ -33,9 +33,16 @@ final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init() {
-        
         super.init(name: "Stream Out", typeName: "pix-output-stream-out")
-        
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         peer = Peer(peer: { connect_state, device_name in
             if connect_state == .connected {
                 self.connected = .connected
@@ -46,7 +53,6 @@ final public class StreamOutPIX: PIXOutput, PIXViewable, ObservableObject {
                 self.connected = .disconnected
             }
         })
-        
     }
     
     public override func didRender(renderPack: RenderPack) {

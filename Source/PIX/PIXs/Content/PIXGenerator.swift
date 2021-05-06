@@ -31,7 +31,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     @LiveColor("color") public var color: PixelColor = .white
     
     open override var liveList: [LiveWrap] {
-        [_backgroundColor, _color, _resolution]
+        [_backgroundColor, _color, _resolution] + super.liveList
     }
     
     public required init(at resolution: Resolution) {
@@ -41,7 +41,17 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         applyResolution {
+            self.render()
             #warning("Delay on Init")
             PixelKit.main.render.delay(frames: 1) {
                 self.render()

@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaBlurPIX" }
     
@@ -74,6 +74,10 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         super.inputA = inputA()
         super.inputB = inputB()
         self.radius = radius
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

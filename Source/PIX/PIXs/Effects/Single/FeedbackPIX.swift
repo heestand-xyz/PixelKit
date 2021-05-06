@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import Metal
 
-final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -43,6 +43,15 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable, ObservableObject {
 
     public required init() {
         super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
+        setup()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         pixelKit.render.listenToFramesUntil { [weak self] in
             guard let self = self else { return .done }
             if self.input?.texture != nil && self.feedTexture != nil {

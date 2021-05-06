@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import Metal
 
-final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class FreezePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -33,6 +33,10 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Freeze", typeName: "pix-effect-single-freeze")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: Freeze

@@ -12,7 +12,7 @@ import Resolution
 import UIKit
 import CoreGraphics
 
-final public class StreamInPIX: PIXResource, PIXViewable, ObservableObject {
+final public class StreamInPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourceBGRPIX" }
     
@@ -36,8 +36,16 @@ final public class StreamInPIX: PIXResource, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init() {
-        
         super.init(name: "Stream In", typeName: "pix-content-resource-stream-in")
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         
         peer = Peer(gotImg: { img in
             self.image = img

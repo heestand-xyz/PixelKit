@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class TwirlPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class TwirlPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleTwirlPIX" }
     
@@ -34,6 +34,10 @@ final public class TwirlPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     public required init() {
         super.init(name: "Twirl", typeName: "pix-effect-single-twirl")
         extend = .mirror
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

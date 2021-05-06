@@ -11,13 +11,13 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
-final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, ObservableObject {
+final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     override public var shaderName: String { return "effectMultiStackPIX" }
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { applyResolution { self.render() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     public enum Axis: String, Enumable {
         case horizontal
@@ -76,7 +76,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_axis, _alignment, _spacing, _padding, _backgroundColor]
+        [_axis, _alignment, _spacing, _padding, _backgroundColor, _resolution] + super.liveList
     }
     
     public override var values: [Floatable] { [axis, alignment, spacing, padding, backgroundColor] }
@@ -113,6 +113,10 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable, Observ
     
     public required init() {
         fatalError("Please create StackPIX with a Resolution")
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

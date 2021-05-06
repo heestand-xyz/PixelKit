@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class ThresholdPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleThresholdPIX" }
     
@@ -33,6 +33,10 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     public required init() {
         super.init(name: "Threshold", typeName: "pix-effect-single-threshold")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

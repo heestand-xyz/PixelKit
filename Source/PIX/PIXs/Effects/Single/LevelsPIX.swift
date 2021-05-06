@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class LevelsPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class LevelsPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleLevelsPIX" }
     
@@ -39,6 +39,10 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Levels", typeName: "pix-effect-single-levels")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

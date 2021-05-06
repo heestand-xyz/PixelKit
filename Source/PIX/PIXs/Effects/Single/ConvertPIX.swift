@@ -10,7 +10,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ConvertPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleConvertPIX" }
     
@@ -74,6 +74,10 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Convert", typeName: "pix-effect-single-convert")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

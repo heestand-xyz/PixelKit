@@ -33,17 +33,17 @@ import PixelColor
 //#endif
 
 @available(iOS 13.0, *)
-final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
+final public class PaintPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourceBackgroundPIX" }
 
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
     
     let helper: PaintHelper
     
-    public let canvasView: PKCanvasView
+    public let canvasView: PKCanvasView = .init()
     
     public var manualToolUpdate: Bool = false
     
@@ -138,7 +138,7 @@ final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
         get { canvasView.drawing }
         set { canvasView.drawing = newValue; setNeedsBuffer() }
     }
-    public var allowsFingerDrawing: Bool {
+    public lazy var allowsFingerDrawing: Bool = canvasView.allowsFingerDrawing {
         didSet {
             canvasView.allowsFingerDrawing = allowsFingerDrawing
         }
@@ -155,24 +155,44 @@ final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
         }
     }
     
+    public override var liveList: [LiveWrap] {
+        [_resolution] + super.liveList
+    }
+    
     public override var values: [Floatable] { [backgroundColor] }
     
     public override var extraUniforms: [CGFloat] { [1/*flip*/, 1/*swapRB*/] }
     
     // MARK: - Interaction
     
-    let pencilInteraction: UIPencilInteraction
+    let pencilInteraction: UIPencilInteraction = .init()
     
     // MARK: - Life Cycle
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
-        canvasView = PKCanvasView()
-        pencilInteraction = UIPencilInteraction()
         canvasView.addInteraction(pencilInteraction)
-        allowsFingerDrawing = canvasView.allowsFingerDrawing
         helper = PaintHelper()
         super.init(name: "Paint", typeName: "pix-content-resource-paint")
+        setup()
+    }
+    
+    public required convenience init() {
+        self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
+    // MARK: Codable
+    
+    required init(from decoder: Decoder) throws {
+        canvasView.addInteraction(pencilInteraction)
+        helper = PaintHelper()
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    func setup() {
         canvasView.backgroundColor = backgroundColor.uiColor
         canvasView.delegate = helper
         pencilInteraction.delegate = helper
@@ -181,10 +201,6 @@ final public class PaintPIX: PIXResource, PIXViewable, ObservableObject {
         }
         setFrame()
         setNeedsBuffer()
-    }
-    
-    public required convenience init() {
-        self.init(at: .auto(render: PixelKit.main.render))
     }
     
     func setFrame() {

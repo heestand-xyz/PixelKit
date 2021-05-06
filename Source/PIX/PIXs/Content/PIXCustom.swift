@@ -16,7 +16,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { applyResolution { self.render() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     @available(*, deprecated, renamed: "backgroundColor")
     public var bgColor: PixelColor {
@@ -26,7 +26,7 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
     
     public override var liveList: [LiveWrap] {
-        [_backgroundColor]
+        [_backgroundColor, _resolution] + super.liveList
     }
     
     override open var values: [Floatable] { return [backgroundColor] }
@@ -34,6 +34,15 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
+        setupCustom()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setupCustom()
+    }
+    
+    func setupCustom() {
         customRenderDelegate = self
         customRenderActive = true
         applyResolution { self.render() }

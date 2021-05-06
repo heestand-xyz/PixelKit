@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class ReorderPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerReorderPIX" }
     
@@ -106,6 +106,10 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     public required init() {
         super.init(name: "Reorder", typeName: "pix-effect-merger-reorder")
         premultiply = false
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

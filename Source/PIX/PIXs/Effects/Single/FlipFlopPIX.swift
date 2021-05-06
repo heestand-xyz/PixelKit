@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleFlipFlopPIX" }
     
@@ -76,6 +76,10 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Flip Flop", typeName: "pix-effect-single-flip-flop")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

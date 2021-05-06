@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleKaleidoscopePIX" }
     
@@ -35,6 +35,10 @@ final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable, ObservableObje
     public required init() {
         super.init(name: "Kaleidoscope", typeName: "pix-effect-single-kaleidoscope")
         extend = .mirror
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

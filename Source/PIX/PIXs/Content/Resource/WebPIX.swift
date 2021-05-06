@@ -21,7 +21,7 @@ import WebKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableObject {
+final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -31,25 +31,25 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
     
     // MARK: - Private Properties
     
-    let helper: WebHelper
+    let helper: WebHelper = .init()
     
     // MARK: - Public Properties
     
-    public var resolution: Resolution { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
-    public var webView: WKWebView
+    public var webView: WKWebView = .init()
+    
+    public override var liveList: [LiveWrap] {
+        [_resolution] + super.liveList
+    }
     
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         
         self.resolution = resolution
-        
-        helper = WebHelper()
-        
-        webView = WKWebView()
-        
+                
         super.init(name: "Web", typeName: "pix-content-resource-web")
         
         webView.navigationDelegate = helper
@@ -75,6 +75,10 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable, ObservableO
     
     public required convenience init() {
         self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Load

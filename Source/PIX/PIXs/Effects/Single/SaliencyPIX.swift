@@ -14,7 +14,7 @@ import CoreImage
 @available(iOS 13.0, *)
 @available(OSX 10.15, *)
 @available(tvOS 13.0, *)
-final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "contentResourceRedToWhitePIX" }
     
@@ -63,6 +63,10 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         super.init(name: "Saliency", typeName: "pix-effect-single-saliency")
         customRenderDelegate = self
         customRenderActive = true
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

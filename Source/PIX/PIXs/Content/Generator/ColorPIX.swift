@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-final public class ColorPIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class ColorPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorColorPIX" }
     
@@ -31,6 +31,10 @@ final public class ColorPIX: PIXGenerator, PIXViewable, ObservableObject {
                             color: PixelColor) {
         self.init(at: resolution)
         super.color = color
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

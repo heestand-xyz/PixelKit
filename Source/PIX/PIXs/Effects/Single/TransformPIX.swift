@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class TransformPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class TransformPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleTransformPIX" }
     
@@ -36,6 +36,10 @@ final public class TransformPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     public required init() {
         super.init(name: "Transform", typeName: "pix-effect-single-transform")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
       
 }

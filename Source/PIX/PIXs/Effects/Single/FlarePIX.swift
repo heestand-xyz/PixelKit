@@ -11,7 +11,7 @@ import Resolution
 import Foundation
 import PixelColor
 
-final public class FlarePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class FlarePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleFlarePIX" }
     
@@ -42,6 +42,10 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Flare", typeName: "pix-effect-single-flare")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

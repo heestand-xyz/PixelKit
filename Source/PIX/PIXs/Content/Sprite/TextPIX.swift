@@ -13,11 +13,11 @@ import CoreGraphics
 import SpriteKit
 import PixelColor
 
-final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
+final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Private Properties
     
-    let label: SKLabelNode
+    let label: SKLabelNode = .init()
     
     // MARK: - Public Properties
     
@@ -48,10 +48,24 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        
-        label = SKLabelNode()
-        
         super.init(at: resolution, name: "Text", typeName: "pix-content-sprite-text")
+        setup()
+    }
+    
+    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+                            text: String) {
+        self.init(at: resolution)
+        self.text = text
+        setNeedsText()
+        render()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         
         label.verticalAlignmentMode = .center
         if #available(iOS 11, *) {
@@ -69,14 +83,6 @@ final public class TextPIX: PIXSprite, PIXViewable, ObservableObject {
         
         render()
         
-    }
-    
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
-                            text: String) {
-        self.init(at: resolution)
-        self.text = text
-        setNeedsText()
-        render()
     }
     
     override func reSize() {

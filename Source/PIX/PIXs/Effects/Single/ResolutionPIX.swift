@@ -13,7 +13,7 @@ import CoreGraphics
 import SwiftUI
 #endif
 
-final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, ObservableObject {
+final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "effectSingleResPIX" }
     override public var shaderNeedsAspect: Bool { return true }
@@ -28,7 +28,7 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, 
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_resolution, _resolutionMultiplier, _inheritResolution, _placement]
+        [_resolution, _resolutionMultiplier, _inheritResolution, _placement] + super.liveList
     }
     
     public override var uniforms: [CGFloat] {
@@ -47,30 +47,34 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable, 
         super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
     }
     
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+    
 }
 
 public extension NODEOut {
     
     func pixScaleResolution(to res: Resolution = .auto(render: PixelKit.main.render),
                             placement: Placement = .fit,
-                            interpolate: InterpolateMode = .linear) -> ResolutionPIX {
+                            interpolation: PixelInterpolation = .linear) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: res)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
-        resPix.interpolate = interpolate
+        resPix.interpolation = interpolation
         resPix.placement = placement
         return resPix
     }
     
     func pixScaleResolution(by resMultiplier: CGFloat,
                             placement: Placement = .fit,
-                            interpolate: InterpolateMode = .linear) -> ResolutionPIX {
+                            interpolation: PixelInterpolation = .linear) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: ._128)
         resPix.name = "reRes:res"
         resPix.input = self as? PIX & NODEOut
         resPix.inheritResolution = true
         resPix.resolutionMultiplier = resMultiplier
-        resPix.interpolate = interpolate
+        resPix.interpolation = interpolation
         resPix.placement = placement
         return resPix
     }

@@ -25,7 +25,7 @@ public typealias UINSImage = UIImage
 public typealias UINSImage = NSImage
 #endif
 
-final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
+final public class ImagePIX: PIXResource, PIXViewable {
 
 //    #if os(iOS) || os(tvOS)
 //    override open var shaderName: String { return "contentResourceFlipPIX" }
@@ -114,6 +114,10 @@ final public class ImagePIX: PIXResource, PIXViewable, ObservableObject {
         self.init()
         self.image = UINSImage(named: name)
         setNeedsBuffer()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: Buffer

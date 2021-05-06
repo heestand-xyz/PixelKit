@@ -13,7 +13,7 @@ import MetalPerformanceShaders
 @available(tvOS 11.3, *)
 @available(iOS 11.3, *)
 @available(OSX 10.13.4, *)
-final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
 
@@ -51,6 +51,10 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
         super.init(name: "Reduce", typeName: "pix-effect-single-reduce")
         customRenderActive = true
         customRenderDelegate = self
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Custom Render

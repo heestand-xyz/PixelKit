@@ -9,7 +9,7 @@ import AppKit
 import GLKit
 import OpenGL
 
-final public class SyphonInPIX: PIXResource, PIXViewable, ObservableObject {
+final public class SyphonInPIX: PIXResource, PIXViewable {
     
     override open var shaderName: String { return "contentResourcePIX" }
     

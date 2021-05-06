@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class EdgePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class EdgePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleEdgePIX" }
     
@@ -38,6 +38,10 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     public required init() {
         super.init(name: "Edge", typeName: "pix-effect-single-edge")
         extend = .hold
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

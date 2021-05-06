@@ -15,7 +15,7 @@ import UIKit
 import AppKit
 #endif
 
-final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -37,6 +37,15 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
     
     public required init() {
         super.init(name: "Cache", typeName: "pix-effect-single-cache")
+        setup()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         customRenderActive = true
         customRenderDelegate = self
     }

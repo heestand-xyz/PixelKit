@@ -14,12 +14,12 @@ import AVKit
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 @available(tvOS 11, *)
-final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
+final public class RecordPIX: PIXOutput, PIXViewable {
     
     // MARK: - Private Properties
     
-    var paused: Bool
-    var frameIndex: Int
+    var paused: Bool = false
+    var frameIndex: Int = 0
     var startDate: Date?
     var lastFrameDate: Date?
     var writer: AVAssetWriter?
@@ -37,10 +37,10 @@ final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
 
     // MARK: - Public Properties
     
-    public var recording: Bool
+    public var recording: Bool = false
     public var fps: Int = 30
     public var timeSync: Bool = true
-    public var realtime: Bool = false
+    public var realtime: Bool = true
     public var directMode: Bool = true
     
     public enum Quality {
@@ -129,23 +129,13 @@ final public class RecordPIX: PIXOutput, PIXViewable, ObservableObject {
     // MARK: - Life Cycle
     
     public required init() {
-        
-        recording = false
-        paused = false
-        realtime = true
-        fps = 30
-        frameIndex = 0
-        lastFrameDate = nil
-        writer = nil
-        writerVideoInput = nil
-        writerAdoptor = nil
-        currentImage = nil
-        exportUrl = nil
-        
         super.init(name: "Record", typeName: "pix-output-record")
-
         realtimeListen()
-        
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        realtimeListen()
     }
     
     // MARK: - Record

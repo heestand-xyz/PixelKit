@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct Coordinate {
+public struct Coordinate: Codable {
     public var position: CGPoint
     public var scale: CGFloat
     public var rotation: CGFloat
@@ -24,7 +24,7 @@ public struct Coordinate {
     }
 }
 
-final public class ArrayPIX: PIXMultiEffect, PIXViewable, ObservableObject {
+final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMultiArrayPIX" }
     
@@ -73,11 +73,26 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable, ObservableObject {
     // MARK - Life Cycle
     
     public required init() {
-        
         super.init(name: "Array", typeName: "pix-effect-multi-array")
-        
         buildGrid(xCount: 5, yCount: 5)
-        
+    }
+    
+    // MARK: Codable
+    
+    enum CodingKeys: CodingKey {
+        case coordinates
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        coordinates = try container.decode([Coordinate].self, forKey: .coordinates)
+        try super.init(from: decoder)
+    }
+    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(coordinates, forKey: .coordinates)
+        try super.encode(to: encoder)
     }
     
     // MARK - Builders

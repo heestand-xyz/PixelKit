@@ -12,7 +12,7 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
-final public class ChannelMixPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleChannelMixPIX" }
     
@@ -42,6 +42,10 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable, ObservableObject
     
     public required init() {
         super.init(name: "Channel Mix", typeName: "pix-effect-single-channel-mix")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

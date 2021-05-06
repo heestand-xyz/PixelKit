@@ -23,6 +23,10 @@ open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti {
         super.init(name: name, typeName: typeName)
     }
     
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+    
     public override func destroy() {
         inputs = []
         super.destroy()

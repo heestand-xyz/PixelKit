@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class SlopePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class SlopePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSlopePIX" }
     
@@ -33,6 +33,10 @@ final public class SlopePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Slope", typeName: "pix-effect-single-slope")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

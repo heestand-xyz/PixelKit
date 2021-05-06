@@ -12,7 +12,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleChromaKeyPIX" }
     
@@ -39,6 +39,10 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable, ObservableObject 
     
     public required init() {
         super.init(name: "Chroma Key", typeName: "pix-effect-single-chroma-key")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

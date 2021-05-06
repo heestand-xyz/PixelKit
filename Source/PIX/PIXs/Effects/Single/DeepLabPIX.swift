@@ -20,7 +20,7 @@ import CoreMedia
 @available(iOS 12.0, *)
 @available(OSX 10.14, *)
 @available(tvOS 12.0, *)
-final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -69,6 +69,15 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewabl
     public required init() {
 //        deepLabModel = DeepLabV3Int8LUT()
         super.init(name: "Deep Lab", typeName: "pix-effect-single-deep-lab")
+        setup()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         customRenderDelegate = self
         customRenderActive = true
     }

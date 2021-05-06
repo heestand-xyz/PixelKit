@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable, ObservableObject {
+final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -34,6 +34,15 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     
     public required init() {
         super.init(name: "Corner Pin", typeName: "pix-effect-single-corner-pin")
+        setup()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         customGeometryActive = true
         customGeometryDelegate = self
     }

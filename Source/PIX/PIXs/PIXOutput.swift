@@ -32,6 +32,10 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
         fatalError("please use init(name:typeName:)")
     }
     
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+    
     public override func destroy() {
         input = nil
         super.destroy()

@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 
 /// Useful with **VoxelKit** to downsample depth images.
-final public class AveragePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class AveragePIX: PIXSingleEffect, PIXViewable {
 
     override public var shaderName: String { return "effectSingleAveragePIX" }
 
@@ -50,6 +50,10 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable, ObservableObject {
 
     public required init() {
         super.init(name: "Average", typeName: "")
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
 
 }

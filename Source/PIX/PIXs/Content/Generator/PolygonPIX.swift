@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import SwiftUI
 
-final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class PolygonPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorPolygonPIX" }
     
@@ -47,6 +47,10 @@ final public class PolygonPIX: PIXGenerator, PIXViewable, ObservableObject {
         self.radius = radius
         self.count = count
         self.cornerRadius = cornerRadius
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

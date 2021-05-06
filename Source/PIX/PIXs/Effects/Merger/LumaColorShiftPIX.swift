@@ -12,7 +12,7 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
-final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaColorShiftPIX" }
     
@@ -47,6 +47,10 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable, ObservableOb
         super.inputB = inputB()
         self.hue = hue
         self.saturation = saturation
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

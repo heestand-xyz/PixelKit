@@ -11,7 +11,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class RectanglePIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class RectanglePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorRectanglePIX" }
     
@@ -41,6 +41,10 @@ final public class RectanglePIX: PIXGenerator, PIXViewable, ObservableObject {
         self.init(at: resolution)
         self.size = size
         self.cornerRadius = cornerRadius
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

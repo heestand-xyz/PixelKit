@@ -12,7 +12,7 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
-final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaLevelsPIX" }
     
@@ -40,6 +40,10 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable, ObservableObject
     
     public required init() {
         super.init(name: "Luma Levels", typeName: "pix-effect-merger-luma-levels")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

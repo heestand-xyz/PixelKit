@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class LumaTransformPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerLumaTransformPIX" }
     
@@ -36,6 +36,10 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable, ObservableObj
     
     public required init() {
         super.init(name: "Luma Transform", typeName: "pix-effect-merger-luma-transform")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 
 /// Useful with **VoxelKit** to sample depth images.
-final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class SlicePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSlicePIX" }
     
@@ -51,5 +51,9 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Slice", typeName: "pix-effect-single-slice")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
 }

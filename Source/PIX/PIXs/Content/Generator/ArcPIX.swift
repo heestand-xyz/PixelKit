@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-final public class ArcPIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class ArcPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorArcPIX" }
     
@@ -49,6 +49,10 @@ final public class ArcPIX: PIXGenerator, PIXViewable, ObservableObject {
         self.radius = radius
         self.angleFrom = angleFrom
         self.angleTo = angleTo
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

@@ -14,7 +14,7 @@ import MetalKit
 import SwiftUI
 import PixelColor
 
-final public class BlendPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class BlendPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerBlendPIX" }
     
@@ -54,6 +54,10 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable, ObservableObject {
         super.inputA = inputA?()
         super.inputB = inputB?()
         self.blendMode = blendMode
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

@@ -12,7 +12,7 @@ import Resolution
 
 // TODO: Square Caps
 
-final public class LinePIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class LinePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorLinePIX" }
     
@@ -37,6 +37,7 @@ final public class LinePIX: PIXGenerator, PIXViewable, ObservableObject {
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Line", typeName: "pix-content-generator-line")
     }
+    
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             positionFrom: CGPoint = CGPoint(x: -0.25, y: -0.25),
                             positionTo: CGPoint = CGPoint(x: 0.25, y: 0.25),
@@ -45,6 +46,10 @@ final public class LinePIX: PIXGenerator, PIXViewable, ObservableObject {
         self.positionFrom = positionFrom
         self.positionTo = positionTo
         self.scale = scale
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

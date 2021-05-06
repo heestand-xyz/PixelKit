@@ -11,7 +11,7 @@ import Resolution
 import Foundation
 import PixelColor
 
-final public class SepiaPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class SepiaPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleSepiaPIX" }
     
@@ -33,6 +33,10 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Sepia", typeName: "pix-effect-single-sepia")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

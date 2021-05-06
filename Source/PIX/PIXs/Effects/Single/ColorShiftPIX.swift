@@ -15,7 +15,7 @@ import PixelColor
 @available(*, deprecated, renamed: "ColorShiftPIX")
 public typealias HueSaturationPIX = ColorShiftPIX
 
-final public class ColorShiftPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleColorShiftPIX" }
     
@@ -39,6 +39,10 @@ final public class ColorShiftPIX: PIXSingleEffect, PIXViewable, ObservableObject
     
     public required init() {
         super.init(name: "Color Shift", typeName: "pix-effect-single-color-shift")
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

@@ -12,7 +12,7 @@ import Resolution
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 @available(iOS 13.0, *)
-final public class MultiCameraPIX: PIXResource, PIXViewable, ObservableObject {
+final public class MultiCameraPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
@@ -66,6 +66,15 @@ final public class MultiCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Multi Camera", typeName: "pix-content-resource-multi-camera")
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         DispatchQueue.main.async {
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")

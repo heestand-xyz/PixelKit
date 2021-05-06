@@ -17,7 +17,7 @@ import AppKit
 import SwiftUI
 #endif
 
-final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
+final public class ViewPIX: PIXResource, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -81,6 +81,10 @@ final public class ViewPIX: PIXResource, PIXViewable, ObservableObject {
         renderView = UIHostingController(rootView: content()).view
         #endif
         setNeedsBuffer()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     public func viewNeedsRender() {

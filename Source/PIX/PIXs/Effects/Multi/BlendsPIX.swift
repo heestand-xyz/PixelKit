@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-final public class BlendsPIX: PIXMultiEffect, PIXViewable, ObservableObject {
+final public class BlendsPIX: PIXMultiEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMultiBlendsPIX" }
     
@@ -40,6 +40,10 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable, ObservableObject {
         self.init()
         self.blendMode = blendMode
         super.inputs = inputs()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

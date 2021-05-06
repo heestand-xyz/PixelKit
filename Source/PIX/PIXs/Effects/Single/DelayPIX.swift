@@ -12,7 +12,7 @@ import RenderKit
 import Resolution
 import Metal
 
-final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable, ObservableObject {
+final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
     
@@ -34,6 +34,15 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable,
     
     public required init() {
         super.init(name: "Delay", typeName: "pix-effect-single-delay")
+        setup()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         customRenderActive = true
         customRenderDelegate = self
         PixelKit.main.render.listenToFrames { [weak self] in

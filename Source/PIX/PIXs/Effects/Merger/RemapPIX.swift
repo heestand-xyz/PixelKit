@@ -10,7 +10,7 @@ import Foundation
 import RenderKit
 import Resolution
 
-final public class RemapPIX: PIXMergerEffect, PIXViewable, ObservableObject {
+final public class RemapPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
     
@@ -18,6 +18,10 @@ final public class RemapPIX: PIXMergerEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Remap", typeName: "pix-effect-merger-remap")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

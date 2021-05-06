@@ -12,7 +12,7 @@ import Resolution
 import CoreGraphics
 import MetalKit
 
-final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
     
@@ -66,6 +66,10 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable, ObservableObjec
     public required init() {
         super.init(name: "Rainbow Blur", typeName: "pix-effect-single-rainbow-blur")
         extend = .hold
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

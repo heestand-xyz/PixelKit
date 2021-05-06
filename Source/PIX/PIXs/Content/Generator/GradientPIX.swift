@@ -42,7 +42,7 @@ extension Array: Floatable where Element == ColorStop {
     }
 }
 
-final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class GradientPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
     
@@ -103,12 +103,17 @@ final public class GradientPIX: PIXGenerator, PIXViewable, ObservableObject {
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Gradient", typeName: "pix-content-generator-gradient")
     }
+    
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             direction: Direction = .vertical,
                             colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]) {
         self.init(at: resolution)
         self.direction = direction
         self.colorSteps = colorSteps
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

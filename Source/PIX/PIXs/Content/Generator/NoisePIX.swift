@@ -13,7 +13,7 @@ import Resolution
 import SwiftUI
 #endif
 
-final public class NoisePIX: PIXGenerator, PIXViewable, ObservableObject {
+final public class NoisePIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorNoisePIX" }
     
@@ -50,6 +50,10 @@ final public class NoisePIX: PIXGenerator, PIXViewable, ObservableObject {
         self.init(at: resolution)
         self.octaves = octaves
         self.zoom = zoom
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Property Funcs

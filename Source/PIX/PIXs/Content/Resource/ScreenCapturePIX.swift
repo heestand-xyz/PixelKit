@@ -10,7 +10,7 @@
 
 import AVKit
 
-final public class ScreenCapturePIX: PIXResource, PIXViewable, ObservableObject {
+final public class ScreenCapturePIX: PIXResource, PIXViewable {
         
     override public var shaderName: String { return "contentResourcePIX" }
     

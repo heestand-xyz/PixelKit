@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import PixelKit
 
-final public class SyphonOutPIX: PIXOutput, PIXViewable, ObservableObject {
+final public class SyphonOutPIX: PIXOutput, PIXViewable {
 
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!

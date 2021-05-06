@@ -22,7 +22,7 @@ import PixelColor
 @available(OSX 10.13, *)
 @available(iOS 11, *)
 //@available(tvOS 11, *)
-final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
+final public class VectorPIX: PIXResource, PIXViewable {
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -30,9 +30,9 @@ final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    public var resolution: Resolution { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
     
-    let helper: VectorHelper
+    let helper: VectorHelper = .init()
     
     public var scale: CGFloat = 1.0 { didSet { load() } }
     public var position: CGPoint = .zero { didSet { load() } }
@@ -40,13 +40,15 @@ final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
     
     var svg: String?
     
-    let webView: WKWebView
+    let webView: WKWebView = .init()
+    
+    public override var liveList: [LiveWrap] {
+        [_resolution] + super.liveList
+    }
     
     // MARK: - Life Cycle
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        helper = VectorHelper()
-        webView = WKWebView()
         self.resolution = resolution
         super.init(name: "Vector", typeName: "pix-content-resource-vector")
         webView.navigationDelegate = helper
@@ -68,6 +70,10 @@ final public class VectorPIX: PIXResource, PIXViewable, ObservableObject {
     
     public required convenience init() {
         self.init(at: .auto(render: PixelKit.main.render))
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     // MARK: - Load

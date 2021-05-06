@@ -11,7 +11,7 @@ import Resolution
 import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
-final public class DepthCameraPIX: PIXResource, PIXViewable, ObservableObject {
+final public class DepthCameraPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourcePIX" }
     
@@ -35,6 +35,15 @@ final public class DepthCameraPIX: PIXResource, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Depth Camera", typeName: "pix-content-resource-depth-camera")
+        setup()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         DispatchQueue.main.async {
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")

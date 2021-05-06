@@ -10,7 +10,7 @@ import CoreGraphics
 import RenderKit
 import Resolution
 
-final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleColorConvertPIX" }
     
@@ -77,6 +77,10 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable, ObservableObje
     
     public required init() {
         super.init(name: "Color Convert", typeName: "pix-effect-single-color-convert")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }

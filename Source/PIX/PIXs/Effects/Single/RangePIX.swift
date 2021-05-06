@@ -12,7 +12,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-final public class RangePIX: PIXSingleEffect, PIXViewable, ObservableObject {
+final public class RangePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleRangePIX" }
     
@@ -40,6 +40,10 @@ final public class RangePIX: PIXSingleEffect, PIXViewable, ObservableObject {
     
     public required init() {
         super.init(name: "Range", typeName: "pix-effect-single-range")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
 }
