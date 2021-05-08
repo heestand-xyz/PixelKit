@@ -32,6 +32,8 @@ struct Uniforms {
     float aspect7;
     float aspect8;
     float aspect9;
+    float resx;
+    float resy;
     float aspect;
 };
 

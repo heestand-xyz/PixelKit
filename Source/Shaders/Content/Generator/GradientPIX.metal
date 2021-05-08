@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#include "Shaders/Source/Content/gradient_header.metal"
+#include "../../Shaders/Source/Content/gradient_header.metal"
 
 struct VertexOut {
     float4 position [[position]];
@@ -24,6 +24,8 @@ struct Uniforms {
     float py;
     float extend;
     float premultiply;
+    float resx;
+    float resy;
     float aspect;
     float tile;
     float tileX;

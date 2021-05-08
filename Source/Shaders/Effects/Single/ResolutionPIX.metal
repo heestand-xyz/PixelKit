@@ -17,13 +17,15 @@ struct VertexOut{
 
 struct Uniforms {
     float place;
+    float resx;
+    float resy;
     float aspect;
 };
 
-fragment float4 effectSingleResPIX(VertexOut out [[stage_in]],
-                                   texture2d<float>  inTex [[ texture(0) ]],
-                                   const device Uniforms& in [[ buffer(0) ]],
-                                   sampler s [[ sampler(0) ]]) {
+fragment float4 effectSingleResolutionPIX(VertexOut out [[stage_in]],
+                                          texture2d<float>  inTex [[ texture(0) ]],
+                                          const device Uniforms& in [[ buffer(0) ]],
+                                          sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];

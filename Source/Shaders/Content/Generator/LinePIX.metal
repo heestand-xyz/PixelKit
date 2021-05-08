@@ -35,6 +35,8 @@ struct Uniforms{
     float bb;
     float ba;
     float premultiply;
+    float resx;
+    float resy;
     float aspect;
     float tile;
     float tileX;

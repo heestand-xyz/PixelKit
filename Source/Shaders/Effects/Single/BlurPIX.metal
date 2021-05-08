@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "Shaders/Source/Content/random_header.metal"
+#import "../../Shaders/Source/Content/random_header.metal"
 
 struct VertexOut{
     float4 position [[position]];
@@ -23,6 +23,8 @@ struct Uniforms{
     float angle;
     float x;
     float y;
+    float resx;
+    float resy;
     float aspect;
 };
 

@@ -35,6 +35,8 @@ struct Uniforms{
     float bb;
     float ba;
     float premultiply;
+    float resx;
+    float resy;
     float aspect;
     float tile;
     float tileX;
@@ -56,7 +58,8 @@ fragment float4 contentGeneratorArcPIX(VertexOut out [[stage_in]],
         v = (in.tileY / in.tileResY) + v * in.tileFraction;
     }
     v = 1 - v; // Content Flip Fix
-    
+    float onePixel = 1.0 / max(in.resx, in.resy);
+
     float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
     float4 ec = float4(in.er, in.eg, in.eb, in.ea);
     float4 bc = float4(in.br, in.bg, in.bb, in.ba);
@@ -91,11 +94,28 @@ fragment float4 contentGeneratorArcPIX(VertexOut out [[stage_in]],
     if (afo < ato ?
         a >= afo && a <= ato :
         !(a <= afo && a >= ato)) {
+        
         float dist = sqrt(pow(x, 2) + pow(y, 2));
-        if (dist < in.s - e / 2) {
-            c = ac;
-        } else if (dist < in.s + e / 2) {
-            c = ec;
+        
+        if (e > 0.0) {
+            if (dist < in.s - e / 2 - onePixel / 2) {
+                c = ac;
+            } else if (dist < in.s - e / 2 + onePixel / 2) {
+                float fraction = (dist - (in.s - e / 2 - onePixel / 2)) / onePixel;
+                c = ac * (1.0 - fraction) + ec * fraction;
+            } else if (dist < in.s + e / 2 - onePixel / 2) {
+                c = ec;
+            } else if (dist < in.s + e / 2 + onePixel / 2) {
+                float fraction = (dist - (in.s + e / 2 - onePixel / 2)) / onePixel;
+                c = ec * (1.0 - fraction) + bc * fraction;
+            }
+        } else {
+            if (dist < in.s - onePixel / 2) {
+                c = ac;
+            } else if (dist < in.s + onePixel / 2) {
+                float fraction = (dist - (in.s - onePixel / 2)) / onePixel;
+                c = ac * (1.0 - fraction) + bc * fraction;
+            }
         }
     }
     

@@ -20,6 +20,8 @@ struct Uniforms{
     float b;
     float a;
     float premultiply;
+    float resx;
+    float resy;
     float aspect;
     float tile;
     float tileX;

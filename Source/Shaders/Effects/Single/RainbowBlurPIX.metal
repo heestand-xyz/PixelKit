@@ -1,15 +1,15 @@
 //
-//  EffectMergerLumaRainbowBlurPIX.metal
+//  EffectSingleRainbowBlurPIX.metal
 //  PixelKit Shaders
 //
-//  Created by Anton Heestand on 2017-11-26.
+//  Created by Anton Heestand on 2017-11-14.
 //  Copyright © 2017 Anton Heestand. All rights reserved.
 //
 
 #include <metal_stdlib>
 using namespace metal;
 
-#import "Shaders/Source/Effects/hsv_header.metal"
+#import "../../Shaders/Source/Effects/hsv_header.metal"
 
 struct VertexOut{
     float4 position [[position]];
@@ -24,27 +24,24 @@ struct Uniforms{
     float x;
     float y;
     float light;
+    float resx;
+    float resy;
+    float aspect;
 };
 
-fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
-                                               texture2d<float>  inTexA [[ texture(0) ]],
-                                               texture2d<float>  inTexB [[ texture(1) ]],
-                                               const device Uniforms& in [[ buffer(0) ]],
-                                               sampler s [[ sampler(0) ]]) {
+fragment float4 effectSingleRainbowBlurPIX(VertexOut out [[stage_in]],
+                                           texture2d<float>  inTex [[ texture(0) ]],
+                                           const device Uniforms& in [[ buffer(0) ]],
+                                           sampler s [[ sampler(0) ]]) {
     
     float pi = 3.14159265359;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-    float2 uv = float2(u, v);
-        
-    float4 cb = inTexB.sample(s, uv);
     
-    float lum = (cb.r + cb.g + cb.b) / 3;
-    
-    uint w = inTexA.get_width();
-    uint h = inTexA.get_height();
-    float aspect = w / h;
+    uint iw = inTex.get_width();
+    uint ih = inTex.get_height();
+    float aspect = iw / ih;
     
     int res = int(in.res);
     
@@ -52,7 +49,7 @@ fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
     float2 pos = float2(in.x, in.y);
     
     float4 c = 0.0;
-    float amounts = 0.0;
+    float amounts = 1.0;
     if (in.type == 1) {
         
         // Circle
@@ -64,9 +61,9 @@ fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
             float xu = u;
             float yv = v;
             float ang = fraction * pi * 2;
-            xu += cos(ang - angle) * in.radius * lum / (32 * 100);
-            yv += sin(ang - angle) * in.radius * lum / (32 * 100);
-            c += inTexA.sample(s, float2(xu, yv)) * rgba;
+            xu += cos(ang - angle) * in.radius / (32 * 100);
+            yv += (sin(ang - angle) * in.radius / (32 * 100)) * in.aspect;
+            c += inTex.sample(s, float2(xu, yv)) * rgba;
             amounts += 1.0;
         }
         
@@ -81,13 +78,13 @@ fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
             float xu = u;
             float yv = v;
             if (aspect < 1.0) {
-                xu += ((float(x) / w) * cos(-angle) * in.radius * lum) / res;
-                yv += ((float(x) / w) * sin(-angle) * in.radius * lum) / res;
+                xu += ((float(x) / iw) * cos(-angle) * in.radius) / res;
+                yv += (((float(x) / iw) * sin(-angle) * in.radius) / res) * in.aspect;
             } else {
-                xu += ((float(x) / h) * cos(-angle) * in.radius * lum) / res;
-                yv += ((float(x) / h) * sin(-angle) * in.radius * lum) / res;
+                xu += ((float(x) / ih) * cos(-angle) * in.radius) / res;
+                yv += (((float(x) / ih) * sin(-angle) * in.radius) / res) * in.aspect;
             }
-            c += inTexA.sample(s, float2(xu, yv)) * rgba;
+            c += inTex.sample(s, float2(xu, yv)) * rgba;
             amounts += 1.0;
         }
         
@@ -102,13 +99,13 @@ fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
             float xu = u;
             float yv = v;
             if (aspect < 1.0) {
-                xu += (((float(x) * (u - 0.5 - pos.x)) / w) * in.radius * lum) / res;
-                yv += (((float(x) * (v - 0.5 + pos.y)) / w) * in.radius * lum) / res;
+                xu += (((float(x) * (u - 0.5 - pos.x)) / iw) * in.radius) / res;
+                yv += ((((float(x) * (v - 0.5 + pos.y)) / iw) * in.radius) / res);// * in.aspect;
             } else {
-                xu += (((float(x) * (u - 0.5 - pos.x)) / h) * in.radius * lum) / res;
-                yv += (((float(x) * (v - 0.5 + pos.y)) / h) * in.radius * lum) / res;
+                xu += (((float(x) * (u - 0.5 - pos.x)) / ih) * in.radius) / res;
+                yv += ((((float(x) * (v - 0.5 + pos.y)) / ih) * in.radius) / res);// * in.aspect;
             }
-            c += inTexA.sample(s, float2(xu, yv)) * rgba;
+            c += inTex.sample(s, float2(xu, yv)) * rgba;
             amounts += 1.0;
         }
         

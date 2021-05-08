@@ -29,6 +29,8 @@ struct Uniforms {
     float bg;
     float bb;
     float ba;
+    float resx;
+    float resy;
     float aspect;
 };
 

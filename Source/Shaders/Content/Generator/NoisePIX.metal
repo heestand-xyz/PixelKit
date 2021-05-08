@@ -9,8 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "Shaders/Source/Content/noise_header.metal"
-#import "Shaders/Source/Content/random_header.metal"
+#import "../../Shaders/Source/Content/noise_header.metal"
+#import "../../Shaders/Source/Content/random_header.metal"
 
 struct VertexOut{
     float4 position [[position]];
@@ -28,6 +28,8 @@ struct Uniforms{
     float random;
     float includeAlpha;
     float premultiply;
+    float resx;
+    float resy;
     float aspect;
     float tile;
     float tileX;

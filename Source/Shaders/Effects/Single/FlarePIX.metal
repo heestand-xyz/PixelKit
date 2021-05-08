@@ -26,6 +26,8 @@ struct Uniforms {
     float cb;
     float ca;
     float rayRes;
+    float resx;
+    float resy;
     float aspect;
 };
 fragment float4 effectSingleFlarePIX(VertexOut out [[stage_in]],
