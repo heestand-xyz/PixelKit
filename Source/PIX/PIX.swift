@@ -25,7 +25,12 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     let pixelKit = PixelKit.main
     
-    open var shaderName: String { generateShaderName() }
+    open var shaderName: String {
+        typeName
+            .replacingOccurrences(of: "pix-", with: "")
+            .camelCased
+            + "PIX"
+    }
     
     open var overrideBits: Bits? { nil }
     
@@ -50,7 +55,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     
     open var vertexUniforms: [CGFloat] { return [] }
-    public var shaderNeedsAspect: Bool { return false }
+    public var shaderNeedsResolution: Bool { return false }
     
     public var bypass: Bool = false {
         didSet {
@@ -113,7 +118,6 @@ open class PIX: NODE, ObservableObject, Equatable {
         return pipeline != nil && sampler != nil
     }
     
-    #warning("Check if Codable")
     public var customRenderActive: Bool = false
     public var customRenderDelegate: CustomRenderDelegate?
     public var customMergerRenderActive: Bool = false
@@ -142,6 +146,14 @@ open class PIX: NODE, ObservableObject, Equatable {
     public var contentLoaded: Bool?
     var inputTextureAvalible: Bool?
     var generatorNotBypassed: Bool?
+    
+    static let metalLibrary: MTLLibrary = {
+        do {
+            return try PixelKit.main.render.metalDevice.makeDefaultLibrary(bundle: Bundle.module)
+        } catch {
+            fatalError("Loading Metal Library Failed: \(error.localizedDescription)")
+        }
+    }()
     
     public var destroyed = false
     public var cancellables: [AnyCancellable] = []
@@ -180,28 +192,17 @@ open class PIX: NODE, ObservableObject, Equatable {
             pixelKit.logger.log(node: self, .fatal, nil, "Shader not defined.")
             return
         }
-//        let template = (contentLoaded == false || inputTextureAvalible == false || generatorNotBypassed == false) && !(self is NODEMetal)
-        let shaderName = /*template ? "templatePIX" :*/ self.shaderName
         do {
-//            let frag: MTLFunction
-//            do {
-//                frag = try loadShaderFunction()
-//                print(">>>", typeName, name, "<<<")
-//            } catch ShaderError.metalFileNotFound {
-//                print(">>>", typeName, name, "...")
-//                frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
-//            } catch {
-//                print(">>>", typeName, name, "!!!", error)
-//                throw error
-//            }
-            let frag = try pixelKit.render.makeFrag(shaderName, with: customMetalLibrary, from: self)
-            let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-            pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx, addMode: additiveVertexBlending, overrideBits: overrideBits)
+            guard let function: MTLFunction = PIX.metalLibrary.makeFunction(name: shaderName) else {
+                pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function Failed")
+                return
+            }
+            pipeline = try pixelKit.render.makeShaderPipeline(function, with: nil, addMode: additiveVertexBlending, overrideBits: overrideBits)
             #if !os(tvOS) || !targetEnvironment(simulator)
-            sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
         } catch {
-            pixelKit.logger.log(node: self, .fatal, nil, "Setup failed.", e: error)
+            pixelKit.logger.log(node: self, .fatal, nil, "Setup Failed", e: error)
         }
     }
     
@@ -210,12 +211,12 @@ open class PIX: NODE, ObservableObject, Equatable {
     func updateSampler() {
         do {
             #if !os(tvOS) || !targetEnvironment(simulator)
-            sampler = try pixelKit.render.makeSampler(interpolate: interpolate.mtl, extend: extend.mtl, mipFilter: mipmap)
+            sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
-            pixelKit.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)")
+            pixelKit.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)")
             render()
         } catch {
-            pixelKit.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolate) & Extend: \(extend)", e: error)
+            pixelKit.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)", e: error)
         }
     }
     

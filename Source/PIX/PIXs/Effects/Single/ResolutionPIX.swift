@@ -15,8 +15,8 @@ import SwiftUI
 
 final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
 
-    override public var shaderName: String { return "effectSingleResPIX" }
-    override public var shaderNeedsAspect: Bool { return true }
+    override public var shaderName: String { return "effectSingleResolutionPIX" }
+    override public var shaderNeedsResolution: Bool { return true }
     
     // MARK: - Public Properties
     

@@ -15,7 +15,7 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "effectSingleFlarePIX" }
     
-    override public var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsResolution: Bool { return true }
     
     // MARK: - Public Properties
     

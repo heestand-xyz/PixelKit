@@ -78,12 +78,12 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
 //        print("Shader:", urlA.path, urlB.path)
 //        fatalError("???????")
         
-        if let url = pixelKitMetalLibURL {
-            render = Render(metalLibURL: url)
-        } else {
-            let metalLibURL: URL = Bundle.module.url(forResource: kMetalLibName, withExtension: "metallib", subdirectory: "Metal")!
-            render = Render(metalLibURL: metalLibURL)
-        }
+//        if let url = pixelKitMetalLibURL {
+            render = Render(/*metalLibURL: url*/)
+//        } else {
+//            let metalLibURL: URL = Bundle.module.url(forResource: kMetalLibName, withExtension: "metallib", subdirectory: "Metal")!
+//            render = Render(metalLibURL: metalLibURL)
+//        }
         logger = Logger(name: "PixelKit")
         
         fallbackResolution = .auto(render: render)

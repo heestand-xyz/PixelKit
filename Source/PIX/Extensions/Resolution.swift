@@ -144,7 +144,6 @@ extension PIX {
             view.setResolution(finalResolution)
         }
         guard view.resolutionSize == nil || view.resolutionSize! != finalResolution.size else {
-//            pixelKit.logger.log(node: self, .detail, .resolution, "Apply Resolution - Size not new.")
             applied()
             return
         }

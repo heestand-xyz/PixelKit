@@ -60,7 +60,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
         [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, light]
     }
     
-    override public var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsResolution: Bool { return true }
     
     // MARK: - Life Cycle
     

@@ -29,7 +29,8 @@ let package = Package(
         ], resources: [
             .process("metaltest.txt"),
             .process("metaltest.metal"),
-            .copy("Metal/"),
+//            .copy("Metal/"),
+            .process("Shaders/"),
         ]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]

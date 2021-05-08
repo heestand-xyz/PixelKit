@@ -90,7 +90,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
         }
     }
     
-    public override var shaderNeedsAspect: Bool { true }
+    public override var shaderNeedsResolution: Bool { true }
     
     // MARK: - Life Cycle
     

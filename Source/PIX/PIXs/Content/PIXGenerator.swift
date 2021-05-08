@@ -17,7 +17,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     public var premultiply: Bool = true { didSet { render() } }
-    override open var shaderNeedsAspect: Bool { return true }
+    override open var shaderNeedsResolution: Bool { return true }
     
     public var tileResolution: Resolution { pixelKit.tileResolution }
     public var tileTextures: [[MTLTexture]]?

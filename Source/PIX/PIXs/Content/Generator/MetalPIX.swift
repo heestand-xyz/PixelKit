@@ -44,6 +44,8 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
 
     struct Uniforms{
         /*<uniforms>*/
+        float resx;
+        float resy;
         float aspect;
     };
 
@@ -62,7 +64,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     }
     """
     
-    public override var shaderNeedsAspect: Bool { return true }
+    public override var shaderNeedsResolution: Bool { return true }
     
     public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
     
@@ -148,8 +150,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        let vtx: MTLFunction? = customVertexShaderName != nil ? try pixelKit.render.makeVertexShader(customVertexShaderName!, with: customMetalLibrary) : nil
-        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: vtx)
+        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: nil)
         render()
     }
     

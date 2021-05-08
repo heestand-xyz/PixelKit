@@ -28,7 +28,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMultiArrayPIX" }
     
-    override public var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsResolution: Bool { return true }
     
     // MARK: - Public Properties
     

@@ -93,7 +93,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         return [CGFloat(style.index), relRadius, CGFloat(quality.rawValue), angle, position.x, position.y]
     }
     
-    override public var shaderNeedsAspect: Bool { return true }
+    override public var shaderNeedsResolution: Bool { return true }
     
     // MARK: - Life Cycle
     
