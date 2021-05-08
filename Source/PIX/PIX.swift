@@ -734,7 +734,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         case liveList
     }
     
-    enum TypeCodingKey: CodingKey {
+    enum LiveTypeCodingKey: CodingKey {
         case type
     }
 
@@ -755,15 +755,15 @@ open class PIX: NODE, ObservableObject, Equatable {
         setupPIX()
         
         var liveCodables: [LiveCodable] = []
-        var liveCodablesContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
-        var liveCodablesContainerMain = liveCodablesContainer
-        while(!liveCodablesContainer.isAtEnd) {
-            let liveCodableContainer = try liveCodablesContainer.nestedContainer(keyedBy: TypeCodingKey.self)
-            guard let liveType: LiveType = try? liveCodableContainer.decode(LiveType.self, forKey: .type) else {
-                _ = try? liveCodablesContainerMain.decode(EmptyDecodable.self)
+        var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
+        var liveListContainerMain = liveListContainer
+        while(!liveListContainer.isAtEnd) {
+            let liveTypeContainer = try liveListContainer.nestedContainer(keyedBy: LiveTypeCodingKey.self)
+            guard let liveType: LiveType = try? liveTypeContainer.decode(LiveType.self, forKey: .type) else {
+                _ = try? liveListContainerMain.decode(EmptyDecodable.self)
                 continue
             }
-            let liveCodable: LiveCodable = try liveCodablesContainerMain.decode(liveType.liveCodableType)
+            let liveCodable: LiveCodable = try liveListContainerMain.decode(liveType.liveCodableType)
             liveCodables.append(liveCodable)
         }
         for liveCodable in liveCodables {
