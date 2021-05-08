@@ -48,6 +48,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
             case .random: return 4
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .regular:

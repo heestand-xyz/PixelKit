@@ -28,6 +28,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
                 return 1
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .horizontal: return "Horizontal"

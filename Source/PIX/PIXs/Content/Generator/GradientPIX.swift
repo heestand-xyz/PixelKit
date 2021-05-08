@@ -61,6 +61,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
             case .angle: return 3
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .horizontal: return "Horizontal"
@@ -78,12 +79,12 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     @LiveFloat("offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
     @LiveEnum("extendMode") public var extendMode: ExtendMode = .hold
-    @Live("colorSteps") public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
+    public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_direction, _scale, _offset, _position, _extendMode, _colorSteps]
+        super.liveList + [_direction, _scale, _offset, _position, _extendMode]
     }
     
     override public var values: [Floatable] {

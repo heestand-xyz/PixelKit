@@ -31,6 +31,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
             case .zoom: return 3
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .circle: return "Circle"

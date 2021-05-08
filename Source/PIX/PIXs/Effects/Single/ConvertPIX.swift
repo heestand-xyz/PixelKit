@@ -44,6 +44,7 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable {
             case .circleToSquare: return 5
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .domeToEqui: return "Dome to Equi"

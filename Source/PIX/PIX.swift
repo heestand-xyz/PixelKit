@@ -153,6 +153,13 @@ open class PIX: NODE, ObservableObject, Equatable {
         self.name = name
         self.typeName = typeName
         
+        setupPIX()
+    }
+    
+    // MARK: - Setup
+    
+    func setupPIX() {
+        
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
         pixView = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
         
@@ -166,11 +173,7 @@ open class PIX: NODE, ObservableObject, Equatable {
             liveProp.node = self
         }
         
-//        registerForRender()
-    
     }
-    
-    // MARK: - Setup
     
     func setupShader() {
         guard shaderName != "" else {
@@ -728,8 +731,15 @@ open class PIX: NODE, ObservableObject, Equatable {
         case extend
         case mipmap
         case compare
+        case liveList
     }
     
+    enum TypeCodingKey: CodingKey {
+        case type
+    }
+
+    private struct EmptyDecodable: Decodable {}
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PIXCodingKeys.self)
         id = try container.decode(UUID.self, forKey: .id)
@@ -741,6 +751,25 @@ open class PIX: NODE, ObservableObject, Equatable {
         extend = try container.decode(ExtendMode.self, forKey: .extend)
         mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
         compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
+        
+        setupPIX()
+        
+        var liveCodables: [LiveCodable] = []
+        var liveCodablesContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
+        var liveCodablesContainerMain = liveCodablesContainer
+        while(!liveCodablesContainer.isAtEnd) {
+            let liveCodableContainer = try liveCodablesContainer.nestedContainer(keyedBy: TypeCodingKey.self)
+            guard let liveType: LiveType = try? liveCodableContainer.decode(LiveType.self, forKey: .type) else {
+                _ = try? liveCodablesContainerMain.decode(EmptyDecodable.self)
+                continue
+            }
+            let liveCodable: LiveCodable = try liveCodablesContainerMain.decode(liveType.liveCodableType)
+            liveCodables.append(liveCodable)
+        }
+        for liveCodable in liveCodables {
+            guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
+            liveWrap.setLiveCodable(liveCodable)
+        }
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -754,6 +783,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         try container.encode(extend, forKey: .extend)
         try container.encode(mipmap.rawValue, forKey: .mipmap)
         try container.encode(compare.rawValue, forKey: .compare)
+        try container.encode(liveList.map({ $0.getLiveCodable() }), forKey: .liveList)
     }
     
 }

@@ -35,6 +35,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
             case .relative: return 4
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .hold: return "Hold"

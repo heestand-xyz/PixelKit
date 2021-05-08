@@ -25,6 +25,7 @@ extension PIX {
         public var index: Int {
             rawValue
         }
+        public var typeName: String { "\(rawValue)" }
         public var name: String { "\(rawValue)" }
     }
     

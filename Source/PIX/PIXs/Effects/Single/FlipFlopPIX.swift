@@ -30,6 +30,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
             case .xy: return 3
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .none: return "None"
@@ -52,6 +53,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
             case .right: return 2
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .none: return "None"

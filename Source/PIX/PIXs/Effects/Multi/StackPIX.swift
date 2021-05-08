@@ -30,6 +30,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
                 return 1
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .horizontal:
@@ -55,6 +56,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
                 return 1
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .leading:

@@ -34,6 +34,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             }
         }
         public var index: Int { revision }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .attention: return "Attention"

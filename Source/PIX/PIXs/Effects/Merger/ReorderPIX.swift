@@ -28,6 +28,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
                 return 1
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .first:
@@ -67,6 +68,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
             case .luma: return 6
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .red: return "Red"

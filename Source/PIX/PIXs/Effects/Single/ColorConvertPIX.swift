@@ -25,6 +25,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
             case .hsvToRgb: return 1
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .rgbToHsv: return "RGB to HSV"
@@ -47,6 +48,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
             case .third: return 3
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .all: return "All"

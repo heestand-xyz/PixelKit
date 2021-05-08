@@ -28,6 +28,7 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable {
             case .z: return 2
             }
         }
+        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .x: return "X"

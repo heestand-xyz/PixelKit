@@ -12,7 +12,7 @@ import RenderKit
 import Resolution
 import PixelKit_macOS
 
-class PixelKitTests: XCTestCase {
+class PixelKitLegacyTests: XCTestCase {
     
     var testPix: (PIX & NODEOut)!
     var testPixA: (PIX & NODEOut)!
