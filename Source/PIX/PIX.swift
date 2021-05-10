@@ -771,6 +771,7 @@ open class PIX: NODE, ObservableObject, Equatable {
             guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
             liveWrap.setLiveCodable(liveCodable)
         }
+        
     }
     
     public func encode(to encoder: Encoder) throws {
