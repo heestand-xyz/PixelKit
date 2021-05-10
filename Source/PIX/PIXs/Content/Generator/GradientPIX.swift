@@ -84,7 +84,9 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_direction, _scale, _offset, _position, _extendMode]
+        super.liveList.filter({ liveWrap in
+            !["backgroundColor", "color"].contains(liveWrap.typeName)
+        }) + [_direction, _scale, _offset, _position, _extendMode]
     }
     
     override public var values: [Floatable] {

@@ -753,7 +753,13 @@ open class PIX: NODE, ObservableObject, Equatable {
         mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
         compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
         
-        setupPIX()
+        let group = DispatchGroup()
+        group.enter()
+        DispatchQueue.main.async {
+            self.setupPIX()
+            group.leave()
+        }
+        group.wait()
         
         var liveCodables: [LiveCodable] = []
         var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)

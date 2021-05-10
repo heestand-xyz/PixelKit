@@ -31,7 +31,9 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_seed, _octaves, _position, _zPosition, _zoom, _colored, _random, _includeAlpha]
+        super.liveList.filter({ liveWrap in
+            !["backgroundColor", "color"].contains(liveWrap.typeName)
+        }) + [_seed, _octaves, _position, _zPosition, _zoom, _colored, _random, _includeAlpha]
     }
     
     override public var values: [Floatable] {
