@@ -1,5 +1,5 @@
 
-public enum PIXMultiEffectType: String, Codable, CaseIterable, Identifiable {
+public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identifiable {
     
     public var id: String { rawValue }
     

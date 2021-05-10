@@ -1,5 +1,5 @@
 
-public enum PIXResourceType: String, Codable, CaseIterable, Identifiable {
+public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiable {
     
     public var id: String { rawValue }
     

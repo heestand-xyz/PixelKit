@@ -1,5 +1,5 @@
 
-public enum PIXGeneratorType: String, Codable, CaseIterable, Identifiable {
+public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifiable {
     
     public var id: String { rawValue }
     

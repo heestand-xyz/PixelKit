@@ -1,5 +1,5 @@
 
-public enum PIXMergerEffectType: String, Codable, CaseIterable, Identifiable {
+public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identifiable {
     
     public var id: String { rawValue }
     
