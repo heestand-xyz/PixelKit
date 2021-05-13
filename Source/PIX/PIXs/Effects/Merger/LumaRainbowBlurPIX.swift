@@ -46,7 +46,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     @LiveEnum("quality") public var quality: SampleQualityMode = .mid
     @LiveFloat("angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("light", range: 0.0...2.0) public var light: CGFloat = 1.0
+    @LiveFloat("light", range: 1.0...4.0, increment: 1.0) public var light: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
