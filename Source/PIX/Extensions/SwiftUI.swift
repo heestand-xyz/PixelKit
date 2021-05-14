@@ -68,7 +68,6 @@ extension PIXViewable {
         pixView
     }
     public func updateView(_ pixView: PIXView, context: Context) {
-        print("<<< PixelKit SwiftUI Update >>>")
         guard let pix: PIX = pixView.pix else { return }
         pix.render()
     }
