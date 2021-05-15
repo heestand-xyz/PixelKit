@@ -23,25 +23,21 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     // MARK: - Public Properties
     
     public enum BlurStyle: String, Enumable {
-        case regular
-        #if !os(tvOS) && !targetEnvironment(simulator)
         case gaussian
-        #endif
         case box
         case angle
         case zoom
         case random
+        static let `default`: BlurStyle = {
+            #if !os(tvOS) && !targetEnvironment(simulator)
+            return .gaussian
+            #else
+            return .box
+            #endif
+        }()
         public var index: Int {
             switch self {
-            case .regular:
-                #if !os(tvOS) && !targetEnvironment(simulator)
-                return 0
-                #else
-                return 1
-                #endif
-            #if !os(tvOS) && !targetEnvironment(simulator)
             case .gaussian: return 0
-            #endif
             case .box: return 1
             case .angle: return 2
             case .zoom: return 3
@@ -51,11 +47,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         public var typeName: String { rawValue }
         public var name: String {
             switch self {
-            case .regular:
-                return "Regular"
-            #if !os(tvOS) && !targetEnvironment(simulator)
             case .gaussian: return "Guassian"
-            #endif
             case .box: return "Box"
             case .angle: return "Angle"
             case .zoom: return "Zoom"
@@ -64,7 +56,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         }
     }
     
-    @LiveEnum("style") public var style: BlurStyle = .regular
+    @LiveEnum("style") public var style: BlurStyle = .default
     /// radius is relative. default at 0.5
     ///
     /// 1.0 at 4K is max, tho at lower resolutions you can go beyond 1.0
@@ -82,7 +74,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     var relRadius: CGFloat {
         let radius = self.radius
         let relRes: Resolution = ._4K
-        let res: Resolution = finalResolution ?? ._1024
+        let res: Resolution = finalResolution
         let relHeight = res.height / relRes.height
         let relRadius = radius * relHeight
         let maxRadius: CGFloat = 32 * 10
@@ -98,11 +90,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     // MARK: - Life Cycle
     
     public required init() {
-        #if !os(tvOS) && !targetEnvironment(simulator)
-        style = .gaussian
-        #else
-        style = .box
-        #endif
+        style = .default
         super.init(name: "Blur", typeName: "pix-effect-single-blur")
         extend = .hold
         customRenderDelegate = self
