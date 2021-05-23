@@ -40,7 +40,8 @@ class PixelMotion {
         if motionManager.isGyroAvailable {
             motionManager.gyroUpdateInterval = 1.0 / TimeInterval(PixelKit.main.render.fpsMax)
             motionManager.startGyroUpdates()
-            PixelKit.main.render.listenToFrames {
+            PixelKit.main.render.listenToFrames { [weak self] in
+                guard let self = self else { return }
                 if let data = self.motionManager.gyroData {
                     self.gyroX = CGFloat(data.rotationRate.x)
                     self.gyroY = CGFloat(data.rotationRate.y)
@@ -52,7 +53,8 @@ class PixelMotion {
         if motionManager.isAccelerometerAvailable {
             motionManager.accelerometerUpdateInterval = 1.0 / TimeInterval(PixelKit.main.render.fpsMax)
             motionManager.startAccelerometerUpdates()
-            PixelKit.main.render.listenToFrames {
+            PixelKit.main.render.listenToFrames { [weak self] in
+                guard let self = self else { return }
                 if let data = self.motionManager.accelerometerData {
                     self.accelerationX = CGFloat(data.acceleration.x)
                     self.accelerationY = CGFloat(data.acceleration.y)
@@ -64,7 +66,8 @@ class PixelMotion {
         if motionManager.isMagnetometerAvailable {
             motionManager.magnetometerUpdateInterval = 1.0 / TimeInterval(PixelKit.main.render.fpsMax)
             motionManager.startMagnetometerUpdates()
-            PixelKit.main.render.listenToFrames {
+            PixelKit.main.render.listenToFrames { [weak self] in
+                guard let self = self else { return }
                 if let data = self.motionManager.magnetometerData {
                     self.magneticFieldX = CGFloat(data.magneticField.x)
                     self.magneticFieldY = CGFloat(data.magneticField.y)
@@ -76,7 +79,8 @@ class PixelMotion {
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 1.0 / TimeInterval(PixelKit.main.render.fpsMax)
             motionManager.startDeviceMotionUpdates()
-            PixelKit.main.render.listenToFrames {
+            PixelKit.main.render.listenToFrames { [weak self] in
+                guard let self = self else { return }
                 if let data = self.motionManager.deviceMotion {
                     self.deviceAttitudeX = CGFloat(data.attitude.quaternion.x)
                     self.deviceAttitudeY = CGFloat(data.attitude.quaternion.y)

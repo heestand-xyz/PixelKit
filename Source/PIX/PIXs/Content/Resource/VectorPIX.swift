@@ -30,7 +30,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame();  applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame();  applyResolution { [weak self] in self?.setNeedsBuffer() } } }
     
     let helper: VectorHelper = .init()
     
@@ -52,7 +52,9 @@ final public class VectorPIX: PIXResource, PIXViewable {
         self.resolution = resolution
         super.init(name: "Vector", typeName: "pix-content-resource-vector")
         webView.navigationDelegate = helper
-        helper.loaded = setNeedsBuffer
+        helper.loaded = { [weak self] in
+            self?.setNeedsBuffer()
+        }
         setFrame()
     }
     
@@ -128,7 +130,8 @@ final public class VectorPIX: PIXResource, PIXViewable {
 //            pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
 //            return
 //        }
-        webView.takeSnapshot(with: nil) { image, error in
+        webView.takeSnapshot(with: nil) { [weak self] image, error in
+            guard let self = self else { return }
             guard error == nil && image != nil else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Vector image failed.", e: error)
                 return
@@ -139,7 +142,9 @@ final public class VectorPIX: PIXResource, PIXViewable {
             }
             self.resourcePixelBuffer = buffer
             self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
-            self.applyResolution { self.render() }
+            self.applyResolution { [weak self] in
+                self?.render()
+            }
         }
     }
     

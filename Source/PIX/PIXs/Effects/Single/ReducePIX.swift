@@ -32,7 +32,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
     /// the cell list that will be sampled
     ///
     /// one pixel row is *default*
-    public var cellList: CellList = .row { didSet { applyResolution { self.render() } } }
+    public var cellList: CellList = .row { didSet { applyResolution { [weak self] in self?.render() } } }
     
     public enum Method {
         /// average

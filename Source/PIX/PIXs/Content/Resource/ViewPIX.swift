@@ -43,10 +43,11 @@ final public class ViewPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "View", typeName: "pix-content-resource-view")
-        applyResolution {
-            self.render()
+        applyResolution { [weak self] in
+            self?.render()
         }
-        pixelKit.render.listenToFrames {
+        pixelKit.render.listenToFrames { [weak self] in
+            guard let self = self else { return }
             if self.renderViewContinuously {
                 self.setNeedsBuffer()
             } else {
@@ -129,7 +130,9 @@ final public class ViewPIX: PIXResource, PIXViewable {
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
-        applyResolution { self.render() }
+        applyResolution {  [weak self] in
+            self?.render()
+        }
     }
     
     func viewNeedsClear() {

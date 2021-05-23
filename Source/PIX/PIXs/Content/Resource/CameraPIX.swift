@@ -184,7 +184,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
     public var multi: Bool = false { didSet { if setup { setupCamera() } } }
     struct MultiCallback {
         let id: UUID
-        let camera: () -> (Camera)
+        let camera: () -> (Camera?)
         let setup: (_Orientation) -> ()
         let frameLoop: (CVPixelBuffer) -> ()
     }
@@ -287,11 +287,12 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "Camera", typeName: "pix-content-resource-camera")
-        DispatchQueue.main.async {
-            self.setupCamera()
-            self.setup = true
+        DispatchQueue.main.async { [weak self] in
+            self?.setupCamera()
+            self?.setup = true
         }
-        setupNotifications()    }
+        setupNotifications()
+    }
     
     public convenience init(at cameraResolution: CameraResolution? = nil, camera: Camera? = nil) {
         self.init()
@@ -344,7 +345,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
         
         try super.init(from: decoder)
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             
             self.setupCamera()
             self.setup = true
@@ -434,8 +436,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
     func setupCamera() {
         if !access {
             requestAccess {
-                DispatchQueue.main.async {
-                    self.setupCamera()
+                DispatchQueue.main.async { [weak self] in
+                    self?.setupCamera()
                 }
                 return
             }
@@ -457,12 +459,13 @@ final public class CameraPIX: PIXResource, PIXViewable {
         #if os(iOS) && !targetEnvironment(macCatalyst)
         var multiCameras: [Camera]?
         if #available(iOS 13.0, *) {
-            multiCameras = self.multi ? self.multiCallbacks.map({ $0.camera() }) : nil
+            multiCameras = self.multi ? self.multiCallbacks.compactMap({ $0.camera() }) : nil
         }
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let multiCameras: [Camera]? = nil
         #endif
-        helper = CameraHelper(cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { _, orientation in
+        helper = CameraHelper(cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { [weak self] _, orientation in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
             self.orientation = orientation
@@ -480,20 +483,24 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self.setupCallbacks.forEach({ $0() })
             self.setupCallbacks = []
             self.didSetup = true
-        }, captured: { pixelBuffer in
+        }, captured: { [weak self] pixelBuffer in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
             if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
-                self.applyResolution { self.render() }
+                self.applyResolution { [weak self] in
+                    self?.render()
+                }
             } else {
                 self.render()
             }
             self.cameraDelegate?.cameraFrame(pix: self, pixelBuffer: pixelBuffer)
-        }, capturedDepth: { depthPixelBuffer in
+        }, capturedDepth: { [weak self] depthPixelBuffer in
             #if os(iOS) && !targetEnvironment(macCatalyst)
-            self.depthCallback?(depthPixelBuffer)
+            self?.depthCallback?(depthPixelBuffer)
             #endif
-        }, capturedMulti: { multiIndex, multiPixelBuffer in
+        }, capturedMulti: { [weak self] multiIndex, multiPixelBuffer in
+            guard let self = self else { return }
             #if os(iOS) && !targetEnvironment(macCatalyst)
             guard multiIndex < self.multiCallbacks.count else { return }
             self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
@@ -1019,7 +1026,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
         
         func main() {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 
                 if !self.initialFrameCaptured {
                     self.setup(pixelBuffer)
@@ -1049,9 +1057,9 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 main()
             } else {
                 let multiIndex: Int = index - 1
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     
-                    self.capturedMultiCallback(multiIndex, pixelBuffer)
+                    self?.capturedMultiCallback(multiIndex, pixelBuffer)
                     
                 }
             }
@@ -1294,40 +1302,40 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 }
 
 
-extension CVPixelBuffer {
-  
-  func normalize() {
-    
-    let width = CVPixelBufferGetWidth(self)
-    let height = CVPixelBufferGetHeight(self)
-    
-    CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
-    let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self), to: UnsafeMutablePointer<Float>.self)
-    
-    var minPixel: Float = 1.0
-    var maxPixel: Float = 0.0
-    
-    for y in 0 ..< height {
-      for x in 0 ..< width {
-        let pixel = floatBuffer[y * width + x]
-        minPixel = min(pixel, minPixel)
-        maxPixel = max(pixel, maxPixel)
-      }
-    }
-    
-    let range = maxPixel - minPixel
-    
-    for y in 0 ..< height {
-      for x in 0 ..< width {
-        let pixel = floatBuffer[y * width + x]
-        floatBuffer[y * width + x] = (pixel - minPixel) / range
-      }
-    }
-    
-    CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
-  }
-  
-}
+//extension CVPixelBuffer {
+//
+//  func normalize() {
+//
+//    let width = CVPixelBufferGetWidth(self)
+//    let height = CVPixelBufferGetHeight(self)
+//
+//    CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
+//    let floatBuffer = unsafeBitCast(CVPixelBufferGetBaseAddress(self), to: UnsafeMutablePointer<Float>.self)
+//
+//    var minPixel: Float = 1.0
+//    var maxPixel: Float = 0.0
+//
+//    for y in 0 ..< height {
+//      for x in 0 ..< width {
+//        let pixel = floatBuffer[y * width + x]
+//        minPixel = min(pixel, minPixel)
+//        maxPixel = max(pixel, maxPixel)
+//      }
+//    }
+//
+//    let range = maxPixel - minPixel
+//
+//    for y in 0 ..< height {
+//      for x in 0 ..< width {
+//        let pixel = floatBuffer[y * width + x]
+//        floatBuffer[y * width + x] = (pixel - minPixel) / range
+//      }
+//    }
+//
+//    CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags(rawValue: 0))
+//  }
+//
+//}
 
 // MARK: - Depth
 

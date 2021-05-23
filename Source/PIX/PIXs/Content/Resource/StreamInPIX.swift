@@ -85,7 +85,9 @@ final public class StreamInPIX: PIXResource, PIXViewable {
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
-        applyResolution { self.render() }
+        applyResolution { [weak self] in
+            self?.render()
+        }
     }
     
 }

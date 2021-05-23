@@ -119,11 +119,11 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     
     public var customRenderActive: Bool = false
-    public var customRenderDelegate: CustomRenderDelegate?
+    public weak var customRenderDelegate: CustomRenderDelegate?
     public var customMergerRenderActive: Bool = false
-    public var customMergerRenderDelegate: CustomMergerRenderDelegate?
+    public weak var customMergerRenderDelegate: CustomMergerRenderDelegate?
     public var customGeometryActive: Bool = false
-    public var customGeometryDelegate: CustomGeometryDelegate?
+    public weak var customGeometryDelegate: CustomGeometryDelegate?
     open var customMetalLibrary: MTLLibrary? { return nil }
     open var customVertexShaderName: String? { return nil }
     open var customVertexTextureActive: Bool { return false }
@@ -298,13 +298,15 @@ open class PIX: NODE, ObservableObject, Equatable {
         
 //        PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Request Render", loop: true)
         
-        PixelKit.main.render.queuer.add(request: renderRequest) { queueResult in
+        PixelKit.main.render.queuer.add(request: renderRequest) { [weak self] queueResult in
+            guard let self = self else { return }
             switch queueResult {
             case .success:
     
                 PixelKit.main.render.logger.log(node: self, .detail, .render, "Queue Will Render", loop: true)
                 
-                PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { result in
+                PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { [weak self] result in
+                    guard let self = self else { return }
                     
                     switch result {
                     case .success(let renderPack):
@@ -490,7 +492,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     
     func renderCustomVertexTexture() {
-        for pix in pixelKit.render.linkedNodes {
+        for pix in pixelKit.render.linkedNodes.compactMap(\.node) {
             if pix.customVertexTextureActive {
                 if let input = pix.customVertexNodeIn {
                     if input.id == self.id {
@@ -628,7 +630,9 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     
     func connected() {
-        applyResolution { self.render() }
+        applyResolution { [weak self] in
+            self?.render()
+        }
         if let nodeIn: NODEIn = self as? NODEIn {
             nodeIn.didUpdateInputConnections()
         }
@@ -758,8 +762,8 @@ open class PIX: NODE, ObservableObject, Equatable {
         } else {
             let group = DispatchGroup()
             group.enter()
-            DispatchQueue.main.async {
-                self.setupPIX()
+            DispatchQueue.main.async { [weak self] in
+                self?.setupPIX()
                 group.leave()
             }
             group.wait()
@@ -810,8 +814,8 @@ public extension PIX {
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
         let view = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
         additionalViews.append(view)
-        applyResolution {
-            self.render()
+        applyResolution { [weak self] in
+            self?.render()
         }
         return view
     }

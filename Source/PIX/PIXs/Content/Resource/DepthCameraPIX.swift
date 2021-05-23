@@ -19,11 +19,14 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
     
     public var cameraPix: CameraPIX? {
         didSet {
-            cameraPix?.depthCallback = { depthPixelBuffer in
+            cameraPix?.depthCallback = { [weak self] depthPixelBuffer in
+                guard let self = self else { return }
                 self.pixelKit.logger.log(node: self, .info, .resource, "Depth Camera frame captured.", loop: true)
                 self.resourcePixelBuffer = depthPixelBuffer
                 if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
-                    self.applyResolution { self.render() }
+                    self.applyResolution { [weak self] in
+                        self?.render()
+                    }
                 } else {
                     self.render()
                 }
@@ -44,7 +47,8 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
     }
     
     func setup() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Also enable .depth on the CameraPIX.")

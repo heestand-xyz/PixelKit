@@ -45,7 +45,9 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
     func setupCustom() {
         customRenderDelegate = self
         customRenderActive = true
-        applyResolution { self.render() }
+        applyResolution { [weak self] in
+            self?.render()
+        }
     }
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { return nil }

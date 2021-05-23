@@ -39,7 +39,7 @@ final public class PaintPIX: PIXResource, PIXViewable {
 
     // MARK: - Public Properties
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { [weak self] in self?.setNeedsBuffer() } } }
     
     let helper: PaintHelper
     
@@ -232,7 +232,9 @@ final public class PaintPIX: PIXResource, PIXViewable {
         }
         resourcePixelBuffer = buffer
         pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
-        applyResolution { self.render() }
+        applyResolution { [weak self] in
+            self?.render()
+        }
     }
     
     public func updateTool() {

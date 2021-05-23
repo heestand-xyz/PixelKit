@@ -170,8 +170,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     // MARK: Export
     
     func realtimeListen() {
-        pixelKit.render.listenToFrames(callback: {
-            self.frameLoop()
+        pixelKit.render.listenToFrames(callback: { [weak self] in
+            self?.frameLoop()
         })
     }
     
@@ -179,8 +179,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         if !directMode && recording && realtime && connectedIn {
             if lastFrameDate == nil || -lastFrameDate!.timeIntervalSinceNow >= 1.0 / Double(fps) {
                 if let texture = input?.texture {
-                    DispatchQueue.global(qos: .background).async {
-                        self.recordFrame(texture: texture)
+                    DispatchQueue.global(qos: .background).async { [weak self] in
+                        self?.recordFrame(texture: texture)
                     }
                 }
             }
@@ -189,8 +189,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     
     override public func didRender(renderPack: RenderPack) {
         if !directMode && recording && !realtime {
-            DispatchQueue.global(qos: .background).async {
-                self.recordFrame(texture: renderPack.response.texture)
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.recordFrame(texture: renderPack.response.texture)
             }
         }
         super.didRender(renderPack: renderPack)
@@ -300,7 +300,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
                 writer!.add(input)
                 writer!.startWriting()
                 audioRecHelper!.captureSession?.startRunning()
-                audioRecHelper!.sampleCallback = { sampleBuffer in
+                audioRecHelper!.sampleCallback = { [weak self] sampleBuffer in
+                    guard let self = self else { return }
                     if self.audioStartTime == nil {
                         self.audioStartTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
                         guard self.writer!.status != .unknown else {
@@ -331,7 +332,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         
         let media_queue = DispatchQueue(label: "mediaInputQueue", qos: .background)
                 
-        writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: {
+        writerVideoInput!.requestMediaDataWhenReady(on: media_queue, using: { [weak self] in
+            guard let self = self else { return }
 
             guard self.writer!.status == .writing else { return }
             

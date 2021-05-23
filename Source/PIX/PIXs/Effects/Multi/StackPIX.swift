@@ -113,8 +113,8 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
         super.inputs = inputs()
     }
     
-    public required init() {
-        fatalError("Please create StackPIX with a Resolution")
+    public required convenience init() {
+        self.init(at: .auto(render: PixelKit.main.render))
     }
     
     public required init(from decoder: Decoder) throws {

@@ -156,11 +156,11 @@ final public class ImagePIX: PIXResource, PIXViewable {
             resourcePixelBuffer = buffer
         }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
-        applyResolution {
-            self.render()
+        applyResolution { [weak self] in
+            self?.render()
             #warning("PixelKit - Image set Needs Render after 5 Frame Delay Fix")
-            PixelKit.main.render.delay(frames: 5, done: {
-                self.render()
+            PixelKit.main.render.delay(frames: 5, done: { [weak self] in
+                self?.render()
             })
         }
     }

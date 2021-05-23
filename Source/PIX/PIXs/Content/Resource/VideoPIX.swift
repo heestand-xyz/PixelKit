@@ -108,13 +108,15 @@ final public class VideoPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "Video", typeName: "pix-content-resource-video")
-        helper = VideoHelper(volume: Float(volume), loaded: { resolution in
+        helper = VideoHelper(volume: Float(volume), loaded: { [weak self] resolution in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
             self.loadCallback?(resolution)
             self.loadCallback = nil
             self.isLoading = false
             self.isLoaded = true
-        }, updated: { pixelBuffer, fraction in
+        }, updated: { [weak self] pixelBuffer, fraction in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video pixel buffer available.")
             self.resourcePixelBuffer = pixelBuffer
             guard let res = self.derivedResolution else {
@@ -122,7 +124,9 @@ final public class VideoPIX: PIXResource, PIXViewable {
                 return
             }
             if self.view.resolution == nil || self.view.resolution! != res {
-                self.applyResolution { self.render() }
+                self.applyResolution { [weak self] in
+                    self?.render()
+                }
             } else {
                 self.render()
             }
@@ -132,8 +136,8 @@ final public class VideoPIX: PIXResource, PIXViewable {
             self.frameCallback?()
             self.frameCallback = nil
         })
-        self.applyResolution {
-            self.render()
+        self.applyResolution { [weak self] in
+            self?.render()
         }
 //        pixelKit.listenToFramesUntil {
 //            if self.realResolution != nil {
@@ -529,8 +533,8 @@ class VideoHelper: NSObject {
 //            if needs_orientation! {
 //                orientation = getOrientation(size: size)
 //            }
-            DispatchQueue.main.async {
-                self.setup(res)
+            DispatchQueue.main.async { [weak self] in
+                self?.setup(res)
             }
         }
     }

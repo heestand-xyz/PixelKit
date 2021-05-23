@@ -84,8 +84,8 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
             }
         }
         readyToFeed = true
-        DispatchQueue.main.async {
-            self.render()
+        DispatchQueue.main.async { [weak self] in
+            self?.render()
         }
     }
     

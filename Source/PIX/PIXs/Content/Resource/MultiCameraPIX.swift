@@ -32,12 +32,15 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
             guard cameraPix.multiCallbacks.filter({ $0.id == id }).isEmpty else { return }
             cameraPix.multiCallbacks.append(
                 CameraPIX.MultiCallback(
-                    id: id, camera: { self.camera },
-                    setup: { orientation in
-                        self.orientation = orientation
-                        self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
+                    id: id, camera: {  [weak self] in
+                        self?.camera
                     },
-                    frameLoop: { pixelBuffer in
+                    setup: { [weak self] orientation in
+                        self?.orientation = orientation
+                        self?.flop = [.portrait, .portraitUpsideDown].contains(orientation)
+                    },
+                    frameLoop: { [weak self] pixelBuffer in
+                        guard let self = self else { return }
                         self.pixelKit.logger.log(node: self, .info, .resource, "Multi Camera frame captured.", loop: true)
                         self.resourcePixelBuffer = pixelBuffer
                         if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
@@ -75,7 +78,8 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
     }
     
     func setup() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Also enable .multi on the CameraPIX.")

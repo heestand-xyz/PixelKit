@@ -72,7 +72,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     }
     
     var relRadius: CGFloat {
-        let radius = self.radius
+        let radius = radius
         let relRes: Resolution = ._4K
         let res: Resolution = finalResolution
         let relHeight = res.height / relRes.height

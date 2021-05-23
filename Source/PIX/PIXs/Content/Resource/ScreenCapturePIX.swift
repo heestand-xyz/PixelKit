@@ -42,13 +42,17 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     
     func setupScreenCapture() {
         helper?.stop()
-        helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { _ in
+        helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { [weak self] _ in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture setup.")
-        }, captured: { pixelBuffer in
+        }, captured: { [weak self] pixelBuffer in
+            guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
             if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
-                self.applyResolution { self.render() }
+                self.applyResolution { [weak self] in
+                    self?.render()
+                }
             } else {
                 self.render()
             }
@@ -117,7 +121,8 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
             return
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             
             if !self.initialFrameCaptured {
                 self.setup(pixelBuffer)

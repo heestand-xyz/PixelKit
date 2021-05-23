@@ -18,7 +18,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     // MARK: - Public Properties
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { reSize(); applyResolution { self.render() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { reSize(); applyResolution { [weak self] in self?.render() } } }
     
     @available(*, deprecated, renamed: "backgroundColor")
     public var bgColor: PixelColor {
@@ -69,7 +69,9 @@ open class PIXSprite: PIXContent, NODEResolution {
         sceneView = SKView(frame: CGRect(origin: .zero, size: size))
         sceneView.allowsTransparency = true
         sceneView.presentScene(scene)
-        applyResolution { self.render() }
+        applyResolution { [weak self] in
+            self?.render()
+        }
     }
     
     func reSize() {

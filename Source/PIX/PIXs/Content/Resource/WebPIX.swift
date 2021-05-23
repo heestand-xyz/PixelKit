@@ -35,7 +35,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { self.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { [weak self] in self?.setNeedsBuffer() } } }
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
     public var webView: WKWebView = .init()
@@ -53,16 +53,18 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
         super.init(name: "Web", typeName: "pix-content-resource-web")
         
         webView.navigationDelegate = helper
-        helper.refreshCallback = {
-            self.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
-            self.setNeedsBuffer()
+        helper.refreshCallback = { [weak self] in
+            self?.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
+            self?.setNeedsBuffer()
         }
         
         refresh()
         
         setFrame()
         
-        applyResolution { self.renderWeb() }
+        applyResolution { [weak self] in
+            self?.renderWeb()
+        }
         
     }
     
@@ -110,7 +112,8 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
 //            }
 //        }
 //        config.rect = CGRect(origin: .zero, size: resolution.size)
-        webView.takeSnapshot(with: nil) { image, error in
+        webView.takeSnapshot(with: nil) { [weak self] image, error in
+            guard let self = self else { return }
             guard error == nil else {
                 self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
                 return

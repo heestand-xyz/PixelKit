@@ -1,5 +1,6 @@
 import XCTest
 @testable import PixelKit
+import RenderKit
 
 final class PixelKitTests: XCTestCase {
     
@@ -8,6 +9,43 @@ final class PixelKitTests: XCTestCase {
         PixelKit.main.logger.logAll()
         PixelKit.main.render.logger.logAll()
         PixelKit.main.render.engine.logger.logAll()
+        
+    }
+    
+    func testReference() {
+        
+        var pixs: [WeakNODE] = []
+        for pixType in PIXGeneratorType.allCases {
+            if pixType == .metal { continue }
+            pixs.append(WeakNODE(pixType.type.init(at: ._128)))
+        }
+        for pixType in PIXResourceType.allCases {
+            if pixType == .camera { continue }
+            #if os(macOS)
+            if pixType == .screenCapture { continue }
+            #endif
+            pixs.append(WeakNODE(pixType.type.init()))
+        }
+        for pixType in PIXSingleEffectType.allCases {
+            if pixType == .metalEffect { continue }
+            pixs.append(WeakNODE(pixType.type.init()))
+        }
+        for pixType in PIXMergerEffectType.allCases {
+            if pixType == .metalMergerEffect { continue }
+            pixs.append(WeakNODE(pixType.type.init()))
+        }
+        for pixType in PIXMultiEffectType.allCases {
+            if pixType == .metalMultiEffect { continue }
+            pixs.append(WeakNODE(pixType.type.init()))
+        }
+        for pixType in PIXOutputType.allCases {
+            pixs.append(WeakNODE(pixType.type.init()))
+        }
+        
+        pixs.forEach { weakNode in
+            let pix: PIX? = weakNode.node as? PIX
+            XCTAssertEqual(pix, nil)
+        }
         
     }
     
@@ -36,6 +74,7 @@ final class PixelKitTests: XCTestCase {
     }
     
     static var allTests = [
+        ("testReference", testReference),
         ("testCodable", testCodable),
     ]
     

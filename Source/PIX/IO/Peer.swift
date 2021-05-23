@@ -111,14 +111,14 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     }
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             switch state {
             case .connected:
-                self.peer(.connected, peerID.displayName)
+                self?.peer(.connected, peerID.displayName)
             case .connecting:
-                self.peer(.connecting, peerID.displayName)
+                self?.peer(.connecting, peerID.displayName)
             case .notConnected:
-                self.peer(.dissconnected, peerID.displayName)
+                self?.peer(.dissconnected, peerID.displayName)
             @unknown default:
                 break
             }
@@ -128,9 +128,9 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let image = UIImage(data: data) {
             if self.gotImg != nil {
-                DispatchQueue.main.async {
-                    self.imgInIndex += 1
-                    self.gotImg!(image)
+                DispatchQueue.main.async { [weak self] in
+                    self?.imgInIndex += 1
+                    self?.gotImg!(image)
                 }
             }
         } else if let msg = String(data: data, encoding: .utf8) {
@@ -142,9 +142,9 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
                 ioCheck(index: index)
             } else if msg == "disconnect" {
                 if self.disconnect != nil {
-                    DispatchQueue.main.async {
-                        self.disconnect!()
-                        self.imgInIndex = 0
+                    DispatchQueue.main.async { [weak self] in
+                        self?.disconnect!()
+                        self?.imgInIndex = 0
                     }
                 }
             }
