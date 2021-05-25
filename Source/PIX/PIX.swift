@@ -788,7 +788,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         
     }
     
-    public func encode(to encoder: Encoder) throws {
+    open func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PIXCodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
