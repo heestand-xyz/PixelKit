@@ -60,7 +60,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         case .convert:
             return "Convert"
         case .cornerPin:
-            return "CornerPin"
+            return "Corner Pin"
         case .crop:
             return "Crop"
         case .deepLab:
