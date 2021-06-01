@@ -193,11 +193,15 @@ open class PIX: NODE, ObservableObject, Equatable {
             return
         }
         do {
-            guard let function: MTLFunction = PIX.metalLibrary.makeFunction(name: shaderName) else {
-                pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function Failed")
+            guard let function: MTLFunction = (customMetalLibrary ?? PIX.metalLibrary).makeFunction(name: shaderName) else {
+                pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function \"\(shaderName)\" Failed")
                 return
             }
-            pipeline = try pixelKit.render.makeShaderPipeline(function, with: nil, addMode: additiveVertexBlending, overrideBits: overrideBits)
+            var customVertexShader: MTLFunction? = nil
+            if let metalLibrarry: MTLLibrary = customMetalLibrary, let vertexShaderName: String = customVertexShaderName {
+                customVertexShader = metalLibrarry.makeFunction(name: vertexShaderName)
+            }
+            pipeline = try pixelKit.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
             #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
