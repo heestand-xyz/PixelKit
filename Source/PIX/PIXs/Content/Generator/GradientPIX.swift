@@ -79,7 +79,11 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     @LiveFloat("offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
     @LiveEnum("extendMode") public var extendMode: ExtendMode = .hold
-    public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]
+    public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)] {
+        didSet {
+            render()
+        }
+    }
     
     // MARK: - Property Helpers
     

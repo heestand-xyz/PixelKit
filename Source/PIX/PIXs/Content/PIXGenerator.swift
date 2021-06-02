@@ -31,7 +31,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     @LiveColor("color") public var color: PixelColor = .white
     
     open override var liveList: [LiveWrap] {
-        [_backgroundColor, _color, _resolution] + super.liveList
+        super.liveList + [_resolution, _backgroundColor, _color]
     }
     
     public required init(at resolution: Resolution) {
