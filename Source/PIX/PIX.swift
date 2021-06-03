@@ -636,6 +636,9 @@ open class PIX: NODE, ObservableObject, Equatable {
     func connected() {
         applyResolution { [weak self] in
             self?.render()
+            DispatchQueue.main.async { [weak self] in
+                self?.render()
+            }
         }
         if let nodeIn: NODEIn = self as? NODEIn {
             nodeIn.didUpdateInputConnections()
