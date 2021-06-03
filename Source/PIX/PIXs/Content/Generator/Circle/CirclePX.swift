@@ -11,7 +11,8 @@ import PixelColor
 public struct CirclePX: PXOut, PXOOutRep {
     
     public var object: PXObject {
-        let slug: String = String(describing: self).split(separator: "(").dropLast().joined(separator: "(")
+        let slug: String = String(describing: Mirror(reflecting: self))
+        print("PX Cicle Slug", slug)
         return PXStore.store[slug] ?? {
             let pix = CirclePIX()
             print("PX Circle New....................", slug)

@@ -11,7 +11,9 @@ import PixelColor
 public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOut, ViewRepresentable {
     
     public var object: PXObject {
-        let slug: String = String(describing: self)
+        let slug: String = String(describing: Mirror(reflecting: self))
+        print("PX Blur Slug", slug)
+        dump(Mirror(reflecting: self))
         return PXStore.store[slug] ?? {
             let pix = BlurPIX()
             print("PX Blur New....................", slug)
