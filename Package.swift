@@ -18,7 +18,7 @@ let package = Package(
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [
             "PIX/PIXs/Output/Output/SyphonOutPIX.swift",
-            "PIX/PIXs/Content/Resource/SyphonInPIX.swift",
+            "PIX/PIXs/Content/Resource/Other/SyphonInPIX.swift",
             "PIX/Auto/PIXUIs.stencil",
             "PIX/Auto/PIXAuto.stencil",
             "PIX/PIXs/Content/Generator/Metal/ContentGeneratorMetalPIX.metal.txt",
@@ -26,10 +26,10 @@ let package = Package(
             "PIX/PIXs/Effects/Merger/Metal/EffectMergerMetalPIX.metal.txt",
             "PIX/PIXs/Effects/Multi/Metal/EffectMultiMetalPIX.metal.txt",
             "Other/NDI",
+            "Shaders/Shaders/README.md",
         ], resources: [
             .process("metaltest.txt"),
             .process("metaltest.metal"),
-            .process("Shaders/"),
         ]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
