@@ -2,12 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "PixelColor",
+        "repositoryURL": "https://github.com/heestand-xyz/PixelColor",
+        "state": {
+          "branch": null,
+          "revision": "ef2cebc37adcef71843f7d0cac46cce45c2acc40",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "Resolution",
         "repositoryURL": "https://github.com/heestand-xyz/Resolution",
         "state": {
           "branch": null,
-          "revision": "3c3dc0cde53f26518b8de90be8df55a4f67bb0e5",
-          "version": "1.0.0"
+          "revision": "a37b4b7a1c04f0ebe980cb083b7b85fe99a0ea52",
+          "version": "1.0.1"
         }
       }
     ]

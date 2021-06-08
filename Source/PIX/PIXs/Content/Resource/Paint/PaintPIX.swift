@@ -10,27 +10,8 @@
 import RenderKit
 import Resolution
 import UIKit
-#if canImport(SwiftUI)
-import SwiftUI
-#endif
 import PencilKit
 import PixelColor
-
-//#if canImport(SwiftUI)
-//@available(iOS 13.0.0, *)
-//public struct PaintPIXUI: View, PIXUI {
-//    public var node: NODE { pix }
-//    public let pix: PIX
-//    let paintPix: PaintPIX
-//    public var body: some View {
-//        NODERepView(node: pix)
-//    }
-//    public init() {
-//        paintPix = PaintPIX()
-//        pix = paintPix
-//    }
-//}
-//#endif
 
 @available(iOS 13.0, *)
 final public class PaintPIX: PIXResource, PIXViewable {

@@ -14,8 +14,12 @@ import Resolution
 /// overrides the default metal lib
 public var pixelKitMetalLibURL: URL?
 
+/// PixelKit
+///
+/// Access via singleton ``main``.
 public class PixelKit: EngineDelegate, LoggerDelegate {
     
+    /// Singleton of PixelKit
     public static let main = PixelKit()
     
     // MARK: - Version
@@ -58,6 +62,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     // MARK: - Renderer
     
+    /// Render
     public let render: Render
     public let logger: Logger
     
