@@ -10,17 +10,17 @@ import PixelColor
 @available(iOS 14.0, *)
 public struct CirclePX: PXOut, PXOOutRep {
     
-    public var object: PXObject {
-        let slug: String = String(describing: Mirror(reflecting: self))
-        print("PX Cicle Slug", slug)
-        return PXStore.store[slug] ?? {
-            let pix = CirclePIX()
-            print("PX Circle New....................", slug)
-            let object = PXObject(pix: pix)
-            PXStore.store[slug] = object
-            return object
-        }()
-    }
+//    public var object: PXObject {
+//        let slug: String = String(describing: Mirror(reflecting: self))
+//        print("PX Cicle Slug", slug)
+//        return PXStore.store[slug] ?? {
+//            let pix = CirclePIX()
+//            print("PX Circle New....................", slug)
+//            let object = PXObject(pix: pix)
+//            PXStore.store[slug] = object
+//            return object
+//        }()
+//    }
     
     let radius: CGFloat
     
@@ -31,11 +31,11 @@ public struct CirclePX: PXOut, PXOOutRep {
     
     public func makeView(context: Context) -> PIXView {
         print("PX Circle Make")
-        setup()
-        return object.pix.pixView
+        setup(object: context.coordinator)
+        return context.coordinator.pix.pixView
     }
     
-    func setup() {
+    func setup(object: PXObject) {
         object.update = { transaction, px in
             let px = px as! CirclePX
             let circlePix: CirclePIX = object.pix as! CirclePIX
@@ -54,6 +54,10 @@ public struct CirclePX: PXOut, PXOOutRep {
 
     public func updateView(_ pixView: PIXView, context: Context) {
         print("PX Circle Update")
-        object.update?(context.transaction, self)
+        context.coordinator.update?(context.transaction, self)
+    }
+    
+    public func makeCoordinator() -> PXObject {
+        PXObject(pix: CirclePIX())
     }
 }

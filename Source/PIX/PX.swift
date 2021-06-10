@@ -7,7 +7,7 @@ import SwiftUI
 import RenderKit
 
 public protocol PX {
-    var object: PXObject { get }
+//    var object: PXObject { get }
 }
 
 struct PXStore {
