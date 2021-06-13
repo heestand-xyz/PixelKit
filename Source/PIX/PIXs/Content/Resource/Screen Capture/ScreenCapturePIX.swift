@@ -9,6 +9,8 @@
 #if os(macOS) && !targetEnvironment(macCatalyst)
 
 import AVKit
+import RenderKit
+import Resolution
 
 final public class ScreenCapturePIX: PIXResource, PIXViewable {
         
@@ -20,7 +22,11 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     
     // MARK: - Public Properties
     
-    public var screenIndex: Int = 0 { didSet { setupScreenCapture() } }
+    @LiveInt("screenIndex", range: 0...2) public var screenIndex: Int = 0 { didSet { setupScreenCapture() } }
+    
+    public override var liveList: [LiveWrap] {
+        super.liveList + [_screenIndex]
+    }
     
     // MARK: - Life Cycle
     
@@ -35,7 +41,13 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     }
     
     deinit {
-        helper!.stop()
+        helper?.stop()
+    }
+    
+    public override func destroy() {
+        super.destroy()
+        helper?.stop()
+        helper = nil
     }
     
     // MARK: Setup
@@ -48,8 +60,9 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
         }, captured: { [weak self] pixelBuffer in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
+            let isFirstPixelBuffer: Bool = self.resourcePixelBuffer == nil
             self.resourcePixelBuffer = pixelBuffer
-            if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
+            if isFirstPixelBuffer || Resolution(pixelBuffer: pixelBuffer) != self.finalResolution {
                 self.applyResolution { [weak self] in
                     self?.render()
                 }

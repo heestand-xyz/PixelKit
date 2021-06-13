@@ -9,15 +9,11 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
     case video
     case view
     case web
-    #if os(macOS)
     case screenCapture
-    #endif
-    #if os(iOS)
     case depthCamera
     case multiCamera
     case paint
     case streamIn
-    #endif
     
     public var name: String {
         switch self {
@@ -33,11 +29,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return "View"
         case .web:
             return "Web"
-        #if os(macOS)
         case .screenCapture:
             return "Screen Capture"
-        #endif
-        #if os(iOS)
         case .depthCamera:
             return "Depth Camera"
         case .multiCamera:
@@ -46,11 +39,10 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return "Paint"
         case .streamIn:
             return "Stream In"
-        #endif
         }
     }
     
-    public var type: PIXResource.Type {
+    public var type: PIXResource.Type? {
         switch self {
         case .camera:
             return CameraPIX.self
@@ -78,6 +70,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         case .streamIn:
             return StreamInPIX.self
         #endif
+        default:
+            return nil
         }
     }
     
