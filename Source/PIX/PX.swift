@@ -6,8 +6,64 @@ import SwiftUI
 
 import RenderKit
 
+public protocol X {}
+
+public protocol XContent: X, ViewRepresentable {}
+
+struct Effect: Hashable {
+    let type: EffectType
+    let form: EffectForm
+    static func == (lhs: Effect, rhs: Effect) -> Bool {
+        lhs.type == rhs.type
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+    }
+}
+
+protocol EffectForm {
+    func updateForm(pix: PIXEffect)
+}
+
+enum EffectType: Hashable {
+    case single(PIXSingleEffectType)
+    case merger(PIXMergerEffectType)
+    case multi(PIXMultiEffectType)
+    var name: String {
+        switch self {
+        case .single(let pixSingleEffectType):
+            return pixSingleEffectType.name
+        case .merger(let pixMergerEffect):
+            return pixMergerEffect.name
+        case .multi(let pixMultiEffect):
+            return pixMultiEffect.name
+        }
+    }
+    func pixEffect() -> PIXEffect {
+        switch self {
+        case .single(let pixSingleEffectType):
+            return pixSingleEffectType.type.init()
+        case .merger(let pixMergerEffect):
+            return pixMergerEffect.type.init()
+        case .multi(let pixMultiEffect):
+            return pixMultiEffect.type.init()
+        }
+    }
+}
+
+private struct EffectEnvironmentKey: EnvironmentKey {
+    static var defaultValue: [Effect] = []
+}
+
+extension EnvironmentValues {
+    var effects: [Effect] {
+        get { self[EffectEnvironmentKey.self] }
+        set { self[EffectEnvironmentKey.self] = newValue }
+    }
+}
+
 public protocol PX {
-//    var object: PXObject { get }
+    var object: PXObject { get }
 }
 
 struct PXStore {
@@ -24,6 +80,17 @@ public protocol PXIn: PX {
 
 public class PXObject {
     let pix: PIX
+    var timer: Timer?
+    var update: ((Transaction, PX) -> ())?
+    init(pix: PIX) {
+        print("PX Object Init \(pix.name)")
+        self.pix = pix
+    }
+}
+
+public class XObject {
+    let pix: PIX
+    var effectPixs: [Effect: PIXEffect] = [:]
     var timer: Timer?
     var update: ((Transaction, PX) -> ())?
     init(pix: PIX) {

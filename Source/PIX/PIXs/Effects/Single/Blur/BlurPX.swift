@@ -37,8 +37,8 @@ public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOut, ViewRepresentable {
         print("PX Blur Make")
         setup()
         let pixView: PIXView = object.pix.pixView
-//        let inCoordinator: PXObject = inPx().object
-//        connect(from: inCoordinator, to: object)
+        let inCoordinator: PXObject = inPx().object
+        connect(from: inCoordinator, to: object)
         let host = UINSHostingView(rootView: inPx())
         pixView.addSubview(host.view)
         return pixView
@@ -75,8 +75,8 @@ public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOut, ViewRepresentable {
     public func updateView(_ uiView: PIXView, context: Context) {
         print("PX Blur Update")
         object.update?(context.transaction, self)
-//        let inObject: PXObject = inPx().object
-//        inObject.update?(context.transaction, inPx())
+        let inObject: PXObject = inPx().object
+        inObject.update?(context.transaction, inPx())
     }
 }
 
