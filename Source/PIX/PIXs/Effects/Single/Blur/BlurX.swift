@@ -25,9 +25,9 @@ public struct BlurX<Content: View>: View, X {
     
     public var body: some View {
         content()
-            .onChange(of: radius) { newValue in
-                print("X Change Blur - Radius:", newValue)
-            }
+//            .onChange(of: radius) { newValue in
+//                print("X Change Blur - Radius:", newValue)
+//            }
             .environment(\.effects, [effect] + effects)
     }
     
