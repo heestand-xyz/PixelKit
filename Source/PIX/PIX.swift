@@ -175,7 +175,9 @@ open class PIX: NODE, ObservableObject, Equatable {
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
         pixView = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
         
-        setupShader()
+        if self is NODEMetal == false {
+            setupShader()
+        }
             
         pixelKit.render.add(node: self)
         

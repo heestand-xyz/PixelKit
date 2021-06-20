@@ -121,12 +121,14 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         metalUniforms = uniforms
         self.code = code
         super.init(name: "Metal B", typeName: "pix-effect-merger-metal")
+        bakeFrag()
     }
     
     required init() {
         metalUniforms = []
         code = ""
         super.init()
+        bakeFrag()
     }
     
     // MARK: Codable

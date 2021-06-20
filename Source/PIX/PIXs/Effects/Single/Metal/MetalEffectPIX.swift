@@ -103,12 +103,14 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
         metalUniforms = uniforms
         self.code = code
         super.init(name: "Metal B", typeName: "pix-effect-single-metal")
+        bakeFrag()
     }
     
     required init() {
         metalUniforms = []
         code = ""
         super.init(name: "Metal B", typeName: "pix-effect-single-metal")
+        bakeFrag()
     }
     
     // MARK: Codable

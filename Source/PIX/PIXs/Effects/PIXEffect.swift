@@ -40,7 +40,7 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
         manyRenderPromisePublisher
             .sink { [weak self] renderRequest in
                 guard let self = self else { return }
-                print("Combine \"\(self.name)\" Promise +++", renderRequest.frameIndex)
+//                print("Combine \"\(self.name)\" Promise +++", renderRequest.frameIndex)
                 promisedRenderRequests.append(renderRequest)
                 self.promisedRender(renderRequest)
             }
@@ -60,13 +60,13 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
                 let matchingPromisedFrameIndexCount: Int = promisedRenderRequests.filter({ promisedRenderRequest in
                     renderPack.request.fullSourceChain.map(\.frameIndex).contains(promisedRenderRequest.frameIndex)
                 }).count
-                print("Combine \"\(self.name)\" Sink )))))", matchingPromisedFrameIndexCount, "(((", renderPack.request.fullSourceChain.map(\.frameIndex))
+//                print("Combine \"\(self.name)\" Sink )))))", matchingPromisedFrameIndexCount, "(((", renderPack.request.fullSourceChain.map(\.frameIndex))
 //                guard matchingPromisedFrameIndexCount <= 1 else { return }
                 if let frameIndex: Int = willRenderFromFrameIndex {
                     if frameIndex == renderPack.request.frameIndex {
                         return
                     } else {
-                        print("Combine \"\(self.name)\" Render Now <=<=<")
+//                        print("Combine \"\(self.name)\" Render Now <=<=<")
                         self.render(via: renderPack.request)
                     }
                 }
@@ -75,7 +75,7 @@ open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
                 willRenderTimer = Timer(timeInterval: PixelKit.main.render.maxSecondsPerFrame, repeats: false, block: { _ in
                     willRenderFromFrameIndex = nil
                     willRenderTimer = nil
-                    print("Combine \"\(self.name)\" Render Frame <-<-<")
+//                    print("Combine \"\(self.name)\" Render Frame <-<-<")
                     self.render(via: renderPack.request)
                 })
                 RunLoop.current.add(willRenderTimer!, forMode: .common)

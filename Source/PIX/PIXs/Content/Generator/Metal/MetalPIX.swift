@@ -95,13 +95,14 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
         metalUniforms = uniforms
         self.code = code
         super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
-//        bakeFrag()
+        bakeFrag()
     }
     
     required init(at resolution: Resolution) {
         metalUniforms = []
         code = ""
         super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
+        bakeFrag()
     }
     
     // MARK: Codable

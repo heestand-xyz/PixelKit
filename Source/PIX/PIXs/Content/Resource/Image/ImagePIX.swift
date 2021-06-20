@@ -52,6 +52,8 @@ final public class ImagePIX: PIXResource, PIXViewable {
     
     public var image: UINSImage? { didSet { setNeedsBuffer() } }
     
+    @Published public var imageLoaded: Bool = false
+    
     #if !os(macOS)
     public var resizeToFitResolution: Resolution? = nil
     #endif
@@ -126,6 +128,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
         guard var image = image else {
             pixelKit.logger.log(node: self, .debug, .resource, "Setting Image to Nil")
             clearRender()
+            imageLoaded = false
             return
         }
         #if !os(macOS)
@@ -157,6 +160,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
         }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { [weak self] in
+            self?.imageLoaded = true
             self?.render()
             #warning("PixelKit - Image set Needs Render after 5 Frame Delay Fix")
             PixelKit.main.render.delay(frames: 5, done: { [weak self] in

@@ -112,6 +112,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         metalUniforms = uniforms
         self.code = code
         super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
+        bakeFrag()
     }
     
     public convenience init(uniforms: [MetalUniform] = [], code: String,
@@ -124,6 +125,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         metalUniforms = []
         code = ""
         super.init()
+        bakeFrag()
     }
     
     // MARK: Codable

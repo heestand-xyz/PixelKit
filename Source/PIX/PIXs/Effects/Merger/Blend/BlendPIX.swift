@@ -146,7 +146,7 @@ public extension NODEOut {
     func pixMask(pix: PIX & NODEOut) -> BlendPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.input = pix
-        channelMixPix.red 
+        channelMixPix.red
         channelMixPix.alpha = .red
         let blendPix = BlendPIX()
         blendPix.name = ":blend:"
