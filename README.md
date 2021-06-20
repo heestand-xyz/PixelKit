@@ -54,7 +54,7 @@ Info:
 ### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/heestand-xyz/PixelKit", from: "2.0.0")
+.package(url: "https://github.com/heestand-xyz/PixelKit", from: "2.0.2")
 ~~~~
 
 ## Setup
