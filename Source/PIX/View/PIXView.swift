@@ -9,8 +9,6 @@ import MetalKit
 import RenderKit
 import Resolution
 
-public typealias PixelView = NODERepView
-
 public class PIXView: NODEView {
     
     #if os(iOS)
