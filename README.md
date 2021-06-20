@@ -147,72 +147,62 @@ class ViewController: UIViewController {
 | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
 | --- | --- | --- | --- | --- |
 
-#### SwiftUI
 ```swift
-struct ContentView: View {
-    var content: PIXUI {
-        ColorShiftPIXUI {
-            LevelsPIXUI {
-                ResolutionPIXUI {
-                    CameraPIXUI()
-                }
-            }
-                .gamma(0.5)
-                .brightness(CGFloat(1.5))
-        }
-            .saturation(CGFloat(0.5))
+import SwiftUI
+import PixelKit
+
+class ViewModel: ObservableObject {
+    
+    let camera: CameraPIX
+    let levels: LevelsPIX
+    let colorShift: ColorShiftPIX
+    let blur: BlurPIX
+    let circle: CirclePIX
+    
+    let finalPix: PIX
+    
+    init() {
+        
+        camera = CameraPIX()
+        camera.cameraResolution = ._1080p
+
+        levels = LevelsPIX()
+        levels.input = camera
+        levels.brightness = 1.5
+        levels.gamma = 0.5
+
+        colorShift = ColorShiftPIX()
+        colorShift.input = levels
+        colorShift.saturation = 0.5
+
+        blur = BlurPIX()
+        blur.input = colorShift
+        blur.radius = 0.25
+
+        circle = CirclePIX(at: .square(1080))
+        circle.radius = 0.45
+        circle.backgroundColor = .clear
+
+        finalPix = blur & (camera * circle)
     }
+}
+
+struct ContentView: View {
+    
+    @StateObject var viewModel = ViewModel()
+    
     var body: some View {
-        BlendsPIXUI {
-            BlurPIXUI {
-                RawPIXUI(pix: content.pix)
-            }
-                .radius(0.25)
-            BlendsPIXUI {
-                CirclePIXUI()
-                    .bgColor(.clear)
-                    .radius(0.25)
-                RawPIXUI(pix: content.pix)
-            }
-                .blendMode(.multiply)
-        }
-            .blendMode(.over)
+        PixelView(pix: viewModel.finalPix)
     }
 }
 ```
 
-~~~~swift
-let camera = CameraPIX()
-
-let levels = LevelsPIX()
-levels.input = camera
-levels.brightness = 1.5
-levels.gamma = 0.5
-
-let colorShift = ColorShiftPIX()
-colorShift.input = levels
-colorShift.saturation = 0.5
-
-let blur = BlurPIX()
-blur.input = colorShift
-blur.radius = 0.25
-
-let res: Resolution = .custom(w: 1500, h: 1000)
-let circle = CirclePIX(at: res)
-circle.radius = 0.45
-circle.bgColor = .clear
-
-let finalPix: PIX = blur & (camera * circle)
-finalPix.view.frame = view.bounds
-view.addSubview(finalPix.view)
-~~~~ 
-
 This can also be done with [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = CameraPIX()._brightness(1.5)._gamma(0.5)._saturation(0.5)._blur(0.25)
+let pix = CameraPIX().pixBrightness(1.5).pixGamma(0.5).pixSaturation(0.5).pixBlur(0.25)
 ```
 
-Remeber to add `NSCameraUsageDescription` to your info.plist
+Remeber to add `NSCameraUsageDescription` to your *Info.plist*
 
 ### Example: Green Screen
 
