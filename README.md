@@ -76,6 +76,41 @@ struct ContentView: View {
 }
 ~~~~
 
+### SwiftUI with View Model
+
+~~~~swift
+import SwiftUI
+import PixelKit
+
+class ViewModel: ObservableObject {
+    
+    let circlePix: CirclePIX
+    let blurPix: BlurPIX
+    
+    let finalPix: PIX
+    
+    init() {
+        
+        circlePix = CirclePIX()
+
+        blurPix = BlurPIX()
+        blurPix.input = circlePix
+        blurPix.radius = 0.25
+
+        finalPix = blurPix
+    }
+}
+
+struct ContentView: View {
+    
+    @StateObject var viewModel = ViewModel()
+    
+    var body: some View {
+        NODERepView(node: viewModel.finalPix)
+    }
+}
+~~~~
+
 ### UIKit
 
 ~~~~swift
