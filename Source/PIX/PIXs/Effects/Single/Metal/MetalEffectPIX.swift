@@ -170,7 +170,7 @@ public extension NODEOut {
         let metalEffectPix = MetalEffectPIX(code:
             """
             float luma = (input.r + input.g + input.b) / 3;
-            pix = float4(input.r, input.r, input.r, luma);
+            pix = float4(input.r, input.g, input.b, luma);
             """
         )
         metalEffectPix.name = "lumaToAlpha:metalEffectPix"

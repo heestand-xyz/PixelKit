@@ -142,11 +142,16 @@ public extension NODEOut {
         pixMask(pix: pix())
     }
     
+    /// The red channel is used as a mask
     func pixMask(pix: PIX & NODEOut) -> BlendPIX {
+        let channelMixPix = ChannelMixPIX()
+        channelMixPix.input = pix
+        channelMixPix.red 
+        channelMixPix.alpha = .red
         let blendPix = BlendPIX()
         blendPix.name = ":blend:"
         blendPix.inputA = self as? PIX & NODEOut
-        blendPix.inputB = pix.pixLumaToAlpha()
+        blendPix.inputB = channelMixPix
         blendPix.blendMode = .multiply
         return blendPix
     }
