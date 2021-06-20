@@ -66,11 +66,11 @@ public extension NODEOut {
         return transformPix
     }
     
-    func pixRotatate(by360 rotation: CGFloat) -> TransformPIX {
+    func pixRotatate(byDegrees rotation: CGFloat) -> TransformPIX {
         (self as! PIX & NODEOut).pixRotatate(by: rotation / 360)
     }
     
-    func pixRotatate(byRadian rotation: CGFloat) -> TransformPIX {
+    func pixRotatate(byRadians rotation: CGFloat) -> TransformPIX {
         (self as! PIX & NODEOut).pixRotatate(by: rotation / (.pi * 2))
     }
     

@@ -362,42 +362,44 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 
 ## Effect Convenience Funcs
 
-- .<b>pixReRes(to: ._1080p * 0.5)</b> -> ResolutionPIX
-- .<b>pixReRes(by: 0.5)</b> -> ResolutionPIX
-- .<b>_brightness(0.5)</b> -> LevelsPIX
-- .<b>_darkness(0.5)</b> -> LevelsPIX
-- .<b>_contrast(0.5)</b> -> LevelsPIX
-- .<b>_gamma(0.5)</b> -> LevelsPIX
-- pix.<b>_invert()</b> -> LevelsPIX
-- pix.<b>_opacity(0.5)</b> -> LevelsPIX
-- pix.<b>_blur(0.5)</b> -> BlurPIX
-- pix.<b>_edge()</b> -> EdgePIX
-- pix.<b>_threshold(at: 0.5)</b> -> ThresholdPIX
-- pix.<b>_quantize(by: 0.5)</b> -> QuantizePIX
-- pix.<b>_position(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
-- pix.<b>_rotatate(to: .pi)</b> -> TransformPIX
-- pix.<b>_scale(by: 0.5)</b> -> TransformPIX
-- pix.<b>_kaleidoscope()</b> -> KaleidoscopePIX
-- pix.<b>_twirl(0.5)</b> -> TwirlPIX
-- pix.<b>_swap(.red, .blue)</b> -> ChannelMixPIX
-- pix.<b>_key(.green)</b> -> ChromaKeyPIX
-- pix.<b>_hue(0.5)</b> -> ColorShiftPIX
-- pix.<b>_saturation(0.5)</b> -> ColorShiftPIX
-- pix.<b>_crop(CGRect(x: 0.25, y 0.25, width: 0.5, height: 0.5))</b> -> CropPIX
-- pix.<b>_flipX()</b> -> FlipFlopPIX
-- pix.<b>_flipY()</b> -> FlipFlopPIX
-- pix.<b>_flopLeft()</b> -> FlipFlopPIX
-- pix.<b>_flopRight()</b> -> FlipFlopPIX
-- pix.<b>_range(inLow: 0.0, inHigh: 0.5, outLow: 0.5, outHigh: 1.0)</b> -> RangePIX
-- pix.<b>_range(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
-- pix.<b>_sharpen()</b> -> SharpenPIX
-- pix.<b>_slope()</b> - > SlopePIX
-- pixA.<b>_lookup(with: pixB, axis: .x)</b> -> LookupPIX
-- pixA.<b>_lumaBlur(with: pixB, radius: 0.5)</b> -> LumaBlurPIX
-- pixA.<b>_lumaLevels(with: pixB, brightness: 2.0)</b> -> LumaLevelsPIX
-- pixA.<b>_vignetting(with: pixB, inset: 0.25, gamma: 0.5)</b> -> LumaLevelsPIX
-- pixA.<b>_displace(with: pixB, distance: 0.5)</b> -> DisplacePIX
-- pixA.<b>_remap(with: pixB)</b> -> RemapPIX
+- <b>.pixScaleResolution(to: ._1080p * 0.5)</b> -> ResolutionPIX
+- <b>.pixScaleResolution(by: 0.5)</b> -> ResolutionPIX
+- <b>.pixBrightness(0.5)</b> -> LevelsPIX
+- <b>.pixDarkness(0.5)</b> -> LevelsPIX
+- <b>.pixContrast(0.5)</b> -> LevelsPIX
+- <b>.pixGamma(0.5)</b> -> LevelsPIX
+- <b>.pixInvert()</b> -> LevelsPIX
+- <b>.pixOpacity(0.5)</b> -> LevelsPIX
+- <b>.pixBlur(0.5)</b> -> BlurPIX
+- <b>.pixEdge()</b> -> EdgePIX
+- <b>.pixThreshold(at: 0.5)</b> -> ThresholdPIX
+- <b>.pixQuantize(by: 0.5)</b> -> QuantizePIX
+- <b>.pixPosition(at: CGPoint(x: 0.5, y: 0.5))</b> -> TransformPIX
+- <b>.pixRotatate(by: 0.5)</b> -> TransformPIX
+- <b>.pixRotatate(byRadians: .pi)</b> -> TransformPIX
+- <b>.pixRotatate(byDegrees: 180)</b> -> TransformPIX
+- <b>.pixScale(by: 0.5)</b> -> TransformPIX
+- <b>.pixKaleidoscope()</b> -> KaleidoscopePIX
+- <b>.pixTwirl(0.5)</b> -> TwirlPIX
+- <b>.pixSwap(.red, .blue)</b> -> ChannelMixPIX
+- <b>.pixChromaKey(.green)</b> -> ChromaKeyPIX
+- <b>.pixHue(0.5)</b> -> ColorShiftPIX
+- <b>.pixSaturation(0.5)</b> -> ColorShiftPIX
+- <b>.pixCrop(CGRect(x: 0.25, y 0.25, width: 0.5, height: 0.5))</b> -> CropPIX
+- <b>.pixFlipX()</b> -> FlipFlopPIX
+- <b>.pixFlipY()</b> -> FlipFlopPIX
+- <b>.pixFlopLeft()</b> -> FlipFlopPIX
+- <b>.pixFlopRight()</b> -> FlipFlopPIX
+- <b>.pixRange(inLow: 0.0, inHigh: 0.5, outLow: 0.5, outHigh: 1.0)</b> -> RangePIX
+- <b>.pixRange(inLow: .clear, inHigh: .gray, outLow: .gray, outHigh: .white)</b> -> RangePIX
+- <b>.pixSharpen()</b> -> SharpenPIX
+- <b>.pixSlope()</b> - > SlopePIX
+- <b>.pixVignetting(radius: 0.5, inset: 0.25, gamma: 0.5)</b> -> LumaLevelsPIX
+- <b>.pixLookup(pix: pixB, axis: .x)</b> -> LookupPIX
+- <b>.pixLumaBlur(pix: pixB, radius: 0.5)</b> -> LumaBlurPIX
+- <b>.pixLumaLevels(pix: pixB, brightness: 2.0)</b> -> LumaLevelsPIX
+- <b>.pixDisplace(pix: pixB, distance: 0.5)</b> -> DisplacePIX
+- <b>.pixRemap(pix: pixB)</b> -> RemapPIX
 
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory, some funcs create several PIXs.
