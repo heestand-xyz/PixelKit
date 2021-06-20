@@ -142,6 +142,7 @@ class ViewController: UIViewController {
 .renderedTexture // MTLTexture
 ~~~~
 
+
 ### Example: Camera Effects
 
 | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_01.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_02.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_03.jpg" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_04.jpg" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/pix_demo_05.jpg" width="150" height="100"/> |
@@ -204,7 +205,11 @@ let pix = CameraPIX().pixBrightness(1.5).pixGamma(0.5).pixSaturation(0.5).pixBlu
 
 Remeber to add `NSCameraUsageDescription` to your *Info.plist*
 
+
 ### Example: Green Screen
+
+| <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
+| --- | --- | --- | --- |
 
 `import RenderKit
 import PixelKit`
@@ -232,29 +237,8 @@ view.addSubview(finalPix.view)
 
 This can also be done with [Blend Operators](#blend-operators) and [Effect Convenience Funcs](#effect-convenience-funcs):<br>
 ```swift
-let pix = cityImage & supermanVideo._chromaKey(.green)
+let pix = cityImage & supermanVideo.pixChromaKey(.green)
 ```
-
-#### SwiftUI
-```swift
-struct ContentView: View {
-    var body: some View {
-        BlendsPIXUI {
-            ImagePIXUI(image: UIImage(named: "city")!)
-            ChromaKeyPIXUI {
-                VideoPIXUI(fileNamed: "superman", withExtension: "mov")
-            }
-                .keyColor(.green)
-        }
-            .blendMode(.over)
-    }
-}
-```
-
-| <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-1.png" width="150" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-2.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-3.png" width="140" height="100"/> | <img src="https://github.com/heestand-xyz/PixelKit/raw/main/Assets/Renders/Pixels-GreenScreen-4.png" width="150" height="100"/> |
-| --- | --- | --- | --- |
-
-This is a representation of the Pixel Nodes [Green Screen](https://pixelnodes.app/pixelshare/project/?id=3E292943-194A-426B-A624-BAAF423D17C1) project.
 
 
 ### Example: Depth Camera
@@ -273,7 +257,7 @@ let levelsPix = LevelsPIX()
 levelsPix.input = depthCameraPix
 levelsPix.inverted = true
 
-let lumaBlurPix = cameraPix._lumaBlur(with: levelsPix, radius: 0.1)
+let lumaBlurPix = cameraPix.pixLumaBlur(pix: levelsPix, radius: 0.1)
 
 let finalPix: PIX = lumaBlurPix
 finalPix.view.frame = view.bounds
@@ -297,7 +281,7 @@ cameraPix.camera = .back
 
 let multiCameraPix = MultiCameraPIX.setup(with: cameraPix, camera: .front)
 
-let movedMultiCameraPix = multiCameraPix._scale(by: 0.25)._move(x: 0.375 * (9 / 16), y: 0.375)
+let movedMultiCameraPix = multiCameraPix.pixScale(by: 0.25).pixTranslate(x: 0.375 * (9 / 16), y: 0.375)
 
 let finalPix: PIX = camearPix & movedMultiCameraPix
 finalPix.view.frame = view.bounds
@@ -308,10 +292,9 @@ Note `MultiCameraPIX` requires iOS 13.
 
 ## Coordinate Space
 
-PixelKit coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
-Note that compared to native UIKit views the vertical axis is flipped and origin is moved, this is more convinent when working with graphics is PixelKit.
+The PixelKit coordinate space is normailzed to the vertical axis (1.0 in height) with the origin (0.0, 0.0) in the center.<br>
+Note that compared to native UIKit and SwiftUI views the vertical axis is flipped and origin is moved, this is more convinent when working with graphics in PixelKit.
 A full rotation is defined by 1.0 
-<!-- converter methods -->
 
 <b>Center:</b> CGPoint(x: 0, y: 0)<br>
 <b>Bottom Left:</b> CGPoint(x: -0.5 * aspectRatio, y: -0.5)<br>
@@ -338,17 +321,8 @@ These are the supported `BlendingMode` operators:
 let blendPix = (CameraPIX() !** NoisePIX(at: .fullHD(.portrait))) * CirclePIX(at: .fullHD(.portrait))
 ```
 
-Note when using Live values, one line if else statments are written with `<?>` & `<=>`:
-
-```swift
-let a: CGFloat = 1.0
-let b: CGFloat = 2.0
-let isOdd: Bool = .seconds % 2.0 < 1.0
-let ab: CGFloat = isOdd <?> a <=> b
-```
-
-The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
-`PIX.blendOperators.globalPlacement = .aspectFill`
+The default global blend operator fill mode is `.fit`, change it like this:<br>
+`PIX.blendOperators.globalPlacement = .fill`
 
 ## Effect Convenience Funcs
 
@@ -393,20 +367,6 @@ The default global blend operator fill mode is `.aspectFit`, change it like this
 
 Keep in mind that these funcs will create new PIXs.<br>
 Be careful of overloading GPU memory, some funcs create several PIXs.
-
-## MIDI
-
-Here's an example of live midi values in range 0.0 to 1.0.
-
-```
-let circle = CirclePIX(at: ._1024)
-circle.radius = .midi("13")
-circle.color = .midi("17")
-```
-
-You can find the addresses by enabeling logging like this:
-
-`MIDI.main.log = true`
 
 ## High Bit Mode
 
