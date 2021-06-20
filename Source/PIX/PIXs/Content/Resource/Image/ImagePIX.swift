@@ -162,7 +162,6 @@ final public class ImagePIX: PIXResource, PIXViewable {
         applyResolution { [weak self] in
             self?.imageLoaded = true
             self?.render()
-            #warning("PixelKit - Image set Needs Render after 5 Frame Delay Fix")
             PixelKit.main.render.delay(frames: 5, done: { [weak self] in
                 self?.render()
             })

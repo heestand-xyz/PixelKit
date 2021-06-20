@@ -237,14 +237,33 @@ open class PIX: NODE, ObservableObject, Equatable {
         queueRender(renderRequest)
     }
     
-    public func manuallyRender(completion: @escaping (Result<MTLTexture, Error>) -> ()) {
-        print("MANUAL RENDER")
-        let frameIndex = PixelKit.main.render.frameIndex
-        let renderRequest = RenderRequest(frameIndex: frameIndex, node: self) { result in
-            print("MANUAL RENDER REQEST DONE")
+    @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
+    @available(macOS 12.0, *)
+    public func manuallyRender() async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            manuallyRender { result in
+                switch result {
+                case .success:
+                    continuation.resume()
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
         }
-        PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { result in
-            print("MANUAL RENDER DONE")
+    }
+    
+    public func manuallyRender(completion: @escaping (Result<MTLTexture, Error>) -> ()) {
+        let frameIndex = PixelKit.main.render.frameIndex
+        let renderRequest = RenderRequest(frameIndex: frameIndex, node: self, completion: nil)
+        PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { [weak self] result in
+            switch result {
+            case .success(let renderPack):
+                self?.didRender(renderPack: renderPack)
+                completion(.success(renderPack.response.texture))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     
