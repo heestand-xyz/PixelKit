@@ -5,8 +5,6 @@
 Live Graphics Framework for iOS, macOS and tvOS<br>
 runs on [RenderKit](https://github.com/heestand-xyz/RenderKit) - powered by Metal
 
-*This branch is under development.*
-
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen)
@@ -51,7 +49,7 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 ### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/heestand-xyz/PixelKit.git", from: "1.1.6")
+.package(url: "https://github.com/heestand-xyz/PixelKit", from: "2.0.0")
 ~~~~
 
 ## Import
