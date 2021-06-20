@@ -229,11 +229,23 @@ open class PIX: NODE, ObservableObject, Equatable {
     // MARK: - Render
     
     public func render() {
+        guard PixelKit.main.render.engine.renderMode == .auto else { return }
         PixelKit.main.render.logger.log(node: self, .detail, .render, "Render Requested", loop: true)
         let frameIndex = PixelKit.main.render.frameIndex
         let renderRequest = RenderRequest(frameIndex: frameIndex, node: self, completion: nil)
 //        passthroughRender.send(renderRequest)
         queueRender(renderRequest)
+    }
+    
+    public func manuallyRender(completion: @escaping (Result<MTLTexture, Error>) -> ()) {
+        print("MANUAL RENDER")
+        let frameIndex = PixelKit.main.render.frameIndex
+        let renderRequest = RenderRequest(frameIndex: frameIndex, node: self) { result in
+            print("MANUAL RENDER REQEST DONE")
+        }
+        PixelKit.main.render.engine.renderNODE(self, renderRequest: renderRequest) { result in
+            print("MANUAL RENDER DONE")
+        }
     }
     
     public func render(completion: ((Result<RenderResponse, Error>) -> ())? = nil,

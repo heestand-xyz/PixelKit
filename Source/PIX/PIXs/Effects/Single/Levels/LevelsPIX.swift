@@ -57,7 +57,7 @@ public extension NODEOut {
         return levelsPix
     }
     
-    func picDarkness(_ darkness: CGFloat) -> LevelsPIX {
+    func pixDarkness(_ darkness: CGFloat) -> LevelsPIX {
         let levelsPix = LevelsPIX()
         levelsPix.name = "darkness:levels"
         levelsPix.input = self as? PIX & NODEOut
