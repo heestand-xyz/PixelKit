@@ -24,9 +24,9 @@ Info:
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | ColorPIX | CirclePIX | RectanglePIX | PolygonPIX | ArcPIX | LinePIX | GradientPIX | StackPIX |
 
-| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/%20thumb_noise.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_text.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_metal.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_twirl.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_feedback.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_delay.png?raw=true" width="32"/> |
-| --- | --- | --- | --- | --- | --- |
-| NoisePIX | TextPIX | MetalPIX | TwirlPIX | FeedbackPIX | DelayPIX |
+| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/%20thumb_noise.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_text.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_metal.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_twirl.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_feedback.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_delay.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sharpen.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_slope.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| NoisePIX | TextPIX | MetalPIX | TwirlPIX | FeedbackPIX | DelayPIX | SharpenPIX | SlopePIX |  
 
 | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_levels.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_blur.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_edge.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_threshold.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_quantize.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_transform.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_kaleidoscope.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -36,9 +36,9 @@ Info:
 | --- | --- | --- | --- | --- | --- | --- |
 | ChannelMixPIX | ChromaKeyPIX | CornerPinPIX | ColorShiftPIX | CropPIX | FlipFlopPIX | RangePIX |
 
-| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sharpen.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_slope.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> |
-| --- | --- | --- |
-| SharpenPIX | SlopePIX | SepiaPIX |
+| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> |
+| --- |
+| SepiaPIX |
 
 | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_cross.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_lookup.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_displace.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_remap.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_reorder.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_res.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- |
