@@ -36,9 +36,9 @@ Info:
 | --- | --- | --- | --- | --- | --- | --- |
 | ChannelMixPIX | ChromaKeyPIX | CornerPinPIX | ColorShiftPIX | CropPIX | FlipFlopPIX | RangePIX |
 
-| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_convert.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_reduce.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_clamp.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_freeze.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_flare.png?raw=true" width="32"/> |
-| --- | --- | --- | --- | --- | --- |
-| SepiaPIX | ConvertPIX | ReducePIX | ClampPIX | FreezePIX | FlarePIX |
+| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_sepia.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_convert.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_reduce.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_clamp.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_freeze.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_flare.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_airplay.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_rec.png?raw=true" width="32"/> |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| SepiaPIX | ConvertPIX | ReducePIX | ClampPIX | FreezePIX | FlarePIX | AirPlayPIX | RecordPIX |
 
 | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_blend.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_cross.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_lookup.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_displace.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_remap.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_reorder.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_res.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -48,9 +48,9 @@ Info:
 | --- | --- | --- | --- | --- | --- |
 | BlendsPIX | LumaLevelsPIX | LumaBlurPIX | LumaTransformPIX | TimeMachinePIX | ArrayPIX |
 
-| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_airplay.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_rec.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
-| --- | --- | --- |
-| AirPlayPIX | RecordPIX | StreamOutPIX |
+| <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_stream.png?raw=true" width="32"/> |
+| --- |
+| StreamOutPIX |
 
 See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc1f?v=bd4c45ba659f48dfa0ea7ac8bcf7ca9e) in Notion for PIXs in development.
 
