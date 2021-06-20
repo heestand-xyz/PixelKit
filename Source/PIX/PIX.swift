@@ -509,7 +509,8 @@ open class PIX: NODE, ObservableObject, Equatable {
         }
     }
     
-    func clearRender() {
+    public func clearRender() {
+        texture = nil
         pixelKit.logger.log(node: self, .info, .render, "Clear Render")
         removeRes()
     }

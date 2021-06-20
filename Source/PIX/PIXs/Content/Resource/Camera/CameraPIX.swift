@@ -682,7 +682,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
         } else {
             if tele {
-                deviceType = .builtInWideAngleCamera
+                deviceType = .builtInTelephotoCamera
             } else if ultraWide {
                 if #available(iOS 13.0, *) {
                     deviceType = .builtInUltraWideCamera

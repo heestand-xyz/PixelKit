@@ -215,7 +215,7 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     
     // MARK: - Clear
     
-    public func clear() {
+    public func clearCache() {
         cachedInfo = []
         cacheId = nil
     }

@@ -188,7 +188,7 @@ final public class PaintPIX: PIXResource, PIXViewable {
         canvasView.frame = CGRect(origin: .zero, size: resolution.size)
     }
     
-    public func clear() {
+    public func clearDrawing() {
         drawing = PKDrawing()
     }
     

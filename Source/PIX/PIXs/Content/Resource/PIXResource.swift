@@ -27,7 +27,7 @@ open class PIXResource: PIXContent, NODEResource {
     public var resourcePixelBuffer: CVPixelBuffer?
     var flop: Bool = false
     
-    override func clearRender() {
+    public override func clearRender() {
         resourceTexture = nil
         resourcePixelBuffer = nil
         super.clearRender()
