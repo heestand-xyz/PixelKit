@@ -33,7 +33,6 @@ fragment float4 effectMergerLumaLevelsPIX(VertexOut out [[stage_in]],
                                           sampler s [[ sampler(0) ]]) {
     
     float pi = 3.14159265359;
-    int max_res = 16384 - 1;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];

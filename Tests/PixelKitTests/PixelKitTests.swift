@@ -17,29 +17,35 @@ final class PixelKitTests: XCTestCase {
         var pixs: [WeakNODE] = []
         for pixType in PIXGeneratorType.allCases {
             if pixType == .metal { continue }
-            pixs.append(WeakNODE(pixType.type.init(at: ._128)))
+            let pix: PIX = pixType.type.init(at: ._128)
+            pixs.append(WeakNODE(pix))
         }
         for pixType in PIXResourceType.allCases {
             if pixType == .camera { continue }
             #if os(macOS)
             if pixType == .screenCapture { continue }
             #endif
-            pixs.append(WeakNODE(pixType.type.init()))
+            guard let pix: PIX = pixType.type?.init() else { continue }
+            pixs.append(WeakNODE(pix))
         }
         for pixType in PIXSingleEffectType.allCases {
             if pixType == .metalEffect { continue }
-            pixs.append(WeakNODE(pixType.type.init()))
+            let pix: PIX = pixType.type.init()
+            pixs.append(WeakNODE(pix))
         }
         for pixType in PIXMergerEffectType.allCases {
             if pixType == .metalMergerEffect { continue }
-            pixs.append(WeakNODE(pixType.type.init()))
+            let pix: PIX = pixType.type.init()
+            pixs.append(WeakNODE(pix))
         }
         for pixType in PIXMultiEffectType.allCases {
             if pixType == .metalMultiEffect { continue }
-            pixs.append(WeakNODE(pixType.type.init()))
+            let pix: PIX = pixType.type.init()
+            pixs.append(WeakNODE(pix))
         }
         for pixType in PIXOutputType.allCases {
-            pixs.append(WeakNODE(pixType.type.init()))
+            guard let pix: PIX = pixType.type?.init() else { continue }
+            pixs.append(WeakNODE(pix))
         }
         
         pixs.forEach { weakNode in
@@ -54,7 +60,7 @@ final class PixelKitTests: XCTestCase {
         let circlePix = CirclePIX(at: ._512)
         circlePix.radius = 0.2
         circlePix.edgeRadius = 0.05
-        circlePix.color = .blue
+        circlePix.color = .rawBlue
         circlePix.position = CGPoint(x: 0.25, y: 0.25)
         
         let encoder = JSONEncoder()
@@ -69,7 +75,7 @@ final class PixelKitTests: XCTestCase {
         
         XCTAssertEqual(decodedPix.radius, 0.2)
         XCTAssertEqual(decodedPix.edgeRadius, 0.05)
-        XCTAssertEqual(decodedPix.color, .blue)
+        XCTAssertEqual(decodedPix.color, .rawBlue)
         XCTAssertEqual(decodedPix.position, CGPoint(x: 0.25, y: 0.25))
     }
     

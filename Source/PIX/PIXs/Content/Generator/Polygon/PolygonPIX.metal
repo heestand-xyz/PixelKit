@@ -171,8 +171,8 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
         float p3r = (fib + in.r) * pi * 2;
         float2 p3 = p1 + float2((sin(p3r) * in.s) / in.aspect, cos(p3r) * in.s);
         
-        float2 p23 = (p2 + p3) / 2;
-        float d123 = sqrt(pow(p23.x - p1.x, 2) + pow(p23.y - p1.y, 2));
+//        float2 p23 = (p2 + p3) / 2;
+//        float d123 = sqrt(pow(p23.x - p1.x, 2) + pow(p23.y - p1.y, 2));
         
         float r = in.rad;
         if (r <= 0) {
@@ -191,7 +191,7 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
             float p5r = (fid + in.r) * pi * 2;
             float2 p5 = p1 + float2((sin(p5r) * in.s) / in.aspect, cos(p5r) * in.s);
 
-            float2 p1x = float2((p1.x - 0.5) * in.aspect, p1.y - 0.5);
+//            float2 p1x = float2((p1.x - 0.5) * in.aspect, p1.y - 0.5);
             float2 p2x = float2((p2.x - 0.5) * in.aspect, p2.y - 0.5);
             float2 p3x = float2((p3.x - 0.5) * in.aspect, p3.y - 0.5);
             float2 p4x = float2((p4.x - 0.5) * in.aspect, p4.y - 0.5);
@@ -204,11 +204,11 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
             float p13d = sqrt(pow(cc2.p.x - uvp.x, 2) + pow(cc2.p.y - uvp.y, 2));
             
             float2 cc1p = float2(cc1.p.x / in.aspect + 0.5, cc1.p.y + 0.5);
-            float2 cc1c1 = float2(cc1.c1.x / in.aspect + 0.5, cc1.c1.y + 0.5);
+//            float2 cc1c1 = float2(cc1.c1.x / in.aspect + 0.5, cc1.c1.y + 0.5);
             float2 cc1c2 = float2(cc1.c2.x / in.aspect + 0.5, cc1.c2.y + 0.5);
             float2 cc2p = float2(cc2.p.x / in.aspect + 0.5, cc2.p.y + 0.5);
             float2 cc2c1 = float2(cc2.c1.x / in.aspect + 0.5, cc2.c1.y + 0.5);
-            float2 cc2c2 = float2(cc2.c2.x / in.aspect + 0.5, cc2.c2.y + 0.5);
+//            float2 cc2c2 = float2(cc2.c2.x / in.aspect + 0.5, cc2.c2.y + 0.5);
             
             bool pit = pointInTriangle(uv, p1, cc1p, cc2p);
             bool pit1 = pointInTriangle(uv, cc1p, cc1c2, cc2c1);
