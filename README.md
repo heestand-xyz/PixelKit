@@ -106,7 +106,7 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
-        NODERepView(node: viewModel.finalPix)
+        PixelView(pix: viewModel.finalPix)
     }
 }
 ~~~~
@@ -131,17 +131,15 @@ class ViewController: UIViewController {
         let finalPix: PIX = blurPix
         finalPix.view.frame = view.bounds
         view.addSubview(finalPix.view)
-        
     }
-    
 }
 ~~~~
 
 ## Rendered Image
 
 ~~~~swift
-.renderedImage [UIImage or NSImage]
-.renderedTexture [MTLTexture]
+.renderedImage // UIImage or NSImage
+.renderedTexture // MTLTexture
 ~~~~
 
 ### Example: Camera Effects
@@ -362,55 +360,14 @@ let ab: CGFloat = isOdd <?> a <=> b
 The default global blend operator fill mode is `.aspectFit`, change it like this:<br>
 `PIX.blendOperators.globalPlacement = .aspectFill`
 
-## Live Values
-
-Live values can be a constant (`let`) and still have changin values.
-Live values are ease to animate with the `.live` or `.seconds` static properites.
-
-### The Live Values:
-- `CGFloat` --> `CGFloat`
-- `Int` --> `Int`
-- `Bool` --> `Bool`
-- `CGPoint` --> `CGPoint`
-- `CGSize` --> `CGSize`
-- `CGRect` --> `LiveRect`
-
-### Static properites:
-- `CGFloat.live`
-- `CGFloat.seconds`
-- `CGFloat.secondsSince1970`
-- `CGFloat.touch` / `CGFloat.mouseLeft`
-- `CGFloat.touchX` / `CGFloat.mouseX`
-- `CGFloat.touchY` / `CGFloat.mouseY`
-- `CGPoint.touchXY` / `CGFloat.mouseXY`
-- `CGFloat.gyroX`
-- `CGFloat.gyroY`
-- `CGFloat.gyroZ`
-- `CGFloat.accelerationX/Y/X`
-- `CGFloat.magneticFieldX/Y/X`
-- `CGFloat.deviceAttitudeX/Y/X`
-- `CGFloat.deviceGravityX/Y/X`
-- `CGFloat.deviceHeading`
-
-`finalPix.pixView.liveTouch(active: true)`
-
-### Functions:
-- `CGFloat.delay(seconds: 1.0)`
-- `CGFloat.filter(seconds: 1.0)`
-- `CGFloat.filter(frames: 60)`
-
-### Static functions:
-- `CGFloat.noise(range: -1.0...1.0, for: 1.0)`
-- `CGFloat.wave(range: -1.0...1.0, for: 1.0)`
-
 ## Effect Convenience Funcs
 
-- pix.<b>_reRes(to: ._1080p * 0.5)</b> -> ResolutionPIX
-- pix.<b>_reRes(by: 0.5)</b> -> ResolutionPIX
-- pix.<b>_brightness(0.5)</b> -> LevelsPIX
-- pix.<b>_darkness(0.5)</b> -> LevelsPIX
-- pix.<b>_contrast(0.5)</b> -> LevelsPIX
-- pix.<b>_gamma(0.5)</b> -> LevelsPIX
+- .<b>pixReRes(to: ._1080p * 0.5)</b> -> ResolutionPIX
+- .<b>pixReRes(by: 0.5)</b> -> ResolutionPIX
+- .<b>_brightness(0.5)</b> -> LevelsPIX
+- .<b>_darkness(0.5)</b> -> LevelsPIX
+- .<b>_contrast(0.5)</b> -> LevelsPIX
+- .<b>_gamma(0.5)</b> -> LevelsPIX
 - pix.<b>_invert()</b> -> LevelsPIX
 - pix.<b>_opacity(0.5)</b> -> LevelsPIX
 - pix.<b>_blur(0.5)</b> -> BlurPIX
