@@ -2,8 +2,8 @@
 
 # PixelKit
 
-Live Graphics Framework for iOS, macOS and tvOS<br>
-runs on [RenderKit](https://github.com/heestand-xyz/RenderKit) - powered by Metal
+Live Graphics for iOS, macOS and tvOS<br>
+Runs on [RenderKit](https://github.com/heestand-xyz/RenderKit), powered by Metal
 
 Examples:
 [Camera Effects](#example-camera-effects) -
@@ -13,8 +13,7 @@ Info:
 [Coordinate Space](#coordinate-space) -
 [Blend Operators](#blend-operators) -
 [Effect Convenience Funcs](#effect-convenience-funcs) -
-[High Bit Mode](#high-bit-mode) -
-[Apps](#apps)
+[High Bit Mode](#high-bit-mode)
 
 | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_camera.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_camera.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_image.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_video.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_screenCapture.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_stream.png?raw=true" width="32"/> | <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Icons/thumb_slope.png?raw=true" width="32"/> |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -48,8 +47,6 @@ Info:
 | --- | --- | --- | --- | --- | --- |
 | BlendsPIX | LumaLevelsPIX | LumaBlurPIX | LumaTransformPIX | TimeMachinePIX | ArrayPIX |
 
-See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc1f?v=bd4c45ba659f48dfa0ea7ac8bcf7ca9e) in Notion for PIXs in development.
-
 --- 
 
 ## Install
@@ -60,23 +57,14 @@ See the [PixelKit PIX List](https://www.notion.so/6f77438748574ada844cae3813a5bc
 .package(url: "https://github.com/heestand-xyz/PixelKit", from: "2.0.0")
 ~~~~
 
-## Import
-
-```swift
-import PixelKit
-```
-
-To access `PixelColor` and `Resolution` import the dependencies of PixelKit:
-
-~~~~swift
-import RenderKit
-~~~~
-
 ## Setup
 
 ### SwiftUI
 
 ~~~~swift
+import SwiftUI
+import PixelKit
+
 struct ContentView: View {
     var body: some View {
         BlurPIXUI {
@@ -91,12 +79,15 @@ struct ContentView: View {
 ### UIKit
 
 ~~~~swift
+import UIKit
+import PixelKit
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let circlePix = CirclePIX(at: .fullscreen)
+        let circlePix = CirclePIX()
 
         let blurPix = BlurPIX()
         blurPix.input = circlePix
