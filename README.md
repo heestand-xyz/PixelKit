@@ -65,23 +65,6 @@ Info:
 import SwiftUI
 import PixelKit
 
-struct ContentView: View {
-    var body: some View {
-        BlurPIXUI {
-            CirclePIXUI()
-        }
-            .radius(0.25)
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-~~~~
-
-### SwiftUI with View Model
-
-~~~~swift
-import SwiftUI
-import PixelKit
-
 class ViewModel: ObservableObject {
     
     let circlePix: CirclePIX
