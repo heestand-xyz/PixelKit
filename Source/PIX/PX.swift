@@ -79,6 +79,18 @@ public protocol PXIn: PX {
     var inPx: PXO { get }
 }
 
+public protocol PXInAB: PX {
+    associatedtype PXOA: PXOut
+    associatedtype PXOB: PXOut
+    var inPxA: PXOA { get }
+    var inPxB: PXOB { get }
+}
+
+public protocol PXIns: PX {
+    associatedtype PXO: PXOut
+    var inPxs: [PXO] { get }
+}
+
 public class PXObject {
     let pix: PIX
     var timer: Timer?
@@ -93,6 +105,11 @@ public class PXObjectEffect: PXObject {
     var inputObject: PXObject?
 }
 
+public class PXObjectMergerEffect: PXObject {
+    var inputObjectA: PXObject?
+    var inputObjectB: PXObject?
+}
+
 public class XObject {
     let pix: PIX
     var effectPixs: [Effect: PIXEffect] = [:]
@@ -101,6 +118,14 @@ public class XObject {
     init(pix: PIX) {
         print("PX Object Init \(pix.name) <<< --- --- ---")
         self.pix = pix
+    }
+}
+
+@resultBuilder
+public struct PXBuilder {
+    #warning("Result Builder with Generics")
+    public static func buildBlock<PXO: PXOOutRep>(_ components: PXO...) -> [PXO] {
+        components
     }
 }
 
