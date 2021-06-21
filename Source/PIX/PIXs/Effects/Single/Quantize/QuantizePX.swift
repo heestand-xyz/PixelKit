@@ -25,7 +25,7 @@ public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
     public func makeView(context: Context) -> PIXView {
         print("PX Quantize Make")
         let objectEffect: PXObjectEffect = context.coordinator
-        setup(object: objectEffect)
+//        setup(object: objectEffect)
         let pixView: PIXView = objectEffect.pix.pixView
         var connected: Bool = false
         let host = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPx, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
@@ -39,26 +39,35 @@ public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
         return pixView
     }
 
-    func setup(object: PXObjectEffect<PXO>) {
-        object.update = { transaction, px in
-            let px = px as! QuantizePX
-            let blurPix: QuantizePIX = object.pix as! QuantizePIX
-            if !transaction.disablesAnimations,
-               let animation: Animation = transaction.animation {
-                print("PX Quantize Update Animation", px.fraction)
-                PXHelper.animate(animation: animation, timer: &object.timer) { fraction in
-                    PXHelper.motion(pxKeyPath: \.fraction, pixKeyPath: \.fraction, px: px, pix: blurPix, at: fraction)
-                }
-            } else {
-                print("PX Quantize Update Direct")
-                blurPix.fraction = px.fraction
+//    func setup(object: PXObjectEffect<PXO>) {
+//        object.update = { transaction, px in
+//            self.animate(object: object, transaction: transaction)
+//        }
+//    }
+    
+    public func animate(object: PXObject, transaction: Transaction) {
+        
+        let blurPix: QuantizePIX = object.pix as! QuantizePIX
+        
+        if !transaction.disablesAnimations,
+           let animation: Animation = transaction.animation {
+            print("PX Quantize Animate", fraction)
+            PXHelper.animate(animation: animation, timer: &object.timer) { fraction in
+                PXHelper.motion(pxKeyPath: \.fraction, pixKeyPath: \.fraction, px: self, pix: blurPix, at: fraction)
             }
-//            object.inputObject?.update?(transaction, self.inPx)
+        } else {
+            print("PX Quantize Animate Direct", fraction)
+            blurPix.fraction = fraction
+        }
+        
+        let objectEffect: PXObjectEffect = object as! PXObjectEffect
+        if let inputObject: PXObject = objectEffect.inputObject {
+            inPx.animate(object: inputObject, transaction: transaction)
         }
     }
 
     public func connect(from connectObject: PXObject,
-                        to objectEffect: PXObjectEffect<PXO>) {
+                        to objectEffect: PXObjectEffect) {
         objectEffect.inputObject = connectObject
         let blurPix: QuantizePIX = objectEffect.pix as! QuantizePIX
         if let inPix: PIX & NODEOut = connectObject.pix as? PIX & NODEOut {
@@ -72,12 +81,13 @@ public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
     public func updateView(_ uiView: PIXView, context: Context) {
         print("PX Quantize Update")
         let object: PXObjectEffect = context.coordinator
-        object.update?(context.transaction, self)
-        object.inputObject?.update?(context.transaction, inPx)
+//        object.update?(context.transaction, self)
+//        object.inputObject?.update?(context.transaction, inPx)
+        animate(object: object, transaction: context.transaction)
     }
     
-    public func makeCoordinator() -> PXObjectEffect<PXO> {
-        PXObjectEffect(pix: QuantizePIX(), px: inPx)
+    public func makeCoordinator() -> PXObjectEffect {
+        PXObjectEffect(pix: QuantizePIX())
     }
 }
 

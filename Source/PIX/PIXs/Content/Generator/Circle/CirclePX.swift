@@ -23,32 +23,38 @@ public struct CirclePX: PXOut, PXOOutRep {
         print("PX Circle Make")
         let object: PXObject = context.coordinator
         let pixView: PIXView = object.pix.pixView
-        setup(object: object)
+//        setup(object: object)
         pxObjectExtractor.object = object
         return pixView
     }
     
-    func setup(object: PXObject) {
-        object.update = { transaction, px in
-            let px = px as! CirclePX
-            let circlePix: CirclePIX = object.pix as! CirclePIX
-            if !transaction.disablesAnimations,
-               let animation: Animation = transaction.animation {
-                print("PX Circle Update Animation", px.radius)
-                PXHelper.animate(animation: animation, timer: &object.timer) { fraction in
-                    PXHelper.motion(pxKeyPath: \.radius, pixKeyPath: \.radius, px: px, pix: circlePix, at: fraction)
-                }
-            } else {
-                print("PX Circle Update Direct")
-                circlePix.radius = px.radius
+//    func setup(object: PXObject) {
+//        object.update = { transaction, px in
+//            self.animate(object: object, transaction: transaction)
+//        }
+//    }
+    
+    public func animate(object: PXObject, transaction: Transaction) {
+
+        let circlePix: CirclePIX = object.pix as! CirclePIX
+
+        if !transaction.disablesAnimations,
+           let animation: Animation = transaction.animation {
+            print("PX Circle Animate", radius)
+            PXHelper.animate(animation: animation, timer: &object.timer) { fraction in
+                PXHelper.motion(pxKeyPath: \.radius, pixKeyPath: \.radius, px: self, pix: circlePix, at: fraction)
             }
+        } else {
+            print("PX Circle Animate Direct", radius)
+            circlePix.radius = radius
         }
     }
 
     public func updateView(_ pixView: PIXView, context: Context) {
         print("PX Circle Update")
         let object: PXObject = context.coordinator
-        object.update?(context.transaction, self)
+//        object.update?(context.transaction, self)
+        animate(object: object, transaction: context.transaction)
     }
     
     public func makeCoordinator() -> PXObject {

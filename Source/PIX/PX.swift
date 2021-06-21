@@ -64,6 +64,7 @@ extension EnvironmentValues {
 
 public protocol PX {
 //    var object: PXObject { get }
+    func animate(object: PXObject, transaction: Transaction)
 }
 
 struct PXStore {
@@ -81,20 +82,15 @@ public protocol PXIn: PX {
 public class PXObject {
     let pix: PIX
     var timer: Timer?
-    var update: ((Transaction, PX) -> ())?
+//    var update: ((Transaction, PX) -> ())?
     init(pix: PIX) {
         print("PX Object Init \(pix.name) < -- --- ---- -----")
         self.pix = pix
     }
 }
 
-public class PXObjectEffect<PXO: PXOOutRep>: PXObject {
+public class PXObjectEffect: PXObject {
     var inputObject: PXObject?
-    var px: PXO
-    init(pix: PIX, px: PXO) {
-        self.px = px
-        super.init(pix: pix)
-    }
 }
 
 public class XObject {
