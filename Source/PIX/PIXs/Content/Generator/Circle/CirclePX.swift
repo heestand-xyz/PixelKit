@@ -10,17 +10,7 @@ import PixelColor
 @available(iOS 14.0, *)
 public struct CirclePX: PXOut, PXOOutRep {
     
-    public var object: PXObject {
-        let slug: String = String(describing: Mirror(reflecting: self))
-        print("PX Cicle Slug", slug)
-        return PXStore.store[slug] ?? {
-            let pix = CirclePIX()
-            print("PX Circle New....................", slug)
-            let object = PXObject(pix: pix)
-            PXStore.store[slug] = object
-            return object
-        }()
-    }
+    @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     
     let radius: CGFloat
     
@@ -31,8 +21,11 @@ public struct CirclePX: PXOut, PXOOutRep {
     
     public func makeView(context: Context) -> PIXView {
         print("PX Circle Make")
+        let object: PXObject = context.coordinator
+        let pixView: PIXView = object.pix.pixView
         setup(object: object)
-        return object.pix.pixView
+        pxObjectExtractor.object = object
+        return pixView
     }
     
     func setup(object: PXObject) {
@@ -54,6 +47,11 @@ public struct CirclePX: PXOut, PXOOutRep {
 
     public func updateView(_ pixView: PIXView, context: Context) {
         print("PX Circle Update")
+        let object: PXObject = context.coordinator
         object.update?(context.transaction, self)
+    }
+    
+    public func makeCoordinator() -> PXObject {
+        PXObject(pix: CirclePIX(at: .square(1000)))
     }
 }

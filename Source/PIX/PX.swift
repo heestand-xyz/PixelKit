@@ -63,7 +63,7 @@ extension EnvironmentValues {
 }
 
 public protocol PX {
-    var object: PXObject { get }
+//    var object: PXObject { get }
 }
 
 struct PXStore {
@@ -75,7 +75,7 @@ public protocol PXOOutRep: PXOut, ViewRepresentable {}
 
 public protocol PXIn: PX {
     associatedtype PXO: PXOut
-    var inPx: () -> (PXO) { get }
+    var inPx: PXO { get }
 }
 
 public class PXObject {
@@ -83,8 +83,17 @@ public class PXObject {
     var timer: Timer?
     var update: ((Transaction, PX) -> ())?
     init(pix: PIX) {
-        print("PX Object Init \(pix.name)")
+        print("PX Object Init \(pix.name) < -- --- ---- -----")
         self.pix = pix
+    }
+}
+
+public class PXObjectEffect<PXO: PXOOutRep>: PXObject {
+    var inputObject: PXObject?
+    var px: PXO
+    init(pix: PIX, px: PXO) {
+        self.px = px
+        super.init(pix: pix)
     }
 }
 
@@ -94,10 +103,44 @@ public class XObject {
     var timer: Timer?
     var update: ((Transaction, PX) -> ())?
     init(pix: PIX) {
-        print("PX Object Init \(pix.name)")
+        print("PX Object Init \(pix.name) <<< --- --- ---")
         self.pix = pix
     }
 }
+
+
+class PXObjectExtractor {
+    var object: PXObject?
+}
+
+private struct PXObjectEnvironmentKey: EnvironmentKey {
+    static var defaultValue: PXObjectExtractor = PXObjectExtractor()
+}
+
+extension EnvironmentValues {
+    var pxObjectExtractor: PXObjectExtractor {
+        get { self[PXObjectEnvironmentKey.self] }
+        set { self[PXObjectEnvironmentKey.self] = newValue }
+    }
+}
+
+struct PXObjectExtractorView<PXO: PXOOutRep>: View {
+    
+    @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
+    
+    var pxo: PXO
+    @Binding var object: PXObject?
+    
+    var body: some View {
+        pxo
+            .environment(\.pxObjectExtractor, pxObjectExtractor)
+            .onAppear {
+                print("Extractor >> > >> > >> Appear", pxObjectExtractor.object != nil)
+                object = pxObjectExtractor.object
+            }
+    }
+}
+
 
 struct PXHelper {
     

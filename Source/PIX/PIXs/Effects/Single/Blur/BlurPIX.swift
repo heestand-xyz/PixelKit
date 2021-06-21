@@ -22,6 +22,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     // MARK: - Public Properties
     
+    /// Gaussian blur is the most performant, tho it's not supported in the simulator.
     public enum BlurStyle: String, Enumable {
         case gaussian
         case box
