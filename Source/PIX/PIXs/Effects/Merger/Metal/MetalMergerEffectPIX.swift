@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Merger Effect)
 ///
-/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inputA, wB, hB, wuB, hvB, inputB
+/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inputA, wB, hB, wuB, hvB, inputB, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// float4 inputA = inTexA.sample(s, uv);
 ///

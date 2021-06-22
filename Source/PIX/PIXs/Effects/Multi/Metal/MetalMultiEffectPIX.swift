@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Multi Effect)
 ///
-/// vars: pi, u, v, uv, pixCount
+/// vars: pi, u, v, uv, pixCount, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// Example:
 /// ~~~~swift

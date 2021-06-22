@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Generator)
 ///
-/// vars: pi, u, v, uv
+/// vars: pi, u, v, uv, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// Example:
 /// ~~~~swift

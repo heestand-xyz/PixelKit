@@ -26,12 +26,18 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     // MARK: - Public Properties
     
     var feedTexture: MTLTexture? {
-        guard let texture = feedPix?.texture else { return nil }
+        guard let texture = feedbackInput?.texture else { return nil }
         return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
     }
     
     @LiveBool("feedActive") public var feedActive: Bool = true
-    public var feedPix: (PIX & NODEOut)? { didSet { if feedActive { render() } } }
+    
+    @available(*, deprecated, renamed: "feedbackInput")
+    public var feedPix: (PIX & NODEOut)? {
+        get { feedbackInput }
+        set { feedbackInput = newValue }
+    }
+    public var feedbackInput: (PIX & NODEOut)? { didSet { if feedActive { render() } } }
     
     // MARK: - Property Helpers
     
@@ -64,7 +70,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     }
     
     func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
-        guard let tileFeedPix = feedPix as? PIX & NODETileable2D else {
+        guard let tileFeedPix = feedbackInput as? PIX & NODETileable2D else {
             pixelKit.logger.log(node: self, .error, .texture, "Feed Input PIX Not Tileable.")
             return nil
         }
@@ -119,7 +125,7 @@ public extension NODEOut {
         crossPix.inputA = self as? PIX & NODEOut
         crossPix.inputB = loop?(feedbackPix) ?? feedbackPix
         crossPix.fraction = fraction
-        feedbackPix.feedPix = crossPix
+        feedbackPix.feedbackInput = crossPix
         return feedbackPix
     }
     

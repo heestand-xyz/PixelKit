@@ -32,23 +32,32 @@ public final class BlendPX<PXOA: PXOOutRep, PXOB: PXOOutRep>: PXInAB, PXOOutRep 
         let objectEffect: PXObjectMergerEffect = context.coordinator
         let pixView: PIXView = objectEffect.pix.pixView
         
-        var connectedA: Bool = false
-        let hostA = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPxA, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
-            guard let connectObjectA = connectObject else { return }
-            guard !connectedA else { return }
-            self.connectA(from: connectObjectA, to: objectEffect)
-            connectedA = true
-        })))
-        pixView.addSubview(hostA.view)
+        func setupConnectionB() {
+            var connectedB: Bool = false
+            let hostB = UINSHostingView(rootView: PXObjectExtractorView(pxo: self.inPxB, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+                guard let connectObjectB = connectObject else { return }
+                guard !connectedB else { return }
+                self.connectB(from: connectObjectB, to: objectEffect)
+                connectedB = true
+            })))
+            pixView.addSubview(hostB.view)
+        }
         
-        var connectedB: Bool = false
-        let hostB = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPxB, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
-            guard let connectObjectB = connectObject else { return }
-            guard !connectedB else { return }
-            self.connectB(from: connectObjectB, to: objectEffect)
-            connectedB = true
-        })))
-        pixView.addSubview(hostB.view)
+        func setupConnectionA(_ done: @escaping () -> ()) {
+            var connectedA: Bool = false
+            let hostA = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPxA, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+                guard let connectObjectA = connectObject else { return }
+                guard !connectedA else { return }
+                self.connectA(from: connectObjectA, to: objectEffect)
+                connectedA = true
+                done()
+            })))
+            pixView.addSubview(hostA.view)
+        }
+        
+        setupConnectionA {
+            setupConnectionB()
+        }
         
         pxObjectExtractor.object = objectEffect
         return pixView
@@ -70,11 +79,11 @@ public final class BlendPX<PXOA: PXOOutRep, PXOB: PXOOutRep>: PXInAB, PXOOutRep 
 //        }
         
         let objectEffect: PXObjectMergerEffect = object as! PXObjectMergerEffect
-        if let inputObject: PXObject = objectEffect.inputObjectA {
-            inPxA.animate(object: inputObject, transaction: transaction)
+        if let inputObjectA: PXObject = objectEffect.inputObjectA {
+            inPxA.animate(object: inputObjectA, transaction: transaction)
         }
-        if let inputObject: PXObject = objectEffect.inputObjectB {
-            inPxB.animate(object: inputObject, transaction: transaction)
+        if let inputObjectB: PXObject = objectEffect.inputObjectB {
+            inPxB.animate(object: inputObjectB, transaction: transaction)
         }
     }
 

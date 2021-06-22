@@ -175,9 +175,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         let pixelFormat: MTLPixelFormat = overrideBits?.pixelFormat ?? PixelKit.main.render.bits.pixelFormat
         pixView = PIXView(pix: self, with: PixelKit.main.render, pixelFormat: pixelFormat)
         
-        if self is NODEMetal == false {
-            setupShader()
-        }
+        setupShader()
             
         pixelKit.render.add(node: self)
         
@@ -195,15 +193,17 @@ open class PIX: NODE, ObservableObject, Equatable {
             return
         }
         do {
-            guard let function: MTLFunction = (customMetalLibrary ?? PIX.metalLibrary).makeFunction(name: shaderName) else {
-                pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function \"\(shaderName)\" Failed")
-                return
+            if self is NODEMetal == false {
+                guard let function: MTLFunction = (customMetalLibrary ?? PIX.metalLibrary).makeFunction(name: shaderName) else {
+                    pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function \"\(shaderName)\" Failed")
+                    return
+                }
+                var customVertexShader: MTLFunction? = nil
+                if let metalLibrarry: MTLLibrary = customMetalLibrary, let vertexShaderName: String = customVertexShaderName {
+                    customVertexShader = metalLibrarry.makeFunction(name: vertexShaderName)
+                }
+                pipeline = try pixelKit.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
             }
-            var customVertexShader: MTLFunction? = nil
-            if let metalLibrarry: MTLLibrary = customMetalLibrary, let vertexShaderName: String = customVertexShaderName {
-                customVertexShader = metalLibrarry.makeFunction(name: vertexShaderName)
-            }
-            pipeline = try pixelKit.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
             #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif

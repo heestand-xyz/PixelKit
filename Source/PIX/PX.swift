@@ -87,7 +87,7 @@ public protocol PXInAB: PX {
 }
 
 public protocol PXIns: PX {
-    associatedtype PXO: PXOut
+    associatedtype PXO: PXOOutRep
     var inPxs: [PXO] { get }
 }
 
@@ -110,6 +110,10 @@ public class PXObjectMergerEffect: PXObject {
     var inputObjectB: PXObject?
 }
 
+public class PXObjectMultiEffect: PXObject {
+    var inputObjects: [PXObject] = []
+}
+
 public class XObject {
     let pix: PIX
     var effectPixs: [Effect: PIXEffect] = [:]
@@ -123,11 +127,40 @@ public class XObject {
 
 @resultBuilder
 public struct PXBuilder {
-    #warning("Result Builder with Generics")
     public static func buildBlock<PXO: PXOOutRep>(_ components: PXO...) -> [PXO] {
         components
     }
 }
+//    public static func buildBlock<A: PXOOutRep>(_ a: A) -> A {
+//        (a)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep>(_ a: A, _ b: B) -> (A, B) {
+//        (a, b)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep>(_ a: A, _ b: B, _ c: C) -> (A, B, C) {
+//        (a, b, c)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D) -> (A, B, C, D) {
+//        (a, b, c, d)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E) -> (A, B, C, D, E) {
+//        (a, b, c, d, e)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep, F: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E, _ f: F) -> (A, B, C, D, E, F) {
+//        (a, b, c, d, e, f)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep, F: PXOOutRep, G: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E, _ f: F, _ g: G) -> (A, B, C, D, E, F, G) {
+//        (a, b, c, d, e, f, g)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep, F: PXOOutRep, G: PXOOutRep, H: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E, _ f: F, _ g: G, _ h: H) -> (A, B, C, D, E, F, G, H) {
+//        (a, b, c, d, e, f, g, h)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep, F: PXOOutRep, G: PXOOutRep, H: PXOOutRep, I: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E, _ f: F, _ g: G, _ h: H, _ i: I) -> (A, B, C, D, E, F, G, H, I) {
+//        (a, b, c, d, e, f, g, h, i)
+//    }
+//    public static func buildBlock<A: PXOOutRep, B: PXOOutRep, C: PXOOutRep, D: PXOOutRep, E: PXOOutRep, F: PXOOutRep, G: PXOOutRep, H: PXOOutRep, I: PXOOutRep, J: PXOOutRep>(_ a: A, _ b: B, _ c: C, _ d: D, _ e: E, _ f: F, _ g: G, _ h: H, _ i: I, _ j: J) -> (A, B, C, D, E, F, G, H, I, J) {
+//        (a, b, c, d, e, f, g, h, i, j)
+//    }
 
 
 class PXObjectExtractor {
@@ -156,7 +189,7 @@ struct PXObjectExtractorView<PXO: PXOOutRep>: View {
         pxo
             .environment(\.pxObjectExtractor, pxObjectExtractor)
             .onAppear {
-                print("Extractor >> > >> > >> Appear", pxObjectExtractor.object != nil)
+                print("Extractor >> > >> > >> Appear", pxObjectExtractor.object?.pix.name ?? "nil")
                 object = pxObjectExtractor.object
             }
     }
