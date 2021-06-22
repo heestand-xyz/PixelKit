@@ -17,9 +17,13 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Public Properties
     
+    /// Default value is `1.0`
     @LiveFloat("brightness", range: 0.0...2.0) public var brightness: CGFloat = 1.0
+    /// Default value is `0.0`
     @LiveFloat("darkness") public var darkness: CGFloat = 0.0
+    /// Default value is `0.0`
     @LiveFloat("contrast") public var contrast: CGFloat = 0.0
+    /// Default value is `1.0`
     @LiveFloat("gamma", range: 0.0...2.0) public var gamma: CGFloat = 1.0
     @LiveBool("inverted") public var inverted: Bool = false
     @LiveBool("smooth") public var smooth: Bool = false
