@@ -8,15 +8,15 @@ import RenderKit
 import PixelColor
 
 @available(iOS 14.0, *)
-public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOOutRep {
+public final class BlurPX<PV: PXView>: PXIn, PXView {
     
     @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     
-    public let inPx: PXO
+    public let inPx: PV
 
     let radius: CGFloat
 
-    public init(inPx: PXO, radius: CGFloat) {
+    public init(inPx: PV, radius: CGFloat) {
         print("PX Blur Init", radius)
         self.inPx = inPx
         self.radius = radius
@@ -28,7 +28,7 @@ public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOOutRep {
         let pixView: PIXView = objectEffect.pix.pixView
         
         var connected: Bool = false
-        let host = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPx, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+        let host = UINSHostingView(rootView: PXObjectExtractorView(content: inPx, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
             guard let connectObject = connectObject else { return }
             guard !connected else { return }
             self.connect(from: connectObject, to: objectEffect)
@@ -85,7 +85,7 @@ public final class BlurPX<PXO: PXOOutRep>: PXIn, PXOOutRep {
 }
 
 @available(iOS 14.0, *)
-public extension PXOOutRep {
+public extension PXView {
 
     func pxBlur(radius: CGFloat) -> BlurPX<Self> {
         print("PX Blur Func")

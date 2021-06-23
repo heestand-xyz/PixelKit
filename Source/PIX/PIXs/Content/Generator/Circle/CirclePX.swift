@@ -8,7 +8,7 @@ import RenderKit
 import PixelColor
 
 @available(iOS 14.0, *)
-public struct CirclePX: PXOut, PXOOutRep {
+public struct CirclePX: PXView {
     
     @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     

@@ -6,89 +6,30 @@ import SwiftUI
 
 import RenderKit
 
-public protocol X {}
-
-public protocol XContent: X, ViewRepresentable {}
-
-struct Effect: Hashable {
-    let type: EffectType
-    let form: EffectForm
-    static func == (lhs: Effect, rhs: Effect) -> Bool {
-        lhs.type == rhs.type
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(type)
-    }
-}
-
-protocol EffectForm {
-    func updateForm(pix: PIXEffect)
-}
-
-enum EffectType: Hashable {
-    case single(PIXSingleEffectType)
-    case merger(PIXMergerEffectType)
-    case multi(PIXMultiEffectType)
-    var name: String {
-        switch self {
-        case .single(let pixSingleEffectType):
-            return pixSingleEffectType.name
-        case .merger(let pixMergerEffect):
-            return pixMergerEffect.name
-        case .multi(let pixMultiEffect):
-            return pixMultiEffect.name
-        }
-    }
-    func pixEffect() -> PIXEffect {
-        switch self {
-        case .single(let pixSingleEffectType):
-            return pixSingleEffectType.type.init()
-        case .merger(let pixMergerEffect):
-            return pixMergerEffect.type.init()
-        case .multi(let pixMultiEffect):
-            return pixMultiEffect.type.init()
-        }
-    }
-}
-
-private struct EffectEnvironmentKey: EnvironmentKey {
-    static var defaultValue: [Effect] = []
-}
-
-extension EnvironmentValues {
-    var effects: [Effect] {
-        get { self[EffectEnvironmentKey.self] }
-        set { self[EffectEnvironmentKey.self] = newValue }
-    }
-}
-
 public protocol PX {
-//    var object: PXObject { get }
     func animate(object: PXObject, transaction: Transaction)
 }
 
-struct PXStore {
-    static var store: [String: PXObject] = [:]
-}
-
 public protocol PXOut: PX {}
-public protocol PXOOutRep: PXOut, ViewRepresentable {}
+//public protocol PXOOutRep: PXOut, ViewRepresentable {}
+
+public protocol PXView: PX, ViewRepresentable {}
 
 public protocol PXIn: PX {
-    associatedtype PXO: PXOut
-    var inPx: PXO { get }
+    associatedtype PV: PXView
+    var inPx: PV { get }
 }
 
 public protocol PXInAB: PX {
-    associatedtype PXOA: PXOut
-    associatedtype PXOB: PXOut
-    var inPxA: PXOA { get }
-    var inPxB: PXOB { get }
+    associatedtype PVA: PXView
+    associatedtype PVB: PXView
+    var inPxA: PVA { get }
+    var inPxB: PVB { get }
 }
 
 public protocol PXIns: PX {
-    associatedtype PXO: PXOOutRep
-    var inPxs: [PXO] { get }
+    associatedtype PV: PXView
+    var inPxs: [PV] { get }
 }
 
 public class PXObject {
@@ -114,20 +55,9 @@ public class PXObjectMultiEffect: PXObject {
     var inputObjects: [PXObject] = []
 }
 
-public class XObject {
-    let pix: PIX
-    var effectPixs: [Effect: PIXEffect] = [:]
-    var timer: Timer?
-    var update: ((Transaction, PX) -> ())?
-    init(pix: PIX) {
-        print("PX Object Init \(pix.name) <<< --- --- ---")
-        self.pix = pix
-    }
-}
-
 @resultBuilder
 public struct PXBuilder {
-    public static func buildBlock<PXO: PXOOutRep>(_ components: PXO...) -> [PXO] {
+    public static func buildBlock(_ components: PX...) -> [PX] {
         components
     }
 }
@@ -178,15 +108,15 @@ extension EnvironmentValues {
     }
 }
 
-struct PXObjectExtractorView<PXO: PXOOutRep>: View {
+struct PXObjectExtractorView<Content: PXView>: View {
     
     @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     
-    var pxo: PXO
+    var content: Content
     @Binding var object: PXObject?
     
     var body: some View {
-        pxo
+        content
             .environment(\.pxObjectExtractor, pxObjectExtractor)
             .onAppear {
                 print("Extractor >> > >> > >> Appear", pxObjectExtractor.object?.pix.name ?? "nil")
@@ -194,6 +124,8 @@ struct PXObjectExtractorView<PXO: PXOOutRep>: View {
             }
     }
 }
+
+
 
 
 struct PXHelper {

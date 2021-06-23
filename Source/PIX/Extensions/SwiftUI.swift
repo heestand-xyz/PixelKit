@@ -60,7 +60,7 @@ extension ViewRepresentable {
 
 #if os(macOS)
 extension NSHostingView {
-    var view: NSView {
+    var view: NSView? {
         self
     }
 }

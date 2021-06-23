@@ -8,15 +8,15 @@ import RenderKit
 import PixelColor
 
 @available(iOS 14.0, *)
-public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
+public final class QuantizePX<PV: PXView>: PXIn, PXView {
     
     @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     
-    public let inPx: PXO
+    public let inPx: PV
 
     let fraction: CGFloat
 
-    public init(inPx: PXO, fraction: CGFloat) {
+    public init(inPx: PV, fraction: CGFloat) {
         print("PX Quantize Init", fraction)
         self.inPx = inPx
         self.fraction = fraction
@@ -28,7 +28,7 @@ public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
         let pixView: PIXView = objectEffect.pix.pixView
         
         var connected: Bool = false
-        let host = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPx, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+        let host = UINSHostingView(rootView: PXObjectExtractorView(content: inPx, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
             guard let connectObject = connectObject else { return }
             guard !connected else { return }
             self.connect(from: connectObject, to: objectEffect)
@@ -85,7 +85,7 @@ public final class QuantizePX<PXO: PXOOutRep>: PXIn, PXOOutRep {
 }
 
 @available(iOS 14.0, *)
-public extension PXOOutRep {
+public extension PXView {
 
     func pxQuantize(fraction: CGFloat) -> QuantizePX<Self> {
         print("PX Quantize Func")

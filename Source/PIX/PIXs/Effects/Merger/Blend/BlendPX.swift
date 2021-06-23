@@ -11,16 +11,18 @@ import RenderKit
 import PixelColor
 
 @available(iOS 14.0, *)
-public final class BlendPX<PXOA: PXOOutRep, PXOB: PXOOutRep>: PXInAB, PXOOutRep {
+public final class BlendPX<PVA: PXView, PVB: PXView>: PXInAB, PXView {
     
     @Environment(\.pxObjectExtractor) var pxObjectExtractor: PXObjectExtractor
     
-    public let inPxA: PXOA
-    public let inPxB: PXOB
+    public let inPxA: PVA
+    public let inPxB: PVB
 
     let blendMode: RenderKit.BlendMode
 
-    public init(blendMode: RenderKit.BlendMode, leading inPxA: () -> (PXOA), trailing inPxB: () -> (PXOB)) {
+    public init(blendMode: RenderKit.BlendMode,
+                leading inPxA: () -> (PVA),
+                trailing inPxB: () -> (PVB)) {
         print("PX Blend Init")
         self.inPxA = inPxA()
         self.inPxB = inPxB()
@@ -34,7 +36,7 @@ public final class BlendPX<PXOA: PXOOutRep, PXOB: PXOOutRep>: PXInAB, PXOOutRep 
         
         func setupConnectionB() {
             var connectedB: Bool = false
-            let hostB = UINSHostingView(rootView: PXObjectExtractorView(pxo: self.inPxB, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+            let hostB = UINSHostingView(rootView: PXObjectExtractorView(content: self.inPxB, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
                 guard let connectObjectB = connectObject else { return }
                 guard !connectedB else { return }
                 self.connectB(from: connectObjectB, to: objectEffect)
@@ -45,7 +47,7 @@ public final class BlendPX<PXOA: PXOOutRep, PXOB: PXOOutRep>: PXInAB, PXOOutRep 
         
         func setupConnectionA(_ done: @escaping () -> ()) {
             var connectedA: Bool = false
-            let hostA = UINSHostingView(rootView: PXObjectExtractorView(pxo: inPxA, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
+            let hostA = UINSHostingView(rootView: PXObjectExtractorView(content: inPxA, object: Binding<PXObject?>(get: { nil }, set: { connectObject in
                 guard let connectObjectA = connectObject else { return }
                 guard !connectedA else { return }
                 self.connectA(from: connectObjectA, to: objectEffect)
