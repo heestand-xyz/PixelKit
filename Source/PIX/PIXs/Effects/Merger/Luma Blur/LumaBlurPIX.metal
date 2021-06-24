@@ -31,7 +31,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
                                         const device Uniforms& in [[ buffer(0) ]],
                                         sampler s [[ sampler(0) ]]) {
     
-    float pi = 3.14159265359;
+    float pi = M_1_PI_F;
     int max_res = 16384 - 1;
     
     float u = out.texCoord[0];

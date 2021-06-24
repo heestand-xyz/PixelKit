@@ -28,7 +28,7 @@ fragment float4 effectSingleLevelsPIX(VertexOut out [[stage_in]],
                                       texture2d<float>  inTex [[ texture(0) ]],
                                       const device Uniforms& in [[ buffer(0) ]],
                                       sampler s [[ sampler(0) ]]) {
-    float pi = 3.14159265359;
+    float pi = M_1_PI_F;
 
     float u = out.texCoord[0];
     float v = out.texCoord[1];

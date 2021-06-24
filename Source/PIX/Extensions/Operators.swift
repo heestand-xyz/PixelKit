@@ -10,19 +10,26 @@ import CoreGraphics
 import RenderKit
 import PixelColor
 
-infix operator ++
-infix operator --
-infix operator **
-infix operator !**
-infix operator !&
-infix operator <>
-infix operator ><
+precedencegroup Blending {
+    associativity :left
+    higherThan: Ranging
+}
+
+precedencegroup Ranging {
+    associativity :left
+}
+
+infix operator ++: Blending
+infix operator --: Blending
+infix operator **: Blending
+infix operator !**: Blending
+infix operator !&: Blending
+infix operator <>: Ranging
+infix operator ><: Ranging
 infix operator ~
 infix operator °
 infix operator <->
-//infix operator <+>
 infix operator >-<
-//infix operator >+<
 infix operator +-+
 prefix operator °
 

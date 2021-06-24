@@ -42,7 +42,8 @@ public final class BlendPX<PVA: PXView, PVB: PXView>: PXInAB, PXView {
                 self.connectB(from: connectObjectB, to: objectEffect)
                 connectedB = true
             })))
-            pixView.addSubview(hostB.view)
+            guard let view: UINSView = hostB.view else { return }
+            pixView.addSubview(view)
         }
         
         func setupConnectionA(_ done: @escaping () -> ()) {
@@ -54,7 +55,8 @@ public final class BlendPX<PVA: PXView, PVB: PXView>: PXInAB, PXView {
                 connectedA = true
                 done()
             })))
-            pixView.addSubview(hostA.view)
+            guard let view: UINSView = hostA.view else { fatalError() }
+            pixView.addSubview(view)
         }
         
         setupConnectionA {

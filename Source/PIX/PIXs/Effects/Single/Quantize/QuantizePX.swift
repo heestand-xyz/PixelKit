@@ -34,7 +34,8 @@ public final class QuantizePX<PV: PXView>: PXIn, PXView {
             self.connect(from: connectObject, to: objectEffect)
             connected = true
         })))
-        pixView.addSubview(host.view)
+        guard let view: UINSView = host.view else { fatalError() }
+        pixView.addSubview(view)
         
         pxObjectExtractor.object = objectEffect
         return pixView
