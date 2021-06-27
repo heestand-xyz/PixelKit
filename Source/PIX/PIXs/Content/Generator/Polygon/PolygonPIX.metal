@@ -200,8 +200,8 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
             CornerCircle cc1 = cornerCircle(p3x, p2x, p4x, r);
             CornerCircle cc2 = cornerCircle(p4x, p3x, p5x, r);
             
-            float p12d = sqrt(pow(cc1.p.x - uvp.x, 2) + pow(cc1.p.y - uvp.y, 2));
-            float p13d = sqrt(pow(cc2.p.x - uvp.x, 2) + pow(cc2.p.y - uvp.y, 2));
+            float cc1d = sqrt(pow(cc1.p.x - uvp.x, 2) + pow(cc1.p.y - uvp.y, 2));
+            float cc2d = sqrt(pow(cc2.p.x - uvp.x, 2) + pow(cc2.p.y - uvp.y, 2));
             
             float2 cc1p = float2(cc1.p.x / in.aspect + 0.5, cc1.p.y + 0.5);
 //            float2 cc1c1 = float2(cc1.c1.x / in.aspect + 0.5, cc1.c1.y + 0.5);
@@ -214,7 +214,7 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
             bool pit1 = pointInTriangle(uv, cc1p, cc1c2, cc2c1);
             bool pit2 = pointInTriangle(uv, cc2p, cc1p, cc2c1);
             
-            if (p12d < r || p13d < r || pit || pit1 || pit2) {
+            if (cc1d < r || cc2d < r || pit || pit1 || pit2) {
                 c = ac;
                 break;
             }
