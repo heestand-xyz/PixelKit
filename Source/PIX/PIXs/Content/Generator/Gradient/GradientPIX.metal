@@ -52,7 +52,7 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
     u -= in.px / in.aspect;
     v -= in.py;
 
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
 
 //    float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
 //    float4 bc = float4(in.br, in.bg, in.bb, in.ba);

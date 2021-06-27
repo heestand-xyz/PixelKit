@@ -48,7 +48,7 @@ fragment float4 effectMultiArrayPIX(VertexOut out [[stage_in]],
                                     const device array<Coord, ARRMAX>& inArr [[ buffer(1) ]],
                                     const device array<bool, ARRMAX>& inArrActive [[ buffer(2) ]],
                                     sampler s [[ sampler(0) ]]) {
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];

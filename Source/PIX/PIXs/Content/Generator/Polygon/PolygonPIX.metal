@@ -136,7 +136,7 @@ fragment float4 contentGeneratorPolygonPIX(VertexOut out [[stage_in]],
                                            const device Uniforms& in [[ buffer(0) ]],
                                            sampler s [[ sampler(0) ]]) {
     
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];

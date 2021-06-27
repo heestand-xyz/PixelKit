@@ -58,7 +58,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
                                          texture2d<float>  inTexB [[ texture(1) ]],
                                          const device Uniforms& in [[ buffer(0) ]],
                                          sampler s [[ sampler(0) ]]) {
-        float pi = M_1_PI_F;
+        float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = out.texCoord[1];
         float2 uv = float2(u, v);

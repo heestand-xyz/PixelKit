@@ -18,7 +18,7 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
     // MARK: - Public Properties
     
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
+    @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.5
     @LiveFloat("rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
     @LiveInt("count", range: 3...12) public var count: Int = 3
     @LiveFloat("cornerRadius", range: 0.0...0.1, increment: 0.025) public var cornerRadius: CGFloat = 0.0

@@ -20,14 +20,14 @@ struct Uniforms{
 };
 
 float2 domeToEqui(float2 uv) {
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
     float rad = uv.y;
     float ang = uv.x * pi * 2;
     return float2(0.5 + cos(ang) * rad, 0.5 - sin(ang) * rad);
 }
 
 float2 equiToDome(float2 uv, float rx, float ry) {
-//    float pi = M_1_PI_F;
+//    float pi = M_PI_F;
 //    float theta = uv.x * pi * 2;
 ////    theta *= 0.25;
 //    float phi = ((1.0 - uv.y) * pi) + pi / 2;
@@ -47,7 +47,7 @@ float2 equiToDome(float2 uv, float rx, float ry) {
 ////    float u = r * cos(phi2) + 0.5;
 ////    float v = r * sin(phi2) + 0.5;
 //    return float2(u, v);
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
     float rad = sqrt(pow(uv.x - 0.5, 2) + pow(uv.y - 0.5, 2)) / 2 + 0.25;
     float ang = 1.0 - (atan2(uv.y - 0.5, uv.x - 0.5) / (pi * 2) + 0.25);
     if (ang > 1) {
@@ -77,7 +77,7 @@ float2 circleToSquare(float2 uv) {
 }
 
 float2 cubeToEqui(float2 uv) {
-    float pi = M_1_PI_F;
+    float pi = M_PI_F;
     float theta = uv.x * pi * 2;
     float phi = ((1.0 - uv.y) * pi) + pi / 2;
     float x = cos(phi) * sin(theta);
@@ -174,7 +174,7 @@ float2 cubeToEqui(float2 uv) {
 //    return cubeSide;
 //}
 //CubeSide projectFront(float theta, float phi) {
-//    float pi = M_1_PI_F;
+//    float pi = M_PI_F;
 //    float x = tan(phi-pi/2);
 //    float y = 1;
 //    float z = cot(theta) / cos(phi-pi/2);
@@ -205,7 +205,7 @@ float2 cubeToEqui(float2 uv) {
 //    return cubeSide;
 //}
 //CubeSide projectBack(float theta, float phi) {
-//    float pi = M_1_PI_F;
+//    float pi = M_PI_F;
 //    float x = tan(phi-3*pi/2);
 //    float y = -1;
 //    float z = cot(theta) / cos(phi-3*pi/2);
@@ -221,7 +221,7 @@ float2 cubeToEqui(float2 uv) {
 //    return cubeSide;
 //}
 //CubeSide projection(float theta, float phi) {
-//    float pi = M_1_PI_F;
+//    float pi = M_PI_F;
 //    if (theta<0.615) {
 //        return projectTop(theta,phi);
 //    } else if (theta>2.527) {
@@ -258,7 +258,7 @@ float2 cubeToEqui(float2 uv) {
 //    return xy;
 //}
 //float2 equiToCube(float2 uv) {
-//    float pi = M_1_PI_F;
+//    float pi = M_PI_F;
 //    float phi = uv.x * 2 * pi;
 //    float theta = uv.y * pi;
 //    CubeSide proj = projection(theta, phi);

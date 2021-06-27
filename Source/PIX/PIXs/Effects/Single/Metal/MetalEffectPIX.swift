@@ -55,7 +55,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
                                          texture2d<float>  inTex [[ texture(0) ]],
                                          const device Uniforms& in [[ buffer(0) ]],
                                          sampler s [[ sampler(0) ]]) {
-        float pi = M_1_PI_F;
+        float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = out.texCoord[1];
         float2 uv = float2(u, v);
