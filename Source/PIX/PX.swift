@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2021-02-04.
 //
 
+#if swift(>=5.5)
+
 import SwiftUI
 
 import RenderKit
@@ -132,7 +134,7 @@ struct PXHelper {
     
     static func animate(animation: Animation, timer: inout Timer?, loop: @escaping (CGFloat) -> ()) {
         
-        func extract(_ name: String, in text: String) -> String? {
+        func extractString(_ name: String, in text: String) -> String? {
             if text.contains("\(name): ") {
                 if let subText: String.SubSequence = text.components(separatedBy: "\(name): ").last?
                     .split(separator: ")").first?
@@ -143,8 +145,8 @@ struct PXHelper {
             return nil
         }
         
-        func extract(_ name: String, in text: String) -> Double? {
-            if let valueText: String = extract(name, in: text) {
+        func extractDouble(_ name: String, in text: String) -> Double? {
+            if let valueText: String = extractString(name, in: text) {
                 if let value: Double = Double(valueText) {
                     return value
                 }
@@ -152,8 +154,8 @@ struct PXHelper {
             return nil
         }
         
-        let duration: Double = extract("duration", in: animation.description) ?? 0.0
-        let bx: Double = extract("bx", in: animation.description) ?? 1.0
+        let duration: Double = extractDouble("duration", in: animation.description) ?? 0.0
+        let bx: Double = extractDouble("bx", in: animation.description) ?? 1.0
         
         let startTime: Date = .init()
         let interval: Double = 1.0 / Double(PixelKit.main.render.fpsMax)
@@ -225,3 +227,5 @@ struct PXHelper {
     }
     
 }
+
+#endif

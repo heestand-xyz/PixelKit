@@ -99,6 +99,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
         super.init(name: "Stack", typeName: "pix-effect-multi-stack")
     }
     
+    #if swift(>=5.5)
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             axis: Axis = .vertical,
                             alignment: Alignment = .center,
@@ -112,6 +113,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
         self.padding = padding
         super.inputs = inputs()
     }
+    #endif
     
     public required convenience init() {
         self.init(at: .auto(render: PixelKit.main.render))

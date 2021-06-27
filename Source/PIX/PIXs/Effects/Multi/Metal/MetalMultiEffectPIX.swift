@@ -115,11 +115,13 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         bakeFrag()
     }
     
+    #if swift(>=5.5)
     public convenience init(uniforms: [MetalUniform] = [], code: String,
                             @PIXBuilder inputs: () -> ([PIX & NODEOut])) {
         self.init(uniforms: uniforms, code: code)
         super.inputs = inputs()
     }
+    #endif
     
     required init() {
         metalUniforms = []

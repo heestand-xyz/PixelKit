@@ -5,6 +5,8 @@
 //  Created by Anton Heestand on 2021-06-21.
 //
 
+#if swift(>=5.5)
+
 import Foundation
 import SwiftUI
 import RenderKit
@@ -104,3 +106,5 @@ public final class StackPX<PV: PXView>: PXIns, PXView  {
         PXObjectMultiEffect(pix: StackPIX(at: .square(1000)))
     }
 }
+
+#endif

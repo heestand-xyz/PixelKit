@@ -35,12 +35,14 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable {
         super.init(name: "Blends", typeName: "pix-effect-multi-blends")
     }
     
+    #if swift(>=5.5)
     public convenience init(blendMode: BlendMode = .add,
                             @PIXBuilder inputs: () -> ([PIX & NODEOut]) = { [] }) {
         self.init()
         self.blendMode = blendMode
         super.inputs = inputs()
     }
+    #endif
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)

@@ -8,6 +8,7 @@
 import RenderKit
 import Resolution
 
+#if swift(>=5.5)
 @resultBuilder
 public struct PIXBuilder {
     public static func buildBlock(_ pixs: (PIX & NODEOut)...) -> [(PIX & NODEOut)] {
@@ -17,3 +18,4 @@ public struct PIXBuilder {
         pix
     }
 }
+#endif

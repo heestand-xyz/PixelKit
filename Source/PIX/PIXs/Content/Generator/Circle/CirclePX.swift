@@ -3,6 +3,8 @@
 //  Created by Anton Heestand on 2021-02-04.
 //
 
+#if swift(>=5.5)
+
 import SwiftUI
 import RenderKit
 import PixelColor
@@ -54,3 +56,5 @@ public struct CirclePX: PXView {
         PXObject(pix: CirclePIX(at: .square(1000)))
     }
 }
+
+#endif

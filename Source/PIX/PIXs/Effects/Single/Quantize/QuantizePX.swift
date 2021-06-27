@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2021-06-21.
 //
 
+#if swift(>=5.5)
+
 import Foundation
 import SwiftUI
 import RenderKit
@@ -94,3 +96,4 @@ public extension PXView {
     }
 }
 
+#endif

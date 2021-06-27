@@ -237,6 +237,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         queueRender(renderRequest)
     }
     
+    #if swift(>=5.5)
     @available(iOS 15.0, *)
     @available(tvOS 15.0, *)
     @available(macOS 12.0, *)
@@ -252,6 +253,7 @@ open class PIX: NODE, ObservableObject, Equatable {
             }
         }
     }
+    #endif
     
     public func manuallyRender(completion: @escaping (Result<MTLTexture, Error>) -> ()) {
         let frameIndex = PixelKit.main.render.frameIndex
