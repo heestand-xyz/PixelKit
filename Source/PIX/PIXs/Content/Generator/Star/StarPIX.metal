@@ -154,97 +154,90 @@ fragment float4 contentGeneratorStarPIX(VertexOut out [[stage_in]],
     for (int j = 0; j < int(count); ++j) {
         int i = j;
         
-        float fia = float(i) / count;
-        float fiab = (float(i) + 0.5) / count;
-        float fib = float(i + 1) / count;
-        float fibc = (float(i) + 1.5) / count;
-        float fic = float(i + 2) / count;
-        float fid = float(i + 3) / count;
+        float largeScale = isConcave ? in.as : in.bs;
+        float smallScale = isConcave ? in.bs : in.as;
+        bool flip = smallScale / sqrt(0.75) > largeScale;
+        float offset = isConcave ? 0.0 : 0.5;
+        
+        float fia = (float(i) + offset) / count;
+        float fiab = (float(i) + 0.5 + offset) / count;
+        float fib = (float(i) + 1.0 + offset) / count;
+        float fibc = (float(i) + 1.5 + offset) / count;
+        float fic = (float(i) + 2.0 + offset) / count;
+        float ficd = (float(i) + 2.5 + offset) / count;
+        float fid = (float(i) + 3.0 + offset) / count;
 
         float2 p1 = 0.5 + p;
         float p2r = (fia + in.r) * pi * 2;
-        float2 p2 = p1 + float2((sin(p2r) * in.as) / in.aspect, cos(p2r) * in.as);
-        float p3r = (fib + in.r) * pi * 2;
-        float2 p3 = p1 + float2((sin(p3r) * in.as) / in.aspect, cos(p3r) * in.as);
-        
-//        float2 p23 = (p2 + p3) / 2;
-//        float d123 = sqrt(pow(p23.x - p1.x, 2) + pow(p23.y - p1.y, 2));
-        
-        /* > */
+        float2 p2 = p1 + float2((sin(p2r) * largeScale) / in.aspect, cos(p2r) * largeScale);
         float p23r = (fiab + in.r) * pi * 2;
-        float2 p23 = p1 + float2((sin(p23r) * in.bs) / in.aspect, cos(p23r) * in.bs);
-        
-        bool pitA = starPointInTriangle(uv, p1, p2, p23);
-        bool pitB = starPointInTriangle(uv, p1, p23, p3);
-
-        if (pitA || pitB) {
-            c += float4(float3(0.1), 1.0);
-        }
-        /* < */
+        float2 p23 = p1 + float2((sin(p23r) * smallScale) / in.aspect, cos(p23r) * smallScale);
+        float p3r = (fib + in.r) * pi * 2;
+        float2 p3 = p1 + float2((sin(p3r) * largeScale) / in.aspect, cos(p3r) * largeScale);
         
         float r = in.rad;
         if (r <= 0) {
-            
-            float p23r = (fiab + in.r) * pi * 2;
-            float2 p23 = p1 + float2((sin(p23r) * in.bs) / in.aspect, cos(p23r) * in.bs);
             
             bool pitA = starPointInTriangle(uv, p1, p2, p23);
             bool pitB = starPointInTriangle(uv, p1, p23, p3);
 
             if (pitA || pitB) {
-                //c = ac;
-                float ff = float(i) / count;
-                c = float4(1.0, ff, 0.0, 1.0);
+                c = ac;
                 break;
             }
             
         } else {
             
             float p34r = (fibc + in.r) * pi * 2;
-            float2 p34 = p1 + float2((sin(p34r) * in.bs) / in.aspect, cos(p34r) * in.bs);
-            
+            float2 p34 = p1 + float2((sin(p34r) * smallScale) / in.aspect, cos(p34r) * smallScale);
             float p4r = (fic + in.r) * pi * 2;
-            float2 p4 = p1 + float2((sin(p4r) * in.as) / in.aspect, cos(p4r) * in.as);
+            float2 p4 = p1 + float2((sin(p4r) * largeScale) / in.aspect, cos(p4r) * largeScale);
+            float p45r = (ficd + in.r) * pi * 2;
+            float2 p45 = p1 + float2((sin(p45r) * smallScale) / in.aspect, cos(p45r) * smallScale);
             float p5r = (fid + in.r) * pi * 2;
-            float2 p5 = p1 + float2((sin(p5r) * in.as) / in.aspect, cos(p5r) * in.as);
+            float2 p5 = p1 + float2((sin(p5r) * largeScale) / in.aspect, cos(p5r) * largeScale);
 
             float2 p2x = float2((p2.x - 0.5) * in.aspect, p2.y - 0.5);
+            float2 p23x = float2((p23.x - 0.5) * in.aspect, p23.y - 0.5);
             float2 p3x = float2((p3.x - 0.5) * in.aspect, p3.y - 0.5);
             float2 p34x = float2((p34.x - 0.5) * in.aspect, p34.y - 0.5);
             float2 p4x = float2((p4.x - 0.5) * in.aspect, p4.y - 0.5);
+            float2 p45x = float2((p45.x - 0.5) * in.aspect, p45.y - 0.5);
             float2 p5x = float2((p5.x - 0.5) * in.aspect, p5.y - 0.5);
             
-            StarCornerCircle cc1 = starCornerCircle(p3x, p2x, p4x, r);
-            StarCornerCircle cc2 = starCornerCircle(p4x, p3x, p5x, r);
-            StarCornerCircle cc3 = starCornerCircle(p34x, cc1.c2, cc2.c1, r);
+//            float rDist = sqrt(pow(p2x.x - p23x.x, 2.0) + pow(p2x.y - p23x.y, 2.0)) * 0.75;
+//
+//            bool isTooClose = rDist < r * 2.0;
+//            if (isTooClose) {
+//                r = rDist / 2.0;
+//                c += float4(0.1, 0.0, 0.0, 0.0);
+//            }
+            
+            StarCornerCircle cc1 = starCornerCircle(p3x, p23x, p34x, r);
+            StarCornerCircle cc12 = starCornerCircle(p34x, p3x, p4x, r);
+            StarCornerCircle cc2 = starCornerCircle(p4x, p34x, p45x, r);
 
             float cc1d = sqrt(pow(cc1.p.x - uvp.x, 2) + pow(cc1.p.y - uvp.y, 2));
+            float cc12d = sqrt(pow(cc12.p.x - uvp.x, 2) + pow(cc12.p.y - uvp.y, 2));;
             float cc2d = sqrt(pow(cc2.p.x - uvp.x, 2) + pow(cc2.p.y - uvp.y, 2));
-            float cc3d = sqrt(pow(cc3.p.x - uvp.x, 2) + pow(cc3.p.y - uvp.y, 2));;
 
             float2 cc1p = float2(cc1.p.x / in.aspect + 0.5, cc1.p.y + 0.5);
             float2 cc1c2 = float2(cc1.c2.x / in.aspect + 0.5, cc1.c2.y + 0.5);
+            float2 cc12p = float2(cc12.p.x / in.aspect + 0.5, cc12.p.y + 0.5);
+            float2 cc12c1 = float2(cc12.c1.x / in.aspect + 0.5, cc12.c1.y + 0.5);
+            float2 cc12c2 = float2(cc12.c2.x / in.aspect + 0.5, cc12.c2.y + 0.5);
             float2 cc2p = float2(cc2.p.x / in.aspect + 0.5, cc2.p.y + 0.5);
             float2 cc2c1 = float2(cc2.c1.x / in.aspect + 0.5, cc2.c1.y + 0.5);
-            
-            bool pit = starPointInTriangle(uv, p1, cc1p, cc2p);
-            bool pit1 = starPointInTriangle(uv, cc1p, cc1c2, cc2c1);
-            bool pit2 = starPointInTriangle(uv, cc2p, cc1p, cc2c1);
-            
-            if (i == 0) {
-//                if (cc1d < r) {
-//                    c += float4(1,0,0,1);
-//                } else if (cc2d < r) {
-//                    c += float4(1,1,0,1);
-//                } else if (cc3d < r) {
-//                   c += float4(0,1,0,1);
-//                }
-            }
-            
-            if (cc1d < r || cc2d < r || pit || pit1 || pit2) {
-//                c = ac;
-                c += float4(float3(0.1), 1.0);
-//                break;
+
+            bool pit1 = starPointInTriangle(uv, p1, cc1p, cc1c2);
+            bool pit1_12 = starPointInTriangle(uv, p1, cc1c2, cc12c1);
+            bool pit12 = starPointInTriangle(uv, p1, cc12c1, cc12c2);
+            bool pit12_2 = starPointInTriangle(uv, p1, cc12c2, cc2c1);
+            bool pit2 = starPointInTriangle(uv, p1, cc2c1, cc2p);
+
+            if ((cc1d < r || cc2d < r || pit1 || pit1_12 || pit12 || pit12_2 || pit2) && (flip ? true : cc12d > r)) {
+                c = ac;
+                break;
             }
             
         }
