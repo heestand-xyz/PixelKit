@@ -234,7 +234,6 @@ open class PIX: NODE, ObservableObject, Equatable {
         self.texture = renderPack.response.texture
         renderIndex += 1
         delegate?.nodeDidRender(self)
-        
         renderOuts(renderPack: renderPack)
         renderCustomVertexTexture()
     }
@@ -247,130 +246,11 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Connect
     
-    func setNeedsConnectSingle(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?) {
-        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
-        if let oldPixOut = oldInPix {
-            var pixOut = oldPixOut as! (NODE & NODEOutIO)
-            for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
-                if pixOutPath.nodeIn.id == pixInIO.id {
-                    pixOut.outputPathList.remove(at: i)
-                    break
-                }
-            }
-            pixInIO.inputList = []
-            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Single: \(pixOut.name)")
-        }
-        if let newPixOut = newInPix {
-            guard newPixOut.id != self.id else {
-                pixelKit.logger.log(node: self, .error, .connection, "Can't connect to self.")
-                return
-            }
-            var pixOut = newPixOut as! (NODE & NODEOutIO)
-            pixInIO.inputList = [pixOut]
-            pixOut.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
-            pixelKit.logger.log(node: self, .info, .connection, "Connected Single: \(pixOut.name)")
-            connected()
-        } else {
-            disconnected()
-        }
-    }
+    public func didConnect() {}
     
-    func setNeedsConnectMerger(new newInPix: (NODE & NODEOut)?, old oldInPix: (NODE & NODEOut)?, second: Bool) {
-        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
-        guard let pixInMerger = self as? NODEInMerger else { return }
-        if let oldPixOut = oldInPix {
-            var pixOut = oldPixOut as! (NODE & NODEOutIO)
-            for (i, pixOutPath) in pixOut.outputPathList.enumerated() {
-                if pixOutPath.nodeIn.id == pixInIO.id {
-                    pixOut.outputPathList.remove(at: i)
-                    break
-                }
-            }
-            pixInIO.inputList = []
-            pixelKit.logger.log(node: self, .info, .connection, "Disonnected Merger: \(pixOut.name)")
-        }
-        if let newPixOut = newInPix {
-            if var pixOutA = (!second ? newPixOut : pixInMerger.inputA) as? (NODE & NODEOutIO),
-                var pixOutB = (second ? newPixOut : pixInMerger.inputB) as? (NODE & NODEOutIO) {
-                pixInIO.inputList = [pixOutA, pixOutB]
-                pixOutA.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 0))
-                pixOutB.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: 1))
-                pixelKit.logger.log(node: self, .info, .connection, "Connected Merger: \(pixOutA.name), \(pixOutB.name)")
-                connected()
-            }
-        } else {
-            disconnected()
-        }
-    }
-    
-    func setNeedsConnectMulti(new newInPixs: [NODE & NODEOut], old oldInPixs: [NODE & NODEOut]) {
-        guard var pixInIO = self as? NODE & NODEInIO else { pixelKit.logger.log(node: self, .error, .connection, "NODEIn's Only"); return }
-        pixInIO.inputList = newInPixs
-        for oldInPix in oldInPixs {
-            if var input = oldInPix as? (NODE & NODEOutIO) {
-                for (j, pixOutPath) in input.outputPathList.enumerated() {
-                    if pixOutPath.nodeIn.id == pixInIO.id {
-                        input.outputPathList.remove(at: j)
-                        break
-                    }
-                }
-            }
-        }
-        for (i, newInPix) in newInPixs.enumerated() {
-            if var input = newInPix as? (NODE & NODEOutIO) {
-                input.outputPathList.append(NODEOutPath(nodeIn: pixInIO, inIndex: i))
-            }
-        }
-        if !newInPixs.isEmpty {
-            pixelKit.logger.log(node: self, .info, .connection, "Connected Multi: \(newInPixs.map(\.name))")
-            connected()
-        } else {
-            disconnected()
-        }
-    }
-    
-    func connected() {
-        applyResolution { [weak self] in
-            self?.render()
-            DispatchQueue.main.async { [weak self] in
-                self?.render()
-            }
-        }
-        if let nodeIn: NODEIn = self as? NODEIn {
-            nodeIn.didUpdateInputConnections()
-        }
-    }
-    
-    func disconnected() {
-        pixelKit.logger.log(node: self, .info, .connection, "Disconnected")
+    public func didDisconnect() {
         removeRes()
-        texture = nil
-        if let nodeIn: NODEIn = self as? NODEIn {
-            nodeIn.didUpdateInputConnections()
-        }
     }
-    
-    // MARK: - Other
-    
-//    // MARK: Custom Linking
-//
-//    public func customLink(to pix: PIX) {
-//        for customLinkedPix in customLinkedNodes {
-//            if customLinkedPix.id == pix.id {
-//                return
-//            }
-//        }
-//        customLinkedNodes.append(pix)
-//    }
-//
-//    public func customDelink(from pix: PIX) {
-//        for (i, customLinkedPix) in customLinkedNodes.enumerated() {
-//            if customLinkedPix.id == pix.id {
-//                customLinkedNodes.remove(at: i)
-//                return
-//            }
-//        }
-//    }
     
     // MARK: Equals
     
