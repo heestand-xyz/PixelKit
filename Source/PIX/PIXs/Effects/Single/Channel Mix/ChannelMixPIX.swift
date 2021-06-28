@@ -18,10 +18,51 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveEnum("red") public var red: PixelColor.Channel = .red
-    @LiveEnum("green") public var green: PixelColor.Channel = .green
-    @LiveEnum("blue") public var blue: PixelColor.Channel = .blue
-    @LiveEnum("alpha") public var alpha: PixelColor.Channel = .alpha
+    public enum Channel: String, Enumable {
+        case red
+        case green
+        case blue
+        case alpha
+        case clear
+        public var index: Int {
+            switch self {
+            case .red: return 0
+            case .green: return 1
+            case .blue: return 2
+            case .alpha: return 3
+            case .clear: return 4
+            }
+        }
+        public var typeName: String { rawValue }
+        public var name: String {
+            switch self {
+            case .red: return "Red"
+            case .green: return "Green"
+            case .blue: return "Blue"
+            case .alpha: return "Alpha"
+            case .clear: return "Clear"
+            }
+        }
+        var color: PixelColor {
+            switch self {
+            case .red:
+                return PixelColor(channel: .red)
+            case .green:
+                return PixelColor(channel: .green)
+            case .blue:
+                return PixelColor(channel: .red)
+            case .alpha:
+                return PixelColor(channel: .alpha)
+            case .clear:
+                return .clear
+            }
+        }
+    }
+    
+    @LiveEnum("red") public var red: Channel = .red
+    @LiveEnum("green") public var green: Channel = .green
+    @LiveEnum("blue") public var blue: Channel = .blue
+    @LiveEnum("alpha") public var alpha: Channel = .alpha
     
     // MARK: - Property Helpers
     
@@ -31,10 +72,10 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
     public override var uniforms: [CGFloat] {
         var uniforms: [CGFloat] = []
-        uniforms.append(contentsOf: PixelColor(channel: red).components)
-        uniforms.append(contentsOf: PixelColor(channel: green).components)
-        uniforms.append(contentsOf: PixelColor(channel: blue).components)
-        uniforms.append(contentsOf: PixelColor(channel: alpha).components)
+        uniforms.append(contentsOf: red.color.components)
+        uniforms.append(contentsOf: green.color.components)
+        uniforms.append(contentsOf: blue.color.components)
+        uniforms.append(contentsOf: alpha.color.components)
         return uniforms
     }
     
@@ -52,21 +93,24 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
 
 public extension NODEOut {
     
-    func pixSwap(_ pureColorA: PixelColor.Channel, _ pureColorB: PixelColor.Channel) -> ChannelMixPIX {
+    /// Swap supprts the **rgba** channels. The **clear** channel will be ignored.
+    func pixSwap(_ channelA: ChannelMixPIX.Channel, _ channelB: ChannelMixPIX.Channel) -> ChannelMixPIX {
         let channelMixPix = ChannelMixPIX()
         channelMixPix.name = "swap:channelMix"
         channelMixPix.input = self as? PIX & NODEOut
-        switch pureColorA {
-        case .red: channelMixPix.red = pureColorB
-        case .green: channelMixPix.green = pureColorB
-        case .blue: channelMixPix.blue = pureColorB
-        case .alpha: channelMixPix.alpha = pureColorB
+        switch channelA {
+        case .red: channelMixPix.red = channelB
+        case .green: channelMixPix.green = channelB
+        case .blue: channelMixPix.blue = channelB
+        case .alpha: channelMixPix.alpha = channelB
+        default: break
         }
-        switch pureColorB {
-        case .red: channelMixPix.red = pureColorA
-        case .green: channelMixPix.green = pureColorA
-        case .blue: channelMixPix.blue = pureColorA
-        case .alpha: channelMixPix.alpha = pureColorA
+        switch channelB {
+        case .red: channelMixPix.red = channelA
+        case .green: channelMixPix.green = channelA
+        case .blue: channelMixPix.blue = channelA
+        case .alpha: channelMixPix.alpha = channelA
+        default: break
         }
         return channelMixPix
     }

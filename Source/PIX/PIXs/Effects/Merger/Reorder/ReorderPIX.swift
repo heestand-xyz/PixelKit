@@ -72,7 +72,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
         public var name: String {
             switch self {
             case .red: return "Red"
-            case .green: return "Greeb"
+            case .green: return "Green"
             case .blue: return "Blue"
             case .alpha: return "Alpha"
             case .zero: return "Zero"

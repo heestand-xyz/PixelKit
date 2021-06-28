@@ -12,6 +12,7 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
     case noise
     case polygon
     case rectangle
+    case star
     
     public var name: String {
         switch self {
@@ -33,6 +34,8 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
             return "Polygon"
         case .rectangle:
             return "Rectangle"
+        case .star:
+            return "Star"
         }
     }
     
@@ -56,6 +59,8 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
             return PolygonPIX.self
         case .rectangle:
             return RectanglePIX.self
+        case .star:
+            return StarPIX.self
         }
     }
     
