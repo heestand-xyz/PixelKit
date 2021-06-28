@@ -14,18 +14,13 @@ import Combine
 open class PIXEffect: PIX, NODEInIO, NODEOutIO/*, NODETileable2D*/ {
     
     public var inputList: [NODE & NODEOut] = []
-//    var pixOutPathList: PIX.WeakOutPaths = PIX.WeakOutPaths([])
     public var outputPathList: [NODEOutPath] = []
-    public var connectedIn: Bool { return !inputList.isEmpty }
-    public var connectedOut: Bool { return !outputPathList.isEmpty }
+    public var connectedIn: Bool { !inputList.isEmpty }
+    public var connectedOut: Bool { !outputPathList.isEmpty }
 
     public var tileResolution: Resolution { pixelKit.tileResolution }
     public var tileTextures: [[MTLTexture]]?
     
-//    required public init(from decoder: Decoder) throws {
-//        fatalError("PIXEffect Decoder Initializer is not supported.") // CHECK
-//    }
-        
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()
     public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
     public var cancellableIns: [AnyCancellable] = []
