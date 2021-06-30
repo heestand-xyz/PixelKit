@@ -148,7 +148,7 @@ extension PIX {
             return
         }
         view.setResolution(finalResolution)
-        pixelKit.logger.log(node: self, .info, .resolution, "Apply Resolution: \(finalResolution) [\(finalResolution.w)x\(finalResolution.h)]")
+        pixelKit.logger.log(node: self, .info, .resolution, "Apply Resolution: \(finalResolution)")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

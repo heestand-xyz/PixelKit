@@ -97,7 +97,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     open var additiveVertexBlending: Bool { false }
     
     public var pixView: PIXView!
-    public var view: NODEView { pixView }
+    public var view: NODEView! { pixView }
     public var additionalViews: [NODEView] = []
     
     public var viewInterpolation: ViewInterpolation = .linear {
