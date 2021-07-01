@@ -4,7 +4,7 @@ Live Graphics
 
 ## Overview
 
-In PixelKit you create ``PIX``s, they are content, effects and outputs.
+In PixelKit you create ``PIX``s. There is content, effects and outputs.
 
 To connect some content with an effect, assign the content to the ``PIXSingleEffect/input`` property of the effect.
 

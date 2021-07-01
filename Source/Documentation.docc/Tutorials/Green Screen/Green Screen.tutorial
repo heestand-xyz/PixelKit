@@ -1,0 +1,28 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Green Screen") {
+        Remove a Green Screen with a Chroma Key effect.
+        
+        @Image(source: GreenScreen-4.png)
+    }
+    
+    @Section(title: "Setup") {
+        @ContentAndMedia(layout: horizontal) {
+            Start by adding a View Model to your ContentView.
+            
+            @Image(source: GreenScreen-4.png)
+        }
+        
+        @Steps {
+            @Step {
+                Import `SwiftUI` and `PixelKit` 
+                @Image(source: GreenScreen-4.png)
+                @Code(name: "ContentView.swift", file: GS-1-Import.swift)
+            }
+            
+            @Step {
+                Create the *default* `ContentView` 
+                @Code(name: "ContentView.swift", file: GS-2-ContentView.swift)
+            }
+        }
+    }
+}

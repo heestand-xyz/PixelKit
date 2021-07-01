@@ -1,0 +1,15 @@
+@Tutorials(name: "PixelKit") {
+    @Intro(title: "Live Graphics") {
+        Create realtime effects.
+        
+        @Image(source: pixels_logo_1k_bg.png)
+    }
+    
+    @Chapter(name: "Green Screen") {
+        The Chroma Key Effect
+        
+        @Image(source: GS-4.png)
+        
+        @TutorialReference(tutorial: "doc:Green Screen")
+    }
+}

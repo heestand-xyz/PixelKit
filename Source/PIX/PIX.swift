@@ -25,7 +25,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     public weak var delegate: NODEDelegate?
     
-    @available(*, deprecated, renamed: "PixelKit.main")
+//    @available(*, deprecated, renamed: "PixelKit.main")
     let pixelKit: PixelKit = PixelKit.main
     
     open var shaderName: String {

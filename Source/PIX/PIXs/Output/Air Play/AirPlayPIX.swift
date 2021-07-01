@@ -50,8 +50,8 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         
     }
     
-    override func connected() {
-        super.connected()
+    public override func didConnect() {
+        super.didConnect()
         #if DEBUG
         print("AirPlayDebug connected input", input != nil)
         #endif
@@ -61,8 +61,8 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         }
     }
     
-    override func disconnected() {
-        super.disconnected()
+    public override func didDisconnect() {
+        super.didDisconnect()
         #if DEBUG
         print("AirPlayDebug disconnected")
         #endif
