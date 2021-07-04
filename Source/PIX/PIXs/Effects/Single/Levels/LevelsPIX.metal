@@ -22,6 +22,7 @@ struct Uniforms {
     float invert;
     float smooth;
     float opacity;
+    float offset;
 };
 
 fragment float4 effectSingleLevelsPIX(VertexOut out [[stage_in]],
@@ -57,6 +58,8 @@ fragment float4 effectSingleLevelsPIX(VertexOut out [[stage_in]],
         float4 cl = min(max(c, 0.0), 1.0);
         c = cos(cl * pi + pi) / 2 + 0.5;
     }
+    
+    c += in.offset;
     
     c *= in.opacity;
     

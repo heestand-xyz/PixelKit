@@ -73,9 +73,9 @@ final public class ScenePIX: PIXCustom, PIXViewable {
 //            renderer.isTemporalAntialiasingEnabled = true
 //        }
         
-        sceneHelper = SceneHelper(render: {
-            guard !self.customDelegateRender else { return }
-            self.render()
+        sceneHelper = SceneHelper(render: { [weak self] in
+            guard self?.customDelegateRender == false else { return }
+            self?.render()
         })
         
     }

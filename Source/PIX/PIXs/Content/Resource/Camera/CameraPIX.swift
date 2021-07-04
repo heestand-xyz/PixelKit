@@ -424,11 +424,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     func setupNotifications() {
         #if os(macOS)
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { (notif) -> Void in
-            self.camAttatched(device: notif.object! as! AVCaptureDevice)
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { [weak self] (notif) -> Void in
+            self?.camAttatched(device: notif.object! as! AVCaptureDevice)
         }
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { (notif) -> Void in
-            self.camDeattatched(device: notif.object! as! AVCaptureDevice)
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { [weak self] (notif) -> Void in
+            self?.camDeattatched(device: notif.object! as! AVCaptureDevice)
         }
         #endif
     }
@@ -518,6 +518,12 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     public static func supports(cameraResolution: CameraPIX.CameraResolution) -> Bool {
         CameraHelper.supports(cameraResolution: cameraResolution)
+    }
+    
+    public override func destroy() {
+        super.destroy()
+        helper?.stop()
+        helper = nil
     }
     
     // MARK: - Camera Attatchment
@@ -1001,8 +1007,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func forceDetectUIOrientation(new: @escaping () -> ()) {
         let forceCount = pixelKit.render.fpsMax * 2
         var forceIndex = 0
-        let forceTimer = Timer(timeInterval: 1 / Double(pixelKit.render.fpsMax), repeats: true, block: { timer in
-            if self.lastUIOrientation != UIApplication.shared.statusBarOrientation {
+        let forceTimer = Timer(timeInterval: 1 / Double(pixelKit.render.fpsMax), repeats: true, block: { [weak self] timer in
+            if self?.lastUIOrientation != UIApplication.shared.statusBarOrientation {
                 new()
                 timer.invalidate()
             } else {
@@ -1371,38 +1377,38 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
         depthProcessing = true
         DispatchQueue.global(qos: .background).async {
             
-            guard let rawImageData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: self.videoOutput!) else {
-                self.pixelKit.logger.log(.error, .resource, "Camera image data not found.")
-                self.depthProcessing = false
+            guard let rawImageData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: videoOutput!) else {
+                pixelKit.logger.log(.error, .resource, "Camera image data not found.")
+                depthProcessing = false
                 return
             }
-            guard let rawDepthData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: self.depthOutput!) else {
-                self.pixelKit.logger.log(.error, .resource, "Camera depth data not found.")
-                self.depthProcessing = false
+            guard let rawDepthData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: depthOutput!) else {
+                pixelKit.logger.log(.error, .resource, "Camera depth data not found.")
+                depthProcessing = false
                 return
             }
             
             guard let sampleBuffer = (rawImageData as? AVCaptureSynchronizedSampleBufferData)?.sampleBuffer else {
-                self.pixelKit.logger.log(.error, .resource, "Camera image data in bad format.")
-                self.depthProcessing = false
+                pixelKit.logger.log(.error, .resource, "Camera image data in bad format.")
+                depthProcessing = false
                 return
             }
             guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-                self.pixelKit.logger.log(.error, .resource, "Camera image data could not be converted.")
-                self.depthProcessing = false
+                pixelKit.logger.log(.error, .resource, "Camera image data could not be converted.")
+                depthProcessing = false
                 return
             }
             
             guard let depthData = (rawDepthData as? AVCaptureSynchronizedDepthData)?.depthData else {
-                self.pixelKit.logger.log(.error, .resource, "Camera depth data in bad format.")
-                self.depthProcessing = false
+                pixelKit.logger.log(.error, .resource, "Camera depth data in bad format.")
+                depthProcessing = false
                 return
             }
             let depthPixelBuffer = depthData.depthDataMap
             
 //            guard let rotatedDepthPixelBuffer = Texture.rotate90(pixelBuffer: depthPixelBuffer, factor: 3) else {
-//                self.pixelKit.logger.log(.error, .resource, "Camera depth image rotation failed.")
-//                self.depthProcessing = false
+//                pixelKit.logger.log(.error, .resource, "Camera depth image rotation failed.")
+//                depthProcessing = false
 //                return
 //            }
             
@@ -1410,7 +1416,7 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
                 self?.capturedCallback(pixelBuffer)
                 self?.capturedDepthCallback(depthPixelBuffer)
             }
-            self.depthProcessing = false
+            depthProcessing = false
         }
     }
 

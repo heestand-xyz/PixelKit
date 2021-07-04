@@ -81,7 +81,9 @@ extension PIX {
                 }
             } else if let averagePix = self as? AveragePIX {
                 guard let node3d = averagePix.input as? NODE3D else { return nil }
+//                print("\(name) >>>>>>>>>>> ? <<<<<<<<< \(node3d.name)")
                 let res3d = node3d.renderedResolution3d
+//                print("\(name) >>>>>>>>>>> = \(res3d) \(node3d.name)")
                 switch averagePix.axis {
                 case .x: return .custom(w: res3d.y, h: res3d.z)
                 case .y: return .custom(w: res3d.x, h: res3d.z)

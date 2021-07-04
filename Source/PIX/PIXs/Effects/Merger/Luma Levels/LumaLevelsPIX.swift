@@ -25,15 +25,16 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     @LiveBool("inverted") public var inverted: Bool = false
     @LiveBool("smooth") public var smooth: Bool = false
     @LiveFloat("opacity") public var opacity: CGFloat = 1.0
+    @LiveFloat("offset", range: -1.0...1.0) public var offset: CGFloat = 0.0
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity] + super.liveList
+        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity, _offset] + super.liveList
     }
     
     override public var values: [Floatable] {
-        [brightness, darkness, contrast, gamma, inverted, smooth, opacity]
+        [brightness, darkness, contrast, gamma, inverted, smooth, opacity, offset]
     }
     
     // MARK: - Life Cycle
