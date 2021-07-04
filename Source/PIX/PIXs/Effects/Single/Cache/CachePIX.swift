@@ -54,7 +54,7 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     
 //    func cacheTexture() {
 //        guard let texture = texture else {
-//            pixelKit.logger.log(.warning, nil, "Cache failed. No texture avalible.")
+//            pixelKit.logger.log(.warning, nil, "Cache failed. No texture available.")
 //            return
 //        }
 //        cachedTexturesolution.append(CachedTexture(id: UUID(), date: Date(), texture: texture))

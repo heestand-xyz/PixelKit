@@ -170,7 +170,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                     if feedbackNode.readyToFeed {
                         if feedbackNode.feedActive {
                             guard let feedTexture = feedbackNode.feedTexture else {
-                                throw Engine.RenderError.texture("Feed Texture not avalible.")
+                                throw Engine.RenderError.texture("Feed Texture not available.")
                             }
                             inputTexture = feedTexture
                             feed = true
@@ -288,7 +288,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                     if feedbackNode.readyToFeed {
                         if feedbackNode.feedActive {
                             guard let feedTexture = feedbackNode.tileFeedTexture(at: tileIndex) else {
-                                throw Engine.RenderError.texture("Tile Feed Texture not avalible.")
+                                throw Engine.RenderError.texture("Tile Feed Texture not available.")
                             }
                             inputTexture = feedTexture
                             feed = true

@@ -693,7 +693,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 if #available(iOS 13.0, *) {
                     deviceType = .builtInUltraWideCamera
                 } else {
-                    pixelKit.logger.log(.warning, .resource, "Ultra Wide Camera is only avalible in iOS 13.")
+                    pixelKit.logger.log(.warning, .resource, "Ultra Wide Camera is only available in iOS 13.")
                     deviceType = .builtInWideAngleCamera
                 }
             } else {

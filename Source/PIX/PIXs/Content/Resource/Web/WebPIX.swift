@@ -119,7 +119,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
                 return
             }
             guard let image = image else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot image not avalible.")
+                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot image not available.")
                 return
             }
             guard let buffer = Texture.buffer(from: image, bits: self.pixelKit.render.bits) else {
