@@ -156,7 +156,14 @@ fragment float4 contentGeneratorStarPIX(VertexOut out [[stage_in]],
         
         float largeScale = isConcave ? in.as : in.bs;
         float smallScale = isConcave ? in.bs : in.as;
-        bool flip = smallScale / sqrt(0.75) > largeScale;
+        
+        float fraction = 1.0 / count;
+        float2 pntA = float2(cos(0.0) * largeScale, sin(0.0) * largeScale);
+        float2 pntB = float2(cos(fraction * pi * 2.0) * largeScale, sin(fraction * pi * 2.0) * largeScale);
+        float2 pntAB = (pntA + pntB) / 2;
+        float distAB = sqrt(pow(pntAB.x, 2.0) + pow(pntAB.y, 2.0));
+        bool isSubConvex = smallScale > distAB;
+        
         float offset = isConcave ? 0.0 : 0.5;
         
         float fia = (float(i) + offset) / count;
@@ -205,14 +212,6 @@ fragment float4 contentGeneratorStarPIX(VertexOut out [[stage_in]],
             float2 p45x = float2((p45.x - 0.5) * in.aspect, p45.y - 0.5);
             float2 p5x = float2((p5.x - 0.5) * in.aspect, p5.y - 0.5);
             
-//            float rDist = sqrt(pow(p2x.x - p23x.x, 2.0) + pow(p2x.y - p23x.y, 2.0)) * 0.75;
-//
-//            bool isTooClose = rDist < r * 2.0;
-//            if (isTooClose) {
-//                r = rDist / 2.0;
-//                c += float4(0.1, 0.0, 0.0, 0.0);
-//            }
-            
             StarCornerCircle cc1 = starCornerCircle(p3x, p23x, p34x, r);
             StarCornerCircle cc12 = starCornerCircle(p34x, p3x, p4x, r);
             StarCornerCircle cc2 = starCornerCircle(p4x, p34x, p45x, r);
@@ -235,7 +234,7 @@ fragment float4 contentGeneratorStarPIX(VertexOut out [[stage_in]],
             bool pit12_2 = starPointInTriangle(uv, p1, cc12c2, cc2c1);
             bool pit2 = starPointInTriangle(uv, p1, cc2c1, cc2p);
 
-            if ((cc1d < r || cc2d < r || pit1 || pit1_12 || pit12 || pit12_2 || pit2) && (flip ? true : cc12d > r)) {
+            if ((cc1d < r || cc2d < r || pit1 || pit1_12 || pit12 || pit12_2 || pit2 || (isSubConvex ? cc12d < r : false)) && (isSubConvex ? true : cc12d > r)) {
                 c = ac;
                 break;
             }
