@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "PixelKit", targets: ["PixelKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/heestand-xyz/RenderKit", from: "1.0.0"),
+        .package(url: "https://github.com/heestand-xyz/RenderKit", from: "1.0.2"),
     ],
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit"], path: "Source", exclude: [

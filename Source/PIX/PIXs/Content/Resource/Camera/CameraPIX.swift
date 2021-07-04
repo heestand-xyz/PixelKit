@@ -1375,33 +1375,34 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
             return
         }
         depthProcessing = true
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
             
-            guard let rawImageData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: videoOutput!) else {
-                pixelKit.logger.log(.error, .resource, "Camera image data not found.")
-                depthProcessing = false
+            guard let rawImageData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: self.videoOutput!) else {
+                self.pixelKit.logger.log(.error, .resource, "Camera image data not found.")
+                self.depthProcessing = false
                 return
             }
-            guard let rawDepthData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: depthOutput!) else {
-                pixelKit.logger.log(.error, .resource, "Camera depth data not found.")
-                depthProcessing = false
+            guard let rawDepthData: AVCaptureSynchronizedData = synchronizedDataCollection.synchronizedData(for: self.depthOutput!) else {
+                self.pixelKit.logger.log(.error, .resource, "Camera depth data not found.")
+                self.depthProcessing = false
                 return
             }
             
             guard let sampleBuffer = (rawImageData as? AVCaptureSynchronizedSampleBufferData)?.sampleBuffer else {
-                pixelKit.logger.log(.error, .resource, "Camera image data in bad format.")
-                depthProcessing = false
+                self.pixelKit.logger.log(.error, .resource, "Camera image data in bad format.")
+                self.depthProcessing = false
                 return
             }
             guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-                pixelKit.logger.log(.error, .resource, "Camera image data could not be converted.")
-                depthProcessing = false
+                self.pixelKit.logger.log(.error, .resource, "Camera image data could not be converted.")
+                self.depthProcessing = false
                 return
             }
             
             guard let depthData = (rawDepthData as? AVCaptureSynchronizedDepthData)?.depthData else {
-                pixelKit.logger.log(.error, .resource, "Camera depth data in bad format.")
-                depthProcessing = false
+                self.pixelKit.logger.log(.error, .resource, "Camera depth data in bad format.")
+                self.depthProcessing = false
                 return
             }
             let depthPixelBuffer = depthData.depthDataMap
@@ -1416,7 +1417,7 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
                 self?.capturedCallback(pixelBuffer)
                 self?.capturedDepthCallback(depthPixelBuffer)
             }
-            depthProcessing = false
+            self.depthProcessing = false
         }
     }
 
