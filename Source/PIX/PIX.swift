@@ -79,18 +79,18 @@ open class PIX: NODE, ObservableObject, Equatable {
         set {
             _texture = newValue
             if newValue != nil {
-                nextTextureAvalibleCallback?()
+                nextTextureAvailableCallback?()
             }
         }
     }
     public var didRenderTexture: Bool {
         return _texture != nil
     }
-    var nextTextureAvalibleCallback: (() -> ())?
-    public func nextTextureAvalible(_ callback: @escaping () -> ()) {
-        nextTextureAvalibleCallback = {
+    var nextTextureAvailableCallback: (() -> ())?
+    public func nextTextureAvailable(_ callback: @escaping () -> ()) {
+        nextTextureAvailableCallback = {
             callback()
-            self.nextTextureAvalibleCallback = nil
+            self.nextTextureAvailableCallback = nil
         }
     }
     
@@ -139,7 +139,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     public var renderQueue: [RenderRequest] = []
     public var renderIndex: Int = 0
     public var contentLoaded: Bool?
-    var inputTextureAvalible: Bool?
+    var inputTextureAvailable: Bool?
     var generatorNotBypassed: Bool?
     
     static let metalLibrary: MTLLibrary = {

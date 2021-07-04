@@ -606,7 +606,7 @@ class PixelKitLegacyTests: XCTestCase {
         imagePix.image = NSImage(named: "photo")
 
         let expect = XCTestExpectation()
-        imagePix.nextTextureAvalible {
+        imagePix.nextTextureAvailable {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 1.0)
