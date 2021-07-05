@@ -72,7 +72,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     public var isRawCode: Bool = false
     public var metalCode: String? {
         if isRawCode { return code }
-        console = nil
+        metalConsole = nil
         do {
           return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
         } catch {
@@ -80,7 +80,8 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
             return nil
         }
     }
-    public var console: String?
+    @Published public var metalConsole: String?
+    public var metalConsolePublisher: Published<String?>.Publisher { $metalConsole }
     public var consoleCallback: ((String) -> ())?
     
     // MARK: - Property Helpers
@@ -117,6 +118,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
         metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
         code = try container.decode(String.self, forKey: .code)
         try super.init(from: decoder)
+        bakeFrag()
     }
     
     public override func encode(to encoder: Encoder) throws {
@@ -129,7 +131,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     // MARK: Bake Frag
     
     func bakeFrag() {
-        console = nil
+        metalConsole = nil
         do {
             let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
@@ -137,8 +139,8 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
             switch error {
             case Render.ShaderError.metalError(let codeError, let errorFrag):
                 pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
-                console = codeError.localizedDescription
-                consoleCallback?(console!)
+                metalConsole = codeError.localizedDescription
+                consoleCallback?(metalConsole!)
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
