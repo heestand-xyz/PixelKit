@@ -21,7 +21,7 @@ import Metal
 /// ~~~~swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:
 ///     """
-///     pix = pow(inputA, 1.0 / inputB);
+///     return pow(inputA, 1.0 / inputB);
 ///     """
 /// )
 /// metalMergerEffectPix.inputA = CameraPIX()
@@ -74,11 +74,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         float4 inputA = inTexA.sample(s, uv);
         float4 inputB = inTexB.sample(s, uv);
         
-        float4 pix = 0.0;
-        
         /*<code>*/
-        
-        return pix;
     }
     """
     
@@ -127,7 +123,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
     
     required init() {
         metalUniforms = []
-        code = ""
+        code = "return float4(1.0, 1.0, 1.0, 1.0);"
         super.init()
         bakeFrag()
     }

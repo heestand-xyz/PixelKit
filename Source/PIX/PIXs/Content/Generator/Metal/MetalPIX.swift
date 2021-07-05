@@ -19,7 +19,7 @@ import Metal
 /// ~~~~swift
 /// let metalPix = MetalPIX(at: ._1080p, code:
 ///     """
-///     pix = float4(u, v, 0.0, 1.0);
+///     return float4(u, v, 0.0, 1.0);
 ///     """
 /// )
 /// ~~~~
@@ -56,11 +56,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
         float v = 1.0 - out.texCoord[1];
         float2 uv = float2(u, v);
         
-        float4 pix = 0.0;
-        
         /*<code>*/
-        
-        return pix;
     }
     """
     
@@ -101,7 +97,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     
     required init(at resolution: Resolution) {
         metalUniforms = []
-        code = ""
+        code = "return float4(1.0, 1.0, 1.0, 1.0);"
         super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
         bakeFrag()
     }

@@ -20,7 +20,7 @@ import Metal
 /// let metalEffectPix = MetalEffectPIX(code:
 ///     """
 ///     float gamma = 0.25;
-///     pix = pow(input, 1.0 / gamma);
+///     return pow(input, 1.0 / gamma);
 ///     """
 /// )
 /// metalEffectPix.input = CameraPIX()
@@ -66,11 +66,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
         
         float4 input = inTex.sample(s, uv);
         
-        float4 pix = 0.0;
-        
         /*<code>*/
-        
-        return pix;
     }
     """
     
@@ -109,7 +105,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
     required init() {
         metalUniforms = []
-        code = ""
+        code = "return float4(1.0, 1.0, 1.0, 1.0);"
         super.init(name: "Metal B", typeName: "pix-effect-single-metal")
         bakeFrag()
     }

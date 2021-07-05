@@ -22,7 +22,7 @@ import Metal
 ///     float4 inputA = inTexs.sample(s, uv, 0);
 ///     float4 inputB = inTexs.sample(s, uv, 1);
 ///     float4 inputC = inTexs.sample(s, uv, 2);
-///     pix = inputA + inputB + inputC;
+///     return inputA + inputB + inputC;
 ///     """
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
@@ -65,11 +65,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         uint pixCount = inTexs.get_array_size();
         // float4 inputN = inTexs.sample(s, uv, n);
         
-        float4 pix = 0.0;
-        
         /*<code>*/
-        
-        return pix;
     }
     """
     
@@ -126,7 +122,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     required init() {
         metalUniforms = []
-        code = ""
+        code = "return float4(1.0, 1.0, 1.0, 1.0);"
         super.init()
         bakeFrag()
     }
