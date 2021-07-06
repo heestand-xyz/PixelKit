@@ -23,10 +23,10 @@ struct Uniforms {
     float swapRB;
 };
 
-fragment float4 contentResourceBackgroundPIX(VertexOut out [[stage_in]],
-                                             texture2d<float>  inTex [[ texture(0) ]],
-                                             const device Uniforms& in [[ buffer(0) ]],
-                                             sampler s [[ sampler(0) ]]) {
+fragment float4 backgroundPIX(VertexOut out [[stage_in]],
+                              texture2d<float>  inTex [[ texture(0) ]],
+                              const device Uniforms& in [[ buffer(0) ]],
+                              sampler s [[ sampler(0) ]]) {
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
@@ -40,7 +40,7 @@ fragment float4 contentResourceBackgroundPIX(VertexOut out [[stage_in]],
     if (in.swapRB > 0.0) {
         c = float4(c.b, c.g, c.r, c.a);
     }
-    float4 bgc = float4(bg.rgb * (1.0 - c.a) + c.rgb * c.a, max(c.a, bg.a));
+    float4 bgc = float4(bg.rgb * (1.0 - c.a) + c.rgb, max(c.a, bg.a));
 
     return bgc;
 }

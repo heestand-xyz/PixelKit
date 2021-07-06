@@ -16,7 +16,7 @@ import PixelColor
 @available(iOS 13.0, *)
 final public class PaintPIX: PIXResource, PIXViewable {
     
-    override public var shaderName: String { return "contentResourceBackgroundPIX" }
+    override public var shaderName: String { return "backgroundPIX" }
 
     // MARK: - Public Properties
     
@@ -130,14 +130,14 @@ final public class PaintPIX: PIXResource, PIXViewable {
         get { backgroundColor }
         set { backgroundColor = newValue }
     }
-    public var backgroundColor: PixelColor = .black {
+    @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black {
         didSet {
             canvasView.backgroundColor = backgroundColor.uiColor
         }
     }
     
     public override var liveList: [LiveWrap] {
-        [_resolution] + super.liveList
+        [_resolution, _backgroundColor] + super.liveList
     }
     
     public override var values: [Floatable] { [backgroundColor] }
@@ -177,8 +177,8 @@ final public class PaintPIX: PIXResource, PIXViewable {
         canvasView.backgroundColor = backgroundColor.uiColor
         canvasView.delegate = helper
         pencilInteraction.delegate = helper
-        helper.paintedCallback = {
-            self.setNeedsBuffer()
+        helper.paintedCallback = { [weak self] in
+            self?.setNeedsBuffer()
         }
         setFrame()
         setNeedsBuffer()
@@ -205,9 +205,7 @@ final public class PaintPIX: PIXResource, PIXViewable {
     func setNeedsBuffer() {
         let frame: CGRect = CGRect(origin: .zero, size: resolution.size)
         let image: UIImage = drawing.image(from: frame, scale: 1.0)
-        guard let cgImage: CGImage = image.cgImage else { return }
-        guard let bits = Bits(rawValue: cgImage.bitsPerPixel) else { return }
-        guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
+        guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: ._8) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
