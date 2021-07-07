@@ -66,6 +66,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     
     // MARK: - Public Properties
     
+    /// URL to Video File
     public var url: URL? {
         didSet {
             if url != nil {
@@ -108,6 +109,40 @@ final public class VideoPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "Video", typeName: "pix-content-resource-video")
+        setupVideoHelper()
+        self.applyResolution { [weak self] in
+            self?.render()
+        }
+    }
+    
+    public convenience init(url: URL) {
+        self.init()
+        helper.load(from: url)
+        play()
+    }
+    
+    public convenience init(named fullName: String) {
+        self.init()
+        let parts = fullName.split(separator: ".")
+        let name: String = String(parts.first ?? "")
+        let ext: String = String(parts.count >= 2 ? parts.last! : "mov")
+        if let url: URL = Bundle.main.url(forResource: name, withExtension: ext) {
+            helper.load(from: url)
+            play()
+        } else {
+            pixelKit.logger.log(node: self, .error, .resource, "Video File \"\(fullName)\" Not Found")
+        }
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        setupVideoHelper()
+        self.applyResolution { [weak self] in
+            self?.render()
+        }
+    }
+    
+    func setupVideoHelper() {
         helper = VideoHelper(volume: Float(volume), loaded: { [weak self] resolution in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .detail, .resource, "Video loaded.")
@@ -136,44 +171,6 @@ final public class VideoPIX: PIXResource, PIXViewable {
             self.frameCallback?()
             self.frameCallback = nil
         })
-        self.applyResolution { [weak self] in
-            self?.render()
-        }
-//        pixelKit.listenToFramesUntil {
-//            if self.realResolution != nil {
-//                return .done
-//            }
-//            if self.resolution != ._128 {
-//                self.applyResolution {
-//                    self.render()
-//                }
-//                return .done
-//            }
-//            return .continue
-//        }
-    }
-    
-    public convenience init(url: URL) {
-        self.init()
-        helper.load(from: url)
-        play()
-    }
-    
-    public convenience init(named fullName: String) {
-        self.init()
-        let parts = fullName.split(separator: ".")
-        let name: String = String(parts.first ?? "")
-        let ext: String = String(parts.count >= 2 ? parts.last! : "mov")
-        if let url: URL = Bundle.main.url(forResource: name, withExtension: ext) {
-            helper.load(from: url)
-            play()
-        } else {
-            pixelKit.logger.log(node: self, .error, .resource, "Video File \"\(fullName)\" Not Found")
-        }
-    }
-    
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
     }
     
     // MARK: - Load
@@ -391,6 +388,12 @@ final public class VideoPIX: PIXResource, PIXViewable {
         return Texture.resize(uiImage, to: size, placement: placement)
     }
     #endif
+    
+    public override func destroy() {
+        super.destroy()
+        pause()
+        helper = nil
+    }
     
 }
 

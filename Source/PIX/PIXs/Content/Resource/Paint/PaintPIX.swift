@@ -14,7 +14,7 @@ import PencilKit
 import PixelColor
 
 @available(iOS 13.0, *)
-final public class PaintPIX: PIXResource, PIXViewable {
+final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     override public var shaderName: String { return "backgroundPIX" }
 
