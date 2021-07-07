@@ -49,7 +49,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     
     // MARK: - Private Properties
     
-    var helper: VideoHelper!
+    var helper: VideoHelper?
     var loadCallback: ((Resolution) -> ())?
     var seekCallback: (() -> ())?
     var frameCallback: (() -> ())?
@@ -70,21 +70,21 @@ final public class VideoPIX: PIXResource, PIXViewable {
     public var url: URL? {
         didSet {
             if url != nil {
-                helper.load(from: url!)
+                helper?.load(from: url!)
             } else {
-                helper.unload()
+                helper?.unload()
             }
         }
     }
     
-    public var loops: Bool = true { didSet { helper.loops = loops } }
-    public var volume: CGFloat = 1 { didSet { helper.volume = Float(volume) } }
+    public var loops: Bool = true { didSet { helper?.loops = loops } }
+    public var volume: CGFloat = 1 { didSet { helper?.volume = Float(volume) } }
     var _progressFraction: CGFloat = 0
     public var progressFraction: CGFloat { self._progressFraction }
     public var progressSeconds: CGFloat { self._progressFraction * CGFloat(self.duration ?? 0.0) }
     public var progressFrames: Int { Int(self._progressFraction * CGFloat(self.duration ?? 0.0) * CGFloat(self.fps ?? 1)) }
     public var duration: Double? {
-        guard let duration = self.helper.player?.currentItem?.duration.seconds else { return nil }
+        guard let duration = self.helper?.player?.currentItem?.duration.seconds else { return nil }
         guard String(duration) != "nan" else { return nil }
         guard duration != 0.0 else { return nil }
         return duration
@@ -95,7 +95,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
         return Int(duration * Double(fps))
     }
     public var fps: Int? {
-        guard let asset = self.helper.player?.currentItem?.asset else { return nil }
+        guard let asset = self.helper?.player?.currentItem?.asset else { return nil }
         let tracks = asset.tracks(withMediaType: .video)
         guard let fps = tracks.first?.nominalFrameRate else { return nil }
         return Int(fps)
@@ -117,7 +117,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     
     public convenience init(url: URL) {
         self.init()
-        helper.load(from: url)
+        helper?.load(from: url)
         play()
     }
     
@@ -127,7 +127,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
         let name: String = String(parts.first ?? "")
         let ext: String = String(parts.count >= 2 ? parts.last! : "mov")
         if let url: URL = Bundle.main.url(forResource: name, withExtension: ext) {
-            helper.load(from: url)
+            helper?.load(from: url)
             play()
         } else {
             pixelKit.logger.log(node: self, .error, .resource, "Video File \"\(fullName)\" Not Found")
@@ -219,7 +219,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     // MARK - Playback
     
     public func play() {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't play. Video not loaded.")
             return
         }
@@ -228,7 +228,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func pause() {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't pause. Video not loaded.")
             return
         }
@@ -237,7 +237,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func seekSeconds(to seconds: CGFloat, done: (() -> ())? = nil) {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to time. Video not loaded.")
             return
         }
@@ -255,7 +255,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func seekFrame(to frame: Int, done: (() -> ())? = nil) {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to frame. Video not loaded.")
             return
         }
@@ -284,7 +284,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func seekFraction(to fraction: CGFloat, done: (() -> ())? = nil) {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
         }
@@ -307,7 +307,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func setRate(to rate: CGFloat) {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't seek to fraction. Video not loaded.")
             return
         }
@@ -329,7 +329,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
 
     public func restart() {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't restart. Video not loaded.")
             return
         }
@@ -339,7 +339,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func reset() {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't reset. Video not loaded.")
             return
         }
@@ -349,12 +349,12 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func listenToDone(_ callback: @escaping () -> ()) {
-        helper.doneCallback = callback
+        helper?.doneCallback = callback
     }
     
     #if os(iOS) || os(tvOS)
     public func thumbnail(fraction: CGFloat, at size: CGSize, placement: Texture.ImagePlacement = .fill) -> UIImage? {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
         }
@@ -368,7 +368,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     }
     
     public func thumbnail(seconds: Double, at size: CGSize, placement: Texture.ImagePlacement = .fill) -> UIImage? {
-        guard let player = helper.player else {
+        guard let player = helper?.player else {
             pixelKit.logger.log(node: self, .warning, .resource, "Can't make thumbnail. Video not loaded.")
             return nil
         }
