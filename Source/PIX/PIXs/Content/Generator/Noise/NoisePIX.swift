@@ -20,7 +20,7 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
     // MARK: - Public Properties
     
     @LiveInt("seed", range: 0...100) public var seed: Int = 1
-    @LiveInt("octaves", range: 1...10) public var octaves: Int = 10
+    @LiveInt("octaves", range: 1...10) public var octaves: Int = 1
     @LivePoint("position") public var position: CGPoint = .zero
     @LiveFloat("zPosition", range: -1.0...1.0) public var zPosition: CGFloat = 0.0
     @LiveFloat("zoom", range: 0.25...2.0, increment: 0.25) public var zoom: CGFloat = 1.0
