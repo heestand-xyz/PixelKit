@@ -74,9 +74,9 @@ fragment float4 contentGeneratorArcPIX(VertexOut out [[stage_in]],
     float x = (u - 0.5) * in.aspect - in.x;
     float y = v - 0.5 - in.y;
     
-    float a = atan2(y, x);
-    float af = in.af * pi * 2;
-    float at = in.at * pi * 2;
+    float a = -atan2(y, x);
+    float af = in.af * pi * 2 - pi / 2;
+    float at = in.at * pi * 2 - pi / 2;
     float ao = in.ao * pi * 2;
     float afo = af + ao;
     if (afo < -pi) {
@@ -89,6 +89,10 @@ fragment float4 contentGeneratorArcPIX(VertexOut out [[stage_in]],
         ato = ato + floor((-ato + pi) / (pi * 2)) * (pi * 2);
     } else if (ato > pi) {
         ato = ato - floor((ato + pi) / (pi * 2)) * (pi * 2);
+    }
+    
+    if (afo == ato) {
+        return bc;
     }
     
     if (afo < ato ?
