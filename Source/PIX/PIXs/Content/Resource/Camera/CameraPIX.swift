@@ -1094,16 +1094,14 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     }
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
-        
-        var orientation: UIInterfaceOrientation = .portrait
-        if let interfaceOrientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation {
-            orientation = interfaceOrientation
+                
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        var _orientation: UIInterfaceOrientation = .landscape
+        if let orientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation {
+            _orientation = orientation
         } else {
             pixelKit.logger.log(.warning, .view, "Interface Orientation for CameraPIX Not Found")
         }
-        
-        #if os(iOS) && !targetEnvironment(macCatalyst)
-        let _orientation = orientation
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let _orientation: Void = ()
         #endif
