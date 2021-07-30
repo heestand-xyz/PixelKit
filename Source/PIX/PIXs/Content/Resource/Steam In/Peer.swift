@@ -31,7 +31,11 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     let peer: (PeerState, String) -> ()
     let disconnect: (() -> ())?
     
-    init(gotImg: ((UIImage) -> ())? = nil, peer: @escaping (PeerState, String) -> (), disconnect: (() -> ())? = nil) {
+    let viewController: UIViewController
+    
+    init(viewController: UIViewController, gotImg: ((UIImage) -> ())? = nil, peer: @escaping (PeerState, String) -> (), disconnect: (() -> ())? = nil) {
+        
+        self.viewController = viewController
         
         self.peerID = MCPeerID(displayName: UIDevice.current.name)
         self.mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
@@ -56,11 +60,7 @@ class Peer: NSObject, MCSessionDelegate, MCBrowserViewControllerDelegate {
     func joinSession() {
         let mcBrowser = MCBrowserViewController(serviceType: "pxn-stream", session: mcSession)
         mcBrowser.delegate = self
-        guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
-            PixelKit.main.logger.log(.warning, .connection, "Can't join stream session. No View Controller found.")
-            return
-        }
-        vc.present(mcBrowser, animated: true)
+        viewController.present(mcBrowser, animated: true)
         imgInIndex = 0
         imgOutIndex = 0
     }

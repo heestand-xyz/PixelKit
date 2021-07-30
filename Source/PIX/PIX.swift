@@ -14,6 +14,9 @@ import CoreGraphics
 import Metal
 import simd
 import Combine
+#if os(iOS)
+import UIKit
+#endif
 
 open class PIX: NODE, ObservableObject, Equatable {
     
@@ -99,6 +102,18 @@ open class PIX: NODE, ObservableObject, Equatable {
     public var pixView: PIXView!
     public var view: NODEView! { pixView }
     public var additionalViews: [NODEView] = []
+    #if os(iOS)
+    var viewController: UIViewController? {
+        var parentResponder: UIResponder? = view
+        while parentResponder != nil {
+            parentResponder = parentResponder?.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
+    #endif
     
     public var viewInterpolation: ViewInterpolation = .linear {
         didSet {

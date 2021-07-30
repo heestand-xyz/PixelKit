@@ -106,7 +106,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     public var showTools: Bool = false {
         didSet {
-            guard let window: UIWindow = UIApplication.shared.keyWindow else { return }
+            guard let window: UIWindow = view.window else { return }
             guard let toolPicker: PKToolPicker = PKToolPicker.shared(for: window) else { return }
             toolPicker.setVisible(showTools, forFirstResponder: canvasView)
             if showTools {

@@ -43,7 +43,11 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
     }
     
     func setup() {
-        peer = Peer(peer: { connect_state, device_name in
+        guard let viewController: UIViewController = viewController else {
+            pixelKit.logger.log(.error, .view, "View Controller Not Found")
+            return
+        }
+        peer = Peer(viewController: viewController, peer: { connect_state, device_name in
             if connect_state == .connected {
                 self.connected = .connected
                 if let texture = self.texture {

@@ -464,7 +464,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let multiCameras: [Camera]? = nil
         #endif
-        helper = CameraHelper(cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { [weak self] _, orientation in
+        helper = CameraHelper(view: view, cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { [weak self] _, orientation in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             // CHECK multiple setups on init
@@ -668,8 +668,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let capturedCallback: (CVPixelBuffer) -> ()
     let capturedDepthCallback: (CVPixelBuffer) -> ()
     let capturedMultiCallback: (Int, CVPixelBuffer) -> ()
+    
+    let view: UINSView
 
-    init(cameraResolution: CameraPIX.CameraResolution, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
+    init(view: UINSView, cameraResolution: CameraPIX.CameraResolution, cameraPosition: AVCaptureDevice.Position, tele: Bool = false, ultraWide: Bool = false, depth: Bool = false, filterDepth: Bool, multiCameras: [CameraPIX.Camera]?, useExternalCamera: Bool = false, /*photoSupport: Bool = false, */setup: @escaping (CGSize, _Orientation) -> (), captured: @escaping (CVPixelBuffer) -> (), capturedDepth: @escaping (CVPixelBuffer) -> (), capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
+        
+        self.view = view
         
         var multi: Bool = false
         
@@ -767,7 +771,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         capturedMultiCallback = capturedMulti
         
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        lastUIOrientation = UIApplication.shared.statusBarOrientation
+        if let interfaceOrientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation {
+            lastUIOrientation = interfaceOrientation
+        } else {
+            PixelKit.main.logger.log(.warning, .view, "Interface Orientation for Camera Not Found")
+            lastUIOrientation = .portrait
+        }
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         lastUIOrientation = ()
         #endif
@@ -993,7 +1002,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     #if os(iOS) && !targetEnvironment(macCatalyst)
     @objc func deviceRotated() {
-        if lastUIOrientation != UIApplication.shared.statusBarOrientation {
+        guard let orientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation else {
+            pixelKit.logger.log(.warning, .view, "Interface Orientation for CameraPIX Not Found")
+            return
+        }
+        if lastUIOrientation != orientation {
             orientationUpdated = true
         } else {
             forceDetectUIOrientation(new: {
@@ -1008,7 +1021,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         let forceCount = pixelKit.render.fpsMax * 2
         var forceIndex = 0
         let forceTimer = Timer(timeInterval: 1 / Double(pixelKit.render.fpsMax), repeats: true, block: { [weak self] timer in
-            if self?.lastUIOrientation != UIApplication.shared.statusBarOrientation {
+            guard let orientation: UIInterfaceOrientation = self?.view.window?.windowScene?.interfaceOrientation else {
+                self?.pixelKit.logger.log(.warning, .view, "Interface Orientation for CameraPIX Not Found")
+                return
+            }
+            if self?.lastUIOrientation != orientation {
                 new()
                 timer.invalidate()
             } else {
@@ -1078,8 +1095,15 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
+        var orientation: UIInterfaceOrientation = .portrait
+        if let interfaceOrientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation {
+            orientation = interfaceOrientation
+        } else {
+            pixelKit.logger.log(.warning, .view, "Interface Orientation for CameraPIX Not Found")
+        }
+        
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        let _orientation = UIApplication.shared.statusBarOrientation
+        let _orientation = orientation
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         let _orientation: Void = ()
         #endif

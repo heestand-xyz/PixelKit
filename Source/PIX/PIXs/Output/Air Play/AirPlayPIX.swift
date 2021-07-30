@@ -20,7 +20,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     public var connectionCallback: ((Bool) -> ())?
     
     var window: UIWindow?
-    var queueConnect: Bool
+//    var queueConnect: Bool
     
     var tempView: UIView?
     
@@ -32,7 +32,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         
         isConnected = false
         window = nil
-        queueConnect = false
+//        queueConnect = false
         
         nilPix = NilPIX()
         
@@ -136,15 +136,15 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     
     @objc func screenConnect(sender: NSNotification) {
         #if DEBUG
-        print("AirPlayDebug", "screenConnect", "isConnected:\(isConnected)", "appState:\(UIApplication.shared.applicationState == .active)")
+        print("AirPlayDebug", "screenConnect", "isConnected:\(isConnected)")
         #endif
         if !isConnected {
-            if UIApplication.shared.applicationState == .active {
+//            if UIApplication.shared.applicationState == .active {
                 let new_screen = sender.object as! UIScreen
                 connectAirPlay(screen: new_screen)
-            } else {
-                queueConnect = true
-            }
+//            } else {
+//                queueConnect = true
+//            }
         }
         log()
     }
@@ -161,14 +161,15 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     
     @objc func appActive() {
         #if DEBUG
-        print("AirPlayDebug", "appActive", "queueConnect:\(queueConnect)")
+        print("AirPlayDebug", "appActive")
         #endif
-        if queueConnect {
-            let second_screen = UIScreen.screens[1]
-            connectAirPlay(screen: second_screen)
-            log()
-            queueConnect = false
-        }
+        #warning("AirPlay Can't access application state...")
+//        if queueConnect {
+//            let second_screen = UIScreen.screens[1]
+//            connectAirPlay(screen: second_screen)
+//            log()
+//            queueConnect = false
+//        }
     }
     
     func check() {

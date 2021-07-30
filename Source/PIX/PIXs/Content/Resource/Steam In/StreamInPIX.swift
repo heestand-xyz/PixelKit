@@ -47,7 +47,12 @@ final public class StreamInPIX: PIXResource, PIXViewable {
     
     func setup() {
         
-        peer = Peer(gotImg: { img in
+        guard let viewController: UIViewController = viewController else {
+            pixelKit.logger.log(.error, .view, "View Controller Not Found")
+            return
+        }
+        
+        peer = Peer(viewController: viewController, gotImg: { img in
             self.image = img
             self.connected = .connected
         }, peer: { connect_state, device_name in
