@@ -18,7 +18,7 @@ import Metal
 /// float4 inputA = inTexA.sample(s, uv);
 ///
 /// Example:
-/// ~~~~swift
+/// ```swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:
 ///     """
 ///     return pow(inputA, 1.0 / inputB);
@@ -26,7 +26,7 @@ import Metal
 /// )
 /// metalMergerEffectPix.inputA = CameraPIX()
 /// metalMergerEffectPix.inputB = ImagePIX("img_name")
-/// ~~~~
+/// ```
 final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectMergerMetalPIX" }

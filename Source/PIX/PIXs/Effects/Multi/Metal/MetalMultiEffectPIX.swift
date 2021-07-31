@@ -16,7 +16,7 @@ import Metal
 /// vars: pi, u, v, uv, pixCount, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// Example:
-/// ~~~~swift
+/// ```swift
 /// let metalMultiEffectPix = MetalMultiEffectPIX(code:
 ///     """
 ///     float4 inputA = inTexs.sample(s, uv, 0);
@@ -26,7 +26,7 @@ import Metal
 ///     """
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
-/// ~~~~
+/// ```
 final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectMultiMetalPIX" }

@@ -16,7 +16,7 @@ import Metal
 /// vars: pi, u, v, uv, w, h, wu, hv, input, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// Example:
-/// ~~~~swift
+/// ```swift
 /// let metalEffectPix = MetalEffectPIX(code:
 ///     """
 ///     float gamma = 0.25;
@@ -24,7 +24,7 @@ import Metal
 ///     """
 /// )
 /// metalEffectPix.input = CameraPIX()
-/// ~~~~
+/// ```
 final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "effectSingleMetalPIX" }

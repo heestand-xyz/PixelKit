@@ -1096,7 +1096,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func setup(_ pixelBuffer: CVPixelBuffer) {
                 
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        var _orientation: UIInterfaceOrientation = .landscape
+        var _orientation: UIInterfaceOrientation = .portrait
         if let orientation: UIInterfaceOrientation = view.window?.windowScene?.interfaceOrientation {
             _orientation = orientation
         } else {

@@ -16,13 +16,13 @@ import Metal
 /// vars: pi, u, v, uv, in.resx, in.resy, in.aspect, in.uniform
 ///
 /// Example:
-/// ~~~~swift
+/// ```swift
 /// let metalPix = MetalPIX(at: ._1080p, code:
 ///     """
 ///     return float4(u, v, 0.0, 1.0);
 ///     """
 /// )
-/// ~~~~
+/// ```
 final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
