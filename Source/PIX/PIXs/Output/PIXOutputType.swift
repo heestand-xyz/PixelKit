@@ -18,6 +18,15 @@ public enum PIXOutputType: String, Codable, CaseIterable, Identifiable {
         }
     }
     
+    public var typeName: String {
+        switch self {
+        case .airPlay:
+            return "pix-output-air-play"
+        default:
+            return "pix-output-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        }
+    }
+    
     public var type: PIXOutput.Type? {
         switch self {
         case .record:

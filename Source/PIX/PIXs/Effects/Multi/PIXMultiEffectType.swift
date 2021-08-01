@@ -21,6 +21,15 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
         }
     }
     
+    public var typeName: String {
+        switch self {
+        case .metalMultiEffect:
+            return "pix-effect-multi-metal"
+        default:
+            return "pix-effect-multi-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        }
+    }
+    
     public var type: PIXMultiEffect.Type {
         switch self {
         case .array:

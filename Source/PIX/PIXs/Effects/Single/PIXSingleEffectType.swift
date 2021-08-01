@@ -114,6 +114,15 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         }
     }
     
+    public var typeName: String {
+        switch self {
+        case .metalEffect:
+            return "pix-effect-single-metal"
+        default:
+            return "pix-effect-single-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        }
+    }
+    
     public var type: PIXSingleEffect.Type {
         switch self {
         case .average:

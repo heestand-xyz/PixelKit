@@ -307,7 +307,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
     }
     
     deinit {
-        helper!.stop()
+        helper?.stop()
     }
     
     // MARK: Codable

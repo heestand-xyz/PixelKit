@@ -42,6 +42,10 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         }
     }
     
+    public var typeName: String {
+        "pix-content-resource-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+    }
+    
     public var type: PIXResource.Type? {
         switch self {
         case .camera:

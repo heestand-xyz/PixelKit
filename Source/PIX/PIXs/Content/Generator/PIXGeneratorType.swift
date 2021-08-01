@@ -39,6 +39,10 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
         }
     }
     
+    public var typeName: String {
+        "pix-content-generator-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+    }
+    
     public var type: PIXGenerator.Type {
         switch self {
         case .arc:

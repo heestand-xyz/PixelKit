@@ -124,7 +124,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
     required init() {
         metalUniforms = []
         code = "return float4(1.0, 1.0, 1.0, 1.0);"
-        super.init()
+        super.init(name: "Metal B", typeName: "pix-effect-merger-metal")
         bakeFrag()
     }
     

@@ -48,6 +48,15 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
         }
     }
     
+    public var typeName: String {
+        switch self {
+        case .metalMergerEffect:
+            return "pix-effect-merger-metal"
+        default:
+            return "pix-effect-merger-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        }
+    }
+    
     public var type: PIXMergerEffect.Type {
         switch self {
         case .blend:

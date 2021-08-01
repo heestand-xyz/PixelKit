@@ -123,7 +123,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     required init() {
         metalUniforms = []
         code = "return float4(1.0, 1.0, 1.0, 1.0);"
-        super.init()
+        super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
         bakeFrag()
     }
     
