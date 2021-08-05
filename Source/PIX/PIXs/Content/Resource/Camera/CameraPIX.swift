@@ -101,6 +101,13 @@ final public class CameraPIX: PIXResource, PIXViewable {
     public var cameraResolution: CameraResolution = ._720p { didSet { if setup { setupCamera() } } }
     #endif
     
+    var orientedCameraResolution: Resolution {
+        if [.portrait, .portraitUpsideDown].contains(orientation) {
+            return cameraResolution.resolution.flopped
+        }
+        return cameraResolution.resolution
+    }
+    
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
         #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -431,6 +438,9 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self?.camDeattatched(device: notif.object! as! AVCaptureDevice)
         }
         #endif
+        #if os(iOS) && !targetEnvironment(macCatalyst)
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationChangedNotification), name: UIDevice.orientationDidChangeNotification, object: nil)
+        #endif
     }
     
     func setupCamera() {
@@ -467,7 +477,6 @@ final public class CameraPIX: PIXResource, PIXViewable {
         helper = CameraHelper(view: view, cameraResolution: cameraResolution, cameraPosition: camera.position, tele: camera.isTele, ultraWide: camera.isUltraWide, depth: depth, filterDepth: filterDepth, multiCameras: multiCameras, useExternalCamera: extCam, setup: { [weak self] _, orientation in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
-            // CHECK multiple setups on init
             self.orientation = orientation
             #if os(iOS) && !targetEnvironment(macCatalyst)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
@@ -487,7 +496,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
-            if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
+            if self.view.resolution == nil || self.view.resolution! != self.finalResolution || pixelBuffer.resolution != self.finalResolution {
                 self.applyResolution { [weak self] in
                     self?.render()
                 }
@@ -542,6 +551,14 @@ final public class CameraPIX: PIXResource, PIXViewable {
         setupCamera()
     }
     
+    #endif
+    
+    // MARK: - Orienation
+    
+    #if os(iOS)
+    @objc func orientationChangedNotification(_ notification: NSNotification) {
+        self.orientation = notification.object as? _Orientation
+    }
     #endif
     
     // MARK: - Property Funcs
@@ -873,7 +890,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //            }
         }
 
-        pixelKit.logger.log(.info, .resource, "Camera Active Format: \(device!.activeFormat.description)")
+        pixelKit.logger.log(.info, .resource, "Camera Active Format: \(device?.activeFormat.description ?? "nil")")
         
 //        print("Active Format: \(device!.activeFormat.description)")
 //
@@ -959,6 +976,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if depth {
+                #warning("Add support for LiDAR Cameras")
+                guard cameraPosition == .front && UIDevice.current.userInterfaceIdiom == .phone else {
+                    pixelKit.logger.log(.error, .resource, "Camera can't add depth output on back camera or iPad (right now).")
+                    return
+                }
                 guard captureSession.canAddOutput(depthOutput!) else {
                     pixelKit.logger.log(.error, .resource, "Camera can't add depth output.")
                     return

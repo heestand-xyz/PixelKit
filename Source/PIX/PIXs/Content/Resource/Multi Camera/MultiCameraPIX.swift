@@ -27,6 +27,14 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
     }
     
     public var cameraPix: CameraPIX? {
+        willSet {
+            if newValue == nil {
+                if let cameraPix = cameraPix {
+                    cameraPix.multi = false
+                    cameraPix.multiCallbacks.removeAll(where: { $0.id == id })
+                }
+            }
+        }
         didSet {
             guard let cameraPix = cameraPix else { return }
             guard cameraPix.multiCallbacks.filter({ $0.id == id }).isEmpty else { return }
@@ -50,6 +58,7 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
                         }
                 })
             )
+            cameraPix.multi = true
         }
     }
     
@@ -69,15 +78,15 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "Multi Camera", typeName: "pix-content-resource-multi-camera")
-        setup()
+        setupCamera()
     }
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-        setup()
+        setupCamera()
     }
     
-    func setup() {
+    func setupCamera() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if self.cameraPix == nil {
@@ -87,7 +96,7 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
         }
     }
     
-    public static func setup(with cameraPix: CameraPIX, camera: CameraPIX.Camera) -> MultiCameraPIX {
+    public static func setup(cameraPix: CameraPIX, camera: CameraPIX.Camera) -> MultiCameraPIX {
         
         cameraPix.multi = true
         

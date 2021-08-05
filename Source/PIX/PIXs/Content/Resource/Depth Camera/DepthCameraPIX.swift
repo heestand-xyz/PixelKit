@@ -18,8 +18,17 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
     // MARK: - Public Properties
     
     public var cameraPix: CameraPIX? {
+        willSet {
+            if newValue == nil {
+                if let cameraPix = cameraPix {
+                    cameraPix.depth = false
+                    cameraPix.depthCallback = nil
+                }
+            }
+        }
         didSet {
-            cameraPix?.depthCallback = { [weak self] depthPixelBuffer in
+            guard let cameraPix = cameraPix else { return }
+            cameraPix.depthCallback = { [weak self] depthPixelBuffer in
                 guard let self = self else { return }
                 self.pixelKit.logger.log(node: self, .info, .resource, "Depth Camera frame captured.", loop: true)
                 self.resourcePixelBuffer = depthPixelBuffer
@@ -31,6 +40,7 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
                     self.render()
                 }
             }
+            cameraPix.depth = true
         }
     }
     
@@ -38,28 +48,28 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
     
     public required init() {
         super.init(name: "Depth Camera", typeName: "pix-content-resource-depth-camera")
-        setup()
+        setupCamera()
     }
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-        setup()
+        setupCamera()
     }
     
-    func setup() {
+    func setupCamera() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if self.cameraPix == nil {
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")
                 self.pixelKit.logger.log(node: self, .warning, .resource, "Also enable .depth on the CameraPIX.")
                 self.pixelKit.logger.log(node: self, .warning, .resource, "To access values outside of the 0.0 and 1.0 bounds please use PixelKit.main.render.bits = ._16")
-                self.pixelKit.logger.log(node: self, .info, .resource, "The depth image will be rotated, use DepthCameraPIX.setup() to fix this or use a FlipFlopPIX.")
-                self.pixelKit.logger.log(node: self, .info, .resource, "The depth image will be red, use DepthCameraPIX.setup() to fix this or use a ChannelMixPIX.")
+                self.pixelKit.logger.log(node: self, .info, .resource, "The depth image will be rotated, use DepthCameraPIX.setupCamera() to fix this or use a FlipFlopPIX.")
+                self.pixelKit.logger.log(node: self, .info, .resource, "The depth image will be red, use DepthCameraPIX.setupCamera() to fix this or use a ChannelMixPIX.")
             }
         }
     }
     
-    public static func setup(with cameraPix: CameraPIX, filter: Bool = true) -> ChannelMixPIX {
+    public static func setup(cameraPix: CameraPIX, filter: Bool = true) -> ChannelMixPIX {
         
         cameraPix.filterDepth = filter
         cameraPix.depth = true
