@@ -185,7 +185,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
     #if os(iOS) && !targetEnvironment(macCatalyst)
     
     public var depth: Bool = false { didSet { if setup { setupCamera() } } }
-    public var filterDepth: Bool = false { didSet { if setup { setupCamera() } } }
+    public var filterDepth: Bool = true { didSet { if setup { setupCamera() } } }
     var depthCallback: ((CVPixelBuffer) -> ())?
     
     public var multi: Bool = false { didSet { if setup { setupCamera() } } }
