@@ -102,9 +102,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
     #endif
     
     var orientedCameraResolution: Resolution {
+        #if os(iOS)
         if [.portrait, .portraitUpsideDown].contains(orientation) {
             return cameraResolution.resolution.flopped
         }
+        #endif
         return cameraResolution.resolution
     }
     
