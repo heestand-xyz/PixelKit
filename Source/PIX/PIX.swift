@@ -113,6 +113,20 @@ open class PIX: NODE, ObservableObject, Equatable {
         }
         return nil
     }
+    var presentedDownstreamPix: PIX? {
+        var pix: PIX? = self
+        while pix != nil {
+            if pix?.view.superview != nil {
+                return pix
+            }
+            if let pixOut: NODEOutIO = pix as? NODEOutIO {
+                pix = pixOut.outputPathList.first?.nodeIn as? PIX
+            } else {
+                return nil
+            }
+        }
+        return nil
+    }
     #endif
     
     public var viewInterpolation: ViewInterpolation = .linear {
