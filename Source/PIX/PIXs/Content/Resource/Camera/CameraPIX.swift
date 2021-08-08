@@ -484,7 +484,13 @@ final public class CameraPIX: PIXResource, PIXViewable {
                               filterDepth: filterDepth,
                               multiCameras: multiCameras,
                               useExternalCamera: extCam,
-                              presentedDownstreamPix: { [weak self] in self?.presentedDownstreamPix },
+                              presentedDownstreamPix: { [weak self] in
+            #if os(iOS)
+            return self?.presentedDownstreamPix
+            #else
+            return nil
+            #endif
+        },
                               setup: { [weak self] _, orientation in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
@@ -687,9 +693,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     
     var presentedDownstreamPix: () -> (PIX?)
     
+    #if os(iOS)
     var window: UIWindow? {
         presentedDownstreamPix()?.view.window
     }
+    #endif
 
     init(cameraResolution: CameraPIX.CameraResolution,
          cameraPosition: AVCaptureDevice.Position,
