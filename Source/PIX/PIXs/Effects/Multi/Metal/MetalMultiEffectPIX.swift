@@ -122,7 +122,13 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     required init() {
         metalUniforms = []
-        code = "return float4(1.0, 1.0, 1.0, 1.0);"
+        code =
+        """
+        float4 a = inTexs.sample(s, uv, 0);
+        float4 b = inTexs.sample(s, uv, 1);
+        float4 c = inTexs.sample(s, uv, 2);
+        return float4(a.r, b.g, c.b, 1.0);
+        """
         super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
         bakeFrag()
     }

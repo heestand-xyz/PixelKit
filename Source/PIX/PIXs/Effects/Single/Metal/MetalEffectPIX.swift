@@ -105,7 +105,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
     required init() {
         metalUniforms = []
-        code = "return float4(1.0, 1.0, 1.0, 1.0);"
+        code = "return inTex.sample(s, uv);"
         super.init(name: "Metal B", typeName: "pix-effect-single-metal")
         bakeFrag()
     }

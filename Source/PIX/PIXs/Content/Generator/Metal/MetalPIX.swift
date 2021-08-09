@@ -97,7 +97,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     
     required init(at resolution: Resolution) {
         metalUniforms = []
-        code = "return float4(1.0, 1.0, 1.0, 1.0);"
+        code = "return float4(u, v, 0.0, 1.0);"
         super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
         bakeFrag()
     }

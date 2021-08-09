@@ -5,7 +5,7 @@
 //  Created by Anton Heestand on 2020-02-02.
 //
 
-#if os(iOS) && !targetEnvironment(macCatalyst)
+#if os(iOS) && !targetEnvironment(macCatalyst) && !targetEnvironment(simulator)
 
 import RenderKit
 import Resolution

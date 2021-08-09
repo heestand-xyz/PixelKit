@@ -69,8 +69,10 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return DepthCameraPIX.self
         case .multiCamera:
             return MultiCameraPIX.self
+        #if !targetEnvironment(simulator)
         case .paint:
             return PaintPIX.self
+        #endif
         case .streamIn:
             return StreamInPIX.self
         #endif
