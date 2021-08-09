@@ -18,7 +18,7 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Public Properties
     
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("rotation", range: -0.5...0.5) public var rotation: CGFloat = 0.0
+    @LiveFloat("rotation", range: -0.5...0.5, increment: 0.125) public var rotation: CGFloat = 0.0
     @LiveFloat("scale", range: 0.0...2.0) public var scale: CGFloat = 1.0
     @LiveSize("size") public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     
