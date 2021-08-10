@@ -21,7 +21,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case flare
     case flipFlop
     case freeze
-    case histogram
+    case equalize
     case kaleidoscope
     case levels
     case metalEffect
@@ -78,8 +78,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Flip Flop"
         case .freeze:
             return "Freeze"
-        case .histogram:
-            return "Histogram"
+        case .equalize:
+            return "Equalize"
         case .kaleidoscope:
             return "Kaleidoscope"
         case .levels:
@@ -164,8 +164,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return FlipFlopPIX.self
         case .freeze:
             return FreezePIX.self
-        case .histogram:
-            return HistogramPIX.self
+        case .equalize:
+            return EqualizePIX.self
         case .kaleidoscope:
             return KaleidoscopePIX.self
         case .levels:

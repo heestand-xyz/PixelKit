@@ -1,5 +1,5 @@
 //
-//  HistogramPIX.swift
+//  EqualizePIX.swift
 //  PixelKit
 //
 //  Created by Anton Heestand on 2021-08-09.
@@ -15,7 +15,7 @@ import MetalPerformanceShaders
 #endif
 import SwiftUI
 
-final public class HistogramPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/*, NODEResolution*/ {
+final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/*, NODEResolution*/ {
         
     override public var shaderName: String { return "nilPIX" }
 
@@ -39,7 +39,7 @@ final public class HistogramPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewa
     // MARK: - Life Cycle
     
     public required init() {
-        super.init(name: "Histogram", typeName: "pix-effect-single-histogram")
+        super.init(name: "Equalize", typeName: "pix-effect-single-equalize")
         customRenderDelegate = self
         customRenderActive = true
     }
@@ -96,25 +96,25 @@ final public class HistogramPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewa
 
 public extension NODEOut {
     
-    func pixHistogram(power: Int = 8) -> HistogramPIX {
-        let histogramPix = HistogramPIX()
-        histogramPix.name = ":histogram:"
-        histogramPix.input = self as? PIX & NODEOut
-        histogramPix.power = power
-        return histogramPix
+    func pixEqualize(power: Int = 8) -> EqualizePIX {
+        let equalizePix = EqualizePIX()
+        equalizePix.name = ":equalize:"
+        equalizePix.input = self as? PIX & NODEOut
+        equalizePix.power = power
+        return equalizePix
     }
     
 }
 
-struct HistogramPIX_Previews: PreviewProvider {
+struct EqualizePIX_Previews: PreviewProvider {
     static var previews: some View {
         PixelView(pix: {
             let noisePix = NoisePIX()
             noisePix.octaves = 10
             noisePix.colored = true
-            let histogramPix = HistogramPIX()
-            histogramPix.input = noisePix
-            return histogramPix
+            let equalizePix = EqualizePIX()
+            equalizePix.input = noisePix
+            return equalizePix
         }())
     }
 }
