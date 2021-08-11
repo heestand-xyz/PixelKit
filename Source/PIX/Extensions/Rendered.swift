@@ -220,6 +220,7 @@ public extension PIX {
                                green: color.green / count,
                                blue: color.blue / count,
                                alpha: color.alpha / count)
+            
             return color
         }
         @available(*, deprecated, renamed: "averageBrightness")

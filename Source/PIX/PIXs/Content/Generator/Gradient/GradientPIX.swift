@@ -12,6 +12,9 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
+@available(*, deprecated, renamed: "ColorStop")
+public typealias ColorStep = ColorStop
+
 public struct ColorStop: Floatable {
     public var stop: CGFloat
     public var color: PixelColor
