@@ -46,19 +46,20 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     @LiveEnum("quality") public var quality: SampleQualityMode = .mid
     @LiveFloat("angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
+    @LiveFloat("lumaGamma", range: 0.0...2.0) public var lumaGamma: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_style, _radius, _quality, _angle, _position] + super.liveList
+        [_style, _radius, _quality, _angle, _position, _lumaGamma] + super.liveList
     }
     
     override public var values: [Floatable] {
-        return [radius, angle, position]
+        [radius, angle, position, lumaGamma]
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y]
+        return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, lumaGamma]
     }
     
     // MARK: - Life Cycle

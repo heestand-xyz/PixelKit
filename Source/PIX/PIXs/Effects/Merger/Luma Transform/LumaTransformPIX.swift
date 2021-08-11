@@ -21,15 +21,16 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     @LiveFloat("rotation", range: -0.5...0.5, increment: 0.125) public var rotation: CGFloat = 0.0
     @LiveFloat("scale", range: 0.0...2.0) public var scale: CGFloat = 1.0
     @LiveSize("size") public var size: CGSize = CGSize(width: 1.0, height: 1.0)
+    @LiveFloat("lumaGamma", range: 0.0...2.0) public var lumaGamma: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_position, _rotation, _scale, _size] + super.liveList
+        [_position, _rotation, _scale, _size, _lumaGamma] + super.liveList
     }
     
     override public var values: [Floatable] {
-        [position, rotation, scale, size]
+        [position, rotation, scale, size, lumaGamma]
     }
     
     // MARK: - Life Cycle

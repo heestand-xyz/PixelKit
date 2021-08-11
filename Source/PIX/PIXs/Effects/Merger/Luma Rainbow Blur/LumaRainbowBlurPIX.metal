@@ -24,6 +24,7 @@ struct Uniforms{
     float x;
     float y;
     float light;
+    float lumaGamma;
 };
 
 fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
@@ -41,6 +42,7 @@ fragment float4 effectMergerLumaRainbowBlurPIX(VertexOut out [[stage_in]],
     float4 cb = inTexB.sample(s, uv);
     
     float lum = (cb.r + cb.g + cb.b) / 3;
+    lum = pow(lum, 1 / max(0.001, in.lumaGamma));
     
     uint w = inTexA.get_width();
     uint h = inTexA.get_height();

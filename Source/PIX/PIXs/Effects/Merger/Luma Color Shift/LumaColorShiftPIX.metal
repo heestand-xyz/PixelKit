@@ -22,6 +22,7 @@ struct Uniforms {
     float g;
     float b;
     float a;
+    float lumaGamma;
 };
 
 fragment float4 effectMergerLumaColorShiftPIX(VertexOut out [[stage_in]],
@@ -38,6 +39,7 @@ fragment float4 effectMergerLumaColorShiftPIX(VertexOut out [[stage_in]],
     
     float4 cb = inTexB.sample(s, uv);
     float lum = (cb.r + cb.g + cb.b) / 3;
+    lum = pow(lum, 1 / max(0.001, in.lumaGamma));
     
     c *= float4(1.0 - ((1.0 - in.r) * lum),
                 1.0 - ((1.0 - in.g) * lum),

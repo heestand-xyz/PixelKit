@@ -21,15 +21,16 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
     @LiveFloat("hue", range: -0.5...0.5) public var hue: CGFloat = 0.0
     @LiveFloat("saturation", range: 0.0...2.0) public var saturation: CGFloat = 1.0
     @LiveColor("tintColor") public var tintColor: PixelColor = .white
+    @LiveFloat("lumaGamma", range: 0.0...2.0) public var lumaGamma: CGFloat = 1.0
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_hue, _saturation, _tintColor] + super.liveList
+        [_hue, _saturation, _tintColor, _lumaGamma] + super.liveList
     }
     
     override public var values: [Floatable] {
-        [hue, saturation, tintColor]
+        [hue, saturation, tintColor, lumaGamma]
     }
     
     // MARK: - Life Cycle
