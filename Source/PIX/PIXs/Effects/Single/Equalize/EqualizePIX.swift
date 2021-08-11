@@ -15,25 +15,18 @@ import MetalPerformanceShaders
 #endif
 import SwiftUI
 
-final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/*, NODEResolution*/ {
+final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         
     override public var shaderName: String { return "nilPIX" }
-
-//    public var resolution: Resolution = .square(256)
     
     // MARK: - Public Properties
     
-    @LiveInt("power", range: 8...12) var power: Int = 8 {
-        didSet {
-//            resolution = .square(Int(pow(2.0, CGFloat(power))))
-        }
-    }
     @LiveBool("includeAlpha") var includeAlpha: Bool = false
 
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_power, _includeAlpha]
+        [_includeAlpha]
     }
     
     // MARK: - Life Cycle
@@ -64,7 +57,7 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     func histogram(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         
         var histogramInfo = MPSImageHistogramInfo(
-            numberOfHistogramEntries: Int(pow(2.0, CGFloat(power))),
+            numberOfHistogramEntries: 256,
             histogramForAlpha: ObjCBool(includeAlpha),
             minPixelValue: vector_float4(0,0,0,0),
             maxPixelValue: vector_float4(1,1,1,1)
@@ -96,11 +89,10 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
 
 public extension NODEOut {
     
-    func pixEqualize(power: Int = 8) -> EqualizePIX {
+    func pixEqualize() -> EqualizePIX {
         let equalizePix = EqualizePIX()
         equalizePix.name = ":equalize:"
         equalizePix.input = self as? PIX & NODEOut
-        equalizePix.power = power
         return equalizePix
     }
     

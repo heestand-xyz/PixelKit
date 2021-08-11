@@ -25,6 +25,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case kaleidoscope
     case levels
     case metalEffect
+    case morph
     case `nil`
     case quantize
     case rainbowBlur
@@ -86,6 +87,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Levels"
         case .metalEffect:
             return "Metal Effect"
+        case .morph:
+            return "Morph"
         case .`nil`:
             return "Nil"
         case .quantize:
@@ -172,6 +175,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return LevelsPIX.self
         case .metalEffect:
             return MetalEffectPIX.self
+        case .morph:
+            return MorphPIX.self
         case .`nil`:
             return NilPIX.self
         case .quantize:
