@@ -66,10 +66,10 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         fraction = (v - in.offset) / in.scale;
     } else if (in.type == 2) {
         // Radial
-        fraction = (sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2)) * 2 - in.offset) / in.scale;
+        fraction = 1.0 - (sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2)) * 2 - in.offset) / in.scale;
     } else if (in.type == 3) {
         // Angle
-        fraction = (atan2(v - 0.5, (-u + 0.5) * in.aspect) / (pi * 2) + 0.5 - in.offset) / in.scale;
+        fraction = 1.0 - (atan2((-u + 0.5) * in.aspect, -(v - 0.5)) / (pi * 2) + 0.5 - in.offset) / in.scale;
     }
 
     FractionAndZero fz = fractionAndZero(fraction, int(in.extend));

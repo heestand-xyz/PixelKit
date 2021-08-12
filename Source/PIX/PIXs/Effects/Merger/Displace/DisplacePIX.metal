@@ -30,7 +30,7 @@ fragment float4 effectMergerDisplacePIX(VertexOut out [[stage_in]],
     
     float4 cb = inTexB.sample(s, uv);
 
-    float4 ca = inTexA.sample(s, float2(u + (cb.r - in.origin) * in.dist,
+    float4 ca = inTexA.sample(s, float2(u + (-(cb.r - 0.5) + 0.5 - in.origin) * in.dist,
                                         v + (cb.g - in.origin) * in.dist));
     
     return ca;

@@ -32,10 +32,10 @@ fragment float4 effectSingleSlopePIX(VertexOut out [[stage_in]],
     float2 uvv = float2(u, v + (1.0 / float(h)));
     
     if (uvu.x > 1.0) {
-        return 0.5;
+        return float4(0.5, 0.5, 0.5, 1.0);
     }
     if (uvv.y > 1.0) {
-        return 0.5;
+        return float4(0.5, 0.5, 0.5, 1.0);
     }
     
     float4 c = inTex.sample(s, uv);

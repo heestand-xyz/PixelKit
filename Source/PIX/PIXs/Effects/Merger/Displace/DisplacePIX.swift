@@ -17,7 +17,7 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveFloat("distance", increment: 0.1) public var distance: CGFloat = 0.1
+    @LiveFloat("distance", range: -1.0...1.0, increment: 0.25) public var distance: CGFloat = 0.25
     @LiveFloat("origin") public var origin: CGFloat = 0.5
     
     // MARK: - Property Helpers
