@@ -20,7 +20,7 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveEnum("blendMode") public var blendMode: RenderKit.BlendMode = .average
+    @LiveEnum("blendMode") public var blendMode: RenderKit.BlendMode = .add
     @LiveBool("bypassTransform") public var bypassTransform: Bool = false
     @LivePoint("position") public var position: CGPoint = .zero
     @LiveFloat("rotation", range: -0.5...0.5, increment: 0.125) public var rotation: CGFloat = 0.0
