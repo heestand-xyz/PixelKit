@@ -98,7 +98,7 @@ public extension NODEOut {
     
 }
 
-struct EqualizePIX_Previews: PreviewProvider {
+struct EqualizePIX_Previews: SwiftUI.PreviewProvider {
     static var previews: some View {
         PixelView(pix: {
             let noisePix = NoisePIX()
