@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 final public class MultiCameraPIX: PIXResource, PIXViewable {
     
     override public var shaderName: String { return "contentResourceCameraPIX" }
