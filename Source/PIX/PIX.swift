@@ -358,7 +358,9 @@ open class PIX: NODE, ObservableObject, Equatable {
     private struct EmptyDecodable: Decodable {}
 
     public required init(from decoder: Decoder) throws {
+        
         let container = try decoder.container(keyedBy: PIXCodingKeys.self)
+        
         id = try container.decode(UUID.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         typeName = try container.decode(String.self, forKey: .typeName)

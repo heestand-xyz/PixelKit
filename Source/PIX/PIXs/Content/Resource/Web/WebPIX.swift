@@ -35,7 +35,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { [weak self] in self?.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
     public var webView: WKWebView = .init()
@@ -52,20 +52,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
                 
         super.init(name: "Web", typeName: "pix-content-resource-web")
         
-        webView.navigationDelegate = helper
-        helper.refreshCallback = { [weak self] in
-            self?.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
-            self?.setNeedsBuffer()
-        }
-        
-        refresh()
-        
-        setFrame()
-        
-        applyResolution { [weak self] in
-            self?.renderWeb()
-        }
-        
+        setup()
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -81,6 +68,33 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    func setup() {
+        
+        webView.navigationDelegate = helper
+        helper.refreshCallback = { [weak self] in
+            self?.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
+            self?.setNeedsBuffer()
+        }
+        
+        refresh()
+        
+        setFrame()
+        
+        applyResolution { [weak self] in
+            self?.renderWeb()
+        }
+        
+        _resolution.didSetValue = { [weak self] in
+            self?.setFrame()
+            self?.applyResolution { [weak self] in
+                self?.setNeedsBuffer()
+            }
+        }
     }
     
     // MARK: - Load

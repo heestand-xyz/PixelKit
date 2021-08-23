@@ -30,7 +30,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     override public var shaderName: String { return "contentResourceBGRPIX" }
     #endif
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame();  applyResolution { [weak self] in self?.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     let helper: VectorHelper = .init()
     
@@ -51,11 +51,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
         super.init(name: "Vector", typeName: "pix-content-resource-vector")
-        webView.navigationDelegate = helper
-        helper.loaded = { [weak self] in
-            self?.setNeedsBuffer()
-        }
-        setFrame()
+        setup()
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -76,6 +72,23 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    func setup() {
+        webView.navigationDelegate = helper
+        helper.loaded = { [weak self] in
+            self?.setNeedsBuffer()
+        }
+        setFrame()
+        _resolution.didSetValue = { [weak self] in
+            self?.setFrame()
+            self?.applyResolution { [weak self] in
+                self?.setNeedsBuffer()
+            }
+        }
     }
     
     // MARK: - Load

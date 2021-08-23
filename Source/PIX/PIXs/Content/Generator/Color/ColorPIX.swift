@@ -17,8 +17,14 @@ final public class ColorPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Property Helpers
     
+    public override var liveList: [LiveWrap] {
+        super.liveList.filter { liveWrap in
+            liveWrap.typeName != "backgroundColor"
+        }
+    }
+    
     override public var values: [Floatable] {
-        return [super.color]
+        [super.color]
     }
     
     // MARK: - Life Cycle

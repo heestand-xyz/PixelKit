@@ -20,7 +20,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
 
     // MARK: - Public Properties
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128 { didSet { setFrame(); applyResolution { [weak self] in self?.setNeedsBuffer() } } }
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
     
     let helper: PaintHelper
     
@@ -174,6 +174,12 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     // MARK: Setup
     
     func setup() {
+        _resolution.didSetValue = { [weak self] in
+            self?.setFrame()
+            self?.applyResolution { [weak self] in
+                self?.setNeedsBuffer()
+            }
+        }
         canvasView.backgroundColor = backgroundColor.uiColor
         canvasView.delegate = helper
         pencilInteraction.delegate = helper

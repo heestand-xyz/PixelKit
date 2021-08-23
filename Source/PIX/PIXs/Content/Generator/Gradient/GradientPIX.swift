@@ -15,7 +15,7 @@ import PixelColor
 @available(*, deprecated, renamed: "ColorStop")
 public typealias ColorStep = ColorStop
 
-public struct ColorStop: Floatable {
+public struct ColorStop: Floatable, Codable {
     public var stop: CGFloat
     public var color: PixelColor
     public init(_ stop: CGFloat, _ color: PixelColor) {
@@ -82,7 +82,12 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     @LiveFloat("offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
     @LiveEnum("extendMode") public var extendMode: ExtendMode = .hold
-    public var colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)] {
+    @available(*, deprecated, renamed: "colorStops")
+    public var colorSteps: [ColorStop] {
+        get { colorStops }
+        set { colorStops = newValue }
+    }
+    public var colorStops: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)] {
         didSet {
             render()
         }
@@ -101,7 +106,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     }
 
     override public var uniformArray: [[CGFloat]] {
-        colorSteps.map(\.floats)
+        colorStops.map(\.floats)
     }
     
     public override var uniforms: [CGFloat] {
@@ -116,14 +121,28 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             direction: Direction = .vertical,
-                            colorSteps: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]) {
+                            colorStops: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]) {
         self.init(at: resolution)
         self.direction = direction
-        self.colorSteps = colorSteps
+        self.colorStops = colorStops
+    }
+    
+    // MARK: - Codable
+    
+    enum CodingKeys: CodingKey {
+        case colorStops
     }
     
     required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        colorStops = try container.decode([ColorStop].self, forKey: .colorStops)
         try super.init(from: decoder)
+    }
+    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(colorStops, forKey: .colorStops)
+        try super.encode(to: encoder)
     }
     
     // MARK: - Property Funcs
@@ -159,7 +178,7 @@ public extension NODEOut {
         let resolution: Resolution = PixelKit.main.render.bits == ._8 ? ._256 : ._8192
         let gradientPix = GradientPIX(at: .custom(w: resolution.w, h: 1))
         gradientPix.name = "gradientMap:gradient"
-        gradientPix.colorSteps = [ColorStop(0.0, firstColor), ColorStop(1.0, lastColor)]
+        gradientPix.colorStops = [ColorStop(0.0, firstColor), ColorStop(1.0, lastColor)]
         lookupPix.inputB = gradientPix
         return lookupPix
     }

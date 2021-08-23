@@ -22,7 +22,7 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveInt("screenIndex", range: 0...2) public var screenIndex: Int = 0 { didSet { setupScreenCapture() } }
+    @LiveInt("screenIndex", range: 0...9) public var screenIndex: Int = 0
     
     public override var liveList: [LiveWrap] {
         super.liveList + [_screenIndex]
@@ -33,11 +33,13 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     public required init() {
         super.init(name: "Screen Capture", typeName: "pix-content-resource-screen-capture")
         setupScreenCapture()
+        _screenIndex.didSetValue = { [weak self] in self?.setupScreenCapture() }
     }
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         setupScreenCapture()
+        _screenIndex.didSetValue = { [weak self] in self?.setupScreenCapture() }
     }
     
     deinit {
@@ -53,6 +55,11 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     // MARK: Setup
     
     func setupScreenCapture() {
+        guard NSScreen.screens.indices.contains(screenIndex) else {
+            pixelKit.logger.log(node: self, .info, .resource, "Can't Setup Screen Captrue at index \(screenIndex)")
+            return
+        }
+        pixelKit.logger.log(node: self, .info, .resource, "Setup Screen Captrue at index \(screenIndex)")
         helper?.stop()
         helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { [weak self] _ in
             guard let self = self else { return }
