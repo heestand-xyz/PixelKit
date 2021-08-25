@@ -156,7 +156,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             #if os(iOS) && !targetEnvironment(macCatalyst)
             return false
             #elseif os(macOS) || targetEnvironment(macCatalyst)
-            return false
+            return self == .external
             #endif
         }
         var isTele: Bool {
@@ -509,6 +509,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self.setupCallbacks.forEach({ $0() })
             self.setupCallbacks = []
             self.didSetup = true
+        }, clear: { [weak self] in
+            self?.clearRender()
         }, captured: { [weak self] pixelBuffer in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
@@ -709,6 +711,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
          useExternalCamera: Bool = false,
          presentedDownstreamPix: @escaping () -> (PIX?),
          setup: @escaping (CGSize, _Orientation) -> (),
+         clear: @escaping () -> (),
          captured: @escaping (CVPixelBuffer) -> (),
          capturedDepth: @escaping (CVPixelBuffer) -> (),
          capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
@@ -772,24 +775,22 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         
+        let defaultDevice = AVCaptureDevice.default(for: .video)
         if !useExternalCamera {
-            device = AVCaptureDevice.default(for: .video)
+            device = defaultDevice
         } else {
-            var firstFound = false
-            var secondFound = false
-            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: .video, position: .unspecified)
+            print("----------------------------")
+            dump(discoverySession.devices)
             for iDevice in discoverySession.devices {
-                if iDevice.hasMediaType(.video) {
-                    if firstFound {
-                        device = iDevice
-                        secondFound = true
-                        break
-                    }
-                    firstFound = true
-                }
+                guard iDevice != defaultDevice else { continue }
+                guard iDevice.hasMediaType(.video) else { continue }
+                device = iDevice
+                break
             }
-            if !secondFound {
-                device = AVCaptureDevice.default(for: .video)
+            if device == nil {
+                PixelKit.main.logger.log(.warning, .view, "External Camera Not Found")
+                clear()
             }
         }
         

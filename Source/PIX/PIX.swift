@@ -400,6 +400,8 @@ open class PIX: NODE, ObservableObject, Equatable {
             liveWrap.setLiveCodable(liveCodable)
         }
         
+        render()
+        
     }
     
     open func encode(to encoder: Encoder) throws {
