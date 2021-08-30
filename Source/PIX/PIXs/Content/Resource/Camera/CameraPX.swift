@@ -17,7 +17,7 @@
 //        print("PX Cicle Slug", slug)
 //        return PXStore.store[slug] ?? {
 //            let pix = CameraPIX()
-//            print("PX Camera New....................", slug)
+//            print("PX Camera New", slug)
 //            let object = PXObject(pix: pix)
 //            PXStore.store[slug] = object
 //            return object
