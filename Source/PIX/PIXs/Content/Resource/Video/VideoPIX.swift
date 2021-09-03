@@ -328,6 +328,10 @@ final public class VideoPIX: PIXResource, PIXViewable {
         helper?.doneCallback = callback
     }
     
+    public func listenToFrames(_ callback: @escaping () -> ()) {
+        helper?.frameCallback = callback
+    }
+    
     #if os(iOS) || os(tvOS)
     public func thumbnail(fraction: CGFloat, at size: CGSize, placement: Texture.ImagePlacement = .fill) -> UIImage? {
         guard let player = helper?.player else {
@@ -402,6 +406,7 @@ class VideoHelper: NSObject {
     var bypass: Bool = false
     
     var doneCallback: (() -> ())?
+    var frameCallback: (() -> ())?
 
     // MARK: Life Cycle
     
@@ -483,6 +488,7 @@ class VideoHelper: NSObject {
                 let renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
                 PixelKit.main.logger.log(.debug, .resource, "Video Frame Time: [\(renderTimeMs)ms]")
                 update(pixelBuffer, CGFloat(fraction))
+                frameCallback?()
             }
         }
         
