@@ -94,6 +94,14 @@ final public class CameraPIX: PIXResource, PIXViewable {
             #endif
             }
         }
+        public init?(resoluiton: Resolution) {
+            guard let cameraResolution = CameraResolution.allCases.first(where: { cameraResolution in
+                cameraResolution.resolution == resoluiton
+            }) else {
+                return nil
+            }
+            self = cameraResolution
+        }
     }
     #if os(iOS) && !targetEnvironment(macCatalyst)
     public var cameraResolution: CameraResolution = ._1080p { didSet { if setup { setupCamera() } } }
