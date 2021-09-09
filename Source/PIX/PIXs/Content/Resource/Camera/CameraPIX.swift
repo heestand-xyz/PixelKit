@@ -39,7 +39,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     var access: Bool = false
     var orientation: _Orientation?
-    
+
     public override var bypass: Bool {
         didSet {
             super.bypass = bypass
@@ -101,15 +101,15 @@ final public class CameraPIX: PIXResource, PIXViewable {
     public var cameraResolution: CameraResolution = ._720p { didSet { if setup { setupCamera() } } }
     #endif
     
-    var orientedCameraResolution: Resolution {
-        #if os(iOS)
-        if [.portrait, .portraitUpsideDown].contains(orientation) {
-            return cameraResolution.resolution.flopped
-        }
-        #endif
-        return cameraResolution.resolution
-    }
-    
+//    var orientedCameraResolution: Resolution {
+//        #if os(iOS)
+//        if [.portrait, .portraitUpsideDown].contains(orientation) {
+//            return cameraResolution.resolution.flopped
+//        }
+//        #endif
+//        return cameraResolution.resolution
+//    }
+//
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
         #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -194,7 +194,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
     struct MultiCallback {
         let id: UUID
         let camera: () -> (Camera?)
-        let setup: (_Orientation) -> ()
+        let setup: (_Orientation?) -> ()
         let frameLoop: (CVPixelBuffer) -> ()
     }
     var multiCallbacks: [MultiCallback] = []
@@ -491,13 +491,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
             return nil
             #endif
         },
-                              setup: { [weak self] _, orientation in
+        setup: { [weak self] _, orientation in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             self.orientation = orientation
-            #if os(iOS) && !targetEnvironment(macCatalyst)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
-            #endif
             self.cameraDelegate?.cameraSetup(pix: self)
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if self.multi {
@@ -515,7 +513,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
-            if self.view.resolution == nil || self.view.resolution! != self.finalResolution || pixelBuffer.resolution != self.finalResolution {
+            if self.view.resolution == nil || self.view.resolution! != self.derivedResolution {
                 self.applyResolution { [weak self] in
                     self?.render()
                 }
@@ -683,12 +681,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         }
     }
 
-    var lastUIOrientation: _Orientation
+    var lastUIOrientation: _Orientation?
 
     var initialFrameCaptured = false
     var orientationUpdated = false
     
-    let setupCallback: (CGSize, _Orientation) -> ()
+    let setupCallback: (CGSize, _Orientation?) -> ()
     let capturedCallback: (CVPixelBuffer) -> ()
     let capturedDepthCallback: (CVPixelBuffer) -> ()
     let capturedMultiCallback: (Int, CVPixelBuffer) -> ()
@@ -710,7 +708,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
          multiCameras: [CameraPIX.Camera]?,
          useExternalCamera: Bool = false,
          presentedDownstreamPix: @escaping () -> (PIX?),
-         setup: @escaping (CGSize, _Orientation) -> (),
+         setup: @escaping (CGSize, _Orientation?) -> (),
          clear: @escaping () -> (),
          captured: @escaping (CVPixelBuffer) -> (),
          capturedDepth: @escaping (CVPixelBuffer) -> (),
@@ -811,16 +809,16 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         capturedDepthCallback = capturedDepth
         capturedMultiCallback = capturedMulti
         
-        #if os(iOS) && !targetEnvironment(macCatalyst)
-        if let interfaceOrientation: UIInterfaceOrientation = presentedDownstreamPix()?.view.window?.windowScene?.interfaceOrientation {
-            lastUIOrientation = interfaceOrientation
-        } else {
-            PixelKit.main.logger.log(.warning, .view, "Interface Orientation for Camera Not Found")
-            lastUIOrientation = .portrait
-        }
-        #elseif os(macOS) || targetEnvironment(macCatalyst)
-        lastUIOrientation = ()
-        #endif
+//        #if os(iOS) && !targetEnvironment(macCatalyst)
+//        if let interfaceOrientation: UIInterfaceOrientation = presentedDownstreamPix()?.view.window?.windowScene?.interfaceOrientation {
+//            lastUIOrientation = interfaceOrientation
+//        } else {
+//            PixelKit.main.logger.log(.warning, .view, "Interface Orientation for Camera Not Found")
+//            lastUIOrientation = .portrait
+//        }
+//        #elseif os(macOS) || targetEnvironment(macCatalyst)
+//        lastUIOrientation = ()
+//        #endif
         
         if !multi {
             captureSession = AVCaptureSession()
@@ -1142,29 +1140,31 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     func setup(_ pixelBuffer: CVPixelBuffer) {
         
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        var _orientation: UIInterfaceOrientation = .portrait
+        var _orientation: UIInterfaceOrientation?
         if let orientation: UIInterfaceOrientation = window?.windowScene?.interfaceOrientation {
             _orientation = orientation
         } else {
             pixelKit.logger.log(.warning, .view, "Interface Orientation for CameraPIX Not Found")
         }
         #elseif os(macOS) || targetEnvironment(macCatalyst)
-        let _orientation: Void = ()
+        let _orientation: Void? = nil
         #endif
         
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
 
-        let resolution: CGSize
+        var resolution: CGSize = CGSize(width: width, height: height)
         #if os(iOS) && !targetEnvironment(macCatalyst)
-        switch _orientation {
-        case .portrait, .portraitUpsideDown:
-            resolution = CGSize(width: height, height: width)
-        case .landscapeLeft, .landscapeRight:
-            resolution = CGSize(width: width, height: height)
-        default:
-            resolution = CGSize(width: width, height: height)
-            pixelKit.logger.log(.warning, .resource, "Camera orientation unknown.")
+        if let _orientation = _orientation {
+            switch _orientation {
+            case .portrait, .portraitUpsideDown:
+                resolution = CGSize(width: height, height: width)
+            case .landscapeLeft, .landscapeRight:
+                resolution = CGSize(width: width, height: height)
+            default:
+                resolution = CGSize(width: width, height: height)
+                pixelKit.logger.log(.warning, .resource, "Camera orientation unknown.")
+            }
         }
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         resolution = CGSize(width: width, height: height)
