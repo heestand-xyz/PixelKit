@@ -19,8 +19,8 @@ final public class LinePIX: PIXGenerator, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LivePoint("positionFrom") public var positionFrom: CGPoint = CGPoint(x: -0.25, y: 0.0)
-    @LivePoint("positionTo") public var positionTo: CGPoint = CGPoint(x: 0.25, y: 0.0)
+    @LivePoint("positionFrom") public var positionFrom: CGPoint = CGPoint(x: -0.5, y: 0.0)
+    @LivePoint("positionTo") public var positionTo: CGPoint = CGPoint(x: 0.5, y: 0.0)
     @LiveFloat("lineWidth", range: 0.0...0.05, increment: 0.005) public var lineWidth: CGFloat = 0.01
     
     public enum Cap: String, Enumable {

@@ -18,7 +18,7 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     // MARK: - Public Properties
     
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.5
+    @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
     @LiveFloat("angleFrom", range: -0.5...0.5, increment: 0.125) public var angleFrom: CGFloat = -0.125
     @LiveFloat("angleTo", range: -0.5...0.5, increment: 0.125) public var angleTo: CGFloat = 0.125
     @LiveFloat("angleOffset", range: -0.5...0.5, increment: 0.125) public var angleOffset: CGFloat = 0.0

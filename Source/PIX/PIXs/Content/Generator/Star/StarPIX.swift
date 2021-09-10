@@ -18,8 +18,8 @@ final public class StarPIX: PIXGenerator, PIXViewable {
     // MARK: - Public Properties
     
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("leadingRadius", range: 0.0...0.5, increment: 0.125) public var leadingRadius: CGFloat = 0.5
-    @LiveFloat("trailingRadius", range: 0.0...0.5, increment: 0.125) public var trailingRadius: CGFloat = 0.25
+    @LiveFloat("leadingRadius", range: 0.0...0.5, increment: 0.125) public var leadingRadius: CGFloat = 0.25
+    @LiveFloat("trailingRadius", range: 0.0...0.5, increment: 0.125) public var trailingRadius: CGFloat = 0.125
     @LiveFloat("rotation", range: -0.5...0.5, increment: 0.125) public var rotation: CGFloat = 0.0
     @LiveInt("count", range: 3...12) public var count: Int = 5
     @LiveFloat("cornerRadius", range: 0.0...0.1, increment: 0.025) public var cornerRadius: CGFloat = 0.0

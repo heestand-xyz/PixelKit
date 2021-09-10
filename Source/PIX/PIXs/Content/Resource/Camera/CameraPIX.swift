@@ -503,7 +503,9 @@ final public class CameraPIX: PIXResource, PIXViewable {
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
             self.orientation = orientation
+            #if os(iOS)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
+            #endif
             self.cameraDelegate?.cameraSetup(pix: self)
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if self.multi {
