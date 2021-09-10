@@ -38,6 +38,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case slice
     case slope
     case threshold
+    case tint
     case transform
     case twirl
     
@@ -113,6 +114,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Slope"
         case .threshold:
             return "Threshold"
+        case .tint:
+            return "Tint"
         case .transform:
             return "Transform"
         case .twirl:
@@ -201,6 +204,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return SlopePIX.self
         case .threshold:
             return ThresholdPIX.self
+        case .tint:
+            return TintPIX.self
         case .transform:
             return TransformPIX.self
         case .twirl:

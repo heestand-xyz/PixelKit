@@ -1,8 +1,8 @@
 //
-//  SepiaPIX.swift
+//  TintPIX.swift
 //  PixelKit
 //
-//  Created by Anton Heestand on 2019-03-25.
+//  Created by Anton Heestand on 2021-09-10.
 //
 
 import RenderKit
@@ -10,9 +10,9 @@ import Resolution
 import Foundation
 import PixelColor
 
-final public class SepiaPIX: PIXSingleEffect, PIXViewable {
+final public class TintPIX: PIXSingleEffect, PIXViewable {
     
-    override public var shaderName: String { return "effectSingleSepiaPIX" }
+    override public var shaderName: String { return "effectSingleTintPIX" }
     
     // MARK: - Public Properties
     
@@ -31,7 +31,7 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable {
     // MARK: - Life Cycle
     
     public required init() {
-        super.init(name: "Sepia", typeName: "pix-effect-single-sepia")
+        super.init(name: "Tint", typeName: "pix-effect-single-tint")
     }
     
     required init(from decoder: Decoder) throws {
@@ -42,12 +42,12 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable {
 
 public extension NODEOut {
     
-    func pixSepia(_ color: PixelColor) -> SepiaPIX {
-        let sepiaPix = SepiaPIX()
-        sepiaPix.name = ":sepia:"
-        sepiaPix.input = self as? PIX & NODEOut
-        sepiaPix.color = color
-        return sepiaPix
+    func pixTint(_ color: PixelColor) -> TintPIX {
+        let tintPix = TintPIX()
+        tintPix.name = ":tint:"
+        tintPix.input = self as? PIX & NODEOut
+        tintPix.color = color
+        return tintPix
     }
     
 }
