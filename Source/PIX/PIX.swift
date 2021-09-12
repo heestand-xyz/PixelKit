@@ -65,8 +65,15 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     public var bypass: Bool = false {
         didSet {
-            guard !bypass else { return }
-            render()
+            if bypass {
+                if let nodeOut: NODEOutIO = self as? NODEOutIO {
+                    for nodePath in nodeOut.outputPathList {
+                        nodePath.nodeIn.render()
+                    }
+                }
+            } else {
+                render()                
+            }
         }
     }
 
