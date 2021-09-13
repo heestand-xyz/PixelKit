@@ -13,19 +13,19 @@ import Metal
 
 /// Metal Shader (Merger Effect)
 ///
-/// vars: pi, u, v, uv, wA, hA, wuA, hvA, inputA, wB, hB, wuB, hvB, inputB, in.resx, in.resy, in.aspect, in.uniform
+/// vars: pi, u, v, uv, wA, hA, wuA, hvA, wB, hB, wuB, hvB, texA, texB, pixA, pixB, var.resx, var.resy, var.aspect, var.uniform
 ///
-/// float4 inputA = inTexA.sample(s, uv);
+/// float4 pixA = pixA.sample(s, uv);
 ///
 /// Example:
 /// ```swift
 /// let metalMergerEffectPix = MetalMergerEffectPIX(code:
 ///     """
-///     return pow(inputA, 1.0 / inputB);
+///     return pow(pixA, 1.0 / pixB);
 ///     """
 /// )
-/// metalMergerEffectPix.inputA = CameraPIX()
-/// metalMergerEffectPix.inputB = ImagePIX("img_name")
+/// metalMergerEffectPix.pixA = CameraPIX()
+/// metalMergerEffectPix.pixB = ImagePIX("img_name")
 /// ```
 final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable {
     
@@ -54,25 +54,25 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
     };
 
     fragment float4 effectMergerMetalPIX(VertexOut out [[stage_in]],
-                                         texture2d<float>  inTexA [[ texture(0) ]],
-                                         texture2d<float>  inTexB [[ texture(1) ]],
-                                         const device Uniforms& in [[ buffer(0) ]],
+                                         texture2d<float>  texA [[ texture(0) ]],
+                                         texture2d<float>  texB [[ texture(1) ]],
+                                         const device Uniforms& var [[ buffer(0) ]],
                                          sampler s [[ sampler(0) ]]) {
         float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = out.texCoord[1];
         float2 uv = float2(u, v);
-        uint wA = inTexA.get_width();
-        uint hA = inTexA.get_height();
-        uint wB = inTexB.get_width();
-        uint hB = inTexB.get_height();
+        uint wA = texA.get_width();
+        uint hA = texA.get_height();
+        uint wB = texB.get_width();
+        uint hB = texB.get_height();
         float wuA = 1.0 / float(wA);
         float hvA = 1.0 / float(hA);
         float wuB = 1.0 / float(wB);
         float hvB = 1.0 / float(hB);
         
-        float4 inputA = inTexA.sample(s, uv);
-        float4 inputB = inTexB.sample(s, uv);
+        // float4 pixA = texA.sample(s, uv);
+        // float4 pixB = texB.sample(s, uv);
         
         /*<code>*/
     }
@@ -125,9 +125,9 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         metalUniforms = []
         code =
         """
-        float4 a = inTexA.sample(s, uv);
-        float4 b = inTexB.sample(s, uv);
-        return a + b;
+        float4 pixA = texA.sample(s, uv);
+        float4 pixB = texB.sample(s, uv);
+        return pixA + pixB;
         """
         super.init(name: "Metal B", typeName: "pix-effect-merger-metal")
         bakeFrag()

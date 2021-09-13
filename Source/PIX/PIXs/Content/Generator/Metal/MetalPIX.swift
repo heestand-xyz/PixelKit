@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Generator)
 ///
-/// vars: pi, u, v, uv, in.resx, in.resy, in.aspect, in.uniform
+/// vars: pi, u, v, uv, in.resx, var.resy, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
@@ -50,7 +50,7 @@ final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
     };
 
     fragment float4 contentGeneratorMetalPIX(VertexOut out [[stage_in]],
-                                             const device Uniforms& in [[ buffer(0) ]]) {
+                                             const device Uniforms& var [[ buffer(0) ]]) {
         float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = 1.0 - out.texCoord[1];

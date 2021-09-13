@@ -13,16 +13,16 @@ import Metal
 
 /// Metal Shader (Multi Effect)
 ///
-/// vars: pi, u, v, uv, pixCount, in.resx, in.resy, in.aspect, in.uniform
+/// vars: pi, u, v, uv, pixCount, texs, var.resx, var.resy, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
 /// let metalMultiEffectPix = MetalMultiEffectPIX(code:
 ///     """
-///     float4 inputA = inTexs.sample(s, uv, 0);
-///     float4 inputB = inTexs.sample(s, uv, 1);
-///     float4 inputC = inTexs.sample(s, uv, 2);
-///     return inputA + inputB + inputC;
+///     float4 pixA = texs.sample(s, uv, 0);
+///     float4 pixB = texs.sample(s, uv, 1);
+///     float4 pixC = texs.sample(s, uv, 2);
+///     return pixA + pixB + pixC;
 ///     """
 /// )
 /// metalMultiEffectPix.inputs = [ImagePIX("img_a"), ImagePIX("img_b"), ImagePIX("img_c")]
@@ -54,16 +54,16 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     };
 
     fragment float4 effectMultiMetalPIX(VertexOut out [[stage_in]],
-                                          texture2d_array<float>  inTexs [[ texture(0) ]],
-                                          const device Uniforms& in [[ buffer(0) ]],
+                                          texture2d_array<float>  texs [[ texture(0) ]],
+                                          const device Uniforms& var [[ buffer(0) ]],
                                           sampler s [[ sampler(0) ]]) {
         float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = out.texCoord[1];
         float2 uv = float2(u, v);
         
-        uint pixCount = inTexs.get_array_size();
-        // float4 inputN = inTexs.sample(s, uv, n);
+        uint pixCount = texs.get_array_size();
+        // float4 pixN = texs.sample(s, uv, n);
         
         /*<code>*/
     }
@@ -124,10 +124,10 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         metalUniforms = []
         code =
         """
-        float4 a = inTexs.sample(s, uv, 0);
-        float4 b = inTexs.sample(s, uv, 1);
-        float4 c = inTexs.sample(s, uv, 2);
-        return float4(a.r, b.g, c.b, 1.0);
+        float4 pixA = texs.sample(s, uv, 0);
+        float4 pixB = texs.sample(s, uv, 1);
+        float4 pixC = texs.sample(s, uv, 2);
+        return float4(pixA.r, pixB.g, pixC.b, 1.0);
         """
         super.init(name: "Metal D", typeName: "pix-effect-multi-metal")
         bakeFrag()

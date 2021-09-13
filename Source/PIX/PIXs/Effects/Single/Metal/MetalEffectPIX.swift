@@ -13,17 +13,17 @@ import Metal
 
 /// Metal Shader (Effect)
 ///
-/// vars: pi, u, v, uv, w, h, wu, hv, input, in.resx, in.resy, in.aspect, in.uniform
+/// vars: pi, u, v, uv, w, h, wu, hv, tex, pix, var.resx, var.resy, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
 /// let metalEffectPix = MetalEffectPIX(code:
 ///     """
 ///     float gamma = 0.25;
-///     return pow(input, 1.0 / gamma);
+///     return pow(pix, 1.0 / gamma);
 ///     """
 /// )
-/// metalEffectPix.input = CameraPIX()
+/// metalEffectPix.pix = CameraPIX()
 /// ```
 final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
@@ -52,19 +52,19 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     };
 
     fragment float4 effectSingleMetalPIX(VertexOut out [[stage_in]],
-                                         texture2d<float>  inTex [[ texture(0) ]],
-                                         const device Uniforms& in [[ buffer(0) ]],
+                                         texture2d<float>  tex [[ texture(0) ]],
+                                         const device Uniforms& var [[ buffer(0) ]],
                                          sampler s [[ sampler(0) ]]) {
         float pi = M_PI_F;
         float u = out.texCoord[0];
         float v = out.texCoord[1];
         float2 uv = float2(u, v);
-        uint w = inTex.get_width();
-        uint h = inTex.get_height();
+        uint w = tex.get_width();
+        uint h = tex.get_height();
         float wu = 1.0 / float(w);
         float hv = 1.0 / float(h);
         
-        float4 input = inTex.sample(s, uv);
+        // float4 pix = tex.sample(s, uv);
         
         /*<code>*/
     }
@@ -105,7 +105,10 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
     
     required init() {
         metalUniforms = []
-        code = "return inTex.sample(s, uv);"
+        code = """
+        float4 pix = tex.sample(s, uv);
+        return pix;
+        """
         super.init(name: "Metal B", typeName: "pix-effect-single-metal")
         bakeFrag()
     }
@@ -169,8 +172,8 @@ public extension NODEOut {
     func pixLumaToAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
-            float luma = (input.r + input.g + input.b) / 3;
-            pix = float4(input.r, input.g, input.b, luma);
+            float luma = (pix.r + pix.g + pix.b) / 3;
+            pix = float4(pix.r, pix.g, pix.b, luma);
             """
         )
         metalEffectPix.name = "lumaToAlpha:metalEffectPix"
@@ -181,7 +184,7 @@ public extension NODEOut {
     func pixIgnoreAlpha() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
-            pix = float4(input.r, input.g, input.b, 1.0);
+            pix = float4(pix.r, pix.g, pix.b, 1.0);
             """
         )
         metalEffectPix.name = "ignoreAlpha:metalEffectPix"
@@ -192,7 +195,7 @@ public extension NODEOut {
     func pixPremultiply() -> MetalEffectPIX {
         let metalEffectPix = MetalEffectPIX(code:
             """
-            float4 c = input;
+            float4 c = pix;
             pix = float4(c.r * c.a, c.g * c.a, c.b * c.a, c.a);
             """
         )
