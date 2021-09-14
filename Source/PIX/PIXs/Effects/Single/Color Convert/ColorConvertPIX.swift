@@ -40,7 +40,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     }
     @LiveEnum("conversion") public var conversion: Conversion = .rgbToHsv
 
-    public enum Filter: String, Enumable {
+    public enum Channel: String, Enumable {
         case all
         case first
         case second
@@ -63,21 +63,21 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
             }
         }
     }
-    /// Filter
+    /// Channel
     ///
     /// RGB to HSV - First is Hue, Second is Saturation, Third is Value
     ///
     /// HSV to RGB - First is Red, Second is Green, Third is Blue
-    @LiveEnum("filter") public var filter: Filter = .all
+    @LiveEnum("channel") public var channel: Channel = .all
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_conversion, _filter]
+        [_conversion, _channel]
     }
     
     public override var uniforms: [CGFloat] {
-        [CGFloat(conversion.index), CGFloat(filter.index)]
+        [CGFloat(conversion.index), CGFloat(channel.index)]
     }
     
     // MARK: - Life Cycle
@@ -107,7 +107,7 @@ public extension NODEOut {
         colorConvertPix.name = "rgbToHue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
         colorConvertPix.conversion = .rgbToHsv
-        colorConvertPix.filter = .first
+        colorConvertPix.channel = .first
         return colorConvertPix
     }
     
@@ -116,7 +116,7 @@ public extension NODEOut {
         colorConvertPix.name = "rgbToSaturation:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
         colorConvertPix.conversion = .rgbToHsv
-        colorConvertPix.filter = .second
+        colorConvertPix.channel = .second
         return colorConvertPix
     }
     
@@ -125,7 +125,7 @@ public extension NODEOut {
         colorConvertPix.name = "rgbToValue:colorConvert"
         colorConvertPix.input = self as? PIX & NODEOut
         colorConvertPix.conversion = .rgbToHsv
-        colorConvertPix.filter = .third
+        colorConvertPix.channel = .third
         return colorConvertPix
     }
     

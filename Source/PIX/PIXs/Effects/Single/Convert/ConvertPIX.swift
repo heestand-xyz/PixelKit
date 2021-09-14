@@ -58,17 +58,17 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable {
     }
     @LiveEnum("mode") public var mode: ConvertMode = .squareToCircle
     
-    @LiveFloat("xRotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
-    @LiveFloat("yRotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
+//    @LiveFloat("xRotation", range: -0.5...0.5) public var xRotation: CGFloat = 0.0
+//    @LiveFloat("yRotation", range: -0.5...0.5) public var yRotation: CGFloat = 0.0
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_mode, _xRotation, _yRotation]
+        [_mode]
     }
     
     public override var uniforms: [CGFloat] {
-        [CGFloat(mode.index), xRotation, yRotation]
+        [CGFloat(mode.index), 0.0, 0.0]
     }
     
     // MARK: - Life Cycle
