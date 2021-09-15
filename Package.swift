@@ -21,6 +21,7 @@ let package = Package(
             "PIX/PIXs/Content/Resource/Syphon In/SyphonInPIX.swift",
             "Other",
             "Shaders/README.md",
+            "Documentation.docc",
         ]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
     ]
