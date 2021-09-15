@@ -22,22 +22,28 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
     @LiveInt("seed", range: 0...100) public var seed: Int = 1
     @LiveInt("octaves", range: 1...10) public var octaves: Int = 1
     @LivePoint("position") public var position: CGPoint = .zero
-    @LiveFloat("zPosition", range: -1.0...1.0) public var zPosition: CGFloat = 0.0
+    @LiveFloat("motion") public var motion: CGFloat = 0.0
     @LiveFloat("zoom", range: 0.25...2.0, increment: 0.25) public var zoom: CGFloat = 1.0
     @LiveBool("colored") public var colored: Bool = false
     @LiveBool("random") public var random: Bool = false
     @LiveBool("includeAlpha") public var includeAlpha: Bool = false
+    
+    @available(*, deprecated, renamed: "motion")
+    public var zPosition: CGFloat {
+        get { motion }
+        set { motion = newValue }
+    }
     
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
         super.liveList.filter({ liveWrap in
             !["backgroundColor", "color"].contains(liveWrap.typeName)
-        }) + [_seed, _octaves, _position, _zPosition, _zoom, _colored, _random, _includeAlpha]
+        }) + [_seed, _octaves, _position, _motion, _zoom, _colored, _random, _includeAlpha]
     }
     
     override public var values: [Floatable] {
-        [seed, octaves, position, zPosition, zoom, colored, random, includeAlpha]
+        [seed, octaves, position, motion, zoom, colored, random, includeAlpha]
     }
     
     // MARK: - Life Cycle
@@ -70,8 +76,8 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
         return self
     }
     
-    public func pixNoiseZPosition(_ value: CGFloat) -> NoisePIX {
-        zPosition = value
+    public func pixNoiseMotion(_ value: CGFloat) -> NoisePIX {
+        motion = value
         return self
     }
     

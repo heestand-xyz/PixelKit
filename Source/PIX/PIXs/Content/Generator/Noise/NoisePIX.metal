@@ -53,7 +53,7 @@ fragment float4 contentGeneratorNoisePIX(VertexOut out [[stage_in]],
     }
     
     float ux = (u * in.aspect - in.x - 0.5 * in.aspect) / in.zoom;
-    float vy = (v - in.y - 0.5) / in.zoom;
+    float vy = (v + in.y - 0.5) / in.zoom;
     
 
     float n;

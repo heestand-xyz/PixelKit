@@ -73,12 +73,12 @@ public extension NODEOut {
         return displacePix
     }
     
-    func pixNoiseDisplace(distance: CGFloat, zPosition: CGFloat = 0.0, octaves: Int = 10) -> DisplacePIX {
+    func pixNoiseDisplace(distance: CGFloat, motion: CGFloat = 0.0, octaves: Int = 10) -> DisplacePIX {
         let pix = self as! PIX & NODEOut
         let noisePix = NoisePIX(at: pix.finalResolution)
         noisePix.name = "noiseDisplace:noise"
         noisePix.colored = true
-        noisePix.zPosition = zPosition
+        noisePix.motion = motion
         noisePix.octaves = octaves
         return pix.pixDisplace(pix: noisePix, distance: distance)
     }

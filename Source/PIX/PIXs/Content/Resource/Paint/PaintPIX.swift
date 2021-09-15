@@ -81,7 +81,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
             }
         }
     }
-    public var eraserType: EraserType = .vector {
+    public var eraserType: EraserType = .bitmap {
         didSet {
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
@@ -106,13 +106,8 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     public var showTools: Bool = false {
         didSet {
-            guard let window: UIWindow = view.window else { return }
-            guard let toolPicker: PKToolPicker = PKToolPicker.shared(for: window) else { return }
-            toolPicker.setVisible(showTools, forFirstResponder: canvasView)
-            if showTools {
-                toolPicker.addObserver(canvasView)
-                canvasView.becomeFirstResponder()
-            }
+            guard let window: UIWindow = canvasView.window else { return }
+            showTools(showTools, in: window)
         }
     }
     public var drawing: PKDrawing {
@@ -204,6 +199,15 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     public func listenToPaint(_ callback: @escaping () -> ()) {
         helper.paintedExternalCallback = callback
+    }
+    
+    public func showTools(_ active: Bool, in window: UIWindow) {
+        guard let toolPicker: PKToolPicker = PKToolPicker.shared(for: window) else { return }
+        toolPicker.setVisible(showTools, forFirstResponder: canvasView)
+        if showTools {
+            toolPicker.addObserver(canvasView)
+            canvasView.becomeFirstResponder()
+        }
     }
     
     // MARK: Buffer
