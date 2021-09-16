@@ -71,4 +71,12 @@ public extension String {
         camelCased.camelToSnakeCased
     }
     
+    var pascalCaseToTitleCase: String {
+        ((first?.lowercased() ?? "") + dropFirst()).camelToTitleCased
+    }
+    
+    var titleToPascalCase: String {
+        replacingOccurrences(of: " ", with: "")
+    }
+    
 }

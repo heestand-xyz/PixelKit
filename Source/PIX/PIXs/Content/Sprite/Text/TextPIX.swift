@@ -33,17 +33,6 @@ final public class TextPIX: PIXSprite, PIXViewable {
     #endif
     
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); render() } }
-//    public var fontWeight: CGFloat = 1.0 { didSet { setNeedsFont(); render() } }
-//    public var fontSize: CGFloat = 100.0 { didSet { setNeedsFont(); render() } }
-    
-    // MARK: - Property Helpers
-    
-//    enum CodingKeys: String, CodingKey {
-//        case text; case textColor; case font; case position
-//    }
-//    enum FontCodingKeys: String, CodingKey {
-//        case name; case size
-//    }
     
     // MARK: - Life Cycle
     
@@ -55,15 +44,43 @@ final public class TextPIX: PIXSprite, PIXViewable {
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
                             text: String) {
         self.init(at: resolution)
+        setup()
         self.text = text
         setNeedsText()
         render()
     }
     
-    public required init(from decoder: Decoder) throws {
+    // MARK: - Codable
+    
+    enum CodingKeys: CodingKey {
+        case text
+        case fontName
+        case fontSize
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        text = try container.decode(String.self, forKey: .text)
+        let fontName = try container.decode(String.self, forKey: .fontName)
+        let fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
+        #if os(iOS)
+        font = UIFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+        #elseif os(macOS)
+        font = NSFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+        #endif
         try super.init(from: decoder)
         setup()
     }
+    
+    public override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(text, forKey: .text)
+        try container.encode(font.fontName, forKey: .fontName)
+        try container.encode(font.pointSize, forKey: .fontSize)
+        try super.encode(to: encoder)
+    }
+    
+    // MARK: - Setup
     
     func setup() {
         
@@ -79,7 +96,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
         setNeedsFont()
         setNeedsPosition()
 
-        scene.addChild(label)
+        scene?.addChild(label)
         
         render()
         
@@ -126,4 +143,39 @@ final public class TextPIX: PIXSprite, PIXViewable {
                                  y: size.height / 2 + pos.y)
     }
     
+}
+
+extension TextPIX {
+    
+    public static func getFontFamilyNames() -> [String] {
+        #if os(iOS)
+        return UIFont.familyNames
+        #elseif os(macOS)
+        return NSFontManager.shared.availableFontFamilies
+        #endif
+    }
+    
+    public static func getFontWeights(fontFamilyName: String) -> [String] {
+        #if os(iOS)
+        return ["Regular"] + UIFont.fontNames(forFamilyName: fontFamilyName).compactMap { fontName in
+            let components: [String] = fontName.components(separatedBy: "-")
+            guard components.count == 2 else { return nil }
+            return components.last!.pascalCaseToTitleCase
+        }
+        #elseif os(macOS)
+        return getDefaultFontWeights()
+        #endif
+    }
+
+    public static func getDefaultFontWeights() -> [String] {
+        ["Ultra Light", "Thin", "Light", "Regular", "Medium", "Semibold", "Bold", "Heavy", "Black"]
+    }
+    
+    public static func getFontName(fontFamilyName: String, fontWeightName: String) -> String {
+        if fontWeightName == "Regular" {
+            return fontFamilyName
+        }
+        return "\(fontFamilyName)-\(fontWeightName)"
+    }
+
 }

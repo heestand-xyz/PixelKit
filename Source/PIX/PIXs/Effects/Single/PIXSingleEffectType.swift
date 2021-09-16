@@ -16,6 +16,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case crop
     case deepLab
     case delay
+    case distance
     case edge
     case feedback
     case flare
@@ -70,6 +71,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Deep Lab"
         case .delay:
             return "Delay"
+        case .distance:
+            return "Distance"
         case .edge:
             return "Edge"
         case .feedback:
@@ -160,6 +163,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return DeepLabPIX.self
         case .delay:
             return DelayPIX.self
+        case .distance:
+            return DistancePIX.self
         case .edge:
             return EdgePIX.self
         case .feedback:

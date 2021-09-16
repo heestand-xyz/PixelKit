@@ -134,7 +134,10 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
             } else if nodeContent is NODEGenerator {
                 generator = true
             } else if let nodeSprite = nodeContent as? PIXSprite {
-                guard let spriteTexture = nodeSprite.sceneView.texture(from: nodeSprite.scene) else {
+                guard let scene = nodeSprite.scene,
+                      let sceneView = nodeSprite.sceneView
+                else { throw Engine.RenderError.texture("Sprite Scene Not Setup.") }
+                guard let spriteTexture = sceneView.texture(from: scene) else {
                     throw Engine.RenderError.texture("Sprite Texture fail.")
                 }
                 let spriteImage: CGImage = spriteTexture.cgImage()
