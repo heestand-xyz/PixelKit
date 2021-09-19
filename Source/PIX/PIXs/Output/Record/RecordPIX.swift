@@ -116,6 +116,8 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     let recordAudio: Bool = false
     #endif
     
+    public var lastRecordingUrl: URL?
+    
     // MARK: - Property Helpers
     
     var customName: String?
@@ -140,6 +142,14 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     
     // MARK: - Record
     
+    public func startRec(name: String? = nil, didError: ((Error) -> ())? = nil) {
+        do {
+            try startRec(name: name)
+        } catch {
+            didError?(error)
+        }
+    }
+    
     public func startRec(name: String? = nil) throws {
         pixelKit.logger.log(.info, nil, "Rec start.")
         customName = name
@@ -156,11 +166,12 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         resumeRecord()
     }
     
-    public func stopRec(_ exported: @escaping (URL) -> (), didError: ((Error) -> ())?) {
+    public func stopRec(_ exported: @escaping (URL) -> (), didError: ((Error) -> ())? = nil) {
         pixelKit.logger.log(.info, nil, "Rec stop.")
 //        guard recording else { return }
-        stopRecord(done: {
-            guard let url = self.exportUrl else { return }
+        stopRecord(done: { [weak self] in
+            guard let url = self?.exportUrl else { return }
+            self?.lastRecordingUrl = url
             exported(url)
         }, didError: { error in
             didError?(error)
@@ -444,10 +455,14 @@ final public class RecordPIX: PIXOutput, PIXViewable {
                         }
                     } else if writer.error == nil {
                         self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop E. Cancelled. Writer Status: \(writer.status).")
-                        didError(RecError.render("Rec Stop E. Cancelled."))
+                        DispatchQueue.main.async {
+                            didError(RecError.render("Rec Stop E. Cancelled."))
+                        }
                     } else {
                         self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop D. Writer Error. Writer Status: \(writer.status).", e: writer.error)
-                        didError(RecError.render("Rec Stop D. Writer Error."))
+                        DispatchQueue.main.async {
+                            didError(RecError.render("Rec Stop D. Writer Error."))
+                        }
                     }
                     self.writerVideoInput = nil
                     self.writer = nil

@@ -29,14 +29,20 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     // MARK: - Life Cycle
     
     public required init() {
-        
         isConnected = false
-        window = nil
-//        queueConnect = false
-        
         nilPix = NilPIX()
-        
         super.init(name: "AirPlay", typeName: "pix-output-air-play")
+        setup()
+    }
+    
+    required public init(from decoder: Decoder) throws {
+        isConnected = false
+        nilPix = NilPIX()
+        try super.init(from: decoder)
+        setup()
+    }
+    
+    func setup() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(screenConnect), name: UIScreen.didConnectNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenDisconnect), name: UIScreen.didDisconnectNotification, object: nil)
@@ -47,7 +53,6 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         name = "airPlay"
         
         check()
-        
     }
     
     public override func didConnect() {
@@ -198,10 +203,6 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     public override func destroy() {
         super.destroy()
         disconnect()
-    }
-    
-    required public init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
     }
     
 }

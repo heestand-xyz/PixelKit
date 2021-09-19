@@ -10,8 +10,8 @@ import RenderKit
 import Resolution
 import Combine
 
-open class PIXOutput: PIX, NODEInIO, NODEInSingle {
-    
+open class PIXOutput: PIX, NODEOutput, NODEInSingle {
+        
     public var inputList: [NODE & NODEOut] = []
     public var connectedIn: Bool { return !inputList.isEmpty }
     
@@ -19,6 +19,8 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     
     open override var shaderName: String { return "nilPIX" }
 
+    public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()
+    public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
     public var cancellableIns: [AnyCancellable] = []
     
     // MARK: - Public Properties
@@ -39,15 +41,6 @@ open class PIXOutput: PIX, NODEInIO, NODEInSingle {
     public override func destroy() {
         input = nil
         super.destroy()
-    }
-    
-    public func didUpdateInputConnections() {
-        cancellableIns = []
-        Publishers.MergeMany(inputList.map(\.renderPublisher))
-            .sink { [weak self] textures in
-                self?.render()
-            }
-            .store(in: &cancellableIns)
     }
     
 }
