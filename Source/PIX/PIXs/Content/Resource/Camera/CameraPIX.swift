@@ -94,9 +94,9 @@ final public class CameraPIX: PIXResource, PIXViewable {
             #endif
             }
         }
-        public init?(resoluiton: Resolution) {
+        public init?(resolution: Resolution) {
             guard let cameraResolution = CameraResolution.allCases.first(where: { cameraResolution in
-                cameraResolution.resolution == resoluiton
+                cameraResolution.resolution == resolution
             }) else {
                 return nil
             }
