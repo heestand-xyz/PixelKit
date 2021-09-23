@@ -11,6 +11,7 @@
 import AVKit
 import RenderKit
 import Resolution
+import CoreMediaIO
 
 final public class ScreenCapturePIX: PIXResource, PIXViewable {
         
@@ -111,27 +112,72 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         super.init()
         
         
+        /// iOS Screen Capture
+        enableDalDevices()
+        
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: nil, position: .unspecified)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(newDevice), name: NSNotification.Name.AVCaptureDeviceWasConnected, object: nil)
+        newDevice()
+        
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
         
-        if screenInput != nil {
-            if captureSession.canAddInput(screenInput!) {
-                captureSession.addInput(screenInput!)
-                if captureSession.canAddOutput(videoOutput){
-                    captureSession.addOutput(videoOutput)
-                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
-                    videoOutput.setSampleBufferDelegate(self, queue: queue)
-                    start()
-                } else {
-                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
-                }
+//        if screenInput != nil {
+//            if captureSession.canAddInput(screenInput!) {
+//                captureSession.addInput(screenInput!)
+//                if captureSession.canAddOutput(videoOutput){
+//                    captureSession.addOutput(videoOutput)
+//                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
+//                    videoOutput.setSampleBufferDelegate(self, queue: queue)
+//                    start()
+//                } else {
+//                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
+//                }
+//            } else {
+//                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
+//            }
+//        } else {
+//            pixelKit.logger.log(.error, .resource, "Screen not found.")
+//        }
+        
+    }
+    
+    
+    public func enableDalDevices() {
+
+        var property = CMIOObjectPropertyAddress(mSelector: CMIOObjectPropertySelector(kCMIOHardwarePropertyAllowScreenCaptureDevices), mScope: CMIOObjectPropertyScope(kCMIOObjectPropertyScopeGlobal), mElement: CMIOObjectPropertyElement(kCMIOObjectPropertyElementMaster))
+        var allow : UInt32 = 1
+        let sizeOfAllow = MemoryLayout.size(ofValue: allow)
+        CMIOObjectSetPropertyData(CMIOObjectID(kCMIOObjectSystemObject), &property, 0, nil, UInt32(sizeOfAllow), &allow)
+
+    }
+    
+    var setupScreenDevice: Bool = false
+    @objc func newDevice() {
+        guard !setupScreenDevice else { return }
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: nil, position: .unspecified)
+        guard let screenDevice = discoverySession.devices.first else { return }
+        print("---------->", screenDevice)
+        let screenInput = try! AVCaptureDeviceInput(device: screenDevice)
+        print("---------->", "A")
+        if captureSession.canAddInput(screenInput) {
+            print("---------->", "B")
+            captureSession.addInput(screenInput)
+            if captureSession.canAddOutput(videoOutput){
+                print("---------->", "C")
+                captureSession.addOutput(videoOutput)
+                let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
+                videoOutput.setSampleBufferDelegate(self, queue: queue)
+                start()
             } else {
-                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
+                pixelKit.logger.log(.error, .resource, "Screen can't add output.")
             }
         } else {
-            pixelKit.logger.log(.error, .resource, "Screen not found.")
+            pixelKit.logger.log(.error, .resource, "Screen can't add input.")
         }
         
+        setupScreenDevice = true
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
