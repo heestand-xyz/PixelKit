@@ -2,21 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "PixelColor",
-        "repositoryURL": "https://github.com/heestand-xyz/PixelColor",
+        "package": "RenderKit",
+        "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
         "state": {
           "branch": null,
-          "revision": "f2408f208c541a3463ced1a288235683dcf73ca8",
-          "version": "1.2.2"
-        }
-      },
-      {
-        "package": "Resolution",
-        "repositoryURL": "https://github.com/heestand-xyz/Resolution",
-        "state": {
-          "branch": null,
-          "revision": "587be77040ec27fd0eb903ae189cd3b89518eea4",
-          "version": "1.0.2"
+          "revision": "5c3d05db37d9d157739365eff5b9cff857a41a3c",
+          "version": "1.0.4"
         }
       }
     ]
