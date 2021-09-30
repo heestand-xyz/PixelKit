@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Multi Effect)
 ///
-/// vars: pi, u, v, uv, pixCount, texs, var.resx, var.resy, var.aspect, var.uniform
+/// **Variables:** pi, u, v, uv, pixCount, texs, var.width, var.height, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
@@ -33,7 +33,6 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     
     // MARK: - Private Properties
     
-//    public let metalFileName = "EffectMultiMetalPIX.metal"
     public let metalBaseCode: String =
     """
     #include <metal_stdlib>
@@ -48,8 +47,8 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
 
     struct Uniforms{
         /*<uniforms>*/
-        float resx;
-        float resy;
+        float width;
+        float height;
         float aspect;
     };
 
@@ -63,7 +62,6 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         float2 uv = float2(u, v);
         
         uint pixCount = texs.get_array_size();
-        // float4 pixN = texs.sample(s, uv, n);
         
         /*<code>*/
     }
@@ -95,15 +93,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case metalUniforms
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return metalUniforms.map({ metalUniform -> CGFloat in
-//            return metalUniform.value
-//        })
-//    }
+    // MARK: - Life Cycle
     
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
@@ -120,7 +110,7 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetal, PIXViewable {
     }
     #endif
     
-    required init() {
+    public required init() {
         metalUniforms = []
         code =
         """

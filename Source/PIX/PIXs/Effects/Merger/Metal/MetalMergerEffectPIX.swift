@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Merger Effect)
 ///
-/// vars: pi, u, v, uv, wA, hA, wuA, hvA, wB, hB, wuB, hvB, texA, texB, pixA, pixB, var.resx, var.resy, var.aspect, var.uniform
+/// **Variables:** pi, u, v, uv, wA, hA, wuA, hvA, wB, hB, wuB, hvB, texA, texB, pixA, pixB, var.width, var.height, var.aspect, var.uniform
 ///
 /// float4 pixA = pixA.sample(s, uv);
 ///
@@ -33,7 +33,6 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
     
     // MARK: - Private Properties
     
-//    public let metalFileName = "EffectMergerMetalPIX.metal"
     public let metalBaseCode: String =
     """
     #include <metal_stdlib>
@@ -48,8 +47,8 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
 
     struct Uniforms{
         /*<uniforms>*/
-        float resx;
-        float resy;
+        float width;
+        float height;
         float aspect;
     };
 
@@ -71,8 +70,8 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         float wuB = 1.0 / float(wB);
         float hvB = 1.0 / float(hB);
         
-        // float4 pixA = texA.sample(s, uv);
-        // float4 pixB = texB.sample(s, uv);
+        float4 pixA = texA.sample(s, uv);
+        float4 pixB = texB.sample(s, uv);
         
         /*<code>*/
     }
@@ -104,15 +103,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     
-//    enum CodingKeys: String, CodingKey {
-//        case metalUniforms
-//    }
-    
-//    open override var uniforms: [CGFloat] {
-//        return metalUniforms.map({ metalUniform -> CGFloat in
-//            return metalUniform.value
-//        })
-//    }
+    // MARK: - Life Cycle
     
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
@@ -121,13 +112,13 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable
         bakeFrag()
     }
     
-    required init() {
+    public required init() {
         metalUniforms = []
         code =
         """
-        float4 pixA = texA.sample(s, uv);
-        float4 pixB = texB.sample(s, uv);
-        return pixA + pixB;
+        float4 colorA = texA.sample(s, uv);
+        float4 colorB = texB.sample(s, uv);
+        return colorA + colorB;
         """
         super.init(name: "Metal B", typeName: "pix-effect-merger-metal")
         bakeFrag()

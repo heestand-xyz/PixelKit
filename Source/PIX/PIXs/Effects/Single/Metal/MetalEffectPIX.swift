@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Effect)
 ///
-/// vars: pi, u, v, uv, w, h, wu, hv, tex, pix, var.resx, var.resy, var.aspect, var.uniform
+/// **Variables:** pi, u, v, uv, w, h, wu, hv, tex, pix, var.width, var.height, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
@@ -46,8 +46,8 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
 
     struct Uniforms {
         /*<uniforms>*/
-        float resx;
-        float resy;
+        float width;
+        float height;
         float aspect;
     };
 
@@ -64,7 +64,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
         float wu = 1.0 / float(w);
         float hv = 1.0 / float(h);
         
-        // float4 pix = tex.sample(s, uv);
+        float4 pix = tex.sample(s, uv);
         
         /*<code>*/
     }
@@ -96,20 +96,22 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     
+    // MARK: - Life Cycle
+    
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms
         self.code = code
-        super.init(name: "Metal B", typeName: "pix-effect-single-metal")
+        super.init(name: "Metal Effect", typeName: "pix-effect-single-metal")
         bakeFrag()
     }
     
-    required init() {
+    public required init() {
         metalUniforms = []
         code = """
-        float4 pix = tex.sample(s, uv);
-        return pix;
+        float4 color = tex.sample(s, uv);
+        return color;
         """
-        super.init(name: "Metal B", typeName: "pix-effect-single-metal")
+        super.init(name: "Metal Effect", typeName: "pix-effect-single-metal")
         bakeFrag()
     }
     
