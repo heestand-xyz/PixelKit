@@ -9,6 +9,7 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
     case gradient
     case line
     case metal
+    case metalScript
     case noise
     case polygon
     case rectangle
@@ -28,6 +29,8 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
             return "Line"
         case .metal:
             return "Metal"
+        case .metalScript:
+            return "Metal Script"
         case .noise:
             return "Noise"
         case .polygon:
@@ -57,6 +60,8 @@ public enum PIXGeneratorType: String, Codable, Hashable, CaseIterable, Identifia
             return LinePIX.self
         case .metal:
             return MetalPIX.self
+        case .metalScript:
+            return MetalScriptPIX.self
         case .noise:
             return NoisePIX.self
         case .polygon:

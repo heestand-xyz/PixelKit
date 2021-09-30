@@ -23,7 +23,7 @@ import Metal
 ///     """
 /// )
 /// ```
-final public class MetalPIX: PIXGenerator, NODEMetal, PIXViewable {
+final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
     

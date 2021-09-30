@@ -25,7 +25,7 @@ import Metal
 /// )
 /// metalEffectPix.pix = CameraPIX()
 /// ```
-final public class MetalEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
+final public class MetalEffectPIX: PIXSingleEffect, NODEMetalCode, PIXViewable {
     
     override public var shaderName: String { return "effectSingleMetalPIX" }
     

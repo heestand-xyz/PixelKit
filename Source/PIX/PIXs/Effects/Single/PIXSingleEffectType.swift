@@ -26,6 +26,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case kaleidoscope
     case levels
     case metalEffect
+    case metalScriptEffect
     case morph
     case `nil`
     case quantize
@@ -90,7 +91,9 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         case .levels:
             return "Levels"
         case .metalEffect:
-            return "Metal Effect"
+            return "Metal (FX)"
+        case .metalScriptEffect:
+            return "Metal Script (FX)"
         case .morph:
             return "Morph"
         case .`nil`:
@@ -130,6 +133,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         switch self {
         case .metalEffect:
             return "pix-effect-single-metal"
+        case .metalScriptEffect:
+            return "pix-effect-single-metal-script"
         default:
             return "pix-effect-single-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
         }
@@ -183,6 +188,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return LevelsPIX.self
         case .metalEffect:
             return MetalEffectPIX.self
+        case .metalScriptEffect:
+            return MetalScriptEffectPIX.self
         case .morph:
             return MorphPIX.self
         case .`nil`:

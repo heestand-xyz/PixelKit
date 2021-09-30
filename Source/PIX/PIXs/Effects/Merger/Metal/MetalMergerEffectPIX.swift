@@ -27,7 +27,7 @@ import Metal
 /// metalMergerEffectPix.pixA = CameraPIX()
 /// metalMergerEffectPix.pixB = ImagePIX("img_name")
 /// ```
-final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable {
+final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetalCode, PIXViewable {
     
     override public var shaderName: String { return "effectMergerMetalPIX" }
     

@@ -13,7 +13,7 @@ import Metal
 /// Metal Script Effect
 ///
 /// **Variables:** pi, u, v, uv, w, h, wu, hv, tex, pix, red, green, blue, alpha, white, var.width, var.height, var.aspect, var.uniform
-final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable {
+final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXViewable {
     
     override public var shaderName: String { return "metalScriptEffectPIX" }
     
@@ -84,7 +84,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetal, PIXViewable
         public var name: String {
             switch self {
             case .white:
-                return "Monochrome"
+                return "White"
             case .color:
                 return "Color"
             }

@@ -13,7 +13,7 @@ import Metal
 /// Metal Script
 ///
 /// **Variables:** pi, u, v, var.width, var.height, var.aspect, var.uniform
-final public class MetalScriptPIX: PIXGenerator, NODEMetal, PIXViewable {
+final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
     
     override public var shaderName: String { return "metalScriptPIX" }
     
@@ -70,7 +70,7 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetal, PIXViewable {
         public var name: String {
             switch self {
             case .white:
-                return "Monochrome"
+                return "White"
             case .color:
                 return "Color"
             }

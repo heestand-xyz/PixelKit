@@ -6,6 +6,7 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
     case array
     case blends
     case metalMultiEffect
+    case metalScriptMultiEffect
     case stack
     
     public var name: String {
@@ -15,7 +16,9 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
         case .blends:
             return "Blends"
         case .metalMultiEffect:
-            return "Metal Multi Effect"
+            return "Metal (NFX)"
+        case .metalScriptMultiEffect:
+            return "Metal Script (NFX)"
         case .stack:
             return "Stack"
         }
@@ -25,6 +28,8 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
         switch self {
         case .metalMultiEffect:
             return "pix-effect-multi-metal"
+        case .metalScriptMultiEffect:
+            return "pix-effect-multi-metal-script"
         default:
             return "pix-effect-multi-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
         }
@@ -38,6 +43,8 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
             return BlendsPIX.self
         case .metalMultiEffect:
             return MetalMultiEffectPIX.self
+        case .metalScriptMultiEffect:
+            return MetalScriptMultiEffectPIX.self
         case .stack:
             return StackPIX.self
         }

@@ -13,7 +13,7 @@ import Metal
 /// Metal Script Merger Effect
 ///
 /// **Variables:** pi, u, v, uv, wA, hA, wuA, hvA, wB, hB, wuB, hvB, texA, texB, pixA, pixB, var.width, var.height, var.aspect, var.uniform
-final public class MetalScriptMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXViewable {
+final public class MetalScriptMergerEffectPIX: PIXMergerEffect, NODEMetalScript, PIXViewable {
     
     override public var shaderName: String { return "metalScriptMergerEffectPIX" }
     
@@ -94,7 +94,7 @@ final public class MetalScriptMergerEffectPIX: PIXMergerEffect, NODEMetal, PIXVi
         public var name: String {
             switch self {
             case .white:
-                return "Monochrome"
+                return "White"
             case .color:
                 return "Color"
             }

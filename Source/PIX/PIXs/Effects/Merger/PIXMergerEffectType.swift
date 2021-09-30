@@ -13,6 +13,7 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
     case lumaRainbowBlur
     case lumaTransform
     case metalMergerEffect
+    case metalScriptMergerEffect
     case remap
     case reorder
     case timeMachine
@@ -38,7 +39,9 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
         case .lumaTransform:
             return "Luma Transform"
         case .metalMergerEffect:
-            return "Metal Merger Effect"
+            return "Metal (2FX)"
+        case .metalScriptMergerEffect:
+            return "Metal Script (2FX)"
         case .remap:
             return "Remap"
         case .reorder:
@@ -52,6 +55,8 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
         switch self {
         case .metalMergerEffect:
             return "pix-effect-merger-metal"
+        case .metalScriptMergerEffect:
+            return "pix-effect-merger-metal-script"
         default:
             return "pix-effect-merger-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
         }
@@ -79,6 +84,8 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
             return LumaTransformPIX.self
         case .metalMergerEffect:
             return MetalMergerEffectPIX.self
+        case .metalScriptMergerEffect:
+            return MetalScriptMergerEffectPIX.self
         case .remap:
             return RemapPIX.self
         case .reorder:
