@@ -137,7 +137,7 @@ final public class MetalScriptMultiEffectPIX: PIXMultiEffect, NODEMetalScript, P
         self.greenScript = "0.0"
         self.blueScript = "0.0"
         self.alphaScript = alphaScript
-        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-merger-metal-script")
+        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-multi-metal-script")
         colorStyle = .white
         bakeFrag()
     }
@@ -149,7 +149,7 @@ final public class MetalScriptMultiEffectPIX: PIXMultiEffect, NODEMetalScript, P
         self.greenScript = greenScript
         self.blueScript = blueScript
         self.alphaScript = alphaScript
-        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-merger-metal-script")
+        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-multi-metal-script")
         colorStyle = .color
         bakeFrag()
     }
@@ -161,7 +161,7 @@ final public class MetalScriptMultiEffectPIX: PIXMultiEffect, NODEMetalScript, P
         self.greenScript = "texs.sample(s, uv, 1).r"
         self.blueScript = "texs.sample(s, uv, 2).r"
         self.alphaScript = "texs.sample(s, uv, 0).r"
-        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-merger-metal-script")
+        super.init(name: "Metal Script Merger Effect", typeName: "pix-effect-multi-metal-script")
         colorStyle = .color
         bakeFrag()
     }
