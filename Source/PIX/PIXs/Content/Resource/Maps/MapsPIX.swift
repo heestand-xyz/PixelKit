@@ -21,9 +21,7 @@ import MapKit
 final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "contentResourcePIX" }
-    
-    public let mapView = MKMapView()
-    
+        
     public enum MapType: String, Enumable {
         case standard
         case mutedStandard

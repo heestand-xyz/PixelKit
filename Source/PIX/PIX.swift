@@ -17,6 +17,7 @@ import Combine
 #if os(iOS)
 import UIKit
 #endif
+import PixelColor
 
 open class PIX: NODE, ObservableObject, Equatable {
     
@@ -58,6 +59,13 @@ open class PIX: NODE, ObservableObject, Equatable {
     @Published public var finalResolution: Resolution = PixelKit.main.fallbackResolution
     
     var customResolution: Resolution? { nil }
+    
+    
+    public var clearColor: PixelColor = .clear {
+        didSet {
+            render()
+        }
+    }
     
     
     open var vertexUniforms: [CGFloat] { return [] }
