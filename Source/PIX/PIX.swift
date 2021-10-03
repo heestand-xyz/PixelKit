@@ -257,6 +257,10 @@ open class PIX: NODE, ObservableObject, Equatable {
         }
     }
     
+    // MARK: - Live
+    
+    public func liveValueChanged() {}
+    
     // MARK: - Render
     
     public func render() {

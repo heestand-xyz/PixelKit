@@ -14,6 +14,7 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
     case multiCamera
     case paint
     case streamIn
+    case maps
     
     public var name: String {
         switch self {
@@ -39,6 +40,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return "Paint"
         case .streamIn:
             return "Stream In"
+        case .maps:
+            return "Maps"
         }
     }
     
@@ -76,6 +79,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         case .streamIn:
             return StreamInPIX.self
         #endif
+        case .maps:
+            return MapsPIX.self
         default:
             return nil
         }

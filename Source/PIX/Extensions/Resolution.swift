@@ -39,6 +39,8 @@ extension PIX {
                     }
                     #endif
                     return Resolution.size(image.size) * scale
+                } else if let nodeResolution = pixResource as? NODEResolution {
+                    return nodeResolution.resolution
                 } else {
                     #if !os(tvOS)
                     if #available(OSX 10.13, *) {
