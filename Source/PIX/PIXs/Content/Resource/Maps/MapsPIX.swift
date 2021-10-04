@@ -17,10 +17,14 @@ import RenderKit
 import Resolution
 import PixelColor
 import MapKit
+import Combine
 
 final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "contentResourcePIX" }
+    
+    private var updateMapsPassthrough = PassthroughSubject<Void, Never>()
+    private var updateMapsCancellable: AnyCancellable?
         
     public enum MapType: String, Enumable {
         case standard
@@ -88,14 +92,15 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
     @LiveEnum("mapType") public var mapType: MapType = .standard
     @LiveFloat("latitude", range: -90...90, increment: 45) public var latitude: CGFloat = 0
     @LiveFloat("longitude", range: -180...180, increment: 45) public var longitude: CGFloat = 0
-    @LiveFloat("span", range: 0...180, increment: 45) public var span: CGFloat = 180
+    @LiveFloat("span", range: 0...180, increment: 45) public var span: CGFloat = 90
     @LiveBool("showsBuildings") public var showsBuildings: Bool = false
     @LiveBool("showsPointsOfInterest") public var showsPointsOfInterest: Bool = false
+    @LiveBool("darkMode") public var darkMode: Bool = false
 
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_resolution, _mapType, _latitude, _longitude, _span, _showsBuildings, _showsPointsOfInterest]
+        [_resolution, _mapType, _latitude, _longitude, _span, _showsBuildings, _showsPointsOfInterest, _darkMode]
     }
     
     // MARK: - Life Cycle
@@ -103,17 +108,31 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
         super.init(name: "Maps", typeName: "pix-content-resource-maps")
-        setNeedsBuffer()
+        setup()
     }
     
     public required init() {
         super.init(name: "Maps", typeName: "pix-content-resource-maps")
-        setNeedsBuffer()
+        setup()
     }
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        
         setNeedsBuffer()
+        
+        updateMapsCancellable = updateMapsPassthrough
+            .debounce(for: .milliseconds(100), scheduler: RunLoop.main, options: nil)
+            .sink { [weak self] in
+                self?.setNeedsBuffer()
+            }
+        
     }
     
     // MARK: Live
@@ -121,14 +140,14 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
     public override func liveValueChanged() {
         super.liveValueChanged()
         
-        setNeedsBuffer()
+        updateMapsPassthrough.send(())
     }
     
     // MARK: Buffer
     
     func setNeedsBuffer() {
 
-        PixelKit.main.logger.log(node: self, .detail, .resource, "Set Needs Buffer.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Set Needs Buffer.")
 
         let mapSnapshotOptions = MKMapSnapshotter.Options()
 
@@ -144,6 +163,9 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
         mapSnapshotOptions.showsBuildings = showsBuildings
         mapSnapshotOptions.pointOfInterestFilter = showsPointsOfInterest ? .includingAll : .excludingAll
         mapSnapshotOptions.mapType = mapType.mapType
+        if darkMode {
+            mapSnapshotOptions.appearance = NSAppearance(named: .darkAqua)
+        }
 
         let snapShotter = MKMapSnapshotter(options: mapSnapshotOptions)
 
