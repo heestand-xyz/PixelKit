@@ -10,6 +10,7 @@ import Foundation
 import RenderKit
 import Resolution
 import CoreGraphics
+import CoreImage
 
 final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     
@@ -22,12 +23,14 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         case angle
         case zoom
         case random
+        case variable
         public var index: Int {
             switch self {
             case .box: return 0
             case .angle: return 1
             case .zoom: return 2
             case .random: return 4
+            case .variable: return 5
             }
         }
         public var typeName: String { rawValue }
@@ -37,6 +40,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
             case .angle: return "Angle"
             case .zoom: return "Zoom"
             case .random: return "Random"
+            case .variable: return "Variable"
             }
         }
     }
@@ -67,6 +71,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     public required init() {
         super.init(name: "Luma Blur", typeName: "pix-effect-merger-luma-blur")
         extend = .hold
+        setup()
     }
     
     public convenience init(radius: CGFloat = 0.5,
@@ -76,13 +81,28 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA()
         super.inputB = inputB()
         self.radius = radius
+        setup()
     }
     
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
     }
     
-    // MARK: - Property Funcs
+    // MARK: Setup
+    
+    private func setup() {
+        
+        customRenderActive = style == .variable
+        _style.didSetValue = { [weak self] in
+            self?.customRenderActive = self?.style == .variable
+        }
+        
+        customRenderDelegate = self
+        
+    }
+    
+    // MARK: Property Funcs
     
     public func pixLumaBlurStyle(_ value: LumaBlurStyle) -> LumaBlurPIX {
         style = value
@@ -102,6 +122,51 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     public func pixLumaBlurPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> LumaBlurPIX {
         position = CGPoint(x: x, y: y)
         return self
+    }
+    
+}
+
+extension LumaBlurPIX: CustomRenderDelegate {
+    
+    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        
+        guard let textureA = inputA?.texture else { return nil }
+        guard let textureB = inputB?.texture else { return nil }
+        
+        guard let ciImageA = Texture.ciImage(from: textureA, colorSpace: PixelKit.main.render.colorSpace) else { return nil }
+        guard var ciImageB = Texture.ciImage(from: textureB, colorSpace: PixelKit.main.render.colorSpace) else { return nil }
+        
+        if ciImageA.extent.size != ciImageB.extent.size {
+            guard let imageB = Texture.image(from: ciImageB) else { return nil }
+            let stretchedImageB = Texture.resize(imageB, to: ciImageA.extent.size, placement: .stretch)
+            guard let stretchedCIImageB = Texture.ciImage(from: stretchedImageB) else { return nil }
+            ciImageB = stretchedCIImageB
+        }
+        
+        let parameters: [String : Any]? = [
+            kCIInputImageKey : ciImageA,
+            "inputMask" : ciImageB,
+            "inputRadius" : NSNumber(value: radius * 100),
+        ]
+            
+        guard let filter: CIFilter = CIFilter(name: "CIMaskedVariableBlur", parameters: parameters) else { return nil }
+        guard let finalImage: CIImage = filter.outputImage else { return nil }
+        
+        let croppedImage: CIImage = finalImage.cropped(to: ciImageA.extent)
+
+        do {
+            let finalTexture: MTLTexture = try Texture.makeTexture(from: croppedImage,
+                                                                   at: textureA.resolution.size,
+                                                                   colorSpace: PixelKit.main.render.colorSpace,
+                                                                   bits: PixelKit.main.render.bits,
+                                                                   with: commandBuffer,
+                                                                   on: PixelKit.main.render.metalDevice)
+            return finalTexture
+        } catch {
+            PixelKit.main.logger.log(node: self, .error, .resource, "Masked Variable Blur Failed", e: error)
+            return nil
+        }
+        
     }
     
 }

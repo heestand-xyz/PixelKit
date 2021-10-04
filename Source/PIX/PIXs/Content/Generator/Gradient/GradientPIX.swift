@@ -81,7 +81,9 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     @LiveFloat("scale") public var scale: CGFloat = 1.0
     @LiveFloat("offset", range: -0.5...0.5) public var offset: CGFloat = 0.0
     @LivePoint("position") public var position: CGPoint = .zero
+    @LiveFloat("gamma", range: 0.0...2.0, increment: 0.5) public var gamma: CGFloat = 1.0
     @LiveEnum("extendMode") public var extendMode: ExtendMode = .hold
+    
     @available(*, deprecated, renamed: "colorStops")
     public var colorSteps: [ColorStop] {
         get { colorStops }
@@ -98,11 +100,11 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     public override var liveList: [LiveWrap] {
         super.liveList.filter({ liveWrap in
             !["backgroundColor", "color"].contains(liveWrap.typeName)
-        }) + [_direction, _scale, _offset, _position, _extendMode]
+        }) + [_direction, _scale, _offset, _position, _gamma, _extendMode]
     }
     
     override public var values: [Floatable] {
-        return [direction, scale, offset, position, position, extendMode]
+        return [direction, scale, offset, position, position, gamma, extendMode]
     }
 
     override public var uniformArray: [[CGFloat]] {
@@ -110,7 +112,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(direction.index), scale, offset, position.x, position.y, CGFloat(extendMode.index)]
+        return [CGFloat(direction.index), scale, offset, position.x, position.y, gamma, CGFloat(extendMode.index)]
     }
     
     // MARK: - Life Cycle

@@ -40,6 +40,7 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
     public required init() {
         super.init(name: "Edge", typeName: "pix-effect-single-edge")
         setup()
+        extend = .hold
     }
     
     required init(from decoder: Decoder) throws {
@@ -50,8 +51,6 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
     // MARK: Setup
     
     private func setup() {
-        
-        extend = .hold
         
         customRenderDelegate = self
         
@@ -74,7 +73,9 @@ extension EdgePIX: CustomRenderDelegate {
             return nil
         }
         let sobelKernel = MPSImageSobel(device: PixelKit.main.render.metalDevice)
+        #if os(macOS)
         sobelKernel.edgeMode = extend.mps!
+        #endif
         sobelKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: sobelTexture)
         return sobelTexture
     }
