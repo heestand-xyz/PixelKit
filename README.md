@@ -5,6 +5,8 @@
 Live Graphics for iOS, macOS and tvOS<br>
 Runs on [RenderKit](https://github.com/heestand-xyz/RenderKit), powered by Metal
 
+PixelKit combines custom shaders, metal performance shaders, core image filters and vision to create tools for real-time rendering.
+
 Examples:
 [Camera Effects](#example-camera-effects) -
 [Green Screen](#example-green-screen)
