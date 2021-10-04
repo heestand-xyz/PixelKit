@@ -73,13 +73,12 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         fraction = 1.0 - (atan2((-u + 0.5) * in.aspect, -(v - 0.5)) / (pi * 2) + 0.5 - in.offset) / in.scale;
     }
     
-    if (in.gamma != 1.0) {
-        fraction = pow(min(max(fraction, 0.0), 1.0), 1 / max(0.001, in.gamma));        
-    }
-
-
     FractionAndZero fz = fractionAndZero(fraction, int(in.extend));
     fraction = fz.fraction;
+    
+    if (in.gamma != 1.0) {
+        fraction = pow(min(max(fraction, 0.0), 1.0), 1 / max(0.001, in.gamma));
+    }
 
     float4 c = 0;
     if (!fz.zero) {
