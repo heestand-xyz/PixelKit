@@ -43,6 +43,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case tint
     case transform
     case twirl
+    case opticalFlow
     
     public var name: String {
         switch self {
@@ -126,6 +127,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Transform"
         case .twirl:
             return "Twirl"
+        case .opticalFlow:
+            return "Optical Flow"
         }
     }
     
@@ -140,7 +143,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         }
     }
     
-    public var type: PIXSingleEffect.Type {
+    public var type: PIXSingleEffect.Type? {
         switch self {
         case .average:
             return AveragePIX.self
@@ -222,6 +225,12 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return TransformPIX.self
         case .twirl:
             return TwirlPIX.self
+        case .opticalFlow:
+            if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
+                return OpticalFlowPIX.self
+            } else {
+                return nil
+            }
         }
     }
     
