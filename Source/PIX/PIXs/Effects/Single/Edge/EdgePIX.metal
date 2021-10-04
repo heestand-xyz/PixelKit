@@ -20,6 +20,7 @@ struct Uniforms{
     float colored;
     float transparent;
     float includeAlpha;
+    float sobel;
 };
 
 float edgeMono(texture2d<float> inTex, sampler s, float4 c, float u, float v, uint w, uint h, float dist, float amp) {
@@ -55,6 +56,11 @@ fragment float4 effectSingleEdgePIX(VertexOut out [[stage_in]],
     float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);
+    
+    bool sobel = in.sobel > 0.0;
+    if (sobel) {
+        return c;
+    }
 
     uint w = inTex.get_width();
     uint h = inTex.get_height();

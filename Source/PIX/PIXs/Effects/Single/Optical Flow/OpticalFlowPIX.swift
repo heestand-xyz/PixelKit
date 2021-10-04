@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  OpticalFlowPIX.swift
+//  PixelKit
 //
 //  Created by Anton Heestand on 2021-10-04.
 //
@@ -9,18 +9,12 @@ import Foundation
 import RenderKit
 import Resolution
 import Vision
-import CoreImage
-//#if os(macOS)
-//import AppKit
-//#endif
 
 @available(iOS 14.0, tvOS 14.0, macOS 11.0, *)
 final public class OpticalFlowPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderName: String { return "nilPIX" }
-    
-//    private var tempSaved: Bool = false
-    
+        
     private var lastInputTexture: MTLTexture?
     
     // MARK: - Life Cycle
@@ -75,19 +69,6 @@ extension OpticalFlowPIX: CustomRenderDelegate {
                         
             let finalTexture: MTLTexture = try Texture.makeTextureViaRawData(from: observation.pixelBuffer, bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, sourceZero: Float(0.0), sourceOne: Float(1.0), normalize: true, invertGreen: true)
             
-            print("----------->", finalTexture.pixelFormat.rawValue)
-            
-//            #if os(macOS)
-//            if !tempSaved {
-//                let finalImage: NSImage = Texture.image(from: observation.pixelBuffer)!
-//                try! finalImage.pngData()!.write(to: URL(fileURLWithPath: "/Users/heestand-xyz/Downloads/img.png"))
-//                tempSaved = true
-//            }
-//            #endif
-            
-//            let finalImage: CIImage = Texture.ciImage(from: observation.pixelBuffer)
-//            let finalTexture: MTLTexture = try Texture.makeTexture(from: finalImage, at: finalImage.extent.size, colorSpace: PixelKit.main.render.colorSpace, bits: PixelKit.main.render.bits, with: commandBuffer, on: PixelKit.main.render.metalDevice)
-
             return finalTexture
             
         } catch {
@@ -98,18 +79,3 @@ extension OpticalFlowPIX: CustomRenderDelegate {
     }
     
 }
-
-//#if os(macOS)
-//public extension NSImage {
-//    func pngData() -> Data? {
-//        guard let representation = tiffRepresentation else { return nil }
-//        guard let bitmap = NSBitmapImageRep(data: representation) else { return nil }
-//        return bitmap.representation(using: .png, properties: [:])
-//    }
-//    func jpegData(compressionQuality: CGFloat) -> Data? {
-//        guard let representation = tiffRepresentation else { return nil }
-//        guard let bitmap = NSBitmapImageRep(data: representation) else { return nil }
-//        return bitmap.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
-//    }
-//}
-//#endif

@@ -127,7 +127,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     #if !os(tvOS) && !targetEnvironment(simulator)
     func gaussianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-        if #available(OSX 10.13, *) {
+        if #available(macOS 10.13, *) {
             guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
                 pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil

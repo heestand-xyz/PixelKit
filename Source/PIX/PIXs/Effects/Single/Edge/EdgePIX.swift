@@ -10,6 +10,7 @@ import Foundation
 import CoreGraphics
 import RenderKit
 import Resolution
+import MetalPerformanceShaders
 
 final public class EdgePIX: PIXSingleEffect, PIXViewable {
     
@@ -22,28 +23,61 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
     @LiveBool("colored") public var colored: Bool = false
     @LiveBool("transparent") public var transparent: Bool = false
     @LiveBool("includeAlpha") public var includeAlpha: Bool = false
+    @LiveBool("sobel") public var sobel: Bool = false
 
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_strength, _distance, _colored, _transparent, _includeAlpha]
+        [_strength, _distance, _colored, _transparent, _includeAlpha, _sobel]
     }
     
     override public var values: [Floatable] {
-        [strength, distance, colored, transparent, includeAlpha]
+        [strength, distance, colored, transparent, includeAlpha, sobel]
     }
     
     // MARK: - Life Cycle
     
     public required init() {
         super.init(name: "Edge", typeName: "pix-effect-single-edge")
-        extend = .hold
+        setup()
     }
     
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
     }
     
+    // MARK: Setup
+    
+    private func setup() {
+        
+        extend = .hold
+        
+        customRenderDelegate = self
+        
+        customRenderActive = sobel
+        _sobel.didSetValue = { [weak self] in
+            self?.customRenderActive = self?.sobel ?? false
+            self?.render()
+        }
+        
+    }
+    
+}
+
+extension EdgePIX: CustomRenderDelegate {
+    
+    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        let size = texture.resolution.size
+        guard let sobelTexture = try? Texture.emptyTexture(size: size, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
+            pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            return nil
+        }
+        let sobelKernel = MPSImageSobel(device: PixelKit.main.render.metalDevice)
+        sobelKernel.edgeMode = extend.mps!
+        sobelKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: sobelTexture)
+        return sobelTexture
+    }
 }
 
 public extension NODEOut {
