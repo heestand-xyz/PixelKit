@@ -164,7 +164,11 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
         mapSnapshotOptions.pointOfInterestFilter = showsPointsOfInterest ? .includingAll : .excludingAll
         mapSnapshotOptions.mapType = mapType.mapType
         if darkMode {
+            #if os(macOS)
             mapSnapshotOptions.appearance = NSAppearance(named: .darkAqua)
+            #else
+            mapSnapshotOptions.traitCollection = UITraitCollection(userInterfaceStyle: .dark)
+            #endif
         }
 
         let snapShotter = MKMapSnapshotter(options: mapSnapshotOptions)
