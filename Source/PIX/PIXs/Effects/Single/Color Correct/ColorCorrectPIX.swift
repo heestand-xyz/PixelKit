@@ -21,6 +21,12 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     @LiveFloat("vibrance") public var vibrance: CGFloat = 0.0
     @LiveFloat("temperature", range: -1.0...1.0) public var temperature: CGFloat = 0.0
 
+    // MARK: - Property Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_whitePoint, _vibrance, _temperature]
+    }
+    
     // MARK: - Life Cycle
     
     public required init() {

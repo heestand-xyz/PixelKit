@@ -46,6 +46,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case twirl
     case opticalFlow
     case filter
+    case warp
     
     public var name: String {
         switch self {
@@ -135,6 +136,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Optical Flow"
         case .filter:
             return "Filter"
+        case .warp:
+            return "Warp"
         }
     }
     
@@ -241,6 +244,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             }
         case .filter:
             return FilterPIX.self
+        case .warp:
+            return WarpPIX.self
         }
     }
     

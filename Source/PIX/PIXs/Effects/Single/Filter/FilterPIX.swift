@@ -96,6 +96,12 @@ final public class FilterPIX: PIXSingleEffect, PIXViewable {
     
     @LiveEnum("filter") public var filter: Filter = .noir
     
+    // MARK: Propery Helpers
+    
+    public override var liveList: [LiveWrap] {
+        [_filter]
+    }
+    
     // MARK: - Life Cycle
     
     public required init() {
