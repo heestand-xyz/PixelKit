@@ -35,10 +35,12 @@ fragment float4 effectSingleColorConvertPIX(VertexOut out [[stage_in]],
     uint index = uint(in.index);
     
     float3 cc = 0;
-    if (way == 0) { // rgbToHsv
+    if (way == 0) {
         cc = rgb2hsv(c.r, c.g, c.b);
-    } else if (way == 1) { // hsvToRgb
+    } else if (way == 1) {
         cc = hsv2rgb(c.r, c.g, c.b);
+    } else {
+        return c;
     }
     
     switch (index) {

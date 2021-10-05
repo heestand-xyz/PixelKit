@@ -9,6 +9,7 @@ import Foundation
 import CoreGraphics
 import RenderKit
 import Resolution
+import MetalKit
 
 final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     
@@ -19,19 +20,25 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     public enum Conversion: String, Enumable {
         case rgbToHsv
         case hsvToRgb
+        case linearToSRGB
+        case sRGBToLinear
         public var index: Int {
             switch self {
             case .rgbToHsv: return 0
             case .hsvToRgb: return 1
+            case .linearToSRGB: return 2
+            case .sRGBToLinear: return 3
             }
         }
-        public var typeName: String { rawValue }
         public var name: String {
             switch self {
             case .rgbToHsv: return "RGB to HSV"
             case .hsvToRgb: return "HSV to RGB"
+            case .linearToSRGB: return "Linear to sRGB"
+            case .sRGBToLinear: return "sRGB to Linear"
             }
         }
+        public var typeName: String { rawValue }
     }
     @available(*, deprecated, renamed: "conversion")
     public var direction: Conversion {
@@ -84,10 +91,66 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     
     public required init() {
         super.init(name: "Color Convert", typeName: "pix-effect-single-color-convert")
+        setup()
     }
     
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        
+        customRenderActive = [.linearToSRGB, .sRGBToLinear].contains(conversion)
+        _conversion.didSetValue = { [weak self] in
+            guard let self = self else { return }
+            self.customRenderActive = [.linearToSRGB, .sRGBToLinear].contains(self.conversion)
+        }
+        
+        customRenderDelegate = self
+        
+    }
+    
+}
+
+extension ColorConvertPIX: CustomRenderDelegate {
+    
+    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
+        
+        let ciFilterName: String
+        switch conversion {
+        case .linearToSRGB:
+            ciFilterName = "CILinearToSRGBToneCurve"
+        case .sRGBToLinear:
+            ciFilterName = "CISRGBToneCurveToLinear"
+        default:
+            return nil
+        }
+        
+        guard let ciImage = Texture.ciImage(from: texture, colorSpace: PixelKit.main.render.colorSpace) else { return nil }
+        
+        let parameters: [String : Any]? = [
+            kCIInputImageKey : ciImage
+        ]
+            
+        guard let filter: CIFilter = CIFilter(name: ciFilterName, parameters: parameters) else { return nil }
+        guard let finalImage: CIImage = filter.outputImage else { return nil }
+        
+        do {
+            let finalTexture: MTLTexture = try Texture.makeTexture(from: finalImage,
+                                                                   at: texture.resolution.size,
+                                                                   colorSpace: PixelKit.main.render.colorSpace,
+                                                                   bits: PixelKit.main.render.bits,
+                                                                   with: commandBuffer,
+                                                                   on: PixelKit.main.render.metalDevice)
+            return finalTexture
+        } catch {
+            PixelKit.main.logger.log(node: self, .error, .resource, "CI Filter Failed", e: error)
+            return nil
+        }
+        
     }
     
 }

@@ -10,6 +10,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case chromaKey
     case clamp
     case colorConvert
+    case colorCorrect
     case colorShift
     case convert
     case cornerPin
@@ -44,6 +45,7 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case transform
     case twirl
     case opticalFlow
+    case filter
     
     public var name: String {
         switch self {
@@ -61,6 +63,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Clamp"
         case .colorConvert:
             return "Color Convert"
+        case .colorCorrect:
+            return "Color Correct"
         case .colorShift:
             return "Color Shift"
         case .convert:
@@ -129,6 +133,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Twirl"
         case .opticalFlow:
             return "Optical Flow"
+        case .filter:
+            return "Filter"
         }
     }
     
@@ -159,6 +165,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return ClampPIX.self
         case .colorConvert:
             return ColorConvertPIX.self
+        case .colorCorrect:
+            return ColorCorrectPIX.self
         case .colorShift:
             return ColorShiftPIX.self
         case .convert:
@@ -231,6 +239,8 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             } else {
                 return nil
             }
+        case .filter:
+            return FilterPIX.self
         }
     }
     
