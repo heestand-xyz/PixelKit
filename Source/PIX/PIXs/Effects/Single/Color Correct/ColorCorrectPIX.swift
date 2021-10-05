@@ -9,6 +9,7 @@ import Foundation
 import RenderKit
 import Resolution
 import MetalKit
+import PixelColor
 
 final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     
@@ -16,6 +17,7 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: Properties
     
+    @LiveColor("whitePoint") public var whitePoint: PixelColor = .white
     @LiveFloat("vibrance") public var vibrance: CGFloat = 0.0
     @LiveFloat("temperature", range: -1.0...1.0) public var temperature: CGFloat = 0.0
 
@@ -46,10 +48,20 @@ extension ColorCorrectPIX: CustomRenderDelegate {
         
         guard let ciImage = Texture.ciImage(from: texture, colorSpace: PixelKit.main.render.colorSpace) else { return nil }
         
+        /// White Point
+        
+        let whitePointParameters: [String : Any]? = [
+            kCIInputImageKey : ciImage,
+            "inputColor": whitePoint.ciColor,
+        ]
+            
+        guard let whitePointFilter: CIFilter = CIFilter(name: "CIWhitePointAdjust", parameters: whitePointParameters) else { return nil }
+        guard let whitePointImage: CIImage = whitePointFilter.outputImage else { return nil }
+        
         /// Vibrance
         
         let vibranceParameters: [String : Any]? = [
-            kCIInputImageKey : ciImage,
+            kCIInputImageKey : whitePointImage,
             "inputAmount": NSNumber(value: vibrance),
         ]
             
