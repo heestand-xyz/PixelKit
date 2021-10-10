@@ -15,6 +15,8 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     override public var shaderName: String { return "effectMultiStackPIX" }
     
+    static let stackCount: Int = 32
+    
     // MARK: - Public Properties
     
     @LiveResolution("resolution") public var resolution: Resolution = ._128
@@ -84,7 +86,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     public override var values: [Floatable] { [axis, alignment, spacing, padding, backgroundColor] }
         
     public override var extraUniforms: [CGFloat] {
-        (0..<10).map { i -> CGFloat in
+        (0..<StackPIX.stackCount).map { i -> CGFloat in
             guard i < inputs.count else { return 1.0 }
             return inputs[i].finalResolution.aspect
         }
