@@ -160,7 +160,7 @@ public extension MetalPIX {
     static func pixUV(at resolution: Resolution = .auto(render: PixelKit.main.render)) -> MetalPIX {
         let metalPix = MetalPIX(at: resolution, code:
             """
-            pix = float4(u, v, 0.0, 1.0);
+            return float4(u, v, 0.0, 1.0);
             """
         )
         metalPix.name = "uv:metal"
