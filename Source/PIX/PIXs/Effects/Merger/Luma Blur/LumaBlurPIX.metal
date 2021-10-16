@@ -57,7 +57,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
     
     float amounts = 1.0;
     
-    if (in.type < 0.5) {
+    if (in.type == 1) {
         
         // Regular
         
@@ -83,7 +83,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
             }
         }
         
-    } else if (in.type > 0.5 && in.type < 1.5) {
+    } else if (in.type == 2) {
         
         // Angle
         
@@ -104,7 +104,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
             }
         }
         
-    } else if (in.type > 1.5 && in.type < 2.5) {
+    } else if (in.type == 3) {
         
         // Zoom
         
@@ -125,7 +125,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
             }
         }
         
-    } else if (in.type > 2.5 && in.type < 3.5) {
+//    } else if (...) {
         
         // Radial
         
@@ -146,7 +146,7 @@ fragment float4 effectMergerLumaBlurPIX(VertexOut out [[stage_in]],
 //            }
 //        }
         
-    } else if (in.type > 3.5 && in.type < 4.5) {
+    } else if (in.type == 4) {
         
         // Random
         

@@ -23,14 +23,14 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         case angle
         case zoom
         case random
-        case variable
+        case ciFilter
         public var index: Int {
             switch self {
-            case .box: return 0
-            case .angle: return 1
-            case .zoom: return 2
+            case .box: return 1
+            case .angle: return 2
+            case .zoom: return 3
             case .random: return 4
-            case .variable: return 5
+            case .ciFilter: return 5
             }
         }
         public var typeName: String { rawValue }
@@ -40,7 +40,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
             case .angle: return "Angle"
             case .zoom: return "Zoom"
             case .random: return "Random"
-            case .variable: return "Variable"
+            case .ciFilter: return "CI Filter"
             }
         }
     }
@@ -93,9 +93,9 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     
     private func setup() {
         
-        customRenderActive = style == .variable
+        customRenderActive = style == .ciFilter
         _style.didSetValue = { [weak self] in
-            self?.customRenderActive = self?.style == .variable
+            self?.customRenderActive = self?.style == .ciFilter
         }
         
         customRenderDelegate = self
