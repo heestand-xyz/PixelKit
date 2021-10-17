@@ -5,6 +5,8 @@
 //  Created by Anton Heestand on 2019-04-28.
 //
 
+#if os(macOS)
+
 import AppKit
 import Metal
 import RenderKit
@@ -16,9 +18,7 @@ final public class SyphonOutPIX: PIXOutput, PIXViewable {
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!
     var server: SyphonServer!
-    
-    var lastTexture: MTLTexture?
-    
+        
     // MARK: - Life Cycle
 
     override public init() {
@@ -93,9 +93,11 @@ final public class SyphonOutPIX: PIXOutput, PIXViewable {
         }
     }
 
-//    public override func destroy() {
-//        super.destroy()
-//        server.stop()
-//    }
+    public override func destroy() {
+        super.destroy()
+        server.stop()
+    }
 
 }
+
+#endif

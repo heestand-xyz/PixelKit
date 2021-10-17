@@ -38,7 +38,7 @@ open class PIXOutput: PIX, NODEOutput, NODEInSingle {
         try super.init(from: decoder)
     }
     
-    public override func destroy() {
+    open override func destroy() {
         input = nil
         super.destroy()
     }

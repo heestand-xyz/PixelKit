@@ -336,7 +336,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: Clean
     
-    public func destroy() {
+    open func destroy() {
         clearRender()
         pixelKit.render.remove(node: self)
         texture = nil
