@@ -144,20 +144,20 @@ final public class ImagePIX: PIXResource, PIXViewable {
 //            return
 //        }
         let bits: Bits = pixelKit.render.bits
-        if bits == ._16 {
-            do {
-                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)
-                resourceTexture = texture
-            } catch {
-                pixelKit.logger.log(node: self, .error, .resource, "Float16 requres iOS 14 or macOS 11.", loop: true, e: error)
-            }
-        } else {
+//        if bits == ._16 {
+//            do {
+//                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)
+//                resourceTexture = texture
+//            } catch {
+//                pixelKit.logger.log(node: self, .error, .resource, "Float16 requres iOS 14 or macOS 11.", loop: true, e: error)
+//            }
+//        } else {
             guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
                 pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
                 return
             }
             resourcePixelBuffer = buffer
-        }
+//        }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { [weak self] in
             self?.imageLoaded = true

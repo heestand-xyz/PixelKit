@@ -243,9 +243,9 @@ open class PIX: NODE, ObservableObject, Equatable {
                 }
                 pipeline = try pixelKit.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
             }
-            #if !os(tvOS) || !targetEnvironment(simulator)
+//            #if !os(tvOS) || !targetEnvironment(simulator)
             sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
-            #endif
+//            #endif
         } catch {
             pixelKit.logger.log(node: self, .fatal, nil, "Setup Failed", e: error)
         }
