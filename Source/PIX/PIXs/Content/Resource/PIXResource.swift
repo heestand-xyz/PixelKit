@@ -16,7 +16,8 @@ open class PIXResource: PIXContent, NODEResource {
         if let texture: MTLTexture = resourceTexture {
             return texture.resolution
         } else if let pixelBuffer: CVPixelBuffer = resourcePixelBuffer {
-            return pixelBuffer.resolution
+            return .custom(w: CVPixelBufferGetWidth(pixelBuffer),
+                           h: CVPixelBufferGetHeight(pixelBuffer))
         }
         return nil
     }

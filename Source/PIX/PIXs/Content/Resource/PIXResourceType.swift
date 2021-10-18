@@ -51,18 +51,20 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
     
     public var type: PIXResource.Type? {
         switch self {
-        case .camera:
-            return CameraPIX.self
         case .image:
             return ImagePIX.self
+        #if !os(tvOS)
+        case .camera:
+            return CameraPIX.self
         case .vector:
             return VectorPIX.self
+        case .web:
+            return WebPIX.self
+        #endif
         case .video:
             return VideoPIX.self
         case .view:
             return ViewPIX.self
-        case .web:
-            return WebPIX.self
         #if os(macOS)
         case .screenCapture:
             return ScreenCapturePIX.self

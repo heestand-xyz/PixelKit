@@ -148,22 +148,22 @@ final public class TextPIX: PIXSprite, PIXViewable {
 extension TextPIX {
     
     public static func getFontFamilyNames() -> [String] {
-        #if os(iOS)
-        return UIFont.familyNames
-        #elseif os(macOS)
+        #if os(macOS)
         return NSFontManager.shared.availableFontFamilies
+        #else
+        return UIFont.familyNames
         #endif
     }
     
     public static func getFontWeights(fontFamilyName: String) -> [String] {
-        #if os(iOS)
+        #if os(macOS)
+        return getDefaultFontWeights()
+        #else
         return ["Regular"] + UIFont.fontNames(forFamilyName: fontFamilyName).compactMap { fontName in
             let components: [String] = fontName.components(separatedBy: "-")
             guard components.count == 2 else { return nil }
             return components.last!.pascalCaseToTitleCase
         }
-        #elseif os(macOS)
-        return getDefaultFontWeights()
         #endif
     }
 
