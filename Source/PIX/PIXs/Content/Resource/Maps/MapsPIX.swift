@@ -17,15 +17,14 @@ import RenderKit
 import Resolution
 import PixelColor
 import MapKit
-import Combine
 
 final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "contentResourcePIX" }
     
-    private var updateMapsPassthrough = PassthroughSubject<Void, Never>()
-    private var updateMapsCancellable: AnyCancellable?
-        
+    private var rendering: Bool = false
+    private var queued: Bool = false
+    
     public enum MapType: String, Enumable {
         case standard
         case mutedStandard
@@ -127,11 +126,14 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
         
         setNeedsBuffer()
         
-        updateMapsCancellable = updateMapsPassthrough
-            .debounce(for: .milliseconds(100), scheduler: RunLoop.main, options: nil)
-            .sink { [weak self] in
-                self?.setNeedsBuffer()
+        PixelKit.main.render.listenToFrames { [weak self] in
+            guard let self = self else { return }
+            if self.queued {
+                guard !self.rendering else { return }
+                self.setNeedsBuffer()
+                self.queued = false
             }
+        }
         
     }
     
@@ -140,13 +142,18 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
     public override func liveValueChanged() {
         super.liveValueChanged()
         
-        updateMapsPassthrough.send(())
+        if !rendering {
+            setNeedsBuffer()
+        } else {
+            queued = true
+        }
+        
     }
     
     // MARK: Buffer
     
     func setNeedsBuffer() {
-
+        
         PixelKit.main.logger.log(node: self, .info, .resource, "Set Needs Buffer.")
 
         let mapSnapshotOptions = MKMapSnapshotter.Options()
@@ -172,10 +179,13 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
         }
 
         let snapShotter = MKMapSnapshotter(options: mapSnapshotOptions)
+        
+        rendering = true
 
         snapShotter.start() { [weak self] snapshot, error in
             
             guard let snapshot = snapshot else {
+                self?.rendering = false
                 return
             }
             
@@ -189,10 +199,12 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
                 
                 self?.applyResolution { [weak self] in
                     self?.render()
+                    self?.rendering = false
                 }
                 
             } catch {
                 PixelKit.main.logger.log(node: self, .error, .resource, "Texture Load Failed.", e: error)
+                self?.rendering = false
             }
             
         }

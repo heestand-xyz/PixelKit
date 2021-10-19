@@ -16,9 +16,9 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
         case .blends:
             return "Blends"
         case .metalMultiEffect:
-            return "Metal (NFX)"
+            return "Metal (N)"
         case .metalScriptMultiEffect:
-            return "Metal Script (NFX)"
+            return "Metal Script (N)"
         case .stack:
             return "Stack"
         }
