@@ -162,7 +162,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
         applyResolution { [weak self] in
             self?.imageLoaded = true
             self?.render()
-            PixelKit.main.render.delay(frames: 5, done: { [weak self] in
+            PixelKit.main.render.delay(frames: 10, done: { [weak self] in
                 self?.render()
             })
         }
