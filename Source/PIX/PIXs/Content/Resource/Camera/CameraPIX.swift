@@ -40,6 +40,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     var access: Bool = false
     var orientation: _Orientation?
+    
+//    public var sampleBuffer: CMSampleBuffer?
 
     public override var bypass: Bool {
         didSet {
@@ -109,6 +111,14 @@ final public class CameraPIX: PIXResource, PIXViewable {
     #elseif os(macOS) || targetEnvironment(macCatalyst)
     public var cameraResolution: CameraResolution = ._720p { didSet { if setup { setupCamera() } } }
     #endif
+    
+    public var orientationCorrectResolution: Resolution {
+        if flop {
+            return cameraResolution.resolution.flopped
+        } else {
+            return cameraResolution.resolution
+        }
+    }
     
 //    var orientedCameraResolution: Resolution {
 //        #if os(iOS)
@@ -542,6 +552,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
             guard multiIndex < self.multiCallbacks.count else { return }
             self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
             #endif
+        }, capturedSampleBuffer: { [weak self] sampleBuffer in
+//            self?.sampleBuffer = sampleBuffer
         })
     }
     

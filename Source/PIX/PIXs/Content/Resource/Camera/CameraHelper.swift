@@ -65,6 +65,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     let capturedCallback: (CVPixelBuffer) -> ()
     let capturedDepthCallback: (CVPixelBuffer) -> ()
     let capturedMultiCallback: (Int, CVPixelBuffer) -> ()
+    let capturedSampleBuffer: (CMSampleBuffer) -> ()
     
     var presentedDownstreamPix: () -> (PIX?)
     
@@ -87,9 +88,12 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
          clear: @escaping () -> (),
          captured: @escaping (CVPixelBuffer) -> (),
          capturedDepth: @escaping (CVPixelBuffer) -> (),
-         capturedMulti: @escaping (Int, CVPixelBuffer) -> ()) {
+         capturedMulti: @escaping (Int, CVPixelBuffer) -> (),
+         capturedSampleBuffer: @escaping (CMSampleBuffer) -> ()) {
         
         self.presentedDownstreamPix = presentedDownstreamPix
+        
+        self.capturedSampleBuffer = capturedSampleBuffer
         
         var multi: Bool = false
         
@@ -459,6 +463,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     #endif
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+//        capturedSampleBuffer(sampleBuffer)
         
         guard !bypass else { return }
         
