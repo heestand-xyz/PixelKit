@@ -21,8 +21,13 @@ open class PIXResource: PIXContent, NODEResource {
         }
         return nil
     }
+    @Published public var hasResourceTexture: Bool = false
     
-    public var resourceTexture: MTLTexture?
+    public var resourceTexture: MTLTexture? {
+        didSet {
+            hasResourceTexture = resourceTexture != nil
+        }
+    }
     public var resourcePixelBuffer: CVPixelBuffer?
     var flop: Bool = false
     

@@ -294,9 +294,9 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Connect
     
-    public func didConnect() {}
+    open func didConnect() {}
     
-    public func didDisconnect() {
+    open func didDisconnect() {
         removeRes()
     }
     
