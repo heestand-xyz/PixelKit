@@ -35,7 +35,7 @@ final class PixelKitTests: XCTestCase {
         }
         for pixType in PIXMergerEffectType.allCases {
             if pixType == .metalMergerEffect { continue }
-            let pix: PIX = pixType.type.init()
+            guard let pix: PIX = pixType.type?.init() else { continue }
             pixs.append(WeakNODE(pix))
         }
         for pixType in PIXMultiEffectType.allCases {
