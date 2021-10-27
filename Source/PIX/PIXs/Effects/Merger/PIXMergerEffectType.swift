@@ -39,9 +39,9 @@ public enum PIXMergerEffectType: String, Codable, Hashable, CaseIterable, Identi
         case .lumaTransform:
             return "Luma Transform"
         case .metalMergerEffect:
-            return "Metal (2)"
+            return "Metal (2FX)"
         case .metalScriptMergerEffect:
-            return "Metal Script (2)"
+            return "Metal Script (2FX)"
         case .remap:
             return "Remap"
         case .reorder:

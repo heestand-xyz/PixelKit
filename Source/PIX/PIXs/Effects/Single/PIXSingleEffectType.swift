@@ -98,9 +98,9 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
         case .levels:
             return "Levels"
         case .metalEffect:
-            return "Metal (1)"
+            return "Metal (1FX)"
         case .metalScriptEffect:
-            return "Metal Script (1)"
+            return "Metal Script (1FX)"
         case .morph:
             return "Morph"
         case .`nil`:
