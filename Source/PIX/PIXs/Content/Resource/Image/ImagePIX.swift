@@ -45,7 +45,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
     }
     
     var swizzel: Bool {
-        PixelKit.main.render.bits == ._16
+        false //PixelKit.main.render.bits == ._16
     }
     
     // MARK: - Public Properties
