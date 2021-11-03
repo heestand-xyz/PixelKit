@@ -157,8 +157,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             device = defaultDevice
         } else {
             let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: .video, position: .unspecified)
-            print("----------------------------")
-            dump(discoverySession.devices)
             for iDevice in discoverySession.devices {
                 guard iDevice != defaultDevice else { continue }
                 guard iDevice.hasMediaType(.video) else { continue }

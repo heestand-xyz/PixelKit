@@ -66,8 +66,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
         case vga = "VGA"
         case _540p = "540p"
         case _720p = "720p"
-        #if os(iOS) && !targetEnvironment(macCatalyst)
         case _1080p = "1080p"
+        #if os(iOS) && !targetEnvironment(macCatalyst)
         case _4K = "4K"
         #endif
         public var sessionPreset: AVCaptureSession.Preset {
@@ -78,9 +78,9 @@ final public class CameraPIX: PIXResource, PIXViewable {
                 return .iFrame960x540
             case ._720p:
                 return .hd1280x720
-            #if os(iOS) && !targetEnvironment(macCatalyst)
             case ._1080p:
                 return .hd1920x1080
+            #if os(iOS) && !targetEnvironment(macCatalyst)
             case ._4K:
                 return .hd4K3840x2160
             #endif
@@ -91,8 +91,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
             case .vga: return .custom(w: 640, h: 480)
             case ._540p: return .custom(w: 960, h: 540)
             case ._720p: return ._720p
-            #if os(iOS) && !targetEnvironment(macCatalyst)
             case ._1080p: return ._1080p
+            #if os(iOS) && !targetEnvironment(macCatalyst)
             case ._4K: return ._4K
             #endif
             }
@@ -138,6 +138,13 @@ final public class CameraPIX: PIXResource, PIXViewable {
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         case external = "External Camera"
         #endif
+        static let `default`: Camera = {
+            #if os(iOS)
+            return .back
+            #elseif os(macOS)
+            return .front
+            #endif
+        }()
         var position: AVCaptureDevice.Position {
             switch self {
             case .front:
@@ -369,9 +376,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
         
         active = try container.decode(Bool.self, forKey: .active)
         cameraResolution = try container.decode(CameraResolution.self, forKey: .cameraResolution)
-        camera = try container.decode(Camera.self, forKey: .camera)
+        camera = (try? container.decode(Camera.self, forKey: .camera)) ?? Camera.default
         
         try super.init(from: decoder)
+        
+        setupNotifications()
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -396,9 +405,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             if let value = try? container.decode(Bool.self, forKey: .manualWhiteBalance) { self.manualWhiteBalance = value }
             if let value = try? container.decode(PixelColor.self, forKey: .whiteBalance) { self.whiteBalance = value.uiColor }
             #endif
-            
         }
-        setupNotifications()
     }
     
     public override func encode(to encoder: Encoder) throws {
@@ -516,6 +523,8 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self.orientation = orientation
             #if os(iOS)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
+            #else
+            self.flop = false
             #endif
             self.cameraDelegate?.cameraSetup(pix: self)
             #if os(iOS) && !targetEnvironment(macCatalyst)
