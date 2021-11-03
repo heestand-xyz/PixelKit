@@ -158,14 +158,10 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         guard !setupScreenDevice else { return }
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: nil, position: .unspecified)
         guard let screenDevice = discoverySession.devices.first else { return }
-        print("---------->", screenDevice)
         let screenInput = try! AVCaptureDeviceInput(device: screenDevice)
-        print("---------->", "A")
         if captureSession.canAddInput(screenInput) {
-            print("---------->", "B")
             captureSession.addInput(screenInput)
             if captureSession.canAddOutput(videoOutput){
-                print("---------->", "C")
                 captureSession.addOutput(videoOutput)
                 let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
                 videoOutput.setSampleBufferDelegate(self, queue: queue)

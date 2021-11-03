@@ -24,6 +24,9 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     let helper: PaintHelper
     
+    /// Used in external apps
+    @Published public var stencilInput: (PIX & NODEOut)?
+    
     public let canvasView: PKCanvasView = .init()
     
     public var manualToolUpdate: Bool = false
