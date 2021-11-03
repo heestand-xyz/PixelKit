@@ -168,13 +168,22 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
                                          height: resolution.height / Resolution.scale)
 
         mapSnapshotOptions.showsBuildings = showsBuildings
+        
         mapSnapshotOptions.pointOfInterestFilter = showsPointsOfInterest ? .includingAll : .excludingAll
+        
         mapSnapshotOptions.mapType = mapType.mapType
+        
         if darkMode {
             #if os(macOS)
             mapSnapshotOptions.appearance = NSAppearance(named: .darkAqua)
             #else
             mapSnapshotOptions.traitCollection = UITraitCollection(userInterfaceStyle: .dark)
+            #endif
+        } else {
+            #if os(macOS)
+            mapSnapshotOptions.appearance = NSAppearance(named: .aqua)
+            #else
+            mapSnapshotOptions.traitCollection = UITraitCollection(userInterfaceStyle: .light)
             #endif
         }
 
