@@ -18,7 +18,7 @@ import Resolution
 import PixelColor
 import MapKit
 
-final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
+final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
     override public var shaderName: String { return "contentResourcePIX" }
     
@@ -106,12 +106,12 @@ final public class MapsPIX: PIXResource, NODEResolution, PIXViewable {
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
-        super.init(name: "Maps", typeName: "pix-content-resource-maps")
+        super.init(name: "Earth", typeName: "pix-content-resource-earth")
         setup()
     }
     
     public required init() {
-        super.init(name: "Maps", typeName: "pix-content-resource-maps")
+        super.init(name: "Earth", typeName: "pix-content-resource-earth")
         setup()
     }
     

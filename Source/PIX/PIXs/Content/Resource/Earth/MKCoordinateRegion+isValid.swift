@@ -13,12 +13,12 @@ extension MKCoordinateRegion {
     var isValid: Bool {
         get {
             let latitudeCenter = self.center.latitude
-            let latitudeNorth = self.center.latitude + self.span.latitudeDelta/2
-            let latitudeSouth = self.center.latitude - self.span.latitudeDelta/2
+            let latitudeNorth = self.center.latitude + self.span.latitudeDelta / 2
+            let latitudeSouth = self.center.latitude - self.span.latitudeDelta / 2
 
             let longitudeCenter = self.center.longitude
-            let longitudeWest = self.center.longitude - self.span.longitudeDelta/2
-            let longitudeEast = self.center.longitude + self.span.longitudeDelta/2
+            let longitudeWest = self.center.longitude - self.span.longitudeDelta / 2
+            let longitudeEast = self.center.longitude + self.span.longitudeDelta / 2
 
             let topLeft = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeWest)
             let topCenter = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeCenter)
