@@ -80,7 +80,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_axis, _alignment, _spacing, _padding, _backgroundColor, _resolution] + super.liveList
+        [_resolution, _axis, _alignment, _spacing, _padding, _backgroundColor] + super.liveList
     }
     
     public override var values: [Floatable] { [axis, alignment, spacing, padding, backgroundColor] }
