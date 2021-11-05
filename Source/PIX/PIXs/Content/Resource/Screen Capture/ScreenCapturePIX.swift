@@ -34,13 +34,11 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     public required init() {
         super.init(name: "Screen Capture", typeName: "pix-content-resource-screen-capture")
         setupScreenCapture()
-        _screenIndex.didSetValue = { [weak self] in self?.setupScreenCapture() }
     }
     
     public required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         setupScreenCapture()
-        _screenIndex.didSetValue = { [weak self] in self?.setupScreenCapture() }
     }
     
     deinit {
@@ -56,12 +54,16 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
     // MARK: Setup
     
     func setupScreenCapture() {
+        
         guard NSScreen.screens.indices.contains(screenIndex) else {
             pixelKit.logger.log(node: self, .info, .resource, "Can't Setup Screen Captrue at index \(screenIndex)")
             return
         }
+        
         pixelKit.logger.log(node: self, .info, .resource, "Setup Screen Captrue at index \(screenIndex)")
+        
         helper?.stop()
+        
         helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { [weak self] _ in
             guard let self = self else { return }
             self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture setup.")
@@ -78,6 +80,10 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
                 self.render()
             }
         })
+        
+        _screenIndex.didSetValue = { [weak self] in
+            self?.setupScreenCapture()
+        }
     }
     
 }
@@ -108,38 +114,35 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         captureSession = AVCaptureSession()
         videoOutput = AVCaptureVideoDataOutput()
         
-        
         super.init()
-        
         
         /// iOS Screen Capture
         enableDalDevices()
-        
-        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.externalUnknown], mediaType: nil, position: .unspecified)
-        
+                
         NotificationCenter.default.addObserver(self, selector: #selector(newDevice), name: NSNotification.Name.AVCaptureDeviceWasConnected, object: nil)
         newDevice()
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
         
-//        if screenInput != nil {
-//            if captureSession.canAddInput(screenInput!) {
-//                captureSession.addInput(screenInput!)
-//                if captureSession.canAddOutput(videoOutput){
-//                    captureSession.addOutput(videoOutput)
-//                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
-//                    videoOutput.setSampleBufferDelegate(self, queue: queue)
-//                    start()
-//                } else {
-//                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
-//                }
-//            } else {
-//                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
-//            }
-//        } else {
-//            pixelKit.logger.log(.error, .resource, "Screen not found.")
-//        }
+        
+        if screenInput != nil {
+            if captureSession.canAddInput(screenInput!) {
+                captureSession.addInput(screenInput!)
+                if captureSession.canAddOutput(videoOutput){
+                    captureSession.addOutput(videoOutput)
+                    let queue = DispatchQueue(label: "se.hexagons.pixelKit.pix.screen.capture.queue")
+                    videoOutput.setSampleBufferDelegate(self, queue: queue)
+                    start()
+                } else {
+                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
+                }
+            } else {
+                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
+            }
+        } else {
+            pixelKit.logger.log(.error, .resource, "Screen not found.")
+        }
         
     }
     
