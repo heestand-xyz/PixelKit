@@ -375,11 +375,11 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
             }
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if depth {
-                #warning("Add support for LiDAR Cameras")
-                guard cameraPosition == .front && UIDevice.current.userInterfaceIdiom == .phone else {
-                    pixelKit.logger.log(.error, .resource, "Camera can't add depth output on back camera or iPad (right now).")
-                    return
-                }
+//                #warning("Add support for LiDAR Cameras")
+//                guard cameraPosition == .front && UIDevice.current.userInterfaceIdiom == .phone else {
+//                    pixelKit.logger.log(.error, .resource, "Camera can't add depth output on back camera or iPad (right now).")
+//                    return
+//                }
                 guard captureSession.canAddOutput(depthOutput!) else {
                     pixelKit.logger.log(.error, .resource, "Camera can't add depth output.")
                     return
@@ -461,6 +461,8 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
     #endif
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+//        pixelKit.logger.log(.info, .resource, "--> Captured Output.")
         
 //        capturedSampleBuffer(sampleBuffer)
         
@@ -799,7 +801,9 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
                          didOutput depthData: AVDepthData,
                          timestamp: CMTime,
                          connection: AVCaptureConnection) {
-        print("DEPTH")
+        
+//        pixelKit.logger.log(.info, .resource, "--> Captured Depth Output.")
+        
         guard depth else { return }
         var convertedDepth: AVDepthData
         if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
@@ -811,7 +815,19 @@ extension CameraHelper: AVCaptureDepthDataOutputDelegate, AVCaptureDataOutputSyn
 //        pixelBuffer.clamp()
 
         DispatchQueue.main.async { [weak self] in
-            self?.capturedCallback(pixelBuffer)
+            
+            guard let self = self else { return }
+            
+            if !self.initialFrameCaptured {
+                self.setup(pixelBuffer)
+                self.initialFrameCaptured = true
+            } else if self.orientationUpdated {
+                self.setup(pixelBuffer)
+                self.orientationUpdated = false
+            }
+            
+            self.capturedCallback(pixelBuffer)
+            
         }
 
     }
