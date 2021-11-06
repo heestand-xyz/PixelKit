@@ -106,12 +106,12 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution
-        super.init(name: "Earth", typeName: "pix-content-resource-earth")
+        super.init(name: "Earth", typeName: "pix-content-resource-maps")
         setup()
     }
     
     public required init() {
-        super.init(name: "Earth", typeName: "pix-content-resource-earth")
+        super.init(name: "Earth", typeName: "pix-content-resource-maps")
         setup()
     }
     

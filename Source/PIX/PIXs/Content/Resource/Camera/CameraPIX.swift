@@ -526,7 +526,6 @@ final public class CameraPIX: PIXResource, PIXViewable {
             #else
             self.flop = false
             #endif
-            print("--------->", orientation?.rawValue ?? -1, self.flop)
             self.cameraDelegate?.cameraSetup(pix: self)
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if self.multi {
