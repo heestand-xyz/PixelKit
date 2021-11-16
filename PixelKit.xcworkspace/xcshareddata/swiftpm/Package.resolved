@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "RenderKit",
-        "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
+        "package": "TextureMap",
+        "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
         "state": {
           "branch": null,
-          "revision": "5c3d05db37d9d157739365eff5b9cff857a41a3c",
-          "version": "1.0.4"
+          "revision": "def4664aba2002dd720301378fc77e7f734798e5",
+          "version": "0.1.0"
         }
       }
     ]
