@@ -22,6 +22,7 @@ extension PIX {
         case extreme = 32
         case insane = 64
         case epic = 128
+        public static let `default`: Self = .high
         public var index: Int {
             rawValue
         }
