@@ -29,7 +29,7 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         case angle
         case zoom
         case random
-        static let `default`: BlurStyle = {
+        public static let `default`: BlurStyle = {
             #if !os(tvOS) && !targetEnvironment(simulator)
             return .gaussian
             #else
