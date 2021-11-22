@@ -138,7 +138,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         #elseif os(macOS) || targetEnvironment(macCatalyst)
         case external = "External Camera"
         #endif
-        static let `default`: Camera = {
+        public static let `default`: Camera = {
             #if os(iOS)
             return .back
             #elseif os(macOS)
