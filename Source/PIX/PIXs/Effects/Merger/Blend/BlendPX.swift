@@ -1,7 +1,4 @@
 //
-//  File.swift
-//  
-//
 //  Created by Anton Heestand on 2021-06-21.
 //
 
