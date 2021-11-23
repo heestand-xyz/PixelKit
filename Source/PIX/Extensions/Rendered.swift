@@ -183,18 +183,18 @@ public extension PIX {
     
     struct PixelPack {
         public let resolution: Resolution
-        public let raw: [[Pixel]]
-        public func pixel(x: Int, y: Int) -> Pixel {
+        public let raw: [[RenderPixel]]
+        public func pixel(x: Int, y: Int) -> RenderPixel {
             return raw[y][x]
         }
-        public func pixel(uv: CGVector) -> Pixel {
+        public func pixel(uv: CGVector) -> RenderPixel {
             let xMax = resolution.width - 1
             let yMax = resolution.height - 1
             let x = max(0, min(Int(round(uv.dx * xMax + 0.5)), Int(xMax)))
             let y = max(0, min(Int(round(uv.dy * yMax + 0.5)), Int(yMax)))
             return pixel(pos: CGPoint(x: x, y: y))
         }
-        public func pixel(pos: CGPoint) -> Pixel {
+        public func pixel(pos: CGPoint) -> RenderPixel {
             let xMax = resolution.width - 1
             let yMax = resolution.height - 1
             let x = max(0, min(Int(round(pos.x)), Int(xMax)))
@@ -270,12 +270,12 @@ public extension PIX {
     var renderedPixels: PixelPack? {
         guard let resolution = derivedResolution else { return nil }
         guard let rawPixels = renderedRawNormalized else { return nil }
-        var pixels: [[Pixel]] = []
+        var pixels: [[RenderPixel]] = []
         let w = Int(resolution.width)
         let h = Int(resolution.height)
         for y in 0..<h {
             let v = (CGFloat(y) + 0.5) / CGFloat(h)
-            var pixelRow: [Pixel] = []
+            var pixelRow: [RenderPixel] = []
             for x in 0..<w {
                 let u = (CGFloat(x) + 0.5) / CGFloat(w)
                 var c: [CGFloat] = []
@@ -287,7 +287,7 @@ public extension PIX {
                 }
                 let color = PixelColor(red: c[0], green: c[1], blue: c[2], alpha: c[3])
                 let uv = CGVector(dx: u, dy: v)
-                let pixel = Pixel(x: x, y: y, uv: uv, color: color)
+                let pixel = RenderPixel(x: x, y: y, uv: uv, color: color)
                 pixelRow.append(pixel)
             }
             pixels.append(pixelRow)
