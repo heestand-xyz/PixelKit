@@ -7,26 +7,41 @@
 
 import SwiftUI
 
+@available(*, deprecated, renamed: "PixelViewRepresentable")
+typealias PixelView = PixelViewRepresentable
+
 #if os(macOS)
-public struct PixelView: NSViewRepresentable {
+
+public struct PixelViewRepresentable: NSViewRepresentable {
+    
     private let pix: PIX
+    
     public init(pix: PIX) {
         self.pix = pix
     }
+    
     public func makeNSView(context: Context) -> PIXView {
         pix.pixView
     }
+    
     public func updateNSView(_ pixView: PIXView, context: Context) {}
 }
+
 #else
-public struct PixelView: UIViewRepresentable {
+
+public struct PixelViewRepresentable: UIViewRepresentable {
+    
     private let pix: PIX
+    
     public init(pix: PIX) {
         self.pix = pix
     }
+    
     public func makeUIView(context: Context) -> PIXView {
         pix.pixView
     }
+    
     public func updateUIView(_ pixView: PIXView, context: Context) {}
 }
+
 #endif
