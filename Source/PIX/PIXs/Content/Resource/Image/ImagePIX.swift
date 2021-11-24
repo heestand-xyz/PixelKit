@@ -54,9 +54,11 @@ final public class ImagePIX: PIXResource, PIXViewable {
     
     @Published public var imageLoaded: Bool = false
     
+    /// Set `resizeResolution` to update image.
     public var resizePlacement: Texture.ImagePlacement = .fit
     public var resizeResolution: Resolution? = nil {
         didSet {
+            guard resizeResolution != oldValue else { return }
             setNeedsBuffer()
         }
     }
