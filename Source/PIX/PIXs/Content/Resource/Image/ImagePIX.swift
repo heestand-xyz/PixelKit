@@ -54,19 +54,13 @@ final public class ImagePIX: PIXResource, PIXViewable {
     
     @Published public var imageLoaded: Bool = false
     
-    #if !os(macOS)
-    public var resizeToFitResolution: Resolution? = nil
-    #endif
-    
-    var resizedResolution: Resolution? {
-        #if !os(macOS)
-        guard let res = resizeToFitResolution else { return nil }
-        guard let image = image else { return nil }
-        return Resolution.size(image.size).aspectResolution(to: .fit, in: res)
-        #else
-        return nil
-        #endif
+    public var resizePlacement: Texture.ImagePlacement = .fit
+    public var resizeResolution: Resolution? = nil {
+        didSet {
+            setNeedsBuffer()
+        }
     }
+    var resizedResolution: Resolution?
     
     public var tint: Bool = false
     public var tintColor: PixelColor = .white
@@ -131,11 +125,10 @@ final public class ImagePIX: PIXResource, PIXViewable {
             imageLoaded = false
             return
         }
-        #if !os(macOS)
-        if let res = resizedResolution {
-            image = Texture.resize(image, to: res.size)
+        if let res = resizeResolution {
+            image = Texture.resize(image, to: res.size, placement: resizePlacement)
+            resizedResolution = image.resolution
         }
-        #endif
 //        if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {
 //            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
 //            pixelKit.render.delay(frames: 1, done: {
