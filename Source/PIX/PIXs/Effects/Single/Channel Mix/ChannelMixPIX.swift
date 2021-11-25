@@ -50,7 +50,7 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
             case .green:
                 return PixelColor(channel: .green)
             case .blue:
-                return PixelColor(channel: .red)
+                return PixelColor(channel: .blue)
             case .alpha:
                 return PixelColor(channel: .alpha)
             case .clear:
