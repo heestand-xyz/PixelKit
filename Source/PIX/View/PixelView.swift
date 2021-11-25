@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-@available(*, deprecated, renamed: "PixelViewRepresentable")
-typealias PixelView = PixelViewRepresentable
+//@available(*, deprecated, renamed: "PixelViewer")
+//typealias PixelView = PixelViewer
 
 #if os(macOS)
 
-public struct PixelViewRepresentable: NSViewRepresentable {
+public struct PixelView: NSViewRepresentable {
     
     private let pix: PIX
     
@@ -29,7 +29,7 @@ public struct PixelViewRepresentable: NSViewRepresentable {
 
 #else
 
-public struct PixelViewRepresentable: UIViewRepresentable {
+public struct PixelView: UIViewRepresentable {
     
     private let pix: PIX
     
