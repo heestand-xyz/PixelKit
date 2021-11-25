@@ -19,6 +19,7 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     
     @LiveColor("whitePoint") public var whitePoint: PixelColor = .white
     @LiveFloat("vibrance") public var vibrance: CGFloat = 0.0
+    /// Cold is `-1.0`, neutral is `0.0` and warm is `1.0`.
     @LiveFloat("temperature", range: -1.0...1.0) public var temperature: CGFloat = 0.0
 
     // MARK: - Property Helpers
