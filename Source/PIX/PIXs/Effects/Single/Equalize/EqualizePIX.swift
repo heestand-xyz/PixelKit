@@ -21,7 +21,7 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
     // MARK: - Public Properties
     
-    @LiveBool("includeAlpha") var includeAlpha: Bool = false
+    @LiveBool("includeAlpha") public var includeAlpha: Bool = false
 
     // MARK: - Property Helpers
     
