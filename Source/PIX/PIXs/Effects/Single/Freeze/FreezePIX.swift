@@ -17,7 +17,11 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Public Properties
     
-    @LiveBool("freeze") public var freeze: Bool = false
+    @LiveBool("freeze") public var freeze: Bool = false {
+        didSet {
+            canRender = !freeze
+        }
+    }
     
     // MARK: - Property Helpers
     
@@ -38,15 +42,6 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable {
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
-    
-    // MARK: Freeze
-    
-    public override func render() {
-        if !freeze {
-            super.render()
-        }
-    }
-    
 }
 
 public extension NODEOut {

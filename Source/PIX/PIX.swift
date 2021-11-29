@@ -71,6 +71,8 @@ open class PIX: NODE, ObservableObject, Equatable {
     open var vertexUniforms: [CGFloat] { return [] }
     public var shaderNeedsResolution: Bool { return false }
     
+    public var canRender: Bool = true
+    
     public var bypass: Bool = false {
         didSet {
             if bypass {
