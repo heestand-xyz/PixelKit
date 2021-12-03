@@ -85,7 +85,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        coordinates = try container.decode([Coordinate].self, forKey: .coordinates)
+        coordinates = (try? container.decode([Coordinate].self, forKey: .coordinates)) ?? []
         try super.init(from: decoder)
     }
     

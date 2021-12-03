@@ -228,7 +228,7 @@ public enum PIXType: Equatable, CaseIterable {
                 if resource == .web {
                     return WebPIX(at: resolution)
                 }
-                if resource == .earth {
+                if resource == .maps {
                     return EarthPIX(at: resolution)
                 }
                 #if os(iOS) && !targetEnvironment(simulator)

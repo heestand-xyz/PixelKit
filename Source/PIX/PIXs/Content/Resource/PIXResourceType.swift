@@ -14,7 +14,7 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
     case multiCamera
     case paint
     case streamIn
-    case earth
+    case maps
     
     public var name: String {
         switch self {
@@ -40,13 +40,18 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return "Paint"
         case .streamIn:
             return "Stream In"
-        case .earth:
+        case .maps:
             return "Earth"
         }
     }
     
     public var typeName: String {
-        "pix-content-resource-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        switch self {
+        case .maps:
+            return "pix-content-resource-maps"
+        default:
+            return "pix-content-resource-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
+        }
     }
     
     public var type: PIXResource.Type? {
@@ -81,7 +86,7 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         case .streamIn:
             return StreamInPIX.self
         #endif
-        case .earth:
+        case .maps:
             return EarthPIX.self
         default:
             return nil
