@@ -147,17 +147,20 @@ final public class ImagePIX: PIXResource, PIXViewable {
 //                pixelKit.logger.log(node: self, .error, .resource, "Float16 requres iOS 14 or macOS 11.", loop: true, e: error)
 //            }
 //        } else {
-            guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
-                pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
-                return
-            }
-            resourcePixelBuffer = buffer
+        guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
+            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
+            return
+        }
+        resourcePixelBuffer = buffer
 //        }
         pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { [weak self] in
             self?.imageLoaded = true
             self?.render()
             PixelKit.main.render.delay(frames: 10, done: { [weak self] in
+                self?.render()
+            })
+            PixelKit.main.render.delay(frames: 60, done: { [weak self] in
                 self?.render()
             })
         }
