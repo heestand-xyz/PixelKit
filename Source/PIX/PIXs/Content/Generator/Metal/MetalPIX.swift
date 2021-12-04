@@ -13,7 +13,7 @@ import Metal
 
 /// Metal Shader (Generator)
 ///
-/// **Variables:** pi, u, v, uv, var.resx, var.height, var.aspect, var.uniform
+/// **Variables:** pi, u, v, uv, var.width, var.height, var.aspect, var.uniform
 ///
 /// Example:
 /// ```swift
@@ -44,7 +44,7 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
 
     struct Uniforms{
         /*<uniforms>*/
-        float resx;
+        float width;
         float height;
         float aspect;
     };
