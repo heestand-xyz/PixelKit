@@ -15,6 +15,7 @@ import Resolution
 import PixelColor
 import MapKit
 import CoreGraphics
+import TextureMap
 
 final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
@@ -190,16 +191,37 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
         snapShotter.start() { [weak self] snapshot, error in
             
-            guard let snapshot = snapshot else {
+            if let error = error {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Snapshot Failed.", e: error)
                 self?.rendering = false
                 return
             }
             
-            let image: UINSImage = snapshot.image
+            guard let snapshot = snapshot else {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Snapshot Not Found.", e: error)
+                self?.rendering = false
+                return
+            }
+            
+            var image: UINSImage = snapshot.image
+            
+            #if os(macOS)
+            guard let data: Data = image.pngData() else {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Image Data Failed to Encode.")
+                self?.rendering = false
+                return
+            }
+            guard let dataImage = NSImage(data: data) else {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Image Data Failed to Decode.")
+                self?.rendering = false
+                return
+            }
+            image = dataImage
+            #endif
             
             do {
                 
-                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)
+                let texture: MTLTexture = try TextureMap.texture(image: image)
                 
                 self?.resourceTexture = texture
                 
