@@ -14,6 +14,7 @@ import RenderKit
 import Resolution
 import PixelColor
 import MapKit
+import CoreGraphics
 
 final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
@@ -86,8 +87,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
     
     @LiveResolution("resolution") public var resolution: Resolution = ._128
     @LiveEnum("mapType") public var mapType: MapType = .standard
-    @LiveFloat("latitude", range: -90...90, increment: 45) public var latitude: CGFloat = 0
-    @LiveFloat("longitude", range: -180...180, increment: 45) public var longitude: CGFloat = 0
+    @LivePoint("coordinate") public var coordinate: CGPoint = .zero
     @LiveFloat("span", range: 0...180, increment: 45) public var span: CGFloat = 90
     @LiveBool("showsBuildings") public var showsBuildings: Bool = false
     @LiveBool("showsPointsOfInterest") public var showsPointsOfInterest: Bool = false
@@ -96,7 +96,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_resolution, _mapType, _latitude, _longitude, _span, _showsBuildings, _showsPointsOfInterest, _darkMode]
+        [_resolution, _mapType, _coordinate, _span, _showsBuildings, _showsPointsOfInterest, _darkMode]
     }
     
     // MARK: - Life Cycle
@@ -155,7 +155,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
         let mapSnapshotOptions = MKMapSnapshotter.Options()
 
-        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let center = CLLocationCoordinate2D(latitude: coordinate.y, longitude: coordinate.x)
         let span = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
         let region = MKCoordinateRegion(center: center, span: span)
         guard region.isValid else { return }
