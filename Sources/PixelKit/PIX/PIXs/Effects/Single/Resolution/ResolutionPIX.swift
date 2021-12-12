@@ -47,10 +47,6 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
         super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

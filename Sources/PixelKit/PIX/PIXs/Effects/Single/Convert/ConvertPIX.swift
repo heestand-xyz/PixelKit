@@ -77,8 +77,4 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Convert", typeName: "pix-effect-single-convert")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }

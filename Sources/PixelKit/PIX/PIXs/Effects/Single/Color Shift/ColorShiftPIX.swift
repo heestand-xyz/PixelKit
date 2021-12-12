@@ -41,10 +41,6 @@ final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Color Shift", typeName: "pix-effect-single-color-shift")
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

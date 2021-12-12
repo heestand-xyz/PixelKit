@@ -359,85 +359,85 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Codable
     
-    enum PIXCodingKeys: CodingKey {
-        case id
-        case name
-        case typeName
-        case bypass
-        case viewInterpolation
-        case interpolation
-        case extend
-        case mipmap
-        case compare
-        case liveList
-    }
-    
-    enum LiveTypeCodingKey: CodingKey {
-        case type
-    }
-
-    private struct EmptyDecodable: Decodable {}
-
-    public required init(from decoder: Decoder) throws {
-        
-        let container = try decoder.container(keyedBy: PIXCodingKeys.self)
-        
-        id = try container.decode(UUID.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        typeName = try container.decode(String.self, forKey: .typeName)
-        bypass = try container.decode(Bool.self, forKey: .bypass)
-        viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
-        interpolation = try container.decode(PixelInterpolation.self, forKey: .interpolation)
-        extend = try container.decode(ExtendMode.self, forKey: .extend)
-        mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
-        compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
-        
-        if Thread.isMainThread {
-            setupPIX()
-        } else {
-            let group = DispatchGroup()
-            group.enter()
-            DispatchQueue.main.async { [weak self] in
-                self?.setupPIX()
-                group.leave()
-            }
-            group.wait()
-        }
-        
-        var liveCodables: [LiveCodable] = []
-        var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
-        var liveListContainerMain = liveListContainer
-        while(!liveListContainer.isAtEnd) {
-            let liveTypeContainer = try liveListContainer.nestedContainer(keyedBy: LiveTypeCodingKey.self)
-            guard let liveType: LiveType = try? liveTypeContainer.decode(LiveType.self, forKey: .type) else {
-                _ = try? liveListContainerMain.decode(EmptyDecodable.self)
-                continue
-            }
-            let liveCodable: LiveCodable = try liveListContainerMain.decode(liveType.liveCodableType)
-            liveCodables.append(liveCodable)
-        }
-        for liveCodable in liveCodables {
-            guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
-            liveWrap.setLiveCodable(liveCodable)
-        }
-        
-        render()
-        
-    }
-    
-    open func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: PIXCodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-        try container.encode(typeName, forKey: .typeName)
-        try container.encode(bypass, forKey: .bypass)
-        try container.encode(viewInterpolation, forKey: .viewInterpolation)
-        try container.encode(interpolation, forKey: .interpolation)
-        try container.encode(extend, forKey: .extend)
-        try container.encode(mipmap.rawValue, forKey: .mipmap)
-        try container.encode(compare.rawValue, forKey: .compare)
-        try container.encode(liveList.map({ $0.getLiveCodable() }), forKey: .liveList)
-    }
+//    enum PIXCodingKeys: CodingKey {
+//        case id
+//        case name
+//        case typeName
+//        case bypass
+//        case viewInterpolation
+//        case interpolation
+//        case extend
+//        case mipmap
+//        case compare
+//        case liveList
+//    }
+//    
+//    enum LiveTypeCodingKey: CodingKey {
+//        case type
+//    }
+//
+//    private struct EmptyDecodable: Decodable {}
+//
+//    public required init(from decoder: Decoder) throws {
+//
+//        let container = try decoder.container(keyedBy: PIXCodingKeys.self)
+//
+//        id = try container.decode(UUID.self, forKey: .id)
+//        name = try container.decode(String.self, forKey: .name)
+//        typeName = try container.decode(String.self, forKey: .typeName)
+//        bypass = try container.decode(Bool.self, forKey: .bypass)
+//        viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
+//        interpolation = try container.decode(PixelInterpolation.self, forKey: .interpolation)
+//        extend = try container.decode(ExtendMode.self, forKey: .extend)
+//        mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
+//        compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
+//
+//        if Thread.isMainThread {
+//            setupPIX()
+//        } else {
+//            let group = DispatchGroup()
+//            group.enter()
+//            DispatchQueue.main.async { [weak self] in
+//                self?.setupPIX()
+//                group.leave()
+//            }
+//            group.wait()
+//        }
+//
+//        var liveCodables: [LiveCodable] = []
+//        var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
+//        var liveListContainerMain = liveListContainer
+//        while(!liveListContainer.isAtEnd) {
+//            let liveTypeContainer = try liveListContainer.nestedContainer(keyedBy: LiveTypeCodingKey.self)
+//            guard let liveType: LiveType = try? liveTypeContainer.decode(LiveType.self, forKey: .type) else {
+//                _ = try? liveListContainerMain.decode(EmptyDecodable.self)
+//                continue
+//            }
+//            let liveCodable: LiveCodable = try liveListContainerMain.decode(liveType.liveCodableType)
+//            liveCodables.append(liveCodable)
+//        }
+//        for liveCodable in liveCodables {
+//            guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
+//            liveWrap.setLiveCodable(liveCodable)
+//        }
+//
+//        render()
+//
+//    }
+//
+//    open func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: PIXCodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(name, forKey: .name)
+//        try container.encode(typeName, forKey: .typeName)
+//        try container.encode(bypass, forKey: .bypass)
+//        try container.encode(viewInterpolation, forKey: .viewInterpolation)
+//        try container.encode(interpolation, forKey: .interpolation)
+//        try container.encode(extend, forKey: .extend)
+//        try container.encode(mipmap.rawValue, forKey: .mipmap)
+//        try container.encode(compare.rawValue, forKey: .compare)
+//        try container.encode(liveList.map({ $0.getLiveCodable() }), forKey: .liveList)
+//    }
     
 }
 

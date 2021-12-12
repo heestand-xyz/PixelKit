@@ -66,12 +66,6 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
         customRenderActive = true
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        customRenderDelegate = self
-        customRenderActive = true
-    }
-    
     // MARK: Histogram
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

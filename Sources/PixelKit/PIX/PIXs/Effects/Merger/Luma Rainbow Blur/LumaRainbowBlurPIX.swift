@@ -70,10 +70,6 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
         extend = .hold
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

@@ -52,11 +52,6 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         pixelKit.render.listenToFramesUntil { [weak self] in
             guard let self = self else { return .done }

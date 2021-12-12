@@ -77,10 +77,6 @@ final public class LinePIX: PIXGenerator, PIXViewable {
         self.lineWidth = lineWidth
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -52,33 +52,33 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Codable
     
-    enum CodingKeys: CodingKey {
-        case text
-        case fontName
-        case fontSize
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        text = try container.decode(String.self, forKey: .text)
-        let fontName = try container.decode(String.self, forKey: .fontName)
-        let fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
-        #if os(iOS)
-        font = UIFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
-        #elseif os(macOS)
-        font = NSFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
-        #endif
-        try super.init(from: decoder)
-        setup()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(text, forKey: .text)
-        try container.encode(font.fontName, forKey: .fontName)
-        try container.encode(font.pointSize, forKey: .fontSize)
-        try super.encode(to: encoder)
-    }
+//    enum CodingKeys: CodingKey {
+//        case text
+//        case fontName
+//        case fontSize
+//    }
+//    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        text = try container.decode(String.self, forKey: .text)
+//        let fontName = try container.decode(String.self, forKey: .fontName)
+//        let fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
+//        #if os(iOS)
+//        font = UIFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+//        #elseif os(macOS)
+//        font = NSFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
+//        #endif
+//        try super.init(from: decoder)
+//        setup()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(text, forKey: .text)
+//        try container.encode(font.fontName, forKey: .fontName)
+//        try container.encode(font.pointSize, forKey: .fontSize)
+//        try super.encode(to: encoder)
+//    }
     
     // MARK: - Setup
     

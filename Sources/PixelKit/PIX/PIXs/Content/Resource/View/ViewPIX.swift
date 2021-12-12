@@ -84,10 +84,6 @@ final public class ViewPIX: PIXResource, PIXViewable {
         setNeedsBuffer()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     public func viewNeedsRender() {
         setNeedsBuffer()
     }

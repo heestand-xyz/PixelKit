@@ -60,8 +60,4 @@ final public class DistancePIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Distance", typeName: "pix-effect-single-distance")
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }

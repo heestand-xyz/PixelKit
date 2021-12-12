@@ -46,10 +46,6 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
         self.distance = distance
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixDisplaceOrigin(_ value: CGFloat) -> DisplacePIX {

@@ -35,10 +35,6 @@ final public class SlopePIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Slope", typeName: "pix-effect-single-slope")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

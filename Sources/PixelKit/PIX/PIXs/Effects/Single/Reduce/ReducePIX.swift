@@ -53,10 +53,6 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
         customRenderDelegate = self
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Custom Render
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {

@@ -46,10 +46,6 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Levels", typeName: "pix-effect-single-levels")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

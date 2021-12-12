@@ -56,10 +56,6 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
         self.blendMode = blendMode
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixBlendPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> BlendPIX {

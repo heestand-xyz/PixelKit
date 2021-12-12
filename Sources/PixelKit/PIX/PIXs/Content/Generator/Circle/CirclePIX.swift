@@ -44,10 +44,6 @@ final public class CirclePIX: PIXGenerator, PIXViewable {
         self.radius = radius
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixCirclePosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> CirclePIX {

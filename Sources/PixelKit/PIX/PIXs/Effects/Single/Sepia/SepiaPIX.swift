@@ -34,10 +34,6 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Sepia", typeName: "pix-effect-single-sepia")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

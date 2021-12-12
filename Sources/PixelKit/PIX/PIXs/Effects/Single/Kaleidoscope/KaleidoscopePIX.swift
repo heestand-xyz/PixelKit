@@ -37,10 +37,6 @@ final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
         extend = .mirror
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

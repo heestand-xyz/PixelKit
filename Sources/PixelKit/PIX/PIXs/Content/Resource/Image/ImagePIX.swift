@@ -114,10 +114,6 @@ final public class ImagePIX: PIXResource, PIXViewable {
         setNeedsBuffer()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: Buffer
     
     func setNeedsBuffer() {

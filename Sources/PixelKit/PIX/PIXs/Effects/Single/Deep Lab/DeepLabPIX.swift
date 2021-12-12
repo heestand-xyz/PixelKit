@@ -72,11 +72,6 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewabl
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         customRenderDelegate = self
         customRenderActive = true

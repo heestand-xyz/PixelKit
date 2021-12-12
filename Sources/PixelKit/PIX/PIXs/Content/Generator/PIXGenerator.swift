@@ -38,14 +38,15 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         fatalError("please use init(at:name:typeName:)")
     }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
-        self.resolution = resolution
-        super.init(name: name, typeName: typeName)
+    public init(model: NodeGeneratorContentModel) {
+        self.resolution = model.resolution
+        super.init(name: model.name, typeName: model.typeName)
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
+    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
+        self.resolution = resolution
+        super.init(name: name, typeName: typeName)
         setup()
     }
     

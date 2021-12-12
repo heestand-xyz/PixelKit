@@ -37,10 +37,6 @@ final public class TransformPIX: PIXSingleEffect, PIXViewable {
     public required init() {
         super.init(name: "Transform", typeName: "pix-effect-single-transform")
     }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
       
 }
 

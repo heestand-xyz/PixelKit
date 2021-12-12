@@ -66,11 +66,6 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
         self.init(at: .auto(render: PixelKit.main.render))
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     // MARK: - Setup
     
     func setup() {

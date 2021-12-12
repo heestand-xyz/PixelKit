@@ -35,10 +35,6 @@ final public class SharpenPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Sharpen", typeName: "pix-effect-single-sharpen")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

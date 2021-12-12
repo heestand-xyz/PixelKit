@@ -42,10 +42,6 @@ final public class RangePIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Range", typeName: "pix-effect-single-range")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

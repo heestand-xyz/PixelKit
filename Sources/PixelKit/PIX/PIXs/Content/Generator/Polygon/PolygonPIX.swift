@@ -49,10 +49,6 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
         self.cornerRadius = cornerRadius
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixPolygonPosition(x: CGFloat = 0.0, y: CGFloat = 0.0) -> PolygonPIX {

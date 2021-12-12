@@ -35,10 +35,6 @@ final public class QuantizePIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Quantize", typeName: "pix-effect-single-quantize")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

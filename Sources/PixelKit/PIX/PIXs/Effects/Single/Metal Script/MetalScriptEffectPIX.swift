@@ -178,37 +178,37 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     
     // MARK: Codable
     
-    enum CodingKeys: CodingKey {
-        case metalUniforms
-        case whiteScript
-        case redScript
-        case greenScript
-        case blueScript
-        case alphaScript
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-        whiteScript = try container.decode(String.self, forKey: .whiteScript)
-        redScript = try container.decode(String.self, forKey: .redScript)
-        greenScript = try container.decode(String.self, forKey: .greenScript)
-        blueScript = try container.decode(String.self, forKey: .blueScript)
-        alphaScript = try container.decode(String.self, forKey: .alphaScript)
-        try super.init(from: decoder)
-        bakeFrag()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(metalUniforms, forKey: .metalUniforms)
-        try container.encode(whiteScript, forKey: .whiteScript)
-        try container.encode(redScript, forKey: .redScript)
-        try container.encode(greenScript, forKey: .greenScript)
-        try container.encode(blueScript, forKey: .blueScript)
-        try container.encode(alphaScript, forKey: .alphaScript)
-        try super.encode(to: encoder)
-    }
+//    enum CodingKeys: CodingKey {
+//        case metalUniforms
+//        case whiteScript
+//        case redScript
+//        case greenScript
+//        case blueScript
+//        case alphaScript
+//    }
+//    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
+//        whiteScript = try container.decode(String.self, forKey: .whiteScript)
+//        redScript = try container.decode(String.self, forKey: .redScript)
+//        greenScript = try container.decode(String.self, forKey: .greenScript)
+//        blueScript = try container.decode(String.self, forKey: .blueScript)
+//        alphaScript = try container.decode(String.self, forKey: .alphaScript)
+//        try super.init(from: decoder)
+//        bakeFrag()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(metalUniforms, forKey: .metalUniforms)
+//        try container.encode(whiteScript, forKey: .whiteScript)
+//        try container.encode(redScript, forKey: .redScript)
+//        try container.encode(greenScript, forKey: .greenScript)
+//        try container.encode(blueScript, forKey: .blueScript)
+//        try container.encode(alphaScript, forKey: .alphaScript)
+//        try super.encode(to: encoder)
+//    }
     
     // MARK: Bake Frag
     

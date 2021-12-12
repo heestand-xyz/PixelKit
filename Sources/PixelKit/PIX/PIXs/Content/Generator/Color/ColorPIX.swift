@@ -39,8 +39,4 @@ final public class ColorPIX: PIXGenerator, PIXViewable {
         super.color = color
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }

@@ -37,11 +37,6 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         customGeometryActive = true
         customGeometryDelegate = self

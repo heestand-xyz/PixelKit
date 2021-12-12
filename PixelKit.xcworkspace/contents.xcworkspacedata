@@ -13,4 +13,7 @@
    <FileRef
       location = "group:../Resolution">
    </FileRef>
+   <FileRef
+      location = "group:../TextureMap">
+   </FileRef>
 </Workspace>

@@ -40,11 +40,6 @@ final public class StreamInPIX: PIXResource, PIXViewable {
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         
         guard let viewController: UIViewController = viewController else {

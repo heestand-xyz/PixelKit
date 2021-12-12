@@ -44,10 +44,6 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
         self.fraction = fraction
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 //public extension NODEOut {

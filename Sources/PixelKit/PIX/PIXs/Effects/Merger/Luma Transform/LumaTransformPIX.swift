@@ -39,10 +39,6 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
         super.init(name: "Luma Transform", typeName: "pix-effect-merger-luma-transform")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

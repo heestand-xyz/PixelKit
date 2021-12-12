@@ -37,11 +37,6 @@ open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelega
         setupCustom()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setupCustom()
-    }
-    
     func setupCustom() {
         customRenderDelegate = self
         customRenderActive = true

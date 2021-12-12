@@ -20,10 +20,6 @@ final public class RemapPIX: PIXMergerEffect, PIXViewable {
         super.init(name: "Remap", typeName: "pix-effect-merger-remap")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

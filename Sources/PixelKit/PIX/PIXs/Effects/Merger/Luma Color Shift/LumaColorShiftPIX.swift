@@ -50,10 +50,6 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
         self.saturation = saturation
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixLumaColorShiftTint(color: PixelColor) -> LumaColorShiftPIX {

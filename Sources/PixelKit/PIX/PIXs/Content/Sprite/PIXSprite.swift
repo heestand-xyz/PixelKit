@@ -53,11 +53,6 @@ open class PIXSprite: PIXContent, NODEResolution {
         setupSprite()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setupSprite()
-    }
-    
     func setupSprite() {
         let size = (resolution / Resolution.scale).size
         scene = SKScene(size: size)

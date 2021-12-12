@@ -37,11 +37,6 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         guard let viewController: UIViewController = viewController else {
             pixelKit.logger.log(.error, .view, "View Controller Not Found")

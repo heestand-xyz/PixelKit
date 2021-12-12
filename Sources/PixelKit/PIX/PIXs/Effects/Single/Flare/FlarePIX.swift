@@ -44,10 +44,6 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Flare", typeName: "pix-effect-single-flare")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

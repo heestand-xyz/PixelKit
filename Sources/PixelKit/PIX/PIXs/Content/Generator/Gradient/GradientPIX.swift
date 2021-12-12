@@ -131,21 +131,21 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Codable
     
-    enum CodingKeys: CodingKey {
-        case colorStops
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        colorStops = try container.decode([ColorStop].self, forKey: .colorStops)
-        try super.init(from: decoder)
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(colorStops, forKey: .colorStops)
-        try super.encode(to: encoder)
-    }
+//    enum CodingKeys: CodingKey {
+//        case colorStops
+//    }
+//    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        colorStops = try container.decode([ColorStop].self, forKey: .colorStops)
+//        try super.init(from: decoder)
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(colorStops, forKey: .colorStops)
+//        try super.encode(to: encoder)
+//    }
     
     // MARK: - Property Funcs
     

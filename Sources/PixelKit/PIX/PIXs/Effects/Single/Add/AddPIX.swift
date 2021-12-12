@@ -52,9 +52,5 @@ final public class AddPIX: PIXSingleEffect, PIXViewable {
     public required init() {
         super.init(name: "Add", typeName: "pix-effect-single-add")
     }
-    
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 
 }

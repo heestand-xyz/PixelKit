@@ -109,10 +109,6 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
         super.init(name: "Reorder", typeName: "pix-effect-merger-reorder")
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

@@ -135,11 +135,6 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         realtimeListen()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        realtimeListen()
-    }
-    
     // MARK: - Record
     
     public func startRec(name: String? = nil, didError: ((Error) -> ())? = nil) {

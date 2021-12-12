@@ -44,10 +44,6 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
         super.init(name: "Luma Levels", typeName: "pix-effect-merger-luma-levels")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

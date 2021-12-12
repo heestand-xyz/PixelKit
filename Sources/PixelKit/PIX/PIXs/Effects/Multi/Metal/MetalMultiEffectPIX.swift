@@ -125,25 +125,25 @@ final public class MetalMultiEffectPIX: PIXMultiEffect, NODEMetalCode, PIXViewab
     
     // MARK: Codable
     
-    enum CodingKeys: CodingKey {
-        case metalUniforms
-        case code
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-        code = try container.decode(String.self, forKey: .code)
-        try super.init(from: decoder)
-        bakeFrag()
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(metalUniforms, forKey: .metalUniforms)
-        try container.encode(code, forKey: .code)
-        try super.encode(to: encoder)
-    }
+//    enum CodingKeys: CodingKey {
+//        case metalUniforms
+//        case code
+//    }
+//    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
+//        code = try container.decode(String.self, forKey: .code)
+//        try super.init(from: decoder)
+//        bakeFrag()
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(metalUniforms, forKey: .metalUniforms)
+//        try container.encode(code, forKey: .code)
+//        try super.encode(to: encoder)
+//    }
     
     // MARK: Bake Frag
     

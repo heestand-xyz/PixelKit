@@ -51,11 +51,6 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         flop = true
         DispatchQueue.main.async { [weak self] in

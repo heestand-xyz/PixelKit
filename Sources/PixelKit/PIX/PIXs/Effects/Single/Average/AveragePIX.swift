@@ -52,9 +52,5 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable {
     public required init() {
         super.init(name: "Average", typeName: "pix-effect-single-average")
     }
-    
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 
 }

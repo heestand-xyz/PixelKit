@@ -97,16 +97,16 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
         customRenderDelegate = self
     }
     
-    public required init(from decoder: Decoder) throws {
-        #if !os(tvOS) && !targetEnvironment(simulator)
-        style = .gaussian
-        #else
-        style = .box
-        #endif
-        try super.init(from: decoder)
-        extend = .hold
-        customRenderDelegate = self
-    }
+//    public required init(from decoder: Decoder) throws {
+//        #if !os(tvOS) && !targetEnvironment(simulator)
+//        style = .gaussian
+//        #else
+//        style = .box
+//        #endif
+//        try super.init(from: decoder)
+//        extend = .hold
+//        customRenderDelegate = self
+//    }
     
     // MARK: Guassian
     

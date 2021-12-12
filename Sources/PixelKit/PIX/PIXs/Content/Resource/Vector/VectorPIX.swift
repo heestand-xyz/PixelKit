@@ -70,11 +70,6 @@ final public class VectorPIX: PIXResource, PIXViewable {
         self.init(at: .auto(render: PixelKit.main.render))
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     // MARK: - Setup
     
     func setup() {

@@ -51,8 +51,4 @@ final public class StarPIX: PIXGenerator, PIXViewable {
         self.count = count
         self.cornerRadius = cornerRadius
     }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 }

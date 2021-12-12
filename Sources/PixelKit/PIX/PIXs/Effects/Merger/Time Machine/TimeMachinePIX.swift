@@ -43,11 +43,6 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         PixelKit.main.render.listenToFrames { [weak self] in
             guard let self = self else { return }

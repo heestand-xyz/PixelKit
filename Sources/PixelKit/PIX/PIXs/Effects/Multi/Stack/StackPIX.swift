@@ -118,10 +118,6 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
         self.init(at: .auto(render: PixelKit.main.render))
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixResolution(_ value: Resolution) -> Self {

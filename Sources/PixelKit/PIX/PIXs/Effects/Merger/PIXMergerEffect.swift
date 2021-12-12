@@ -31,10 +31,6 @@ open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
         super.init(name: name, typeName: typeName)
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     public override func destroy() {
         inputA = nil
         inputB = nil

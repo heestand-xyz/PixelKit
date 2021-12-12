@@ -60,10 +60,6 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
         self.zoom = zoom
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixNoiseSeed(_ value: Int) -> NoisePIX {

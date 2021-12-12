@@ -106,11 +106,6 @@ final public class PixelatePIX: PIXSingleEffect, PIXViewable {
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     // MARK: Setup
     
     private func setup() {

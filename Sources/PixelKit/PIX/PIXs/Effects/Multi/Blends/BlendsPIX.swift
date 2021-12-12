@@ -44,10 +44,6 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable {
     }
     #endif
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 // MARK: - Loop

@@ -110,13 +110,13 @@ final public class VideoPIX: PIXResource, PIXViewable {
         }
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setupVideoHelper()
-        self.applyResolution { [weak self] in
-            self?.render()
-        }
-    }
+//    public required init(from decoder: Decoder) throws {
+//        try super.init(from: decoder)
+//        setupVideoHelper()
+//        self.applyResolution { [weak self] in
+//            self?.render()
+//        }
+//    }
     
     func setupVideoHelper() {
         helper = VideoHelper(volume: Float(volume), loaded: { [weak self] resolution in

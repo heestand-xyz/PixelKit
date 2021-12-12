@@ -37,11 +37,6 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         customRenderActive = true
         customRenderDelegate = self

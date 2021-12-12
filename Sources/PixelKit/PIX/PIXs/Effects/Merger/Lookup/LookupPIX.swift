@@ -69,10 +69,6 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
         self.axis = axis
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     // MARK: - Property Funcs
     
     public func pixLookupHoldEdge() -> LookupPIX {

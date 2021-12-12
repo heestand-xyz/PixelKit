@@ -35,10 +35,6 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Threshold", typeName: "pix-effect-single-threshold")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

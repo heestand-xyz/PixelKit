@@ -58,11 +58,6 @@ final public class ScenePIX: PIXCustom, PIXViewable {
         setup()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setup()
-    }
-    
     func setup() {
         
         renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)

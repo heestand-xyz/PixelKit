@@ -49,10 +49,6 @@ final public class CropPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Crop", typeName: "pix-effect-single-crop")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

@@ -347,95 +347,95 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     // MARK: Codable
     
-    enum CodingKeys: CodingKey {
-        case active
-        case cameraResolution
-        case camera
-        case autoDetect
-        case depth
-        case filterDepth
-        case multi
-        case manualExposure
-        case exposure
-        case iso
-        case torch
-        case manualFocus
-        case focus
-        case focusPoint
-        case manualWhiteBalance
-        case whiteBalance
-        case minExposure
-        case maxExposure
-        case minISO
-        case maxISO
-    }
-    
-    required init(from decoder: Decoder) throws {
-        
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        active = try container.decode(Bool.self, forKey: .active)
-        cameraResolution = try container.decode(CameraResolution.self, forKey: .cameraResolution)
-        camera = (try? container.decode(Camera.self, forKey: .camera)) ?? Camera.default
-        
-        try super.init(from: decoder)
-        
-        setupNotifications()
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            self.setupCamera()
-            self.setup = true
-        
-            #if os(macOS) || targetEnvironment(macCatalyst)
-            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { self.autoDetect = value }
-            #endif
-            
-            #if os(iOS) && !targetEnvironment(macCatalyst)
-            if let value = try? container.decode(Bool.self, forKey: .depth) { self.depth = value }
-            if let value = try? container.decode(Bool.self, forKey: .filterDepth) { self.filterDepth = value }
-            if let value = try? container.decode(Bool.self, forKey: .multi) { self.multi = value }
-            if let value = try? container.decode(Bool.self, forKey: .manualExposure) { self.manualExposure = value }
-            if let value = try? container.decode(CGFloat.self, forKey: .exposure) { self.exposure = value }
-            if let value = try? container.decode(CGFloat.self, forKey: .iso) { self.iso = value }
-            if let value = try? container.decode(CGFloat.self, forKey: .torch) { self.torch = value }
-            if let value = try? container.decode(Bool.self, forKey: .manualFocus) { self.manualFocus = value }
-            if let value = try? container.decode(CGFloat.self, forKey: .focus) { self.focus = value }
-            if let value = try? container.decode(Bool.self, forKey: .manualWhiteBalance) { self.manualWhiteBalance = value }
-            if let value = try? container.decode(PixelColor.self, forKey: .whiteBalance) { self.whiteBalance = value.uiColor }
-            #endif
-        }
-    }
-    
-    public override func encode(to encoder: Encoder) throws {
-        
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try container.encode(active, forKey: .active)
-        try container.encode(cameraResolution, forKey: .cameraResolution)
-        try container.encode(camera, forKey: .camera)
-        
-        #if os(macOS) || targetEnvironment(macCatalyst)
-        try container.encode(autoDetect, forKey: .autoDetect)
-        #endif
-        
-        #if os(iOS) && !targetEnvironment(macCatalyst)
-        try container.encode(depth, forKey: .depth)
-        try container.encode(filterDepth, forKey: .filterDepth)
-        try container.encode(multi, forKey: .multi)
-        try container.encode(manualExposure, forKey: .manualExposure)
-        try container.encode(exposure, forKey: .exposure)
-        try container.encode(iso, forKey: .iso)
-        try container.encode(torch, forKey: .torch)
-        try container.encode(manualFocus, forKey: .manualFocus)
-        try container.encode(focus, forKey: .focus)
-        try container.encode(manualWhiteBalance, forKey: .manualWhiteBalance)
-        try container.encode(PixelColor(whiteBalance), forKey: .whiteBalance)
-        #endif
-        
-        try super.encode(to: encoder)
-    }
+//    enum CodingKeys: CodingKey {
+//        case active
+//        case cameraResolution
+//        case camera
+//        case autoDetect
+//        case depth
+//        case filterDepth
+//        case multi
+//        case manualExposure
+//        case exposure
+//        case iso
+//        case torch
+//        case manualFocus
+//        case focus
+//        case focusPoint
+//        case manualWhiteBalance
+//        case whiteBalance
+//        case minExposure
+//        case maxExposure
+//        case minISO
+//        case maxISO
+//    }
+//    
+//    required init(from decoder: Decoder) throws {
+//        
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        
+//        active = try container.decode(Bool.self, forKey: .active)
+//        cameraResolution = try container.decode(CameraResolution.self, forKey: .cameraResolution)
+//        camera = (try? container.decode(Camera.self, forKey: .camera)) ?? Camera.default
+//        
+//        try super.init(from: decoder)
+//        
+//        setupNotifications()
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self else { return }
+//            
+//            self.setupCamera()
+//            self.setup = true
+//        
+//            #if os(macOS) || targetEnvironment(macCatalyst)
+//            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { self.autoDetect = value }
+//            #endif
+//            
+//            #if os(iOS) && !targetEnvironment(macCatalyst)
+//            if let value = try? container.decode(Bool.self, forKey: .depth) { self.depth = value }
+//            if let value = try? container.decode(Bool.self, forKey: .filterDepth) { self.filterDepth = value }
+//            if let value = try? container.decode(Bool.self, forKey: .multi) { self.multi = value }
+//            if let value = try? container.decode(Bool.self, forKey: .manualExposure) { self.manualExposure = value }
+//            if let value = try? container.decode(CGFloat.self, forKey: .exposure) { self.exposure = value }
+//            if let value = try? container.decode(CGFloat.self, forKey: .iso) { self.iso = value }
+//            if let value = try? container.decode(CGFloat.self, forKey: .torch) { self.torch = value }
+//            if let value = try? container.decode(Bool.self, forKey: .manualFocus) { self.manualFocus = value }
+//            if let value = try? container.decode(CGFloat.self, forKey: .focus) { self.focus = value }
+//            if let value = try? container.decode(Bool.self, forKey: .manualWhiteBalance) { self.manualWhiteBalance = value }
+//            if let value = try? container.decode(PixelColor.self, forKey: .whiteBalance) { self.whiteBalance = value.uiColor }
+//            #endif
+//        }
+//    }
+//    
+//    public override func encode(to encoder: Encoder) throws {
+//        
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        
+//        try container.encode(active, forKey: .active)
+//        try container.encode(cameraResolution, forKey: .cameraResolution)
+//        try container.encode(camera, forKey: .camera)
+//        
+//        #if os(macOS) || targetEnvironment(macCatalyst)
+//        try container.encode(autoDetect, forKey: .autoDetect)
+//        #endif
+//        
+//        #if os(iOS) && !targetEnvironment(macCatalyst)
+//        try container.encode(depth, forKey: .depth)
+//        try container.encode(filterDepth, forKey: .filterDepth)
+//        try container.encode(multi, forKey: .multi)
+//        try container.encode(manualExposure, forKey: .manualExposure)
+//        try container.encode(exposure, forKey: .exposure)
+//        try container.encode(iso, forKey: .iso)
+//        try container.encode(torch, forKey: .torch)
+//        try container.encode(manualFocus, forKey: .manualFocus)
+//        try container.encode(focus, forKey: .focus)
+//        try container.encode(manualWhiteBalance, forKey: .manualWhiteBalance)
+//        try container.encode(PixelColor(whiteBalance), forKey: .whiteBalance)
+//        #endif
+//        
+//        try super.encode(to: encoder)
+//    }
     
     // MARK: Access
     

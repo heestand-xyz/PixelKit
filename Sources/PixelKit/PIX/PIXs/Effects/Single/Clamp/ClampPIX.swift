@@ -64,10 +64,6 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Clamp", typeName: "pix-effect-single-clamp")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

@@ -66,10 +66,6 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         customRenderActive = true
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         guard let cgImage: CGImage = Texture.cgImage(from: texture, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .effect, "Texture to image conversion failed.")

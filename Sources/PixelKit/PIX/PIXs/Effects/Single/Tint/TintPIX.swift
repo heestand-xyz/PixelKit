@@ -34,10 +34,6 @@ final public class TintPIX: PIXSingleEffect, PIXViewable {
         super.init(name: "Tint", typeName: "pix-effect-single-tint")
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
 }
 
 public extension NODEOut {

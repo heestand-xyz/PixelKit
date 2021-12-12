@@ -36,11 +36,6 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
         setupScreenCapture()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setupScreenCapture()
-    }
-    
     deinit {
         helper?.stop()
     }

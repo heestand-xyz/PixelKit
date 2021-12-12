@@ -53,8 +53,4 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable {
     public required init() {
         super.init(name: "Slice", typeName: "pix-effect-single-slice")
     }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 }
