@@ -7,31 +7,34 @@ import RenderKit
 import Resolution
 import PixelColor
 
-struct ArcPixelModel: PixelModel, NodeGeneratorContentModel {
+public struct ArcPixelModel: PixelModel, NodeGeneratorContentModel {
     
-    /// Global
+    // MARK: Global
     
-    let id: UUID = UUID()
-    var name: String
-    let typeName: String
-    var bypass: Bool = false
+    public var id: UUID = UUID()
+    public var name: String = "Arc"
+    public var typeName: String = "pix-content-generator-arc"
+    public var bypass: Bool = false
     
-    var outputNodeReferences: [NodeReference] = []
-    
-    var premultiply: Bool = true
-    var resolution: Resolution
+    public var outputNodeReferences: [NodeReference] = []
 
-    var viewInterpolation: ViewInterpolation = .linear
-    var interpolation: PixelInterpolation = .linear
-    var extend: ExtendMode = .zero
+    public var viewInterpolation: ViewInterpolation = .linear
+    public var interpolation: PixelInterpolation = .linear
+    public var extend: ExtendMode = .zero
     
-    /// Local
+    public var premultiply: Bool = true
+    public var resolution: Resolution = .auto(render: PixelKit.main.render)
+
+    public var backgroundColor: PixelColor = .black
+    public var color: PixelColor = .white
     
-    var position: CGPoint = .zero
-    var radius: CGFloat = 0.25
-    var angleFrom: CGFloat = -0.125
-    var angleTo: CGFloat = 0.125
-    var angleOffset: CGFloat = 0.0
-    var edgeRadius: CGFloat = 0.0
-    var edgeColor: PixelColor = .gray
+    // MARK: Local
+    
+    public var position: CGPoint = .zero
+    public var radius: CGFloat = 0.25
+    public var angleFrom: CGFloat = -0.125
+    public var angleTo: CGFloat = 0.125
+    public var angleOffset: CGFloat = 0.0
+    public var edgeRadius: CGFloat = 0.0
+    public var edgeColor: PixelColor = .gray
 }

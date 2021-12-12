@@ -12,14 +12,21 @@ import PixelColor
 import RenderKit
 import Resolution
 
+public typealias PixelGeneratorModel = PixelModel & NodeGeneratorContentModel
+
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
-    @LiveResolution("resolution") public var resolution: Resolution = ._128
+    var generatorModel: PixelGeneratorModel {
+        get { contentModel as! PixelGeneratorModel }
+        set { contentModel = newValue }
+    }
     
+    @LiveResolution("resolution") public var resolution: Resolution = ._128
+
     public var premultiply: Bool = true { didSet { render() } }
     override open var shaderNeedsResolution: Bool { return true }
     
-    public var tileResolution: Resolution { pixelKit.tileResolution }
+    public var tileResolution: Resolution { PixelKit.main.tileResolution }
     public var tileTextures: [[MTLTexture]]?
     
     @available(*, deprecated, renamed: "backgroundColor")
@@ -34,21 +41,46 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         super.liveList + [_resolution, _backgroundColor, _color]
     }
     
+    // MARK: - Life Cycle -
+    
     public required init(at resolution: Resolution) {
         fatalError("please use init(at:name:typeName:)")
     }
     
-    public init(model: NodeGeneratorContentModel) {
+    init(model: PixelGeneratorModel) {
         self.resolution = model.resolution
-        super.init(name: model.name, typeName: model.typeName)
+        super.init(model: model)
         setup()
     }
     
+    @available(*, deprecated)
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
         setup()
     }
+    
+    // MARK: - Live
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = generatorModel.resolution
+        backgroundColor = generatorModel.backgroundColor
+        color = generatorModel.color
+        premultiply = generatorModel.premultiply
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        generatorModel.resolution = resolution
+        generatorModel.backgroundColor = backgroundColor
+        generatorModel.color = color
+        generatorModel.premultiply = premultiply
+    }
+    
+    // MARK: - Setup
     
     func setup() {
         applyResolution { [weak self] in

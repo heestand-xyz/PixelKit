@@ -21,15 +21,31 @@ import PixelColor
 
 open class PIX: NODE, ObservableObject, Equatable {
     
+    private var liveUpdatingModel: Bool = false
+    @Published var pixelModel: PixelModel {
+        didSet {
+            guard !liveUpdatingModel else { return }
+            render()
+            modelUpdateLive()
+        }
+    }
+    
     public var renderObject: Render { PixelKit.main.render }
     
-    public var id = UUID()
-    public var name: String
-    public let typeName: String
+    public var id: UUID {
+        pixelModel.id
+    }
+    public var name: String {
+        get { pixelModel.name }
+        set { pixelModel.name = newValue }
+    }
+    public var typeName: String {
+        pixelModel.typeName
+    }
     
     public weak var delegate: NODEDelegate?
     
-//    @available(*, deprecated, renamed: "PixelKit.main")
+    @available(*, deprecated, renamed: "PixelKit.main")
     let pixelKit: PixelKit = PixelKit.main
     
     open var shaderName: String {
@@ -73,9 +89,11 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     public var canRender: Bool = true
     
-    public var bypass: Bool = false {
-        didSet {
-            if bypass {
+    public var bypass: Bool {
+        get { pixelModel.bypass }
+        set {
+            pixelModel.bypass = newValue
+            if newValue {
                 if let nodeOut: NODEOutIO = self as? NODEOutIO {
                     for nodePath in nodeOut.outputPathList {
                         nodePath.nodeIn.render()
@@ -146,9 +164,11 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     #endif
     
-    public var viewInterpolation: ViewInterpolation = .linear {
-        didSet {
-            view.metalView.viewInterpolation = viewInterpolation
+    public var viewInterpolation: ViewInterpolation {
+        get { pixelModel.viewInterpolation }
+        set {
+            pixelModel.viewInterpolation = newValue
+            view.metalView.viewInterpolation = newValue
         }
     }
     @available(*, deprecated, renamed: "interpolation")
@@ -156,8 +176,20 @@ open class PIX: NODE, ObservableObject, Equatable {
         get { interpolation }
         set { interpolation = newValue }
     }
-    public var interpolation: PixelInterpolation = .linear { didSet { updateSampler() } }
-    public var extend: ExtendMode = .zero { didSet { updateSampler() } }
+    public var interpolation: PixelInterpolation {
+        get { pixelModel.interpolation }
+        set {
+            pixelModel.interpolation = newValue
+            updateSampler()
+        }
+    }
+    public var extend: ExtendMode {
+        get { pixelModel.extend }
+        set {
+            pixelModel.extend = newValue
+            updateSampler()
+        }
+    }
     public var mipmap: MTLSamplerMipFilter = .linear { didSet { updateSampler() } }
     var compare: MTLCompareFunction = .never
     
@@ -201,10 +233,17 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Life Cycle -
     
+    init(model: PixelModel) {
+        
+        pixelModel = model
+        
+        setupPIX()
+    }
+    
+    @available(*, deprecated)
     init(name: String, typeName: String) {
         
-        self.name = name
-        self.typeName = typeName
+        pixelModel = TempPixelModel(name: name, typeName: typeName)
         
         setupPIX()
     }
@@ -218,9 +257,9 @@ open class PIX: NODE, ObservableObject, Equatable {
         
         setupShader()
             
-        pixelKit.render.add(node: self)
+        PixelKit.main.render.add(node: self)
         
-        pixelKit.logger.log(node: self, .detail, nil, "Linked with PixelKit.", clean: true)
+        PixelKit.main.logger.log(node: self, .detail, nil, "Linked with PixelKit.", clean: true)
         
         for liveProp in liveList {
             liveProp.node = self
@@ -230,26 +269,26 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     func setupShader() {
         guard shaderName != "" else {
-            pixelKit.logger.log(node: self, .fatal, nil, "Shader not defined.")
+            PixelKit.main.logger.log(node: self, .fatal, nil, "Shader not defined.")
             return
         }
         do {
             if self is NODEMetal == false {
                 guard let function: MTLFunction = (customMetalLibrary ?? PIX.metalLibrary).makeFunction(name: shaderName) else {
-                    pixelKit.logger.log(node: self, .fatal, nil, "Setup of Metal Function \"\(shaderName)\" Failed")
+                    PixelKit.main.logger.log(node: self, .fatal, nil, "Setup of Metal Function \"\(shaderName)\" Failed")
                     return
                 }
                 var customVertexShader: MTLFunction? = nil
                 if let metalLibrarry: MTLLibrary = customMetalLibrary, let vertexShaderName: String = customVertexShaderName {
                     customVertexShader = metalLibrarry.makeFunction(name: vertexShaderName)
                 }
-                pipeline = try pixelKit.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
+                pipeline = try PixelKit.main.render.makeShaderPipeline(function, with: customVertexShader, addMode: additiveVertexBlending, overrideBits: overrideBits)
             }
 //            #if !os(tvOS) || !targetEnvironment(simulator)
-            sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
+            sampler = try PixelKit.main.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
 //            #endif
         } catch {
-            pixelKit.logger.log(node: self, .fatal, nil, "Setup Failed", e: error)
+            PixelKit.main.logger.log(node: self, .fatal, nil, "Setup Failed", e: error)
         }
     }
     
@@ -258,18 +297,32 @@ open class PIX: NODE, ObservableObject, Equatable {
     func updateSampler() {
         do {
             #if !os(tvOS) || !targetEnvironment(simulator)
-            sampler = try pixelKit.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
+            sampler = try PixelKit.main.render.makeSampler(interpolate: interpolation.mtl, extend: extend.mtl, mipFilter: mipmap)
             #endif
-            pixelKit.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)")
+            PixelKit.main.logger.log(node: self, .info, nil, "New Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)")
             render()
         } catch {
-            pixelKit.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)", e: error)
+            PixelKit.main.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)", e: error)
         }
     }
     
     // MARK: - Live
     
-    public func liveValueChanged() {}
+    public func liveValueChanged() {
+        liveUpdateModel()
+    }
+    
+    /// Call `liveUpdateModelDone()` in final class
+    func liveUpdateModel() {
+        liveUpdatingModel = true
+    }
+    func liveUpdateModelDone() {
+        liveUpdatingModel = false
+    }
+    
+    /// Call `modelUpdateLiveDone()` in final class
+    func modelUpdateLive() {}
+    func modelUpdateLiveDone() {}
     
     // MARK: - Render
     
@@ -340,14 +393,14 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     open func destroy() {
         clearRender()
-        pixelKit.render.remove(node: self)
+        PixelKit.main.render.remove(node: self)
         texture = nil
         bypass = true
         destroyed = true
         view.destroy()
-        pixelKit.logger.log(.info, .pixelKit, "Destroyed node(name: \(name), typeName: \(typeName), id: \(id))")
+        PixelKit.main.logger.log(.info, .pixelKit, "Destroyed node(name: \(name), typeName: \(typeName), id: \(id))")
 //        #if DEBUG
-//        if pixelKit.logger.level == .debug {
+//        if PixelKit.main.logger.level == .debug {
 //            var pix: PIX = self
 //            // TODO: - Test
 //            if !isKnownUniquelyReferenced(&pix) { // leak?

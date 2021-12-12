@@ -11,11 +11,28 @@ import Resolution
 import SwiftUI
 import Combine
 
+public typealias PixelContentModel = PixelModel & NodeContentModel
+
 open class PIXContent: PIX, NODEContent, NODEOutIO {
     
+    var contentModel: PixelContentModel {
+        get { pixelModel as! PixelContentModel }
+        set { pixelModel = newValue }
+    }
+    
     public var outputPathList: [NODEOutPath] = []
-    public var connectedOut: Bool { return !outputPathList.isEmpty }
+    public var connectedOut: Bool { !outputPathList.isEmpty }
     
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()
     public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
+    
+    init(model: PixelContentModel) {
+        super.init(model: model)
+    }
+    
+    @available(*, deprecated)
+    override init(name: String, typeName: String) {
+        
+        super.init(name: name, typeName: typeName)
+    }
 }

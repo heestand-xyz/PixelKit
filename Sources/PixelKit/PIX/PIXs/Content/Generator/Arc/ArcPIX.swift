@@ -15,21 +15,14 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     
     override public var shaderName: String { return "contentGeneratorArcPIX" }
     
-    @Published var model: ArcPixelModel {
-        didSet {
-            render()
-        }
+    var model: ArcPixelModel {
+        get { generatorModel as! ArcPixelModel }
+        set { generatorModel = newValue }
     }
     
     // MARK: - Public Properties
     
-    @LivePoint("position") private var livePosition: CGPoint = .zero {
-        didSet { position = livePosition }
-    }
-    public var position: CGPoint {
-        get { model.position }
-        set { model.position = newValue }
-    }
+    @LivePoint("position") public var position: CGPoint = .zero
     @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
     @LiveFloat("angleFrom", range: -0.5...0.5, increment: 0.125) public var angleFrom: CGFloat = -0.125
     @LiveFloat("angleTo", range: -0.5...0.5, increment: 0.125) public var angleTo: CGFloat = 0.125
@@ -40,7 +33,7 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        super.liveList + [_livePosition, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _edgeColor]
+        super.liveList + [_position, _radius, _angleFrom, _angleTo, _angleOffset, _edgeRadius, _edgeColor]
     }
     
     override public var values: [Floatable] {
@@ -49,9 +42,12 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: ArcPixelModel) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        let model = ArcPixelModel(name: "Arc", typeName: "pix-content-generator-arc", resolution: resolution)
-        self.model = model
+        let model = ArcPixelModel(resolution: resolution)
         super.init(model: model)
     }
     
@@ -63,6 +59,36 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
         self.radius = radius
         self.angleFrom = angleFrom
         self.angleTo = angleTo
+    }
+    
+    // MARK: - Live
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        position = model.position
+        radius = model.radius
+        angleFrom = model.angleFrom
+        angleTo = model.angleTo
+        angleOffset = model.angleOffset
+        edgeRadius = model.edgeRadius
+        edgeColor = model.edgeColor
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.position = position
+        model.radius = radius
+        model.angleFrom = angleFrom
+        model.angleTo = angleTo
+        model.angleOffset = angleOffset
+        model.edgeRadius = edgeRadius
+        model.edgeColor = edgeColor
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs
