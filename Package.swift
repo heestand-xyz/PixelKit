@@ -17,7 +17,7 @@ let package = Package(
         .package(url: "https://github.com/heestand-xyz/TextureMap", from: "0.1.1"),
     ],
     targets: [
-        .target(name: "PixelKit", dependencies: ["RenderKit", "TextureMap"], path: "Source", exclude: [
+        .target(name: "PixelKit", dependencies: ["RenderKit", "TextureMap"], exclude: [
             "PIX/PIXs/Output/Syphon Out/SyphonOutPIX.swift",
             "PIX/PIXs/Content/Resource/Syphon In/SyphonInPIX.swift",
             "Other",
