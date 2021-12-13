@@ -25,7 +25,7 @@ let package = Package(
             "Documentation.docc",
         ]),
         .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"], resources: [
-            .process("pix-content-generator-arc.json")
+            .process("pix-content-generator-arc.json"),
         ]),
     ]
 )

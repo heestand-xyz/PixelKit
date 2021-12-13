@@ -61,7 +61,7 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
         self.angleTo = angleTo
     }
     
-    // MARK: - Live
+    // MARK: - Live Model
     
     override func modelUpdateLive() {
         super.modelUpdateLive()

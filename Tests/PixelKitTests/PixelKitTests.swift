@@ -15,7 +15,6 @@ final class PixelKitTests: XCTestCase {
     func testLegacyCodable() throws {
         
         guard let url = Bundle.module.url(forResource: "pix-content-generator-arc", withExtension: "json") else { fatalError() }
-        XCTAssert(FileManager.default.fileExists(atPath: url.path))
         
         let data = try Data(contentsOf: url)
         
@@ -66,8 +65,8 @@ final class PixelKitTests: XCTestCase {
     }
     
     static var allTests = [
-        ("testReference", testReference),
         ("testLegacyCodable", testLegacyCodable),
+        ("testReference", testReference),
     ]
     
 }
