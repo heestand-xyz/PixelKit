@@ -21,7 +21,7 @@ struct PixelGeneratorModelDecoder {
         case color
     }
     
-    static func decode(from decoder: Decoder, to model: PixelGeneratorModel) throws -> PixelGeneratorModel {
+    static func decode(from decoder: Decoder, model: PixelGeneratorModel) throws -> PixelGeneratorModel {
         
         var model: PixelGeneratorModel = model
         
@@ -32,6 +32,6 @@ struct PixelGeneratorModelDecoder {
         model.backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
         model.color = try container.decode(PixelColor.self, forKey: .color)
         
-        return try PixelModelDecoder.decode(from: decoder, to: model) as! PixelGeneratorModel
+        return try PixelModelDecoder.decode(from: decoder, model: model) as! PixelGeneratorModel
     }
 }

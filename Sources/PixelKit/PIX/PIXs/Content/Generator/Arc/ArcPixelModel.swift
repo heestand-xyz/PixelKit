@@ -60,6 +60,6 @@ extension ArcPixelModel {
         angleOffset = try container.decode(CGFloat.self, forKey: .angleOffset)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
         edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
-        self = try PixelGeneratorModelDecoder.decode(from: decoder, to: self) as! ArcPixelModel
+        self = try PixelGeneratorModelDecoder.decode(from: decoder, model: self) as! ArcPixelModel
     }
 }

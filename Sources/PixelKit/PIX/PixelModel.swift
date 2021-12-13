@@ -19,7 +19,7 @@ struct PixelModelDecoder {
         case extend
     }
     
-    static func decode(from decoder: Decoder, to model: PixelModel) throws -> PixelModel {
+    static func decode(from decoder: Decoder, model: PixelModel) throws -> PixelModel {
         
         var model: PixelModel = model
         
@@ -31,6 +31,15 @@ struct PixelModelDecoder {
         
         return model
     }
+    
+//    enum LiveCodingKeys: CodingKey {
+//        case liveList
+//    }
+//    
+//    static func decodeLiveValues(from decoder: Decoder, model: PixelModel) throws -> [String: Floatable] {
+//        
+//        
+//    }
 }
 
 @available(*, deprecated)
