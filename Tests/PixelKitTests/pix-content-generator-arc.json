@@ -1,0 +1,124 @@
+{
+  "bypass" : false,
+  "compare" : 0,
+  "extend" : "zero",
+  "id" : "5FB04807-9A9E-405E-8CEB-AFB18AAD1E23",
+  "interpolation" : "linear",
+  "liveList" : [
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "resolution" : {
+        "height" : 1000,
+        "width" : 1000
+      },
+      "type" : "resolution",
+      "typeName" : "resolution",
+      "visibilityDepth" : 0
+    },
+    {
+      "color" : {
+        "alpha" : 1,
+        "blue" : 0,
+        "green" : 0,
+        "red" : 0
+      },
+      "externalConnectedIDs" : [
+
+      ],
+      "type" : "color",
+      "typeName" : "backgroundColor",
+      "visibilityDepth" : 0
+    },
+    {
+      "color" : {
+        "alpha" : 1,
+        "blue" : 1,
+        "green" : 1,
+        "red" : 1
+      },
+      "externalConnectedIDs" : [
+
+      ],
+      "type" : "color",
+      "typeName" : "color",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "point" : [
+        0,
+        0
+      ],
+      "type" : "point",
+      "typeName" : "position",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "floatValue" : 0.25,
+      "type" : "float",
+      "typeName" : "radius",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "floatValue" : -0.125,
+      "type" : "float",
+      "typeName" : "angleFrom",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "floatValue" : 0.125,
+      "type" : "float",
+      "typeName" : "angleTo",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "floatValue" : 0,
+      "type" : "float",
+      "typeName" : "angleOffset",
+      "visibilityDepth" : 0
+    },
+    {
+      "externalConnectedIDs" : [
+
+      ],
+      "floatValue" : 0,
+      "type" : "float",
+      "typeName" : "edgeRadius",
+      "visibilityDepth" : 0
+    },
+    {
+      "color" : {
+        "alpha" : 1,
+        "blue" : 0.5,
+        "green" : 0.5,
+        "red" : 0.5
+      },
+      "externalConnectedIDs" : [
+
+      ],
+      "type" : "color",
+      "typeName" : "edgeColor",
+      "visibilityDepth" : 0
+    }
+  ],
+  "mipmap" : 2,
+  "name" : "Arc",
+  "typeName" : "pix-content-generator-arc",
+  "viewInterpolation" : "linear"
+}
