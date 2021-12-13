@@ -41,7 +41,7 @@ public struct ArcPixelModel: PixelGeneratorModel {
 
 extension ArcPixelModel {
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case position
         case radius
         case angleFrom
@@ -52,6 +52,40 @@ extension ArcPixelModel {
     }
     
     public init(from decoder: Decoder) throws {
+        
+        self = try PixelGeneratorModelDecoder.decode(from: decoder, model: self) as! ArcPixelModel
+        
+        if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
+            let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
+            for codingKey in CodingKeys.allCases {
+                guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
+                switch codingKey {
+                case .position:
+                    guard let live = liveWrap as? LivePoint else { continue }
+                    position = live.wrappedValue
+                case .radius:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    radius = live.wrappedValue
+                case .angleFrom:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    angleFrom = live.wrappedValue
+                case .angleTo:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    angleTo = live.wrappedValue
+                case .angleOffset:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    angleOffset = live.wrappedValue
+                case .edgeRadius:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    edgeRadius = live.wrappedValue
+                case .edgeColor:
+                    guard let live = liveWrap as? LiveColor else { continue }
+                    edgeColor = live.wrappedValue
+                }
+            }
+            return
+        }
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         position = try container.decode(CGPoint.self, forKey: .position)
         radius = try container.decode(CGFloat.self, forKey: .radius)
@@ -60,6 +94,5 @@ extension ArcPixelModel {
         angleOffset = try container.decode(CGFloat.self, forKey: .angleOffset)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
         edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
-        self = try PixelGeneratorModelDecoder.decode(from: decoder, to: self) as! ArcPixelModel
     }
 }

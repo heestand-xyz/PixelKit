@@ -24,6 +24,8 @@ let package = Package(
             "Shaders/README.md",
             "Documentation.docc",
         ]),
-        .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"]),
+        .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"], resources: [
+            .process("pix-content-generator-arc.json")
+        ]),
     ]
 )

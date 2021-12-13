@@ -7,13 +7,4 @@
    <FileRef
       location = "group:../RenderKit">
    </FileRef>
-   <FileRef
-      location = "group:../PixelColor">
-   </FileRef>
-   <FileRef
-      location = "group:../Resolution">
-   </FileRef>
-   <FileRef
-      location = "group:../TextureMap">
-   </FileRef>
 </Workspace>
