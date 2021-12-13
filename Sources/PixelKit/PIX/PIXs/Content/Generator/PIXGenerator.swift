@@ -12,8 +12,6 @@ import PixelColor
 import RenderKit
 import Resolution
 
-public typealias PixelGeneratorModel = PixelModel & NodeGeneratorContentModel
-
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     var generatorModel: PixelGeneratorModel {

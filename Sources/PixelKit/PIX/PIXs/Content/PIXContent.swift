@@ -11,8 +11,6 @@ import Resolution
 import SwiftUI
 import Combine
 
-public typealias PixelContentModel = PixelModel & NodeContentModel
-
 open class PIXContent: PIX, NODEContent, NODEOutIO {
     
     var contentModel: PixelContentModel {

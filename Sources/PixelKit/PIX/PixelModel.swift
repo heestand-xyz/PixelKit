@@ -11,12 +11,34 @@ public protocol PixelModel: NodeModel {
     var extend: ExtendMode { get set }
 }
 
+struct PixelModelDecoder {
+    
+    enum CodingKeys: CodingKey {
+        case viewInterpolation
+        case interpolation
+        case extend
+    }
+    
+    static func decode(from decoder: Decoder, to model: PixelModel) throws -> PixelModel {
+        
+        var model: PixelModel = model
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        model.viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
+        model.interpolation = try container.decode(PixelInterpolation.self, forKey: .interpolation)
+        model.extend = try container.decode(ExtendMode.self, forKey: .extend)
+        
+        return model
+    }
+}
+
 @available(*, deprecated)
 struct TempPixelModel: PixelModel {
     
     /// Global
     
-    let id: UUID = UUID()
+    var id: UUID = UUID()
     var name: String
     let typeName: String
     var bypass: Bool = false
