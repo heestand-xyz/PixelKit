@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/PixelColor",
         "state": {
           "branch": null,
-          "revision": "8fd2aae506c3d2a548cec7fa1956bdde3d8f5c2d",
-          "version": "1.2.5"
+          "revision": "23851e7ea5f2dc844dd6d9a4d730864199583921",
+          "version": "1.3.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
         "state": {
           "branch": null,
-          "revision": "c95535a42be16f69364ff016ae8da4a8c3ff14c6",
-          "version": "1.2.0"
+          "revision": "9ec3c2a4f4806e95ac2398ef7cd2792c0eb19e32",
+          "version": "1.2.2"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/Resolution",
         "state": {
           "branch": null,
-          "revision": "6bfdb68f12165876ec7563b931e43d3dfbb3c953",
-          "version": "1.0.3"
+          "revision": "0fdee03d7b312f075897cdac437f366cc6631d6a",
+          "version": "1.0.4"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
         "state": {
           "branch": null,
-          "revision": "def4664aba2002dd720301378fc77e7f734798e5",
-          "version": "0.1.0"
+          "revision": "92a11461c9125951ef17eb578871853cca9920a7",
+          "version": "0.1.1"
         }
       }
     ]
