@@ -13,6 +13,13 @@ import PixelColor
 
 final public class ColorPIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = ColorPixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorColorPIX" }
     
     // MARK: - Property Helpers
@@ -29,8 +36,13 @@ final public class ColorPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Color", typeName: "pix-content-generator-color")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -39,4 +51,15 @@ final public class ColorPIX: PIXGenerator, PIXViewable {
         super.color = color
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
 }

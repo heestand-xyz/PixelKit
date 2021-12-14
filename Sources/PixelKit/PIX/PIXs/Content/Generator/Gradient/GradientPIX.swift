@@ -12,40 +12,14 @@ import Resolution
 import CoreGraphics
 import PixelColor
 
-@available(*, deprecated, renamed: "ColorStop")
-public typealias ColorStep = ColorStop
-
-public struct ColorStop: Floatable, Codable {
-    public var stop: CGFloat
-    public var color: PixelColor
-    public init(_ stop: CGFloat, _ color: PixelColor) {
-        self.stop = stop
-        self.color = color
-    }
-    public var floats: [CGFloat] {
-        [stop, color.red, color.green, color.blue, color.alpha]
-    }
-    public init(floats: [CGFloat]) {
-        guard floats.count == 5 else { self = ColorStop(0.0, .clear); return }
-        self = ColorStop(floats[0], PixelColor(red: floats[1], green: floats[2], blue: floats[3], alpha: floats[4]))
-    }
-}
-extension Array: Floatable where Element == ColorStop {
-    public var floats: [CGFloat] { flatMap(\.floats) }
-    public init(floats: [CGFloat]) {
-        guard floats.count % 5 == 0 else { self = []; return }
-        let count: Int = floats.count / 5
-        var colorStops: [ColorStop] = []
-        for i in 0..<count {
-            let subFloats: [CGFloat] = Array<CGFloat>(floats[(i * 5)..<((i + 1) * 5)])
-            let colorStop: ColorStop = ColorStop(floats: subFloats)
-            colorStops.append(colorStop)
-        }
-        self = colorStops
-    }
-}
-
 final public class GradientPIX: PIXGenerator, PIXViewable {
+    
+    public typealias Model = GradientPixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
     
     override public var shaderName: String { return "contentGeneratorGradientPIX" }
     
@@ -89,10 +63,9 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         get { colorStops }
         set { colorStops = newValue }
     }
-    public var colorStops: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)] {
-        didSet {
-            render()
-        }
+    public var colorStops: [ColorStop] {
+        get { model.colorStops }
+        set { model.colorStops = newValue }
     }
     
     // MARK: - Property Helpers
@@ -117,8 +90,13 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Gradient", typeName: "pix-content-generator-gradient")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -129,23 +107,33 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         self.colorStops = colorStops
     }
     
-    // MARK: - Codable
+    // MARK: - Live Model
     
-//    enum CodingKeys: CodingKey {
-//        case colorStops
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        colorStops = try container.decode([ColorStop].self, forKey: .colorStops)
-//        try super.init(from: decoder)
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(colorStops, forKey: .colorStops)
-//        try super.encode(to: encoder)
-//    }
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        direction = model.direction
+        scale = model.scale
+        offset = model.offset
+        position = model.position
+        gamma = model.gamma
+        extendMode = model.extendMode
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.direction = direction
+        model.scale = scale
+        model.offset = offset
+        model.position = position
+        model.gamma = gamma
+        model.extendMode = extendMode
+        
+        super.liveUpdateModelDone()
+    }
     
     // MARK: - Property Funcs
     

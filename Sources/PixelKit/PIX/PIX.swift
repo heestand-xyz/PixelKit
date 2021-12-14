@@ -25,8 +25,8 @@ open class PIX: NODE, ObservableObject, Equatable {
     @Published var pixelModel: PixelModel {
         didSet {
             guard !liveUpdatingModel else { return }
+            modelUpdated()
             render()
-            modelUpdateLive()
         }
     }
     
@@ -233,7 +233,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelModel) {
+    public /*required*/ init(model: PixelModel) {
         
         pixelModel = model
         
@@ -304,6 +304,12 @@ open class PIX: NODE, ObservableObject, Equatable {
         } catch {
             PixelKit.main.logger.log(node: self, .error, nil, "Error setting new Sample Mode. Interpolate: \(interpolation) & Extend: \(extend)", e: error)
         }
+    }
+    
+    // MARK: - Model
+    
+    func modelUpdated() {
+        modelUpdateLive()
     }
     
     // MARK: - Live

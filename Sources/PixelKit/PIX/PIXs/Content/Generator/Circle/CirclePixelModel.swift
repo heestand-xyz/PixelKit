@@ -1,5 +1,5 @@
 //
-//  Created by Anton Heestand on 2021-12-12.
+//  Created by Anton Heestand on 2021-12-14.
 //
 
 import Foundation
@@ -7,13 +7,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct ArcPixelModel: PixelGeneratorModel {
+public struct CirclePixelModel: PixelGeneratorModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Arc"
-    public var typeName: String = "pix-content-generator-arc"
+    public var name: String = "Circle"
+    public var typeName: String = "pix-content-generator-circle"
     public var bypass: Bool = false
     
     public var outputNodeReferences: [NodeReference] = []
@@ -32,21 +32,15 @@ public struct ArcPixelModel: PixelGeneratorModel {
     
     public var radius: CGFloat = 0.25
     public var position: CGPoint = .zero
-    public var angleFrom: CGFloat = -0.125
-    public var angleTo: CGFloat = 0.125
-    public var angleOffset: CGFloat = 0.0
     public var edgeRadius: CGFloat = 0.0
     public var edgeColor: PixelColor = .gray
 }
 
-extension ArcPixelModel {
+extension CirclePixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case radius
         case position
-        case angleFrom
-        case angleTo
-        case angleOffset
         case edgeRadius
         case edgeColor
     }
@@ -68,15 +62,6 @@ extension ArcPixelModel {
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }
                     position = live.wrappedValue
-                case .angleFrom:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    angleFrom = live.wrappedValue
-                case .angleTo:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    angleTo = live.wrappedValue
-                case .angleOffset:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    angleOffset = live.wrappedValue
                 case .edgeRadius:
                     guard let live = liveWrap as? LiveFloat else { continue }
                     edgeRadius = live.wrappedValue
@@ -88,12 +73,10 @@ extension ArcPixelModel {
             return
         }
         
-        radius = try container.decode(CGFloat.self, forKey: .radius)
         position = try container.decode(CGPoint.self, forKey: .position)
-        angleFrom = try container.decode(CGFloat.self, forKey: .angleFrom)
-        angleTo = try container.decode(CGFloat.self, forKey: .angleTo)
-        angleOffset = try container.decode(CGFloat.self, forKey: .angleOffset)
+        radius = try container.decode(CGFloat.self, forKey: .radius)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
         edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
     }
 }
+

@@ -25,6 +25,13 @@ import Metal
 /// ```
 final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
     
+    public typealias Model = MetalPixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorMetalPIX" }
     
     // MARK: - Private Properties
@@ -62,20 +69,36 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
     
     public override var shaderNeedsResolution: Bool { return true }
     
-    public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
+    public var metalUniforms: [MetalUniform] {
+        get { model.metalUniforms }
+        set {
+            model.metalUniforms = newValue
+            listenToUniforms()
+            bakeFrag()
+        }
+    }
     
-    public var code: String { didSet { bakeFrag() } }
+    public var code: String{
+        get { model.code }
+        set {
+            model.code = newValue
+            bakeFrag()
+        }
+    }
+    
     public var isRawCode: Bool = false
+    
     public var metalCode: String? {
         if isRawCode { return code }
         metalConsole = nil
         do {
-          return try pixelKit.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
+            return try PixelKit.main.render.embedMetalCode(uniforms: metalUniforms, code: code, metalBaseCode: metalBaseCode)
         } catch {
-            pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
+            PixelKit.main.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
+    
     @Published public var metalConsole: String?
     public var metalConsolePublisher: Published<String?>.Publisher { $metalConsole }
     public var consoleCallback: ((String) -> ())?
@@ -86,70 +109,89 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
         return metalUniforms.map({ uniform -> CGFloat in uniform.value })
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+        setupMetal()
+    }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), uniforms: [MetalUniform] = [], code: String) {
-        metalUniforms = uniforms
-        self.code = code
-        super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
-        bakeFrag()
+        let model = Model(resolution: resolution, metalUniforms: uniforms, code: code)
+        super.init(model: model)
+        setupMetal()
     }
     
-    required init(at resolution: Resolution) {
-        metalUniforms = []
-        code = "return float4(u, v, 0.0, 1.0);"
-        super.init(at: resolution, name: "Metal A", typeName: "pix-content-generator-metal")
-        bakeFrag()
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
+        setupMetal()
     }
     
-    // MARK: Codable
+    // MARK: - Setup
     
-//    enum CodingKeys: CodingKey {
-//        case metalUniforms
-//        case code
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        code = try container.decode(String.self, forKey: .code)
-//        try super.init(from: decoder)
-//        bakeFrag()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(metalUniforms, forKey: .metalUniforms)
-//        try container.encode(code, forKey: .code)
-//        try super.encode(to: encoder)
-//    }
+    private func setupMetal() {
+        bakeFrag()
+        listenToUniforms()
+    }
     
-    // MARK: Bake Frag
+    // MARK: - Listen to Uniforms
+    
+    private func listenToUniforms() {
+        for uniform in metalUniforms {
+            uniform.didChangeValue = { [weak self] in
+                self?.render()
+            }
+        }
+    }
+    
+    // MARK: - Model
+    
+    override func modelUpdated() {
+        super.modelUpdated()
+        
+        bakeFrag()
+        listenToUniforms()
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Bake Frag
     
     func bakeFrag() {
         metalConsole = nil
         do {
-            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
+            let frag = try PixelKit.main.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
             case Render.ShaderError.metalError(let codeError, let errorFrag):
-                pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
+                PixelKit.main.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 metalConsole = codeError.localizedDescription
                 consoleCallback?(metalConsole!)
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
-                    pixelKit.logger.log(node: self, .fatal, nil, "Metal fail failed.", e: error)
+                    PixelKit.main.logger.log(node: self, .fatal, nil, "Metal fail failed.", e: error)
                 }
             default:
-                pixelKit.logger.log(node: self, .fatal, nil, "Metal bake failed.", e: error)
+                PixelKit.main.logger.log(node: self, .fatal, nil, "Metal bake failed.", e: error)
             }
         }
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: nil)
+        pipeline = try PixelKit.main.render.makeShaderPipeline(frag, with: nil)
         render()
     }
     

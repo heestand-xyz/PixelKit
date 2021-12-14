@@ -15,6 +15,13 @@ import Resolution
 
 final public class LinePIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = LinePixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorLinePIX" }
     
     // MARK: - Public Properties
@@ -63,8 +70,13 @@ final public class LinePIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Line", typeName: "pix-content-generator-line")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -77,6 +89,27 @@ final public class LinePIX: PIXGenerator, PIXViewable {
         self.lineWidth = lineWidth
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        positionFrom = model.positionFrom
+        positionTo = model.positionTo
+        lineWidth = model.lineWidth
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.positionFrom = positionFrom
+        model.positionTo = positionTo
+        model.lineWidth = lineWidth
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

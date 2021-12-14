@@ -13,17 +13,19 @@ import PixelColor
 
 final public class ArcPIX: PIXGenerator, PIXViewable {
     
-    override public var shaderName: String { return "contentGeneratorArcPIX" }
+    public typealias Model = ArcPixelModel
     
-    var model: ArcPixelModel {
-        get { generatorModel as! ArcPixelModel }
+    private var model: Model {
+        get { generatorModel as! Model }
         set { generatorModel = newValue }
     }
     
+    override public var shaderName: String { return "contentGeneratorArcPIX" }
+    
     // MARK: - Public Properties
     
-    @LivePoint("position") public var position: CGPoint = .zero
     @LiveFloat("radius", range: 0.0...0.5, increment: 0.125) public var radius: CGFloat = 0.25
+    @LivePoint("position") public var position: CGPoint = .zero
     @LiveFloat("angleFrom", range: -0.5...0.5, increment: 0.125) public var angleFrom: CGFloat = -0.125
     @LiveFloat("angleTo", range: -0.5...0.5, increment: 0.125) public var angleTo: CGFloat = 0.125
     @LiveFloat("angleOffset", range: -0.5...0.5, increment: 0.125) public var angleOffset: CGFloat = 0.0
@@ -42,12 +44,12 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public init(model: ArcPixelModel) {
+    public init(model: Model) {
         super.init(model: model)
     }
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        let model = ArcPixelModel(resolution: resolution)
+        let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
@@ -66,8 +68,8 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     override func modelUpdateLive() {
         super.modelUpdateLive()
         
-        position = model.position
         radius = model.radius
+        position = model.position
         angleFrom = model.angleFrom
         angleTo = model.angleTo
         angleOffset = model.angleOffset
@@ -80,8 +82,8 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
     override func liveUpdateModel() {
         super.liveUpdateModel()
         
-        model.position = position
         model.radius = radius
+        model.position = position
         model.angleFrom = angleFrom
         model.angleTo = angleTo
         model.angleOffset = angleOffset
