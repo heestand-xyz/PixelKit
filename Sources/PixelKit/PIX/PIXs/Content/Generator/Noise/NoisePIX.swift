@@ -15,6 +15,13 @@ import SwiftUI
 
 final public class NoisePIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = NoisePixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorNoisePIX" }
     
     // MARK: - Public Properties
@@ -46,10 +53,15 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
         [seed, octaves, position, motion, zoom, colored, random, includeAlpha]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Noise", typeName: "pix-content-generator-noise")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -58,6 +70,38 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
         self.init(at: resolution)
         self.octaves = octaves
         self.zoom = zoom
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        seed = model.seed
+        octaves = model.octaves
+        position = model.position
+        motion = model.motion
+        zoom = model.zoom
+        colored = model.colored
+        random = model.random
+        includeAlpha = model.includeAlpha
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.seed = seed
+        model.octaves = octaves
+        model.position = position
+        model.motion = motion
+        model.zoom = zoom
+        model.colored = colored
+        model.random = random
+        model.includeAlpha = includeAlpha
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

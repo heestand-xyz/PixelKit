@@ -175,12 +175,6 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
         setupMetal()
     }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), uniforms: [MetalUniform] = [], code: String) {
-        let model = Model(resolution: resolution, metalUniforms: uniforms, code: code)
-        super.init(model: model)
-        setupMetal()
-    }
-    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         let model = Model(resolution: resolution)
         super.init(model: model)
@@ -188,33 +182,14 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
     }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
-        let model = Model(resolution: resolution, metalUniforms: uniforms, whiteScript: whiteScript, alphaScript: alphaScript)
+        let model = Model(resolution: resolution, colorStyle: .white, metalUniforms: uniforms, whiteScript: whiteScript, alphaScript: alphaScript)
         super.init(model: model)
-        colorStyle = .white
         setupMetal()
     }
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render), redScript: String, greenScript: String, blueScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
-        metalUniforms = uniforms
-        self.whiteScript = "0.0"
-        self.redScript = redScript
-        self.greenScript = greenScript
-        self.blueScript = blueScript
-        self.alphaScript = alphaScript
-        super.init(at: resolution, name: "Metal Script", typeName: "pix-content-generator-metal-script")
-        colorStyle = .color
-        setupMetal()
-    }
-    
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        metalUniforms = []
-        self.whiteScript = "1.0"
-        self.redScript = "u"
-        self.greenScript = "v"
-        self.blueScript = "0.0"
-        self.alphaScript = "1.0"
-        super.init(at: resolution, name: "Metal Script", typeName: "pix-content-generator-metal-script")
-        colorStyle = .color
+        let model = Model(resolution: resolution, colorStyle: .color, metalUniforms: uniforms, redScript: redScript, greenScript: greenScript, blueScript: blueScript, alphaScript: alphaScript)
+        super.init(model: model)
         setupMetal()
     }
     
@@ -222,6 +197,44 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
     
     private func setupMetal() {
         bakeFrag()
+        listenToUniforms()
+    }
+    
+    // MARK: - Listen to Uniforms
+    
+    private func listenToUniforms() {
+        for uniform in metalUniforms {
+            uniform.didChangeValue = { [weak self] in
+                self?.render()
+            }
+        }
+    }
+    
+    // MARK: - Model
+    
+    override func modelUpdated() {
+        super.modelUpdated()
+        
+        bakeFrag()
+        listenToUniforms()
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        colorStyle = model.colorStyle
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.colorStyle = colorStyle
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: Bake Frag

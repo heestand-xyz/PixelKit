@@ -68,7 +68,7 @@ final public class LinePIX: PIXGenerator, PIXViewable {
         [positionFrom, positionTo, lineWidth, cap, super.color, super.backgroundColor]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)
