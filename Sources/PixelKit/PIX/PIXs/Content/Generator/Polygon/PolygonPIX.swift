@@ -13,6 +13,13 @@ import SwiftUI
 
 final public class PolygonPIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = PolygonPixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorPolygonPIX" }
     
     // MARK: - Public Properties
@@ -35,8 +42,13 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Polygon", typeName: "pix-content-generator-polygon")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -47,6 +59,32 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
         self.radius = radius
         self.count = count
         self.cornerRadius = cornerRadius
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        radius = model.radius
+        position = model.position
+        rotation = model.rotation
+        count = model.count
+        cornerRadius = model.cornerRadius
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.radius = radius
+        model.position = position
+        model.rotation = rotation
+        model.count = count
+        model.cornerRadius = cornerRadius
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

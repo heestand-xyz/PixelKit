@@ -29,7 +29,14 @@ public protocol CameraPIXDelegate {
 }
 
 final public class CameraPIX: PIXResource, PIXViewable {
-        
+    
+    public typealias Model = CameraPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
     public var cameraDelegate: CameraPIXDelegate?
@@ -52,9 +59,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     // MARK: - Public Properties
     
-    public var active: Bool = true {
-        didSet {
-            if active {
+    public var active: Bool {
+        get { model.active }
+        set {
+            model.active = newValue
+            if newValue {
                 helper?.start()
             } else {
                 helper?.stop()
@@ -106,11 +115,15 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self = cameraResolution
         }
     }
-    #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var cameraResolution: CameraResolution = ._1080p { didSet { if setup { setupCamera() } } }
-    #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public var cameraResolution: CameraResolution = ._720p { didSet { if setup { setupCamera() } } }
-    #endif
+    public var cameraResolution: CameraResolution {
+        get { model.cameraResolution }
+        set {
+            model.cameraResolution = newValue
+            if setup {
+                setupCamera()
+            }
+        }
+    }
     
     public var orientationCorrectResolution: Resolution {
         if flop {
@@ -120,15 +133,6 @@ final public class CameraPIX: PIXResource, PIXViewable {
         }
     }
     
-//    var orientedCameraResolution: Resolution {
-//        #if os(iOS)
-//        if [.portrait, .portraitUpsideDown].contains(orientation) {
-//            return cameraResolution.resolution.flopped
-//        }
-//        #endif
-//        return cameraResolution.resolution
-//    }
-//
     public enum Camera: String, Codable, CaseIterable {
         case front = "Front Camera"
         #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -200,23 +204,54 @@ final public class CameraPIX: PIXResource, PIXViewable {
             #endif
         }
     }
-    #if os(iOS) && !targetEnvironment(macCatalyst)
-    public var camera: Camera = .back { didSet { if setup { setupCamera() } } }
-    #elseif os(macOS) || targetEnvironment(macCatalyst)
-    public var camera: Camera = .front { didSet { if setup { setupCamera() } } }
-    #endif
+    public var camera: Camera {
+        get { model.camera }
+        set {
+            model.camera = newValue
+            if setup {
+                setupCamera()
+            }
+        }
+    }
     
     #if os(macOS) || targetEnvironment(macCatalyst)
-    public var autoDetect: Bool = true
+    public var autoDetect: Bool {
+        get { model.autoDetect }
+        set { model.autoDetect = newValue }
+    }
     #endif
     
     #if os(iOS) && !targetEnvironment(macCatalyst)
     
-    public var depth: Bool = false { didSet { if setup { setupCamera() } } }
-    public var filterDepth: Bool = true { didSet { if setup { setupCamera() } } }
+    public var depth: Bool {
+        get { model.depth }
+        set {
+            model.depth = newValue
+            if setup {
+                setupCamera()
+            }
+        }
+    }
+    public var filterDepth: Bool {
+        get { model.filterDepth }
+        set {
+            model.filterDepth = newValue
+            if setup {
+                setupCamera()
+            }
+        }
+    }
     var depthCallback: ((CVPixelBuffer) -> ())?
     
-    public var multi: Bool = false { didSet { if setup { setupCamera() } } }
+    public var multi: Bool {
+        get { model.multi }
+        set {
+            model.multi = newValue
+            if setup {
+                setupCamera()
+            }
+        }
+    }
     struct MultiCallback {
         let id: UUID
         let camera: () -> (Camera?)
@@ -225,81 +260,97 @@ final public class CameraPIX: PIXResource, PIXViewable {
     }
     var multiCallbacks: [MultiCallback] = []
     
-    public var manualExposure: Bool = false {
-        didSet {
-            helper?.manualExposure(manualExposure)
-            if manualExposure {
+    public var manualExposure: Bool {
+        get { model.manualExposure }
+        set {
+            model.manualExposure = newValue
+            helper?.manualExposure(newValue)
+            if newValue {
                 helper?.setLight(exposure, iso)
             }
         }
     }
     /// exposure time in seconds
-    public var exposure: CGFloat = 0.05 {
-        didSet {
+    public var exposure: CGFloat {
+        get { model.exposure }
+        set {
+            model.exposure = newValue
             guard manualExposure else { return }
-            helper?.setLight(exposure, iso)
+            helper?.setLight(newValue, iso)
         }
     }
-    public var iso: CGFloat = 300 {
-        didSet {
+    public var iso: CGFloat {
+        get { model.iso }
+        set {
+            model.iso = newValue
             guard manualExposure else { return }
-            helper?.setLight(exposure, iso)
+            helper?.setLight(exposure, newValue)
         }
     }
-    public var torch: CGFloat = 0.0 {
-        didSet {
-            helper?.setTorch(torch)
+    public var torch: CGFloat {
+        get { model.torch }
+        set {
+            model.torch = newValue
+            helper?.setTorch(newValue)
         }
     }
     
-    public var manualFocus: Bool = false {
-        didSet {
-            helper?.manualFocus(manualFocus)
-            if manualFocus {
+    public var manualFocus: Bool {
+        get { model.manualFocus }
+        set {
+            model.manualFocus = newValue
+            helper?.manualFocus(newValue)
+            if newValue {
                 helper?.setFocus(focus)
             }
         }
     }
-    public var focus: CGFloat = 1.0 {
-        didSet {
+    public var focus: CGFloat {
+        get { model.focus }
+        set {
+            model.focus = newValue
             guard manualFocus else { return }
-            helper?.setFocus(focus)
+            helper?.setFocus(newValue)
         }
     }
     public var focusPoint: CGPoint {
-        return helper?.getFocusPoint() ?? .zero
+        helper?.getFocusPoint() ?? .zero
     }
     
-    public var manualWhiteBalance: Bool = false {
-        didSet {
-            helper?.manualWhiteBalance(manualWhiteBalance)
-            if manualWhiteBalance {
-                helper?.setWhiteBalance(PixelColor(whiteBalance))
+    public var manualWhiteBalance: Bool {
+        get { model.manualWhiteBalance }
+        set {
+            model.manualWhiteBalance = newValue
+            helper?.manualWhiteBalance(newValue)
+            if newValue {
+                helper?.setWhiteBalance(whiteBalance)
             }
         }
     }
-    public var whiteBalance: UIColor {
-        get {
-            return helper?.getWhiteBalance().uiColor ?? .white
-        }
+    public var realWhiteBalance: PixelColor {
+        helper?.getWhiteBalance() ?? .clear
+    }
+    public var whiteBalance: PixelColor {
+        get { model.whiteBalance }
         set {
+            model.whiteBalance = newValue
             guard manualWhiteBalance else { return }
-            helper?.setWhiteBalance(PixelColor(newValue))
+            helper?.setWhiteBalance(newValue)
         }
     }
 
     public var minExposure: CGFloat? {
-        return helper?.minExposure
+        helper?.minExposure
     }
     public var maxExposure: CGFloat? {
-        return helper?.maxExposure
+        helper?.maxExposure
     }
     
     public var minISO: CGFloat? {
-        return helper?.minISO
+        helper?.minISO
     }
     public var maxISO: CGFloat? {
-        return helper?.maxISO
+        helper?.maxISO
     }
     
     #endif
@@ -320,8 +371,13 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Camera", typeName: "pix-content-resource-camera")
+        let model = Model()
+        super.init(model: model)
         DispatchQueue.main.async { [weak self] in
             self?.setupCamera()
             self?.setup = true
@@ -338,104 +394,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
         self.camera = camera ?? .front
         self.cameraResolution = cameraResolution ?? ._720p
         #endif
-        setupCamera()
     }
     
     deinit {
         helper?.stop()
     }
-    
-    // MARK: Codable
-    
-//    enum CodingKeys: CodingKey {
-//        case active
-//        case cameraResolution
-//        case camera
-//        case autoDetect
-//        case depth
-//        case filterDepth
-//        case multi
-//        case manualExposure
-//        case exposure
-//        case iso
-//        case torch
-//        case manualFocus
-//        case focus
-//        case focusPoint
-//        case manualWhiteBalance
-//        case whiteBalance
-//        case minExposure
-//        case maxExposure
-//        case minISO
-//        case maxISO
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        
-//        active = try container.decode(Bool.self, forKey: .active)
-//        cameraResolution = try container.decode(CameraResolution.self, forKey: .cameraResolution)
-//        camera = (try? container.decode(Camera.self, forKey: .camera)) ?? Camera.default
-//        
-//        try super.init(from: decoder)
-//        
-//        setupNotifications()
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else { return }
-//            
-//            self.setupCamera()
-//            self.setup = true
-//        
-//            #if os(macOS) || targetEnvironment(macCatalyst)
-//            if let value = try? container.decode(Bool.self, forKey: .autoDetect) { self.autoDetect = value }
-//            #endif
-//            
-//            #if os(iOS) && !targetEnvironment(macCatalyst)
-//            if let value = try? container.decode(Bool.self, forKey: .depth) { self.depth = value }
-//            if let value = try? container.decode(Bool.self, forKey: .filterDepth) { self.filterDepth = value }
-//            if let value = try? container.decode(Bool.self, forKey: .multi) { self.multi = value }
-//            if let value = try? container.decode(Bool.self, forKey: .manualExposure) { self.manualExposure = value }
-//            if let value = try? container.decode(CGFloat.self, forKey: .exposure) { self.exposure = value }
-//            if let value = try? container.decode(CGFloat.self, forKey: .iso) { self.iso = value }
-//            if let value = try? container.decode(CGFloat.self, forKey: .torch) { self.torch = value }
-//            if let value = try? container.decode(Bool.self, forKey: .manualFocus) { self.manualFocus = value }
-//            if let value = try? container.decode(CGFloat.self, forKey: .focus) { self.focus = value }
-//            if let value = try? container.decode(Bool.self, forKey: .manualWhiteBalance) { self.manualWhiteBalance = value }
-//            if let value = try? container.decode(PixelColor.self, forKey: .whiteBalance) { self.whiteBalance = value.uiColor }
-//            #endif
-//        }
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        
-//        try container.encode(active, forKey: .active)
-//        try container.encode(cameraResolution, forKey: .cameraResolution)
-//        try container.encode(camera, forKey: .camera)
-//        
-//        #if os(macOS) || targetEnvironment(macCatalyst)
-//        try container.encode(autoDetect, forKey: .autoDetect)
-//        #endif
-//        
-//        #if os(iOS) && !targetEnvironment(macCatalyst)
-//        try container.encode(depth, forKey: .depth)
-//        try container.encode(filterDepth, forKey: .filterDepth)
-//        try container.encode(multi, forKey: .multi)
-//        try container.encode(manualExposure, forKey: .manualExposure)
-//        try container.encode(exposure, forKey: .exposure)
-//        try container.encode(iso, forKey: .iso)
-//        try container.encode(torch, forKey: .torch)
-//        try container.encode(manualFocus, forKey: .manualFocus)
-//        try container.encode(focus, forKey: .focus)
-//        try container.encode(manualWhiteBalance, forKey: .manualWhiteBalance)
-//        try container.encode(PixelColor(whiteBalance), forKey: .whiteBalance)
-//        #endif
-//        
-//        try super.encode(to: encoder)
-//    }
     
     // MARK: Access
     
@@ -445,7 +408,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
                 if accessGranted {
                     gotAccess()
                 } else {
-                    self.pixelKit.logger.log(node: self, .warning, .resource, "Camera Access Not Granted.")
+                    PixelKit.main.logger.log(node: self, .warning, .resource, "Camera Access Not Granted.")
                 }
                 self.access = accessGranted
             }
@@ -459,11 +422,11 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     func setupNotifications() {
         #if os(macOS)
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { [weak self] (notif) -> Void in
-            self?.camAttatched(device: notif.object! as! AVCaptureDevice)
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasConnected, object: nil, queue: nil) { [weak self] (notification) -> Void in
+            self?.cameraAttached(device: notification.object! as! AVCaptureDevice)
         }
-        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { [weak self] (notif) -> Void in
-            self?.camDeattatched(device: notif.object! as! AVCaptureDevice)
+        NotificationCenter.default.addObserver(forName: .AVCaptureDeviceWasDisconnected, object: nil, queue: nil) { [weak self] (notification) -> Void in
+            self?.cameraDetached(device: notification.object! as! AVCaptureDevice)
         }
         #endif
 //        #if os(iOS) && !targetEnvironment(macCatalyst)
@@ -519,7 +482,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         },
         setup: { [weak self] _, orientation in
             guard let self = self else { return }
-            self.pixelKit.logger.log(node: self, .info, .resource, "Camera setup.")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Camera setup.")
             self.orientation = orientation
             #if os(iOS)
             self.flop = [.portrait, .portraitUpsideDown].contains(orientation)
@@ -541,7 +504,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             self?.clearRender()
         }, captured: { [weak self] pixelBuffer in
             guard let self = self else { return }
-            self.pixelKit.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
+            PixelKit.main.logger.log(node: self, .info, .resource, "Camera frame captured.", loop: true)
             self.resourcePixelBuffer = pixelBuffer
             if self.view.resolution == nil || self.view.resolution! != self.derivedResolution {
                 self.applyResolution { [weak self] in
@@ -564,6 +527,9 @@ final public class CameraPIX: PIXResource, PIXViewable {
         }, capturedSampleBuffer: { [weak self] sampleBuffer in
 //            self?.sampleBuffer = sampleBuffer
         })
+        if !active {
+            helper!.stop()
+        }
     }
     
     public func listenToSetup(_ completion: @escaping () -> ()) {
@@ -584,19 +550,31 @@ final public class CameraPIX: PIXResource, PIXViewable {
         helper = nil
     }
     
-    // MARK: - Camera Attatchment
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Camera Attachment
     
     #if os(macOS) || targetEnvironment(macCatalyst)
     
-    func camAttatched(device: AVCaptureDevice) {
+    func cameraAttached(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixelKit.logger.log(node: self, .info, .resource, "Camera Attatched.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Camera Attatched.")
         setupCamera()
     }
     
-    func camDeattatched(device: AVCaptureDevice) {
+    func cameraDetached(device: AVCaptureDevice) {
         guard autoDetect else { return }
-        self.pixelKit.logger.log(node: self, .info, .resource, "Camera Deattatched.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Camera Deattatched.")
         setupCamera()
     }
     
@@ -662,7 +640,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         return self
     }
     
-    public func pixCameraWhiteBalance(_ value: UIColor) -> CameraPIX {
+    public func pixCameraWhiteBalance(_ value: PixelColor) -> CameraPIX {
         if !manualFocus {
             manualFocus = true
         }
@@ -670,7 +648,6 @@ final public class CameraPIX: PIXResource, PIXViewable {
         return self
     }
     #endif
-    
 }
 
 #endif

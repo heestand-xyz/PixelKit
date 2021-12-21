@@ -13,6 +13,13 @@ import Resolution
 
 final public class RectanglePIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = RectanglePixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorRectanglePIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,15 @@ final public class RectanglePIX: PIXGenerator, PIXViewable {
         [size, position, cornerRadius, super.color, super.backgroundColor]
     }
     
+    // MARK: - Life Cycle
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Rectangle", typeName: "pix-content-generator-rectangle")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -41,6 +55,28 @@ final public class RectanglePIX: PIXGenerator, PIXViewable {
         self.init(at: resolution)
         self.size = size
         self.cornerRadius = cornerRadius
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        position = model.position
+        size = model.size
+        cornerRadius = model.cornerRadius
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.position = position
+        model.size = size
+        model.cornerRadius = cornerRadius
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

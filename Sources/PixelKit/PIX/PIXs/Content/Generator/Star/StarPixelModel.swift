@@ -1,5 +1,5 @@
 //
-//  Created by Anton Heestand on 2021-12-12.
+//  Created by Anton Heestand on 2021-12-14.
 //
 
 import Foundation
@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct ArcPixelModel: PixelGeneratorModel {
+public struct StarPixelModel: PixelGeneratorModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Arc"
-    public var typeName: String = "pix-content-generator-arc"
+    public var name: String = "Star"
+    public var typeName: String = "pix-content-generator-star"
     public var bypass: Bool = false
     
     public var outputNodeReferences: [NodeReference] = []
@@ -31,25 +31,24 @@ public struct ArcPixelModel: PixelGeneratorModel {
     
     // MARK: Local
     
-    public var radius: CGFloat = 0.25
     public var position: CGPoint = .zero
-    public var angleFrom: CGFloat = -0.125
-    public var angleTo: CGFloat = 0.125
-    public var angleOffset: CGFloat = 0.0
-    public var edgeRadius: CGFloat = 0.0
-    public var edgeColor: PixelColor = .gray
+    public var leadingRadius: CGFloat = 0.25
+    public var trailingRadius: CGFloat = 0.125
+    public var rotation: CGFloat = 0.0
+    public var count: Int = 5
+    public var cornerRadius: CGFloat = 0.0
+    
 }
 
-extension ArcPixelModel {
+extension StarPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case radius
         case position
-        case angleFrom
-        case angleTo
-        case angleOffset
-        case edgeRadius
-        case edgeColor
+        case leadingRadius
+        case trailingRadius
+        case rotation
+        case count
+        case cornerRadius
     }
     
     public init(from decoder: Decoder) throws {
@@ -63,38 +62,35 @@ extension ArcPixelModel {
             for codingKey in CodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 switch codingKey {
-                case .radius:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    radius = live.wrappedValue
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }
                     position = live.wrappedValue
-                case .angleFrom:
+                case .leadingRadius:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    angleFrom = live.wrappedValue
-                case .angleTo:
+                    leadingRadius = live.wrappedValue
+                case .trailingRadius:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    angleTo = live.wrappedValue
-                case .angleOffset:
+                    trailingRadius = live.wrappedValue
+                case .rotation:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    angleOffset = live.wrappedValue
-                case .edgeRadius:
+                    rotation = live.wrappedValue
+                case .count:
+                    guard let live = liveWrap as? LiveInt else { continue }
+                    count = live.wrappedValue
+                case .cornerRadius:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    edgeRadius = live.wrappedValue
-                case .edgeColor:
-                    guard let live = liveWrap as? LiveColor else { continue }
-                    edgeColor = live.wrappedValue
+                    cornerRadius = live.wrappedValue
                 }
             }
             return
         }
         
-        radius = try container.decode(CGFloat.self, forKey: .radius)
         position = try container.decode(CGPoint.self, forKey: .position)
-        angleFrom = try container.decode(CGFloat.self, forKey: .angleFrom)
-        angleTo = try container.decode(CGFloat.self, forKey: .angleTo)
-        angleOffset = try container.decode(CGFloat.self, forKey: .angleOffset)
-        edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
-        edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
+        leadingRadius = try container.decode(CGFloat.self, forKey: .leadingRadius)
+        trailingRadius = try container.decode(CGFloat.self, forKey: .trailingRadius)
+        rotation = try container.decode(CGFloat.self, forKey: .rotation)
+        count = try container.decode(Int.self, forKey: .count)
+        cornerRadius = try container.decode(CGFloat.self, forKey: .cornerRadius)
     }
 }
+

@@ -12,6 +12,11 @@ import CoreVideo
 
 open class PIXResource: PIXContent, NODEResource {
     
+    var resourceModel: PixelResourceModel {
+        get { contentModel as! PixelResourceModel }
+        set { contentModel = newValue }
+    }
+    
     var resourceResolution: Resolution? {
         if let texture: MTLTexture = resourceTexture {
             return texture.resolution
@@ -38,9 +43,14 @@ open class PIXResource: PIXContent, NODEResource {
     }
     
     public required init() {
-        fatalError("please use init(name:typeName:)")
+        fatalError("please use init(model:)")
     }
     
+    init(model: PixelResourceModel) {
+        super.init(model: model)
+    }
+    
+    @available(*, deprecated)
     public override init(name: String, typeName: String) {
         super.init(name: name, typeName: typeName)
     }

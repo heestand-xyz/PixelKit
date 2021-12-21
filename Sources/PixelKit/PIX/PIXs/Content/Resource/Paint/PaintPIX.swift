@@ -162,12 +162,12 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     // MARK: Codable
     
-    required init(from decoder: Decoder) throws {
-        canvasView.addInteraction(pencilInteraction)
-        helper = PaintHelper()
-        try super.init(from: decoder)
-        setup()
-    }
+//    required init(from decoder: Decoder) throws {
+//        canvasView.addInteraction(pencilInteraction)
+//        helper = PaintHelper()
+//        try super.init(from: decoder)
+//        setup()
+//    }
     
     // MARK: Setup
     

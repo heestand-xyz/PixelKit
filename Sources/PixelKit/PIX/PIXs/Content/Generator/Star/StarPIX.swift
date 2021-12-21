@@ -13,6 +13,13 @@ import SwiftUI
 
 final public class StarPIX: PIXGenerator, PIXViewable {
     
+    public typealias Model = StarPixelModel
+    
+    private var model: Model {
+        get { generatorModel as! Model }
+        set { generatorModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentGeneratorStarPIX" }
     
     // MARK: - Public Properties
@@ -36,8 +43,13 @@ final public class StarPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        super.init(at: resolution, name: "Star", typeName: "pix-content-generator-star")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
@@ -50,5 +62,33 @@ final public class StarPIX: PIXGenerator, PIXViewable {
         self.trailingRadius = trailingRadius
         self.count = count
         self.cornerRadius = cornerRadius
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        position = model.position
+        leadingRadius = model.leadingRadius
+        trailingRadius = model.trailingRadius
+        rotation = model.rotation
+        count = model.count
+        cornerRadius = model.cornerRadius
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.position = position
+        model.leadingRadius = leadingRadius
+        model.trailingRadius = trailingRadius
+        model.rotation = rotation
+        model.count = count
+        model.cornerRadius = cornerRadius
+        
+        super.liveUpdateModelDone()
     }
 }

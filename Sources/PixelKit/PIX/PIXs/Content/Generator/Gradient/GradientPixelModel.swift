@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import CoreGraphics
 import RenderKit
 import Resolution
 import PixelColor

@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct LinePixelModel: PixelGeneratorModel {
+public struct RectanglePixelModel: PixelGeneratorModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Line"
-    public var typeName: String = "pix-content-generator-line"
+    public var name: String = "Rectangle"
+    public var typeName: String = "pix-content-generator-rectangle"
     public var bypass: Bool = false
     
     public var outputNodeReferences: [NodeReference] = []
@@ -31,17 +31,17 @@ public struct LinePixelModel: PixelGeneratorModel {
     
     // MARK: Local
     
-    public var positionFrom: CGPoint = CGPoint(x: -0.5, y: 0.0)
-    public var positionTo: CGPoint = CGPoint(x: 0.5, y: 0.0)
-    public var lineWidth: CGFloat = 0.01
+    public var position: CGPoint = .zero
+    public var size: CGSize = CGSize(width: 0.5, height: 0.5)
+    public var cornerRadius: CGFloat = 0.0
 }
 
-extension LinePixelModel {
+extension RectanglePixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case positionFrom
-        case positionTo
-        case lineWidth
+        case position
+        case size
+        case cornerRadius
     }
     
     public init(from decoder: Decoder) throws {
@@ -55,23 +55,23 @@ extension LinePixelModel {
             for codingKey in CodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 switch codingKey {
-                case .positionFrom:
+                case .position:
                     guard let live = liveWrap as? LivePoint else { continue }
-                    positionFrom = live.wrappedValue
-                case .positionTo:
-                    guard let live = liveWrap as? LivePoint else { continue }
-                    positionTo = live.wrappedValue
-                case .lineWidth:
+                    position = live.wrappedValue
+                case .size:
+                    guard let live = liveWrap as? LiveSize else { continue }
+                    size = live.wrappedValue
+                case .cornerRadius:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    lineWidth = live.wrappedValue
+                    cornerRadius = live.wrappedValue
                 }
             }
             return
         }
         
-        positionFrom = try container.decode(CGPoint.self, forKey: .positionFrom)
-        positionTo = try container.decode(CGPoint.self, forKey: .positionTo)
-        lineWidth = try container.decode(CGFloat.self, forKey: .lineWidth)
+        position = try container.decode(CGPoint.self, forKey: .position)
+        size = try container.decode(CGSize.self, forKey: .size)
+        cornerRadius = try container.decode(CGFloat.self, forKey: .cornerRadius)
     }
 }
 

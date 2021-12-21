@@ -81,10 +81,10 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
         setupCamera()
     }
     
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        setupCamera()
-    }
+//    public required init(from decoder: Decoder) throws {
+//        try super.init(from: decoder)
+//        setupCamera()
+//    }
     
     func setupCamera() {
         DispatchQueue.main.async { [weak self] in

@@ -35,12 +35,12 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         setup()
     }
     
-    required public init(from decoder: Decoder) throws {
-        isConnected = false
-        nilPix = NilPIX()
-        try super.init(from: decoder)
-        setup()
-    }
+//    required public init(from decoder: Decoder) throws {
+//        isConnected = false
+//        nilPix = NilPIX()
+//        try super.init(from: decoder)
+//        setup()
+//    }
     
     func setup() {
         

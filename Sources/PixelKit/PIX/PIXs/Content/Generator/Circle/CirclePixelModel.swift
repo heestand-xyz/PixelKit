@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import CoreGraphics
 import RenderKit
 import Resolution
 import PixelColor
@@ -73,8 +74,8 @@ extension CirclePixelModel {
             return
         }
         
-        position = try container.decode(CGPoint.self, forKey: .position)
         radius = try container.decode(CGFloat.self, forKey: .radius)
+        position = try container.decode(CGPoint.self, forKey: .position)
         edgeRadius = try container.decode(CGFloat.self, forKey: .edgeRadius)
         edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
     }

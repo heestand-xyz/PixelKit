@@ -42,7 +42,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     // MARK: - Life Cycle -
     
     public required init(at resolution: Resolution) {
-        fatalError("please use init(at:name:typeName:)")
+        fatalError("please use init(model:)")
     }
     
     init(model: PixelGeneratorModel) {
