@@ -10,7 +10,6 @@ import Foundation
 import CoreGraphics
 import RenderKit
 import Resolution
-import UIKit
 
 final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     
