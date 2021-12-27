@@ -52,7 +52,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_style, _radius, _quality, _angle, _position, _light, _lumaGamma] + super.liveList
+        [_style, _radius, _quality, _angle, _position, _light, _lumaGamma]
     }
     
     override public var values: [Floatable] {

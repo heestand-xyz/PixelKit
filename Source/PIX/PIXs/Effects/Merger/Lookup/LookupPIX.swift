@@ -47,7 +47,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_axis, _holdEdge] + super.liveList
+        [_axis, _holdEdge]
     }
     
     public override var uniforms: [CGFloat] {

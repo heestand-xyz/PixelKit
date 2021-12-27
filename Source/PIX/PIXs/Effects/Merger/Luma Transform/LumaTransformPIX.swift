@@ -26,7 +26,7 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_position, _rotation, _scale, _size, _lumaGamma] + super.liveList
+        [_position, _rotation, _scale, _size, _lumaGamma]
     }
     
     override public var values: [Floatable] {

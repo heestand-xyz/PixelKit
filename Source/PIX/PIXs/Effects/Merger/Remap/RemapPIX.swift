@@ -13,6 +13,10 @@ import Resolution
 final public class RemapPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
+
+    // MARK: - Property Helpers
+
+    public override var liveList: [LiveWrap] { [] }
     
     // MARK: - Life Cycle
     

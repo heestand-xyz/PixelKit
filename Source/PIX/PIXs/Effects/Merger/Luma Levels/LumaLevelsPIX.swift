@@ -31,7 +31,7 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity, _offset, _lumaGamma] + super.liveList
+        [_brightness, _darkness, _contrast, _gamma, _inverted, _smooth, _opacity, _offset, _lumaGamma]
     }
     
     override public var values: [Floatable] {

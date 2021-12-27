@@ -29,7 +29,7 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_seconds] + super.liveList
+        [_seconds]
     }
     
     override public var values: [Floatable] {

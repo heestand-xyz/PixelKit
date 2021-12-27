@@ -10,6 +10,7 @@ import Foundation
 import CoreGraphics
 import RenderKit
 import Resolution
+import UIKit
 
 final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     
@@ -27,7 +28,7 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     }
     
     override public var values: [Floatable] {
-        return [distance, origin]
+        [distance, origin, placement]
     }
     
     // MARK: - Life Cycle
@@ -35,6 +36,7 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     public required init() {
         super.init(name: "Displace", typeName: "pix-effect-merger-displace")
         extend = .hold
+        placement = .stretch
     }
     
     public convenience init(distance: CGFloat = 0.1,

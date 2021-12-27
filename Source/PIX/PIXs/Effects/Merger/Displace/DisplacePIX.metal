@@ -9,6 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 
+#import "../../../../../Shaders/Source/Effects/place_header.metal"
+
 struct VertexOut{
     float4 position [[position]];
     float2 texCoord;
@@ -17,6 +19,7 @@ struct VertexOut{
 struct Uniforms{
     float dist;
     float origin;
+    float place;
 };
 
 fragment float4 effectMergerDisplacePIX(VertexOut out [[stage_in]],
@@ -28,8 +31,14 @@ fragment float4 effectMergerDisplacePIX(VertexOut out [[stage_in]],
     float v = out.texCoord[1];
     float2 uv = float2(u, v);
     
-    float4 cb = inTexB.sample(s, uv);
+    uint aw = inTexA.get_width();
+    uint ah = inTexA.get_height();
+    uint bw = inTexB.get_width();
+    uint bh = inTexB.get_height();
+    float2 uvp = place(int(in.place), uv, aw, ah, bw, bh);
 
+    float4 cb = inTexB.sample(s, uvp);
+    
     float4 ca = inTexA.sample(s, float2(u + (-(cb.r - 0.5) + 0.5 - in.origin) * in.dist,
                                         v + (cb.g - in.origin) * in.dist));
     

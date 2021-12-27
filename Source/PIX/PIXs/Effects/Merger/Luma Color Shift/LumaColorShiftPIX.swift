@@ -26,7 +26,7 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
     // MARK: - Property Helpers
     
     public override var liveList: [LiveWrap] {
-        [_hue, _saturation, _tintColor, _lumaGamma] + super.liveList
+        [_hue, _saturation, _tintColor, _lumaGamma]
     }
     
     override public var values: [Floatable] {
