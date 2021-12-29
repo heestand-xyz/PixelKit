@@ -95,6 +95,9 @@ extension PIX {
             if let stackPix = self as? StackPIX {
                 return stackPix.resolution
             }
+            if let textureParticlesPix = self as? TextureParticlesPIX {
+                return textureParticlesPix.resolution
+            }
             if let remapPix = pixIn as? RemapPIX {
                 guard let inResB = (remapPix.inputB as? PIX)?.derivedResolution else { return nil }
                 return inResB

@@ -258,6 +258,8 @@ public enum PIXType: Equatable, CaseIterable {
             case .multi(let multi):
                 if multi == .stack {
                     return StackPIX(at: resolution)
+                } else if multi == .textureParticles {
+                    return TextureParticlesPIX(at: resolution)
                 }
                 let pix = multi.type.init()
                 precondition(pix is NODEResolution == false)
@@ -321,6 +323,10 @@ public enum PIXType: Equatable, CaseIterable {
                 if multi == .stack {
                     guard let stackPix = pix as? StackPIX else { return false }
                     stackPix.resolution = resolution
+                    return true
+                } else if multi == .textureParticles {
+                    guard let textureParticlesPix = pix as? TextureParticlesPIX else { return false }
+                    textureParticlesPix.resolution = resolution
                     return true
                 }
                 return false

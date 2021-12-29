@@ -50,9 +50,10 @@ open class PIX: NODE, ObservableObject, Equatable {
         return uniforms
     }
     
-    open var uniformArray: [[CGFloat]] { [] }
+    open var uniformArray: [[CGFloat]]? { nil }
     public var uniformArrayMaxLimit: Int? { nil }
-    public var uniformIndexArray: [[Int]] { [] }
+    public var uniformArrayLength: Int? { nil }
+    public var uniformIndexArray: [[Int]]? { nil }
     public var uniformIndexArrayMaxLimit: Int? { nil }
        
     

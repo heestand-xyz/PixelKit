@@ -111,6 +111,8 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         colorStops.map(\.floats)
     }
     
+    public override var uniformArrayLength: Int? { 5 }
+    
     public override var uniforms: [CGFloat] {
         return [CGFloat(direction.index), scale, offset, position.x, position.y, gamma, CGFloat(extendMode.index)]
     }

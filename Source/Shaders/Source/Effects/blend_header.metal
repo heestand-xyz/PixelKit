@@ -13,5 +13,6 @@ using namespace metal;
 #define BLEND
 
 float4 blend(int mode, float4 ca, float4 cb);
+float4 blendOver(float4 ca, float4 cb);
 
 #endif

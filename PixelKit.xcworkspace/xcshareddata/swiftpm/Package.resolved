@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "CoreGraphicsExtensions",
+        "repositoryURL": "https://github.com/heestand-xyz/CoreGraphicsExtensions",
+        "state": {
+          "branch": null,
+          "revision": "a40dc230306daacb410f9a2f36f63a811ea2e88e",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "TextureMap",
         "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
         "state": {

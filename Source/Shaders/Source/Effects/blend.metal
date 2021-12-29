@@ -15,6 +15,10 @@ float4 lerpColor(float4 fraction, float4 from, float4 to) {
     return from * (1.0 - fraction) + to * fraction;
 }
 
+float4 blendOver(float4 ca, float4 cb) {
+    return blend(0, ca, cb);
+}
+
 float4 blend(int mode, float4 ca, float4 cb) {
     
     float pi = 3.14159265359;

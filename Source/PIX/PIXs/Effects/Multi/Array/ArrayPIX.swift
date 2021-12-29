@@ -70,6 +70,8 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
         })
     }
     
+    public override var uniformArrayLength: Int? { 5 }
+    
     // MARK - Life Cycle
     
     public required init() {
