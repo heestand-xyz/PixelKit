@@ -9,6 +9,7 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
     case metalScriptMultiEffect
     case stack
     case textureParticles
+    case instancer
     
     public var name: String {
         switch self {
@@ -24,6 +25,8 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
             return "Stack"
         case .textureParticles:
             return "Texture Particles"
+        case .instancer:
+            return "Instancer"
         }
     }
     
@@ -52,6 +55,8 @@ public enum PIXMultiEffectType: String, Codable, Hashable, CaseIterable, Identif
             return StackPIX.self
         case .textureParticles:
             return TextureParticlesPIX.self
+        case .instancer:
+            return InstancerPIX.self
         }
     }
     
