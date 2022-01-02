@@ -13,6 +13,13 @@ import PixelColor
 #if os(iOS) && !targetEnvironment(macCatalyst)
 final public class DepthCameraPIX: PIXResource, PIXViewable {
     
+    public typealias Model = DepthCameraPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "depthCameraPIX" }
     
     // MARK: - Public Properties
@@ -46,8 +53,14 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Depth Camera", typeName: "pix-content-resource-depth-camera")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -91,5 +104,16 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         return channelMixPix
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
 }
 #endif
