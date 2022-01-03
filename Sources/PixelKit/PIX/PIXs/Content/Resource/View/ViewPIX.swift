@@ -19,6 +19,13 @@ import SwiftUI
 
 final public class ViewPIX: PIXResource, PIXViewable {
     
+    public typealias Model = ViewPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
@@ -41,31 +48,15 @@ final public class ViewPIX: PIXResource, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "View", typeName: "pix-content-resource-view")
-        applyResolution { [weak self] in
-            self?.render()
-        }
-        pixelKit.render.listenToFrames { [weak self] in
-            guard let self = self else { return }
-            if self.renderViewContinuously {
-                self.setNeedsBuffer()
-            } else {
-                if self.renderView != nil {
-                    let viewRelSize = self.renderView!.frame.size
-                    let viewSize = CGSize(width: viewRelSize.width * Resolution.scale,
-                                          height: viewRelSize.height * Resolution.scale)
-                    let res: Resolution = .auto(render: self.pixelKit.render)
-                    let resSize = self.finalResolution.size
-                    let resRelSize = (res / Resolution.scale).size
-                    if viewSize != resSize {
-                        self.pixelKit.logger.log(node: self, .info, .resource, "View Res Change Detected.")
-                        self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
-                        self.setNeedsBuffer()
-                    }
-                }
-            }
-        }
+        let model = Model()
+        super.init(model: model)
+        setup()
     }
     
     public convenience init(view: _View) {
@@ -84,26 +75,59 @@ final public class ViewPIX: PIXResource, PIXViewable {
         setNeedsBuffer()
     }
     
-    public func viewNeedsRender() {
-        setNeedsBuffer()
+    // MARK: - Setup
+    
+    func setup() {
+        applyResolution { [weak self] in
+            self?.render()
+        }
+        PixelKit.main.render.listenToFrames { [weak self] in
+            guard let self = self else { return }
+            if self.renderViewContinuously {
+                self.setNeedsBuffer()
+            } else {
+                if self.renderView != nil {
+                    let viewRelSize = self.renderView!.frame.size
+                    let viewSize = CGSize(width: viewRelSize.width * Resolution.scale,
+                                          height: viewRelSize.height * Resolution.scale)
+                    let res: Resolution = .auto
+                    let resSize = self.finalResolution.size
+                    let resRelSize = (res / Resolution.scale).size
+                    if viewSize != resSize {
+                        PixelKit.main.logger.log(node: self, .info, .resource, "View Res Change Detected.")
+                        self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
+                        self.setNeedsBuffer()
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
     }
     
     // MARK: Buffer
     
+    public func viewNeedsRender() {
+        setNeedsBuffer()
+    }
+    
     func setNeedsBuffer() {
-//        if pixelKit.render.frame == 0 {
-//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-//            pixelKit.render.delay(frames: 1, done: {
-//                self.setNeedsBuffer()
-//            })
-//            return
-//        }
         guard let view = renderView else {
-            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported.")
+            PixelKit.main.logger.log(node: self, .debug, .resource, "Nil not supported.")
             return
         }
         guard view.bounds.size.width > 0 else {
-            pixelKit.logger.log(node: self, .debug, .resource, "View frame not set.")
+            PixelKit.main.logger.log(node: self, .debug, .resource, "View frame not set.")
             return
         }
         #if os(macOS)
@@ -115,17 +139,17 @@ final public class ViewPIX: PIXResource, PIXViewable {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, Resolution.scale)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         guard let image: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            pixelKit.logger.log(node: self, .error, .resource, "Image creation failed.")
+            PixelKit.main.logger.log(node: self, .error, .resource, "Image creation failed.")
             return
         }
         UIGraphicsEndImageContext()
         #endif
-        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
+        guard let buffer = Texture.buffer(from: image, bits: PixelKit.main.render.bits) else {
+            PixelKit.main.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         resourcePixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Render View Loaded.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Render View Loaded.")
         applyResolution {  [weak self] in
             self?.render()
         }
@@ -134,7 +158,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
     func viewNeedsClear() {
         resourcePixelBuffer = nil
         texture = nil
-        pixelKit.logger.log(node: self, .info, .resource, "Clear View.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Clear View.")
         render()
     }
     

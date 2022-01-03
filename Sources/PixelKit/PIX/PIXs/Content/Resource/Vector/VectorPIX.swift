@@ -21,8 +21,14 @@ import PixelColor
 
 @available(OSX 10.13, *)
 @available(iOS 11, *)
-//@available(tvOS 11, *)
 final public class VectorPIX: PIXResource, PIXViewable {
+    
+    public typealias Model = VectorPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -34,9 +40,34 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     let helper: VectorHelper = .init()
     
-    public var scale: CGFloat = 1.0 { didSet { load() } }
-    public var position: CGPoint = .zero { didSet { load() } }
-    public var bgColor: PixelColor = .black { didSet { load() } }
+    public var scale: CGFloat {
+        get { model.scale }
+        set {
+            model.scale = newValue
+            load()
+        }
+    }
+    
+    public var position: CGPoint {
+        get { model.position }
+        set {
+            model.position = newValue
+            load()
+        }
+    }
+    
+    @available(*, deprecated, renamed: "backgroundColor")
+    public var bgColor: PixelColor {
+        get { backgroundColor }
+        set { backgroundColor = newValue }
+    }
+    public var backgroundColor: PixelColor {
+        get { model.backgroundColor }
+        set {
+            model.backgroundColor = newValue
+            load()
+        }
+    }
     
     var svg: String?
     
@@ -48,26 +79,33 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        self.resolution = resolution
-        super.init(name: "Vector", typeName: "pix-content-resource-vector")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    public init(at resolution: Resolution = .auto) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
+        setup()
+    }
+    
+    public convenience init(at resolution: Resolution = .auto,
                             named name: String) {
         self.init(at: resolution)
         load(named: name)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             url: URL) {
         self.init(at: resolution)
         load(url: url)
-    }
-    
-    public required convenience init() {
-        self.init(at: .auto(render: PixelKit.main.render))
     }
     
     // MARK: - Setup
@@ -84,6 +122,24 @@ final public class VectorPIX: PIXResource, PIXViewable {
                 self?.setNeedsBuffer()
             }
         }
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Load

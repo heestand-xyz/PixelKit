@@ -20,8 +20,14 @@ import WebKit
 
 @available(OSX 10.13, *)
 @available(iOS 11, *)
-//@available(tvOS 11, *)
 final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
+    
+    public typealias Model = WebPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
     
     #if os(iOS) || os(tvOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
@@ -37,7 +43,13 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     @LiveResolution("resolution") public var resolution: Resolution = ._128
     
-    public var url: URL = URL(string: "http://pixelkit.net/")! { didSet { refresh() } }
+    public var url: URL {
+        get { model.url }
+        set {
+            model.url = newValue
+            refresh()
+        }
+    }
     public var webView: WKWebView = .init()
     
     public override var liveList: [LiveWrap] {
@@ -46,24 +58,28 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        
-        self.resolution = resolution
-                
-        super.init(name: "Web", typeName: "pix-content-resource-web")
-        
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    public init(at resolution: Resolution = .auto) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
+        setup()
+    }
+    
+    public convenience init(at resolution: Resolution = .auto,
                             url: URL) {
         self.init(at: resolution)
         self.url = url
         self.refresh()
-    }
-    
-    public required convenience init() {
-        self.init(at: .auto(render: PixelKit.main.render))
     }
     
     // MARK: - Setup
@@ -90,6 +106,24 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
                 self?.setNeedsBuffer()
             }
         }
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Load

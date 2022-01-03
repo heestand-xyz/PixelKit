@@ -175,19 +175,19 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
         setupMetal()
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
         setupMetal()
     }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
+    public init(at resolution: Resolution = .auto, whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
         let model = Model(resolution: resolution, colorStyle: .white, metalUniforms: uniforms, whiteScript: whiteScript, alphaScript: alphaScript)
         super.init(model: model)
         setupMetal()
     }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), redScript: String, greenScript: String, blueScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
+    public init(at resolution: Resolution = .auto, redScript: String, greenScript: String, blueScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
         let model = Model(resolution: resolution, colorStyle: .color, metalUniforms: uniforms, redScript: redScript, greenScript: greenScript, blueScript: blueScript, alphaScript: alphaScript)
         super.init(model: model)
         setupMetal()
@@ -270,13 +270,13 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
 
 public extension MetalScriptPIX {
     
-    static func pixMetalScript(at resolution: Resolution = .auto(render: PixelKit.main.render), white: String, alpha: String = "1.0") -> MetalScriptPIX {
+    static func pixMetalScript(at resolution: Resolution = .auto, white: String, alpha: String = "1.0") -> MetalScriptPIX {
         let metalScriptPix = MetalScriptPIX(at: resolution, whiteScript: white, alphaScript: alpha)
         metalScriptPix.name = "metalScript:white"
         return metalScriptPix
     }
     
-    static func pixMetalScript(at resolution: Resolution = .auto(render: PixelKit.main.render), red: String, green: String, blue: String, alpha: String = "1.0") -> MetalScriptPIX {
+    static func pixMetalScript(at resolution: Resolution = .auto, red: String, green: String, blue: String, alpha: String = "1.0") -> MetalScriptPIX {
         let metalScriptPix = MetalScriptPIX(at: resolution, redScript: red, greenScript: green, blueScript: blue, alphaScript: alpha)
         metalScriptPix.name = "metalScript:color"
         return metalScriptPix

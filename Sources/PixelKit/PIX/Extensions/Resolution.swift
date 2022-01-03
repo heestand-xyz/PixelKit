@@ -12,6 +12,11 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
+extension Resolution {
+    
+    public static let auto: Resolution = .auto(render: PixelKit.main.render)
+}
+
 extension PIX {
     
     public var derivedResolution: Resolution? {

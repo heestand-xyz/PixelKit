@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct PaintPixelModel: PixelResourceModel {
+public struct VectorPixelModel: PixelResourceModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Paint"
-    public var typeName: String = "pix-content-resource-paint"
+    public var name: String = "Vector"
+    public var typeName: String = "pix-content-resource-vector"
     public var bypass: Bool = false
     
     public var outputNodeReferences: [NodeReference] = []
@@ -26,27 +26,17 @@ public struct PaintPixelModel: PixelResourceModel {
     // MARK: Local
     
     public var resolution: Resolution = .auto
-    public var manualToolUpdate: Bool = false
-    public var toolType: PaintPIX.ToolType = .inking
-    public var inkType: PaintPIX.InkType = .pen
-    public var color: PixelColor = .white
-    public var width: CGFloat = 10
-    public var eraserType: PaintPIX.EraserType = .bitmap
-    public var allowsFingerDrawing: Bool = true
+    public var scale: CGFloat = 1.0
+    public var position: CGPoint = .zero
     public var backgroundColor: PixelColor = .black
 }
 
-extension PaintPixelModel {
-    
+extension VectorPixelModel {
+        
     enum CodingKeys: String, CodingKey, CaseIterable {
         case resolution
-        case manualToolUpdate
-        case toolType
-        case inkType
-        case color
-        case width
-        case eraserType
-        case allowsFingerDrawing
+        case scale
+        case position
         case backgroundColor
     }
     
@@ -64,9 +54,6 @@ extension PaintPixelModel {
                 case .resolution:
                     guard let live = liveWrap as? LiveResolution else { continue }
                     resolution = live.wrappedValue
-                case .backgroundColor:
-                    guard let live = liveWrap as? LiveColor else { continue }
-                    backgroundColor = live.wrappedValue
                 default:
                     continue
                 }
@@ -75,13 +62,10 @@ extension PaintPixelModel {
         }
         
         resolution = try container.decode(Resolution.self, forKey: .resolution)
-        manualToolUpdate = try container.decode(Bool.self, forKey: .manualToolUpdate)
-        toolType = try container.decode(PaintPIX.ToolType.self, forKey: .toolType)
-        inkType = try container.decode(PaintPIX.InkType.self, forKey: .inkType)
-        color = try container.decode(PixelColor.self, forKey: .color)
-        width = try container.decode(CGFloat.self, forKey: .width)
-        eraserType = try container.decode(PaintPIX.EraserType.self, forKey: .eraserType)
-        allowsFingerDrawing = try container.decode(Bool.self, forKey: .allowsFingerDrawing)
+        scale = try container.decode(CGFloat.self, forKey: .scale)
+        position = try container.decode(CGPoint.self, forKey: .position)
         backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
+
     }
+    
 }

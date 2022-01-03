@@ -14,31 +14,41 @@ import CoreGraphics
 
 final public class StreamInPIX: PIXResource, PIXViewable {
     
+    public typealias Model = StreamInPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentResourceBGRPIX" }
     
-    enum Connected {
+    public enum Connected {
         case disconnected
         case connecting
         case connected
     }
     
-    var connected: Connected = .disconnected
-    var steamed: Bool = false
-    var streamSize: CGSize?
+    public private(set) var connected: Connected = .disconnected
+    
     var peer: Peer?
     
-    #if os(iOS) || os(tvOS)
     var image: UIImage? { didSet { setNeedsBuffer() } }
-    #elseif os(macOS)
-//    var image: NSImage? { didSet { setNeedsBuffer() } }
-    #endif
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Stream In", typeName: "pix-content-resource-stream-in")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
     
     func setup() {
         
@@ -55,14 +65,24 @@ final public class StreamInPIX: PIXResource, PIXViewable {
                 self.connected = .connecting
             } else if connect_state == .dissconnected {
                 self.connected = .disconnected
-                self.steamed = false
             }
         }, disconnect: {
             self.connected = .disconnected
-            self.steamed = false
         })
         peer!.startHosting()
         
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
     }
     
     // MARK: Buffer
@@ -72,13 +92,6 @@ final public class StreamInPIX: PIXResource, PIXViewable {
             pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-//        if pixelKit.render.frame == 0 {
-//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-//            pixelKit.render.delay(frames: 1, done: {
-//                self.setNeedsBuffer()
-//            })
-//            return
-//        }
         guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
             pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return

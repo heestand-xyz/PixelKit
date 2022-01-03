@@ -25,7 +25,7 @@ public struct EarthPixelModel: PixelResourceModel {
     
     // MARK: Local
     
-    public var resolution: Resolution = .auto(render: PixelKit.main.render)
+    public var resolution: Resolution = .auto
     public var mapType: EarthPIX.MapType = .standard
     public var coordinate: CGPoint = .zero
     public var span: CGFloat = 90

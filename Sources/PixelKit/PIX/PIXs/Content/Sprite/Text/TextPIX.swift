@@ -36,12 +36,12 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         super.init(at: resolution, name: "Text", typeName: "pix-content-sprite-text")
         setup()
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             text: String) {
         self.init(at: resolution)
         setup()

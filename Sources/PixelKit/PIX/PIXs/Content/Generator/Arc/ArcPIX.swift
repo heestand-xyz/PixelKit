@@ -48,12 +48,12 @@ final public class ArcPIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             radius: CGFloat = 0.25,
                             angleFrom: CGFloat = -0.125,
                             angleTo: CGFloat = 0.125) {

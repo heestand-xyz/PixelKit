@@ -44,12 +44,12 @@ final public class RectanglePIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             size: CGSize = CGSize(width: 0.5, height: 0.5),
                             cornerRadius: CGFloat = 0.0) {
         self.init(at: resolution)

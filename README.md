@@ -120,6 +120,24 @@ class ViewController: UIViewController {
 }
 ~~~~
 
+
+## Resolution
+
+In PixelKit all PIXs have a resolution. Some PIXs have defined resolutions (default to `.auto`) and some PIXs have derived resolutions.
+
+The `.auto` resolution will fill up the view and get the correct resolution based on the view size. If a view is 100x100 points, the resolution will be 200x200 pixels on macOS and 300x300 pixels on iPhone.
+
+Import the resolution package to work with resolutions:
+
+```swift
+import Resolution
+```
+
+You can multiply and divide resolutions with a `CGFloat` or `Int`.
+
+There are predefined resolutions like `._1080p` & `._4K`.
+  
+
 ## Rendered Image
 
 ~~~~swift

@@ -59,12 +59,12 @@ final public class NoisePIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             octaves: Int = 10,
                             zoom: CGFloat = 1.0) {
         self.init(at: resolution)

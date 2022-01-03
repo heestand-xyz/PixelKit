@@ -31,7 +31,7 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
     override open var values: [Floatable] { return [backgroundColor] }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
+    public init(at resolution: Resolution = .auto, name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
         setupCustom()

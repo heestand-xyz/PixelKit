@@ -74,12 +74,12 @@ final public class LinePIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             positionFrom: CGPoint = CGPoint(x: -0.25, y: -0.25),
                             positionTo: CGPoint = CGPoint(x: 0.25, y: 0.25),
                             scale: CGFloat = 0.01) {

@@ -116,13 +116,13 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
         setupMetal()
     }
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), uniforms: [MetalUniform] = [], code: String) {
+    public init(at resolution: Resolution = .auto, uniforms: [MetalUniform] = [], code: String) {
         let model = Model(resolution: resolution, metalUniforms: uniforms, code: code)
         super.init(model: model)
         setupMetal()
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
         setupMetal()
@@ -199,7 +199,7 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
 
 public extension MetalPIX {
     
-    static func pixUV(at resolution: Resolution = .auto(render: PixelKit.main.render)) -> MetalPIX {
+    static func pixUV(at resolution: Resolution = .auto) -> MetalPIX {
         let metalPix = MetalPIX(at: resolution, code:
             """
             return float4(u, v, 0.0, 1.0);

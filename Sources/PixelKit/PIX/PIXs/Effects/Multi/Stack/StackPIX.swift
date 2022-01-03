@@ -93,13 +93,13 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         self.resolution = resolution
         super.init(name: "Stack", typeName: "pix-effect-multi-stack")
     }
     
     #if swift(>=5.5)
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             axis: Axis = .vertical,
                             alignment: Alignment = .center,
                             spacing: CGFloat = 0.0,
@@ -115,7 +115,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     #endif
     
     public required convenience init() {
-        self.init(at: .auto(render: PixelKit.main.render))
+        self.init(at: .auto)
     }
     
     // MARK: - Property Funcs

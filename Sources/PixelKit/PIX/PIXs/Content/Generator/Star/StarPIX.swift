@@ -47,12 +47,12 @@ final public class StarPIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             leadingRadius: CGFloat = 0.125,
                             trailingRadius: CGFloat = 0.25,
                             count: Int = 5,

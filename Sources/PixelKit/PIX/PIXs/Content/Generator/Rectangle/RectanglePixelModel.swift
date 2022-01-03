@@ -24,7 +24,7 @@ public struct RectanglePixelModel: PixelGeneratorModel {
     public var extend: ExtendMode = .zero
     
     public var premultiply: Bool = true
-    public var resolution: Resolution = .auto(render: PixelKit.main.render)
+    public var resolution: Resolution = .auto
 
     public var backgroundColor: PixelColor = .black
     public var color: PixelColor = .white

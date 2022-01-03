@@ -176,7 +176,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
         setup()
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         helper = PaintHelper()
         super.init(model: model)

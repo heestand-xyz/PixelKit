@@ -94,12 +94,12 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         super.init(model: model)
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
     }
     
-    public convenience init(at resolution: Resolution = .auto(render: PixelKit.main.render),
+    public convenience init(at resolution: Resolution = .auto,
                             direction: Direction = .vertical,
                             colorStops: [ColorStop] = [ColorStop(0.0, .black), ColorStop(1.0, .white)]) {
         self.init(at: resolution)

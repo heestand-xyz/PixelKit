@@ -51,7 +51,7 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
 
 public extension NODEOut {
     
-    func pixScaleResolution(to res: Resolution = .auto(render: PixelKit.main.render),
+    func pixScaleResolution(to res: Resolution = .auto,
                             placement: Placement = .fit,
                             interpolation: PixelInterpolation = .linear) -> ResolutionPIX {
         let resPix = ResolutionPIX(at: res)

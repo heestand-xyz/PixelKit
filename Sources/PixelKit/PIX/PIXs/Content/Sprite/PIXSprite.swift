@@ -43,11 +43,11 @@ open class PIXSprite: PIXContent, NODEResolution {
         [_resolution] + super.liveList
     }
     
-    required public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    required public init(at resolution: Resolution = .auto) {
         fatalError("Please use PIXSprite Sub Classes.")
     }
         
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render), name: String, typeName: String) {
+    public init(at resolution: Resolution = .auto, name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
         setupSprite()

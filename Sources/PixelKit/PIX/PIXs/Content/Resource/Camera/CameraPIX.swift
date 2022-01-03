@@ -52,7 +52,6 @@ final public class CameraPIX: PIXResource, PIXViewable {
 
     public override var bypass: Bool {
         didSet {
-            super.bypass = bypass
             helper?.bypass = bypass
         }
     }

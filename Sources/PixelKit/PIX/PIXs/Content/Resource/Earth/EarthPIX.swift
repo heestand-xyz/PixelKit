@@ -114,7 +114,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
         setup()
     }
     
-    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+    public init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
         setup()

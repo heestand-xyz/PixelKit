@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "RenderKit",
-        "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
-        "state": {
-          "branch": null,
-          "revision": "9ec3c2a4f4806e95ac2398ef7cd2792c0eb19e32",
-          "version": "1.2.2"
-        }
-      },
-      {
         "package": "Resolution",
         "repositoryURL": "https://github.com/heestand-xyz/Resolution",
         "state": {
