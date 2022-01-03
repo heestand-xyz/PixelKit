@@ -13,7 +13,7 @@ struct PixelSingleEffectModelDecoder {
     
     static func decode(from decoder: Decoder, model: PixelSingleEffectModel) throws -> PixelSingleEffectModel {
         
-        try PixelModelDecoder.decode(from: decoder, model: model) as! PixelSingleEffectModel
+        try PixelEffectModelDecoder.decode(from: decoder, model: model) as! PixelSingleEffectModel
         
     }
     

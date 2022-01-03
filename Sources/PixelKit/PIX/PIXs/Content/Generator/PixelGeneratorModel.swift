@@ -20,7 +20,7 @@ struct PixelGeneratorModelDecoder {
     
     static func decode(from decoder: Decoder, model: PixelGeneratorModel) throws -> PixelGeneratorModel {
         
-        var model: PixelGeneratorModel = try PixelModelDecoder.decode(from: decoder, model: model) as! PixelGeneratorModel
+        var model: PixelGeneratorModel = try PixelContentModelDecoder.decode(from: decoder, model: model) as! PixelGeneratorModel
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         

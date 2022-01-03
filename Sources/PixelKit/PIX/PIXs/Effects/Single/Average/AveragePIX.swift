@@ -50,7 +50,7 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable {
     }
 
     public required init() {
-        super.init(name: "Average", typeName: "pix-effect-single-average")
+        super.init(name: "Average", typeName: "")
     }
 
 }
