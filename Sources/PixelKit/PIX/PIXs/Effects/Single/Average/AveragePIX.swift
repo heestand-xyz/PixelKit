@@ -12,7 +12,14 @@ import Resolution
 
 /// Useful with **VoxelKit** to downsample depth images.
 final public class AveragePIX: PIXSingleEffect, PIXViewable {
-
+    
+    public typealias Model = AveragePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleAveragePIX" }
 
     // MARK: - Public Properties
@@ -48,9 +55,34 @@ final public class AveragePIX: PIXSingleEffect, PIXViewable {
     public override var values: [Floatable] {
         [axis]
     }
-
+    
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Average", typeName: "")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        axis = model.axis
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.axis = axis
+        
+        super.liveUpdateModelDone()
     }
 
 }

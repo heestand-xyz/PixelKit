@@ -41,24 +41,24 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution) {
-        fatalError("please use init(model:)")
-    }
-    
     init(model: PixelGeneratorModel) {
         self.resolution = model.resolution
         super.init(model: model)
-        setup()
+        setupGenerator()
     }
     
     @available(*, deprecated)
     public init(at resolution: Resolution = .auto, name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
-        setup()
+        setupGenerator()
     }
     
-    // MARK: - Live
+    public required init(at resolution: Resolution) {
+        fatalError("please use init(model:)")
+    }
+    
+    // MARK: - Live Model
     
     override func modelUpdateLive() {
         super.modelUpdateLive()
@@ -80,7 +80,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     // MARK: - Setup
     
-    func setup() {
+    func setupGenerator() {
         applyResolution { [weak self] in
             self?.render()
             #warning("Delay on Init")

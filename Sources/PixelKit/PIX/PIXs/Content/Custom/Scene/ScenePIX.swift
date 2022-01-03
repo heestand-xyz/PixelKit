@@ -11,6 +11,13 @@ import SceneKit
 
 final public class ScenePIX: PIXCustom, PIXViewable {
     
+    public typealias Model = ScenePixelModel
+    
+    private var model: Model {
+        get { customModel as! Model }
+        set { customModel = newValue }
+    }
+    
     // MARK: - Private Properties
     
     var renderer: SCNRenderer!
@@ -49,24 +56,25 @@ final public class ScenePIX: PIXCustom, PIXViewable {
         }
     }
 
-    // MARK: - Property Helpers
-    
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution = .auto) {
-        super.init(at: resolution, name: "Scene", typeName: "pix-content-custom-scene")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
+    public required init(at resolution: Resolution = .auto) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
+        setup()
+    }
+
+    // MARK: - Setup
+
     func setup() {
         
-        renderer = SCNRenderer(device: pixelKit.render.metalDevice, options: nil)
+        renderer = SCNRenderer(device: PixelKit.main.render.metalDevice, options: nil)
         renderer.autoenablesDefaultLighting = true
-//        renderer.delegate = sceneHelper
-//        renderer.isJitteringEnabled = true
-//        if #available(iOS 13.0, *) {
-//            renderer.isTemporalAntialiasingEnabled = true
-//        }
         
         sceneHelper = SceneHelper(render: { [weak self] in
             guard self?.customDelegateRender == false else { return }
@@ -82,9 +90,23 @@ final public class ScenePIX: PIXCustom, PIXViewable {
         render()
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Render
+    
     public func renderScene() {
         guard customDelegateRender else {
-            pixelKit.logger.log(node: self, .warning, nil, "customDelegateRender not enabled.")
+            PixelKit.main.logger.log(node: self, .warning, nil, "customDelegateRender not enabled.")
             return
         }
         self.render()
@@ -92,10 +114,10 @@ final public class ScenePIX: PIXCustom, PIXViewable {
     
     public override func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         
-        pixelKit.logger.log(node: self, .info, .generator, "Custom Render. [cameraNode:\(cameraNode != nil), scene:\(scene != nil), sceneView:\(sceneView != nil)]")
+        PixelKit.main.logger.log(node: self, .info, .generator, "Custom Render. [cameraNode:\(cameraNode != nil), scene:\(scene != nil), sceneView:\(sceneView != nil)]")
 
-        guard let customTexture: MTLTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice) else {
-            pixelKit.logger.log(node: self, .error, .generator, "Make of empty texture faild.")
+        guard let customTexture: MTLTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice) else {
+            PixelKit.main.logger.log(node: self, .error, .generator, "Make of empty texture faild.")
             return nil
         }
         
@@ -114,21 +136,6 @@ final public class ScenePIX: PIXCustom, PIXViewable {
         }
         
         return customTexture
-    }
-    
-}
-
-class SceneHelper: NSObject, SCNSceneRendererDelegate {
-    
-    let renderCallback: () -> ()
-    
-    init(render: @escaping () -> ()) {
-        renderCallback = render
-    }
-
-    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        PixelKit.main.logger.log(.info, nil, "willRenderScene atTime \(time)")
-        renderCallback()
     }
     
 }
