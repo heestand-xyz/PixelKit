@@ -1,7 +1,4 @@
 //
-//  File.swift
-//  
-//
 //  Created by Anton Heestand on 2021-12-13.
 //
 
@@ -10,7 +7,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public typealias PixelGeneratorModel = PixelModel & NodeGeneratorContentModel
+public typealias PixelGeneratorModel = PixelContentModel & NodeGeneratorContentModel
 
 struct PixelGeneratorModelDecoder {
     
@@ -31,6 +28,7 @@ struct PixelGeneratorModelDecoder {
             let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
             for codingKey in CodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
+                
                 switch codingKey {
                 case .premultiply:
                     guard let live = liveWrap as? LiveBool else { continue }

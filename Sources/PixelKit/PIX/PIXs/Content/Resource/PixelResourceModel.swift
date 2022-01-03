@@ -8,7 +8,7 @@
 import Foundation
 import RenderKit
 
-public typealias PixelResourceModel = PixelModel & NodeResourceContentModel
+public typealias PixelResourceModel = PixelContentModel & NodeResourceContentModel
 
 struct PixelResourceModelDecoder {
     

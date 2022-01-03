@@ -11,16 +11,26 @@ import Resolution
 
 open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle {
     
+    var singleEffectModel: PixelSingleEffectModel {
+        get { effectModel as! PixelSingleEffectModel }
+        set { effectModel = newValue }
+    }
+    
     public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        fatalError("please use init(name:typeName:)")
+    init(model: PixelSingleEffectModel) {
+        super.init(model: model)
     }
     
+    @available(*, deprecated)
     public override init(name: String, typeName: String) {
         super.init(name: name, typeName: typeName)
+    }
+    
+    public required init() {
+        fatalError("please use init(model:)")
     }
     
     public override func destroy() {

@@ -54,6 +54,7 @@ extension RectanglePixelModel {
             let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
             for codingKey in CodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
+                
                 switch codingKey {
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }

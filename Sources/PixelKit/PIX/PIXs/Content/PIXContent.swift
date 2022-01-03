@@ -24,6 +24,8 @@ open class PIXContent: PIX, NODEContent, NODEOutIO {
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()
     public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
     
+    // MARK: - Life Cycle -
+    
     init(model: PixelContentModel) {
         super.init(model: model)
     }

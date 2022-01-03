@@ -8,15 +8,16 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct VectorPixelModel: PixelResourceModel {
+public struct AddPixelModel: PixelSingleEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Vector"
-    public var typeName: String = "pix-content-resource-vector"
+    public var name: String = "Add"
+    public var typeName: String = "pix-effect-single-add"
     public var bypass: Bool = false
     
+    public var inputNodeReferences: [NodeReference] = []
     public var outputNodeReferences: [NodeReference] = []
 
     public var viewInterpolation: ViewInterpolation = .linear
@@ -25,24 +26,18 @@ public struct VectorPixelModel: PixelResourceModel {
     
     // MARK: Local
     
-    public var resolution: Resolution = .auto
-    public var scale: CGFloat = 1.0
-    public var position: CGPoint = .zero
-    public var backgroundColor: PixelColor = .black
+    public var axis: AddPIX.Axis = .z
 }
 
-extension VectorPixelModel {
-        
+extension AddPixelModel {
+    
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case resolution
-        case scale
-        case position
-        case backgroundColor
+        case axis
     }
     
     public init(from decoder: Decoder) throws {
         
-        self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
+        self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -52,21 +47,14 @@ extension VectorPixelModel {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 
                 switch codingKey {
-                case .resolution:
-                    guard let live = liveWrap as? LiveResolution else { continue }
-                    resolution = live.wrappedValue
-                default:
-                    continue
+                case .axis:
+                    guard let live = liveWrap as? LiveEnum<AddPIX.Axis> else { continue }
+                    axis = live.wrappedValue
                 }
             }
             return
         }
         
-        resolution = try container.decode(Resolution.self, forKey: .resolution)
-        scale = try container.decode(CGFloat.self, forKey: .scale)
-        position = try container.decode(CGPoint.self, forKey: .position)
-        backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
-
+        axis = try container.decode(AddPIX.Axis.self, forKey: .axis)
     }
-    
 }

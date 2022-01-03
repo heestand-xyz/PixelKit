@@ -58,6 +58,7 @@ extension PolygonPixelModel {
             let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
             for codingKey in CodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
+                
                 switch codingKey {
                 case .radius:
                     guard let live = liveWrap as? LiveFloat else { continue }

@@ -11,7 +11,12 @@ import RenderKit
 import Resolution
 import Combine
 
-open class PIXEffect: PIX, NODEEffect/*, NODETileable2D*/ {
+open class PIXEffect: PIX, NODEEffect {
+    
+    var effectModel: PixelEffectModel {
+        get { pixelModel as! PixelEffectModel }
+        set { pixelModel = newValue }
+    }
     
     public var inputList: [NODE & NODEOut] = []
     public var outputPathList: [NODEOutPath] = []
@@ -24,5 +29,16 @@ open class PIXEffect: PIX, NODEEffect/*, NODETileable2D*/ {
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()
     public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
     public var cancellableIns: [AnyCancellable] = []
+    
+    // MARK: - Life Cycle -
+    
+    init(model: PixelEffectModel) {
+        super.init(model: model)
+    }
+    
+    @available(*, deprecated)
+    public override init(name: String, typeName: String) {
+        super.init(name: name, typeName: typeName)
+    }
     
 }
