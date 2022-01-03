@@ -18,7 +18,14 @@ import CoreGraphics
 import TextureMap
 
 final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
-
+    
+    public typealias Model = EarthPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentResourcePIX" }
     
     private var rendering: Bool = false
@@ -100,16 +107,22 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
         [_resolution, _mapType, _coordinate, _span, _showsBuildings, _showsPointsOfInterest, _darkMode]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        self.resolution = resolution
-        super.init(name: "Earth", typeName: "pix-content-resource-maps")
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
         setup()
     }
     
     public required init() {
-        super.init(name: "Earth", typeName: "pix-content-resource-maps")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -128,6 +141,36 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
             }
         }
         
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        mapType = model.mapType
+        coordinate = model.coordinate
+        span = model.span
+        showsBuildings = model.showsBuildings
+        showsPointsOfInterest = model.showsPointsOfInterest
+        darkMode = model.darkMode
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.mapType = mapType
+        model.coordinate = coordinate
+        model.span = span
+        model.showsBuildings = showsBuildings
+        model.showsPointsOfInterest = showsPointsOfInterest
+        model.darkMode = darkMode
+        
+        super.liveUpdateModelDone()
     }
     
     // MARK: Live

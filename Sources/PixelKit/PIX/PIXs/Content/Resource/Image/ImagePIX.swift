@@ -26,13 +26,15 @@ public typealias UINSImage = NSImage
 #endif
 
 final public class ImagePIX: PIXResource, PIXViewable {
-
-//    #if os(iOS) || os(tvOS)
-//    override open var shaderName: String { return "contentResourceFlipPIX" }
-//    #elseif os(macOS)
-//    override open var shaderName: String { return "contentResourceBGRPIX" }
-//    #endif
-    override public var shaderName: String { return "contentResourceImagePIX" }
+    
+    public typealias Model = ImagePixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
+    override public var shaderName: String { "contentResourceImagePIX" }
     
     // MARK: - Private Properties
     
@@ -44,55 +46,53 @@ final public class ImagePIX: PIXResource, PIXViewable {
         #endif
     }
     
-    var swizzel: Bool {
-        false //PixelKit.main.render.bits == ._16
+    var swizzle: Bool {
+        false
     }
     
     // MARK: - Public Properties
     
     public var image: UINSImage? { didSet { setNeedsBuffer() } }
     
-    @Published public var imageLoaded: Bool = false
+    @Published public private(set) var imageLoaded: Bool = false
     
     /// Set `resizeResolution` to update image.
-    public var resizePlacement: Texture.ImagePlacement = .fit
-    public var resizeResolution: Resolution? = nil {
-        didSet {
-            guard resizeResolution != oldValue else { return }
+    public var resizePlacement: Texture.ImagePlacement {
+        get { model.resizePlacement }
+        set { model.resizePlacement = newValue }
+    }
+    public var resizeResolution: Resolution? {
+        get { model.resizeResolution }
+        set {
+            model.resizeResolution = newValue
+            guard newValue != resizeResolution else { return }
             setNeedsBuffer()
         }
     }
     var resizedResolution: Resolution?
     
+    @available(*, deprecated)
     public var tint: Bool = false
+    @available(*, deprecated)
     public var tintColor: PixelColor = .white
+    @available(*, deprecated)
     public var bgColor: PixelColor = .clear
 
     // MARK: - Property Helpers
     
     public override var values: [Floatable] {
-        [tint, tintColor, bgColor, flip, swizzel]
+        [tint, tintColor, bgColor, flip, swizzle]
     }
     
     // MARK: - Life Cycle
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Image", typeName: "pix-content-resource-image")
-//        self.applyResolution {
-//            self.render()
-//        }
-//        pixelKit.render.listenToFramesUntil {
-//            if self.derivedResolution != nil {
-//                return .done
-//            }
-//            if self.derivedResolution != ._128 {
-//                self.applyResolution {
-//                    self.render()
-//                }
-//                return .done
-//            }
-//            return .continue
-//        }
+        let model = Model()
+        super.init(model: model)
     }
     
     #if os(macOS)
@@ -114,11 +114,23 @@ final public class ImagePIX: PIXResource, PIXViewable {
         setNeedsBuffer()
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
     // MARK: Buffer
     
     func setNeedsBuffer() {
         guard var image = image else {
-            pixelKit.logger.log(node: self, .debug, .resource, "Setting Image to Nil")
+            PixelKit.main.logger.log(node: self, .debug, .resource, "Setting Image to Nil")
             clearRender()
             imageLoaded = false
             return
@@ -127,29 +139,22 @@ final public class ImagePIX: PIXResource, PIXViewable {
             image = Texture.resize(image, to: res.size, placement: resizePlacement)
             resizedResolution = image.resolution
         }
-//        if pixelKit.render.frame == 0 && frameLoopRenderThread == .main {
-//            pixelKit.logger.log(node: self, .debug, .resource, "One frame delay.")
-//            pixelKit.render.delay(frames: 1, done: {
-//                self.setNeedsBuffer()
-//            })
-//            return
-//        }
         let bits: Bits = pixelKit.render.bits
 //        if bits == ._16 {
 //            do {
 //                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)
 //                resourceTexture = texture
 //            } catch {
-//                pixelKit.logger.log(node: self, .error, .resource, "Float16 requres iOS 14 or macOS 11.", loop: true, e: error)
+//                PixelKit.main.logger.log(node: self, .error, .resource, "Float16 requires iOS 14 or macOS 11.", loop: true, e: error)
 //            }
 //        } else {
         guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
+            PixelKit.main.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.", loop: true)
             return
         }
         resourcePixelBuffer = buffer
 //        }
-        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { [weak self] in
             self?.imageLoaded = true
             self?.render()

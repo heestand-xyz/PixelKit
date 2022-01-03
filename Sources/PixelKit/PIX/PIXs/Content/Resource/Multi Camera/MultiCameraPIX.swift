@@ -14,12 +14,21 @@ import Resolution
 @available(iOS 13.0, macOS 10.15, *)
 final public class MultiCameraPIX: PIXResource, PIXViewable {
     
+    public typealias Model = MultiCameraPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentResourceCameraPIX" }
     
     // MARK: - Public Properties
     
-    public var camera: CameraPIX.Camera = .front {
-        didSet {
+    public var camera: CameraPIX.Camera {
+        get { model.camera }
+        set {
+            model.camera = newValue
             guard let cameraPix = cameraPix else { return }
             guard cameraPix.setup == true else { return }
             cameraPix.setupCamera()
@@ -49,7 +58,7 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
                     },
                     frameLoop: { [weak self] pixelBuffer in
                         guard let self = self else { return }
-                        self.pixelKit.logger.log(node: self, .info, .resource, "Multi Camera frame captured.", loop: true)
+                        PixelKit.main.logger.log(node: self, .info, .resource, "Multi Camera frame captured.", loop: true)
                         self.resourcePixelBuffer = pixelBuffer
                         if self.view.resolution == nil || self.view.resolution! != self.finalResolution {
                             self.applyResolution { self.render() }
@@ -74,24 +83,39 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
         #endif
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Multi Camera", typeName: "pix-content-resource-multi-camera")
-        setupCamera()
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
     }
     
-//    public required init(from decoder: Decoder) throws {
-//        try super.init(from: decoder)
-//        setupCamera()
-//    }
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
     
-    func setupCamera() {
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Setup
+    
+    func setup() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if self.cameraPix == nil {
-                self.pixelKit.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")
-                self.pixelKit.logger.log(node: self, .warning, .resource, "Also enable .multi on the CameraPIX.")
+                PixelKit.main.logger.log(node: self, .warning, .resource, "Please set the .cameraPix property.")
+                PixelKit.main.logger.log(node: self, .warning, .resource, "Also enable .multi on the CameraPIX.")
             }
         }
     }
@@ -107,6 +131,5 @@ final public class MultiCameraPIX: PIXResource, PIXViewable {
         
         return multiCameraPix
     }
-    
 }
 #endif

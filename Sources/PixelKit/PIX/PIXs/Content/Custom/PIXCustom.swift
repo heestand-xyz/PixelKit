@@ -10,7 +10,7 @@ import Resolution
 import Metal
 import PixelColor
 
-open class PIXCustom: PIXContent, NODECustom, NODEResolution, CustomRenderDelegate {
+open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
     override open var shaderName: String { return "contentResourcePIX" }
     

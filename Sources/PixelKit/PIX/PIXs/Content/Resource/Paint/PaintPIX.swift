@@ -16,7 +16,14 @@ import PixelColor
 @available(iOS 13.0, *)
 final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
-    override public var shaderName: String { return "backgroundPIX" }
+    public typealias Model = PaintPixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
+    override public var shaderName: String { "backgroundPIX" }
 
     // MARK: - Public Properties
     
@@ -29,21 +36,26 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     public let canvasView: PKCanvasView = .init()
     
-    public var manualToolUpdate: Bool = false
+    public var manualToolUpdate: Bool {
+        get { model.manualToolUpdate }
+        set { model.manualToolUpdate = newValue }
+    }
     
-    public enum ToolType: String, CaseIterable {
+    public enum ToolType: String, Codable, CaseIterable {
         case inking
         case eraser
 //        case lasso
     }
-    public var toolType: ToolType = .inking {
-        didSet {
+    public var toolType: ToolType {
+        get { model.toolType }
+        set {
+            model.toolType = newValue
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
         }
     }
     
-    public enum InkType: String, CaseIterable {
+    public enum InkType: String, Codable, CaseIterable {
         case marker
         case pen
         case pencil
@@ -55,26 +67,32 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
             }
         }
     }
-    public var inkType: InkType = .pen {
-        didSet {
+    public var inkType: InkType {
+        get { model.inkType }
+        set {
+            model.inkType = newValue
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
         }
     }
-    public var color: UIColor = .white {
-        didSet {
+    public var color: PixelColor {
+        get { model.color }
+        set {
+            model.color = newValue
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
         }
     }
-    public var width: CGFloat = 10 {
-        didSet {
+    public var width: CGFloat {
+        get { model.width }
+        set {
+            model.width = newValue
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
         }
     }
     
-    public enum EraserType: String, CaseIterable {
+    public enum EraserType: String, Codable, CaseIterable {
         case vector
         case bitmap
         public var eraserType: PKEraserTool.EraserType {
@@ -84,8 +102,10 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
             }
         }
     }
-    public var eraserType: EraserType = .bitmap {
-        didSet {
+    public var eraserType: EraserType {
+        get { model.eraserType }
+        set {
+            model.eraserType = newValue
             guard !manualToolUpdate else { return }
             canvasView.tool = tool
         }
@@ -94,7 +114,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     var tool: PKTool {
         switch toolType {
         case .inking:
-            return PKInkingTool(inkType.inkType, color: color, width: width)
+            return PKInkingTool(inkType.inkType, color: color.uiColor, width: width)
         case .eraser:
             return PKEraserTool(eraserType.eraserType)
 //        case .lasso:
@@ -117,9 +137,11 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
         get { canvasView.drawing }
         set { canvasView.drawing = newValue; setNeedsBuffer() }
     }
-    public lazy var allowsFingerDrawing: Bool = canvasView.allowsFingerDrawing {
-        didSet {
-            canvasView.allowsFingerDrawing = allowsFingerDrawing
+    public var allowsFingerDrawing: Bool {
+        get { model.allowsFingerDrawing }
+        set {
+            model.allowsFingerDrawing = newValue
+            canvasView.allowsFingerDrawing = newValue
         }
     }
     
@@ -146,18 +168,26 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     let pencilInteraction: UIPencilInteraction = .init()
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        self.resolution = resolution
-        canvasView.addInteraction(pencilInteraction)
+    public init(model: Model) {
         helper = PaintHelper()
-        super.init(name: "Paint", typeName: "pix-content-resource-paint")
+        super.init(model: model)
         setup()
     }
     
-    public required convenience init() {
-        self.init(at: .auto(render: PixelKit.main.render))
+    public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
+        let model = Model(resolution: resolution)
+        helper = PaintHelper()
+        super.init(model: model)
+        setup()
+    }
+    
+    public required init() {
+        let model = Model()
+        helper = PaintHelper()
+        super.init(model: model)
+        setup()
     }
     
     // MARK: Codable
@@ -178,6 +208,8 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
                 self?.setNeedsBuffer()
             }
         }
+        canvasView.addInteraction(pencilInteraction)
+        canvasView.allowsFingerDrawing = model.allowsFingerDrawing
         canvasView.backgroundColor = backgroundColor.uiColor
         canvasView.delegate = helper
         pencilInteraction.delegate = helper
@@ -187,6 +219,28 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
         setFrame()
         setNeedsBuffer()
     }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        backgroundColor = model.backgroundColor
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.backgroundColor = backgroundColor
+        
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Drawing
     
     func setFrame() {
         canvasView.frame = CGRect(origin: .zero, size: resolution.size)

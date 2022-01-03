@@ -25,7 +25,7 @@ struct Uniforms {
     float bg_b;
     float bg_a;
     float flip;
-    float swizzel;
+    float swizzle;
 };
 
 fragment float4 contentResourceImagePIX(VertexOut out [[stage_in]],
@@ -41,7 +41,7 @@ fragment float4 contentResourceImagePIX(VertexOut out [[stage_in]],
     float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);
-    if (in.swizzel) {
+    if (in.swizzle) {
         c = float4(c.b, c.g, c.r, c.a); // BGRA
     }
     

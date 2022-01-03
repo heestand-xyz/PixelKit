@@ -22,16 +22,11 @@ public struct DepthCameraPixelModel: PixelResourceModel {
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear
     public var extend: ExtendMode = .zero
-    
-    // MARK: Local
-    
-    
 }
 
-extension CameraPixelModel {
+extension DepthCameraPixelModel {
     
     public init(from decoder: Decoder) throws {
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
-

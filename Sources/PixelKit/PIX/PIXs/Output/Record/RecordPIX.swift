@@ -497,7 +497,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
             self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
             return
         }
-        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size, swizzel: true) else {
+        guard let pixelBuffer = Texture.buffer(from: cg_image, at: size, swizzle: true) else {
             self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Texture not Found.")
             return
         }
