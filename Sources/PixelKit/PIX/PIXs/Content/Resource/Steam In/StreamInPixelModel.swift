@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-03.
 //
 
+#if os(iOS)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -30,3 +32,5 @@ extension StreamInPixelModel {
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
+
+#endif

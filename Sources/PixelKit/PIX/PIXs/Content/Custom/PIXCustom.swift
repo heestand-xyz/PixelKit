@@ -13,8 +13,8 @@ import PixelColor
 open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
     var customModel: PixelCustomModel {
-        get { customModel as! PixelCustomModel }
-        set { customModel = newValue }
+        get { contentModel as! PixelCustomModel }
+        set { contentModel = newValue }
     }
     
     override open var shaderName: String { return "contentResourcePIX" }
@@ -55,6 +55,16 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
         fatalError("please use init(model:)")
     }
     
+    // MARK: - Setup
+    
+    func setupCustom() {
+        customRenderDelegate = self
+        customRenderActive = true
+        applyResolution { [weak self] in
+            self?.render()
+        }
+    }
+    
     // MARK: - Live Model
     
     override func modelUpdateLive() {
@@ -71,16 +81,8 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
         customModel.backgroundColor = backgroundColor
     }
     
-    // MARK: - Setup
+    // MARK: - Render
     
-    func setupCustom() {
-        customRenderDelegate = self
-        customRenderActive = true
-        applyResolution { [weak self] in
-            self?.render()
-        }
-    }
-    
-    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { return nil }
+    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { nil }
     
 }

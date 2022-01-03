@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-03.
 //
 
+#if os(iOS) && !targetEnvironment(macCatalyst)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -47,3 +49,5 @@ extension MultiCameraPixelModel {
         camera = try container.decode(CameraPIX.Camera.self, forKey: .camera)
     }
 }
+
+#endif

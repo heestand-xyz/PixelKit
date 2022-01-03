@@ -14,7 +14,12 @@ import PixelColor
 
 open class PIXSprite: PIXContent, NODEResolution {
     
-    override open var shaderName: String { return "spritePIX" }
+    var spriteModel: PixelSpriteModel {
+        get { contentModel as! PixelSpriteModel }
+        set { contentModel = newValue }
+    }
+    
+    override open var shaderName: String { "spritePix" }
     
     // MARK: - Public Properties
     
@@ -25,12 +30,14 @@ open class PIXSprite: PIXContent, NODEResolution {
         get { backgroundColor }
         set { backgroundColor = newValue }
     }
-    public var backgroundColor: PixelColor = .black {
-        didSet {
+    public var backgroundColor: PixelColor {
+        get { spriteModel.backgroundColor }
+        set {
+            spriteModel.backgroundColor = newValue
             #if os(macOS)
-            scene?.backgroundColor = backgroundColor.nsColor
+            scene?.backgroundColor = newValue.nsColor
             #else
-            scene?.backgroundColor = backgroundColor.uiColor
+            scene?.backgroundColor = newValue.uiColor
             #endif
             render()
         }
@@ -43,15 +50,26 @@ open class PIXSprite: PIXContent, NODEResolution {
         [_resolution] + super.liveList
     }
     
-    required public init(at resolution: Resolution = .auto) {
-        fatalError("Please use PIXSprite Sub Classes.")
+    // MARK: - Life Cycle -
+    
+    init(model: PixelSpriteModel) {
+        self.resolution = model.resolution
+        super.init(model: model)
+        setupSprite()
     }
-        
+    
+    @available(*, deprecated)
     public init(at resolution: Resolution = .auto, name: String, typeName: String) {
         self.resolution = resolution
         super.init(name: name, typeName: typeName)
         setupSprite()
     }
+    
+    public required init(at resolution: Resolution) {
+        fatalError("please use init(model:)")
+    }
+    
+    // MARK: - Setup
     
     func setupSprite() {
         let size = (resolution / Resolution.scale).size
@@ -68,6 +86,22 @@ open class PIXSprite: PIXContent, NODEResolution {
             self?.render()
         }
     }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = spriteModel.resolution
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        spriteModel.resolution = resolution
+    }
+    
+    // MARK: - Size
     
     func reSize() {
         let size = (resolution / Resolution.scale).size

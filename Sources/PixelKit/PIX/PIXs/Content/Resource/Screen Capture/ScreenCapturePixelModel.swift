@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-03.
 //
 
+#if os(macOS) && !targetEnvironment(macCatalyst)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -57,3 +59,5 @@ extension ScreenCapturePixelModel {
         screenIndex = try container.decode(Int.self, forKey: .screenIndex)
     }
 }
+
+#endif

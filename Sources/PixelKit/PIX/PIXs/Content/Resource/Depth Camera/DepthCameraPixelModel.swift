@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-02.
 //
 
+#if os(iOS) && !targetEnvironment(macCatalyst)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -30,3 +32,5 @@ extension DepthCameraPixelModel {
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
+
+#endif

@@ -23,11 +23,8 @@ public struct ScenePixelModel: PixelCustomModel {
     public var interpolation: PixelInterpolation = .linear
     public var extend: ExtendMode = .zero
     
-    public var premultiply: Bool = true
     public var resolution: Resolution = .auto
-
     public var backgroundColor: PixelColor = .black
-    public var color: PixelColor = .white
     
 }
 

@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-03.
 //
 
+#if os(iOS) && !targetEnvironment(macCatalyst) && !targetEnvironment(simulator)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -86,3 +88,5 @@ extension PaintPixelModel {
         backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
     }
 }
+
+#endif

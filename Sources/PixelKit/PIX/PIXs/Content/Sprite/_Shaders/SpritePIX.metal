@@ -14,7 +14,7 @@ struct VertexOut{
     float2 texCoord;
 };
 
-fragment float4 spritePIX(VertexOut out [[stage_in]],
+fragment float4 spritePix(VertexOut out [[stage_in]],
                           texture2d<float>  inTex [[ texture(0) ]],
                           sampler s [[ sampler(0) ]]) {
     

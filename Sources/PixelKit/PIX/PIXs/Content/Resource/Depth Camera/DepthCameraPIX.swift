@@ -11,6 +11,7 @@ import Resolution
 import PixelColor
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
+
 final public class DepthCameraPIX: PIXResource, PIXViewable {
     
     public typealias Model = DepthCameraPixelModel
@@ -116,4 +117,5 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         super.liveUpdateModelDone()
     }
 }
+
 #endif

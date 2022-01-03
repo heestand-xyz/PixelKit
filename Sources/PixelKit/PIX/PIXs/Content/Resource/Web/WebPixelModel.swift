@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-03.
 //
 
+#if !os(tvOS)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -54,3 +56,5 @@ extension WebPixelModel {
     }
 
 }
+
+#endif

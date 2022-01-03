@@ -13,7 +13,20 @@ import CoreGraphics
 import SpriteKit
 import PixelColor
 
+#if os(macOS)
+public typealias _Font = NSFont
+#else
+public typealias _Font = UIFont
+#endif
+
 final public class TextPIX: PIXSprite, PIXViewable {
+    
+    public typealias Model = TextPixelModel
+    
+    private var model: Model {
+        get { spriteModel as! Model }
+        set { spriteModel = newValue }
+    }
     
     // MARK: - Private Properties
     
@@ -21,68 +34,142 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Public Properties
     
-    public var text: String = "Lorem Ipsum" { didSet { setNeedsText(); render() } }
-    public var color: PixelColor = .white { didSet { setNeedsTextColor(); render() } }
+    public var text: String {
+        get { model.text }
+        set {
+            model.text = newValue
+            setNeedsText()
+            render()
+        }
+    }
+    @LiveColor("color") public var color: PixelColor = .white
     
-    #if os(iOS) || os(tvOS)
-    typealias _Font = UIFont
-    public var font: UIFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); render() } }
-    #elseif os(macOS)
-    typealias _Font = NSFont
-    public var font: NSFont = _Font.systemFont(ofSize: 0.25, weight: .regular) { didSet { setNeedsFont(); render() } }
-    #endif
+    public enum FontWeight: String, Enumable {
+        
+        case ultraLight
+        case thin
+        case light
+        case regular
+        case medium
+        case semibold
+        case bold
+        case heavy
+        case black
+        
+        public var index: Int {
+            Self.allCases.firstIndex(of: self) ?? 0
+        }
+        
+        public var typeName: String { rawValue }
+        
+        public var name: String {
+            switch self {
+            case .ultraLight:
+                return "Ultra Light"
+            case .thin:
+                return "Thin"
+            case .light:
+                return "Light"
+            case .regular:
+                return "Regular"
+            case .medium:
+                return "Medium"
+            case .semibold:
+                return "Semibold"
+            case .bold:
+                return "Bold"
+            case .heavy:
+                return "Heavy"
+            case .black:
+                return "Black"
+            }
+        }
+        
+        var weight: _Font.Weight {
+            switch self {
+            case .ultraLight:
+                return .ultraLight
+            case .thin:
+                return .thin
+            case .light:
+                return .light
+            case .regular:
+                return .regular
+            case .medium:
+                return .medium
+            case .semibold:
+                return .semibold
+            case .bold:
+                return .bold
+            case .heavy:
+                return .heavy
+            case.black:
+                return .black
+            }
+        }
+    }
     
-    public var position: CGPoint = .zero { didSet { setNeedsPosition(); render() } }
+    public var customFont: _Font?
+    public var font: _Font { customFont ?? (fontName != nil ? (_Font(name: "\(fontName!)-\(fontWeight.name)", size: fontSize) ?? .systemFont(ofSize: fontSize, weight: fontWeight.weight)) : .systemFont(ofSize: fontSize, weight: fontWeight.weight)) }
+    
+    public var fontName: String? {
+        get { model.fontName }
+        set {
+            model.fontName = newValue
+            setNeedsFont()
+            render()
+        }
+    }
+    
+    @LiveEnum("fontWeight") public var fontWeight: FontWeight = .regular
+    @LiveFloat("fontSize") public var fontSize: CGFloat = 0.25
+
+    @LivePoint("position") public var position: CGPoint = .zero
     
     // MARK: - Life Cycle -
+        
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
     
     public required init(at resolution: Resolution = .auto) {
-        super.init(at: resolution, name: "Text", typeName: "pix-content-sprite-text")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
         setup()
     }
     
     public convenience init(at resolution: Resolution = .auto,
                             text: String) {
         self.init(at: resolution)
-        setup()
         self.text = text
         setNeedsText()
         render()
     }
     
-    // MARK: - Codable
-    
-//    enum CodingKeys: CodingKey {
-//        case text
-//        case fontName
-//        case fontSize
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        text = try container.decode(String.self, forKey: .text)
-//        let fontName = try container.decode(String.self, forKey: .fontName)
-//        let fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
-//        #if os(iOS)
-//        font = UIFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
-//        #elseif os(macOS)
-//        font = NSFont(name: fontName, size: fontSize) ?? .systemFont(ofSize: fontSize)
-//        #endif
-//        try super.init(from: decoder)
-//        setup()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(text, forKey: .text)
-//        try container.encode(font.fontName, forKey: .fontName)
-//        try container.encode(font.pointSize, forKey: .fontSize)
-//        try super.encode(to: encoder)
-//    }
-    
     // MARK: - Setup
     
     func setup() {
+        
+        _color.didSetValue = { [weak self] in
+            self?.setNeedsTextColor()
+            self?.render()
+        }
+        
+        _fontWeight.didSetValue = { [weak self] in
+            self?.setNeedsFont()
+            self?.render()
+        }
+        
+        _fontSize.didSetValue = { [weak self] in
+            self?.setNeedsFont()
+            self?.render()
+        }
+        
+        _position.didSetValue = { [weak self] in
+            self?.setNeedsPosition()
+            self?.render()
+        }
         
         label.verticalAlignmentMode = .center
         if #available(iOS 11, *) {
@@ -102,6 +189,32 @@ final public class TextPIX: PIXSprite, PIXViewable {
         
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        color = model.color
+        fontWeight = model.fontWeight
+        fontSize = model.fontSize
+        position = model.position
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.color = color
+        model.fontWeight = fontWeight
+        model.fontSize = fontSize
+        model.position = position
+        
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Size
+    
     override func reSize() {
         super.reSize()
         
@@ -114,7 +227,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
         
     }
     
-    // MARK: - Methods
+    // MARK: - Set Needs
     
     func setNeedsText() {
         label.text = text
