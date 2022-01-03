@@ -34,7 +34,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     public var position: CGPoint = .zero { didSet { setNeedsPosition(); render() } }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Text", typeName: "pix-content-sprite-text")

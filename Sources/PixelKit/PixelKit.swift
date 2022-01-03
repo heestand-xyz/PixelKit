@@ -70,7 +70,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     
     let startDate: Date = .init()
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     init() {
         

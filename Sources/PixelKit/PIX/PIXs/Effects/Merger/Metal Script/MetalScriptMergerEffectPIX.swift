@@ -148,7 +148,7 @@ final public class MetalScriptMergerEffectPIX: PIXMergerEffect, NODEMetalScript,
         [CGFloat(colorStyle.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
         metalUniforms = uniforms

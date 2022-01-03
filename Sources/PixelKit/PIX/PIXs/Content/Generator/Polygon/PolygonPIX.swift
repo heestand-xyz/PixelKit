@@ -40,7 +40,7 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
         [radius, position, rotation, count, super.color, super.backgroundColor, cornerRadius]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

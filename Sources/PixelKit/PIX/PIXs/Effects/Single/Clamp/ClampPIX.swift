@@ -58,7 +58,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
         [low, high, clampAlpha, style]
     }
         
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Clamp", typeName: "pix-effect-single-clamp")

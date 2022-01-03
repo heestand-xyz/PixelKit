@@ -84,7 +84,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
         [tint, tintColor, bgColor, flip, swizzle]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

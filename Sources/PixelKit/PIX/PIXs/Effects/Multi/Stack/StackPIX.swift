@@ -91,7 +91,7 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     public override var shaderNeedsResolution: Bool { true }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution

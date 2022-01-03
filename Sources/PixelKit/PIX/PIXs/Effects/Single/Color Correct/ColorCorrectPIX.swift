@@ -28,7 +28,7 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
         [_whitePoint, _vibrance, _temperature]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Color Correct", typeName: "pix-effect-single-color-correct")

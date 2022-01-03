@@ -51,7 +51,7 @@ final public class ScenePIX: PIXCustom, PIXViewable {
 
     // MARK: - Property Helpers
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         super.init(at: resolution, name: "Scene", typeName: "pix-content-custom-scene")

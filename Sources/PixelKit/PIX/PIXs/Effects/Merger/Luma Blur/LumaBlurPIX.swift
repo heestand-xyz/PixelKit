@@ -66,7 +66,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         return [CGFloat(style.index), radius * 32 * 10, CGFloat(quality.rawValue), angle, position.x, position.y, lumaGamma]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Luma Blur", typeName: "pix-effect-merger-luma-blur")

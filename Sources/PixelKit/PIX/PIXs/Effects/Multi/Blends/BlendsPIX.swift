@@ -29,7 +29,7 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable {
         return [CGFloat(blendMode.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Blends", typeName: "pix-effect-multi-blends")

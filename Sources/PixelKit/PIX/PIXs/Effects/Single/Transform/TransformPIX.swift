@@ -32,7 +32,7 @@ final public class TransformPIX: PIXSingleEffect, PIXViewable {
         return [position, rotation, scale, size]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Transform", typeName: "pix-effect-single-transform")

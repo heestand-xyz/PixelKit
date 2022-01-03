@@ -29,7 +29,7 @@ final public class SharpenPIX: PIXSingleEffect, PIXViewable {
         [contrast]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Sharpen", typeName: "pix-effect-single-sharpen")

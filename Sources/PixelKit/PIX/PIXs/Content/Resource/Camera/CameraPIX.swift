@@ -369,7 +369,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         #endif
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

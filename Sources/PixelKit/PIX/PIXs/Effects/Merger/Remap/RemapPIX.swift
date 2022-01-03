@@ -14,7 +14,7 @@ final public class RemapPIX: PIXMergerEffect, PIXViewable {
     
     override public var shaderName: String { return "effectMergerRemapPIX" }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Remap", typeName: "pix-effect-merger-remap")

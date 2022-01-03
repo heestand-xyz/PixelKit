@@ -29,7 +29,7 @@ final public class TwirlPIX: PIXSingleEffect, PIXViewable {
         return [strength]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Twirl", typeName: "pix-effect-single-twirl")

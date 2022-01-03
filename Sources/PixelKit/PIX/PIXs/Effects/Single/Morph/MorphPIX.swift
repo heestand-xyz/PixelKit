@@ -58,7 +58,7 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
         [_style, _width, _height]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Morph", typeName: "pix-effect-single-morph")

@@ -39,7 +39,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
     
     public var renderViewContinuously = false
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "View", typeName: "pix-content-resource-view")

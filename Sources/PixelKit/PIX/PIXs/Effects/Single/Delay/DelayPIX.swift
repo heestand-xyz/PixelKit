@@ -30,7 +30,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
         [_delayFrames]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Delay", typeName: "pix-effect-single-delay")

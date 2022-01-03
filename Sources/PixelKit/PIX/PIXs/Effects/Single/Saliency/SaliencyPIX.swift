@@ -58,7 +58,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         [_style]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Saliency", typeName: "pix-effect-single-saliency")

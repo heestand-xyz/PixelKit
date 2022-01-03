@@ -69,7 +69,7 @@ public protocol NDIPIXDelegate {
 //
 //    public var ndiCapturing: Bool = false
 //
-//    // MARK: - Life Cycle
+//    // MARK: - Life Cycle -
 //
 //    public override init() {
 //        ndi = NDIWrapper()

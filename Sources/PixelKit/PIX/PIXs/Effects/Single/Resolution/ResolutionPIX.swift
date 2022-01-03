@@ -35,7 +35,7 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
         return [CGFloat(placement.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     required public init(at resolution: Resolution) {
         self.resolution = resolution

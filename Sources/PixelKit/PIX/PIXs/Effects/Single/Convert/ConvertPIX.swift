@@ -71,7 +71,7 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable {
         [CGFloat(mode.index), 0.0, 0.0]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Convert", typeName: "pix-effect-single-convert")

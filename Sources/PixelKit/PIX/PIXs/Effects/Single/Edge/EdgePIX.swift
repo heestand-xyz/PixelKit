@@ -35,7 +35,7 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
         [strength, distance, colored, transparent, includeAlpha, sobel]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Edge", typeName: "pix-effect-single-edge")

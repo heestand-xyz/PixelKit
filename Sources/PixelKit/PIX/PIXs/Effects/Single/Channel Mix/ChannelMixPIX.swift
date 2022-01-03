@@ -79,7 +79,7 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
         return uniforms
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Channel Mix", typeName: "pix-effect-single-channel-mix")

@@ -33,7 +33,7 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable {
         [freeze]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Freeze", typeName: "pix-effect-single-freeze")

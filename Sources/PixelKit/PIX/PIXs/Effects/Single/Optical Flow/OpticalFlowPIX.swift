@@ -17,7 +17,7 @@ final public class OpticalFlowPIX: PIXSingleEffect, PIXViewable {
         
     private var lastInputTexture: MTLTexture?
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Optical Flow", typeName: "pix-effect-single-optical-flow")

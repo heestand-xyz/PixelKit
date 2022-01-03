@@ -46,7 +46,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
         [_resolution] + super.liveList
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         self.resolution = resolution

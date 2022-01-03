@@ -74,7 +74,7 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
         return [CGFloat(flip.index), CGFloat(flop.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Flip Flop", typeName: "pix-effect-single-flip-flop")

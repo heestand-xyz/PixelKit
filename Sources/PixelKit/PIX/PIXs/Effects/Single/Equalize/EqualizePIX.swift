@@ -29,7 +29,7 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         [_includeAlpha]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Equalize", typeName: "pix-effect-single-equalize")

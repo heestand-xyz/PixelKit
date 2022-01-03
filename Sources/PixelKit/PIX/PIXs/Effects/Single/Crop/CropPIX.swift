@@ -43,7 +43,7 @@ final public class CropPIX: PIXSingleEffect, PIXViewable {
         return [cropLeft, cropRight, cropBottom, cropTop]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Crop", typeName: "pix-effect-single-crop")

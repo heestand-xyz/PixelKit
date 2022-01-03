@@ -20,7 +20,7 @@ import Resolution
 //
 //    public override var uniforms: [CGFloat] { [CGFloat(PixelKit.main.render.bits.rawValue)] }
 //
-//    // MARK: - Life Cycle
+//    // MARK: - Life Cycle -
 //
 //    public required init() {
 //        super.init(name: "LUT", typeName: "pix-effect-merger-lut")

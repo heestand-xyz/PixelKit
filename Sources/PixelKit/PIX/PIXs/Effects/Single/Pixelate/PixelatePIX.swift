@@ -99,7 +99,7 @@ final public class PixelatePIX: PIXSingleEffect, PIXViewable {
         [_style, _position, _radius]
     }
 
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Pixelate", typeName: "pix-effect-single-pixelate")

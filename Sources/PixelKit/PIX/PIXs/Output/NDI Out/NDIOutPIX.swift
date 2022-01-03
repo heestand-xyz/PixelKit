@@ -15,7 +15,7 @@ import CoreImage
 //    // MARK: - Public Properties
 //
 //
-//    // MARK: - Life Cycle
+//    // MARK: - Life Cycle -
 //
 //    override public init() {
 //

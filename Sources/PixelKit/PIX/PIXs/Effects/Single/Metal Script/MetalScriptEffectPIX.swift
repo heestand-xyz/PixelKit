@@ -138,7 +138,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
         [CGFloat(colorStyle.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
         metalUniforms = uniforms

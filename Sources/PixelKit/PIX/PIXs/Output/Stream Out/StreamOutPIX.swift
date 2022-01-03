@@ -30,7 +30,7 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     public var quality: CGFloat = 0.5
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Stream Out", typeName: "pix-output-stream-out")

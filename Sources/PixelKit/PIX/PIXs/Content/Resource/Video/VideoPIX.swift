@@ -81,7 +81,7 @@ final public class VideoPIX: PIXResource, PIXViewable {
     var _playing: Bool = false
     public var playing: Bool { self._playing }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Video", typeName: "pix-content-resource-video")

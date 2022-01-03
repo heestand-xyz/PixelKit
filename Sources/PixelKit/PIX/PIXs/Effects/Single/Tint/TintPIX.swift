@@ -28,7 +28,7 @@ final public class TintPIX: PIXSingleEffect, PIXViewable {
         [color]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Tint", typeName: "pix-effect-single-tint")

@@ -35,7 +35,7 @@ final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
         return [hue, saturation, tintColor]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Color Shift", typeName: "pix-effect-single-color-shift")

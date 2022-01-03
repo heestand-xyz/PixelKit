@@ -26,7 +26,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     
     let nilPix: NilPIX
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         isConnected = false

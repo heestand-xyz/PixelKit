@@ -30,7 +30,7 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
         return [distance, origin]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Displace", typeName: "pix-effect-merger-displace")

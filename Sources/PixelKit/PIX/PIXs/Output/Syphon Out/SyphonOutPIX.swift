@@ -19,7 +19,7 @@ final public class SyphonOutPIX: PIXOutput, PIXViewable {
     var surface: IOSurfaceRef!
     var server: SyphonServer!
         
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
 
     override public init() {
         super.init(name: "Syphon Out", typeName: "pix-output-syphon-out")

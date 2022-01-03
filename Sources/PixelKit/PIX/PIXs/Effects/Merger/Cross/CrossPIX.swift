@@ -29,7 +29,7 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
         [fraction]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Cross", typeName: "pix-effect-merger-cross")

@@ -41,7 +41,7 @@ final public class StarPIX: PIXGenerator, PIXViewable {
         [leadingRadius, trailingRadius, position, rotation, count, super.color, super.backgroundColor, cornerRadius]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

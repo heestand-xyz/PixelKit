@@ -44,7 +44,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
         [_resolution] + super.liveList
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
         

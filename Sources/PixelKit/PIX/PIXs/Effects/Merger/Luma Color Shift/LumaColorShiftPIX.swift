@@ -33,7 +33,7 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
         [hue, saturation, tintColor, lumaGamma]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Luma Color Shift", typeName: "pix-effect-merger-luma-color-shift")

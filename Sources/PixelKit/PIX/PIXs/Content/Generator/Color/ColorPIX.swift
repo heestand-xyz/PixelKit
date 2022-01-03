@@ -34,7 +34,7 @@ final public class ColorPIX: PIXGenerator, PIXViewable {
         [super.color]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

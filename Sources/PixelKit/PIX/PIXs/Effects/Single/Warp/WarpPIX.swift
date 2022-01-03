@@ -119,7 +119,7 @@ final public class WarpPIX: PIXSingleEffect, PIXViewable {
         [_style, _position, _radius, _scale, _rotation]
     }
 
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Warp", typeName: "pix-effect-single-warp")

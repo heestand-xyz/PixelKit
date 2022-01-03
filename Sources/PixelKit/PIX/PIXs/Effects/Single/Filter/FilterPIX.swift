@@ -102,7 +102,7 @@ final public class FilterPIX: PIXSingleEffect, PIXViewable {
         [_filter]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Filter", typeName: "pix-effect-single-filter")

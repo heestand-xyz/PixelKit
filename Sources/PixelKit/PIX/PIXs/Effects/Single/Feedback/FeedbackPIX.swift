@@ -45,7 +45,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
         [_feedActive]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
 
     public required init() {
         super.init(name: "Feedback", typeName: "pix-effect-single-feedback")

@@ -128,7 +128,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         case audioSetupFailed
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Record", typeName: "pix-output-record")

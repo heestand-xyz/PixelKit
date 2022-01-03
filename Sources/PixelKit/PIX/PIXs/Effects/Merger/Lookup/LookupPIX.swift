@@ -54,7 +54,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
         return [axis == .horizontal ? 0 : 1, holdEdge ? 1 : 0, holdEdgeFraction]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Lookup", typeName: "pix-effect-merger-lookup")

@@ -14,7 +14,14 @@ import Resolution
 import CoreMediaIO
 
 final public class ScreenCapturePIX: PIXResource, PIXViewable {
-        
+    
+    public typealias Model = ScreenCapturePixelModel
+    
+    private var model: Model {
+        get { resourceModel as! Model }
+        set { resourceModel = newValue }
+    }
+    
     override public var shaderName: String { return "contentResourcePIX" }
     
     // MARK: - Private Properties
@@ -29,10 +36,16 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
         super.liveList + [_screenIndex]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+        setupScreenCapture()
+    }
     
     public required init() {
-        super.init(name: "Screen Capture", typeName: "pix-content-resource-screen-capture")
+        let model = Model()
+        super.init(model: model)
         setupScreenCapture()
     }
     
@@ -46,25 +59,43 @@ final public class ScreenCapturePIX: PIXResource, PIXViewable {
         helper = nil
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        screenIndex = model.screenIndex
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.screenIndex = screenIndex
+        
+        super.liveUpdateModelDone()
+    }
+    
     // MARK: Setup
     
     func setupScreenCapture() {
         
         guard NSScreen.screens.indices.contains(screenIndex) else {
-            pixelKit.logger.log(node: self, .info, .resource, "Can't Setup Screen Captrue at index \(screenIndex)")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Can't Setup Screen Captrue at index \(screenIndex)")
             return
         }
         
-        pixelKit.logger.log(node: self, .info, .resource, "Setup Screen Captrue at index \(screenIndex)")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Setup Screen Captrue at index \(screenIndex)")
         
         helper?.stop()
         
         helper = ScreenCaptureHelper(screenIndex: screenIndex, setup: { [weak self] _ in
             guard let self = self else { return }
-            self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture setup.")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Screen Capture setup.")
         }, captured: { [weak self] pixelBuffer in
             guard let self = self else { return }
-            self.pixelKit.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
+            PixelKit.main.logger.log(node: self, .info, .resource, "Screen Capture frame captured.", loop: true)
             let isFirstPixelBuffer: Bool = self.resourcePixelBuffer == nil
             self.resourcePixelBuffer = pixelBuffer
             if isFirstPixelBuffer || Resolution(pixelBuffer: pixelBuffer) != self.finalResolution {
@@ -130,13 +161,13 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
                     videoOutput.setSampleBufferDelegate(self, queue: queue)
                     start()
                 } else {
-                    pixelKit.logger.log(.error, .resource, "Screen can't add output.")
+                    PixelKit.main.logger.log(.error, .resource, "Screen can't add output.")
                 }
             } else {
-                pixelKit.logger.log(.error, .resource, "Screen can't add input.")
+                PixelKit.main.logger.log(.error, .resource, "Screen can't add input.")
             }
         } else {
-            pixelKit.logger.log(.error, .resource, "Screen not found.")
+            PixelKit.main.logger.log(.error, .resource, "Screen not found.")
         }
         
     }
@@ -165,10 +196,10 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
                 videoOutput.setSampleBufferDelegate(self, queue: queue)
                 start()
             } else {
-                pixelKit.logger.log(.error, .resource, "Screen can't add output.")
+                PixelKit.main.logger.log(.error, .resource, "Screen can't add output.")
             }
         } else {
-            pixelKit.logger.log(.error, .resource, "Screen can't add input.")
+            PixelKit.main.logger.log(.error, .resource, "Screen can't add input.")
         }
         
         setupScreenDevice = true
@@ -177,7 +208,7 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            pixelKit.logger.log(.error, .resource, "Camera buffer conversion failed.")
+            PixelKit.main.logger.log(.error, .resource, "Camera buffer conversion failed.")
             return
         }
         

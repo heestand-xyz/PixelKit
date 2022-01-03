@@ -38,7 +38,7 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
         [brightness, darkness, contrast, gamma, inverted, smooth, opacity, offset, lumaGamma]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Luma Levels", typeName: "pix-effect-merger-luma-levels")

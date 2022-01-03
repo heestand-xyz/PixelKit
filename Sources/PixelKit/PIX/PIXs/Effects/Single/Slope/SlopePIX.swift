@@ -29,7 +29,7 @@ final public class SlopePIX: PIXSingleEffect, PIXViewable {
         return [amplitude]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Slope", typeName: "pix-effect-single-slope")

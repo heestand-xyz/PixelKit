@@ -38,7 +38,7 @@ final public class RectanglePIX: PIXGenerator, PIXViewable {
         [size, position, cornerRadius, super.color, super.backgroundColor]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

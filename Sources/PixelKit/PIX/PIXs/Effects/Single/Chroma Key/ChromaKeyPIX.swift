@@ -35,7 +35,7 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
         [keyColor, range, softness, edgeDesaturation, alphaCrop, premultiply]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Chroma Key", typeName: "pix-effect-single-chroma-key")

@@ -40,7 +40,7 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable {
         [brightness, darkness, contrast, gamma, inverted, smooth, opacity, offset]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Levels", typeName: "pix-effect-single-levels")

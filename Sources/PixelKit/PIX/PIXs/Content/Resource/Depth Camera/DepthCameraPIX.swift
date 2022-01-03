@@ -51,7 +51,7 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
         }
     }
         
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

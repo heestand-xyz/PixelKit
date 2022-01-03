@@ -33,7 +33,7 @@ final public class StreamInPIX: PIXResource, PIXViewable {
 //    var image: NSImage? { didSet { setNeedsBuffer() } }
     #endif
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Stream In", typeName: "pix-content-resource-stream-in")

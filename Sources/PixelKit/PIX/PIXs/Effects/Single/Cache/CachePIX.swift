@@ -33,7 +33,7 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     public var lastCacheId: UUID?
     public var diskCache: Bool = false
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Cache", typeName: "pix-effect-single-cache")

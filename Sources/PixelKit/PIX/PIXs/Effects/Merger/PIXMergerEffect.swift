@@ -21,7 +21,7 @@ open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
         [_placement]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         fatalError("please use init(name:typeName:)")

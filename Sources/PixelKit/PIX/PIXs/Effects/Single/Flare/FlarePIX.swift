@@ -38,7 +38,7 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
         [scale, count, angle, threshold, brightness, gamma, color, rayResolution]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Flare", typeName: "pix-effect-single-flare")

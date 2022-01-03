@@ -103,7 +103,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetalCode, PIXView
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms

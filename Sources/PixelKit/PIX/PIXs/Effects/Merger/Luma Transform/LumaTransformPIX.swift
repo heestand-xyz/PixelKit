@@ -33,7 +33,7 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
         [position, rotation, scale, size, lumaGamma]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Luma Transform", typeName: "pix-effect-merger-luma-transform")

@@ -87,7 +87,7 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
         [CGFloat(conversion.index), CGFloat(channel.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Color Convert", typeName: "pix-effect-single-color-convert")

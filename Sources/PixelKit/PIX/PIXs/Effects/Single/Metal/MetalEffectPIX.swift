@@ -96,7 +96,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetalCode, PIXViewable {
         return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(uniforms: [MetalUniform] = [], code: String) {
         metalUniforms = uniforms

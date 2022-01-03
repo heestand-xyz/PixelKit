@@ -29,7 +29,7 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
         return [threshold]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Threshold", typeName: "pix-effect-single-threshold")

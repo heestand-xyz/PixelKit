@@ -88,7 +88,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         return [CGFloat(direction.index), scale, offset, position.x, position.y, gamma, CGFloat(extendMode.index)]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

@@ -28,7 +28,7 @@ final public class SepiaPIX: PIXSingleEffect, PIXViewable {
         [color]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Sepia", typeName: "pix-effect-single-sepia")

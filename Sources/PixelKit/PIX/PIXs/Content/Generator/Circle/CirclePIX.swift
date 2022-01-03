@@ -39,7 +39,7 @@ final public class CirclePIX: PIXGenerator, PIXViewable {
         [radius, position, edgeRadius, super.color, edgeColor, super.backgroundColor]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)

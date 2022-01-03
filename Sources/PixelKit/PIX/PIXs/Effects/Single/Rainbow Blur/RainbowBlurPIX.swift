@@ -62,7 +62,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
     override public var shaderNeedsResolution: Bool { return true }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Rainbow Blur", typeName: "pix-effect-single-rainbow-blur")

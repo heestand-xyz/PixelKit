@@ -30,7 +30,7 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
         [_topLeft, _topRight, _bottomLeft, _bottomRight, _perspective, _subdivisions]
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
         super.init(name: "Corner Pin", typeName: "pix-effect-single-corner-pin")

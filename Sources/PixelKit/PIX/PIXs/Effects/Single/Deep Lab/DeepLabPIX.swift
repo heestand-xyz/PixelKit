@@ -64,7 +64,7 @@ final public class DeepLabPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewabl
     }
     public var deepLabTarget: DeepLabTarget = .person { didSet { render() } }
     
-    // MARK: - Life Cycle
+    // MARK: - Life Cycle -
     
     public required init() {
 //        deepLabModel = DeepLabV3Int8LUT()
