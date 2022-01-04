@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXViewable {
     
+    public typealias Model = CornerPinPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
@@ -32,17 +39,53 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Corner Pin", typeName: "pix-effect-single-corner-pin")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    func setup() {
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customGeometryActive = true
         customGeometryDelegate = self
     }
     
-    // MAKR: - Corenr Pin
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        topLeft = model.topLeft
+        topRight = model.topRight
+        bottomLeft = model.bottomLeft
+        bottomRight = model.bottomRight
+        perspective = model.perspective
+        subdivisions = model.subdivisions
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.topLeft = topLeft
+        model.topRight = topRight
+        model.bottomLeft = bottomLeft
+        model.bottomRight = bottomRight
+        model.perspective = perspective
+        model.subdivisions = subdivisions
+
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Corner Pin
     
     public func customVertices() -> Vertices? {
         
@@ -55,8 +98,6 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
         
         let vertexBuffersSize = vertexBuffers.count * MemoryLayout<Float>.size
         let verticesBuffer = pixelKit.render.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
-
-//        let instanceCount = ((divisions + 1) * (divisions + 1)) / 3
         
         return Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count)
         

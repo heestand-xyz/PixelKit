@@ -190,8 +190,6 @@ public enum PIXType: Equatable, CaseIterable {
                     return true
                 case .cache:
                     return true
-                case .deepLab:
-                    return true
                 case .slice:
                     return true
                 case .reduce:

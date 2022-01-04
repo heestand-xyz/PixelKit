@@ -13,12 +13,20 @@ import CoreGraphics
 
 final public class CropPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = CropPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleCropPIX" }
     
     // MARK: - Public Properties
     
     var resScale: CGSize { return cropFrame.size }
     
+    /// Ranged 0.0 to 1.0, Origin at Bottom Left
     public var cropFrame: CGRect {
         get { CGRect(x: cropLeft, y: cropBottom, width: cropRight - cropLeft, height: cropTop - cropBottom) }
         set {
@@ -28,9 +36,13 @@ final public class CropPIX: PIXSingleEffect, PIXViewable {
             cropTop = newValue.maxY
         }
     }
+    /// Left is 0.0, Center is 0.5
     @LiveFloat("cropLeft", updateResolution: true) public var cropLeft: CGFloat = 0.0
+    /// Right is 1.0, Center is 0.5
     @LiveFloat("cropRight", updateResolution: true) public var cropRight: CGFloat = 1.0
+    /// Bottom is 0.0, Center is 0.5
     @LiveFloat("cropBottom", updateResolution: true) public var cropBottom: CGFloat = 0.0
+    /// Top is 1.0, Center is 0.5
     @LiveFloat("cropTop", updateResolution: true) public var cropTop: CGFloat = 1.0
     
     // MARK: - Property Helpers
@@ -45,8 +57,37 @@ final public class CropPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Crop", typeName: "pix-effect-single-crop")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        cropLeft = model.cropLeft
+        cropRight = model.cropRight
+        cropBottom = model.cropBottom
+        cropTop = model.cropTop
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.cropLeft = cropLeft
+        model.cropRight = cropRight
+        model.cropBottom = cropBottom
+        model.cropTop = cropTop
+
+        super.liveUpdateModelDone()
     }
     
 }

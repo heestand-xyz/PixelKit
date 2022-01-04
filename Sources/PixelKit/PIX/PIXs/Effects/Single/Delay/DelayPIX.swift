@@ -14,6 +14,13 @@ import Metal
 
 final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
+    public typealias Model = DelayPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Private Properties
@@ -32,12 +39,20 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Delay", typeName: "pix-effect-single-delay")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    func setup() {
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customRenderActive = true
         customRenderDelegate = self
         PixelKit.main.render.listenToFrames { [weak self] in
@@ -48,7 +63,25 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
         }
     }
     
-    // MARK: Delay
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        delayFrames = model.delayFrames
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.delayFrames = delayFrames
+
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Delay
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if cachedTextures.count > 0 {

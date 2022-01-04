@@ -18,8 +18,12 @@ open class PIXEffect: PIX, NODEEffect {
         set { pixelModel = newValue }
     }
     
-    public var inputList: [NODE & NODEOut] = []
-    public var outputPathList: [NODEOutPath] = []
+    public var inputList: [NODE & NODEOut] = [] {
+        didSet { effectModel.inputNodeReferences = inputList.map({ NodeReference(node: $0, connection: .single) }) }
+    }
+    public var outputPathList: [NODEOutPath] = [] {
+        didSet { effectModel.outputNodeReferences = outputPathList.map(NodeReference.init) }
+    }
     public var connectedIn: Bool { !inputList.isEmpty }
     public var connectedOut: Bool { !outputPathList.isEmpty }
 

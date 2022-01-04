@@ -13,6 +13,13 @@ import PixelColor
 
 final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ColorCorrectPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: Properties
@@ -30,8 +37,14 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Color Correct", typeName: "pix-effect-single-color-correct")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -42,6 +55,27 @@ final public class ColorCorrectPIX: PIXSingleEffect, PIXViewable {
         customRenderDelegate = self
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        whitePoint = model.whitePoint
+        vibrance = model.vibrance
+        temperature = model.temperature
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.whitePoint = whitePoint
+        model.vibrance = vibrance
+        model.temperature = temperature
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 extension ColorCorrectPIX: CustomRenderDelegate {

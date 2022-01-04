@@ -15,7 +15,6 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
     case convert
     case cornerPin
     case crop
-    case deepLab
     case delay
     case distance
     case edge
@@ -75,8 +74,6 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return "Corner Pin"
         case .crop:
             return "Crop"
-        case .deepLab:
-            return "Deep Lab"
         case .delay:
             return "Delay"
         case .distance:
@@ -181,8 +178,6 @@ public enum PIXSingleEffectType: String, Codable, Hashable, CaseIterable, Identi
             return CornerPinPIX.self
         case .crop:
             return CropPIX.self
-        case .deepLab:
-            return DeepLabPIX.self
         case .delay:
             return DelayPIX.self
         case .distance:

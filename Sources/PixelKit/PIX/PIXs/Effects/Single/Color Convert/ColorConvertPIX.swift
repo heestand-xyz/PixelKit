@@ -13,6 +13,13 @@ import MetalKit
 
 final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ColorConvertPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleColorConvertPIX" }
     
     // MARK: - Public Properties
@@ -89,8 +96,14 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Color Convert", typeName: "pix-effect-single-color-convert")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -108,6 +121,25 @@ final public class ColorConvertPIX: PIXSingleEffect, PIXViewable {
         
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        conversion = model.conversion
+        channel = model.channel
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.conversion = conversion
+        model.channel = channel
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 extension ColorConvertPIX: CustomRenderDelegate {

@@ -17,6 +17,13 @@ import AppKit
 
 final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
+    public typealias Model = CachePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
@@ -35,14 +42,34 @@ final public class CachePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Cache", typeName: "pix-effect-single-cache")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    func setup() {
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customRenderActive = true
         customRenderDelegate = self
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Cache

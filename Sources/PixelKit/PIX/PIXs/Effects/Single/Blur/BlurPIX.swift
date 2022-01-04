@@ -18,6 +18,13 @@ import MetalPerformanceShaders
 
 final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
+    public typealias Model = BlurPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleBlurPIX" }
     
     // MARK: - Public Properties
@@ -90,25 +97,50 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        style = .default
-        super.init(name: "Blur", typeName: "pix-effect-single-blur")
-        extend = .hold
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
         customRenderDelegate = self
     }
     
-//    public required init(from decoder: Decoder) throws {
-//        #if !os(tvOS) && !targetEnvironment(simulator)
-//        style = .gaussian
-//        #else
-//        style = .box
-//        #endif
-//        try super.init(from: decoder)
-//        extend = .hold
-//        customRenderDelegate = self
-//    }
+    // MARK: - Live Model
     
-    // MARK: Guassian
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        radius = model.radius
+        quality = model.quality
+        angle = model.angle
+        position = model.position
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.radius = radius
+        model.quality = quality
+        model.angle = angle
+        model.position = position
+        
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: Gaussian
     
     override public func render() {
         #if !os(tvOS) && !targetEnvironment(simulator)

@@ -12,6 +12,13 @@ import Resolution
 
 final public class ClampPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ClampPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleClampPIX" }
     
     // MARK: - Public Properties
@@ -60,10 +67,36 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
         
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Clamp", typeName: "pix-effect-single-clamp")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        low = model.low
+        high = model.high
+        clampAlpha = model.clampAlpha
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.low = low
+        model.high = high
+        model.clampAlpha = clampAlpha
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

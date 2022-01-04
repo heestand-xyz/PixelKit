@@ -18,7 +18,9 @@ open class PIXContent: PIX, NODEContent, NODEOutIO {
         set { pixelModel = newValue }
     }
     
-    public var outputPathList: [NODEOutPath] = []
+    public var outputPathList: [NODEOutPath] = [] {
+        didSet { contentModel.outputNodeReferences = outputPathList.map(NodeReference.init) }
+    }
     public var connectedOut: Bool { !outputPathList.isEmpty }
     
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()

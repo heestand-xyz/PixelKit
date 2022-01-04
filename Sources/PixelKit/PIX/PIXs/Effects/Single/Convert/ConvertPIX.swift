@@ -12,6 +12,13 @@ import CoreGraphics
 
 final public class ConvertPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ConvertPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleConvertPIX" }
     
     var resScale: CGSize {
@@ -73,8 +80,30 @@ final public class ConvertPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Convert", typeName: "pix-effect-single-convert")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        mode = model.mode
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.mode = mode
+        
+        super.liveUpdateModelDone()
+    }
 }

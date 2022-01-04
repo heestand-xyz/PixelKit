@@ -14,6 +14,13 @@ import PixelColor
 
 final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ChromaKeyPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleChromaKeyPIX" }
     
     // MARK: - Public Properties
@@ -37,10 +44,42 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Chroma Key", typeName: "pix-effect-single-chroma-key")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        keyColor = model.keyColor
+        range = model.range
+        softness = model.softness
+        edgeDesaturation = model.edgeDesaturation
+        alphaCrop = model.alphaCrop
+        premultiply = model.premultiply
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.keyColor = keyColor
+        model.range = range
+        model.softness = softness
+        model.edgeDesaturation = edgeDesaturation
+        model.alphaCrop = alphaCrop
+        model.premultiply = premultiply
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

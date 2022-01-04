@@ -14,6 +14,13 @@ import PixelColor
 
 final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ChannelMixPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleChannelMixPIX" }
     
     // MARK: - Public Properties
@@ -81,8 +88,37 @@ final public class ChannelMixPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Channel Mix", typeName: "pix-effect-single-channel-mix")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        red = model.red
+        green = model.green
+        blue = model.blue
+        alpha = model.alpha
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.red = red
+        model.green = green
+        model.blue = blue
+        model.alpha = alpha
+        
+        super.liveUpdateModelDone()
     }
     
 }

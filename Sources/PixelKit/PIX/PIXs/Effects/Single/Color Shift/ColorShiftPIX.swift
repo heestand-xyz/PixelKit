@@ -17,6 +17,13 @@ public typealias HueSaturationPIX = ColorShiftPIX
 
 final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ColorShiftPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleColorShiftPIX" }
     
     // MARK: - Public Properties
@@ -37,10 +44,36 @@ final public class ColorShiftPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Color Shift", typeName: "pix-effect-single-color-shift")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        hue = model.hue
+        saturation = model.saturation
+        tintColor = model.tintColor
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.hue = hue
+        model.saturation = saturation
+        model.tintColor = tintColor
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {
