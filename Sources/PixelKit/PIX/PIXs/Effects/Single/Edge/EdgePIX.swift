@@ -14,6 +14,13 @@ import MetalPerformanceShaders
 
 final public class EdgePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = EdgePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleEdgePIX" }
     
     // MARK: - Public Properties
@@ -37,13 +44,18 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Edge", typeName: "pix-effect-single-edge")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
-        extend = .hold
     }
     
-    // MARK: Setup
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
     
     private func setup() {
         
@@ -57,6 +69,33 @@ final public class EdgePIX: PIXSingleEffect, PIXViewable {
         
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        strength = model.strength
+        distance = model.distance
+        colored = model.colored
+        transparent = model.transparent
+        includeAlpha = model.includeAlpha
+        sobel = model.sobel
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.strength = strength
+        model.distance = distance
+        model.colored = colored
+        model.transparent = transparent
+        model.includeAlpha = includeAlpha
+        model.sobel = sobel
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 extension EdgePIX: CustomRenderDelegate {

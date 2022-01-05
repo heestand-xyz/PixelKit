@@ -16,7 +16,14 @@ import MetalPerformanceShaders
 import SwiftUI
 
 final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
-        
+    
+    public typealias Model = EqualizePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
@@ -31,13 +38,43 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Equalize", typeName: "pix-effect-single-equalize")
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customRenderDelegate = self
         customRenderActive = true
     }
     
-    // MARK: Histogram
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        includeAlpha = model.includeAlpha
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.includeAlpha = includeAlpha
+        
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Histogram
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         #if !os(tvOS) && !targetEnvironment(simulator)

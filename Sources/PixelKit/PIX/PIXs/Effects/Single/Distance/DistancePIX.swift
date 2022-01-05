@@ -12,6 +12,13 @@ import CoreGraphics
 
 final public class DistancePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = DistancePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "distancePIX" }
     
 //    public enum Style: String, Enumable {
@@ -56,8 +63,37 @@ final public class DistancePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Distance", typeName: "pix-effect-single-distance")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        count = model.count
+        distance = model.distance
+        threshold = model.threshold
+        brightness = model.brightness
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.count = count
+        model.distance = distance
+        model.threshold = threshold
+        model.brightness = brightness
+
+        super.liveUpdateModelDone()
     }
     
 }

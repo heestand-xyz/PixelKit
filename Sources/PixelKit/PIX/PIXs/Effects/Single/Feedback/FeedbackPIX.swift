@@ -13,6 +13,13 @@ import Metal
 
 final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = FeedbackPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Private Properties
@@ -46,11 +53,19 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     }
     
     // MARK: - Life Cycle -
-
-    public required init() {
-        super.init(name: "Feedback", typeName: "pix-effect-single-feedback")
+    
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
     
     func setup() {
         pixelKit.render.listenToFramesUntil { [weak self] in
@@ -63,6 +78,20 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
             }
         }
     }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Feedback
     
     func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
         guard let tileFeedPix = feedbackInput as? PIX & NODETileable2D else {

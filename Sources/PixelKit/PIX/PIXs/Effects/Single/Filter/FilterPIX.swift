@@ -12,6 +12,13 @@ import MetalKit
 
 final public class FilterPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = FilterPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     public enum Filter: String, Enumable {
@@ -104,8 +111,14 @@ final public class FilterPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Filter", typeName: "pix-effect-single-filter")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -116,6 +129,23 @@ final public class FilterPIX: PIXSingleEffect, PIXViewable {
         customRenderDelegate = self
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        filter = model.filter
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.filter = filter
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 extension FilterPIX: CustomRenderDelegate {
