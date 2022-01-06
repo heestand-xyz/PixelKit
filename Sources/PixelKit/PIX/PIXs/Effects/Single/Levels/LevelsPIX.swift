@@ -13,6 +13,13 @@ import Resolution
 
 final public class LevelsPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = LevelsPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleLevelsPIX" }
     
     // MARK: - Public Properties
@@ -42,10 +49,46 @@ final public class LevelsPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Levels", typeName: "pix-effect-single-levels")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        brightness = model.brightness
+        darkness = model.darkness
+        contrast = model.contrast
+        gamma = model.gamma
+        inverted = model.inverted
+        smooth = model.smooth
+        opacity = model.opacity
+        offset = model.offset
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.brightness = brightness
+        model.darkness = darkness
+        model.contrast = contrast
+        model.gamma = gamma
+        model.inverted = inverted
+        model.smooth = smooth
+        model.opacity = opacity
+        model.offset = offset
+
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

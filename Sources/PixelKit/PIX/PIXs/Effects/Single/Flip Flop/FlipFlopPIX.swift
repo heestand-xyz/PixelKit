@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = FlipFlopPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleFlipFlopPIX" }
     
     // MARK: - Public Properties
@@ -71,15 +78,39 @@ final public class FlipFlopPIX: PIXSingleEffect, PIXViewable {
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(flip.index), CGFloat(flop.index)]
+        [CGFloat(flip.index), CGFloat(flop.index)]
     }
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Flip Flop", typeName: "pix-effect-single-flip-flop")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        flip = model.flip
+        flop = model.flop
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.flip = flip
+        model.flop = flop
+
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

@@ -13,6 +13,13 @@ import Resolution
 
 final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = KaleidoscopePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleKaleidoscopePIX" }
     
     // MARK: - Public Properties
@@ -32,11 +39,40 @@ final public class KaleidoscopePIX: PIXSingleEffect, PIXViewable {
         [divisions, mirror, rotation, position]
     }
     
-    public required init() {
-        super.init(name: "Kaleidoscope", typeName: "pix-effect-single-kaleidoscope")
-        extend = .mirror
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        divisions = model.divisions
+        mirror = model.mirror
+        rotation = model.rotation
+        position = model.position
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.divisions = divisions
+        model.mirror = mirror
+        model.rotation = rotation
+        model.position = position
+
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

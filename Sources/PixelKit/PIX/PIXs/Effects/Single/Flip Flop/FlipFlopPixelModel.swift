@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct FilterPixelModel: PixelSingleEffectModel {
+public struct FlipFlopPixelModel: PixelSingleEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Filter"
-    public var typeName: String = "pix-effect-single-filter"
+    public var name: String = "Flip Flop"
+    public var typeName: String = "pix-effect-single-flip-flop"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -26,13 +26,15 @@ public struct FilterPixelModel: PixelSingleEffectModel {
     
     // MARK: Local
     
-    public var filter: FilterPIX.Filter = .noir
+    public var flip: FlipFlopPIX.Flip = .none
+    public var flop: FlipFlopPIX.Flop = .none
 }
 
-extension FilterPixelModel {
+extension FlipFlopPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case filter
+        case flip
+        case flop
     }
     
     public init(from decoder: Decoder) throws {
@@ -47,14 +49,18 @@ extension FilterPixelModel {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 
                 switch codingKey {
-                case .filter:
-                    guard let live = liveWrap as? LiveEnum<FilterPIX.Filter> else { continue }
-                    filter = live.wrappedValue
+                case .flip:
+                    guard let live = liveWrap as? LiveEnum<FlipFlopPIX.Flip> else { continue }
+                    flip = live.wrappedValue
+                case .flop:
+                    guard let live = liveWrap as? LiveEnum<FlipFlopPIX.Flop> else { continue }
+                    flop = live.wrappedValue
                 }
             }
             return
         }
         
-        filter = try container.decode(FilterPIX.Filter.self, forKey: .filter)
+        flip = try container.decode(FlipFlopPIX.Flip.self, forKey: .flip)
+        flop = try container.decode(FlipFlopPIX.Flop.self, forKey: .flop)
     }
 }

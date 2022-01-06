@@ -13,6 +13,13 @@ import Metal
 
 final public class FreezePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = FreezePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: - Public Properties
@@ -35,8 +42,31 @@ final public class FreezePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Freeze", typeName: "pix-effect-single-freeze")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        freeze = model.freeze
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.freeze = freeze
+
+        super.liveUpdateModelDone()
     }
 }
 

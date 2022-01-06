@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct FilterPixelModel: PixelSingleEffectModel {
+public struct FreezePixelModel: PixelSingleEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Filter"
-    public var typeName: String = "pix-effect-single-filter"
+    public var name: String = "Freeze"
+    public var typeName: String = "pix-effect-single-freeze"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -26,13 +26,13 @@ public struct FilterPixelModel: PixelSingleEffectModel {
     
     // MARK: Local
     
-    public var filter: FilterPIX.Filter = .noir
+    public var freeze: Bool = false
 }
 
-extension FilterPixelModel {
+extension FreezePixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case filter
+        case freeze
     }
     
     public init(from decoder: Decoder) throws {
@@ -47,14 +47,14 @@ extension FilterPixelModel {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 
                 switch codingKey {
-                case .filter:
-                    guard let live = liveWrap as? LiveEnum<FilterPIX.Filter> else { continue }
-                    filter = live.wrappedValue
+                case .freeze:
+                    guard let live = liveWrap as? LiveBool else { continue }
+                    freeze = live.wrappedValue
                 }
             }
             return
         }
         
-        filter = try container.decode(FilterPIX.Filter.self, forKey: .filter)
+        freeze = try container.decode(Bool.self, forKey: .freeze)
     }
 }

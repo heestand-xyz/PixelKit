@@ -13,6 +13,13 @@ import PixelColor
 
 final public class FlarePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = FlarePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleFlarePIX" }
     
     override public var shaderNeedsResolution: Bool { return true }
@@ -40,10 +47,46 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Flare", typeName: "pix-effect-single-flare")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        scale = model.scale
+        count = model.count
+        angle = model.angle
+        threshold = model.threshold
+        brightness = model.brightness
+        gamma = model.gamma
+        color = model.color
+        rayResolution = model.rayResolution
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.scale = scale
+        model.count = count
+        model.angle = angle
+        model.threshold = threshold
+        model.brightness = brightness
+        model.gamma = gamma
+        model.color = color
+        model.rayResolution = rayResolution
+
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {
