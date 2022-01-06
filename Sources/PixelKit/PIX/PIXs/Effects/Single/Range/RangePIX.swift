@@ -14,6 +14,13 @@ import PixelColor
 
 final public class RangePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = RangePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleRangePIX" }
     
     // MARK: - Public Properties
@@ -38,8 +45,49 @@ final public class RangePIX: PIXSingleEffect, PIXViewable {
         [inLow, inHigh, outLow, outHigh, inLowColor, inHighColor, outLowColor, outHighColor, ignoreAlpha]
     }
     
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Range", typeName: "pix-effect-single-range")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        inLow = model.inLow
+        inHigh = model.inHigh
+        outLow = model.outLow
+        outHigh = model.outHigh
+        inLowColor = model.inLowColor
+        inHighColor = model.inHighColor
+        outLowColor = model.outLowColor
+        outHighColor = model.outHighColor
+        ignoreAlpha = model.ignoreAlpha
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.inLow = inLow
+        model.inHigh = inHigh
+        model.outLow = outLow
+        model.outHigh = outHigh
+        model.inLowColor = inLowColor
+        model.inHighColor = inHighColor
+        model.outLowColor = outLowColor
+        model.outHighColor = outHighColor
+        model.ignoreAlpha = ignoreAlpha
+        
+        super.liveUpdateModelDone()
     }
     
 }

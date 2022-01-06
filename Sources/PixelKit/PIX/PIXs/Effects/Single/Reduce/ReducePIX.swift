@@ -15,6 +15,13 @@ import MetalPerformanceShaders
 @available(OSX 10.13.4, *)
 final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     
+    public typealias Model = ReducePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
 
     override var customResolution: Resolution? {
@@ -24,7 +31,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
 
     // MARK: - Public Properties
     
-    public enum CellList {
+    public enum CellList: String, Codable {
         case column
         case row
     }
@@ -32,25 +39,61 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
     /// the cell list that will be sampled
     ///
     /// one pixel row is *default*
-    public var cellList: CellList = .row { didSet { applyResolution { [weak self] in self?.render() } } }
+    public var cellList: CellList {
+        get { model.cellList }
+        set {
+            model.cellList = newValue
+            applyResolution { [weak self] in
+                self?.render()
+            }
+        }
+    }
     
-    public enum Method {
-        /// average
-        case avg
-        /// minumum
-        case min
-        /// maximum
-        case max
-        /// sum of all pixels the cell list
+    public enum Method: String, Codable {
+        case average
+        case minimum
+        case maximum
         case sum
     }
     
-    public var method: Method = .avg { didSet { render() } }
+    public var method: Method {
+        get { model.method }
+        set {
+            model.method = newValue
+            render()
+        }
+    }
 
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Reduce", typeName: "pix-effect-single-reduce")
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customRenderActive = true
         customRenderDelegate = self
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Custom Render
@@ -58,13 +101,13 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         let resolution: Resolution = getCustomResolution(from: texture.resolution)
         guard let destinationTexture: MTLTexture = try? Texture.emptyTexture(size: resolution.size,
-                                                                             bits: pixelKit.render.bits,
-                                                                             on: pixelKit.render.metalDevice,
+                                                                             bits: PixelKit.main.render.bits,
+                                                                             on: PixelKit.main.render.metalDevice,
                                                                              write: true) else {
-            pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
-        let reduceKernel: MPSImageReduceUnary = getKernel(with: pixelKit.render.metalDevice)
+        let reduceKernel: MPSImageReduceUnary = getKernel(with: PixelKit.main.render.metalDevice)
         #if !os(tvOS) && !targetEnvironment(simulator)
         reduceKernel.edgeMode = extend.mps!
         #endif
@@ -91,22 +134,22 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
         switch cellList {
         case .row:
             switch method {
-            case .avg:
+            case .average:
                 return MPSImageReduceColumnMean(device: device)
-            case .min:
+            case .minimum:
                 return MPSImageReduceColumnMin(device: device)
-            case .max:
+            case .maximum:
                 return MPSImageReduceColumnMax(device: device)
             case .sum:
                 return MPSImageReduceColumnSum(device: device)
             }
         case .column:
             switch method {
-            case .avg:
+            case .average:
                 return MPSImageReduceRowMean(device: device)
-            case .min:
+            case .minimum:
                 return MPSImageReduceRowMin(device: device)
-            case .max:
+            case .maximum:
                 return MPSImageReduceRowMax(device: device)
             case .sum:
                 return MPSImageReduceRowSum(device: device)

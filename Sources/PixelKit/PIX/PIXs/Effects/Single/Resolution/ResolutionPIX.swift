@@ -14,7 +14,14 @@ import SwiftUI
 #endif
 
 final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
-
+    
+    public typealias Model = ResolutionPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleResolutionPIX" }
     override public var shaderNeedsResolution: Bool { return true }
     
@@ -37,16 +44,43 @@ final public class ResolutionPIX: PIXSingleEffect, NODEResolution, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
     required public init(at resolution: Resolution) {
-        self.resolution = resolution
-        super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
-    required init() {
-        self.resolution = .square(1_000)
-        super.init(name: "Resolution", typeName: "pix-effect-single-resolution")
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        resolutionMultiplier = model.resolutionMultiplier
+        inheritResolution = model.inheritResolution
+        placement = model.placement
+        
+        super.modelUpdateLiveDone()
     }
     
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.resolutionMultiplier = resolutionMultiplier
+        model.inheritResolution = inheritResolution
+        model.placement = placement
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {
