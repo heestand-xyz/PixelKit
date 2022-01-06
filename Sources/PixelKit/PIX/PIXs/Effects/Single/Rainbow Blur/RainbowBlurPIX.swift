@@ -14,6 +14,13 @@ import MetalKit
 
 final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = RainbowBlurPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleRainbowBlurPIX" }
     
     // MARK: - Public Properties
@@ -64,9 +71,41 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Rainbow Blur", typeName: "pix-effect-single-rainbow-blur")
-        extend = .hold
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        radius = model.radius
+        quality = model.quality
+        angle = model.angle
+        position = model.position
+        light = model.light
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.radius = radius
+        model.quality = quality
+        model.angle = angle
+        model.position = position
+        model.light = light
+        
+        super.liveUpdateModelDone()
     }
     
 }

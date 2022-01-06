@@ -13,31 +13,53 @@ import Vision
 @available(iOS 14.0, tvOS 14.0, macOS 11.0, *)
 final public class OpticalFlowPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = OpticalFlowPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
         
     private var lastInputTexture: MTLTexture?
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Optical Flow", typeName: "pix-effect-single-optical-flow")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    // MARK: Setup
-    
-    private func setup() {
-        customRenderActive = true
-        customRenderDelegate = self
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
     }
-    
-    // MARK: Destroy
     
     public override func destroy() {
         super.destroy()
         lastInputTexture = nil
     }
     
+    // MARK: - Setup
+    
+    private func setup() {
+        customRenderActive = true
+        customRenderDelegate = self
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
 }
 
 @available(iOS 14.0, tvOS 14.0, macOS 11.0, *)

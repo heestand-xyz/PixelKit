@@ -16,7 +16,14 @@ import MetalPerformanceShaders
 import SwiftUI
 
 final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/*, NODEResolution*/ {
-        
+    
+    public typealias Model = MorphPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
 
 //    public var resolution: Resolution = .square(256)
@@ -57,13 +64,47 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
     public override var liveList: [LiveWrap] {
         [_style, _width, _height]
     }
-    
+
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Morph", typeName: "pix-effect-single-morph")
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         customRenderDelegate = self
         customRenderActive = true
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        width = model.width
+        height = model.height
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.width = width
+        model.height = height
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: Histogram

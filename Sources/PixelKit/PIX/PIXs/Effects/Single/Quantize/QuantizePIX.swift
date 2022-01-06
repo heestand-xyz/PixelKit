@@ -13,6 +13,13 @@ import Resolution
 
 final public class QuantizePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = QuantizePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleQuantizePIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,31 @@ final public class QuantizePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Quantize", typeName: "pix-effect-single-quantize")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        fraction = model.fraction
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.fraction = fraction
+        
+        super.liveUpdateModelDone()
     }
     
 }

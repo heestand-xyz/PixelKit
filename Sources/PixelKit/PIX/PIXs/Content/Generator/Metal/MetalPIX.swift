@@ -67,7 +67,7 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
     }
     """
     
-    public override var shaderNeedsResolution: Bool { return true }
+    public override var shaderNeedsResolution: Bool { true }
     
     public var metalUniforms: [MetalUniform] {
         get { model.metalUniforms }
@@ -106,31 +106,31 @@ final public class MetalPIX: PIXGenerator, NODEMetalCode, PIXViewable {
     // MARK: - Property Helpers
     
     override public var values: [Floatable] {
-        return metalUniforms.map({ uniform -> CGFloat in uniform.value })
+        metalUniforms.map({ uniform -> CGFloat in uniform.value })
     }
     
     // MARK: - Life Cycle -
     
     public init(model: Model) {
         super.init(model: model)
-        setupMetal()
+        setup()
     }
     
     public init(at resolution: Resolution = .auto, uniforms: [MetalUniform] = [], code: String) {
         let model = Model(resolution: resolution, metalUniforms: uniforms, code: code)
         super.init(model: model)
-        setupMetal()
+        setup()
     }
     
     public required init(at resolution: Resolution = .auto) {
         let model = Model(resolution: resolution)
         super.init(model: model)
-        setupMetal()
+        setup()
     }
     
     // MARK: - Setup
     
-    private func setupMetal() {
+    private func setup() {
         bakeFrag()
         listenToUniforms()
     }

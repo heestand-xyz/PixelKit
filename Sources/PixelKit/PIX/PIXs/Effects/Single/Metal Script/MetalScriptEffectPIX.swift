@@ -15,6 +15,13 @@ import Metal
 /// **Variables:** pi, u, v, uv, w, h, wu, hv, tex, pix, red, green, blue, alpha, white, var.width, var.height, var.aspect, var.uniform
 final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXViewable {
     
+    public typealias Model = MetalScriptEffectPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "metalScriptEffectPIX" }
     
     // MARK: - Private Properties
@@ -97,13 +104,50 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     
     public override var shaderNeedsResolution: Bool { return true }
     
-    public var metalUniforms: [MetalUniform] { didSet { bakeFrag() } }
+    public var metalUniforms: [MetalUniform] {
+        get { model.metalUniforms }
+        set {
+            model.metalUniforms = newValue
+            listenToUniforms()
+            bakeFrag()
+        }
+    }
     
-    public var whiteScript: String { didSet { bakeFrag() } }
-    public var redScript: String { didSet { bakeFrag() } }
-    public var greenScript: String { didSet { bakeFrag() } }
-    public var blueScript: String { didSet { bakeFrag() } }
-    public var alphaScript: String { didSet { bakeFrag() } }
+    public var whiteScript: String {
+        get { model.whiteScript }
+        set {
+            model.whiteScript = newValue
+            bakeFrag()
+        }
+    }
+    public var redScript: String {
+        get { model.redScript }
+        set {
+            model.redScript = newValue
+            bakeFrag()
+        }
+    }
+    public var greenScript: String {
+        get { model.greenScript }
+        set {
+            model.greenScript = newValue
+            bakeFrag()
+        }
+    }
+    public var blueScript: String {
+        get { model.blueScript }
+        set {
+            model.blueScript = newValue
+            bakeFrag()
+        }
+    }
+    public var alphaScript: String {
+        get { model.alphaScript }
+        set {
+            model.alphaScript = newValue
+            bakeFrag()
+        }
+    }
     
     public var metalCode: String? {
         metalConsole = nil
@@ -120,6 +164,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
             return nil
         }
     }
+    
     @Published public var metalConsole: String?
     public var metalConsolePublisher: Published<String?>.Publisher { $metalConsole }
     public var consoleCallback: ((String) -> ())?
@@ -131,7 +176,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     }
     
     override public var values: [Floatable] {
-        return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
+        metalUniforms.map({ uniform -> CGFloat in uniform.value })
     }
     
     public override var extraUniforms: [CGFloat] {
@@ -140,77 +185,74 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     
     // MARK: - Life Cycle -
     
-    public init(whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
-        metalUniforms = uniforms
-        self.whiteScript = whiteScript
-        self.redScript = "0.0"
-        self.greenScript = "0.0"
-        self.blueScript = "0.0"
-        self.alphaScript = alphaScript
-        super.init(name: "Metal Script Effect", typeName: "pix-effect-single-metal-script")
-        colorStyle = .white
-        bakeFrag()
-    }
-    
-    public init(redScript: String, greenScript: String, blueScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
-        metalUniforms = uniforms
-        self.whiteScript = "0.0"
-        self.redScript = redScript
-        self.greenScript = greenScript
-        self.blueScript = blueScript
-        self.alphaScript = alphaScript
-        super.init(name: "Metal Script Effect", typeName: "pix-effect-single-metal-script")
-        colorStyle = .color
-        bakeFrag()
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
     }
     
     public required init() {
-        metalUniforms = []
-        self.whiteScript = "white"
-        self.redScript = "red"
-        self.greenScript = "green"
-        self.blueScript = "blue"
-        self.alphaScript = "alpha"
-        super.init(name: "Metal Script Effect", typeName: "pix-effect-single-metal-script")
-        colorStyle = .color
-        bakeFrag()
+        let model = Model()
+        super.init(model: model)
+        setup()
     }
     
-    // MARK: Codable
+    public init(whiteScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
+        let model = Model(colorStyle: .white, metalUniforms: uniforms, whiteScript: whiteScript, alphaScript: alphaScript)
+        super.init(model: model)
+        setup()
+    }
     
-//    enum CodingKeys: CodingKey {
-//        case metalUniforms
-//        case whiteScript
-//        case redScript
-//        case greenScript
-//        case blueScript
-//        case alphaScript
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
-//        whiteScript = try container.decode(String.self, forKey: .whiteScript)
-//        redScript = try container.decode(String.self, forKey: .redScript)
-//        greenScript = try container.decode(String.self, forKey: .greenScript)
-//        blueScript = try container.decode(String.self, forKey: .blueScript)
-//        alphaScript = try container.decode(String.self, forKey: .alphaScript)
-//        try super.init(from: decoder)
-//        bakeFrag()
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(metalUniforms, forKey: .metalUniforms)
-//        try container.encode(whiteScript, forKey: .whiteScript)
-//        try container.encode(redScript, forKey: .redScript)
-//        try container.encode(greenScript, forKey: .greenScript)
-//        try container.encode(blueScript, forKey: .blueScript)
-//        try container.encode(alphaScript, forKey: .alphaScript)
-//        try super.encode(to: encoder)
-//    }
+    public init(redScript: String, greenScript: String, blueScript: String, alphaScript: String = "1.0", uniforms: [MetalUniform] = []) {
+        let model = Model(colorStyle: .color, metalUniforms: uniforms, redScript: redScript, greenScript: greenScript, blueScript: blueScript, alphaScript: alphaScript)
+        super.init(model: model)
+        setup()
+    }
     
-    // MARK: Bake Frag
+    // MARK: - Setup
+    
+    private func setup() {
+        bakeFrag()
+        listenToUniforms()
+    }
+    
+    // MARK: - Listen to Uniforms
+    
+    private func listenToUniforms() {
+        for uniform in metalUniforms {
+            uniform.didChangeValue = { [weak self] in
+                self?.render()
+            }
+        }
+    }
+    
+    // MARK: - Model
+    
+    override func modelUpdated() {
+        super.modelUpdated()
+        
+        bakeFrag()
+        listenToUniforms()
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        colorStyle = model.colorStyle
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.colorStyle = colorStyle
+        
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Bake Frag
     
     func bakeFrag() {
         metalConsole = nil

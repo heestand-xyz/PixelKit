@@ -52,8 +52,8 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     // MARK: - Setup
     
     private func setup() {
-        customRenderDelegate = self
         customRenderActive = true
+        customRenderDelegate = self
     }
     
     // MARK: - Live Model

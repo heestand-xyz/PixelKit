@@ -13,6 +13,13 @@ import PixelColor
 
 final public class PixelatePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = PixelatePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: Properties
@@ -101,18 +108,45 @@ final public class PixelatePIX: PIXSingleEffect, PIXViewable {
 
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Pixelate", typeName: "pix-effect-single-pixelate")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    // MARK: Setup
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
     
     private func setup() {
         customRenderActive = true
         customRenderDelegate = self
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        position = model.position
+        radius = model.radius
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.position = position
+        model.radius = radius
+        
+        super.liveUpdateModelDone()
+    }
 }
 
 extension PixelatePIX: CustomRenderDelegate {
