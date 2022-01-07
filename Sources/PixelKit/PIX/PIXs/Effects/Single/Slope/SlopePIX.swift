@@ -13,6 +13,13 @@ import Resolution
 
 final public class SlopePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = SlopePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleSlopePIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,31 @@ final public class SlopePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Slope", typeName: "pix-effect-single-slope")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        amplitude = model.amplitude
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.amplitude = amplitude
+        
+        super.liveUpdateModelDone()
     }
     
 }

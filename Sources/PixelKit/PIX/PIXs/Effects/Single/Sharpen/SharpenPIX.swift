@@ -13,6 +13,13 @@ import Resolution
 
 final public class SharpenPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = SharpenPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleSharpenPIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,31 @@ final public class SharpenPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Sharpen", typeName: "pix-effect-single-sharpen")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        contrast = model.contrast
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.contrast = contrast
+        
+        super.liveUpdateModelDone()
     }
     
 }

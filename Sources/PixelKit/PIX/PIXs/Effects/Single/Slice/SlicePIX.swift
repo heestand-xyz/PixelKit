@@ -13,6 +13,13 @@ import Resolution
 /// Useful with **VoxelKit** to sample depth images.
 final public class SlicePIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = SlicePixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleSlicePIX" }
     
     // MARK: - Public Properties
@@ -50,7 +57,34 @@ final public class SlicePIX: PIXSingleEffect, PIXViewable {
         [fraction, axis]
     }
     
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Slice", typeName: "pix-effect-single-slice")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        fraction = model.fraction
+        axis = model.axis
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.fraction = fraction
+        model.axis = axis
+        
+        super.liveUpdateModelDone()
     }
 }

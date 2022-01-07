@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = ThresholdPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleThresholdPIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,31 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Threshold", typeName: "pix-effect-single-threshold")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        threshold = model.threshold
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.threshold = threshold
+        
+        super.liveUpdateModelDone()
     }
     
 }

@@ -13,6 +13,13 @@ import Resolution
 
 final public class TransformPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = TransformPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleTransformPIX" }
     
     // MARK: - Public Properties
@@ -34,10 +41,39 @@ final public class TransformPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Transform", typeName: "pix-effect-single-transform")
+    public init(model: Model) {
+        super.init(model: model)
     }
-      
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        position = model.position
+        rotation = model.rotation
+        scale = model.scale
+        size = model.size
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.position = position
+        model.rotation = rotation
+        model.scale = scale
+        model.size = size
+
+        super.liveUpdateModelDone()
+    }
+    
 }
 
 public extension NODEOut {

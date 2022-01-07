@@ -12,6 +12,13 @@ import PixelColor
 
 final public class TintPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = TintPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleTintPIX" }
     
     // MARK: - Public Properties
@@ -30,8 +37,31 @@ final public class TintPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Tint", typeName: "pix-effect-single-tint")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        color = model.color
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.color = color
+        
+        super.liveUpdateModelDone()
     }
     
 }
