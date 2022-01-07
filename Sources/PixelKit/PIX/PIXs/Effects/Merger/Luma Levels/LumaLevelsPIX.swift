@@ -14,6 +14,13 @@ import PixelColor
 
 final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = LumaLevelsPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerLumaLevelsPIX" }
     
     // MARK: - Public Properties
@@ -40,8 +47,47 @@ final public class LumaLevelsPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Luma Levels", typeName: "pix-effect-merger-luma-levels")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        brightness = model.brightness
+        darkness = model.darkness
+        contrast = model.contrast
+        gamma = model.gamma
+        inverted = model.inverted
+        smooth = model.smooth
+        opacity = model.opacity
+        offset = model.offset
+        lumaGamma = model.lumaGamma
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.brightness = brightness
+        model.darkness = darkness
+        model.contrast = contrast
+        model.gamma = gamma
+        model.inverted = inverted
+        model.smooth = smooth
+        model.opacity = opacity
+        model.offset = offset
+        model.lumaGamma = lumaGamma
+
+        super.liveUpdateModelDone()
     }
     
 }

@@ -14,11 +14,18 @@ import CoreImage
 
 final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = LumaBlurPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerLumaBlurPIX" }
     
     // MARK: - Public Properties
     
-    public enum LumaBlurStyle: String, Enumable {
+    public enum Style: String, Enumable {
         case box
         case angle
         case zoom
@@ -45,7 +52,7 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         }
     }
     
-    @LiveEnum("style") public var style: LumaBlurStyle = .box
+    @LiveEnum("style") public var style: Style = .box
     @LiveFloat("radius", increment: 0.125) public var radius: CGFloat = 0.5
     @LiveEnum("quality") public var quality: SampleQualityMode = .mid
     @LiveFloat("angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
@@ -68,9 +75,14 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Luma Blur", typeName: "pix-effect-merger-luma-blur")
-        extend = .hold
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
@@ -81,7 +93,6 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA()
         super.inputB = inputB()
         self.radius = radius
-        setup()
     }
     
     // MARK: Setup
@@ -97,9 +108,37 @@ final public class LumaBlurPIX: PIXMergerEffect, PIXViewable {
         
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        radius = model.radius
+        quality = model.quality
+        angle = model.angle
+        position = model.position
+        lumaGamma = model.lumaGamma
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.radius = radius
+        model.quality = quality
+        model.angle = angle
+        model.position = position
+        model.lumaGamma = lumaGamma
+
+        super.liveUpdateModelDone()
+    }
+    
     // MARK: Property Funcs
     
-    public func pixLumaBlurStyle(_ value: LumaBlurStyle) -> LumaBlurPIX {
+    public func pixLumaBlurStyle(_ value: Style) -> LumaBlurPIX {
         style = value
         return self
     }

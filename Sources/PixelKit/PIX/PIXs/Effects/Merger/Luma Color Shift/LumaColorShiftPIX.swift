@@ -14,6 +14,13 @@ import PixelColor
 
 final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = LumaColorShiftPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerLumaColorShiftPIX" }
     
     // MARK: - Public Properties
@@ -35,8 +42,13 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Luma Color Shift", typeName: "pix-effect-merger-luma-color-shift")
+        let model = Model()
+        super.init(model: model)
     }
     
     public convenience init(hue: CGFloat = 0.0,
@@ -48,6 +60,30 @@ final public class LumaColorShiftPIX: PIXMergerEffect, PIXViewable {
         super.inputB = inputB()
         self.hue = hue
         self.saturation = saturation
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        hue = model.hue
+        saturation = model.saturation
+        tintColor = model.tintColor
+        lumaGamma = model.lumaGamma
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.hue = hue
+        model.saturation = saturation
+        model.tintColor = tintColor
+        model.lumaGamma = lumaGamma
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs
