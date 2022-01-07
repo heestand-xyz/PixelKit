@@ -1,5 +1,5 @@
 //
-//  Created by Anton Heestand on 2022-01-04.
+//  Created by Anton Heestand on 2022-01-07.
 //
 
 import Foundation
@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct RainbowBlurPixelModel: PixelSingleEffectModel {
+public struct WarpPixelModel: PixelSingleEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Rainbow Blur"
-    public var typeName: String = "pix-effect-single-rainbow-blur"
+    public var name: String = "Warp"
+    public var typeName: String = "pix-effect-single-warp"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -22,27 +22,25 @@ public struct RainbowBlurPixelModel: PixelSingleEffectModel {
 
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear
-    public var extend: ExtendMode = .hold
+    public var extend: ExtendMode = .zero
     
     // MARK: Local
     
-    public var style: RainbowBlurPIX.Style = .zoom
-    public var radius: CGFloat = 0.5
-    public var quality: PIX.SampleQualityMode = .high
-    public var angle: CGFloat = 0.0
+    public var style: WarpPIX.Style = .hole
     public var position: CGPoint = .zero
-    public var light: CGFloat = 1.0
+    public var radius: CGFloat = 0.125
+    public var scale: CGFloat = 0.5
+    public var rotation: CGFloat = 0.0
 }
 
-extension RainbowBlurPixelModel {
+extension WarpPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case style
-        case radius
-        case quality
-        case angle
         case position
-        case light
+        case radius
+        case scale
+        case rotation
     }
     
     public init(from decoder: Decoder) throws {
@@ -58,33 +56,29 @@ extension RainbowBlurPixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<RainbowBlurPIX.Style> else { continue }
+                    guard let live = liveWrap as? LiveEnum<WarpPIX.Style> else { continue }
                     style = live.wrappedValue
-                case .radius:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    radius = live.wrappedValue
-                case .quality:
-                    guard let live = liveWrap as? LiveEnum<PIX.SampleQualityMode> else { continue }
-                    quality = live.wrappedValue
-                case .angle:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    angle = live.wrappedValue
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }
                     position = live.wrappedValue
-                case .light:
+                case .radius:
                     guard let live = liveWrap as? LiveFloat else { continue }
-                    light = live.wrappedValue
+                    radius = live.wrappedValue
+                case .scale:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    scale = live.wrappedValue
+                case .rotation:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    rotation = live.wrappedValue
                 }
             }
             return
         }
         
-        style = try container.decode(RainbowBlurPIX.Style.self, forKey: .style)
-        radius = try container.decode(CGFloat.self, forKey: .radius)
-        quality = try container.decode(PIX.SampleQualityMode.self, forKey: .quality)
-        angle = try container.decode(CGFloat.self, forKey: .angle)
+        style = try container.decode(WarpPIX.Style.self, forKey: .style)
         position = try container.decode(CGPoint.self, forKey: .position)
-        light = try container.decode(CGFloat.self, forKey: .light)
+        radius = try container.decode(CGFloat.self, forKey: .radius)
+        scale = try container.decode(CGFloat.self, forKey: .scale)
+        rotation = try container.decode(CGFloat.self, forKey: .rotation)
     }
 }

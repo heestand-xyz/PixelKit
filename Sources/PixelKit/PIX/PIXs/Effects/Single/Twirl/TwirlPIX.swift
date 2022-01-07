@@ -13,6 +13,13 @@ import Resolution
 
 final public class TwirlPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = TwirlPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectSingleTwirlPIX" }
     
     // MARK: - Public Properties
@@ -26,14 +33,36 @@ final public class TwirlPIX: PIXSingleEffect, PIXViewable {
     }
     
     override public var values: [Floatable] {
-        return [strength]
+        [strength]
     }
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Twirl", typeName: "pix-effect-single-twirl")
-        extend = .mirror
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        strength = model.strength
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.strength = strength
+
+        super.liveUpdateModelDone()
     }
     
 }

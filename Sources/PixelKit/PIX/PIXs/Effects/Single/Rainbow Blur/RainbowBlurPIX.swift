@@ -25,7 +25,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Public Properties
     
-    public enum RainbowBlurStyle: String, Enumable {
+    public enum Style: String, Enumable {
         case circle
         case angle
         case zoom
@@ -46,7 +46,7 @@ final public class RainbowBlurPIX: PIXSingleEffect, PIXViewable {
         }
     }
     
-    @LiveEnum("style") public var style: RainbowBlurStyle = .zoom
+    @LiveEnum("style") public var style: Style = .zoom
     @LiveFloat("radius", increment: 0.125) public var radius: CGFloat = 0.5
     @LiveEnum("quality") public var quality: SampleQualityMode = .high
     @LiveFloat("angle", range: -0.5...0.5) public var angle: CGFloat = 0.0

@@ -13,6 +13,13 @@ import PixelColor
 
 final public class WarpPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = WarpPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
     // MARK: Properties
@@ -121,16 +128,46 @@ final public class WarpPIX: PIXSingleEffect, PIXViewable {
 
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Warp", typeName: "pix-effect-single-warp")
-        setup()
+    public init(model: Model) {
+        super.init(model: model)
     }
     
-    // MARK: Setup
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Setup
     
     private func setup() {
         customRenderActive = true
         customRenderDelegate = self
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        position = model.position
+        radius = model.radius
+        scale = model.scale
+        rotation = model.rotation
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.position = position
+        model.radius = radius
+        model.scale = scale
+        model.rotation = rotation
+
+        super.liveUpdateModelDone()
     }
     
 }
