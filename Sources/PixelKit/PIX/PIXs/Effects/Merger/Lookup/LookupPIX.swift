@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class LookupPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = LookupPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerLookupPIX" }
     
     // MARK: - Public Properties
@@ -56,8 +63,13 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Lookup", typeName: "pix-effect-merger-lookup")
+        let model = Model()
+        super.init(model: model)
     }
     
     public convenience init(axis: Axis = .vertical,
@@ -67,6 +79,26 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA()
         super.inputB = inputB()
         self.axis = axis
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        axis = model.axis
+        holdEdge = model.holdEdge
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.axis = axis
+        model.holdEdge = holdEdge
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

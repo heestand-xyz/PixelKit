@@ -13,6 +13,13 @@ import Resolution
 
 final public class CrossPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = CrossPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerCrossPIX" }
     
     // MARK: - Public Properties
@@ -31,8 +38,13 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Cross", typeName: "pix-effect-merger-cross")
+        let model = Model()
+        super.init(model: model)
     }
     
     public convenience init(fraction: CGFloat = 0.5,
@@ -42,6 +54,24 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA()
         super.inputB = inputB()
         self.fraction = fraction
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        fraction = model.fraction
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.fraction = fraction
+
+        super.liveUpdateModelDone()
     }
     
 }

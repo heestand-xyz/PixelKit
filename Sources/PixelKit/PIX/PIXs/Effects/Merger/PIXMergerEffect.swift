@@ -11,6 +11,11 @@ import Resolution
 
 open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     
+    var mergerEffectModel: PixelMergerEffectModel {
+        get { effectModel as! PixelMergerEffectModel }
+        set { effectModel = newValue }
+    }
+    
     public var inputA: (NODE & NODEOut)? { didSet { setNeedsConnectMerger(new: inputA, old: oldValue, second: false) } }
     public var inputB: (NODE & NODEOut)? { didSet { setNeedsConnectMerger(new: inputB, old: oldValue, second: true) } }
     public override var connectedIn: Bool { return inputList.count == 2 }
@@ -23,12 +28,17 @@ open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        fatalError("please use init(name:typeName:)")
+    init(model: PixelMergerEffectModel) {
+        super.init(model: model)
     }
     
+    @available(*, deprecated)
     public override init(name: String, typeName: String) {
         super.init(name: name, typeName: typeName)
+    }
+    
+    public required init() {
+        fatalError("please use init(model:)")
     }
     
     public override func destroy() {

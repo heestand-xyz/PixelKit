@@ -13,6 +13,13 @@ import Resolution
 
 final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = DisplacePixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerDisplacePIX" }
     
     // MARK: - Public Properties
@@ -27,14 +34,18 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
     }
     
     override public var values: [Floatable] {
-        return [distance, origin]
+        [distance, origin]
     }
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Displace", typeName: "pix-effect-merger-displace")
-        extend = .hold
+        let model = Model()
+        super.init(model: model)
     }
     
     public convenience init(distance: CGFloat = 0.1,
@@ -44,6 +55,26 @@ final public class DisplacePIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA()
         super.inputB = inputB()
         self.distance = distance
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        distance = model.distance
+        origin = model.origin
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.distance = distance
+        model.origin = origin
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

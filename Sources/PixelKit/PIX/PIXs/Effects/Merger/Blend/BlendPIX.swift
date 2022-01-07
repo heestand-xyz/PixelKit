@@ -16,6 +16,13 @@ import PixelColor
 
 final public class BlendPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = BlendPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerBlendPIX" }
     
     // MARK: - Public Properties
@@ -41,10 +48,15 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
         [CGFloat(blendMode.index), !bypassTransform ? 1 : 0, position.x, position.y, rotation, scale, size.width, size.height]
     }
     
+    // MARK: - Life Cycle
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Blend", typeName: "pix-effect-merger-blend")
-//        customMergerRenderActive = true
-//        customMergerRenderDelegate = self
+        let model = Model()
+        super.init(model: model)
     }
     
     public convenience init(blendMode: RenderKit.BlendMode = .average,
@@ -54,6 +66,34 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA?()
         super.inputB = inputB?()
         self.blendMode = blendMode
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        blendMode = model.blendMode
+        bypassTransform = model.bypassTransform
+        position = model.position
+        rotation = model.rotation
+        scale = model.scale
+        size = model.size
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.blendMode = blendMode
+        model.bypassTransform = bypassTransform
+        model.position = position
+        model.rotation = rotation
+        model.scale = scale
+        model.size = size
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs
