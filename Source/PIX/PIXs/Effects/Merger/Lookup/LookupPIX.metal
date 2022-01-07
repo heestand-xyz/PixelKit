@@ -35,10 +35,10 @@ fragment float4 effectMergerLookupPIX(VertexOut out [[stage_in]],
     float a = ca.a;
     float cac = (ca.r + ca.g + ca.b) / 3;
     if (in.holdEdge) {
-        if (cac < in.holdEdgeFraction) {
-            cac = in.holdEdgeFraction;
-        } else if (cac > 1 - in.holdEdgeFraction) {
-            cac = 1 - in.holdEdgeFraction;
+        if (cac < in.holdEdgeFraction * 4) {
+            cac = in.holdEdgeFraction * 4;
+        } else if (cac > 1 - in.holdEdgeFraction * 4) {
+            cac = 1 - in.holdEdgeFraction * 4;
         }
     }
     
