@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class ReorderPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = ReorderPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerReorderPIX" }
     
     // MARK: - Public Properties
@@ -105,8 +112,49 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
         return vals
     }
     
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Reorder", typeName: "pix-effect-merger-reorder")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        redInput = model.redInput
+        greenInput = model.greenInput
+        blueInput = model.blueInput
+        alphaInput = model.alphaInput
+        redChannel = model.redChannel
+        greenChannel = model.greenChannel
+        blueChannel = model.blueChannel
+        alphaChannel = model.alphaChannel
+        premultiply = model.premultiply
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.redInput = redInput
+        model.greenInput = greenInput
+        model.blueInput = blueInput
+        model.alphaInput = alphaInput
+        model.redChannel = redChannel
+        model.greenChannel = greenChannel
+        model.blueChannel = blueChannel
+        model.alphaChannel = alphaChannel
+        model.premultiply = premultiply
+        
+        super.liveUpdateModelDone()
     }
     
 }

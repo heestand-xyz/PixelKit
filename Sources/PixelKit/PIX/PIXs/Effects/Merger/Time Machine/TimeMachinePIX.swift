@@ -11,7 +11,14 @@ import Resolution
 import Metal
 
 final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
-   
+    
+    public typealias Model = TimeMachinePixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerTimeMachinePIX" }
     
     // MARK: - Public Properties
@@ -38,12 +45,26 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Time Machine", typeName: "pix-effect-merger-time-machine")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    func setup() {
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    public override func destroy() {
+        super.destroy()
+        
+        textureCache = []
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         PixelKit.main.render.listenToFrames { [weak self] in
             guard let self = self else { return }
             self.frameLoop()
@@ -51,9 +72,27 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
         }
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        seconds = model.seconds
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.seconds = seconds
+
+        super.liveUpdateModelDone()
+    }
+    
     // MARK: - Frame Loop
     
-    func frameLoop() {
+    private func frameLoop() {
         
         if let firstCachedTexture = textureCache.first {
             if -firstCachedTexture.date.timeIntervalSinceNow > (1.0 / Double(PixelKit.main.render.fps)) {
@@ -75,14 +114,19 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
     // MARK: - Custom Render
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> [MTLTexture] {
-        if let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) {
+        if let textureCopy = try? Texture.copy(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue) {
             textureCache.insert(CachedTexture(texture: textureCopy, date: Date()), at: 0)
         }
         return textureCache.map({$0.texture})
     }
     
-    // FIXME: Dissconnect: Empty array
+    // MARK: - Connection
     
+    public override func didDisconnect() {
+        super.didDisconnect()
+        
+        textureCache = []
+    }
 }
 
 public extension NODEOut {
