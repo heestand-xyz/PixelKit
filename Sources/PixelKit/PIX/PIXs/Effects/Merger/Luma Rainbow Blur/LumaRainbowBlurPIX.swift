@@ -11,16 +11,23 @@ import RenderKit
 import Resolution
 import CoreGraphics
 
-@available(*, deprecated, message: "New PIX Name: LumaRainbowBlurPIX")
+@available(*, deprecated, renamed: "LumaRainbowBlurPIX")
 public typealias RainbowLumaBlurPIX = LumaRainbowBlurPIX
 
 final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
+    
+    public typealias Model = LumaRainbowBlurPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
     
     override public var shaderName: String { return "effectMergerLumaRainbowBlurPIX" }
     
     // MARK: - Public Properties
     
-    public enum RainbowLumaBlurStyle: String, Enumable {
+    public enum Style: String, Enumable {
         case circle
         case angle
         case zoom
@@ -41,7 +48,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
         }
     }
     
-    @LiveEnum("style") public var style: RainbowLumaBlurStyle = .angle
+    @LiveEnum("style") public var style: Style = .angle
     @LiveFloat("radius", increment: 0.125) public var radius: CGFloat = 0.5
     @LiveEnum("quality") public var quality: SampleQualityMode = .high
     @LiveFloat("angle", range: -0.5...0.5) public var angle: CGFloat = 0.0
@@ -65,31 +72,65 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Luma Rainbow Blur", typeName: "pix-effect-merger-luma-rainbow-blur")
-        extend = .hold
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        style = model.style
+        radius = model.radius
+        quality = model.quality
+        angle = model.angle
+        position = model.position
+        light = model.light
+        lumaGamma = model.lumaGamma
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.style = style
+        model.radius = radius
+        model.quality = quality
+        model.angle = angle
+        model.position = position
+        model.light = light
+        model.lumaGamma = lumaGamma
+
+        super.liveUpdateModelDone()
     }
     
 }
 
 public extension NODEOut {
     
-    func pixLumaRainbowBlur(style: LumaRainbowBlurPIX.RainbowLumaBlurStyle = .zoom,
+    func pixLumaRainbowBlur(style: LumaRainbowBlurPIX.Style = .zoom,
                             radius: CGFloat,
                             angle: CGFloat = 0.0,
                             position: CGPoint = .zero,
                             light: CGFloat = 1.0,
-                            quality: PIX.SampleQualityMode = .mid,
+                            quality: PIX.SampleQualityMode = .default,
                             pix: () -> (PIX & NODEOut)) -> LumaRainbowBlurPIX {
         pixLumaRainbowBlur(pix: pix(), style: style, radius: radius, angle: angle, position: position, light: light, quality: quality)
     }
     func pixLumaRainbowBlur(pix: PIX & NODEOut,
-                            style: LumaRainbowBlurPIX.RainbowLumaBlurStyle = .zoom,
+                            style: LumaRainbowBlurPIX.Style = .zoom,
                             radius: CGFloat,
                             angle: CGFloat = 0.0,
                             position: CGPoint = .zero,
                             light: CGFloat = 1.0,
-                            quality: PIX.SampleQualityMode = .mid) -> LumaRainbowBlurPIX {
+                            quality: PIX.SampleQualityMode = .default) -> LumaRainbowBlurPIX {
         let lumaRainbowBlurPix = LumaRainbowBlurPIX()
         lumaRainbowBlurPix.name = ":lumaRainbowBlur:"
         lumaRainbowBlurPix.inputA = self as? PIX & NODEOut

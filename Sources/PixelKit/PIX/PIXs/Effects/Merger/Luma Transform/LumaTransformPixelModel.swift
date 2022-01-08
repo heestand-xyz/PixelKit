@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct LumaBlurPixelModel: PixelMergerEffectModel {
+public struct LumaTransformPixelModel: PixelMergerEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Luma Blur"
-    public var typeName: String = "pix-effect-merger-luma-blur"
+    public var name: String = "Luma Transform"
+    public var typeName: String = "pix-effect-merger-luma-transform"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -22,28 +22,26 @@ public struct LumaBlurPixelModel: PixelMergerEffectModel {
 
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear
-    public var extend: ExtendMode = .hold
+    public var extend: ExtendMode = .zero
     
     public var placement: Placement = .fit
     
     // MARK: Local
     
-    public var style: LumaBlurPIX.Style = .box
-    public var radius: CGFloat = 0.5
-    public var quality: PIX.SampleQualityMode = .default
-    public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
+    public var rotation: CGFloat = 0.0
+    public var scale: CGFloat = 1.0
+    public var size: CGSize = CGSize(width: 1.0, height: 1.0)
     public var lumaGamma: CGFloat = 1.0
 }
 
-extension LumaBlurPixelModel {
+extension LumaTransformPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case style
-        case radius
-        case quality
-        case angle
         case position
+        case rotation
+        case scale
+        case size
         case lumaGamma
     }
     
@@ -59,21 +57,18 @@ extension LumaBlurPixelModel {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 
                 switch codingKey {
-                case .style:
-                    guard let live = liveWrap as? LiveEnum<LumaBlurPIX.Style> else { continue }
-                    style = live.wrappedValue
-                case .radius:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    radius = live.wrappedValue
-                case .quality:
-                    guard let live = liveWrap as? LiveEnum<PIX.SampleQualityMode> else { continue }
-                    quality = live.wrappedValue
-                case .angle:
-                    guard let live = liveWrap as? LiveFloat else { continue }
-                    angle = live.wrappedValue
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }
                     position = live.wrappedValue
+                case .rotation:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    rotation = live.wrappedValue
+                case .scale:
+                    guard let live = liveWrap as? LiveFloat else { continue }
+                    scale = live.wrappedValue
+                case .size:
+                    guard let live = liveWrap as? LiveSize else { continue }
+                    size = live.wrappedValue
                 case .lumaGamma:
                     guard let live = liveWrap as? LiveFloat else { continue }
                     lumaGamma = live.wrappedValue
@@ -82,11 +77,10 @@ extension LumaBlurPixelModel {
             return
         }
         
-        style = try container.decode(LumaBlurPIX.Style.self, forKey: .style)
-        radius = try container.decode(CGFloat.self, forKey: .radius)
-        quality = try container.decode(PIX.SampleQualityMode.self, forKey: .quality)
-        angle = try container.decode(CGFloat.self, forKey: .angle)
         position = try container.decode(CGPoint.self, forKey: .position)
+        rotation = try container.decode(CGFloat.self, forKey: .rotation)
+        scale = try container.decode(CGFloat.self, forKey: .scale)
+        size = try container.decode(CGSize.self, forKey: .size)
         lumaGamma = try container.decode(CGFloat.self, forKey: .lumaGamma)
     }
 }

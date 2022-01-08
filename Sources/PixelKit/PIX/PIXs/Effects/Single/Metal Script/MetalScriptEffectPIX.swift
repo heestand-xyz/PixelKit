@@ -152,7 +152,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     public var metalCode: String? {
         metalConsole = nil
         do {
-            return try pixelKit.render.embedMetalColorCode(uniforms: metalUniforms,
+            return try PixelKit.main.render.embedMetalColorCode(uniforms: metalUniforms,
                                                            whiteCode: colorStyle == .white ? whiteScript : "0.0",
                                                            redCode: colorStyle == .color ? redScript : "0.0",
                                                            greenCode: colorStyle == .color ? greenScript : "0.0",
@@ -160,7 +160,7 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
                                                            alphaCode: alphaScript,
                                                            metalBaseCode: metalBaseCode)
         } catch {
-            pixelKit.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
+            PixelKit.main.logger.log(node: self, .error, .metal, "Metal code could not be generated.", e: error)
             return nil
         }
     }
@@ -257,27 +257,27 @@ final public class MetalScriptEffectPIX: PIXSingleEffect, NODEMetalScript, PIXVi
     func bakeFrag() {
         metalConsole = nil
         do {
-            let frag = try pixelKit.render.makeMetalFrag(shaderName, from: self)
+            let frag = try PixelKit.main.render.makeMetalFrag(shaderName, from: self)
             try makePipeline(with: frag)
         } catch {
             switch error {
             case Render.ShaderError.metalError(let codeError, let errorFrag):
-                pixelKit.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
+                PixelKit.main.logger.log(node: self, .error, nil, "Metal code failed.", e: codeError)
                 metalConsole = codeError.localizedDescription
                 consoleCallback?(metalConsole!)
                 do {
                     try makePipeline(with: errorFrag)
                 } catch {
-                    pixelKit.logger.log(node: self, .fatal, nil, "Metal fail failed.", e: error)
+                    PixelKit.main.logger.log(node: self, .fatal, nil, "Metal fail failed.", e: error)
                 }
             default:
-                pixelKit.logger.log(node: self, .fatal, nil, "Metal bake failed.", e: error)
+                PixelKit.main.logger.log(node: self, .fatal, nil, "Metal bake failed.", e: error)
             }
         }
     }
     
     func makePipeline(with frag: MTLFunction) throws {
-        pipeline = try pixelKit.render.makeShaderPipeline(frag, with: nil)
+        pipeline = try PixelKit.main.render.makeShaderPipeline(frag, with: nil)
         render()
     }
     

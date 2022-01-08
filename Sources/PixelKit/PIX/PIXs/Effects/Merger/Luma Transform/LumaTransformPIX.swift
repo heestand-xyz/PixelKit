@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     
+    public typealias Model = LumaTransformPixelModel
+    
+    private var model: Model {
+        get { mergerEffectModel as! Model }
+        set { mergerEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMergerLumaTransformPIX" }
     
     // MARK: - Public Properties
@@ -35,8 +42,39 @@ final public class LumaTransformPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Luma Transform", typeName: "pix-effect-merger-luma-transform")
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        position = model.position
+        rotation = model.rotation
+        scale = model.scale
+        size = model.size
+        lumaGamma = model.lumaGamma
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.position = position
+        model.rotation = rotation
+        model.scale = scale
+        model.size = size
+        model.lumaGamma = lumaGamma
+
+        super.liveUpdateModelDone()
     }
     
 }

@@ -28,7 +28,7 @@ public struct BlurPixelModel: PixelSingleEffectModel {
     
     public var style: BlurPIX.BlurStyle = .default
     public var radius: CGFloat = 0.5
-    public var quality: PIX.SampleQualityMode = .mid
+    public var quality: PIX.SampleQualityMode = .default
     public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
 }

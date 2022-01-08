@@ -28,7 +28,7 @@ public struct RainbowBlurPixelModel: PixelSingleEffectModel {
     
     public var style: RainbowBlurPIX.Style = .zoom
     public var radius: CGFloat = 0.5
-    public var quality: PIX.SampleQualityMode = .high
+    public var quality: PIX.SampleQualityMode = .default
     public var angle: CGFloat = 0.0
     public var position: CGPoint = .zero
     public var light: CGFloat = 1.0

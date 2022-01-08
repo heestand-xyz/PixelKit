@@ -207,10 +207,10 @@ extension LumaBlurPIX: CustomRenderDelegate {
 
 public extension NODEOut {
     
-    func pixLumaBlur(radius: CGFloat, quality: PIX.SampleQualityMode = .mid, pix: () -> (PIX & NODEOut)) -> LumaBlurPIX {
+    func pixLumaBlur(radius: CGFloat, quality: PIX.SampleQualityMode = .default, pix: () -> (PIX & NODEOut)) -> LumaBlurPIX {
         pixLumaBlur(pix: pix(), radius: radius, quality: quality)
     }
-    func pixLumaBlur(pix: PIX & NODEOut, radius: CGFloat, quality: PIX.SampleQualityMode = .mid) -> LumaBlurPIX {
+    func pixLumaBlur(pix: PIX & NODEOut, radius: CGFloat, quality: PIX.SampleQualityMode = .default) -> LumaBlurPIX {
         let lumaBlurPix = LumaBlurPIX()
         lumaBlurPix.name = ":lumaBlur:"
         lumaBlurPix.inputA = self as? PIX & NODEOut
@@ -220,7 +220,7 @@ public extension NODEOut {
         return lumaBlurPix
     }
     
-    func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5, offset: CGFloat = 0.0, scale: CGFloat = 1.0, quality: PIX.SampleQualityMode = .high) -> LumaBlurPIX {
+    func pixTiltShift(radius: CGFloat = 0.5, gamma: CGFloat = 0.5, offset: CGFloat = 0.0, scale: CGFloat = 1.0, quality: PIX.SampleQualityMode = .default) -> LumaBlurPIX {
         let pix = self as! PIX & NODEOut
         let gradientPix = GradientPIX(at: pix.finalResolution)
         gradientPix.name = "tiltShift:gradient"
