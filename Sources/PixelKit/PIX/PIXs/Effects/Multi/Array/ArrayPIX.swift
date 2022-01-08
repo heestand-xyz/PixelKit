@@ -26,6 +26,13 @@ public struct Coordinate: Codable {
 
 final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
+    public typealias Model = ArrayPixelModel
+    
+    private var model: Model {
+        get { multiEffectModel as! Model }
+        set { multiEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMultiArrayPIX" }
     
     override public var shaderNeedsResolution: Bool { return true }
@@ -33,8 +40,12 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     // MARK: - Public Properties
     
     @LiveEnum("blendMode") public var blendMode: BlendMode = .add
-    public var coordinates: [Coordinate] = []
     @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
+
+    public var coordinates: [Coordinate] {
+        get { model.coordinates }
+        set { model.coordinates = newValue }
+    }
     
     // MARK: - Property Helpers
     
@@ -70,30 +81,37 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
         })
     }
     
-    // MARK - Life Cycle
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
+    }
     
     public required init() {
-        super.init(name: "Array", typeName: "pix-effect-multi-array")
+        let model = Model()
+        super.init(model: model)
         buildGrid(xCount: 5, yCount: 5)
     }
     
-    // MARK: Codable
+    // MARK: - Live Model
     
-//    enum CodingKeys: CodingKey {
-//        case coordinates
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        coordinates = (try? container.decode([Coordinate].self, forKey: .coordinates)) ?? []
-//        try super.init(from: decoder)
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(coordinates, forKey: .coordinates)
-//        try super.encode(to: encoder)
-//    }
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        blendMode = model.blendMode
+        backgroundColor = model.backgroundColor
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.blendMode = blendMode
+        model.backgroundColor = backgroundColor
+
+        super.liveUpdateModelDone()
+    }
     
     // MARK - Builders
     
