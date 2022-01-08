@@ -15,11 +15,13 @@ public struct Coordinate: Codable {
     public var position: CGPoint
     public var scale: CGFloat
     public var rotation: CGFloat
+    public var opacity: CGFloat
     public var textureIndex: Int
-    public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, textureIndex: Int = 0) {
+    public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, opacity: CGFloat = 1.0, textureIndex: Int = 0) {
         self.position = position
         self.scale = scale
         self.rotation = rotation
+        self.opacity = opacity
         self.textureIndex = textureIndex
     }
 }
@@ -33,6 +35,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     // MARK: - Public Properties
     
     @LiveEnum("blendMode") public var blendMode: BlendMode = .add
+    /// Call `render()` after updating coordinates.
     public var coordinates: [Coordinate] = []
     @LiveColor("backgroundColor") public var backgroundColor: PixelColor = .black
     
@@ -48,6 +51,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
             values.append(coordinate.position)
             values.append(coordinate.rotation)
             values.append(coordinate.scale)
+            values.append(coordinate.opacity)
             values.append(coordinate.textureIndex)
         }
         return values
@@ -65,18 +69,18 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
             uniforms.append(contentsOf: [coordinate.position.x, coordinate.position.y])
             uniforms.append(coordinate.scale)
             uniforms.append(coordinate.rotation)
+            uniforms.append(coordinate.opacity)
             uniforms.append(CGFloat(coordinate.textureIndex))
             return uniforms
         })
     }
     
-    public override var uniformArrayLength: Int? { 5 }
+    public override var uniformArrayLength: Int? { 6 }
     
     // MARK - Life Cycle
     
     public required init() {
         super.init(name: "Array", typeName: "pix-effect-multi-array")
-        buildGrid(xCount: 5, yCount: 5)
     }
     
     // MARK: Codable
