@@ -123,7 +123,7 @@ final public class MetalMergerEffectPIX: PIXMergerEffect, NODEMetalCode, PIXView
     // MARK: - Property Helpers
     
     override public var values: [Floatable] {
-        return metalUniforms.map({ uniform -> CGFloat in return uniform.value })
+        metalUniforms.map(\.value)
     }
     
     // MARK: - Life Cycle -

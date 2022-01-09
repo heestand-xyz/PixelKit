@@ -1,5 +1,5 @@
 //
-//  Created by Anton Heestand on 2022-01-06.
+//  Created by Anton Heestand on 2022-01-08.
 //
 
 import Foundation
@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct MetalScriptEffectPixelModel: PixelSingleEffectModel {
+public struct MetalScriptMultiEffectPixelModel: PixelMultiEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Metal Script (1FX)"
-    public var typeName: String = "pix-effect-single-metal-script"
+    public var name: String = "Metal Script (NFX)"
+    public var typeName: String = "pix-effect-multi-metal-script"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -26,16 +26,16 @@ public struct MetalScriptEffectPixelModel: PixelSingleEffectModel {
     
     // MARK: Local
     
-    public var colorStyle: MetalScriptEffectPIX.ColorStyle = .color
+    public var colorStyle: MetalScriptMultiEffectPIX.ColorStyle = .color
     public var metalUniforms: [MetalUniform] = []
-    public var whiteScript: String = "white"
-    public var redScript: String = "red"
-    public var greenScript: String = "green"
-    public var blueScript: String = "blue"
-    public var alphaScript: String = "alpha"
+    public var whiteScript: String = "texs.sample(s, uv, 0).r"
+    public var redScript: String = "texs.sample(s, uv, 0).r"
+    public var greenScript: String = "texs.sample(s, uv, 0).g"
+    public var blueScript: String = "texs.sample(s, uv, 0).b"
+    public var alphaScript: String = "texs.sample(s, uv, 0).a"
 }
 
-extension MetalScriptEffectPixelModel {
+extension MetalScriptMultiEffectPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case colorStyle
@@ -49,8 +49,8 @@ extension MetalScriptEffectPixelModel {
     
     public init(from decoder: Decoder) throws {
         
-        self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
-
+        self = try PixelMultiEffectModelDecoder.decode(from: decoder, model: self) as! Self
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
@@ -67,7 +67,7 @@ extension MetalScriptEffectPixelModel {
                 
                 switch codingKey {
                 case .colorStyle:
-                    guard let live = liveWrap as? LiveEnum<MetalScriptEffectPIX.ColorStyle> else { continue }
+                    guard let live = liveWrap as? LiveEnum<MetalScriptMultiEffectPIX.ColorStyle> else { continue }
                     colorStyle = live.wrappedValue
                 default:
                     continue
@@ -76,6 +76,6 @@ extension MetalScriptEffectPixelModel {
             return
         }
         
-        colorStyle = try container.decode(MetalScriptEffectPIX.ColorStyle.self, forKey: .colorStyle)
+        colorStyle = try container.decode(MetalScriptMultiEffectPIX.ColorStyle.self, forKey: .colorStyle)
     }
 }

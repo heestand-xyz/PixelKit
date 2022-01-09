@@ -116,7 +116,7 @@ final public class MetalEffectPIX: PIXSingleEffect, NODEMetalCode, PIXViewable {
     // MARK: - Property Helpers
     
     override public var values: [Floatable] {
-        metalUniforms.map({ uniform -> CGFloat in uniform.value })
+        metalUniforms.map(\.value)
     }
     
     // MARK: - Life Cycle -

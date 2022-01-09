@@ -186,7 +186,7 @@ final public class MetalScriptMergerEffectPIX: PIXMergerEffect, NODEMetalScript,
     }
     
     override public var values: [Floatable] {
-        metalUniforms.map({ uniform -> CGFloat in uniform.value })
+        metalUniforms.map(\.value)
     }
     
     public override var extraUniforms: [CGFloat] {

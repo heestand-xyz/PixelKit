@@ -10,6 +10,13 @@ import PixelColor
 
 final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
+    public typealias Model = StackPixelModel
+    
+    private var model: Model {
+        get { multiEffectModel as! Model }
+        set { multiEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMultiStackPIX" }
     
     static let stackCount: Int = 32
@@ -93,9 +100,18 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init(at resolution: Resolution = .auto) {
-        self.resolution = resolution
-        super.init(name: "Stack", typeName: "pix-effect-multi-stack")
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+    }
+    
+    public init(at resolution: Resolution) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
     #if swift(>=5.5)
@@ -114,8 +130,32 @@ final public class StackPIX: PIXMultiEffect, NODEResolution, PIXViewable {
     }
     #endif
     
-    public required convenience init() {
-        self.init(at: .auto)
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        axis = model.axis
+        alignment = model.alignment
+        spacing = model.spacing
+        padding = model.padding
+        backgroundColor = model.backgroundColor
+        
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.axis = axis
+        model.alignment = alignment
+        model.spacing = spacing
+        model.padding = padding
+        model.backgroundColor = backgroundColor
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Property Funcs

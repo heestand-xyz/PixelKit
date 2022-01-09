@@ -13,6 +13,13 @@ import CoreGraphics
 
 final public class BlendsPIX: PIXMultiEffect, PIXViewable {
     
+    public typealias Model = BlendsPixelModel
+    
+    private var model: Model {
+        get { multiEffectModel as! Model }
+        set { multiEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "effectMultiBlendsPIX" }
     
     // MARK: - Public Properties
@@ -26,13 +33,18 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable {
     }
     
     public override var uniforms: [CGFloat] {
-        return [CGFloat(blendMode.index)]
+        [CGFloat(blendMode.index)]
     }
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+    }
+    
     public required init() {
-        super.init(name: "Blends", typeName: "pix-effect-multi-blends")
+        let model = Model()
+        super.init(model: model)
     }
     
     #if swift(>=5.5)
@@ -43,6 +55,24 @@ final public class BlendsPIX: PIXMultiEffect, PIXViewable {
         super.inputs = inputs()
     }
     #endif
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        blendMode = model.blendMode
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.blendMode = blendMode
+
+        super.liveUpdateModelDone()
+    }
     
 }
 

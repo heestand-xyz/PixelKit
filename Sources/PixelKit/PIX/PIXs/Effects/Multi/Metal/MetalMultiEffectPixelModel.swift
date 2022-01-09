@@ -1,5 +1,5 @@
 //
-//  Created by Anton Heestand on 2022-01-06.
+//  Created by Anton Heestand on 2022-01-08.
 //
 
 import Foundation
@@ -8,13 +8,13 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct MetalEffectPixelModel: PixelSingleEffectModel {
+public struct MetalMultiEffectPixelModel: PixelMultiEffectModel {
     
     // MARK: Global
     
     public var id: UUID = UUID()
-    public var name: String = "Metal (1FX)"
-    public var typeName: String = "pix-effect-single-metal"
+    public var name: String = "Metal (NFX)"
+    public var typeName: String = "pix-effect-multi-metal"
     public var bypass: Bool = false
     
     public var inputNodeReferences: [NodeReference] = []
@@ -27,10 +27,10 @@ public struct MetalEffectPixelModel: PixelSingleEffectModel {
     // MARK: Local
     
     public var metalUniforms: [MetalUniform] = []
-    public var code: String = "return pix;"
+    public var code: String = "return texs.sample(s, uv, 0);"
 }
 
-extension MetalEffectPixelModel {
+extension MetalMultiEffectPixelModel {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case metalUniforms
@@ -39,7 +39,7 @@ extension MetalEffectPixelModel {
     
     public init(from decoder: Decoder) throws {
         
-        self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
+        self = try PixelMultiEffectModelDecoder.decode(from: decoder, model: self) as! Self
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
