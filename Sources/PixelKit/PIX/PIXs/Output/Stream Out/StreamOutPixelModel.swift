@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-09.
 //
 
+#if os(iOS)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -47,3 +49,5 @@ extension StreamOutPixelModel {
         quality = try container.decode(CGFloat.self, forKey: .quality)
     }
 }
+
+#endif

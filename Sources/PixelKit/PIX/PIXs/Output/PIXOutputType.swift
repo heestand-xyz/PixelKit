@@ -6,6 +6,7 @@ public enum PIXOutputType: String, Codable, CaseIterable, Identifiable {
     case record
     case airPlay
     case streamOut
+//    case syphonOut
     
     public var name: String {
         switch self {
@@ -15,6 +16,8 @@ public enum PIXOutputType: String, Codable, CaseIterable, Identifiable {
             return "AirPlay"
         case .streamOut:
             return "Stream Out"
+//        case .syphonOut:
+//            return "Syphon Out"
         }
     }
     
@@ -36,6 +39,13 @@ public enum PIXOutputType: String, Codable, CaseIterable, Identifiable {
             return AirPlayPIX.self
         case .streamOut:
             return StreamOutPIX.self
+        default:
+            return nil
+//        #elseif os(macOS)
+//        case .syphonOut:
+//            return SyphonOutPIX.self
+//        default:
+//            return nil
         #else
         default:
             return nil

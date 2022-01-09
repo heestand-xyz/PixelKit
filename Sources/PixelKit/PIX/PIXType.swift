@@ -12,6 +12,7 @@ public enum PIXType: Equatable, CaseIterable {
         case generator(PIXGeneratorType)
         case resource(PIXResourceType)
         case sprite(PIXSpriteType)
+        case custom(PIXCustomType)
     }
     case content(ContentType)
     
@@ -36,6 +37,9 @@ public enum PIXType: Equatable, CaseIterable {
         }))
         allCases.append(contentsOf: PIXSpriteType.allCases.map({ type in
             .content(.sprite(type))
+        }))
+        allCases.append(contentsOf: PIXCustomType.allCases.map({ type in
+            .content(.custom(type))
         }))
         allCases.append(contentsOf: PIXSingleEffectType.allCases.map({ type in
             .effect(.single(type))
@@ -64,6 +68,8 @@ public enum PIXType: Equatable, CaseIterable {
                 return "content/resource/\(resource.rawValue)"
             case .sprite(let sprite):
                 return "content/sprite/\(sprite.rawValue)"
+            case .custom(let custom):
+                return "content/custom/\(custom.rawValue)"
             }
         case .effect(let effect):
             switch effect {
@@ -91,6 +97,8 @@ public enum PIXType: Equatable, CaseIterable {
                 return resource.name
             case .sprite(let sprite):
                 return sprite.name
+            case .custom(let custom):
+                return custom.name
             }
         case .effect(let effect):
             switch effect {
@@ -118,6 +126,8 @@ public enum PIXType: Equatable, CaseIterable {
                 return resource.typeName
             case .sprite(let sprite):
                 return sprite.typeName
+            case .custom(let custom):
+                return custom.typeName
             }
         case .effect(let effect):
             switch effect {
@@ -145,6 +155,8 @@ public enum PIXType: Equatable, CaseIterable {
                 return resource.type
             case .sprite(let sprite):
                 return sprite.type
+            case .custom(let custom):
+                return custom.type
             }
         case .effect(let effect):
             switch effect {
@@ -180,6 +192,8 @@ public enum PIXType: Equatable, CaseIterable {
                     return false
                 }
             case .sprite:
+                return true
+            case .custom:
                 return true
             }
         case .effect(let effect):
@@ -239,6 +253,8 @@ public enum PIXType: Equatable, CaseIterable {
                 return pix
             case .sprite(let sprite):
                 return sprite.type.init(at: resolution)
+            case .custom(let custom):
+                return custom.type.init(at: resolution)
             }
         case .effect(let effect):
             switch effect {
@@ -302,6 +318,10 @@ public enum PIXType: Equatable, CaseIterable {
             case .sprite:
                 guard let spritePix = pix as? PIXSprite else { return false }
                 spritePix.resolution = resolution
+                return true
+            case .custom:
+                guard let customPix = pix as? PIXCustom else { return false }
+                customPix.resolution = resolution
                 return true
             }
         case .effect(let effect):
@@ -386,6 +406,11 @@ public enum PIXType: Equatable, CaseIterable {
                 throw CodingError.badRawValue(rawValue)
             }
             self = .content(.sprite(type))
+        case _ where path.starts(with: "content/custom"):
+            guard let type: PIXCustomType = .init(rawValue: rawValue) else {
+                throw CodingError.badRawValue(rawValue)
+            }
+            self = .content(.custom(type))
         case _ where path.starts(with: "effect/single"):
             guard let type: PIXSingleEffectType = .init(rawValue: rawValue) else {
                 throw CodingError.badRawValue(rawValue)

@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2022-01-09.
 //
 
+#if os(iOS)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -31,3 +33,5 @@ extension AirPlayPixelModel {
         self = try PixelOutputModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
+
+#endif

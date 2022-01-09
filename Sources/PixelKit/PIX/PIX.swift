@@ -22,7 +22,7 @@ import PixelColor
 open class PIX: NODE, ObservableObject, Equatable {
     
     private var liveUpdatingModel: Bool = false
-    @Published var pixelModel: PixelModel {
+    @Published public var pixelModel: PixelModel {
         didSet {
             guard !liveUpdatingModel else { return }
             modelUpdated()
@@ -395,98 +395,276 @@ open class PIX: NODE, ObservableObject, Equatable {
         destroyed = true
         view.destroy()
         PixelKit.main.logger.log(.info, .pixelKit, "Destroyed node(name: \(name), typeName: \(typeName), id: \(id))")
-//        #if DEBUG
-//        if PixelKit.main.logger.level == .debug {
-//            var pix: PIX = self
-//            // TODO: - Test
-//            if !isKnownUniquelyReferenced(&pix) { // leak?
-//                fatalError("pix not released")
-//            }
-//        }
-//        #endif
     }
     
-    // MARK: - Codable
+    // MARK: Codable
     
-//    enum PIXCodingKeys: CodingKey {
-//        case id
-//        case name
-//        case typeName
-//        case bypass
-//        case viewInterpolation
-//        case interpolation
-//        case extend
-//        case mipmap
-//        case compare
-//        case liveList
-//    }
-//    
-//    enum LiveTypeCodingKey: CodingKey {
-//        case type
-//    }
-//
-//    private struct EmptyDecodable: Decodable {}
-//
-//    public required init(from decoder: Decoder) throws {
-//
-//        let container = try decoder.container(keyedBy: PIXCodingKeys.self)
-//
-//        id = try container.decode(UUID.self, forKey: .id)
-//        name = try container.decode(String.self, forKey: .name)
-//        typeName = try container.decode(String.self, forKey: .typeName)
-//        bypass = try container.decode(Bool.self, forKey: .bypass)
-//        viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
-//        interpolation = try container.decode(PixelInterpolation.self, forKey: .interpolation)
-//        extend = try container.decode(ExtendMode.self, forKey: .extend)
-//        mipmap = MTLSamplerMipFilter(rawValue: try container.decode(UInt.self, forKey: .mipmap))!
-//        compare = MTLCompareFunction(rawValue: try container.decode(UInt.self, forKey: .compare))!
-//
-//        if Thread.isMainThread {
-//            setupPIX()
-//        } else {
-//            let group = DispatchGroup()
-//            group.enter()
-//            DispatchQueue.main.async { [weak self] in
-//                self?.setupPIX()
-//                group.leave()
-//            }
-//            group.wait()
-//        }
-//
-//        var liveCodables: [LiveCodable] = []
-//        var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
-//        var liveListContainerMain = liveListContainer
-//        while(!liveListContainer.isAtEnd) {
-//            let liveTypeContainer = try liveListContainer.nestedContainer(keyedBy: LiveTypeCodingKey.self)
-//            guard let liveType: LiveType = try? liveTypeContainer.decode(LiveType.self, forKey: .type) else {
-//                _ = try? liveListContainerMain.decode(EmptyDecodable.self)
-//                continue
-//            }
-//            let liveCodable: LiveCodable = try liveListContainerMain.decode(liveType.liveCodableType)
-//            liveCodables.append(liveCodable)
-//        }
-//        for liveCodable in liveCodables {
-//            guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
-//            liveWrap.setLiveCodable(liveCodable)
-//        }
-//
-//        render()
-//
-//    }
-//
-//    open func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: PIXCodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(name, forKey: .name)
-//        try container.encode(typeName, forKey: .typeName)
-//        try container.encode(bypass, forKey: .bypass)
-//        try container.encode(viewInterpolation, forKey: .viewInterpolation)
-//        try container.encode(interpolation, forKey: .interpolation)
-//        try container.encode(extend, forKey: .extend)
-//        try container.encode(mipmap.rawValue, forKey: .mipmap)
-//        try container.encode(compare.rawValue, forKey: .compare)
-//        try container.encode(liveList.map({ $0.getLiveCodable() }), forKey: .liveList)
-//    }
+    enum EncodeError: Error {
+        case typeNameUnknown(String)
+        case badOS
+    }
+    
+    public func encodePixelModel() throws -> Data {
+
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        
+        for type in PIXCustomType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .scene:
+                return try encoder.encode(pixelModel as! ScenePixelModel)
+            }
+        }
+
+        for type in PIXGeneratorType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .arc:
+                return try encoder.encode(pixelModel as! ArcPixelModel)
+            case .circle:
+                return try encoder.encode(pixelModel as! CirclePixelModel)
+            case .color:
+                return try encoder.encode(pixelModel as! ColorPixelModel)
+            case .gradient:
+                return try encoder.encode(pixelModel as! GradientPixelModel)
+            case .line:
+                return try encoder.encode(pixelModel as! LinePixelModel)
+            case .metal:
+                return try encoder.encode(pixelModel as! MetalPixelModel)
+            case .metalScript:
+                return try encoder.encode(pixelModel as! MetalScriptPixelModel)
+            case .noise:
+                return try encoder.encode(pixelModel as! NoisePixelModel)
+            case .polygon:
+                return try encoder.encode(pixelModel as! PolygonPixelModel)
+            case .rectangle:
+                return try encoder.encode(pixelModel as! RectanglePixelModel)
+            case .star:
+                return try encoder.encode(pixelModel as! StarPixelModel)
+            }
+        }
+        
+        for type in PIXResourceType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .camera:
+                return try encoder.encode(pixelModel as! CameraPixelModel)
+            case .image:
+                return try encoder.encode(pixelModel as! ImagePixelModel)
+            case .vector:
+                return try encoder.encode(pixelModel as! VectorPixelModel)
+            case .video:
+                return try encoder.encode(pixelModel as! VideoPixelModel)
+            case .view:
+                return try encoder.encode(pixelModel as! ViewPixelModel)
+            case .web:
+                return try encoder.encode(pixelModel as! WebPixelModel)
+            case .screenCapture:
+                return try encoder.encode(pixelModel as! ScreenCapturePixelModel)
+            case .depthCamera:
+                #if os(iOS) && !targetEnvironment(macCatalyst)
+                return try encoder.encode(pixelModel as! DepthCameraPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            case .multiCamera:
+                #if os(iOS) && !targetEnvironment(macCatalyst)
+                return try encoder.encode(pixelModel as! MultiCameraPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            case .paint:
+                #if os(iOS) && !targetEnvironment(macCatalyst) && !targetEnvironment(simulator)
+                return try encoder.encode(pixelModel as! PaintPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            case .streamIn:
+                #if os(iOS)
+                return try encoder.encode(pixelModel as! StreamInPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            case .maps:
+                return try encoder.encode(pixelModel as! EarthPixelModel)
+            }
+        }
+        
+        for type in PIXSpriteType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .text:
+                return try encoder.encode(pixelModel as! TextPixelModel)
+            }
+        }
+        
+        for type in PIXSingleEffectType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .average:
+                return try encoder.encode(pixelModel as! AveragePixelModel)
+            case .blur:
+                return try encoder.encode(pixelModel as! BlurPixelModel)
+            case .cache:
+                return try encoder.encode(pixelModel as! CachePixelModel)
+            case .channelMix:
+                return try encoder.encode(pixelModel as! ChannelMixPixelModel)
+            case .chromaKey:
+                return try encoder.encode(pixelModel as! ChromaKeyPixelModel)
+            case .clamp:
+                return try encoder.encode(pixelModel as! ClampPixelModel)
+            case .colorConvert:
+                return try encoder.encode(pixelModel as! ColorConvertPixelModel)
+            case .colorCorrect:
+                return try encoder.encode(pixelModel as! ColorCorrectPixelModel)
+            case .colorShift:
+                return try encoder.encode(pixelModel as! ColorShiftPixelModel)
+            case .convert:
+                return try encoder.encode(pixelModel as! ConvertPixelModel)
+            case .cornerPin:
+                return try encoder.encode(pixelModel as! CornerPinPixelModel)
+            case .crop:
+                return try encoder.encode(pixelModel as! CropPixelModel)
+            case .delay:
+                return try encoder.encode(pixelModel as! DelayPixelModel)
+            case .distance:
+                return try encoder.encode(pixelModel as! DistancePixelModel)
+            case .edge:
+                return try encoder.encode(pixelModel as! EdgePixelModel)
+            case .feedback:
+                return try encoder.encode(pixelModel as! FeedbackPixelModel)
+            case .flare:
+                return try encoder.encode(pixelModel as! FlarePixelModel)
+            case .flipFlop:
+                return try encoder.encode(pixelModel as! FlipFlopPixelModel)
+            case .freeze:
+                return try encoder.encode(pixelModel as! FreezePixelModel)
+            case .equalize:
+                return try encoder.encode(pixelModel as! EqualizePixelModel)
+            case .kaleidoscope:
+                return try encoder.encode(pixelModel as! KaleidoscopePixelModel)
+            case .levels:
+                return try encoder.encode(pixelModel as! LevelsPixelModel)
+            case .metalEffect:
+                return try encoder.encode(pixelModel as! MetalEffectPixelModel)
+            case .metalScriptEffect:
+                return try encoder.encode(pixelModel as! MetalScriptEffectPixelModel)
+            case .morph:
+                return try encoder.encode(pixelModel as! MorphPixelModel)
+            case .nil:
+                return try encoder.encode(pixelModel as! NilPixelModel)
+            case .quantize:
+                return try encoder.encode(pixelModel as! QuantizePixelModel)
+            case .rainbowBlur:
+                return try encoder.encode(pixelModel as! RainbowBlurPixelModel)
+            case .range:
+                return try encoder.encode(pixelModel as! RangePixelModel)
+            case .reduce:
+                return try encoder.encode(pixelModel as! ReducePixelModel)
+            case .resolution:
+                return try encoder.encode(pixelModel as! ResolutionPixelModel)
+            case .saliency:
+                return try encoder.encode(pixelModel as! SaliencyPixelModel)
+            case .sepia:
+                return try encoder.encode(pixelModel as! SepiaPixelModel)
+            case .sharpen:
+                return try encoder.encode(pixelModel as! SharpenPixelModel)
+            case .slice:
+                return try encoder.encode(pixelModel as! SlicePixelModel)
+            case .slope:
+                return try encoder.encode(pixelModel as! SlopePixelModel)
+            case .threshold:
+                return try encoder.encode(pixelModel as! ThresholdPixelModel)
+            case .tint:
+                return try encoder.encode(pixelModel as! TintPixelModel)
+            case .transform:
+                return try encoder.encode(pixelModel as! TransformPixelModel)
+            case .twirl:
+                return try encoder.encode(pixelModel as! TwirlPixelModel)
+            case .opticalFlow:
+                return try encoder.encode(pixelModel as! OpticalFlowPixelModel)
+            case .filter:
+                return try encoder.encode(pixelModel as! FilterPixelModel)
+            case .warp:
+                return try encoder.encode(pixelModel as! WarpPixelModel)
+            case .pixelate:
+                return try encoder.encode(pixelModel as! PixelatePixelModel)
+            }
+        }
+        
+        for type in PIXMergerEffectType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .blend:
+                return try encoder.encode(pixelModel as! BlendPixelModel)
+            case .cross:
+                return try encoder.encode(pixelModel as! CrossPixelModel)
+            case .displace:
+                return try encoder.encode(pixelModel as! DisplacePixelModel)
+            case .lookup:
+                return try encoder.encode(pixelModel as! LookupPixelModel)
+            case .lumaBlur:
+                return try encoder.encode(pixelModel as! LumaBlurPixelModel)
+            case .lumaColorShift:
+                return try encoder.encode(pixelModel as! LumaColorShiftPixelModel)
+            case .lumaLevels:
+                return try encoder.encode(pixelModel as! LumaLevelsPixelModel)
+            case .lumaRainbowBlur:
+                return try encoder.encode(pixelModel as! LumaRainbowBlurPixelModel)
+            case .lumaTransform:
+                return try encoder.encode(pixelModel as! LumaTransformPixelModel)
+            case .metalMergerEffect:
+                return try encoder.encode(pixelModel as! MetalMergerEffectPixelModel)
+            case .metalScriptMergerEffect:
+                return try encoder.encode(pixelModel as! MetalScriptMergerEffectPixelModel)
+            case .remap:
+                return try encoder.encode(pixelModel as! RemapPixelModel)
+            case .reorder:
+                return try encoder.encode(pixelModel as! ReorderPixelModel)
+            case .timeMachine:
+                return try encoder.encode(pixelModel as! TimeMachinePixelModel)
+            }
+        }
+        
+        for type in PIXMultiEffectType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .array:
+                return try encoder.encode(pixelModel as! ArrayPixelModel)
+            case .blends:
+                return try encoder.encode(pixelModel as! BlendsPixelModel)
+            case .metalMultiEffect:
+                return try encoder.encode(pixelModel as! MetalMultiEffectPixelModel)
+            case .metalScriptMultiEffect:
+                return try encoder.encode(pixelModel as! MetalScriptMultiEffectPixelModel)
+            case .stack:
+                return try encoder.encode(pixelModel as! StackPixelModel)
+            }
+        }
+        
+        for type in PIXOutputType.allCases {
+            guard type.typeName == typeName else { continue }
+            switch type {
+            case .record:
+                return try encoder.encode(pixelModel as! RecordPixelModel)
+            case .airPlay:
+                #if os(iOS)
+                return try encoder.encode(pixelModel as! AirPlayPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            case .streamOut:
+                #if os(iOS)
+                return try encoder.encode(pixelModel as! StreamOutPixelModel)
+                #else
+                throw EncodeError.badOS
+                #endif
+            }
+        }
+
+        throw EncodeError.typeNameUnknown(typeName)
+    }
     
 }
 
