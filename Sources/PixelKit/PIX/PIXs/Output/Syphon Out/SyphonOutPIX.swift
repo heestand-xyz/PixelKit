@@ -14,26 +14,42 @@ import Resolution
 import PixelKit
 
 final public class SyphonOutPIX: PIXOutput, PIXViewable {
-
+    
+    public typealias Model = SyphonOutPixelModel
+    
+    private var model: Model {
+        get { outputModel as! Model }
+        set { outputModel = newValue }
+    }
+    
     var context: NSOpenGLContext!
     var surface: IOSurfaceRef!
     var server: SyphonServer!
         
     // MARK: - Life Cycle -
-
-    override public init() {
-        super.init(name: "Syphon Out", typeName: "pix-output-syphon-out")
+    
+    public init(model: Model) {
+        super.init(model: model)
         setup()
-        if PixelKit.main.render.bits != ._8 {
-            PixelKit.main.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
-        }
+    }
+    
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
     }
     
     deinit {
         server.stop()
     }
+    
+    // MARK: - Setup
 
-    func setup() {
+    private func setup() {
+        if PixelKit.main.render.bits != ._8 {
+            PixelKit.main.logger.log(.warning, .connection, "Syphon is only supported in 8 bit mode.")
+            return
+        }
         let glPFAttributes: [NSOpenGLPixelFormatAttribute] = [
             UInt32(NSOpenGLPFAAccelerated),
             UInt32(NSOpenGLPFADoubleBuffer),
@@ -52,6 +68,20 @@ final public class SyphonOutPIX: PIXOutput, PIXViewable {
             PixelKit.main.logger.log(.error, .connection, "Syphon server init failed.")
         }
     }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Render
     
     public override func render() {
         super.render()

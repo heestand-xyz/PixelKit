@@ -16,34 +16,54 @@ import AVKit
 @available(tvOS 11, *)
 final public class RecordPIX: PIXOutput, PIXViewable {
     
+    public typealias Model = RecordPixelModel
+    
+    private var model: Model {
+        get { outputModel as! Model }
+        set { outputModel = newValue }
+    }
+    
     // MARK: - Private Properties
     
-    var paused: Bool = false
-    var frameIndex: Int = 0
-    var startDate: Date?
-    var lastFrameDate: Date?
-    var writer: AVAssetWriter?
-    var writerVideoInput: AVAssetWriterInput?
-    var writerAdoptor: AVAssetWriterInputPixelBufferAdaptor?
-    var currentImage: CGImage?
-    var exportUrl: URL?
+    private var paused: Bool = false
+    private var frameIndex: Int = 0
+    private var startDate: Date?
+    private var lastFrameDate: Date?
+    private var writer: AVAssetWriter?
+    private var writerVideoInput: AVAssetWriterInput?
+    private var writerAdoptor: AVAssetWriterInputPixelBufferAdaptor?
+    private var currentImage: CGImage?
+    private var exportUrl: URL?
     
     #if !os(tvOS)
-    var audioRecHelper: AudioRecHelper?
+    private var audioRecHelper: AudioRecHelper?
     #endif
-    var audioStartTime: CMTime?
-    var pausedDate: Date?
-    var pausedDuration: Double = 0.0
+    private var audioStartTime: CMTime?
+    private var pausedDate: Date?
+    private var pausedDuration: Double = 0.0
 
     // MARK: - Public Properties
     
-    public var recording: Bool = false
-    public var fps: Int = 30
-    public var timeSync: Bool = true
-    public var realtime: Bool = true
-    public var directMode: Bool = true
+    public private(set) var recording: Bool = false
     
-    public enum Quality {
+    public var fps: Int {
+        get { model.fps }
+        set { model.fps = newValue }
+    }
+    public var timeSync: Bool {
+        get { model.timeSync }
+        set { model.timeSync = newValue }
+    }
+    public var realtime: Bool {
+        get { model.realtime }
+        set { model.realtime = newValue }
+    }
+    public var directMode: Bool {
+        get { model.directMode }
+        set { model.directMode = newValue }
+    }
+    
+    public enum Quality: Codable {
         case no
         case bad
         case low
@@ -53,6 +73,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         case fine
         case epic
         case custom(kbps: Int)
+        public static let `default`: Quality = .good
         public var kbps: Int {
             switch self {
             case .no: return 0
@@ -96,7 +117,10 @@ final public class RecordPIX: PIXOutput, PIXViewable {
             }
         }
     }
-    public var quality: Quality = .good
+    public var quality: Quality {
+        get { model.quality }
+        set { model.quality = newValue }
+    }
     
     #if !os(tvOS)
     
@@ -130,9 +154,33 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     
     // MARK: - Life Cycle -
     
+    public init(model: Model) {
+        super.init(model: model)
+        setup()
+    }
+    
     public required init() {
-        super.init(name: "Record", typeName: "pix-output-record")
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         realtimeListen()
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Record

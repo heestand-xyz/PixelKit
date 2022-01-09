@@ -16,6 +16,13 @@ import UIKit
 
 final public class StreamOutPIX: PIXOutput, PIXViewable {
     
+    public typealias Model = StreamOutPixelModel
+    
+    private var model: Model {
+        get { outputModel as! Model }
+        set { outputModel = newValue }
+    }
+    
     enum Connected {
         case disconnected
         case connecting
@@ -32,12 +39,20 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        super.init(name: "Stream Out", typeName: "pix-output-stream-out")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-    func setup() {
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
         guard let viewController: UIViewController = viewController else {
             pixelKit.logger.log(.error, .view, "View Controller Not Found")
             return
@@ -54,10 +69,26 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
         })
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Render
+    
     public override func didRender(renderPack: RenderPack) {
         super.didRender(renderPack: renderPack)
         stream(texture: renderPack.response.texture)
     }
+    
+    // MARK: - Stream
     
     func stream(texture: MTLTexture) {
         guard connected == .connected else { return }
@@ -65,17 +96,10 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
             pixelKit.logger.log(.warning, .resource, "Stream Image Convert Failed.")
             return
         }
-//        let ci_image = CIImage(mtlTexture: texture, options: nil)
-//        let context: CIContext = CIContext.init(options: nil)
-//        let cg_image: CGImage = context.createCGImage(ci_image!, from: ci_image!.extent)!
-//        let size = ci_image!.extent.size
-//        UIGraphicsBeginImageContext(size)
-//        let bitmap = UIGraphicsGetCurrentContext()
-//        bitmap!.draw(cg_image, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
         peer.sendImg(img: image, quality: quality)
     }
+    
+    // MARK: - Connect
     
     public func connect() {
         peer.joinSession()

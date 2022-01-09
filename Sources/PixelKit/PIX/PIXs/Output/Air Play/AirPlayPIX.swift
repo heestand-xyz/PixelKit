@@ -14,9 +14,16 @@ import Resolution
 
 final public class AirPlayPIX: PIXOutput, PIXViewable {
     
+    public typealias Model = AirPlayPixelModel
+    
+    private var model: Model {
+        get { outputModel as! Model }
+        set { outputModel = newValue }
+    }
+    
     // MARK: - Private Properties
     
-    public var isConnected: Bool
+    public var isConnected: Bool = false
     public var connectionCallback: ((Bool) -> ())?
     
     var window: UIWindow?
@@ -24,25 +31,24 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
     
     var tempView: UIView?
     
-    let nilPix: NilPIX
+    let nilPix: NilPIX = NilPIX()
     
     // MARK: - Life Cycle -
     
-    public required init() {
-        isConnected = false
-        nilPix = NilPIX()
-        super.init(name: "AirPlay", typeName: "pix-output-air-play")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
-//    required public init(from decoder: Decoder) throws {
-//        isConnected = false
-//        nilPix = NilPIX()
-//        try super.init(from: decoder)
-//        setup()
-//    }
+    public required init() {
+        let model = Model()
+        super.init(model: model)
+        setup()
+    }
     
-    func setup() {
+    // MARK: - Setup
+    
+    private func setup() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(screenConnect), name: UIScreen.didConnectNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(screenDisconnect), name: UIScreen.didDisconnectNotification, object: nil)
@@ -54,6 +60,20 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         
         check()
     }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
+    
+    // MARK: - Connect
     
     public override func didConnect() {
         super.didConnect()
@@ -75,7 +95,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         removeAirPlayView()
     }
     
-    // MARK:  Methods
+    // MARK: - Methods
     
     func log() {
         let slug = "AirPlay"

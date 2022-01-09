@@ -11,7 +11,12 @@ import Resolution
 import Combine
 
 open class PIXOutput: PIX, NODEOutput, NODEInSingle {
-        
+    
+    var outputModel: PixelOutputModel {
+        get { pixelModel as! PixelOutputModel }
+        set { pixelModel = newValue }
+    }
+    
     public var inputList: [NODE & NODEOut] = []
     public var connectedIn: Bool { return !inputList.isEmpty }
     
@@ -23,15 +28,19 @@ open class PIXOutput: PIX, NODEOutput, NODEInSingle {
     public var renderPublisher: PassthroughSubject<RenderPack, Never> = PassthroughSubject()
     public var cancellableIns: [AnyCancellable] = []
     
-    // MARK: - Public Properties
+    // MARK: - Life Cycle -
     
+    init(model: PixelOutputModel) {
+        super.init(model: model)
+    }
+    
+    @available(*, deprecated)
     public override init(name: String, typeName: String) {
         super.init(name: name, typeName: typeName)
-        inputList = []
     }
     
     public required init() {
-        fatalError("please use init(name:typeName:)")
+        fatalError("please use init(model:)")
     }
     
     open override func destroy() {
