@@ -12,44 +12,46 @@ import Resolution
 
 final public class NilPIX: PIXSingleEffect, PIXViewable {
     
+    public typealias Model = NilPixelModel
+    
+    private var model: Model {
+        get { singleEffectModel as! Model }
+        set { singleEffectModel = newValue }
+    }
+    
     override public var shaderName: String { return "nilPIX" }
     
-    let nilOverrideBits: Bits?
+    var nilOverrideBits: Bits?
     public override var overrideBits: Bits? { nilOverrideBits }
     
-    public required init(name: String = "Nil") {
-        nilOverrideBits = nil
-        super.init(name: name, typeName: "pix-effect-single-nil")
+    // MARK: - Life Cycle -
+    
+    public init(model: Model) {
+        super.init(model: model)
     }
     
     public required init() {
-        nilOverrideBits = nil
-        super.init(name: "Nil", typeName: "pix-effect-single-nil")
+        let model = Model()
+        super.init(model: model)
     }
     
     public init(overrideBits: Bits) {
         nilOverrideBits = overrideBits
-        super.init(name: "Nil (\(overrideBits.rawValue)bit)", typeName: "pix-effect-single-nil")
+        let model = Model()
+        super.init(model: model)
     }
     
-    // MARK: Codable
+    // MARK: - Live Model
     
-//    enum CodingKeys: CodingKey {
-//        case nilOverrideBits
-//    }
-//    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        nilOverrideBits = try container.decode(Bits?.self, forKey: .nilOverrideBits)
-//        try super.init(from: decoder)
-//    }
-//    
-//    public override func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(nilOverrideBits, forKey: .nilOverrideBits)
-//        try super.encode(to: encoder)
-//    }
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        super.modelUpdateLiveDone()
+    }
     
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        super.liveUpdateModelDone()
+    }
 }
 
 public extension NODEOut {

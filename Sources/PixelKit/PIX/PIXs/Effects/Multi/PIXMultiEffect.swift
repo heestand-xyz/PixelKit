@@ -24,11 +24,6 @@ open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti {
         super.init(model: model)
     }
     
-    @available(*, deprecated)
-    public override init(name: String, typeName: String) {
-        super.init(name: name, typeName: typeName)
-    }
-    
     public required init() {
         fatalError("please use init(model:)")
     }

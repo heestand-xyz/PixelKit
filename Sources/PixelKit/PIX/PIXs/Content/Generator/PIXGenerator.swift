@@ -47,13 +47,6 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         setupGenerator()
     }
     
-    @available(*, deprecated)
-    public init(at resolution: Resolution = .auto, name: String, typeName: String) {
-        self.resolution = resolution
-        super.init(name: name, typeName: typeName)
-        setupGenerator()
-    }
-    
     public required init(at resolution: Resolution) {
         fatalError("please use init(model:)")
     }

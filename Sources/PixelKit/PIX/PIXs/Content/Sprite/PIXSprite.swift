@@ -58,13 +58,6 @@ open class PIXSprite: PIXContent, NODEResolution {
         setupSprite()
     }
     
-    @available(*, deprecated)
-    public init(at resolution: Resolution = .auto, name: String, typeName: String) {
-        self.resolution = resolution
-        super.init(name: name, typeName: typeName)
-        setupSprite()
-    }
-    
     public required init(at resolution: Resolution) {
         fatalError("please use init(model:)")
     }

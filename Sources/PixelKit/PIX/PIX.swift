@@ -233,18 +233,8 @@ open class PIX: NODE, ObservableObject, Equatable {
     
     // MARK: - Life Cycle -
     
-    public /*required*/ init(model: PixelModel) {
-        
+    public init(model: PixelModel) {
         pixelModel = model
-        
-        setupPIX()
-    }
-    
-    @available(*, deprecated)
-    init(name: String, typeName: String) {
-        
-        pixelModel = TempPixelModel(name: name, typeName: typeName)
-        
         setupPIX()
     }
     

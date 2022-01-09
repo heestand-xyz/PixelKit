@@ -31,10 +31,4 @@ open class PIXContent: PIX, NODEContent, NODEOutIO {
     init(model: PixelContentModel) {
         super.init(model: model)
     }
-    
-    @available(*, deprecated)
-    override init(name: String, typeName: String) {
-        
-        super.init(name: name, typeName: typeName)
-    }
 }

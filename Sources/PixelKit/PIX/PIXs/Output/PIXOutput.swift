@@ -34,11 +34,6 @@ open class PIXOutput: PIX, NODEOutput, NODEInSingle {
         super.init(model: model)
     }
     
-    @available(*, deprecated)
-    public override init(name: String, typeName: String) {
-        super.init(name: name, typeName: typeName)
-    }
-    
     public required init() {
         fatalError("please use init(model:)")
     }

@@ -40,9 +40,4 @@ open class PIXEffect: PIX, NODEEffect {
         super.init(model: model)
     }
     
-    @available(*, deprecated)
-    public override init(name: String, typeName: String) {
-        super.init(name: name, typeName: typeName)
-    }
-    
 }

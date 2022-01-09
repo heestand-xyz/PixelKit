@@ -44,20 +44,13 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
         setupCustom()
     }
     
-    @available(*, deprecated)
-    public init(at resolution: Resolution = .auto, name: String, typeName: String) {
-        self.resolution = resolution
-        super.init(name: name, typeName: typeName)
-        setupCustom()
-    }
-    
     public required init(at resolution: Resolution) {
         fatalError("please use init(model:)")
     }
     
     // MARK: - Setup
     
-    func setupCustom() {
+    private func setupCustom() {
         customRenderDelegate = self
         customRenderActive = true
         applyResolution { [weak self] in
