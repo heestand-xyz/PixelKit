@@ -17,7 +17,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Private Properties
     
-    var readyToFeed: Bool = false
+    var readyToFeed: Bool { texture != nil }
     /// Calling `clearFeed()` will turn `feedActive` to `false` for `n` amount of frames.
     public var clearFrameCount: Int = 5
     var clearFrame: Int = 0
@@ -89,7 +89,6 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
                 clearFrame += 1
             }
         }
-        readyToFeed = true
         DispatchQueue.main.async { [weak self] in
             self?.render()
         }
