@@ -48,7 +48,7 @@ extension SaliencyPixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<SaliencyPIX.SaliencyStyle> else { continue }
+                    let live: LiveEnum<SaliencyPIX.SaliencyStyle> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     style = live.wrappedValue
                 }
             }

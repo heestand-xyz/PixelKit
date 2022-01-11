@@ -26,7 +26,7 @@ public struct TintPixelModel: PixelSingleEffectModel {
     
     // MARK: Local
     
-    public var color: PixelColor = .orange
+    public var color: PixelColor = PixelColor(red: 1.0, green: 0.5, blue: 0.0)
 }
 
 extension TintPixelModel {

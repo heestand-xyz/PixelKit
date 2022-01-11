@@ -51,10 +51,10 @@ extension ColorConvertPixelModel {
                 
                 switch codingKey {
                 case .conversion:
-                    guard let live = liveWrap as? LiveEnum<ColorConvertPIX.Conversion> else { continue }
+                    let live: LiveEnum<ColorConvertPIX.Conversion> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     conversion = live.wrappedValue
                 case .channel:
-                    guard let live = liveWrap as? LiveEnum<ColorConvertPIX.Channel> else { continue }
+                    let live: LiveEnum<ColorConvertPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     channel = live.wrappedValue
                 }
             }

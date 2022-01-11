@@ -52,7 +52,7 @@ extension PixelatePixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<PixelatePIX.Style> else { continue }
+                    let live: LiveEnum<PixelatePIX.Style> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     style = live.wrappedValue
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }

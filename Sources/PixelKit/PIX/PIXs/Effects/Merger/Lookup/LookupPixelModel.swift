@@ -52,7 +52,7 @@ extension LookupPixelModel {
                 
                 switch codingKey {
                 case .axis:
-                    guard let live = liveWrap as? LiveEnum<LookupPIX.Axis> else { continue }
+                    let live: LiveEnum<LookupPIX.Axis> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     axis = live.wrappedValue
                 case .holdEdge:
                     guard let live = liveWrap as? LiveBool else { continue }

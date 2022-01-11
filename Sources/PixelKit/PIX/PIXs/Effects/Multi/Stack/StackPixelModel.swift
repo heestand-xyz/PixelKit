@@ -61,10 +61,10 @@ extension StackPixelModel {
                     guard let live = liveWrap as? LiveResolution else { continue }
                     resolution = live.wrappedValue
                 case .axis:
-                    guard let live = liveWrap as? LiveEnum<StackPIX.Axis> else { continue }
+                    let live: LiveEnum<StackPIX.Axis> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     axis = live.wrappedValue
                 case .alignment:
-                    guard let live = liveWrap as? LiveEnum<StackPIX.Alignment> else { continue }
+                    let live: LiveEnum<StackPIX.Alignment> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     alignment = live.wrappedValue
                 case .spacing:
                     guard let live = liveWrap as? LiveFloat else { continue }

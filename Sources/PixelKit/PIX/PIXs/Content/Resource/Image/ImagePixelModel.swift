@@ -47,6 +47,6 @@ extension ImagePixelModel {
         }
         
         resizePlacement = try container.decode(Texture.ImagePlacement.self, forKey: .resizePlacement)
-        resizeResolution = try container.decode(Resolution?.self, forKey: .resizeResolution)
+        resizeResolution = try container.decodeIfPresent(Resolution?.self, forKey: .resizeResolution) ?? nil
     }
 }

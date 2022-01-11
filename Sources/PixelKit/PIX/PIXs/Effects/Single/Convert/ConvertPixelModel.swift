@@ -48,7 +48,7 @@ extension ConvertPixelModel {
                 
                 switch codingKey {
                 case .mode:
-                    guard let live = liveWrap as? LiveEnum<ConvertPIX.ConvertMode> else { continue }
+                    let live: LiveEnum<ConvertPIX.ConvertMode> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     mode = live.wrappedValue
                 }
             }

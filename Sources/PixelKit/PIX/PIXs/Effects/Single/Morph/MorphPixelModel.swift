@@ -52,7 +52,7 @@ extension MorphPixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<MorphPIX.Style> else { continue }
+                    let live: LiveEnum<MorphPIX.Style> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     style = live.wrappedValue
                 case .width:
                     guard let live = liveWrap as? LiveInt else { continue }

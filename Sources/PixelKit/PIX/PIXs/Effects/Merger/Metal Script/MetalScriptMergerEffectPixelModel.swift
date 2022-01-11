@@ -69,7 +69,7 @@ extension MetalScriptMergerEffectPixelModel {
                 
                 switch codingKey {
                 case .colorStyle:
-                    guard let live = liveWrap as? LiveEnum<MetalScriptMergerEffectPIX.ColorStyle> else { continue }
+                    let live: LiveEnum<MetalScriptMergerEffectPIX.ColorStyle> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     colorStyle = live.wrappedValue
                 default:
                     continue

@@ -32,7 +32,7 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
     @LiveFloat("threshold", range: 0.5...1.0) public var threshold: CGFloat = 0.95
     @LiveFloat("brightness") public var brightness: CGFloat = 1.0
     @LiveFloat("gamma", range: 0.25...1.0, increment: 0.25) public var gamma: CGFloat = 0.25
-    @LiveColor("color") public var color: PixelColor = .orange
+    @LiveColor("color") public var color: PixelColor = PixelColor(red: 1.0, green: 0.5, blue: 0.0)
     @LiveInt("rayResolution", range: 8...64) public var rayResolution: Int = 32
     
     // MARK: - Property Helpers

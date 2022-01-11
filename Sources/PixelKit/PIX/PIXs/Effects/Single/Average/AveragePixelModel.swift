@@ -48,7 +48,7 @@ extension AveragePixelModel {
                 
                 switch codingKey {
                 case .axis:
-                    guard let live = liveWrap as? LiveEnum<AveragePIX.Axis> else { continue }
+                    let live: LiveEnum<AveragePIX.Axis> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     axis = live.wrappedValue
                 }
             }

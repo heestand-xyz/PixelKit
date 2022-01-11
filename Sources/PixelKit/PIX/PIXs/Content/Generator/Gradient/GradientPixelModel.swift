@@ -69,7 +69,7 @@ extension GradientPixelModel {
                 case .colorStops:
                     continue
                 case .direction:
-                    guard let live = liveWrap as? LiveEnum<GradientPIX.Direction> else { continue }
+                    let live: LiveEnum<GradientPIX.Direction> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     direction = live.wrappedValue
                 case .scale:
                     guard let live = liveWrap as? LiveFloat else { continue }
@@ -84,7 +84,7 @@ extension GradientPixelModel {
                     guard let live = liveWrap as? LiveFloat else { continue }
                     gamma = live.wrappedValue
                 case .extendMode:
-                    guard let live = liveWrap as? LiveEnum<ExtendMode> else { continue }
+                    let live: LiveEnum<ExtendMode> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     extendMode = live.wrappedValue
                 }
             }

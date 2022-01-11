@@ -48,7 +48,7 @@ extension FilterPixelModel {
                 
                 switch codingKey {
                 case .filter:
-                    guard let live = liveWrap as? LiveEnum<FilterPIX.Filter> else { continue }
+                    let live: LiveEnum<FilterPIX.Filter> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     filter = live.wrappedValue
                 }
             }

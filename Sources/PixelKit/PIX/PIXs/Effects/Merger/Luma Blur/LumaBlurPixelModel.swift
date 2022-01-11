@@ -60,13 +60,13 @@ extension LumaBlurPixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<LumaBlurPIX.Style> else { continue }
+                    let live: LiveEnum<LumaBlurPIX.Style> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     style = live.wrappedValue
                 case .radius:
                     guard let live = liveWrap as? LiveFloat else { continue }
                     radius = live.wrappedValue
                 case .quality:
-                    guard let live = liveWrap as? LiveEnum<PIX.SampleQualityMode> else { continue }
+                    let live: LiveEnum<PIX.SampleQualityMode> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     quality = live.wrappedValue
                 case .angle:
                     guard let live = liveWrap as? LiveFloat else { continue }

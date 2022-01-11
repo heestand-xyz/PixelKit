@@ -62,7 +62,7 @@ extension EarthPixelModel {
                     guard let live = liveWrap as? LiveResolution else { continue }
                     resolution = live.wrappedValue
                 case .mapType:
-                    guard let live = liveWrap as? LiveEnum<EarthPIX.MapType> else { continue }
+                    let live: LiveEnum<EarthPIX.MapType> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     mapType = live.wrappedValue
                 case .coordinate:
                     guard let live = liveWrap as? LivePoint else { continue }

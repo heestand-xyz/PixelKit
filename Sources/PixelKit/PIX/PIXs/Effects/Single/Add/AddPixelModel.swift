@@ -48,7 +48,7 @@ extension AddPixelModel {
                 
                 switch codingKey {
                 case .axis:
-                    guard let live = liveWrap as? LiveEnum<AddPIX.Axis> else { continue }
+                    let live: LiveEnum<AddPIX.Axis> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     axis = live.wrappedValue
                 }
             }

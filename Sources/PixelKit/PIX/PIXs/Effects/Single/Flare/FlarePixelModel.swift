@@ -32,7 +32,7 @@ public struct FlarePixelModel: PixelSingleEffectModel {
     public var threshold: CGFloat = 0.95
     public var brightness: CGFloat = 1.0
     public var gamma: CGFloat = 0.25
-    public var color: PixelColor = .orange
+    public var color: PixelColor = PixelColor(red: 1.0, green: 0.5, blue: 0.0)
     public var rayResolution: Int = 32
 }
 

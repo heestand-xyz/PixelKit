@@ -54,16 +54,16 @@ extension ChannelMixPixelModel {
                 
                 switch codingKey {
                 case .red:
-                    guard let live = liveWrap as? LiveEnum<ChannelMixPIX.Channel> else { continue }
+                    let live: LiveEnum<ChannelMixPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     red = live.wrappedValue
                 case .green:
-                    guard let live = liveWrap as? LiveEnum<ChannelMixPIX.Channel> else { continue }
+                    let live: LiveEnum<ChannelMixPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     green = live.wrappedValue
                 case .blue:
-                    guard let live = liveWrap as? LiveEnum<ChannelMixPIX.Channel> else { continue }
+                    let live: LiveEnum<ChannelMixPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     blue = live.wrappedValue
                 case .alpha:
-                    guard let live = liveWrap as? LiveEnum<ChannelMixPIX.Channel> else { continue }
+                    let live: LiveEnum<ChannelMixPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     alpha = live.wrappedValue
                 }
             }

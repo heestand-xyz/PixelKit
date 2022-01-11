@@ -66,28 +66,28 @@ extension ReorderPixelModel {
                 
                 switch codingKey {
                 case .redInput:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Input> else { continue }
+                    let live: LiveEnum<ReorderPIX.Input> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     redInput = live.wrappedValue
                 case .greenInput:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Input> else { continue }
+                    let live: LiveEnum<ReorderPIX.Input> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     greenInput = live.wrappedValue
                 case .blueInput:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Input> else { continue }
+                    let live: LiveEnum<ReorderPIX.Input> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     blueInput = live.wrappedValue
                 case .alphaInput:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Input> else { continue }
+                    let live: LiveEnum<ReorderPIX.Input> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     alphaInput = live.wrappedValue
                 case .redChannel:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Channel> else { continue }
+                    let live: LiveEnum<ReorderPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     redChannel = live.wrappedValue
                 case .greenChannel:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Channel> else { continue }
+                    let live: LiveEnum<ReorderPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     greenChannel = live.wrappedValue
                 case .blueChannel:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Channel> else { continue }
+                    let live: LiveEnum<ReorderPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     blueChannel = live.wrappedValue
                 case .alphaChannel:
-                    guard let live = liveWrap as? LiveEnum<ReorderPIX.Channel> else { continue }
+                    let live: LiveEnum<ReorderPIX.Channel> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     alphaChannel = live.wrappedValue
                 case .premultiply:
                     guard let live = liveWrap as? LiveBool else { continue }

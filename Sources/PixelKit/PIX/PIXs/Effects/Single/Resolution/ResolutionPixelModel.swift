@@ -63,7 +63,7 @@ extension ResolutionPixelModel {
                     guard let live = liveWrap as? LiveBool else { continue }
                     inheritResolution = live.wrappedValue
                 case .placement:
-                    guard let live = liveWrap as? LiveEnum<Placement> else { continue }
+                    let live: LiveEnum<Placement> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     placement = live.wrappedValue
                 }
             }

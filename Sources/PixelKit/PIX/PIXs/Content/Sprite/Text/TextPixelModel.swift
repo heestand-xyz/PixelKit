@@ -54,7 +54,7 @@ extension TextPixelModel {
         let container = try decoder.container(keyedBy: LocalCodingKeys.self)
 
         text = try container.decode(String.self, forKey: .text)
-        fontName = try container.decode(String?.self, forKey: .fontName)
+        fontName = try container.decodeIfPresent(String?.self, forKey: .fontName) ?? nil
         fontSize = try container.decode(CGFloat.self, forKey: .fontSize)
 
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {

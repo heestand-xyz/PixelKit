@@ -56,7 +56,7 @@ extension WarpPixelModel {
                 
                 switch codingKey {
                 case .style:
-                    guard let live = liveWrap as? LiveEnum<WarpPIX.Style> else { continue }
+                    let live: LiveEnum<WarpPIX.Style> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     style = live.wrappedValue
                 case .position:
                     guard let live = liveWrap as? LivePoint else { continue }

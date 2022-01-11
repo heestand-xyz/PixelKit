@@ -21,8 +21,8 @@ struct PixelModelDecoder {
     
     static func decode(from decoder: Decoder, model: PixelModel) throws -> PixelModel {
         
-        var model: PixelModel = model
-        
+        var model: PixelModel = try NodeModelDecoder.decode(from: decoder, model: model) as! PixelModel
+
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         model.viewInterpolation = try container.decode(ViewInterpolation.self, forKey: .viewInterpolation)
@@ -63,27 +63,44 @@ struct PixelModelDecoder {
         
         var liveList: [LiveWrap] = []
         for liveCodable in liveCodables {
-            guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == liveCodable.typeName }) else { continue }
-            liveWrap.setLiveCodable(liveCodable)
+            let liveWrap: LiveWrap = .skeleton(liveCodable: liveCodable)
             liveList.append(liveWrap)
         }
         
         return liveList
     }
-}
-
-@available(*, deprecated)
-struct TempPixelModel: PixelModel {
     
-    /// Global
+    enum LiveEnumDecodeError: Error {
+        case notAnEnum
+        case notFound
+    }
     
-    var id: UUID = UUID()
-    var name: String
-    let typeName: String
-    var bypass: Bool = false
-    
-    var viewInterpolation: ViewInterpolation = .linear
-    var interpolation: PixelInterpolation = .linear
-    var extend: ExtendMode = .zero
-    
+    static func liveEnumDecode<E: Enumable>(typeName: String, from decoder: Decoder) throws -> LiveEnum<E> {
+        
+        let container = try decoder.container(keyedBy: LiveCodingKeys.self)
+        
+        var liveCodableEnum: LiveCodableEnum!
+        var liveListContainer = try container.nestedUnkeyedContainer(forKey: .liveList)
+        var liveListContainerMain = liveListContainer
+        while !liveListContainer.isAtEnd {
+            let liveTypeContainer = try liveListContainer.nestedContainer(keyedBy: TypeCodingKey.self)
+            let liveType: LiveType = try liveTypeContainer.decode(LiveType.self, forKey: .type)
+            let liveCodable: LiveCodable = try liveListContainerMain.decode(liveType.liveCodableType)
+            guard liveCodable.typeName == typeName else { continue }
+            if let currentLiveCodableEnum = liveCodable as? LiveCodableEnum {
+                liveCodableEnum = currentLiveCodableEnum
+                break
+            } else {
+                throw LiveEnumDecodeError.notAnEnum
+            }
+        }
+        guard liveCodableEnum != nil else {
+            throw LiveEnumDecodeError.notFound
+        }
+        
+        let liveEnum = LiveEnum(wrappedValue: E.allCases.first!, typeName)
+        liveEnum.setLiveCodable(liveCodableEnum)
+        
+        return liveEnum
+    }
 }

@@ -50,10 +50,10 @@ extension FlipFlopPixelModel {
                 
                 switch codingKey {
                 case .flip:
-                    guard let live = liveWrap as? LiveEnum<FlipFlopPIX.Flip> else { continue }
+                    let live: LiveEnum<FlipFlopPIX.Flip> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     flip = live.wrappedValue
                 case .flop:
-                    guard let live = liveWrap as? LiveEnum<FlipFlopPIX.Flop> else { continue }
+                    let live: LiveEnum<FlipFlopPIX.Flop> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     flop = live.wrappedValue
                 }
             }

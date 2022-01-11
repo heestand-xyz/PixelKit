@@ -53,7 +53,7 @@ extension SlicePixelModel {
                     guard let live = liveWrap as? LiveFloat else { continue }
                     fraction = live.wrappedValue
                 case .axis:
-                    guard let live = liveWrap as? LiveEnum<SlicePIX.Axis> else { continue }
+                    let live: LiveEnum<SlicePIX.Axis> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     axis = live.wrappedValue
                 }
             }

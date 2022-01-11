@@ -60,7 +60,7 @@ extension BlendPixelModel {
                 
                 switch codingKey {
                 case .blendMode:
-                    guard let live = liveWrap as? LiveEnum<BlendMode> else { continue }
+                    let live: LiveEnum<BlendMode> = try PixelModelDecoder.liveEnumDecode(typeName: liveWrap.typeName, from: decoder)
                     blendMode = live.wrappedValue
                 case .bypassTransform:
                     guard let live = liveWrap as? LiveBool else { continue }
