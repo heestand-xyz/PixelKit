@@ -44,7 +44,7 @@ public struct CameraPixelModel: PixelResourceModel {
 
 extension CameraPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case active
         case cameraResolution
         case camera
@@ -66,7 +66,7 @@ extension CameraPixelModel {
         
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         active = try container.decode(Bool.self, forKey: .active)
         cameraResolution = try container.decode(CameraPIX.CameraResolution.self, forKey: .cameraResolution)

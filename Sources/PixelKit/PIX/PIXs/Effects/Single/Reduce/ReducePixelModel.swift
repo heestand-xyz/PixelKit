@@ -32,7 +32,7 @@ public struct ReducePixelModel: PixelSingleEffectModel {
 
 extension ReducePixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case cellList
         case method
     }
@@ -41,7 +41,7 @@ extension ReducePixelModel {
         
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             return

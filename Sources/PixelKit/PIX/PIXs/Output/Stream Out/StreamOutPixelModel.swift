@@ -32,7 +32,7 @@ public struct StreamOutPixelModel: PixelOutputModel {
 
 extension StreamOutPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case quality
     }
     
@@ -40,7 +40,7 @@ extension StreamOutPixelModel {
         
         self = try PixelOutputModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             return

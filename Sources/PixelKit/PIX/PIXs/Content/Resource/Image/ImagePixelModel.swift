@@ -31,7 +31,7 @@ public struct ImagePixelModel: PixelResourceModel {
 
 extension ImagePixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case resizePlacement
         case resizeResolution
     }
@@ -40,7 +40,7 @@ extension ImagePixelModel {
         
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             return

@@ -32,7 +32,7 @@ public struct MultiCameraPixelModel: PixelResourceModel {
 
 extension MultiCameraPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case camera
     }
     
@@ -40,7 +40,7 @@ extension MultiCameraPixelModel {
         
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             return

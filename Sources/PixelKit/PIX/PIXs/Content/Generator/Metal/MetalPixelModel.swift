@@ -36,7 +36,7 @@ public struct MetalPixelModel: PixelGeneratorModel {
 
 extension MetalPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case metalUniforms
         case code
     }
@@ -45,7 +45,7 @@ extension MetalPixelModel {
         
         self = try PixelGeneratorModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         metalUniforms = try container.decode([MetalUniform].self, forKey: .metalUniforms)
         code = try container.decode(String.self, forKey: .code)

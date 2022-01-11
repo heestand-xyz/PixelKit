@@ -31,7 +31,7 @@ public struct ThresholdPixelModel: PixelSingleEffectModel {
 
 extension ThresholdPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case threshold
     }
     
@@ -39,11 +39,11 @@ extension ThresholdPixelModel {
         
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
-            for codingKey in CodingKeys.allCases {
+            for codingKey in LocalCodingKeys.allCases {
                 guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
                 
                 switch codingKey {

@@ -38,7 +38,7 @@ public struct TextPixelModel: PixelSpriteModel {
 
 extension TextPixelModel {
     
-    enum CodingKeys: String, CodingKey, CaseIterable {
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
         case text
         case fontName
         case fontWeight
@@ -51,7 +51,7 @@ extension TextPixelModel {
         
         self = try PixelSpriteModelDecoder.decode(from: decoder, model: self) as! Self
         
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
 
         text = try container.decode(String.self, forKey: .text)
         fontName = try container.decode(String?.self, forKey: .fontName)
