@@ -17,7 +17,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Private Properties
     
-    var readyToFeed: Bool { texture != nil }
+    var readyToFeed: Bool { texture != nil && feedbackInput?.texture != nil }
     /// Calling `clearFeed()` will turn `feedActive` to `false` for `n` amount of frames.
     public var clearFrameCount: Int = 5
     var clearFrame: Int = 0
