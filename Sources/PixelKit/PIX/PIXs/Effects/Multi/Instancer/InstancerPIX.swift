@@ -12,14 +12,21 @@ import Resolution
 import PixelColor
 
 final public class InstancerPIX: PIXMultiEffect, NODEResolution {
-        
+    
+    public typealias Model = InstancerPixelModel
+    
+    private var model: Model {
+        get { multiEffectModel as! Model }
+        set { multiEffectModel = newValue }
+    }
+    
     public override var shaderName: String { return "instancerPIX" }
     
     /// Defined as `INSTANCE_MAX_COUNT` in shader
     private static let instanceMaxCount: Int = 1000
     public override var uniformArrayMaxLimit: Int? { Self.instanceMaxCount }
         
-    public struct Instance {
+    public struct Instance: Codable {
         
         public var position: CGPoint
         public var scale: CGFloat
@@ -37,8 +44,10 @@ final public class InstancerPIX: PIXMultiEffect, NODEResolution {
         }
     }
 
-    public var instances: [Instance] = [] {
-        didSet {
+    public var instances: [Instance] {
+        get { model.instances }
+        set {
+            model.instances = newValue
             render()
         }
     }
@@ -67,17 +76,40 @@ final public class InstancerPIX: PIXMultiEffect, NODEResolution {
 
     // MARK: - Life Cycle
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        self.resolution = resolution
-        super.init(name: "Instancer", typeName: "pix-effect-multi-instancer")
+    public init(model: Model) {
+        super.init(model: model)
     }
     
     public required init() {
-        super.init(name: "Instancer", typeName: "pix-effect-multi-instancer")
+        let model = Model()
+        super.init(model: model)
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
+    public init(at resolution: Resolution) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
     }
     
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        blendMode = model.blendMode
+        backgroundColor = model.backgroundColor
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.blendMode = blendMode
+        model.backgroundColor = backgroundColor
+
+        super.liveUpdateModelDone()
+    }
+        
 }

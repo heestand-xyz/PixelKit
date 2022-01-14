@@ -12,7 +12,14 @@ import Resolution
 import PixelColor
 
 final public class TextureParticlesPIX: PIXMultiEffect, NODEResolution {
-        
+    
+    public typealias Model = TextureParticlesPixelModel
+    
+    private var model: Model {
+        get { multiEffectModel as! Model }
+        set { multiEffectModel = newValue }
+    }
+    
     public override var shaderName: String { return "textureParticlesPIX" }
     
     /// Defined as `PARTICLE_MAX_COUNT` in shader
@@ -38,7 +45,7 @@ final public class TextureParticlesPIX: PIXMultiEffect, NODEResolution {
     @LiveInt("emitFrameInterval", range: 0...100) public var emitFrameInterval: Int = 10
     @LivePoint("emitPosition") public var emitPosition: CGPoint = .zero
     @LiveSize("emitSize") public var emitSize: CGSize = .zero
-    @LivePoint("direction") public var direction: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    @LivePoint("direction") public var direction: CGPoint = .zero
     @LiveFloat("randomDirection") public var randomDirection: CGFloat = 1.0
     @LiveFloat("velocity", range: 0.0...0.01, increment: 0.001) public var velocity: CGFloat = 0.005
     @LiveFloat("randomVelocity", range: 0.0...0.01, increment: 0.001) public var randomVelocity: CGFloat = 0.0
@@ -62,19 +69,20 @@ final public class TextureParticlesPIX: PIXMultiEffect, NODEResolution {
 
     // MARK: - Life Cycle
     
-    public init(at resolution: Resolution = .auto(render: PixelKit.main.render)) {
-        self.resolution = resolution
-        super.init(name: "Texture Particles", typeName: "pix-effect-multi-texture-particles")
+    public init(model: Model) {
+        super.init(model: model)
         setup()
     }
     
     public required init() {
-        super.init(name: "Texture Particles", typeName: "pix-effect-multi-texture-particles")
+        let model = Model()
+        super.init(model: model)
         setup()
     }
     
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
+    public init(at resolution: Resolution) {
+        let model = Model(resolution: resolution)
+        super.init(model: model)
         setup()
     }
     
@@ -84,6 +92,48 @@ final public class TextureParticlesPIX: PIXMultiEffect, NODEResolution {
         PixelKit.main.render.listenToFrames(id: id) { [weak self] in
             self?.particleLoop()
         }
+    }
+    
+    // MARK: - Live Model
+    
+    override func modelUpdateLive() {
+        super.modelUpdateLive()
+        
+        resolution = model.resolution
+        backgroundColor = model.backgroundColor
+        blendMode = model.blendMode
+        lifeTime = model.lifeTime
+        emitCount = model.emitCount
+        emitFrameInterval = model.emitFrameInterval
+        emitPosition = model.emitPosition
+        emitSize = model.emitSize
+        direction = model.direction
+        randomDirection = model.randomDirection
+        velocity = model.velocity
+        randomVelocity = model.randomVelocity
+        particleScale = model.particleScale
+
+        super.modelUpdateLiveDone()
+    }
+    
+    override func liveUpdateModel() {
+        super.liveUpdateModel()
+        
+        model.resolution = resolution
+        model.backgroundColor = backgroundColor
+        model.blendMode = blendMode
+        model.lifeTime = lifeTime
+        model.emitCount = emitCount
+        model.emitFrameInterval = emitFrameInterval
+        model.emitPosition = emitPosition
+        model.emitSize = emitSize
+        model.direction = direction
+        model.randomDirection = randomDirection
+        model.velocity = velocity
+        model.randomVelocity = randomVelocity
+        model.particleScale = particleScale
+
+        super.liveUpdateModelDone()
     }
     
     // MARK: - Destroy

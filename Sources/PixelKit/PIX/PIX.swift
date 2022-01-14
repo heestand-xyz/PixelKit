@@ -66,9 +66,10 @@ open class PIX: NODE, ObservableObject, Equatable {
         return uniforms
     }
     
-    open var uniformArray: [[CGFloat]] { [] }
+    open var uniformArray: [[CGFloat]]? { nil }
     public var uniformArrayMaxLimit: Int? { nil }
-    public var uniformIndexArray: [[Int]] { [] }
+    public var uniformArrayLength: Int? { nil }
+    public var uniformIndexArray: [[Int]]? { nil }
     public var uniformIndexArrayMaxLimit: Int? { nil }
        
     
@@ -462,7 +463,11 @@ open class PIX: NODE, ObservableObject, Equatable {
             case .web:
                 return try encoder.encode(pixelModel as! WebPixelModel)
             case .screenCapture:
+                #if os(macOS) && !targetEnvironment(macCatalyst)
                 return try encoder.encode(pixelModel as! ScreenCapturePixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .depthCamera:
                 #if os(iOS) && !targetEnvironment(macCatalyst)
                 return try encoder.encode(pixelModel as! DepthCameraPixelModel)
@@ -641,6 +646,10 @@ open class PIX: NODE, ObservableObject, Equatable {
                 return try encoder.encode(pixelModel as! MetalScriptMultiEffectPixelModel)
             case .stack:
                 return try encoder.encode(pixelModel as! StackPixelModel)
+            case .textureParticles:
+                return try encoder.encode(pixelModel as! TextureParticlesPixelModel)
+            case .instancer:
+                return try encoder.encode(pixelModel as! InstancerPixelModel)
             }
         }
         
@@ -730,7 +739,11 @@ open class PIX: NODE, ObservableObject, Equatable {
             case .web:
                 return try decoder.decode(WebPixelModel.self, from: data)
             case .screenCapture:
+                #if os(macOS) && !targetEnvironment(macCatalyst)
                 return try decoder.decode(ScreenCapturePixelModel.self, from: data)
+                #else
+                throw CodingError.badOS
+                #endif
             case .depthCamera:
                 #if os(iOS) && !targetEnvironment(macCatalyst)
                 return try decoder.decode(DepthCameraPixelModel.self, from: data)
@@ -909,6 +922,10 @@ open class PIX: NODE, ObservableObject, Equatable {
                 return try decoder.decode(MetalScriptMultiEffectPixelModel.self, from: data)
             case .stack:
                 return try decoder.decode(StackPixelModel.self, from: data)
+            case .textureParticles:
+                return try decoder.decode(TextureParticlesPixelModel.self, from: data)
+            case .instancer:
+                return try decoder.decode(InstancerPixelModel.self, from: data)
             }
         }
         
@@ -993,7 +1010,11 @@ open class PIX: NODE, ObservableObject, Equatable {
             case .web:
                 return WebPIX(model: pixelModel as! WebPixelModel)
             case .screenCapture:
+                #if os(macOS) && !targetEnvironment(macCatalyst)
                 return ScreenCapturePIX(model: pixelModel as! ScreenCapturePixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .depthCamera:
                 #if os(iOS) && !targetEnvironment(macCatalyst)
                 return DepthCameraPIX(model: pixelModel as! DepthCameraPixelModel)
@@ -1176,6 +1197,10 @@ open class PIX: NODE, ObservableObject, Equatable {
                 return MetalScriptMultiEffectPIX(model: pixelModel as! MetalScriptMultiEffectPixelModel)
             case .stack:
                 return StackPIX(model: pixelModel as! StackPixelModel)
+            case .textureParticles:
+                return TextureParticlesPIX(model: pixelModel as! TextureParticlesPixelModel)
+            case .instancer:
+                return InstancerPIX(model: pixelModel as! InstancerPixelModel)
             }
         }
         

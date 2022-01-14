@@ -5,9 +5,9 @@
 //  Created by Anton Heestand on 2019-04-29.
 //
 
-import AppKit
-import GLKit
-import OpenGL
+//import AppKit
+//import GLKit
+//import OpenGL
 
 //final public class SyphonInPIX: PIXResource, PIXViewable {
 //

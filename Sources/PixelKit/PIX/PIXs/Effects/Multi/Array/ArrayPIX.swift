@@ -90,6 +90,8 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     public override var uniformArrayLength: Int? { 6 }
     
+    // TODO: Add Resolution
+    
     // MARK: - Life Cycle -
     
     public init(model: Model) {
