@@ -2,6 +2,8 @@
 //  Created by Anton Heestand on 2021-12-21.
 //
 
+#if !os(tvOS)
+
 import Foundation
 import CoreGraphics
 import RenderKit
@@ -91,3 +93,4 @@ extension CameraPixelModel {
     }
 }
 
+#endif

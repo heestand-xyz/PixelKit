@@ -451,17 +451,29 @@ open class PIX: NODE, ObservableObject, Equatable {
             guard type.typeName == typeName else { continue }
             switch type {
             case .camera:
+                #if !os(tvOS)
                 return try encoder.encode(pixelModel as! CameraPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .image:
                 return try encoder.encode(pixelModel as! ImagePixelModel)
             case .vector:
+                #if !os(tvOS)
                 return try encoder.encode(pixelModel as! VectorPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .video:
                 return try encoder.encode(pixelModel as! VideoPixelModel)
             case .view:
                 return try encoder.encode(pixelModel as! ViewPixelModel)
             case .web:
+                #if !os(tvOS)
                 return try encoder.encode(pixelModel as! WebPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .screenCapture:
                 #if os(macOS) && !targetEnvironment(macCatalyst)
                 return try encoder.encode(pixelModel as! ScreenCapturePixelModel)
@@ -727,17 +739,29 @@ open class PIX: NODE, ObservableObject, Equatable {
             guard type.typeName == typeName else { continue }
             switch type {
             case .camera:
+                #if !os(tvOS)
                 return try decoder.decode(CameraPixelModel.self, from: data)
+                #else
+                throw CodingError.badOS
+                #endif
             case .image:
                 return try decoder.decode(ImagePixelModel.self, from: data)
             case .vector:
+                #if !os(tvOS)
                 return try decoder.decode(VectorPixelModel.self, from: data)
+                #else
+                throw CodingError.badOS
+                #endif
             case .video:
                 return try decoder.decode(VideoPixelModel.self, from: data)
             case .view:
                 return try decoder.decode(ViewPixelModel.self, from: data)
             case .web:
+                #if !os(tvOS)
                 return try decoder.decode(WebPixelModel.self, from: data)
+                #else
+                throw CodingError.badOS
+                #endif
             case .screenCapture:
                 #if os(macOS) && !targetEnvironment(macCatalyst)
                 return try decoder.decode(ScreenCapturePixelModel.self, from: data)
@@ -998,17 +1022,29 @@ open class PIX: NODE, ObservableObject, Equatable {
             guard type.typeName == typeName else { continue }
             switch type {
             case .camera:
+                #if !os(tvOS)
                 return CameraPIX(model: pixelModel as! CameraPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .image:
                 return ImagePIX(model: pixelModel as! ImagePixelModel)
             case .vector:
+                #if !os(tvOS)
                 return VectorPIX(model: pixelModel as! VectorPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .video:
                 return VideoPIX(model: pixelModel as! VideoPixelModel)
             case .view:
                 return ViewPIX(model: pixelModel as! ViewPixelModel)
             case .web:
+                #if !os(tvOS)
                 return WebPIX(model: pixelModel as! WebPixelModel)
+                #else
+                throw CodingError.badOS
+                #endif
             case .screenCapture:
                 #if os(macOS) && !targetEnvironment(macCatalyst)
                 return ScreenCapturePIX(model: pixelModel as! ScreenCapturePixelModel)

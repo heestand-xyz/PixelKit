@@ -238,16 +238,22 @@ public enum PIXType: Equatable, CaseIterable {
                 return generator.type.init(at: resolution)
             case .resource(let resource):
                 if resource == .web {
+                    #if !os(tvOS)
                     return WebPIX(at: resolution)
+                    #else
+                    return nil
+                    #endif
                 }
                 if resource == .maps {
                     return EarthPIX(at: resolution)
                 }
-                #if os(iOS) && !targetEnvironment(simulator)
                 if resource == .paint {
+                    #if os(iOS) && !targetEnvironment(simulator)
                     return PaintPIX(at: resolution)
+                    #else
+                    return nil
+                    #endif
                 }
-                #endif
                 guard let pix = resource.type?.init() else { return nil }
                 precondition(pix is NODEResolution == false)
                 return pix
@@ -301,22 +307,32 @@ public enum PIXType: Equatable, CaseIterable {
                 return true
             case .resource(let resource):
                 if resource == .web {
+                    #if !os(tvOS)
                     guard let webPix = pix as? WebPIX else { return false }
                     webPix.resolution = resolution
                     return true
+                    #else
+                    return false
+                    #endif
                 }
-                #if os(iOS) && !targetEnvironment(simulator)
                 if resource == .web {
+                    #if os(iOS) && !targetEnvironment(simulator)
                     guard let paintPix = pix as? PaintPIX else { return false }
                     paintPix.resolution = resolution
                     return true
+                    #else
+                    return false
+                    #endif
                 }
-                #endif
                 if resource == .camera {
+                    #if !os(tvOS)
                     guard let cameraPix = pix as? CameraPIX else { return false }
                     guard let cameraResolution = CameraPIX.CameraResolution(resolution: resolution) else { return false }
                     cameraPix.cameraResolution = cameraResolution
                     return true
+                    #else
+                    return false
+                    #endif
                 }
                 return false
             case .sprite:
