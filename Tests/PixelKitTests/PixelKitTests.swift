@@ -12,6 +12,15 @@ final class PixelKitTests: XCTestCase {
         
     }
     
+    func testLegacyCodable() throws {
+        
+        guard let url = Bundle.module.url(forResource: "pix-content-generator-arc", withExtension: "json") else { fatalError() }
+        
+        let data = try Data(contentsOf: url)
+        
+        _ = try JSONDecoder().decode(ArcPixelModel.self, from: data)
+    }
+    
     func testReference() {
         
         var pixs: [WeakNODE] = []
@@ -30,12 +39,12 @@ final class PixelKitTests: XCTestCase {
         }
         for pixType in PIXSingleEffectType.allCases {
             if pixType == .metalEffect { continue }
-            let pix: PIX = pixType.type.init()
+            guard let pix: PIX = pixType.type?.init() else { continue }
             pixs.append(WeakNODE(pix))
         }
         for pixType in PIXMergerEffectType.allCases {
             if pixType == .metalMergerEffect { continue }
-            guard let pix: PIX = pixType.type?.init() else { continue }
+            let pix: PIX = pixType.type.init()
             pixs.append(WeakNODE(pix))
         }
         for pixType in PIXMultiEffectType.allCases {
@@ -55,33 +64,9 @@ final class PixelKitTests: XCTestCase {
         
     }
     
-    func testCodable() {
-        
-        let circlePix = CirclePIX(at: ._512)
-        circlePix.radius = 0.2
-        circlePix.edgeRadius = 0.05
-        circlePix.color = .rawBlue
-        circlePix.position = CGPoint(x: 0.25, y: 0.25)
-        
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let data: Data = try! encoder.encode(circlePix)
-        
-        let json: String = String(data: data, encoding: .utf8)!
-        print(json)
-        
-        let decoder = JSONDecoder()
-        let decodedPix: CirclePIX = try! decoder.decode(CirclePIX.self, from: data)
-        
-        XCTAssertEqual(decodedPix.radius, 0.2)
-        XCTAssertEqual(decodedPix.edgeRadius, 0.05)
-        XCTAssertEqual(decodedPix.color, .rawBlue)
-        XCTAssertEqual(decodedPix.position, CGPoint(x: 0.25, y: 0.25))
-    }
-    
     static var allTests = [
+        ("testLegacyCodable", testLegacyCodable),
         ("testReference", testReference),
-        ("testCodable", testCodable),
     ]
     
 }

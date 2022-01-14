@@ -18,13 +18,13 @@ let package = Package(
         .package(url: "https://github.com/heestand-xyz/CoreGraphicsExtensions", from: "1.2.1"),
     ],
     targets: [
-        .target(name: "PixelKit", dependencies: ["RenderKit", "TextureMap", "CoreGraphicsExtensions"], path: "Source", exclude: [
-            "PIX/PIXs/Output/Syphon Out/SyphonOutPIX.swift",
-            "PIX/PIXs/Content/Resource/Syphon In/SyphonInPIX.swift",
+        .target(name: "PixelKit", dependencies: ["RenderKit", "TextureMap", "CoreGraphicsExtensions"], exclude: [
             "Other",
             "Shaders/README.md",
             "Documentation.docc",
         ]),
-        .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"])
+        .testTarget(name: "PixelKitTests", dependencies: ["PixelKit"], resources: [
+            .process("pix-content-generator-arc.json"),
+        ]),
     ]
 )
