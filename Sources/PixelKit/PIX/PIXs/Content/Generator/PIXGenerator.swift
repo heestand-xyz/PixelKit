@@ -14,7 +14,7 @@ import Resolution
 
 open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
-    var generatorModel: PixelGeneratorModel {
+    public var generatorModel: PixelGeneratorModel {
         get { contentModel as! PixelGeneratorModel }
         set { contentModel = newValue }
     }
@@ -41,7 +41,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelGeneratorModel) {
+    public init(model: PixelGeneratorModel) {
         self.resolution = model.resolution
         super.init(model: model)
         setupGenerator()
@@ -53,7 +53,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    open override func modelUpdateLive() {
         super.modelUpdateLive()
         
         resolution = generatorModel.resolution
@@ -62,7 +62,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         premultiply = generatorModel.premultiply
     }
     
-    override func liveUpdateModel() {
+    open override func liveUpdateModel() {
         super.liveUpdateModel()
         
         generatorModel.resolution = resolution

@@ -74,7 +74,7 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         seconds = model.seconds
@@ -82,7 +82,7 @@ final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.seconds = seconds

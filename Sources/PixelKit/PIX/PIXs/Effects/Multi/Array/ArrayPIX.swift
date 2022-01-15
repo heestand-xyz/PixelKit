@@ -106,7 +106,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         blendMode = model.blendMode
@@ -115,7 +115,7 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.blendMode = blendMode

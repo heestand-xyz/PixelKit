@@ -222,7 +222,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         resolution = model.resolution
@@ -231,7 +231,7 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.resolution = resolution

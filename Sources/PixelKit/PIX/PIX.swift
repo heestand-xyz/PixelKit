@@ -310,16 +310,16 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     
     /// Call `liveUpdateModelDone()` in final class
-    func liveUpdateModel() {
+    open func liveUpdateModel() {
         liveUpdatingModel = true
     }
-    func liveUpdateModelDone() {
+    public func liveUpdateModelDone() {
         liveUpdatingModel = false
     }
     
     /// Call `modelUpdateLiveDone()` in final class
-    func modelUpdateLive() {}
-    func modelUpdateLiveDone() {}
+    open func modelUpdateLive() {}
+    public func modelUpdateLiveDone() {}
     
     // MARK: - Render
     

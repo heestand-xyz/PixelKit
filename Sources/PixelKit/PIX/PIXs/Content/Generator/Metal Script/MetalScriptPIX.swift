@@ -221,7 +221,7 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         colorStyle = model.colorStyle
@@ -229,7 +229,7 @@ final public class MetalScriptPIX: PIXGenerator, NODEMetalScript, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.colorStyle = colorStyle

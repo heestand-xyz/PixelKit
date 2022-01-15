@@ -82,13 +82,13 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         resolution = spriteModel.resolution
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         spriteModel.resolution = resolution

@@ -87,7 +87,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         style = model.style
@@ -95,7 +95,7 @@ final public class SaliencyPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.style = style

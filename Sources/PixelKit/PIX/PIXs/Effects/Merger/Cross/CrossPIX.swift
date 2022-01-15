@@ -58,7 +58,7 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         fraction = model.fraction
@@ -66,7 +66,7 @@ final public class CrossPIX: PIXMergerEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.fraction = fraction

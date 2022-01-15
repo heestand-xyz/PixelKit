@@ -49,7 +49,7 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         threshold = model.threshold
@@ -57,7 +57,7 @@ final public class ThresholdPIX: PIXSingleEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.threshold = threshold

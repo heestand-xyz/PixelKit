@@ -58,7 +58,7 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         includeAlpha = model.includeAlpha
@@ -66,7 +66,7 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.includeAlpha = includeAlpha

@@ -83,7 +83,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         style = model.style
@@ -97,7 +97,7 @@ final public class LumaRainbowBlurPIX: PIXMergerEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.style = style

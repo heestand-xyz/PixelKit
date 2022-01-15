@@ -9,7 +9,7 @@ import PixelColor
 
 public typealias PixelGeneratorModel = PixelContentModel & NodeGeneratorContentModel
 
-struct PixelGeneratorModelDecoder {
+public struct PixelGeneratorModelDecoder {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case premultiply
@@ -18,7 +18,7 @@ struct PixelGeneratorModelDecoder {
         case color
     }
     
-    static func decode(from decoder: Decoder, model: PixelGeneratorModel) throws -> PixelGeneratorModel {
+    public static func decode(from decoder: Decoder, model: PixelGeneratorModel) throws -> PixelGeneratorModel {
         
         var model: PixelGeneratorModel = try PixelContentModelDecoder.decode(from: decoder, model: model) as! PixelGeneratorModel
         

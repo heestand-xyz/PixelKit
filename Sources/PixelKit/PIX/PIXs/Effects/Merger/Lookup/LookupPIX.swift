@@ -83,7 +83,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         axis = model.axis
@@ -92,7 +92,7 @@ final public class LookupPIX: PIXMergerEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.axis = axis

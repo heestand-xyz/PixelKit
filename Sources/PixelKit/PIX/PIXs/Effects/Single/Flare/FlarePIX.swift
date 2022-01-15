@@ -58,7 +58,7 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         scale = model.scale
@@ -73,7 +73,7 @@ final public class FlarePIX: PIXSingleEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.scale = scale

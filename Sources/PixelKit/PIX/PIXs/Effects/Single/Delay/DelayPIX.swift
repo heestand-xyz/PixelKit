@@ -65,7 +65,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         delayFrames = model.delayFrames
@@ -73,7 +73,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.delayFrames = delayFrames

@@ -55,7 +55,7 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         keyColor = model.keyColor
@@ -68,7 +68,7 @@ final public class ChromaKeyPIX: PIXSingleEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.keyColor = keyColor

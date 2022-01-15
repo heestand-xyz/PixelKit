@@ -191,7 +191,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         color = model.color
@@ -202,7 +202,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.color = color

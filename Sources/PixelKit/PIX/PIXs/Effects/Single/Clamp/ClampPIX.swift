@@ -78,7 +78,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         low = model.low
@@ -88,7 +88,7 @@ final public class ClampPIX: PIXSingleEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.low = low

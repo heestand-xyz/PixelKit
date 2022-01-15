@@ -58,7 +58,7 @@ final public class RangePIX: PIXSingleEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         inLow = model.inLow
@@ -74,7 +74,7 @@ final public class RangePIX: PIXSingleEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.inLow = inLow

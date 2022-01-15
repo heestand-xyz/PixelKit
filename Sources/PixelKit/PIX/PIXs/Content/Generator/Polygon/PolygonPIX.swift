@@ -63,7 +63,7 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         radius = model.radius
@@ -75,7 +75,7 @@ final public class PolygonPIX: PIXGenerator, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.radius = radius

@@ -111,7 +111,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         direction = model.direction
@@ -124,7 +124,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.direction = direction

@@ -125,7 +125,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         redInput = model.redInput
@@ -141,7 +141,7 @@ final public class ReorderPIX: PIXMergerEffect, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.redInput = redInput

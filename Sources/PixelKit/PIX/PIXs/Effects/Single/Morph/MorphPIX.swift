@@ -87,7 +87,7 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         style = model.style
@@ -97,7 +97,7 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.style = style

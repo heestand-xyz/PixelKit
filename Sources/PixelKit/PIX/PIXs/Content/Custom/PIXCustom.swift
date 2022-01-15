@@ -60,14 +60,14 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         resolution = customModel.resolution
         backgroundColor = customModel.backgroundColor
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         customModel.resolution = resolution

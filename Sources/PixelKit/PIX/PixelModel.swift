@@ -11,7 +11,7 @@ public protocol PixelModel: NodeModel {
     var extend: ExtendMode { get set }
 }
 
-struct PixelModelDecoder {
+public struct PixelModelDecoder {
     
     enum CodingKeys: CodingKey {
         case viewInterpolation
@@ -40,14 +40,14 @@ struct PixelModelDecoder {
         case type
     }
     
-    static func isLiveListCodable(decoder: Decoder) throws -> Bool {
+    public static func isLiveListCodable(decoder: Decoder) throws -> Bool {
         
         let container = try decoder.container(keyedBy: LiveCodingKeys.self)
         
         return container.contains(.liveList)
     }
     
-    static func liveListDecode(from decoder: Decoder) throws -> [LiveWrap] {
+    public static func liveListDecode(from decoder: Decoder) throws -> [LiveWrap] {
         
         let container = try decoder.container(keyedBy: LiveCodingKeys.self)
         
@@ -75,7 +75,7 @@ struct PixelModelDecoder {
         case notFound
     }
     
-    static func liveEnumDecode<E: Enumable>(typeName: String, from decoder: Decoder) throws -> LiveEnum<E> {
+    public static func liveEnumDecode<E: Enumable>(typeName: String, from decoder: Decoder) throws -> LiveEnum<E> {
         
         let container = try decoder.container(keyedBy: LiveCodingKeys.self)
         

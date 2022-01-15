@@ -66,7 +66,7 @@ final public class StarPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Live Model
     
-    override func modelUpdateLive() {
+    public override func modelUpdateLive() {
         super.modelUpdateLive()
         
         position = model.position
@@ -79,7 +79,7 @@ final public class StarPIX: PIXGenerator, PIXViewable {
         super.modelUpdateLiveDone()
     }
     
-    override func liveUpdateModel() {
+    public override func liveUpdateModel() {
         super.liveUpdateModel()
         
         model.position = position
