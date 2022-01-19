@@ -17,7 +17,7 @@ public struct RecordPixelModel: PixelOutputModel {
     public var typeName: String = "pix-output-record"
     public var bypass: Bool = false
     
-    public var outputNodeReferences: [NodeReference] = []
+    public var inputNodeReferences: [NodeReference] = []
 
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear

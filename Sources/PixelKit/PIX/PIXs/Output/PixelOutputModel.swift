@@ -4,12 +4,12 @@
 
 import RenderKit
 
-public typealias PixelOutputModel = PixelModel & NodeOutputModel
+public typealias PixelOutputModel = PixelModel & NodeClosingModel
 
 struct PixelOutputModelDecoder {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case outputNodeReferences
+        case inputNodeReferences
     }
     
     static func decode(from decoder: Decoder, model: PixelOutputModel) throws -> PixelOutputModel {
@@ -22,7 +22,7 @@ struct PixelOutputModelDecoder {
             return model
         }
         
-        model.outputNodeReferences = try container.decode([NodeReference].self, forKey: .outputNodeReferences)
+        model.inputNodeReferences = try container.decode([NodeReference].self, forKey: .inputNodeReferences)
 
         return model
     }

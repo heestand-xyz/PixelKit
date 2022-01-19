@@ -21,7 +21,6 @@ import PixelColor
 
 open class PIX: NODE, ObservableObject, Equatable {
     
-    private var liveUpdatingModel: Bool = false
     @Published public var pixelModel: PixelModel {
         didSet {
             guard !liveUpdatingModel else { return }
@@ -29,6 +28,7 @@ open class PIX: NODE, ObservableObject, Equatable {
             render()
         }
     }
+    private var liveUpdatingModel: Bool = false
     
     public var renderObject: Render { PixelKit.main.render }
     
@@ -85,8 +85,8 @@ open class PIX: NODE, ObservableObject, Equatable {
     }
     
     
-    open var vertexUniforms: [CGFloat] { return [] }
-    public var shaderNeedsResolution: Bool { return false }
+    open var vertexUniforms: [CGFloat] { [] }
+    public var shaderNeedsResolution: Bool { false }
     
     public var canRender: Bool = true
     
@@ -123,7 +123,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         }
     }
     public var didRenderTexture: Bool {
-        return _texture != nil
+        _texture != nil
     }
     var nextTextureAvailableCallback: (() -> ())?
     public func nextTextureAvailable(_ callback: @escaping () -> ()) {
@@ -197,7 +197,7 @@ open class PIX: NODE, ObservableObject, Equatable {
     public var pipeline: MTLRenderPipelineState!
     public var sampler: MTLSamplerState!
     public var allGood: Bool {
-        return pipeline != nil && sampler != nil
+        pipeline != nil && sampler != nil
     }
     
     public var customRenderActive: Bool = false
@@ -206,12 +206,12 @@ open class PIX: NODE, ObservableObject, Equatable {
     public weak var customMergerRenderDelegate: CustomMergerRenderDelegate?
     public var customGeometryActive: Bool = false
     public weak var customGeometryDelegate: CustomGeometryDelegate?
-    open var customMetalLibrary: MTLLibrary? { return nil }
-    open var customVertexShaderName: String? { return nil }
-    open var customVertexTextureActive: Bool { return false }
-    open var customVertexNodeIn: (NODE & NODEOut)? { return nil }
+    open var customMetalLibrary: MTLLibrary? { nil }
+    open var customVertexShaderName: String? { nil }
+    open var customVertexTextureActive: Bool { false }
+    open var customVertexNodeIn: (NODE & NODEOut)? { nil }
 //    open var customVertexNodeIn: (NODE & NODEOut)?
-    open var customMatrices: [matrix_float4x4] { return [] }
+    open var customMatrices: [matrix_float4x4] { [] }
 //    public var customLinkedNodes: [NODE] = []
     
     public var renderInProgress = false
@@ -303,6 +303,10 @@ open class PIX: NODE, ObservableObject, Equatable {
         modelUpdateLive()
     }
     
+    /// Call `modelUpdateLiveDone()` in final class
+    open func modelUpdateLive() {}
+    public func modelUpdateLiveDone() {}
+    
     // MARK: - Live
     
     public func liveValueChanged() {
@@ -316,10 +320,6 @@ open class PIX: NODE, ObservableObject, Equatable {
     public func liveUpdateModelDone() {
         liveUpdatingModel = false
     }
-    
-    /// Call `modelUpdateLiveDone()` in final class
-    open func modelUpdateLive() {}
-    public func modelUpdateLiveDone() {}
     
     // MARK: - Render
     
@@ -355,11 +355,11 @@ open class PIX: NODE, ObservableObject, Equatable {
     // MARK: Equals
     
     public static func ==(lhs: PIX, rhs: PIX) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
     
     public static func !=(lhs: PIX, rhs: PIX) -> Bool {
-        return lhs.id != rhs.id
+        lhs.id != rhs.id
     }
     
     public static func ==(lhs: PIX?, rhs: PIX) -> Bool {

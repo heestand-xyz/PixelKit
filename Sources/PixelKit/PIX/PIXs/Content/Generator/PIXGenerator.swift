@@ -51,6 +51,18 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         fatalError("please use init(model:)")
     }
     
+    // MARK: - Setup
+    
+    func setupGenerator() {
+        applyResolution { [weak self] in
+            self?.render()
+            #warning("Delay on Init")
+            PixelKit.main.render.delay(frames: 1) { [weak self] in
+                self?.render()
+            }
+        }
+    }
+    
     // MARK: - Live Model
     
     open override func modelUpdateLive() {
@@ -69,18 +81,6 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
         generatorModel.backgroundColor = backgroundColor
         generatorModel.color = color
         generatorModel.premultiply = premultiply
-    }
-    
-    // MARK: - Setup
-    
-    func setupGenerator() {
-        applyResolution { [weak self] in
-            self?.render()
-            #warning("Delay on Init")
-            PixelKit.main.render.delay(frames: 1) { [weak self] in
-                self?.render()
-            }
-        }
     }
     
     // MARK: - Property Funcs

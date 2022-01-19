@@ -32,6 +32,10 @@ public struct PixelModelDecoder {
         return model
     }
     
+}
+
+extension PixelModelDecoder {
+    
     enum LiveCodingKeys: CodingKey {
         case liveList
     }

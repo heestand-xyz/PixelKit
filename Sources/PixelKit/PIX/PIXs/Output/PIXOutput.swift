@@ -17,7 +17,9 @@ open class PIXOutput: PIX, NODEOutput, NODEInSingle {
         set { pixelModel = newValue }
     }
     
-    public var inputList: [NODE & NODEOut] = []
+    public var inputList: [NODE & NODEOut] = []{
+        didSet { outputModel.inputNodeReferences = inputList.map({ NodeReference(node: $0, connection: .single) }) }
+    }
     public var connectedIn: Bool { return !inputList.isEmpty }
     
     public var input: (NODE & NODEOut)? { didSet { setNeedsConnectSingle(new: input, old: oldValue) } }
