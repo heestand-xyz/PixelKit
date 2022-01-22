@@ -24,13 +24,43 @@ public struct FeedbackPixelModel: PixelSingleEffectModel {
     public var interpolation: PixelInterpolation = .linear
     public var extend: ExtendMode = .zero
     
+    // MARK: Local
+
+    public var feedbackInputNodeReference: NodeReference?
+    public var feedActive: Bool = true
 }
 
 extension FeedbackPixelModel {
     
+    enum LocalCodingKeys: String, CodingKey, CaseIterable {
+        case feedbackInputNodeReference
+        case feedActive
+    }
+    
     public init(from decoder: Decoder) throws {
         
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
+        
+        let container = try decoder.container(keyedBy: LocalCodingKeys.self)
+
+        if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
+            let liveList: [LiveWrap] = try PixelModelDecoder.liveListDecode(from: decoder)
+            for codingKey in LocalCodingKeys.allCases {
+                guard let liveWrap: LiveWrap = liveList.first(where: { $0.typeName == codingKey.rawValue }) else { continue }
+                
+                switch codingKey {
+                case .feedActive:
+                    guard let live = liveWrap as? LiveBool else { continue }
+                    feedActive = live.wrappedValue
+                default:
+                    continue
+                }
+            }
+            return
+        }
+        
+        feedbackInputNodeReference = try container.decode(NodeReference.self, forKey: .feedbackInputNodeReference)
+        feedActive = try container.decode(Bool.self, forKey: .feedActive)
         
     }
     

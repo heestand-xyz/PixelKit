@@ -44,7 +44,18 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
         get { feedbackInput }
         set { feedbackInput = newValue }
     }
-    public var feedbackInput: (PIX & NODEOut)? { didSet { if feedActive { render() } } }
+    public var feedbackInput: (PIX & NODEOut)? {
+        didSet {
+            if let feedbackInput: PIX = feedbackInput {
+                model.feedbackInputNodeReference = NodeReference(node: feedbackInput, connection: .single)
+            } else {
+                model.feedbackInputNodeReference = nil
+            }
+            if feedActive {
+                render()
+            }
+        }
+    }
     
     // MARK: - Property Helpers
     
@@ -83,11 +94,17 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     public override func modelUpdateLive() {
         super.modelUpdateLive()
+        
+        feedActive = model.feedActive
+        
         super.modelUpdateLiveDone()
     }
     
     public override func liveUpdateModel() {
         super.liveUpdateModel()
+        
+        model.feedActive = feedActive
+        
         super.liveUpdateModelDone()
     }
     
