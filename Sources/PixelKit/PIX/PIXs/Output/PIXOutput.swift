@@ -12,7 +12,7 @@ import Combine
 
 open class PIXOutput: PIX, NODEOutput, NODEInSingle {
     
-    var outputModel: PixelOutputModel {
+    public var outputModel: PixelOutputModel {
         get { pixelModel as! PixelOutputModel }
         set { pixelModel = newValue }
     }
@@ -32,7 +32,7 @@ open class PIXOutput: PIX, NODEOutput, NODEInSingle {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelOutputModel) {
+    public init(model: PixelOutputModel) {
         super.init(model: model)
     }
     

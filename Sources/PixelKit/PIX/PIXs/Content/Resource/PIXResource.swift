@@ -12,7 +12,7 @@ import CoreVideo
 
 open class PIXResource: PIXContent, NODEResource {
     
-    var resourceModel: PixelResourceModel {
+    public var resourceModel: PixelResourceModel {
         get { contentModel as! PixelResourceModel }
         set { contentModel = newValue }
     }
@@ -44,7 +44,7 @@ open class PIXResource: PIXContent, NODEResource {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelResourceModel) {
+    public init(model: PixelResourceModel) {
         super.init(model: model)
     }
     

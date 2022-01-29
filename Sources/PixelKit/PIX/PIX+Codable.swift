@@ -16,6 +16,12 @@ extension PIX {
     }
     
     public func encodePixelModel() throws -> Data {
+        try PIX.encode(pixelModel: pixelModel)
+    }
+    
+    public static func encode(pixelModel: PixelModel) throws -> Data {
+        
+        let typeName: String = pixelModel.typeName
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]

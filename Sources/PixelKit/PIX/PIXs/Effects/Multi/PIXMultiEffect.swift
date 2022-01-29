@@ -11,7 +11,7 @@ import Resolution
 
 open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti {
     
-    var multiEffectModel: PixelMultiEffectModel {
+    public var multiEffectModel: PixelMultiEffectModel {
         get { effectModel as! PixelMultiEffectModel }
         set { effectModel = newValue }
     }
@@ -20,7 +20,7 @@ open class PIXMultiEffect: PIXEffect, NODEMultiEffect, NODEInMulti {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelMultiEffectModel) {
+    public init(model: PixelMultiEffectModel) {
         super.init(model: model)
     }
     

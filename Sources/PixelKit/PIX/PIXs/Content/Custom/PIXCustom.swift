@@ -12,7 +12,7 @@ import PixelColor
 
 open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
-    var customModel: PixelCustomModel {
+    public var customModel: PixelCustomModel {
         get { contentModel as! PixelCustomModel }
         set { contentModel = newValue }
     }
@@ -38,7 +38,7 @@ open class PIXCustom: PIXContent, NODECustom, CustomRenderDelegate {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelCustomModel) {
+    public init(model: PixelCustomModel) {
         self.resolution = model.resolution
         super.init(model: model)
         setupCustom()

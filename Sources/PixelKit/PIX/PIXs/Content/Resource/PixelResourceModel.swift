@@ -10,9 +10,9 @@ import RenderKit
 
 public typealias PixelResourceModel = PixelContentModel & NodeResourceContentModel
 
-struct PixelResourceModelDecoder {
+public struct PixelResourceModelDecoder {
     
-    static func decode(from decoder: Decoder, model: PixelResourceModel) throws -> PixelResourceModel {
+    public static func decode(from decoder: Decoder, model: PixelResourceModel) throws -> PixelResourceModel {
         
         try PixelContentModelDecoder.decode(from: decoder, model: model) as! PixelResourceModel
     }

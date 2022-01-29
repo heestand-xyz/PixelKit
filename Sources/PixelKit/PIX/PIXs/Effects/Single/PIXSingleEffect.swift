@@ -11,7 +11,7 @@ import Resolution
 
 open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle {
     
-    var singleEffectModel: PixelSingleEffectModel {
+    public var singleEffectModel: PixelSingleEffectModel {
         get { effectModel as! PixelSingleEffectModel }
         set { effectModel = newValue }
     }
@@ -20,7 +20,7 @@ open class PIXSingleEffect: PIXEffect, NODESingleEffect, NODEInSingle {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelSingleEffectModel) {
+    public init(model: PixelSingleEffectModel) {
         super.init(model: model)
     }
     

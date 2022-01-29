@@ -14,7 +14,7 @@ import PixelColor
 
 open class PIXSprite: PIXContent, NODEResolution {
     
-    var spriteModel: PixelSpriteModel {
+    public var spriteModel: PixelSpriteModel {
         get { contentModel as! PixelSpriteModel }
         set { contentModel = newValue }
     }
@@ -52,7 +52,7 @@ open class PIXSprite: PIXContent, NODEResolution {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelSpriteModel) {
+    public init(model: PixelSpriteModel) {
         self.resolution = model.resolution
         super.init(model: model)
         setupSprite()

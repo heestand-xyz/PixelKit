@@ -11,7 +11,7 @@ import Resolution
 
 open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     
-    var mergerEffectModel: PixelMergerEffectModel {
+    public var mergerEffectModel: PixelMergerEffectModel {
         get { effectModel as! PixelMergerEffectModel }
         set { effectModel = newValue }
     }
@@ -28,7 +28,7 @@ open class PIXMergerEffect: PIXEffect, NODEMergerEffect, NODEInMerger {
     
     // MARK: - Life Cycle -
     
-    init(model: PixelMergerEffectModel) {
+    public init(model: PixelMergerEffectModel) {
         super.init(model: model)
     }
     

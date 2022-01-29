@@ -6,13 +6,13 @@ import RenderKit
 
 public typealias PixelOutputModel = PixelModel & NodeClosingModel
 
-struct PixelOutputModelDecoder {
+public struct PixelOutputModelDecoder {
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case inputNodeReferences
     }
     
-    static func decode(from decoder: Decoder, model: PixelOutputModel) throws -> PixelOutputModel {
+    public static func decode(from decoder: Decoder, model: PixelOutputModel) throws -> PixelOutputModel {
         
         var model: PixelOutputModel = try PixelModelDecoder.decode(from: decoder, model: model) as! PixelOutputModel
         
