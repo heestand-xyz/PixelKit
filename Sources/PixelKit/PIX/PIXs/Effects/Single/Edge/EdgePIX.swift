@@ -102,8 +102,8 @@ extension EdgePIX: CustomRenderDelegate {
     
     public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         let size = texture.resolution.size
-        guard let sobelTexture = try? Texture.emptyTexture(size: size, bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
-            pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+        guard let sobelTexture = try? Texture.emptyTexture(size: size, bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, write: true) else {
+            PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
         let sobelKernel = MPSImageSobel(device: PixelKit.main.render.metalDevice)

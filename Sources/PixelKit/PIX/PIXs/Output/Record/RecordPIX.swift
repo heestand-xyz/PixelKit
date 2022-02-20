@@ -194,23 +194,23 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     }
     
     public func startRec(name: String? = nil) throws {
-        pixelKit.logger.log(.info, nil, "Rec start.")
+        PixelKit.main.logger.log(.info, nil, "Rec start.")
         customName = name
         try startRecord()
     }
     
     public func pauseRec() {
-        pixelKit.logger.log(.info, nil, "Rec pause.")
+        PixelKit.main.logger.log(.info, nil, "Rec pause.")
         pauseRecord()
     }
     
     public func resumeRec() {
-        pixelKit.logger.log(.info, nil, "Rec resume.")
+        PixelKit.main.logger.log(.info, nil, "Rec resume.")
         resumeRecord()
     }
     
     public func stopRec(_ exported: @escaping (URL) -> (), didError: ((Error) -> ())? = nil) {
-        pixelKit.logger.log(.info, nil, "Rec stop.")
+        PixelKit.main.logger.log(.info, nil, "Rec stop.")
 //        guard recording else { return }
         stopRecord(done: { [weak self] in
             guard let url = self?.exportUrl else { return }
@@ -224,7 +224,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     // MARK: Export
     
     func realtimeListen() {
-        pixelKit.render.listenToFrames(callback: { [weak self] in
+        PixelKit.main.render.listenToFrames(callback: { [weak self] in
             self?.frameLoop()
         })
     }
@@ -319,7 +319,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         do {
             try FileManager.default.createDirectory(at: id_url, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            pixelKit.logger.log(node: self, .error, nil, "Creating exports folder.", e: error)
+            PixelKit.main.logger.log(node: self, .error, nil, "Creating exports folder.", e: error)
             throw RecError.setup("Creating exports folder.")
         }
         
@@ -339,7 +339,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         
         
         let sourceBufferAttributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: Int(pixelKit.render.bits.os),
+            kCVPixelBufferPixelFormatTypeKey as String: Int(PixelKit.main.render.bits.os),
             kCVPixelBufferWidthKey as String: resolution.w,
             kCVPixelBufferHeightKey as String: resolution.h,
             kCVPixelBufferMetalCompatibilityKey as String: true,
@@ -403,7 +403,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
             if self.currentImage != nil {
                 
                 guard self.writerVideoInput != nil else {
-                    self.pixelKit.logger.log(node: self, .error, nil, "writerVideoInput is nil.")
+                    PixelKit.main.logger.log(node: self, .error, nil, "writerVideoInput is nil.")
                     return
                 }
                 if self.writerVideoInput!.isReadyForMoreMediaData {
@@ -427,14 +427,14 @@ final public class RecordPIX: PIXOutput, PIXViewable {
                         time = CMTime(value: Int64(self.frameIndex), timescale: Int32(self.fps))
                     }
                     
-                    self.pixelKit.logger.log(node: self, .detail, nil, "Exporting frame at \(time.seconds).", loop: true)
+                    PixelKit.main.logger.log(node: self, .detail, nil, "Exporting frame at \(time.seconds).", loop: true)
                     self.appendPixelBufferForImageAtURL(self.writerAdoptor!, presentation_time: time, cg_image: self.currentImage!, at: resolution.size)
                     
                     self.lastFrameDate = Date()
                     self.frameIndex += 1
                     
                 } else {
-                    self.pixelKit.logger.log(node: self, .error, nil, "isReadyForMoreMediaData is false.")
+                    PixelKit.main.logger.log(node: self, .error, nil, "isReadyForMoreMediaData is false.")
                 }
                 
                 self.currentImage = nil
@@ -447,34 +447,34 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     
     func recordFrame(texture: MTLTexture) {
         
-        self.pixelKit.logger.log(node: self, .detail, nil, "Record Frame.", loop: true)
+        PixelKit.main.logger.log(node: self, .detail, nil, "Record Frame.", loop: true)
         
         if recording && !self.paused && writer != nil && writerVideoInput != nil && writerAdoptor != nil {
             
             let options: [CIImageOption : Any] = [
-                CIImageOption.colorSpace: pixelKit.render.colorSpace
+                CIImageOption.colorSpace: PixelKit.main.render.colorSpace
             ]
             let ci_image = CIImage(mtlTexture: texture, options: options)
             if ci_image != nil {
                 #if (os(iOS) && !targetEnvironment(macCatalyst)) || os(tvOS)
-                // FIXME: Debug
-                EAGLContext.setCurrent(nil)
+                // FIXME: Check EAGLContext
+//                EAGLContext.setCurrent(nil)
                 #endif
                 let context = CIContext.init(options: nil)
-                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: Bits._8.ci, colorSpace: pixelKit.render.colorSpace)
+                let cg_image = context.createCGImage(ci_image!, from: ci_image!.extent, format: Bits._8.ci, colorSpace: PixelKit.main.render.colorSpace)
                 if cg_image != nil {
                     
                     currentImage = cg_image!
                 
                 } else {
-                    self.pixelKit.logger.log(node: self, .error, nil, "cg_image is nil.")
+                    PixelKit.main.logger.log(node: self, .error, nil, "cg_image is nil.")
                 }
             } else {
-                self.pixelKit.logger.log(node: self, .error, nil, "ci_image is nil.")
+                PixelKit.main.logger.log(node: self, .error, nil, "ci_image is nil.")
             }
             
         } else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Some writer is nil.")
+            PixelKit.main.logger.log(node: self, .error, nil, "Some writer is nil.")
         }
         
     }
@@ -497,12 +497,12 @@ final public class RecordPIX: PIXOutput, PIXViewable {
                             done()
                         }
                     } else if writer.error == nil {
-                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop E. Cancelled. Writer Status: \(writer.status).")
+                        PixelKit.main.logger.log(node: self, .error, nil, "Rec Stop E. Cancelled. Writer Status: \(writer.status).")
                         DispatchQueue.main.async {
                             didError(RecError.render("Rec Stop E. Cancelled."))
                         }
                     } else {
-                        self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop D. Writer Error. Writer Status: \(writer.status).", e: writer.error)
+                        PixelKit.main.logger.log(node: self, .error, nil, "Rec Stop D. Writer Error. Writer Status: \(writer.status).", e: writer.error)
                         DispatchQueue.main.async {
                             didError(RecError.render("Rec Stop D. Writer Error."))
                         }
@@ -511,13 +511,13 @@ final public class RecordPIX: PIXOutput, PIXViewable {
                     self.writer = nil
                 }
             } else {
-                self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop B. Writer has bad satus: \(writer.status.rawValue)")
+                PixelKit.main.logger.log(node: self, .error, nil, "Rec Stop B. Writer has bad satus: \(writer.status.rawValue)")
                 didError(RecError.render("Rec Stop B. Writer has bad satus: \(writer.status.rawValue)"))
                 self.writerVideoInput = nil
                 self.writer = nil
             }
         } else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Rec Stop A. Writer or Input not found.")
+            PixelKit.main.logger.log(node: self, .error, nil, "Rec Stop A. Writer or Input not found.")
             didError(RecError.render("Rec Stop A. Writer or Input not found."))
             self.writerVideoInput = nil
             self.writer = nil
@@ -542,16 +542,16 @@ final public class RecordPIX: PIXOutput, PIXViewable {
     
     func appendPixelBufferForImageAtURL(_ pixel_buffer_adoptor: AVAssetWriterInputPixelBufferAdaptor, presentation_time: CMTime, cg_image: CGImage, at size: CGSize) {
         guard writer?.status == .some(.writing) else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
+            PixelKit.main.logger.log(node: self, .error, nil, "Export frame Canceled, Bad writer status: \(String(describing: writer?.status.rawValue)).", e: writer?.error)
             return
         }
         guard let pixelBuffer = Texture.buffer(from: cg_image, at: size, swizzle: true) else {
-            self.pixelKit.logger.log(node: self, .error, nil, "Export frame Canceled, Texture not Found.")
+            PixelKit.main.logger.log(node: self, .error, nil, "Export frame Canceled, Texture not Found.")
             return
         }
         if !pixel_buffer_adoptor.append(pixelBuffer, withPresentationTime: presentation_time) {
             guard let writer = self.writer else { return }
-            self.pixelKit.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
+            PixelKit.main.logger.log(node: self, .error, nil, "Exported frame failed, writer status: \(writer.status.rawValue).", e: writer.error)
         }
     }
     

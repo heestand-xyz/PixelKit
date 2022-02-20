@@ -160,11 +160,11 @@ final public class BlurPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable {
     #if !os(tvOS) && !targetEnvironment(simulator)
     func gaussianBlur(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
         if #available(macOS 10.13, *) {
-            guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
-                pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            guard let blurTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, write: true) else {
+                PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
                 return nil
             }
-            let gaussianBlurKernel = MPSImageGaussianBlur(device: pixelKit.render.metalDevice, sigma: Float(relRadius))
+            let gaussianBlurKernel = MPSImageGaussianBlur(device: PixelKit.main.render.metalDevice, sigma: Float(relRadius))
             gaussianBlurKernel.edgeMode = extend.mps!
             gaussianBlurKernel.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: blurTexture)
             return blurTexture

@@ -101,7 +101,6 @@ final public class ArrayPIX: PIXMultiEffect, PIXViewable {
     public required init() {
         let model = Model()
         super.init(model: model)
-        #warning("Build Initial Grid in App")
     }
     
     // MARK: - Live Model

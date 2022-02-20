@@ -53,7 +53,7 @@ final public class StreamInPIX: PIXResource, PIXViewable {
     func setup() {
         
         guard let viewController: UIViewController = viewController else {
-            pixelKit.logger.log(.error, .view, "View Controller Not Found")
+            PixelKit.main.logger.log(.error, .view, "View Controller Not Found")
             return
         }
         
@@ -89,15 +89,15 @@ final public class StreamInPIX: PIXResource, PIXViewable {
     
     func setNeedsBuffer() {
         guard let image = image else {
-            pixelKit.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
+            PixelKit.main.logger.log(node: self, .debug, .resource, "Nil not supported yet.")
             return
         }
-        guard let buffer = Texture.buffer(from: image, bits: pixelKit.render.bits) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
+        guard let buffer = Texture.buffer(from: image, bits: PixelKit.main.render.bits) else {
+            PixelKit.main.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         resourcePixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Image Loaded.")
         applyResolution { [weak self] in
             self?.render()
         }

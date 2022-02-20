@@ -131,21 +131,20 @@ extension PIX {
 //        })
 //    }
     
-    #warning("PixelKit - Apply Resolution without closure")
     public func applyResolution(applied: @escaping () -> ()) {
         if derivedResolution == nil {
-            pixelKit.logger.log(node: self, .warning, .resolution, "Apply Resolution - Derived Resolution not found. Using fallback resolution of \(PixelKit.main.fallbackResolution).")
+            PixelKit.main.logger.log(node: self, .warning, .resolution, "Apply Resolution - Derived Resolution not found. Using fallback resolution of \(PixelKit.main.fallbackResolution).")
         }
         finalResolution = derivedResolution ?? PixelKit.main.fallbackResolution
-//        if !pixelKit.render.engine.renderMode.isManual {
-//            if pixelKit.render.frame == 0 {
+//        if !PixelKit.main.render.engine.renderMode.isManual {
+//            if PixelKit.main.render.frame == 0 {
 //                #if os(macOS)
 //                let delayFrames = 2
 //                #else
 //                let delayFrames = 1
 //                #endif
-//                pixelKit.logger.log(node: self, .detail, .resolution, "Waiting for potential layout, delayed \(delayFrames) frames.")
-//                pixelKit.render.delay(frames: delayFrames, done: {
+//                PixelKit.main.logger.log(node: self, .detail, .resolution, "Waiting for potential layout, delayed \(delayFrames) frames.")
+//                PixelKit.main.render.delay(frames: delayFrames, done: {
 //                    self.applyResolution(applied: applied)
 //                })
 //                return
@@ -160,7 +159,7 @@ extension PIX {
             return
         }
         view.setResolution(finalResolution)
-        pixelKit.logger.log(node: self, .info, .resolution, "Apply Resolution: \(finalResolution)")
+        PixelKit.main.logger.log(node: self, .info, .resolution, "Apply Resolution: \(finalResolution)")
         applied()
 //        delegate?.pixResChanged(self, to: res)
         // FIXME: Check if this is extra work..

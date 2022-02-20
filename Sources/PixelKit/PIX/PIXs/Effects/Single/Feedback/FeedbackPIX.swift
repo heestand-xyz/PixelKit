@@ -34,7 +34,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     var feedTexture: MTLTexture? {
         guard let texture = feedbackInput?.texture else { return nil }
-        return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+        return try? Texture.copy(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
     }
     
     @LiveBool("feedActive") public var feedActive: Bool = true
@@ -79,7 +79,7 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     // MARK: - Setup
     
     func setup() {
-        pixelKit.render.listenToFramesUntil { [weak self] in
+        PixelKit.main.render.listenToFramesUntil { [weak self] in
             guard let self = self else { return .done }
             if self.input?.texture != nil && self.feedTexture != nil {
                 self.render()
@@ -112,18 +112,18 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     
     func tileFeedTexture(at tileIndex: TileIndex) -> MTLTexture? {
         guard let tileFeedPix = feedbackInput as? PIX & NODETileable2D else {
-            pixelKit.logger.log(node: self, .error, .texture, "Feed Input PIX Not Tileable.")
+            PixelKit.main.logger.log(node: self, .error, .texture, "Feed Input PIX Not Tileable.")
             return nil
         }
         guard let texture = tileFeedPix.tileTextures?[tileIndex.y][tileIndex.x] else { return nil }
-        return try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue)
+        return try? Texture.copy(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
     }
     
     override public func didRender(renderPack: RenderPack) {
         super.didRender(renderPack: renderPack)
         if clearingFeed {
             if clearFrame >= clearFrameCount {
-                pixelKit.logger.log(node: self, .info, .effect, "Did Clear Feedback")
+                PixelKit.main.logger.log(node: self, .info, .effect, "Did Clear Feedback")
                 feedActive = true
                 clearFrame = 0
             } else {
@@ -143,10 +143,10 @@ final public class FeedbackPIX: PIXSingleEffect, PIXViewable {
     public func clearFeed() {
         guard !clearingFeed else { return }
         guard feedActive else {
-            pixelKit.logger.log(node: self, .info, .effect, "Feedback Clear Canceled - Not Active.")
+            PixelKit.main.logger.log(node: self, .info, .effect, "Feedback Clear Canceled - Not Active.")
             return
         }
-        pixelKit.logger.log(node: self, .info, .effect, "Will Clear Feedback")
+        PixelKit.main.logger.log(node: self, .info, .effect, "Will Clear Feedback")
         feedActive = false
         clearFrame = 1
         render()

@@ -82,7 +82,7 @@ extension OpticalFlowPIX: CustomRenderDelegate {
         
             try VNImageRequestHandler(cvPixelBuffer: lastPixelBuffer, options: [:]).perform([request])
             
-            guard let observation: VNPixelBufferObservation = request.results?.first as? VNPixelBufferObservation else { return nil }
+            guard let observation: VNPixelBufferObservation = request.results?.first else { return nil }
                         
             let finalTexture: MTLTexture = try Texture.makeTextureViaRawData(from: observation.pixelBuffer, bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, sourceZero: Float(0.0), sourceOne: Float(1.0), normalize: true, invertGreen: true)
             

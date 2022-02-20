@@ -523,7 +523,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
             guard multiIndex < self.multiCallbacks.count else { return }
             self.multiCallbacks[multiIndex].frameLoop(multiPixelBuffer)
             #endif
-        }, capturedSampleBuffer: { [weak self] sampleBuffer in
+        }, capturedSampleBuffer: { /*[weak self]*/ sampleBuffer in
 //            self?.sampleBuffer = sampleBuffer
         })
         if !active {

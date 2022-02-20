@@ -87,7 +87,7 @@ final public class DelayPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable 
         if cachedTextures.count > 0 {
             cachedTextures.remove(at: 0)
         }
-        if let textureCopy = try? Texture.copy(texture: texture, on: pixelKit.render.metalDevice, in: pixelKit.render.commandQueue) {
+        if let textureCopy = try? Texture.copy(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue) {
             while delayFrames != cachedTextures.count {
                 if cachedTextures.count < delayFrames {
                     cachedTextures.append(textureCopy)

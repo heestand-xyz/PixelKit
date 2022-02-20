@@ -56,7 +56,7 @@ open class PIXGenerator: PIXContent, NODEGenerator, NODEResolution {
     func setupGenerator() {
         applyResolution { [weak self] in
             self?.render()
-            #warning("Delay on Init")
+            // FIXME: Delay on Init
             PixelKit.main.render.delay(frames: 1) { [weak self] in
                 self?.render()
             }

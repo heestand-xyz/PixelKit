@@ -94,18 +94,18 @@ final public class EqualizePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewab
             maxPixelValue: vector_float4(1,1,1,1)
         )
              
-        let histogram = MPSImageHistogram(device: pixelKit.render.metalDevice, histogramInfo: &histogramInfo)
-        let equalization = MPSImageHistogramEqualization(device: pixelKit.render.metalDevice, histogramInfo: &histogramInfo)
+        let histogram = MPSImageHistogram(device: PixelKit.main.render.metalDevice, histogramInfo: &histogramInfo)
+        let equalization = MPSImageHistogramEqualization(device: PixelKit.main.render.metalDevice, histogramInfo: &histogramInfo)
 
         let bufferLength: Int = histogram.histogramSize(forSourceFormat: texture.pixelFormat)
-        guard let histogramInfoBuffer: MTLBuffer = pixelKit.render.metalDevice.makeBuffer(length: bufferLength, options: [.storageModePrivate]) else { return nil }
+        guard let histogramInfoBuffer: MTLBuffer = PixelKit.main.render.metalDevice.makeBuffer(length: bufferLength, options: [.storageModePrivate]) else { return nil }
         
         histogram.encode(to: commandBuffer, sourceTexture: texture, histogram: histogramInfoBuffer, histogramOffset: 0)
         
         equalization.encodeTransform(to: commandBuffer, sourceTexture: texture, histogram: histogramInfoBuffer, histogramOffset: 0)
         
-        guard let histogramTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: pixelKit.render.bits, on: pixelKit.render.metalDevice, write: true) else {
-            pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+        guard let histogramTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width, height: texture.height), bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, write: true) else {
+            PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
         

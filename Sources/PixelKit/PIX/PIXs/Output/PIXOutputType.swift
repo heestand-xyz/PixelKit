@@ -39,8 +39,8 @@ public enum PIXOutputType: String, Codable, CaseIterable, Identifiable {
             return AirPlayPIX.self
         case .streamOut:
             return StreamOutPIX.self
-        default:
-            return nil
+//        default:
+//            return nil
 //        #elseif os(macOS)
 //        case .syphonOut:
 //            return SyphonOutPIX.self

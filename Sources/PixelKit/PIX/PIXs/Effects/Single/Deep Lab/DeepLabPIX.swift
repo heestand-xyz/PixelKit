@@ -80,21 +80,21 @@ import CoreMedia
 //    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? { return nil }
 //
 ////    public func customRender(_ texture: MTLTexture, with commandBuffer: MTLCommandBuffer) -> MTLTexture? {
-////        pixelKit.logger.log(node: self, .info, .effect, "Custom Render Start")
+////        PixelKit.main.logger.log(node: self, .info, .effect, "Custom Render Start")
 ////        let size: CGSize = customResolution!.size
 ////        do {
-////            let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: pixelKit.render.colorSpace, bits: pixelKit.render.bits)
+////            let pixelBuffer: CVPixelBuffer = try Texture.pixelBuffer(from: texture, at: size, colorSpace: PixelKit.main.render.colorSpace, bits: PixelKit.main.render.bits)
 ////            if !processing {
 ////                processing = true
 ////                deepLab(pixelBuffer: pixelBuffer) { result in
 ////                    switch result {
 ////                    case .success(let image):
-////                        self.pixelKit.logger.log(node: self, .info, .effect, "Custom Render Done")
+////                        PixelKit.main.logger.log(node: self, .info, .effect, "Custom Render Done")
 ////                        self.lastDeepCGImage = image
 ////                        self.render() // loop?
 ////                        self.processing = false
 ////                    case .failure(let error):
-////                        self.pixelKit.logger.log(node: self, .error, .effect, "Deep Fail", e: error)
+////                        PixelKit.main.logger.log(node: self, .error, .effect, "Deep Fail", e: error)
 ////                    }
 ////                }
 ////            }
@@ -102,15 +102,15 @@ import CoreMedia
 //////            lastDeepCGImage = nil
 ////            print(">>>")
 ////            let globalRenderTime = CFAbsoluteTimeGetCurrent()
-////            let deepTexture: MTLTexture = try Texture.makeTexture(from: deepCGImage, with: commandBuffer, on: pixelKit.render.metalDevice)
+////            let deepTexture: MTLTexture = try Texture.makeTexture(from: deepCGImage, with: commandBuffer, on: PixelKit.main.render.metalDevice)
 ////            let renderTime = CFAbsoluteTimeGetCurrent() - globalRenderTime
 ////            let renderTimeMs = Double(Int(round(renderTime * 1_000_000))) / 1_000
 ////            print("Deep Lab V3 - CGImage to MTLTexture - Render Time: [\(renderTimeMs)ms]")
 ////            print("<<<")
-////            pixelKit.logger.log(node: self, .info, .effect, "Custom Render Return")
+////            PixelKit.main.logger.log(node: self, .info, .effect, "Custom Render Return")
 ////            return deepTexture
 ////        } catch {
-////            pixelKit.logger.log(node: self, .error, .effect, "Lab fail.", e: error)
+////            PixelKit.main.logger.log(node: self, .error, .effect, "Lab fail.", e: error)
 ////            return nil
 ////        }
 ////    }
@@ -238,7 +238,7 @@ import CoreMedia
 ////            bitsPerComponent: bytesPerComponent * 8,
 ////            bitsPerPixel: bytesPerPixel * 8,
 ////            bytesPerRow: bytesPerPixel * w,
-////            space: pixelKit.render.colorSpace, //CGColorSpaceCreateDeviceRGB(),
+////            space: PixelKit.main.render.colorSpace, //CGColorSpaceCreateDeviceRGB(),
 ////            bitmapInfo: CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Big.rawValue),
 ////            provider: provider,
 ////            decode: nil,

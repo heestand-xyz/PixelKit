@@ -97,7 +97,7 @@ final public class CornerPinPIX: PIXSingleEffect, CustomGeometryDelegate, PIXVie
         }
         
         let vertexBuffersSize = vertexBuffers.count * MemoryLayout<Float>.size
-        let verticesBuffer = pixelKit.render.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
+        let verticesBuffer = PixelKit.main.render.metalDevice.makeBuffer(bytes: vertexBuffers, length: vertexBuffersSize, options: [])!
         
         return Vertices(buffer: verticesBuffer, vertexCount: verticesMapped.count)
         

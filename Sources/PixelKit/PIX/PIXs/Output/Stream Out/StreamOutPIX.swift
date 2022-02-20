@@ -54,7 +54,7 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     private func setup() {
         guard let viewController: UIViewController = viewController else {
-            pixelKit.logger.log(.error, .view, "View Controller Not Found")
+            PixelKit.main.logger.log(.error, .view, "View Controller Not Found")
             return
         }
         peer = Peer(viewController: viewController, peer: { connect_state, device_name in
@@ -92,8 +92,8 @@ final public class StreamOutPIX: PIXOutput, PIXViewable {
     
     func stream(texture: MTLTexture) {
         guard connected == .connected else { return }
-        guard let image: UIImage = Texture.image(from: texture, colorSpace: pixelKit.render.colorSpace, vFlip: false) else {
-            pixelKit.logger.log(.warning, .resource, "Stream Image Convert Failed.")
+        guard let image: UIImage = Texture.image(from: texture, colorSpace: PixelKit.main.render.colorSpace, vFlip: false) else {
+            PixelKit.main.logger.log(.warning, .resource, "Stream Image Convert Failed.")
             return
         }
         peer.sendImg(img: image, quality: quality)

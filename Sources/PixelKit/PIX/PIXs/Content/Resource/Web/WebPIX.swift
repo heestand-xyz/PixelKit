@@ -88,7 +88,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
         
         webView.navigationDelegate = helper
         helper.refreshCallback = { [weak self] in
-            self?.pixelKit.logger.log(node: self, .info, .resource, "Web refreshed!")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Web refreshed!")
             self?.setNeedsBuffer()
         }
         
@@ -129,7 +129,7 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
     // MARK: - Load
     
     public func refresh() {
-        pixelKit.logger.log(node: self, .info, .resource, "Web refresh: \(url)")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Web refresh: \(url)")
         let request = URLRequest(url: url)
         webView.load(request)
     }
@@ -158,19 +158,19 @@ final public class WebPIX: PIXResource, NODEResolution, PIXViewable {
         webView.takeSnapshot(with: nil) { [weak self] image, error in
             guard let self = self else { return }
             guard error == nil else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
+                PixelKit.main.logger.log(node: self, .error, .resource, "Web snapshot failed.", e: error)
                 return
             }
             guard let image = image else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Web snapshot image not available.")
+                PixelKit.main.logger.log(node: self, .error, .resource, "Web snapshot image not available.")
                 return
             }
-            guard let buffer = Texture.buffer(from: image, bits: self.pixelKit.render.bits) else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
+            guard let buffer = Texture.buffer(from: image, bits: PixelKit.main.render.bits) else {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
                 return
             }
             self.resourcePixelBuffer = buffer
-            self.pixelKit.logger.log(node: self, .info, .resource, "Image Loaded.")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Image Loaded.")
             self.render()
         }
     }

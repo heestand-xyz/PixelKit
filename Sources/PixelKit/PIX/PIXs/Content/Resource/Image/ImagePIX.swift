@@ -81,7 +81,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
     // MARK: - Property Helpers
     
     public override var values: [Floatable] {
-        [tint, tintColor, bgColor, flip, swizzle]
+        [false, PixelColor.white, PixelColor.black, flip, swizzle]
     }
     
     // MARK: - Life Cycle -
@@ -139,7 +139,7 @@ final public class ImagePIX: PIXResource, PIXViewable {
             image = Texture.resize(image, to: res.size, placement: resizePlacement)
             resizedResolution = image.resolution
         }
-        let bits: Bits = pixelKit.render.bits
+        let bits: Bits = PixelKit.main.render.bits
 //        if bits == ._16 {
 //            do {
 //                let texture: MTLTexture = try Texture.loadTexture(from: image, device: PixelKit.main.render.metalDevice)

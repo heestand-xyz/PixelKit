@@ -146,7 +146,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     public func load(named name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "svg") else {
-            pixelKit.logger.log(.error, .resource, "Vector SVG file not found.")
+            PixelKit.main.logger.log(.error, .resource, "Vector SVG file not found.")
             return
         }
         load(url: url)
@@ -154,7 +154,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     public func load(url: URL) {
         guard let svg: String = try? String(contentsOf: url) else {
-            pixelKit.logger.log(.error, .resource, "Vector SVG file corrupted.")
+            PixelKit.main.logger.log(.error, .resource, "Vector SVG file corrupted.")
             return
         }
         self.svg = svg
@@ -176,9 +176,9 @@ final public class VectorPIX: PIXResource, PIXViewable {
     // MARK: Buffer
     
     func setNeedsBuffer() {
-//        if pixelKit.render.frame == 0 {
-//            pixelKit.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
-//            pixelKit.render.delay(frames: 1, done: {
+//        if PixelKit.main.render.frame == 0 {
+//            PixelKit.main.logger.log(node: self, .debug, .resource, "Vector one frame delay.")
+//            PixelKit.main.render.delay(frames: 1, done: {
 //                self.setNeedsBuffer()
 //            })
 //            return
@@ -186,26 +186,26 @@ final public class VectorPIX: PIXResource, PIXViewable {
 //        UIGraphicsBeginImageContextWithOptions(resolution.size, false, 0)
 //        defer { UIGraphicsEndImageContext() }
 //        guard let context = UIGraphicsGetCurrentContext() else {
-//            pixelKit.logger.log(.error, .resource, "Vector context fail.")
+//            PixelKit.main.logger.log(.error, .resource, "Vector context fail.")
 //            return
 //        }
 //        webView.layer.render(in: context)
 //        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-//            pixelKit.logger.log(node: self, .error, .resource, "Vector image fail.")
+//            PixelKit.main.logger.log(node: self, .error, .resource, "Vector image fail.")
 //            return
 //        }
         webView.takeSnapshot(with: nil) { [weak self] image, error in
             guard let self = self else { return }
             guard error == nil && image != nil else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Vector image failed.", e: error)
+                PixelKit.main.logger.log(node: self, .error, .resource, "Vector image failed.", e: error)
                 return
             }
-            guard let buffer = Texture.buffer(from: image!, bits: self.pixelKit.render.bits) else {
-                self.pixelKit.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
+            guard let buffer = Texture.buffer(from: image!, bits: PixelKit.main.render.bits) else {
+                PixelKit.main.logger.log(node: self, .error, .resource, "Vector pixel Buffer creation failed.")
                 return
             }
             self.resourcePixelBuffer = buffer
-            self.pixelKit.logger.log(node: self, .info, .resource, "Vector image loaded.")
+            PixelKit.main.logger.log(node: self, .info, .resource, "Vector image loaded.")
             self.applyResolution { [weak self] in
                 self?.render()
             }
@@ -214,7 +214,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     
     func makeHTML(with svg: String) -> String {
         let size: CGSize = (resolution / Resolution.scale).size
-        let bgColorHex: String = bgColor.hex
+        let bgColorHex: String = backgroundColor.hex
         var svg_html: String = svg
         let svg_html_components = svg_html.components(separatedBy: "<svg")
         let svg_html_splits = svg_html_components.last!.split(separator: ">", maxSplits: 1)

@@ -139,7 +139,7 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
 //            let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelKit.bits.mtl, width: textureA.width, height: textureA.height, mipmapped: true) // CHECK mipmapped
 //            descriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.shaderRead.rawValue | MTLTextureUsage.shaderWrite.rawValue) // CHECK shaderRead
 //            guard let texture = pixelKit.metalDevice.makeTexture(descriptor: descriptor) else {
-//                pixelKit.logger.log(node: self, .error, .generator, "Blend Kernel: Make texture faild.")
+//                PixelKit.main.logger.log(node: self, .error, .generator, "Blend Kernel: Make texture faild.")
 //                return nil
 //            }
 //            switch blendMode {

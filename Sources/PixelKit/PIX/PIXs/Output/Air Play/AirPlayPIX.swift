@@ -107,7 +107,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         } else {
             message = "Not enabled (mirroring)."
         }
-        pixelKit.logger.log(node: self, .info, nil, slug + " " + message)
+        PixelKit.main.logger.log(node: self, .info, nil, slug + " " + message)
         #if DEBUG
         print("AirPlayDebug log \(message)")
         #endif
@@ -188,7 +188,7 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         #if DEBUG
         print("AirPlayDebug", "appActive")
         #endif
-        #warning("AirPlay Can't access application state...")
+//        #warning("AirPlay Can't access application state...")
 //        if queueConnect {
 //            let second_screen = UIScreen.screens[1]
 //            connectAirPlay(screen: second_screen)

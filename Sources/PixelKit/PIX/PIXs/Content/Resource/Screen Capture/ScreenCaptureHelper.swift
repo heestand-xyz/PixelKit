@@ -47,7 +47,7 @@ class ScreenCaptureHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         newDevice()
         
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: pixelKit.render.bits.os]
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: PixelKit.main.render.bits.os]
         
         
         if screenInput != nil {

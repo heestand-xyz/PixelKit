@@ -27,7 +27,7 @@ open class PIXEffect: PIX, NODEEffect {
     public var connectedIn: Bool { !inputList.isEmpty }
     public var connectedOut: Bool { !outputPathList.isEmpty }
 
-    public var tileResolution: Resolution { pixelKit.tileResolution }
+    public var tileResolution: Resolution { PixelKit.main.tileResolution }
     public var tileTextures: [[MTLTexture]]?
     
     public var renderPromisePublisher: PassthroughSubject<RenderRequest, Never> = PassthroughSubject()

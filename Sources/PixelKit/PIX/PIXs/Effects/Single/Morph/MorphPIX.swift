@@ -129,31 +129,31 @@ final public class MorphPIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable/
         let kernel: MPSUnaryImageKernel
         switch style {
 //        case .erode:
-//            kernel = MPSImageErode(device: pixelKit.render.metalDevice,
+//            kernel = MPSImageErode(device: PixelKit.main.render.metalDevice,
 //                                   kernelWidth: 3,
 //                                   kernelHeight: 3,
 //                                   values: &values)
 //        case .dilate:
-//            kernel = MPSImageDilate(device: pixelKit.render.metalDevice,
+//            kernel = MPSImageDilate(device: PixelKit.main.render.metalDevice,
 //                                    kernelWidth: 3,
 //                                    kernelHeight: 3,
 //                                    values: &values)
         case .minimum:
-            kernel = MPSImageAreaMin(device: pixelKit.render.metalDevice,
+            kernel = MPSImageAreaMin(device: PixelKit.main.render.metalDevice,
                                      kernelWidth: 1 + width * 2,
                                      kernelHeight: 1 + height * 2)
         case .maximum:
-            kernel = MPSImageAreaMax(device: pixelKit.render.metalDevice,
+            kernel = MPSImageAreaMax(device: PixelKit.main.render.metalDevice,
                                      kernelWidth: 1 + width * 2,
                                      kernelHeight: 1 + height * 2)
         }
         
         guard let morphTexture = try? Texture.emptyTexture(size: CGSize(width: texture.width,
                                                                         height: texture.height),
-                                                           bits: pixelKit.render.bits,
-                                                           on: pixelKit.render.metalDevice,
+                                                           bits: PixelKit.main.render.bits,
+                                                           on: PixelKit.main.render.metalDevice,
                                                            write: true) else {
-            pixelKit.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
             return nil
         }
         

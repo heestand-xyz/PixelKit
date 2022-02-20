@@ -360,7 +360,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
             }
         }
 
-        if let timeMachineNode = node as? TimeMachinePIX {
+        if let timeMachineNode = node as? NODETimeMachine {
             let textures = timeMachineNode.customRender(inputTexture!, with: commandBuffer)
             inputTexture = try Texture.makeMultiTexture(from: textures, with: commandBuffer, on: render.metalDevice, in3D: true)
         }

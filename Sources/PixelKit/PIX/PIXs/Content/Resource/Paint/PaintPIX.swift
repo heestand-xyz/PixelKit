@@ -273,11 +273,11 @@ final public class PaintPIX: PIXResource, NODEResolution, PIXViewable {
         let frame: CGRect = CGRect(origin: .zero, size: resolution.size)
         let image: UIImage = drawing.image(from: frame, scale: 1.0)
         guard let buffer: CVPixelBuffer = Texture.buffer(from: image, bits: ._8) else {
-            pixelKit.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
+            PixelKit.main.logger.log(node: self, .error, .resource, "Pixel Buffer creation failed.")
             return
         }
         resourcePixelBuffer = buffer
-        pixelKit.logger.log(node: self, .info, .resource, "Paint Loaded.")
+        PixelKit.main.logger.log(node: self, .info, .resource, "Paint Loaded.")
         applyResolution { [weak self] in
             self?.render()
         }

@@ -10,7 +10,7 @@ import RenderKit
 import Resolution
 import Metal
 
-final public class TimeMachinePIX: PIXMergerEffect, PIXViewable {
+final public class TimeMachinePIX: PIXMergerEffect, PIXViewable, NODETimeMachine {
     
     public typealias Model = TimeMachinePixelModel
     
