@@ -33,7 +33,12 @@ open class PIX: NODE, ObservableObject, Equatable {
     public var renderObject: Render { PixelKit.main.render }
     
     public var id: UUID {
-        pixelModel.id
+        get {
+            pixelModel.id
+        }
+        set {
+            pixelModel.id = newValue
+        }
     }
     public var name: String {
         get { pixelModel.name }
