@@ -67,31 +67,17 @@ Info:
 import SwiftUI
 import PixelKit
 
-class ViewModel: ObservableObject {
-    
-    let circlePix: CirclePIX
-    let blurPix: BlurPIX
-    
-    let finalPix: PIX
-    
-    init() {
-        
-        circlePix = CirclePIX()
-
-        blurPix = BlurPIX()
-        blurPix.input = circlePix
-        blurPix.radius = 0.25
-
-        finalPix = blurPix
-    }
-}
-
 struct ContentView: View {
     
-    @StateObject var viewModel = ViewModel()
+    @StateObject var circlePix = CirclePIX()
+    @StateObject var blurPix = BlurPIX()
     
     var body: some View {
-        PixelView(pix: viewModel.finalPix)
+        PixelView(pix: blurPix)
+            .onAppear {
+                blurPix.input = circlePix
+                blurPix.radius = 0.25
+            }
     }
 }
 ~~~~
