@@ -19,9 +19,7 @@ import PixelColor
 
 #if !os(tvOS)
 
-@available(OSX 10.13, *)
-@available(iOS 11, *)
-final public class VectorPIX: PIXResource, PIXViewable {
+final public class VectorPIX: PIXResource, NODEResolution, PIXViewable {
     
     public typealias Model = VectorPixelModel
     
@@ -30,7 +28,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
         set { resourceModel = newValue }
     }
     
-    #if os(iOS) || os(tvOS)
+    #if os(iOS)
     override public var shaderName: String { return "contentResourceFlipPIX" }
     #elseif os(macOS)
     override public var shaderName: String { return "contentResourceBGRPIX" }
@@ -164,7 +162,7 @@ final public class VectorPIX: PIXResource, PIXViewable {
     func load() {
         guard let svg = self.svg else { return }
         let html = makeHTML(with: svg)
-        webView.loadHTMLString(html, baseURL: URL(string: "https://pixelnodes.app/")!)
+        webView.loadHTMLString(html, baseURL: URL(string: "https://www.google.com/")!)
     }
     
     // MARK: - Frame

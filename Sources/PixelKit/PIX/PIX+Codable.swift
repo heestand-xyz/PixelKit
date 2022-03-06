@@ -121,6 +121,12 @@ extension PIX {
 #endif
             case .maps:
                 return try encoder.encode(pixelModel as! EarthPixelModel)
+            case .p5js:
+#if !os(tvOS)
+                return try encoder.encode(pixelModel as! P5JSPixelModel)
+#else
+                throw CodingError.badOS
+#endif
             }
         }
         
@@ -409,6 +415,12 @@ extension PIX {
 #endif
             case .maps:
                 return try decoder.decode(EarthPixelModel.self, from: data)
+            case .p5js:
+#if !os(tvOS)
+                return try decoder.decode(P5JSPixelModel.self, from: data)
+#else
+                throw CodingError.badOS
+#endif
             }
         }
         
@@ -692,6 +704,12 @@ extension PIX {
 #endif
             case .maps:
                 return EarthPIX(model: pixelModel as! EarthPixelModel)
+            case .p5js:
+#if !os(tvOS)
+                return P5JSPIX(model: pixelModel as! P5JSPixelModel)
+#else
+                throw CodingError.badOS
+#endif
             }
         }
         

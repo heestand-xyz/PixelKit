@@ -16,6 +16,7 @@ import PixelColor
 
 // MARK: - Camera Helper
 
+@available(macCatalyst 14.0, *)
 class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AVCapturePhotoCaptureDelegate*/ {
 
     let pixelKit = PixelKit.main

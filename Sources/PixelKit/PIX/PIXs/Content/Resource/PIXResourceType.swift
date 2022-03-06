@@ -15,6 +15,7 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
     case paint
     case streamIn
     case maps
+    case p5js
     
     public var name: String {
         switch self {
@@ -42,6 +43,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
             return "Stream In"
         case .maps:
             return "Earth"
+        case .p5js:
+            return "p5.js"
         }
     }
     
@@ -49,6 +52,8 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         switch self {
         case .maps:
             return "pix-content-resource-maps"
+        case .p5js:
+            return "pix-content-resource-p5js"
         default:
             return "pix-content-resource-\(name.lowercased().replacingOccurrences(of: " ", with: "-"))"
         }
@@ -88,6 +93,10 @@ public enum PIXResourceType: String, Codable, Hashable, CaseIterable, Identifiab
         #endif
         case .maps:
             return EarthPIX.self
+        #if !os(tvOS)
+        case .p5js:
+            return P5JSPIX.self
+        #endif
         default:
             return nil
         }
