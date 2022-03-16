@@ -44,6 +44,9 @@ extension PIX {
                     }
                     #endif
                     return Resolution.size(image.size) * scale
+                } else if let viewPix = pixResource as? ViewPIX {
+                    guard let view: _View = viewPix.renderView else { return nil }
+                    return .size(view.bounds.size) * Resolution.scale
                 } else if let nodeResolution = pixResource as? NODEResolution {
                     return nodeResolution.resolution
                 } else {

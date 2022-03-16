@@ -36,15 +36,16 @@ final public class ViewPIX: PIXResource, PIXViewable {
     
     public var renderView: _View? {
         didSet {
-            guard renderView != nil else {
+            if renderView != nil {
+                setNeedsBuffer()
+            } else {
                 viewNeedsClear()
-                return
             }
-            setNeedsBuffer()
         }
     }
     
     public var renderViewContinuously = false
+    public var autoSize = true
     
     // MARK: - Life Cycle -
     
@@ -85,7 +86,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
             guard let self = self else { return }
             if self.renderViewContinuously {
                 self.setNeedsBuffer()
-            } else {
+            } else if self.autoSize {
                 if self.renderView != nil {
                     let viewRelSize = self.renderView!.frame.size
                     let viewSize = CGSize(width: viewRelSize.width * Resolution.scale,
@@ -94,6 +95,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
                     let resSize = self.finalResolution.size
                     let resRelSize = (res / Resolution.scale).size
                     if viewSize != resSize {
+                        print("----->", viewSize, resSize, resRelSize)
                         PixelKit.main.logger.log(node: self, .info, .resource, "View Res Change Detected.")
                         self.renderView!.frame = CGRect(origin: .zero, size: resRelSize)
                         self.setNeedsBuffer()
