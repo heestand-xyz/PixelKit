@@ -134,6 +134,7 @@ final public class ViewPIX: PIXResource, PIXViewable {
         }
         #if os(macOS)
         let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds)!
+        // FIXME: Crash when view is not in view hierarchy (off screen)
         view.cacheDisplay(in: view.bounds, to: rep)
         let image: NSImage = NSImage(size: view.bounds.size)
         image.addRepresentation(rep)

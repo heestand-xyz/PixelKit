@@ -27,13 +27,19 @@ open class PIXResource: PIXContent, NODEResource {
         return nil
     }
     @Published public var hasResourceTexture: Bool = false
+    @Published public var hasResourcePixelBuffer: Bool = false
+    public var hasResource: Bool { hasResourceTexture || hasResourcePixelBuffer }
     
     public var resourceTexture: MTLTexture? {
         didSet {
             hasResourceTexture = resourceTexture != nil
         }
     }
-    public var resourcePixelBuffer: CVPixelBuffer?
+    public var resourcePixelBuffer: CVPixelBuffer? {
+        didSet {
+            hasResourcePixelBuffer = resourcePixelBuffer != nil
+        }
+    }
     var flop: Bool = false
     
     public override func clearRender() {

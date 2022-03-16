@@ -22,39 +22,6 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
     /// Singleton of PixelKit
     public static let main = PixelKit()
     
-    // MARK: - Version
-    
-    public var version: String? {
-        guard let infos = Bundle(for: PixelKit.self).infoDictionary else { return nil }
-        guard let appVersion: String = infos["CFBundleShortVersionString"] as? String else { return nil }
-        return appVersion
-    }
-    
-    // MARK: Signature
-    
-    #if os(macOS)
-    let kBundleId = "se.hexagons.pixelkit.macos"
-    let kMetalLibName = "PixelKitShaders-macOS"
-    #elseif os(iOS)
-    let kBundleId = "se.hexagons.pixelkit"
-    #if targetEnvironment(macCatalyst)
-    let kMetalLibName = "PixelKitShaders-macCatalyst"
-    #else
-    #if targetEnvironment(simulator)
-    let kMetalLibName = "PixelKitShaders-iOS-Simulator"
-    #else
-    let kMetalLibName = "PixelKitShaders-iOS"
-    #endif
-    #endif
-    #elseif os(tvOS)
-    let kBundleId = "se.hexagons.pixelkit.tvos"
-    #if targetEnvironment(simulator)
-    let kMetalLibName = "PixelKitShaders-tvOS-Simulator"
-    #else
-    let kMetalLibName = "PixelKitShaders-tvOS"
-    #endif
-    #endif
-    
     // MARK: - Resolution
     
     public var tileResolution: Resolution = .square(32)
@@ -82,7 +49,7 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
         render.engine.deleagte = self
         logger.delegate = self
         
-        logger.log(.info, .pixelKit, "PixelKit v\(version ?? "#") Initialized")
+//        logger.log(.info, .pixelKit, "PixelKit Ready to Render")
         
     }
     

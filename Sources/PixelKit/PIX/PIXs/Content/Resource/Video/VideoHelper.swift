@@ -85,7 +85,7 @@ class VideoHelper: NSObject {
     
     func load(data: Data) {
         
-        let tempVideoURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(PixelKit.main.kBundleId).pix.video.temp.\(UUID().uuidString).mov") // CHECK format
+        let tempVideoURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("pixelkit.pix.video.temp.\(UUID().uuidString).mov") // CHECK format
         
         guard FileManager.default.createFile(atPath: tempVideoURL.path, contents: data, attributes: nil) else {
             PixelKit.main.logger.log(.error, .resource, "Video data load: File creation failed.")
