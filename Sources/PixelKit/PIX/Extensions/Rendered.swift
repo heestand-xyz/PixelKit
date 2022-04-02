@@ -11,6 +11,7 @@ import Resolution
 import MetalKit
 import simd
 import PixelColor
+import TextureMap
 
 public extension PIX {
     
@@ -131,7 +132,7 @@ public extension PIX {
             #if os(macOS)
             return try Texture.rawCopy8(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
             #else
-            return try Texture.raw8(texture: texture)
+            return try TextureMap.raw8(texture: texture)
             #endif
         } catch {
             PixelKit.main.logger.log(node: self, .error, .texture, "Raw 8 Bit texture failed.", e: error)
@@ -147,7 +148,7 @@ public extension PIX {
     var renderedRaw16: [Float16]? {
         guard let texture: MTLTexture = texture else { return nil }
         do {
-            return try Texture.raw16(texture: texture)
+            return try TextureMap.raw16(texture: texture)
         } catch {
             PixelKit.main.logger.log(node: self, .error, .texture, "Raw 16 Bit texture failed.", e: error)
             return nil
@@ -159,7 +160,7 @@ public extension PIX {
     var renderedRaw32: [Float]? {
         guard let texture: MTLTexture = texture else { return nil }
         do {
-            return try Texture.raw32(texture: texture)
+            return try TextureMap.raw32(texture: texture)
         } catch {
             PixelKit.main.logger.log(node: self, .error, .texture, "Raw 32 Bit texture failed.", e: error)
             return nil
@@ -169,11 +170,12 @@ public extension PIX {
     /// coaints all 4 channels of all pixels in this flat array, normalized (0.0...1.0)
     var renderedRawNormalized: [CGFloat]? {
         guard let texture: MTLTexture = texture else { return nil }
+        guard let bits = PixelKit.main.render.bits.tmBits else { return nil }
         do {
             #if os(macOS) || targetEnvironment(macCatalyst)
-            return try Texture.rawNormalizedCopy(texture: texture, bits: PixelKit.main.render.bits, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
+            return try Texture.rawNormalizedCopy(texture: texture, bits: bits, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
             #else
-            return try Texture.rawNormalized(texture: texture, bits: PixelKit.main.render.bits)
+            return try TextureMap.rawNormalized(texture: texture, bits: bits)
             #endif
         } catch {
             PixelKit.main.logger.log(node: self, .error, .texture, "Raw Normalized texture failed.", e: error)
