@@ -130,7 +130,7 @@ public extension PIX {
         guard let texture: MTLTexture = texture else { return nil }
         do {
             #if os(macOS)
-            return try Texture.rawCopy8(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
+            return try TextureMap.rawCopy8(texture: texture, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
             #else
             return try TextureMap.raw8(texture: texture)
             #endif
@@ -173,7 +173,7 @@ public extension PIX {
         guard let bits = PixelKit.main.render.bits.tmBits else { return nil }
         do {
             #if os(macOS) || targetEnvironment(macCatalyst)
-            return try Texture.rawNormalizedCopy(texture: texture, bits: bits, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
+            return try TextureMap.rawNormalizedCopy(texture: texture, bits: bits, on: PixelKit.main.render.metalDevice, in: PixelKit.main.render.commandQueue)
             #else
             return try TextureMap.rawNormalized(texture: texture, bits: bits)
             #endif
