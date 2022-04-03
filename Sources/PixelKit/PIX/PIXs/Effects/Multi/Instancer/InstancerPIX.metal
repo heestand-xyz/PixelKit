@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "../../../../../Shaders/Source/Effects/blend_header.metal"
+#import "../../../../../MetalShaders/Effects/blend_header.metal"
 
 constant int INSTANCE_MAX_COUNT = 1000;
 

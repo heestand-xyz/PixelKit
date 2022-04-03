@@ -20,7 +20,7 @@ let package = Package(
     targets: [
         .target(name: "PixelKit", dependencies: ["RenderKit", "TextureMap", "CoreGraphicsExtensions"], exclude: [
             "Other",
-            "Shaders/README.md",
+            "MetalShaders/README.md",
             "Documentation.docc",
         ], resources: [
             .process("PIX/PIXs/Content/Resource/P5JS/p5.min.js"),

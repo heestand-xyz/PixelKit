@@ -9,8 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "../../../../../Shaders/Source/Content/noise_header.metal"
-#import "../../../../../Shaders/Source/Content/random_header.metal"
+#import "../../../../../MetalShaders/Content/noise_header.metal"
+#import "../../../../../MetalShaders/Content/random_header.metal"
 
 struct VertexOut{
     float4 position [[position]];

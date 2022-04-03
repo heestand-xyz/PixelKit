@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#include "../../../../../Shaders/Source/Content/gradient_header.metal"
+#include "../../../../../MetalShaders/Content/gradient_header.metal"
 
 struct VertexOut {
     float4 position [[position]];

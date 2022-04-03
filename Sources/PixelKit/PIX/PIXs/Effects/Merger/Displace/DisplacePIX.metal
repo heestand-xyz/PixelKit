@@ -9,7 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#import "../../../../../Shaders/Source/Effects/place_header.metal"
+#import "../../../../../MetalShaders/Effects/place_header.metal"
 
 struct VertexOut{
     float4 position [[position]];

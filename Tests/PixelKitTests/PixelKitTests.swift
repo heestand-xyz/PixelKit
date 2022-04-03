@@ -64,9 +64,11 @@ final class PixelKitTests: XCTestCase {
         
     }
     
-    static var allTests = [
-        ("testLegacyCodable", testLegacyCodable),
-        ("testReference", testReference),
-    ]
-    
+    func testLoadShaders() {
+        
+        let shaderUrl = Bundle.module.url(forResource: "BlendPIX", withExtension: "metal")
+        
+        XCTAssertNotNil(shaderUrl)
+        
+    }
 }

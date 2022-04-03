@@ -104,7 +104,7 @@ final public class ReducePIX: PIXSingleEffect, CustomRenderDelegate, PIXViewable
                                                                              bits: PixelKit.main.render.bits,
                                                                              on: PixelKit.main.render.metalDevice,
                                                                              write: true) else {
-            PixelKit.main.logger.log(node: self, .error, .generator, "Guassian Blur: Make texture faild.")
+            PixelKit.main.logger.log(node: self, .error, .generator, "Make texture failed.")
             return nil
         }
         let reduceKernel: MPSImageReduceUnary = getKernel(with: PixelKit.main.render.metalDevice)
