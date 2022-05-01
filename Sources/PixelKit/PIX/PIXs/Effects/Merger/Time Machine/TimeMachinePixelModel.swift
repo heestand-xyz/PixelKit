@@ -28,7 +28,7 @@ public struct TimeMachinePixelModel: PixelMergerEffectModel {
     
     // MARK: Local
     
-    public var seconds: CGFloat = 2.0
+    public var seconds: CGFloat = 1.0
 }
 
 extension TimeMachinePixelModel {
@@ -58,5 +58,15 @@ extension TimeMachinePixelModel {
         }
         
         seconds = try container.decode(CGFloat.self, forKey: .seconds)
+    }
+}
+
+extension TimeMachinePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard seconds == pixelModel.seconds else { return false }
+        return true
     }
 }

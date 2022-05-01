@@ -50,3 +50,14 @@ extension ImagePixelModel {
         resizeResolution = try container.decodeIfPresent(Resolution?.self, forKey: .resizeResolution) ?? nil
     }
 }
+
+extension ImagePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard resizePlacement == pixelModel.resizePlacement else { return false }
+        guard resizeResolution == pixelModel.resizeResolution else { return false }
+        return true
+    }
+}

@@ -88,3 +88,16 @@ extension PolygonPixelModel {
     }
 }
 
+extension PolygonPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard radius == pixelModel.radius else { return false }
+        guard position == pixelModel.position else { return false }
+        guard rotation == pixelModel.rotation else { return false }
+        guard count == pixelModel.count else { return false }
+        guard cornerRadius == pixelModel.cornerRadius else { return false }
+        return true
+    }
+}

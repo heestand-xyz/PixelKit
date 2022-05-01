@@ -25,7 +25,7 @@ final public class GradientPIX: PIXGenerator, PIXViewable {
     
     // MARK: - Public Types
     
-    public enum Direction: String, Enumable {
+    public enum Direction: String, Equatable, Enumable {
         case horizontal
         case vertical
         case radial

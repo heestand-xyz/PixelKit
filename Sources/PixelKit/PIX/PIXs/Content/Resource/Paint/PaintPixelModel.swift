@@ -89,4 +89,22 @@ extension PaintPixelModel {
     }
 }
 
+extension PaintPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard manualToolUpdate == pixelModel.manualToolUpdate else { return false }
+        guard toolType == pixelModel.toolType else { return false }
+        guard inkType == pixelModel.inkType else { return false }
+        guard color == pixelModel.color else { return false }
+        guard width == pixelModel.width else { return false }
+        guard eraserType == pixelModel.eraserType else { return false }
+        guard allowsFingerDrawing == pixelModel.allowsFingerDrawing else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        return true
+    }
+}
+
 #endif

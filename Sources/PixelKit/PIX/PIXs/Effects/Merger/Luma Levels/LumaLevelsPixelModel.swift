@@ -108,3 +108,21 @@ extension LumaLevelsPixelModel {
         lumaGamma = try container.decode(CGFloat.self, forKey: .lumaGamma)
     }
 }
+
+extension LumaLevelsPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard brightness == pixelModel.brightness else { return false }
+        guard darkness == pixelModel.darkness else { return false }
+        guard contrast == pixelModel.contrast else { return false }
+        guard gamma == pixelModel.gamma else { return false }
+        guard inverted == pixelModel.inverted else { return false }
+        guard smooth == pixelModel.smooth else { return false }
+        guard opacity == pixelModel.opacity else { return false }
+        guard offset == pixelModel.offset else { return false }
+        guard lumaGamma == pixelModel.lumaGamma else { return false }
+        return true
+    }
+}

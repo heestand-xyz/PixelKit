@@ -78,3 +78,16 @@ extension LumaColorShiftPixelModel {
         lumaGamma = try container.decode(CGFloat.self, forKey: .lumaGamma)
     }
 }
+
+extension LumaColorShiftPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard hue == pixelModel.hue else { return false }
+        guard saturation == pixelModel.saturation else { return false }
+        guard tintColor == pixelModel.tintColor else { return false }
+        guard lumaGamma == pixelModel.lumaGamma else { return false }
+        return true
+    }
+}

@@ -22,7 +22,6 @@ public struct ViewPixelModel: PixelResourceModel {
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear
     public var extend: ExtendMode = .zero
-    
 }
 
 extension ViewPixelModel {
@@ -32,5 +31,13 @@ extension ViewPixelModel {
         self = try PixelResourceModelDecoder.decode(from: decoder, model: self) as! Self
         
     }
+}
+
+extension ViewPixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        return true
+    }
 }

@@ -93,4 +93,28 @@ extension CameraPixelModel {
     }
 }
 
+extension CameraPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard active == pixelModel.active else { return false }
+        guard cameraResolution == pixelModel.cameraResolution else { return false }
+        guard camera == pixelModel.camera else { return false }
+        guard autoDetect == pixelModel.autoDetect else { return false }
+        guard depth == pixelModel.depth else { return false }
+        guard filterDepth == pixelModel.filterDepth else { return false }
+        guard multi == pixelModel.multi else { return false }
+        guard manualExposure == pixelModel.manualExposure else { return false }
+        guard exposure == pixelModel.exposure else { return false }
+        guard iso == pixelModel.iso else { return false }
+        guard torch == pixelModel.torch else { return false }
+        guard manualFocus == pixelModel.manualFocus else { return false }
+        guard focus == pixelModel.focus else { return false }
+        guard manualWhiteBalance == pixelModel.manualWhiteBalance else { return false }
+        guard whiteBalance == pixelModel.whiteBalance else { return false }
+        return true
+    }
+}
+
 #endif

@@ -66,3 +66,18 @@ extension TextPixelModel {
         position = try container.decode(CGPoint.self, forKey: .position)
     }
 }
+
+extension TextPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSpriteEqual(to: pixelModel) else { return false }
+        guard text == pixelModel.text else { return false }
+        guard fontName == pixelModel.fontName else { return false }
+        guard fontWeight == pixelModel.fontWeight else { return false }
+        guard fontSize == pixelModel.fontSize else { return false }
+        guard color == pixelModel.color else { return false }
+        guard position == pixelModel.position else { return false }
+        return true
+    }
+}

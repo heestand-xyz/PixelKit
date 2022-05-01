@@ -70,7 +70,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         }
     }
     
-    public enum CameraResolution: String, Codable, CaseIterable {
+    public enum CameraResolution: String, Codable, Equatable, CaseIterable {
         case vga = "VGA"
         case _540p = "540p"
         case _720p = "720p"
@@ -132,7 +132,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
         }
     }
     
-    public enum Camera: String, Codable, CaseIterable {
+    public enum Camera: String, Codable, Equatable, CaseIterable {
         case front = "Front Camera"
         #if os(iOS) && !targetEnvironment(macCatalyst)
         case back = "Wide Camera"

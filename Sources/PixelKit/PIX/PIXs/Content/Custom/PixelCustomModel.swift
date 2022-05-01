@@ -45,3 +45,14 @@ struct PixelCustomModelDecoder {
         return model
     }
 }
+
+extension PixelModel {
+    
+    func isPixelCustomEqual(to pixelModel: PixelCustomModel) -> Bool {
+        guard let self = self as? PixelCustomModel else { return false }
+        guard isPixelContentEqual(to: pixelModel) else { return false }
+        guard self.resolution == pixelModel.resolution else { return false }
+        guard self.backgroundColor == pixelModel.backgroundColor else { return false }
+        return true
+    }
+}

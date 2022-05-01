@@ -29,3 +29,14 @@ struct PixelEffectModelDecoder {
         return model
     }
 }
+
+extension PixelModel {
+    
+    func isPixelEffectEqual(to pixelModel: PixelEffectModel) -> Bool {
+        guard let self = self as? PixelEffectModel else { return false }
+        guard isPixelEqual(to: pixelModel) else { return false }
+        guard self.inputNodeReferences == pixelModel.inputNodeReferences else { return false }
+        guard self.outputNodeReferences == pixelModel.outputNodeReferences else { return false }
+        return true
+    }
+}

@@ -99,3 +99,19 @@ extension ArcPixelModel {
         edgeColor = try container.decode(PixelColor.self, forKey: .edgeColor)
     }
 }
+
+extension ArcPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard radius == pixelModel.radius else { return false }
+        guard position == pixelModel.position else { return false }
+        guard angleFrom == pixelModel.angleFrom else { return false }
+        guard angleTo == pixelModel.angleTo else { return false }
+        guard angleOffset == pixelModel.angleOffset else { return false }
+        guard edgeRadius == pixelModel.edgeRadius else { return false }
+        guard edgeColor == pixelModel.edgeColor else { return false }
+        return true
+    }
+}

@@ -44,3 +44,14 @@ struct PixelSpriteModelDecoder {
         return model
     }
 }
+
+extension PixelModel {
+    
+    func isPixelSpriteEqual(to pixelModel: PixelSpriteModel) -> Bool {
+        guard let self = self as? PixelSpriteModel else { return false }
+        guard isPixelContentEqual(to: pixelModel) else { return false }
+        guard self.resolution == pixelModel.resolution else { return false }
+        guard self.backgroundColor == pixelModel.backgroundColor else { return false }
+        return true
+    }
+}

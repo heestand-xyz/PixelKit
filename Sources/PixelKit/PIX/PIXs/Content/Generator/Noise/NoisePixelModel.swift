@@ -107,3 +107,19 @@ extension NoisePixelModel {
     }
 }
 
+extension NoisePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard seed == pixelModel.seed else { return false }
+        guard octaves == pixelModel.octaves else { return false }
+        guard position == pixelModel.position else { return false }
+        guard motion == pixelModel.motion else { return false }
+        guard zoom == pixelModel.zoom else { return false }
+        guard colored == pixelModel.colored else { return false }
+        guard random == pixelModel.random else { return false }
+        guard includeAlpha == pixelModel.includeAlpha else { return false }
+        return true
+    }
+}

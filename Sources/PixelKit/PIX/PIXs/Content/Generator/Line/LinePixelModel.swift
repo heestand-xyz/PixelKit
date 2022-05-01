@@ -76,3 +76,14 @@ extension LinePixelModel {
     }
 }
 
+extension LinePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard positionFrom == pixelModel.positionFrom else { return false }
+        guard positionTo == pixelModel.positionTo else { return false }
+        guard lineWidth == pixelModel.lineWidth else { return false }
+        return true
+    }
+}

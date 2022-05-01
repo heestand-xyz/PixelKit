@@ -27,7 +27,6 @@ public struct VideoPixelModel: PixelResourceModel {
     
     public var loops: Bool = true
     public var volume: CGFloat = 1.0
-    
 }
 
 extension VideoPixelModel {
@@ -51,5 +50,15 @@ extension VideoPixelModel {
         volume = try container.decode(CGFloat.self, forKey: .volume)
         
     }
+}
+
+extension VideoPixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard loops == pixelModel.loops else { return false }
+        guard volume == pixelModel.volume else { return false }
+        return true
+    }
 }

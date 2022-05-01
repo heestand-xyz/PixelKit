@@ -17,3 +17,12 @@ public struct PixelResourceModelDecoder {
         try PixelContentModelDecoder.decode(from: decoder, model: model) as! PixelResourceModel
     }
 }
+
+extension PixelModel {
+    
+    func isPixelResourceEqual(to pixelModel: PixelResourceModel) -> Bool {
+        guard let self = self as? PixelResourceModel else { return false }
+        guard isPixelContentEqual(to: pixelModel) else { return false }
+        return true
+    }
+}

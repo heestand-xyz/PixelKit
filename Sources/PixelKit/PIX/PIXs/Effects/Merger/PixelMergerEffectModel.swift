@@ -39,5 +39,14 @@ struct PixelMergerEffectModelDecoder {
         
         return model
     }
+}
+
+extension PixelModel {
     
+    func isPixelMergerEffectEqual(to pixelModel: PixelMergerEffectModel) -> Bool {
+        guard let self = self as? PixelMergerEffectModel else { return false }
+        guard isPixelEffectEqual(to: pixelModel) else { return false }
+        guard self.placement == pixelModel.placement else { return false }
+        return true
+    }
 }

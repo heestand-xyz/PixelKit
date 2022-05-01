@@ -81,3 +81,19 @@ extension MetalScriptMergerEffectPixelModel {
         colorStyle = try container.decode(MetalScriptMergerEffectPIX.ColorStyle.self, forKey: .colorStyle)
     }
 }
+
+extension MetalScriptMergerEffectPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard colorStyle == pixelModel.colorStyle else { return false }
+        guard metalUniforms == pixelModel.metalUniforms else { return false }
+        guard whiteScript == pixelModel.whiteScript else { return false }
+        guard redScript == pixelModel.redScript else { return false }
+        guard greenScript == pixelModel.greenScript else { return false }
+        guard blueScript == pixelModel.blueScript else { return false }
+        guard alphaScript == pixelModel.alphaScript else { return false }
+        return true
+    }
+}

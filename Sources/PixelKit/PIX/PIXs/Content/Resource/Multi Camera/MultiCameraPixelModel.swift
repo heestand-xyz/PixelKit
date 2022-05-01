@@ -50,4 +50,14 @@ extension MultiCameraPixelModel {
     }
 }
 
+extension MultiCameraPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard camera == pixelModel.camera else { return false }
+        return true
+    }
+}
+
 #endif

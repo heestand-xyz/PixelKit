@@ -66,3 +66,14 @@ extension DisplacePixelModel {
         origin = try container.decode(CGFloat.self, forKey: .origin)
     }
 }
+
+extension DisplacePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard distance == pixelModel.distance else { return false }
+        guard origin == pixelModel.origin else { return false }
+        return true
+    }
+}

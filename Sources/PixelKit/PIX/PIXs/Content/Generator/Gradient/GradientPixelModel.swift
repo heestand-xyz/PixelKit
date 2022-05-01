@@ -100,3 +100,18 @@ extension GradientPixelModel {
     }
 }
 
+extension GradientPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard colorStops == pixelModel.colorStops else { return false }
+        guard direction == pixelModel.direction else { return false }
+        guard scale == pixelModel.scale else { return false }
+        guard offset == pixelModel.offset else { return false }
+        guard position == pixelModel.position else { return false }
+        guard gamma == pixelModel.gamma else { return false }
+        guard extendMode == pixelModel.extendMode else { return false }
+        return true
+    }
+}

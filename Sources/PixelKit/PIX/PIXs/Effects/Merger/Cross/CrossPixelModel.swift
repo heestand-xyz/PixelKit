@@ -60,3 +60,13 @@ extension CrossPixelModel {
         fraction = try container.decode(CGFloat.self, forKey: .fraction)
     }
 }
+
+extension CrossPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard fraction == pixelModel.fraction else { return false }
+        return true
+    }
+}

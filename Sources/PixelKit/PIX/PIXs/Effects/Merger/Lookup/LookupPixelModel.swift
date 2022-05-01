@@ -66,3 +66,14 @@ extension LookupPixelModel {
         holdEdge = try container.decode(Bool.self, forKey: .holdEdge)
     }
 }
+
+extension LookupPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard axis == pixelModel.axis else { return false }
+        guard holdEdge == pixelModel.holdEdge else { return false }
+        return true
+    }
+}

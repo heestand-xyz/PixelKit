@@ -27,3 +27,13 @@ struct PixelContentModelDecoder {
         return model
     }
 }
+
+extension PixelModel {
+    
+    func isPixelContentEqual(to pixelModel: PixelContentModel) -> Bool {
+        guard let self = self as? PixelContentModel else { return false }
+        guard isPixelEqual(to: pixelModel) else { return false }
+        guard self.outputNodeReferences == pixelModel.outputNodeReferences else { return false }
+        return true
+    }
+}

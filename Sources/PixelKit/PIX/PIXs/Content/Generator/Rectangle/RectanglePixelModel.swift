@@ -76,3 +76,14 @@ extension RectanglePixelModel {
     }
 }
 
+extension RectanglePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelGeneratorEqual(to: pixelModel) else { return false }
+        guard position == pixelModel.position else { return false }
+        guard size == pixelModel.size else { return false }
+        guard cornerRadius == pixelModel.cornerRadius else { return false }
+        return true
+    }
+}

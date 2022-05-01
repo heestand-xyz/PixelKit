@@ -94,3 +94,19 @@ extension EarthPixelModel {
         
     }
 }
+
+extension EarthPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard mapType == pixelModel.mapType else { return false }
+        guard coordinate == pixelModel.coordinate else { return false }
+        guard span == pixelModel.span else { return false }
+        guard showsBuildings == pixelModel.showsBuildings else { return false }
+        guard showsPointsOfInterest == pixelModel.showsPointsOfInterest else { return false }
+        guard darkMode == pixelModel.darkMode else { return false }
+        return true
+    }
+}

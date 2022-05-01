@@ -108,3 +108,21 @@ extension ReorderPixelModel {
         premultiply = try container.decode(Bool.self, forKey: .premultiply)
     }
 }
+
+extension ReorderPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard redInput == pixelModel.redInput else { return false }
+        guard greenInput == pixelModel.greenInput else { return false }
+        guard blueInput == pixelModel.blueInput else { return false }
+        guard alphaInput == pixelModel.alphaInput else { return false }
+        guard redChannel == pixelModel.redChannel else { return false }
+        guard greenChannel == pixelModel.greenChannel else { return false }
+        guard blueChannel == pixelModel.blueChannel else { return false }
+        guard alphaChannel == pixelModel.alphaChannel else { return false }
+        guard premultiply == pixelModel.premultiply else { return false }
+        return true
+    }
+}

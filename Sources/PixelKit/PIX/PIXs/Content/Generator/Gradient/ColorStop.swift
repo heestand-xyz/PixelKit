@@ -12,7 +12,7 @@ import PixelColor
 @available(*, deprecated, renamed: "ColorStop")
 public typealias ColorStep = ColorStop
 
-public struct ColorStop: Floatable, Codable {
+public struct ColorStop: Floatable, Codable, Equatable {
     public var stop: CGFloat
     public var color: PixelColor
     public init(_ stop: CGFloat, _ color: PixelColor) {
@@ -27,6 +27,7 @@ public struct ColorStop: Floatable, Codable {
         self = ColorStop(floats[0], PixelColor(red: floats[1], green: floats[2], blue: floats[3], alpha: floats[4]))
     }
 }
+
 extension Array: Floatable where Element == ColorStop {
     public var floats: [CGFloat] { flatMap(\.floats) }
     public init(floats: [CGFloat]) {

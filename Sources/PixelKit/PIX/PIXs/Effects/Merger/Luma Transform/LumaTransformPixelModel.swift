@@ -84,3 +84,17 @@ extension LumaTransformPixelModel {
         lumaGamma = try container.decode(CGFloat.self, forKey: .lumaGamma)
     }
 }
+
+extension LumaTransformPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMergerEffectEqual(to: pixelModel) else { return false }
+        guard position == pixelModel.position else { return false }
+        guard rotation == pixelModel.rotation else { return false }
+        guard scale == pixelModel.scale else { return false }
+        guard size == pixelModel.size else { return false }
+        guard lumaGamma == pixelModel.lumaGamma else { return false }
+        return true
+    }
+}

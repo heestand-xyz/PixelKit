@@ -70,7 +70,19 @@ extension VectorPixelModel {
         backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
 
     }
+}
+
+extension VectorPixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard scale == pixelModel.scale else { return false }
+        guard position == pixelModel.position else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        return true
+    }
 }
 
 #endif

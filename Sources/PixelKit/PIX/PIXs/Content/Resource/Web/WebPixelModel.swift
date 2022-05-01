@@ -30,7 +30,6 @@ public struct WebPixelModel: PixelResourceModel {
     
     public var resolution: Resolution = .auto
     public var url: URL = URL(string: "https://google.com/")!
-    
 }
 
 extension WebPixelModel {
@@ -54,7 +53,17 @@ extension WebPixelModel {
         url = try container.decode(URL.self, forKey: .url)
         
     }
+}
 
+extension WebPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelResourceEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard url == pixelModel.url else { return false }
+        return true
+    }
 }
 
 #endif

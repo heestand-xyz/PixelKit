@@ -108,3 +108,14 @@ extension PixelModelDecoder {
         return liveEnum
     }
 }
+
+extension PixelModel {
+    
+    func isPixelEqual(to pixelModel: PixelModel) -> Bool {
+        guard isSuperEqual(to: pixelModel) else { return false }
+        guard viewInterpolation == pixelModel.viewInterpolation else { return false }
+        guard interpolation == pixelModel.interpolation else { return false }
+        guard extend == pixelModel.extend else { return false }
+        return true
+    }
+}

@@ -25,7 +25,6 @@ public struct ScenePixelModel: PixelCustomModel {
     
     public var resolution: Resolution = .auto
     public var backgroundColor: PixelColor = .black
-    
 }
 
 extension ScenePixelModel {
@@ -35,5 +34,13 @@ extension ScenePixelModel {
         self = try PixelCustomModelDecoder.decode(from: decoder, model: self) as! Self
         
     }
+}
+
+extension ScenePixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelCustomEqual(to: pixelModel) else { return false }
+        return true
+    }
 }
