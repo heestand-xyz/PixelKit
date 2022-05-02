@@ -58,3 +58,13 @@ extension SharpenPixelModel {
         contrast = try container.decode(CGFloat.self, forKey: .contrast)
     }
 }
+
+extension SharpenPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard contrast == pixelModel.contrast else { return false }
+        return true
+    }
+}

@@ -130,3 +130,25 @@ extension TextureParticlesPixelModel {
         particleScale = try container.decode(CGFloat.self, forKey: .particleScale)
     }
 }
+
+extension TextureParticlesPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMultiEffectEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        guard blendMode == pixelModel.blendMode else { return false }
+        guard lifeTime == pixelModel.lifeTime else { return false }
+        guard emitCount == pixelModel.emitCount else { return false }
+        guard emitFrameInterval == pixelModel.emitFrameInterval else { return false }
+        guard emitPosition == pixelModel.emitPosition else { return false }
+        guard emitSize == pixelModel.emitSize else { return false }
+        guard direction == pixelModel.direction else { return false }
+        guard randomDirection == pixelModel.randomDirection else { return false }
+        guard velocity == pixelModel.velocity else { return false }
+        guard randomVelocity == pixelModel.randomVelocity else { return false }
+        guard particleScale == pixelModel.particleScale else { return false }
+        return true
+    }
+}

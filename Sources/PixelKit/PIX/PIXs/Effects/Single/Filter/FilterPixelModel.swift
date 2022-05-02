@@ -58,3 +58,15 @@ extension FilterPixelModel {
         filter = try container.decode(FilterPIX.Filter.self, forKey: .filter)
     }
 }
+
+extension FilterPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard viewInterpolation == pixelModel.viewInterpolation else { return false }
+        guard interpolation == pixelModel.interpolation else { return false }
+        guard extend == pixelModel.extend else { return false }
+        return true
+    }
+}

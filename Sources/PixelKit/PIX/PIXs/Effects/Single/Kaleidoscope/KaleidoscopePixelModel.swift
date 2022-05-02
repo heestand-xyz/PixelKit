@@ -76,3 +76,16 @@ extension KaleidoscopePixelModel {
         position = try container.decode(CGPoint.self, forKey: .position)
     }
 }
+
+extension KaleidoscopePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard divisions == pixelModel.divisions else { return false }
+        guard mirror == pixelModel.mirror else { return false }
+        guard rotation == pixelModel.rotation else { return false }
+        guard position == pixelModel.position else { return false }
+        return true
+    }
+}

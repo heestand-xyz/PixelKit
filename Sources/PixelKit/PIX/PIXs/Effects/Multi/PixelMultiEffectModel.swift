@@ -16,3 +16,12 @@ struct PixelMultiEffectModelDecoder {
         try PixelEffectModelDecoder.decode(from: decoder, model: model) as! PixelMultiEffectModel
     }
 }
+
+extension PixelModel {
+    
+    func isPixelMultiEffectEqual(to pixelModel: PixelMultiEffectModel) -> Bool {
+        guard let self = self as? PixelMultiEffectModel else { return false }
+        guard isPixelEffectEqual(to: pixelModel) else { return false }
+        return true
+    }
+}

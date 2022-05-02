@@ -70,3 +70,15 @@ extension PixelatePixelModel {
         radius = try container.decode(CGFloat.self, forKey: .radius)
     }
 }
+
+extension PixelatePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard style == pixelModel.style else { return false }
+        guard position == pixelModel.position else { return false }
+        guard radius == pixelModel.radius else { return false }
+        return true
+    }
+}

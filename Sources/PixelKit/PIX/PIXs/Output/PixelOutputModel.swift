@@ -27,3 +27,11 @@ public struct PixelOutputModelDecoder {
         return model
     }
 }
+
+extension PixelModel {
+    
+    func isPixelOutputEqual(to pixelModel: PixelOutputModel) -> Bool {
+        guard isPixelEqual(to: pixelModel) else { return false }
+        return true
+    }
+}

@@ -88,3 +88,18 @@ extension StackPixelModel {
         backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
     }
 }
+
+extension StackPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMultiEffectEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard axis == pixelModel.axis else { return false }
+        guard alignment == pixelModel.alignment else { return false }
+        guard spacing == pixelModel.spacing else { return false }
+        guard padding == pixelModel.padding else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        return true
+    }
+}

@@ -31,3 +31,12 @@ extension OpticalFlowPixelModel {
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
+
+extension OpticalFlowPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        return true
+    }
+}

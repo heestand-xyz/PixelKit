@@ -100,3 +100,20 @@ extension FlarePixelModel {
         rayResolution = try container.decode(Int.self, forKey: .rayResolution)
     }
 }
+
+extension FlarePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard scale == pixelModel.scale else { return false }
+        guard count == pixelModel.count else { return false }
+        guard angle == pixelModel.angle else { return false }
+        guard threshold == pixelModel.threshold else { return false }
+        guard brightness == pixelModel.brightness else { return false }
+        guard gamma == pixelModel.gamma else { return false }
+        guard color == pixelModel.color else { return false }
+        guard rayResolution == pixelModel.rayResolution else { return false }
+        return true
+    }
+}

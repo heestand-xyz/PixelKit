@@ -88,3 +88,18 @@ extension CornerPinPixelModel {
         subdivisions = try container.decode(Int.self, forKey: .subdivisions)
     }
 }
+
+extension CornerPinPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard topLeft == pixelModel.topLeft else { return false }
+        guard topRight == pixelModel.topRight else { return false }
+        guard bottomLeft == pixelModel.bottomLeft else { return false }
+        guard bottomRight == pixelModel.bottomRight else { return false }
+        guard perspective == pixelModel.perspective else { return false }
+        guard subdivisions == pixelModel.subdivisions else { return false }
+        return true
+    }
+}

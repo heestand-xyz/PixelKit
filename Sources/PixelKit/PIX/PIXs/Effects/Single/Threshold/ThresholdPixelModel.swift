@@ -58,3 +58,13 @@ extension ThresholdPixelModel {
         threshold = try container.decode(CGFloat.self, forKey: .threshold)
     }
 }
+
+extension ThresholdPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard threshold == pixelModel.threshold else { return false }
+        return true
+    }
+}

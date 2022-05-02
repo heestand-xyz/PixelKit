@@ -51,3 +51,14 @@ extension ReducePixelModel {
         method = try container.decode(ReducePIX.Method.self, forKey: .method)
     }
 }
+
+extension ReducePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard cellList == pixelModel.cellList else { return false }
+        guard method == pixelModel.method else { return false }
+        return true
+    }
+}

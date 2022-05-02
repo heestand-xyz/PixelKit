@@ -23,7 +23,6 @@ public struct CachePixelModel: PixelSingleEffectModel {
     public var viewInterpolation: ViewInterpolation = .linear
     public var interpolation: PixelInterpolation = .linear
     public var extend: ExtendMode = .zero
-    
 }
 
 extension CachePixelModel {
@@ -31,7 +30,14 @@ extension CachePixelModel {
     public init(from decoder: Decoder) throws {
         
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
-        
     }
+}
+
+extension CachePixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        return true
+    }
 }

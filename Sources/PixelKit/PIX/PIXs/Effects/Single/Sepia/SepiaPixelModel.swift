@@ -58,3 +58,13 @@ extension SepiaPixelModel {
         color = try container.decode(PixelColor.self, forKey: .color)
     }
 }
+
+extension SepiaPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard color == pixelModel.color else { return false }
+        return true
+    }
+}

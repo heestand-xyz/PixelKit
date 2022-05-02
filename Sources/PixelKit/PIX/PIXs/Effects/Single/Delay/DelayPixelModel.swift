@@ -58,3 +58,13 @@ extension DelayPixelModel {
         delayFrames = try container.decode(Int.self, forKey: .delayFrames)
     }
 }
+
+extension DelayPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard delayFrames == pixelModel.delayFrames else { return false }
+        return true
+    }
+}

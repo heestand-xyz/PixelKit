@@ -70,3 +70,15 @@ extension ColorCorrectPixelModel {
         temperature = try container.decode(CGFloat.self, forKey: .temperature)
     }
 }
+
+extension ColorCorrectPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard whitePoint == pixelModel.whitePoint else { return false }
+        guard vibrance == pixelModel.vibrance else { return false }
+        guard temperature == pixelModel.temperature else { return false }
+        return true
+    }
+}

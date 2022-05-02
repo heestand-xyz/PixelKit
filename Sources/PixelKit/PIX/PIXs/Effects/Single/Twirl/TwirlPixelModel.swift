@@ -58,3 +58,13 @@ extension TwirlPixelModel {
         strength = try container.decode(CGFloat.self, forKey: .strength)
     }
 }
+
+extension TwirlPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard strength == pixelModel.strength else { return false }
+        return true
+    }
+}

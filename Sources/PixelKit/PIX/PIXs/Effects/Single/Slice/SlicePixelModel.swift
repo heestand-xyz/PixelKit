@@ -64,3 +64,14 @@ extension SlicePixelModel {
         axis = try container.decode(SlicePIX.Axis.self, forKey: .axis)
     }
 }
+
+extension SlicePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard fraction == pixelModel.fraction else { return false }
+        guard axis == pixelModel.axis else { return false }
+        return true
+    }
+}

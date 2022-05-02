@@ -58,3 +58,13 @@ extension BlendsPixelModel {
         blendMode = try container.decode(BlendMode.self, forKey: .blendMode)
     }
 }
+
+extension BlendsPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMultiEffectEqual(to: pixelModel) else { return false }
+        guard blendMode == pixelModel.blendMode else { return false }
+        return true
+    }
+}

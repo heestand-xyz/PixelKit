@@ -26,7 +26,7 @@ final public class InstancerPIX: PIXMultiEffect, NODEResolution {
     private static let instanceMaxCount: Int = 1000
     public override var uniformArrayMaxLimit: Int? { Self.instanceMaxCount }
         
-    public struct Instance: Codable {
+    public struct Instance: Codable, Equatable {
         
         public var position: CGPoint
         public var scale: CGFloat

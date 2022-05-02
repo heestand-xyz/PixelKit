@@ -63,7 +63,7 @@ final public class RecordPIX: PIXOutput, PIXViewable {
         set { model.directMode = newValue }
     }
     
-    public enum Quality: Codable {
+    public enum Quality: Codable, Equatable {
         case no
         case bad
         case low

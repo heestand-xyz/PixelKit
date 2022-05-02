@@ -106,3 +106,21 @@ extension RangePixelModel {
         ignoreAlpha = try container.decode(Bool.self, forKey: .ignoreAlpha)
     }
 }
+
+extension RangePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard inLow == pixelModel.inLow else { return false }
+        guard inHigh == pixelModel.inHigh else { return false }
+        guard outLow == pixelModel.outLow else { return false }
+        guard outHigh == pixelModel.outHigh else { return false }
+        guard inLowColor == pixelModel.inLowColor else { return false }
+        guard inHighColor == pixelModel.inHighColor else { return false }
+        guard outLowColor == pixelModel.outLowColor else { return false }
+        guard outHighColor == pixelModel.outHighColor else { return false }
+        guard ignoreAlpha == pixelModel.ignoreAlpha else { return false }
+        return true
+    }
+}

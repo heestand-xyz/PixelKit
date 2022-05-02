@@ -28,7 +28,6 @@ public struct ColorConvertPixelModel: PixelSingleEffectModel {
     
     public var conversion: ColorConvertPIX.Conversion = .rgbToHsv
     public var channel: ColorConvertPIX.Channel = .all
-    
 }
 
 extension ColorConvertPixelModel {
@@ -63,5 +62,16 @@ extension ColorConvertPixelModel {
         
         conversion = try container.decode(ColorConvertPIX.Conversion.self, forKey: .conversion)
         channel = try container.decode(ColorConvertPIX.Channel.self, forKey: .channel)
+    }
+}
+
+extension ColorConvertPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard conversion == pixelModel.conversion else { return false }
+        guard channel == pixelModel.channel else { return false }
+        return true
     }
 }

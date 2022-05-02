@@ -76,3 +76,16 @@ extension DistancePixelModel {
         brightness = try container.decode(CGFloat.self, forKey: .brightness)
     }
 }
+
+extension DistancePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard count == pixelModel.count else { return false }
+        guard distance == pixelModel.distance else { return false }
+        guard threshold == pixelModel.threshold else { return false }
+        guard brightness == pixelModel.brightness else { return false }
+        return true
+    }
+}

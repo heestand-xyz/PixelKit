@@ -70,3 +70,15 @@ extension MorphPixelModel {
         height = try container.decode(Int.self, forKey: .height)
     }
 }
+
+extension MorphPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard style == pixelModel.style else { return false }
+        guard width == pixelModel.width else { return false }
+        guard height == pixelModel.height else { return false }
+        return true
+    }
+}

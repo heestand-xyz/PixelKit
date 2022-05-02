@@ -64,3 +64,14 @@ extension FlipFlopPixelModel {
         flop = try container.decode(FlipFlopPIX.Flop.self, forKey: .flop)
     }
 }
+
+extension FlipFlopPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard flip == pixelModel.flip else { return false }
+        guard flop == pixelModel.flop else { return false }
+        return true
+    }
+}

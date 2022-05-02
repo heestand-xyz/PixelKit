@@ -32,3 +32,12 @@ extension NilPixelModel {
         self = try PixelSingleEffectModelDecoder.decode(from: decoder, model: self) as! Self
     }
 }
+
+extension NilPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        return true
+    }
+}

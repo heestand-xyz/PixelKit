@@ -61,7 +61,16 @@ extension FeedbackPixelModel {
         
         feedbackInputNodeReference = try container.decode(NodeReference.self, forKey: .feedbackInputNodeReference)
         feedActive = try container.decode(Bool.self, forKey: .feedActive)
-        
     }
+}
+
+extension FeedbackPixelModel {
     
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard feedbackInputNodeReference == pixelModel.feedbackInputNodeReference else { return false }
+        guard feedActive == pixelModel.feedActive else { return false }
+        return true
+    }
 }

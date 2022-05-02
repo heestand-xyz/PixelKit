@@ -142,9 +142,7 @@ public extension PIX {
     
     #if !os(macOS) && !targetEnvironment(macCatalyst)
     /// coaints all 4 channels of all pixels in this flat array
-    @available(iOS 14.0, *)
-    @available(tvOS 14.0, *)
-    @available(macOS 11.0, *)
+    @available(iOS 14.0, tvOS 14.0, macOS 11.0, *)
     var renderedRaw16: [Float16]? {
         guard let texture: MTLTexture = texture else { return nil }
         do {

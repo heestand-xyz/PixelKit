@@ -26,7 +26,7 @@ public struct QuantizePixelModel: PixelSingleEffectModel {
     
     // MARK: Local
     
-    public var fraction: CGFloat = 0.125
+    public var fraction: CGFloat = 0.1
 }
 
 extension QuantizePixelModel {
@@ -56,5 +56,15 @@ extension QuantizePixelModel {
         }
         
         fraction = try container.decode(CGFloat.self, forKey: .fraction)
+    }
+}
+
+extension QuantizePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard fraction == pixelModel.fraction else { return false }
+        return true
     }
 }

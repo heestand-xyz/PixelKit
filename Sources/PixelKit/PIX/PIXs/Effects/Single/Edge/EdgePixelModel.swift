@@ -88,3 +88,18 @@ extension EdgePixelModel {
         sobel = try container.decode(Bool.self, forKey: .sobel)
     }
 }
+
+extension EdgePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard strength == pixelModel.strength else { return false }
+        guard distance == pixelModel.distance else { return false }
+        guard colored == pixelModel.colored else { return false }
+        guard transparent == pixelModel.transparent else { return false }
+        guard includeAlpha == pixelModel.includeAlpha else { return false }
+        guard sobel == pixelModel.sobel else { return false }
+        return true
+    }
+}

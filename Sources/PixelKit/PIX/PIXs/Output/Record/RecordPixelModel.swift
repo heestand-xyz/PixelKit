@@ -59,3 +59,17 @@ extension RecordPixelModel {
         quality = try container.decode(RecordPIX.Quality.self, forKey: .quality)
     }
 }
+
+extension RecordPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelOutputEqual(to: pixelModel) else { return false }
+        guard fps == pixelModel.fps else { return false }
+        guard timeSync == pixelModel.timeSync else { return false }
+        guard realtime == pixelModel.realtime else { return false }
+        guard directMode == pixelModel.directMode else { return false }
+        guard quality == pixelModel.quality else { return false }
+        return true
+    }
+}

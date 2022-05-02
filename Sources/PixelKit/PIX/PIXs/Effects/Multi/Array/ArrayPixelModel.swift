@@ -70,3 +70,15 @@ extension ArrayPixelModel {
         backgroundColor = try container.decode(PixelColor.self, forKey: .backgroundColor)
     }
 }
+
+extension ArrayPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMultiEffectEqual(to: pixelModel) else { return false }
+        guard blendMode == pixelModel.blendMode else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        guard coordinates == pixelModel.coordinates else { return false }
+        return true
+    }
+}

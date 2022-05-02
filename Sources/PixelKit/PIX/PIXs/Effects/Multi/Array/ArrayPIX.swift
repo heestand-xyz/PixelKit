@@ -11,7 +11,7 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct Coordinate: Codable {
+public struct Coordinate: Codable, Equatable {
     public var position: CGPoint
     public var scale: CGFloat
     public var rotation: CGFloat

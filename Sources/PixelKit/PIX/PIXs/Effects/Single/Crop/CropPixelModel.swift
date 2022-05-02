@@ -76,3 +76,16 @@ extension CropPixelModel {
         cropTop = try container.decode(CGFloat.self, forKey: .cropTop)
     }
 }
+
+extension CropPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard cropLeft == pixelModel.cropLeft else { return false }
+        guard cropRight == pixelModel.cropRight else { return false }
+        guard cropBottom == pixelModel.cropBottom else { return false }
+        guard cropTop == pixelModel.cropTop else { return false }
+        return true
+    }
+}

@@ -76,3 +76,16 @@ extension ChannelMixPixelModel {
         alpha = try container.decode(ChannelMixPIX.Channel.self, forKey: .alpha)
     }
 }
+
+extension ChannelMixPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard red == pixelModel.red else { return false }
+        guard green == pixelModel.green else { return false }
+        guard blue == pixelModel.blue else { return false }
+        guard alpha == pixelModel.alpha else { return false }
+        return true
+    }
+}

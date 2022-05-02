@@ -58,3 +58,13 @@ extension EqualizePixelModel {
         includeAlpha = try container.decode(Bool.self, forKey: .includeAlpha)
     }
 }
+
+extension EqualizePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard includeAlpha == pixelModel.includeAlpha else { return false }
+        return true
+    }
+}

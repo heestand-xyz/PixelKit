@@ -89,3 +89,18 @@ extension ChromaKeyPixelModel {
         premultiply = try container.decode(Bool.self, forKey: .premultiply)
     }
 }
+
+extension ChromaKeyPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard keyColor == pixelModel.keyColor else { return false }
+        guard range == pixelModel.range else { return false }
+        guard softness == pixelModel.softness else { return false }
+        guard edgeDesaturation == pixelModel.edgeDesaturation else { return false }
+        guard alphaCrop == pixelModel.alphaCrop else { return false }
+        guard premultiply == pixelModel.premultiply else { return false }
+        return true
+    }
+}

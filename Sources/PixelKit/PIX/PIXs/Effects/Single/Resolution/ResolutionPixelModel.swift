@@ -76,3 +76,16 @@ extension ResolutionPixelModel {
         placement = try container.decode(Placement.self, forKey: .placement)
     }
 }
+
+extension ResolutionPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard resolutionMultiplier == pixelModel.resolutionMultiplier else { return false }
+        guard inheritResolution == pixelModel.inheritResolution else { return false }
+        guard placement == pixelModel.placement else { return false }
+        return true
+    }
+}

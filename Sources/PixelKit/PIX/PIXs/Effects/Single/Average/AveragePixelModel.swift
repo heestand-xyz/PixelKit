@@ -58,3 +58,13 @@ extension AveragePixelModel {
         axis = try container.decode(AveragePIX.Axis.self, forKey: .axis)
     }
 }
+
+extension AveragePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard axis == pixelModel.axis else { return false }
+        return true
+    }
+}

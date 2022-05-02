@@ -58,3 +58,13 @@ extension SlopePixelModel {
         amplitude = try container.decode(CGFloat.self, forKey: .amplitude)
     }
 }
+
+extension SlopePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard amplitude == pixelModel.amplitude else { return false }
+        return true
+    }
+}

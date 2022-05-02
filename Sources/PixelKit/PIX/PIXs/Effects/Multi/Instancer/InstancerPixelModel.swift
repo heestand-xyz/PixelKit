@@ -75,3 +75,16 @@ extension InstancerPixelModel {
         instances = try container.decode([InstancerPIX.Instance].self, forKey: .instances)
     }
 }
+
+extension InstancerPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelMultiEffectEqual(to: pixelModel) else { return false }
+        guard resolution == pixelModel.resolution else { return false }
+        guard blendMode == pixelModel.blendMode else { return false }
+        guard backgroundColor == pixelModel.backgroundColor else { return false }
+        guard instances == pixelModel.instances else { return false }
+        return true
+    }
+}

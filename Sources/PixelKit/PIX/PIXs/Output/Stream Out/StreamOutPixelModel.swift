@@ -50,4 +50,14 @@ extension StreamOutPixelModel {
     }
 }
 
+extension StreamOutPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelOutputEqual(to: pixelModel) else { return false }
+        guard quality == pixelModel.quality else { return false }
+        return true
+    }
+}
+
 #endif

@@ -58,3 +58,13 @@ extension ConvertPixelModel {
         mode = try container.decode(ConvertPIX.ConvertMode.self, forKey: .mode)
     }
 }
+
+extension ConvertPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard mode == pixelModel.mode else { return false }
+        return true
+    }
+}

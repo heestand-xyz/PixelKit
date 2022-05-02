@@ -58,3 +58,13 @@ extension FreezePixelModel {
         freeze = try container.decode(Bool.self, forKey: .freeze)
     }
 }
+
+extension FreezePixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard freeze == pixelModel.freeze else { return false }
+        return true
+    }
+}

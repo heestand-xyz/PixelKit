@@ -71,3 +71,15 @@ extension ClampPixelModel {
         clampAlpha = try container.decode(Bool.self, forKey: .clampAlpha)
     }
 }
+
+extension ClampPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard low == pixelModel.low else { return false }
+        guard high == pixelModel.high else { return false }
+        guard clampAlpha == pixelModel.clampAlpha else { return false }
+        return true
+    }
+}

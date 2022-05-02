@@ -70,3 +70,15 @@ extension ColorShiftPixelModel {
         tintColor = try container.decode(PixelColor.self, forKey: .tintColor)
     }
 }
+
+extension ColorShiftPixelModel {
+    
+    public func isEqual(to nodeModel: NodeModel) -> Bool {
+        guard let pixelModel = nodeModel as? Self else { return false }
+        guard isPixelSingleEffectEqual(to: pixelModel) else { return false }
+        guard hue == pixelModel.hue else { return false }
+        guard saturation == pixelModel.saturation else { return false }
+        guard tintColor == pixelModel.tintColor else { return false }
+        return true
+    }
+}
