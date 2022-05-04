@@ -58,7 +58,7 @@ public struct PixelGeneratorModelDecoder {
 
 extension PixelModel {
     
-    func isPixelGeneratorEqual(to pixelModel: PixelGeneratorModel) -> Bool {
+    public func isPixelGeneratorEqual(to pixelModel: PixelGeneratorModel) -> Bool {
         guard let self = self as? PixelGeneratorModel else { return false }
         guard isPixelContentEqual(to: pixelModel) else { return false }
         guard self.premultiply == pixelModel.premultiply else { return false }
