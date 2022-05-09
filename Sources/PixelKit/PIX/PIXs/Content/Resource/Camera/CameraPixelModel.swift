@@ -42,6 +42,7 @@ public struct CameraPixelModel: PixelResourceModel {
     public var focus: CGFloat = 1.0
     public var manualWhiteBalance: Bool = false
     public var whiteBalance: PixelColor = .white
+    public var centerStage: Bool = false
 }
 
 extension CameraPixelModel {
@@ -62,6 +63,7 @@ extension CameraPixelModel {
         case focus
         case manualWhiteBalance
         case whiteBalance
+        case centerStage
     }
     
     public init(from decoder: Decoder) throws {
@@ -90,6 +92,7 @@ extension CameraPixelModel {
         focus = try container.decode(CGFloat.self, forKey: .focus)
         manualWhiteBalance = try container.decode(Bool.self, forKey: .manualWhiteBalance)
         whiteBalance = try container.decode(PixelColor.self, forKey: .whiteBalance)
+        centerStage = try container.decode(Bool.self, forKey: .centerStage)
     }
 }
 
@@ -113,6 +116,7 @@ extension CameraPixelModel {
         guard focus == pixelModel.focus else { return false }
         guard manualWhiteBalance == pixelModel.manualWhiteBalance else { return false }
         guard whiteBalance == pixelModel.whiteBalance else { return false }
+        guard centerStage == pixelModel.centerStage else { return false }
         return true
     }
 }

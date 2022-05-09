@@ -354,6 +354,14 @@ final public class CameraPIX: PIXResource, PIXViewable {
     
     #endif
     
+    public var centerStage: Bool {
+        get { model.centerStage }
+        set {
+            model.centerStage = newValue
+            setupCamera()
+        }
+    }
+    
     var setup: Bool = false
     var didSetup: Bool = false
     var setupCallbacks: [() -> ()]  = []
@@ -472,6 +480,7 @@ final public class CameraPIX: PIXResource, PIXViewable {
                               filterDepth: filterDepth,
                               multiCameras: multiCameras,
                               useExternalCamera: extCam,
+                              useCenterStage: centerStage,
                               presentedDownstreamPix: { [weak self] in
             #if os(iOS)
             return self?.presentedDownstreamPix
