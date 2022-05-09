@@ -13,8 +13,8 @@ let package = Package(
         .library(name: "PixelKit", targets: ["PixelKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/heestand-xyz/RenderKit", .exactItem("2.0.2")),
-        .package(url: "https://github.com/heestand-xyz/TextureMap", .exactItem("0.3.0")),
+        .package(url: "https://github.com/heestand-xyz/RenderKit", .exactItem("2.0.3")),
+        .package(url: "https://github.com/heestand-xyz/TextureMap", .exactItem("0.5.2")),
         .package(url: "https://github.com/heestand-xyz/CoreGraphicsExtensions", .exactItem("1.2.1")),
     ],
     targets: [
