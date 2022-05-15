@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
         "state": {
           "branch": null,
-          "revision": "71c1363f8ea93405209b4d20303b3caa1058501a",
-          "version": "2.0.2"
+          "revision": "124574eaba8eada1fcae202bdcf7d06be51f2715",
+          "version": "2.0.3"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
         "state": {
           "branch": null,
-          "revision": "34781125ed9bb07744ca7d63fc4ce75334d09aa0",
-          "version": "0.3.0"
+          "revision": "ba44864b7af23325b129410dab0b000bce3d4e3d",
+          "version": "0.5.2"
         }
       }
     ]
