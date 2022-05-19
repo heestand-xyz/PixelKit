@@ -29,6 +29,7 @@ open class PIX: NODE, ObservableObject, Equatable {
         }
     }
     private var liveUpdatingModel: Bool = false
+    private var modelUpdatingLive: Bool = false
     
     public var renderObject: Render { PixelKit.main.render }
     
@@ -305,16 +306,22 @@ open class PIX: NODE, ObservableObject, Equatable {
     // MARK: - Model
     
     func modelUpdated() {
+        guard !liveUpdatingModel else { return }
         modelUpdateLive()
     }
     
     /// Call `modelUpdateLiveDone()` in final class
-    open func modelUpdateLive() {}
-    public func modelUpdateLiveDone() {}
+    open func modelUpdateLive() {
+        modelUpdatingLive = true
+    }
+    public func modelUpdateLiveDone() {
+        modelUpdatingLive = false
+    }
     
     // MARK: - Live
     
     public func liveValueChanged() {
+        guard !modelUpdatingLive else { return }
         liveUpdateModel()
     }
     
