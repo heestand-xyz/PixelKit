@@ -11,18 +11,50 @@ import RenderKit
 import Resolution
 import PixelColor
 
-public struct Coordinate: Codable, Equatable {
+public struct Coordinate: Equatable {
+    
     public var position: CGPoint
     public var scale: CGFloat
     public var rotation: CGFloat
     public var opacity: CGFloat
     public var textureIndex: Int
+    
     public init(_ position: CGPoint, scale: CGFloat = 1.0, rotation: CGFloat = 0.0, opacity: CGFloat = 1.0, textureIndex: Int = 0) {
         self.position = position
         self.scale = scale
         self.rotation = rotation
         self.opacity = opacity
         self.textureIndex = textureIndex
+    }
+}
+
+extension Coordinate: Codable {
+    
+    enum CodingKeys: CodingKey {
+        case position
+        case scale
+        case rotation
+        case opacity
+        case textureIndex
+    }
+    
+    public init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        position = try container.decode(CGPoint.self, forKey: .position)
+        scale = try container.decode(CGFloat.self, forKey: .scale)
+        rotation = try container.decode(CGFloat.self, forKey: .rotation)
+        if container.contains(.opacity) {
+            opacity = try container.decode(CGFloat.self, forKey: .opacity)
+        } else {
+            opacity = 1.0
+        }
+        if container.contains(.textureIndex) {
+            textureIndex = try container.decode(Int.self, forKey: .textureIndex)
+        } else {
+            textureIndex = 0
+        }
     }
 }
 
