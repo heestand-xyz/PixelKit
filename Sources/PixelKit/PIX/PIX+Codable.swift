@@ -9,6 +9,8 @@ import Foundation
 
 extension PIX {
     
+    // MARK: - Encode
+    
     public enum CodingError: Error {
         case typeNameUnknown(String)
         case badOS
@@ -308,6 +310,8 @@ extension PIX {
         
         throw CodingError.typeNameUnknown(typeName)
     }
+    
+    // MARK: - Decode
     
     struct TypeNameContainer: Decodable {
         let typeName: String
