@@ -75,12 +75,12 @@ extension CameraPixelModel {
         active = try container.decode(Bool.self, forKey: .active)
         cameraResolution = try container.decode(CameraPIX.CameraResolution.self, forKey: .cameraResolution)
         camera = (try? container.decode(CameraPIX.Camera.self, forKey: .camera)) ?? CameraPIX.Camera.default
-        autoDetect = try container.decode(Bool.self, forKey: .autoDetect)
         
         if try PixelModelDecoder.isLiveListCodable(decoder: decoder) {
             return
         }
         
+        autoDetect = try container.decode(Bool.self, forKey: .autoDetect)
         depth = try container.decode(Bool.self, forKey: .depth)
         filterDepth = try container.decode(Bool.self, forKey: .filterDepth)
         multi = try container.decode(Bool.self, forKey: .multi)
