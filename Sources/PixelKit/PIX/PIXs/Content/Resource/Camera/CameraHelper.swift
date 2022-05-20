@@ -95,13 +95,14 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
         self.capturedSampleBuffer = capturedSampleBuffer
         
         var multi: Bool = false
-        
         if #available(iOS 14.5, macOS 12.3, *) {
             PixelKit.main.logger.log(.warning, .resource, "Camera Center Stage (mode: \(AVCaptureDevice.centerStageControlMode), active: \(device?.isCenterStageActive ?? false), enabled: \(AVCaptureDevice.isCenterStageEnabled))")
             if useCenterStage {
                 AVCaptureDevice.centerStageControlMode = .app
             }
-            AVCaptureDevice.isCenterStageEnabled = useCenterStage
+            if AVCaptureDevice.centerStageControlMode != .user {
+                AVCaptureDevice.isCenterStageEnabled = useCenterStage
+            }
         }
         
         #if os(iOS) && !targetEnvironment(macCatalyst)
