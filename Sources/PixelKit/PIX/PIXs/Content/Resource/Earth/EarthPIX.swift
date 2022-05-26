@@ -183,7 +183,6 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
         } else {
             queued = true
         }
-        
     }
     
     // MARK: Buffer
@@ -194,6 +193,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
 
         let mapSnapshotOptions = MKMapSnapshotter.Options()
 
+        guard span > 0.0 else { return }
         let center = CLLocationCoordinate2D(latitude: coordinate.y, longitude: coordinate.x)
         let span = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
         let region = MKCoordinateRegion(center: center, span: span)
@@ -272,9 +272,6 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
                 PixelKit.main.logger.log(node: self, .error, .resource, "Texture Load Failed.", e: error)
                 self?.rendering = false
             }
-            
         }
-        
     }
-    
 }
