@@ -60,6 +60,10 @@ fragment float4 effectSingleResolutionPIX(VertexOut out [[stage_in]],
                 bv += ((1.0 / aspect_b - 1.0 / aspect_a) / 2) * aspect_b;
             }
             break;
+        case 3: // Center
+            bu = 0.5 + ((u - 0.5) * in.resx) / w;
+            bv = 0.5 + ((v - 0.5) * in.resy) / h;
+            break;
     }
     
     float4 c = inTex.sample(s, float2(bu, bv));

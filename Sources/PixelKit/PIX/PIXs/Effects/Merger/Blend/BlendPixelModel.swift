@@ -29,7 +29,7 @@ public struct BlendPixelModel: PixelMergerEffectModel {
     // MARK: Local
     
     public var blendMode: BlendMode = .add
-    public var bypassTransform: Bool = false
+    public var bypassTransform: Bool = true
     public var position: CGPoint = .zero
     public var rotation: CGFloat = 0.0
     public var scale: CGFloat = 1.0

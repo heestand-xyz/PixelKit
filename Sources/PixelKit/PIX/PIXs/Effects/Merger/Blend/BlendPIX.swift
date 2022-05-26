@@ -52,11 +52,13 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
     
     public init(model: Model) {
         super.init(model: model)
+        setup()
     }
     
     public required init() {
         let model = Model()
         super.init(model: model)
+        setup()
     }
     
     public convenience init(blendMode: RenderKit.BlendMode = .average,
@@ -66,6 +68,36 @@ final public class BlendPIX: PIXMergerEffect, PIXViewable {
         super.inputA = inputA?()
         super.inputB = inputB?()
         self.blendMode = blendMode
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
+        
+        _position.didSetValue = { [weak self] in
+            if self?.bypassTransform == true {
+                self?.bypassTransform = false
+            }
+        }
+        
+        _rotation.didSetValue = { [weak self] in
+            if self?.bypassTransform == true {
+                self?.bypassTransform = false
+            }
+        }
+        
+        _scale.didSetValue = { [weak self] in
+            if self?.bypassTransform == true {
+                self?.bypassTransform = false
+            }
+        }
+        
+        _size.didSetValue = { [weak self] in
+            if self?.bypassTransform == true {
+                self?.bypassTransform = false
+            }
+        }
     }
     
     // MARK: - Live Model
