@@ -49,6 +49,8 @@ open class PIX: NODE, ObservableObject, Equatable {
         pixelModel.typeName
     }
     
+    public var information: String? { nil }
+    
     public weak var delegate: NODEDelegate?
     
     @available(*, deprecated, renamed: "PixelKit.main")

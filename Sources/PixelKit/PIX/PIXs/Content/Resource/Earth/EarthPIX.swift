@@ -19,6 +19,12 @@ import TextureMap
 
 final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
     
+    public override var information: String? {
+        """
+        Coordinate and span are in degrees.
+        """
+    }
+    
     public typealias Model = EarthPixelModel
     
     private var model: Model {
