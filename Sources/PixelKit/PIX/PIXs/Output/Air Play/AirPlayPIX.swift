@@ -127,7 +127,13 @@ final public class AirPlayPIX: PIXOutput, PIXViewable {
         #endif
         
         window = UIWindow(frame: screen.bounds)
-        window!.screen = screen
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first(where: { scene in
+            guard let windowScene = scene as? UIWindowScene else { return false }
+            return windowScene.screen == screen
+        }) as? UIWindowScene {
+            window!.windowScene = windowScene
+        }
         
         if connectedIn {
             addAirPlayView(bounds: screen.bounds)
