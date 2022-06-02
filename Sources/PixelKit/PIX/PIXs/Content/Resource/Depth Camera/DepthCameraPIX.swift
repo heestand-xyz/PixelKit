@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 import RenderKit
 import Resolution
 import PixelColor
@@ -19,6 +20,14 @@ final public class DepthCameraPIX: PIXResource, PIXViewable {
     private var model: Model {
         get { resourceModel as! Model }
         set { resourceModel = newValue }
+    }
+    
+    private var flipX: Bool {
+        cameraPix?.camera == .back
+    }
+    
+    public override var uniforms: [CGFloat] {
+        [flipX ? 1.0 : 0.0]
     }
     
     override public var shaderName: String { return "depthCameraPIX" }

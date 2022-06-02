@@ -381,6 +381,7 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
                 }
                 #endif
             }
+            var addedDepthOutput: Bool = false
             #if os(iOS) && !targetEnvironment(macCatalyst)
             if depth {
 //                #warning("Add support for LiDAR Cameras")
@@ -388,19 +389,23 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate/*, AV
 //                    PixelKit.main.logger.log(.error, .resource, "Camera can't add depth output on back camera or iPad (right now).")
 //                    return
 //                }
+                
                 guard captureSession.canAddOutput(depthOutput!) else {
                     PixelKit.main.logger.log(.error, .resource, "Camera can't add depth output.")
                     return
                 }
                 captureSession.addOutput(depthOutput!)
+                addedDepthOutput = true
             }
             #endif
             let queue = DispatchQueue(label: "se.hexagons.pixelkit.pix.camera.queue")
             if depth {
                 #if os(iOS) && !targetEnvironment(macCatalyst)
-                depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoOutput!, depthOutput!])
-                depthOutput!.setDelegate(self, callbackQueue: queue)
-                depthSynchronizer!.setDelegate(self, queue: queue)
+                if addedDepthOutput && device?.activeDepthDataFormat != nil {
+                    depthSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoOutput!, depthOutput!])
+                    depthOutput!.setDelegate(self, callbackQueue: queue)
+                    depthSynchronizer!.setDelegate(self, queue: queue)
+                }
                 #endif
             } else {
                 if !multi {
