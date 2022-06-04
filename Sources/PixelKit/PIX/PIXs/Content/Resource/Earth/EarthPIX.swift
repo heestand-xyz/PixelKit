@@ -101,7 +101,7 @@ final public class EarthPIX: PIXResource, NODEResolution, PIXViewable {
     
     @LiveResolution("resolution") public var resolution: Resolution = ._128
     @LiveEnum("mapType") public var mapType: MapType = .standard
-    @LivePoint("coordinate") public var coordinate: CGPoint = .zero
+    @LivePoint("coordinate", range: -90...90, increment: 45) public var coordinate: CGPoint = .zero
     @LiveFloat("span", range: 0...180, increment: 45) public var span: CGFloat = 90
     @LiveBool("showsBuildings") public var showsBuildings: Bool = false
     @LiveBool("showsPointsOfInterest") public var showsPointsOfInterest: Bool = false
