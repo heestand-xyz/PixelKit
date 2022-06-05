@@ -59,7 +59,9 @@ extension FeedbackPixelModel {
             return
         }
         
-        feedbackInputNodeReference = try container.decode(NodeReference.self, forKey: .feedbackInputNodeReference)
+        if container.contains(.feedbackInputNodeReference) {
+            feedbackInputNodeReference = try container.decode(NodeReference?.self, forKey: .feedbackInputNodeReference)
+        }
         feedActive = try container.decode(Bool.self, forKey: .feedActive)
     }
 }
