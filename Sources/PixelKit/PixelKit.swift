@@ -9,7 +9,8 @@
 import MetalKit
 import RenderKit
 import Resolution
-
+import SpriteKit
+import TextureMap
 
 /// overrides the default metal lib
 public var pixelKitMetalLibURL: URL?
@@ -104,19 +105,11 @@ public class PixelKit: EngineDelegate, LoggerDelegate {
                 guard let scene = nodeSprite.scene,
                       let sceneView = nodeSprite.sceneView
                 else { throw Engine.RenderError.texture("Sprite Scene Not Setup.") }
-                guard let spriteTexture = sceneView.texture(from: scene) else {
+                guard let spriteTexture: SKTexture = sceneView.texture(from: scene) else {
                     throw Engine.RenderError.texture("Sprite Texture fail.")
                 }
                 let spriteImage: CGImage = spriteTexture.cgImage()
-                guard let spriteBuffer = Texture.buffer(from: spriteImage, at: nodeSprite.resolution.size) else {
-                    throw Engine.RenderError.texture("Sprite Buffer fail.")
-                }
-                do {
-                    inputTexture = try Texture.makeTextureFromCache(from: spriteBuffer, bits: render.bits, in: render.textureCache)
-                } catch {
-                    logger.log(node: node, .detail, .resource, "Texture genration failed, using backup method.", e: error)
-                    inputTexture = try Texture.makeTexture(from: spriteBuffer, with: commandBuffer, on: render.metalDevice)
-                }
+                inputTexture = try TextureMap.texture(cgImage: spriteImage)
             } else if nodeContent is NODECustom {
                 custom = true
             }

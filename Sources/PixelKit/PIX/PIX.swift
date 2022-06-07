@@ -260,8 +260,8 @@ open class PIX: NODE, ObservableObject, Equatable {
         
         PixelKit.main.logger.log(node: self, .detail, nil, "Linked with PixelKit.", clean: true)
         
-        for liveProp in liveList {
-            liveProp.node = self
+        for liveWrap in liveList {
+            liveWrap.node = self
         }
         
     }

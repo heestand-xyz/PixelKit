@@ -12,6 +12,7 @@ import Resolution
 import CoreGraphics
 import SpriteKit
 import PixelColor
+import CoreGraphicsExtensions
 
 #if os(macOS)
 public typealias _Font = NSFont
@@ -42,12 +43,11 @@ final public class TextPIX: PIXSprite, PIXViewable {
             render()
         }
     }
-    @LiveColor("color") public var color: PixelColor = .white
     
     public enum FontWeight: String, Enumable {
         
-        case ultraLight
         case thin
+        case ultraLight
         case light
         case regular
         case medium
@@ -64,10 +64,10 @@ final public class TextPIX: PIXSprite, PIXViewable {
         
         public var name: String {
             switch self {
-            case .ultraLight:
-                return "Ultra Light"
             case .thin:
                 return "Thin"
+            case .ultraLight:
+                return "Ultra Light"
             case .light:
                 return "Light"
             case .regular:
@@ -87,10 +87,10 @@ final public class TextPIX: PIXSprite, PIXViewable {
         
         var weight: _Font.Weight {
             switch self {
-            case .ultraLight:
-                return .ultraLight
             case .thin:
                 return .thin
+            case .ultraLight:
+                return .ultraLight
             case .light:
                 return .light
             case .regular:
@@ -107,10 +107,132 @@ final public class TextPIX: PIXSprite, PIXViewable {
                 return .black
             }
         }
+        
+        var scale: Int {
+            switch self {
+            case .thin:
+                return 100
+            case .ultraLight:
+                return 200
+            case .light:
+                return 300
+            case .regular:
+                return 400
+            case .medium:
+                return 500
+            case .semibold:
+                return 600
+            case .bold:
+                return 700
+            case .heavy:
+                return 800
+            case .black:
+                return 900
+            }
+        }
+    }
+    
+    public enum HorizontalAlignment: String, Enumable {
+        
+        case left
+        case center
+        case right
+        
+        public var index: Int {
+            switch self {
+            case .left:
+                return -1
+            case .center:
+                return 0
+            case .right:
+                return 1
+            }
+        }
+        
+        public var name: String {
+            switch self {
+            case .left:
+                return "Left"
+            case .center:
+                return "Center"
+            case .right:
+                return "Right"
+            }
+        }
+        
+        public var typeName: String {
+            rawValue
+        }
+    }
+    
+    public enum VerticalAlignment: String, Enumable {
+        
+        case top
+        case center
+//        case baseline
+        case bottom
+        
+        public var index: Int {
+            switch self {
+            case .top:
+                return 1
+            case .center:
+                return 0
+//            case .baseline:
+//                return -2
+            case .bottom:
+                return -1
+            }
+        }
+        
+        public var name: String {
+            switch self {
+            case .top:
+                return "Top"
+            case .center:
+                return "Center"
+//            case .baseline:
+//                return "Baseline"
+            case .bottom:
+                return "Bottom"
+            }
+        }
+        
+        public var typeName: String {
+            rawValue
+        }
     }
     
     public var customFont: _Font?
-    public var font: _Font { customFont ?? (fontName != nil ? (_Font(name: "\(fontName!)-\(fontWeight.name)", size: fontSize) ?? .systemFont(ofSize: fontSize, weight: fontWeight.weight)) : .systemFont(ofSize: fontSize, weight: fontWeight.weight)) }
+    public var font: _Font {
+        if let customFont: _Font = customFont{
+            return customFont
+        }
+        if let fontName = fontName {
+            #if os(macOS)
+            if let font: _Font = NSFontManager().font(withFamily: fontName, traits: [], weight: fontWeight.scale / 100, size: fontSize) {
+                return font
+            }
+            #else
+            if fontWeight == .regular {
+                if let font = _Font(name: fontName, size: fontSize) {
+                    return font
+                }
+            } else {
+                if let fullFontName =
+                    UIFont.fontNames(forFamilyName: fontName).first(where: { fullFontName in
+                        fullFontName.lowercased()
+                            .contains(fontWeight.name.lowercased())
+                    }) {
+                    if let font = _Font(name: fullFontName, size: fontSize) {
+                        return font
+                    }
+                }
+            }
+            #endif
+        }
+        return .systemFont(ofSize: fontSize, weight: fontWeight.weight)
+    }
     
     public var fontName: String? {
         get { model.fontName }
@@ -121,10 +243,26 @@ final public class TextPIX: PIXSprite, PIXViewable {
         }
     }
     
+    @LiveColor("color") public var color: PixelColor = .white
+    
     @LiveEnum("fontWeight") public var fontWeight: FontWeight = .regular
-    @LiveFloat("fontSize") public var fontSize: CGFloat = 0.25
+    @LiveFloat("fontSize") public var fontSize: CGFloat = 0.15
 
     @LivePoint("position") public var position: CGPoint = .zero
+    
+    @LiveEnum("horizontalAlignment") public var horizontalAlignment: HorizontalAlignment = .center
+    @LiveEnum("verticalAlignment") public var verticalAlignment: VerticalAlignment = .center
+    
+    public override var liveList: [LiveWrap] {
+        [
+            _color,
+            _fontWeight,
+            _fontSize,
+            _position,
+            _horizontalAlignment,
+            _verticalAlignment,
+        ]
+    }
     
     // MARK: - Life Cycle -
         
@@ -171,11 +309,19 @@ final public class TextPIX: PIXSprite, PIXViewable {
             self?.render()
         }
         
+        _horizontalAlignment.didSetValue = { [weak self] in
+            self?.setNeedsAlignment()
+            self?.render()
+        }
+        
+        _verticalAlignment.didSetValue = { [weak self] in
+            self?.setNeedsAlignment()
+            self?.render()
+        }
+        
         label.verticalAlignmentMode = .center
-        if #available(iOS 11, *) {
-            if #available(OSX 10.13, *) {
-                label.numberOfLines = 0
-            }
+        if #available(iOS 11, macOS 10.13, *) {
+            label.numberOfLines = 0
         }
         
         setNeedsText()
@@ -244,8 +390,8 @@ final public class TextPIX: PIXSprite, PIXViewable {
     func setNeedsFont() {
         let size: CGSize = (finalResolution / Resolution.scale).size
         label.fontName = font.fontName
-        let x = font.pointSize * size.height
-        label.fontSize = x
+        let fontSize = fontSize <= 0 ? 0 : font.pointSize * size.height
+        label.fontSize = min(max(fontSize, 1), 1000)
     }
     
     func setNeedsPosition() {
@@ -256,6 +402,32 @@ final public class TextPIX: PIXSprite, PIXViewable {
                                  y: size.height / 2 + pos.y)
     }
     
+    func setNeedsAlignment() {
+        
+        label.horizontalAlignmentMode = {
+            switch horizontalAlignment {
+            case .left:
+                return .left
+            case .center:
+                return .center
+            case .right:
+                return .right
+            }
+        }()
+        
+        label.verticalAlignmentMode = {
+            switch verticalAlignment {
+            case .top:
+                return .top
+            case .center:
+                return .center
+//            case .baseline:
+//                return .baseline
+            case .bottom:
+                return .bottom
+            }
+        }()
+    }
 }
 
 extension TextPIX {

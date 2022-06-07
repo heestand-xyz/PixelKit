@@ -20,12 +20,11 @@ fragment float4 spritePix(VertexOut out [[stage_in]],
     
     float u = out.texCoord[0];
     float v = out.texCoord[1];
-    v = 1 - v; // Content Flip Fix
     float2 uv = float2(u, v);
     
     float4 c = inTex.sample(s, uv);
     
-    return float4(c.b, c.g, c.r, c.a);
+    return c;
 }
 
 

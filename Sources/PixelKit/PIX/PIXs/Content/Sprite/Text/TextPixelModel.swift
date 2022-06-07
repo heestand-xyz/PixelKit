@@ -34,6 +34,8 @@ public struct TextPixelModel: PixelSpriteModel {
     public var fontSize: CGFloat = 0.25
     public var color: PixelColor = .white
     public var position: CGPoint = .zero
+    public var horizontalAlignment: TextPIX.HorizontalAlignment = .center
+    public var verticalAlignment: TextPIX.VerticalAlignment = .center
 }
 
 extension TextPixelModel {
@@ -45,6 +47,8 @@ extension TextPixelModel {
         case fontSize
         case color
         case position
+        case horizontalAlignment
+        case verticalAlignment
     }
     
     public init(from decoder: Decoder) throws {
@@ -64,6 +68,18 @@ extension TextPixelModel {
         fontWeight = try container.decode(TextPIX.FontWeight.self, forKey: .fontWeight)
         color = try container.decode(PixelColor.self, forKey: .color)
         position = try container.decode(CGPoint.self, forKey: .position)
+        
+        if container.contains(.horizontalAlignment) {
+            horizontalAlignment = try container.decode(TextPIX.HorizontalAlignment.self, forKey: .horizontalAlignment)
+        } else {
+            horizontalAlignment = .center
+        }
+        
+        if container.contains(.verticalAlignment) {
+            verticalAlignment = try container.decode(TextPIX.VerticalAlignment.self, forKey: .verticalAlignment)
+        } else {
+            verticalAlignment = .center
+        }
     }
 }
 
@@ -78,6 +94,8 @@ extension TextPixelModel {
         guard fontSize == pixelModel.fontSize else { return false }
         guard color == pixelModel.color else { return false }
         guard position == pixelModel.position else { return false }
+        guard horizontalAlignment == pixelModel.horizontalAlignment else { return false }
+        guard verticalAlignment == pixelModel.verticalAlignment else { return false }
         return true
     }
 }
