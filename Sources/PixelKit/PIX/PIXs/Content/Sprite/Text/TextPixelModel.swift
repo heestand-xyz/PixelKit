@@ -31,7 +31,7 @@ public struct TextPixelModel: PixelSpriteModel {
     public var text: String = "Lorem Ipsum"
     public var fontName: String?
     public var fontWeight: TextPIX.FontWeight = .regular
-    public var fontSize: CGFloat = 0.25
+    public var fontSize: CGFloat = 0.15
     public var color: PixelColor = .white
     public var position: CGPoint = .zero
     public var horizontalAlignment: TextPIX.HorizontalAlignment = .center
