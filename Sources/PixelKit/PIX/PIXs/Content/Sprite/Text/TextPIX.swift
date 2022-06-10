@@ -254,7 +254,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
     @LiveEnum("verticalAlignment") public var verticalAlignment: VerticalAlignment = .center
     
     public override var liveList: [LiveWrap] {
-        [
+        super.liveList + [
             _color,
             _fontWeight,
             _fontSize,
@@ -287,7 +287,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
     
     // MARK: - Setup
     
-    func setup() {
+    private func setup() {
         
         _color.didSetValue = { [weak self] in
             self?.setNeedsTextColor()
@@ -332,7 +332,12 @@ final public class TextPIX: PIXSprite, PIXViewable {
         scene?.addChild(label)
         
         render()
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.render()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.render()
+        }
     }
     
     // MARK: - Live Model
@@ -376,7 +381,7 @@ final public class TextPIX: PIXSprite, PIXViewable {
     // MARK: - Set Needs
     
     func setNeedsText() {
-        label.text = text
+        label.text = text.replacingOccurrences(of: "\\n", with: "\n")
     }
     
     func setNeedsTextColor() {
@@ -427,6 +432,12 @@ final public class TextPIX: PIXSprite, PIXViewable {
                 return .bottom
             }
         }()
+    }
+    
+    override func didResize() {
+        super.didResize()
+        setNeedsFont()
+        setNeedsPosition()
     }
 }
 
