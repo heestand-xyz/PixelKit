@@ -21,7 +21,7 @@ public struct PixelResourceModelDecoder {
 extension PixelModel {
     
     public func isPixelResourceEqual(to pixelModel: PixelResourceModel) -> Bool {
-        guard let self = self as? PixelResourceModel else { return false }
+//        guard let self = self as? PixelResourceModel else { return false }
         guard isPixelContentEqual(to: pixelModel) else { return false }
         return true
     }
