@@ -20,7 +20,7 @@ struct PixelSingleEffectModelDecoder {
 extension PixelModel {
     
     func isPixelSingleEffectEqual(to pixelModel: PixelSingleEffectModel) -> Bool {
-        guard let self = self as? PixelSingleEffectModel else { return false }
+//        guard let self = self as? PixelSingleEffectModel else { return false }
         guard isPixelEffectEqual(to: pixelModel) else { return false }
         return true
     }
