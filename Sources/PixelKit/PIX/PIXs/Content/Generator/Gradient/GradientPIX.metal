@@ -55,9 +55,6 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
 
     float pi = M_PI_F;
 
-//    float4 ac = float4(in.ar, in.ag, in.ab, in.aa);
-//    float4 bc = float4(in.br, in.bg, in.bb, in.ba);
-
     float fraction = 0;
     if (in.type == 0) {
         // Horizontal
@@ -67,10 +64,11 @@ fragment float4 contentGeneratorGradientPIX(VertexOut out [[stage_in]],
         fraction = (v - in.offset) / in.scale;
     } else if (in.type == 2) {
         // Radial
-        fraction = 1.0 - (sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2)) * 2 - in.offset) / in.scale;
+        fraction = 1.0 - (sqrt(pow((u - 0.5) * in.aspect, 2) + pow(v - 0.5, 2)) * 2 + in.offset) / in.scale;
     } else if (in.type == 3) {
         // Angle
-        fraction = 1.0 - (atan2((-u + 0.5) * in.aspect, -(v - 0.5)) / (pi * 2) + 0.5 - in.offset) / in.scale;
+        fraction = 1.0 - (atan2((-u + 0.5) * in.aspect, -(v - 0.5)) / (pi * 2) + 0.5 + in.offset) / in.scale;
+        fraction = fraction - floor(fraction);
     }
     
     FractionAndZero fz = fractionAndZero(fraction, int(in.extend));
