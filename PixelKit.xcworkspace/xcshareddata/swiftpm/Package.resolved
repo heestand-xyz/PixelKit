@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/heestand-xyz/CoreGraphicsExtensions",
         "state": {
           "branch": null,
-          "revision": "a40dc230306daacb410f9a2f36f63a811ea2e88e",
-          "version": "1.2.1"
+          "revision": "3e6f28cf2bbc7fca9933fd4addd60d21a00c83b7",
+          "version": "1.3.2"
         }
       },
       {
@@ -26,6 +26,15 @@
           "branch": null,
           "revision": "0fdee03d7b312f075897cdac437f366cc6631d6a",
           "version": "1.0.4"
+        }
+      },
+      {
+        "package": "TextureMap",
+        "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
+        "state": {
+          "branch": null,
+          "revision": "8547548f43dbeca79a13147e3db6097e0db91ce8",
+          "version": "0.6.0"
         }
       }
     ]
