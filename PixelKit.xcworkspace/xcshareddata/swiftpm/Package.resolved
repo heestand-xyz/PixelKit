@@ -27,15 +27,6 @@
           "revision": "0fdee03d7b312f075897cdac437f366cc6631d6a",
           "version": "1.0.4"
         }
-      },
-      {
-        "package": "TextureMap",
-        "repositoryURL": "https://github.com/heestand-xyz/TextureMap",
-        "state": {
-          "branch": null,
-          "revision": "8547548f43dbeca79a13147e3db6097e0db91ce8",
-          "version": "0.6.0"
-        }
       }
     ]
   },
