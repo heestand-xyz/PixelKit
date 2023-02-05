@@ -1,3 +1,3 @@
 [submodule "Shaders/Shaders"]
 	path = Sources/PixelKit/MetalShaders
-	url = https://github.com/heestand-xyz/MetlShaders.git
+	url = https://github.com/heestand-xyz/MetalShaders.git
