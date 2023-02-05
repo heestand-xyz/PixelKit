@@ -1,5 +1,7 @@
 <img src="https://github.com/heestand-xyz/PixelKit/blob/main/Assets/Logo/pixels_logo_1k_bg.png?raw=true" width="128"/>
 
+*Check out [AsyncGraphics](https://github.com/heestand-xyz/AsyncGraphics).<br>Inspired by PixelKit & RenderKit.*
+
 # PixelKit
 
 Live Graphics for iOS, macOS and tvOS<br>
