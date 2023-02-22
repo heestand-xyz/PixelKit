@@ -274,7 +274,7 @@ let multiCameraPix = MultiCameraPIX.setup(with: cameraPix, camera: .front)
 
 let movedMultiCameraPix = multiCameraPix.pixScale(by: 0.25).pixTranslate(x: 0.375 * (9 / 16), y: 0.375)
 
-let finalPix: PIX = camearPix & movedMultiCameraPix
+let finalPix: PIX = cameraPix & movedMultiCameraPix
 finalPix.view.frame = view.bounds
 view.addSubview(finalPix.view)
 ~~~~ 
